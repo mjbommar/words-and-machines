@@ -1,0 +1,38 @@
+\section{Results}
+\label{sec:results}
+
+\Cref{tab:theorems} lists the three certified theorems. All three concern the same target---global reversal of thirty-two distinct tags---and differ in the declared language and objective. Each has a two-instruction witness lifted from a satisfying model and replayed through a separate evaluator, and a one-instruction (or cost-three) refutation checked by axeyum's file-backed backward DRAT checker. A GCC-intrinsic oracle on AVX2 hardware agrees with every modelled instruction family on all thirty-two bytes, and rejects a one-control mutation.
+
+\begin{table}[t]
+\centering
+\caption{Certified minimality theorems for 32-byte reversal. \enquote{Load-bearing} records whether the DRAT carries information beyond the formula (\cref{sec:vacuous}). All proofs produced by CaDiCaL 3.0.1 and checked by axeyum's backward checker; truncation controls verified.}
+\label{tab:theorems}
+\small
+\begin{tabular}{llrrrll}
+\toprule
+Language & Objective & Vars & Clauses & Proof (bytes) & Result & Load-bearing \\
+\midrule
+unary, 5 families & length & 2{,}663 & 87{,}940 & 957{,}982 & min length 2 & \textbf{no} (UP-refutable) \\
+unary, 5 families & Haswell cost & 6{,}024 & 235{,}303 & 12{,}554{,}825 & min cost 4 & yes \\
+SSA, 14 families & length & 2{,}697 & 97{,}314 & 1{,}922{,}088 & min length 2 & yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A vacuous certificate}
+\label{sec:vacuous}
+
+The negative control failed on the first row. The unary five-family one-step formula is refuted by unit propagation alone: following the consequences of its clauses assigns all 2,663 variables and conflicts, with no search. For such a formula the empty clause is itself RUP from the formula, so a backward checker asked whether the final empty clause is justified answers yes---for \emph{any} proof file whose last step is the empty clause. We confirmed this three ways: the shipped proof is accepted with its last two bytes removed, with its last fifty lines removed, and with its first half deleted; an empty proof and a garbage proof are correctly rejected (they lack the empty clause). The other two formulas reach a propagation fixpoint without conflict; their proofs are load-bearing and their truncation controls fail as they should.
+
+\begin{quote}
+\emph{If a CNF conflicts under unit propagation, every DRAT file ending in the empty clause is accepted by a backward checker. The certificate is then the formula; the proof file is decoration.}
+\end{quote}
+
+Nothing here makes the theorem false---the formula is unsatisfiable and one instruction does not suffice. What changes is the honest description of the evidence: for that object the load-bearing certificate is the formula and a one-line propagation check, not the 957,982-byte file that was shipped and accepted. We regard this as the most useful result in the paper. It is the compiler-side instance of a rule the SAT community learned long ago---a checker that cannot fail is worse than none---moved one step upstream: \emph{a proof that cannot be wrong is worse than no proof, because it reads as evidence.} We now run the propagation test on every formula before believing a small certificate, and record the outcome on the object.
+
+\subsection{The searches a ratified ISA was designed on}
+\label{sec:isa}
+
+RISC-V's scalar-crypto repository tabulates, for all 256 three-input Boolean functions, the minimum instruction count with and without Zbkb's \code{andn}/\code{orn}/\code{xnor}, and uses the table to conclude that NOR and NAND instructions would \enquote{not really} help. Its only stated evidence is \enquote{our exhaustive search}: no code, no data, two commits on one day in 2020. We re-implemented a complete breadth-first search over sets of held truth tables and reproduced all 512 entries. We also found what the document does not state: for SHA-2's \code{Ch} and \code{Maj}, the two functions it uses as motivation, the minimum is 3 and 4 in \emph{both} instruction sets---Zbkb saves no instructions there. Two independent uncertified searches now agree; that is still not a proof, and certifying the table is 256 small refutations totalling under a gigabyte.
+
+The Bitmanip draft's permutation-reachability table (Table 2.2) and its claim that all 24 byte permutations of a 32-bit word need at most three of \code{ror}, \code{grev}, \code{shfl} cite a brute-force enumeration whose URL returns 404. We reproduce both exactly: the reachability counts $1, 62, 864, 4640, 23312, \dots, 1048576$ for rotate and generalized-reverse (11/11 entries) and $1, 85, 3030, 78659, 2002167$ with shuffle (5/5 through depth four), and the per-permutation minima the draft omits (6 at length one, 9 at two, 8 at three). The same draft asserts, with no proof, that \enquote{at least 7 instructions are needed to pack a 5:6:5 RGB value}---the only bare lower bound we found in any ISA specification. It is a week's work to decide.

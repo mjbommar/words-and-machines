@@ -1,0 +1,69 @@
+\chapter{Cost, Certificates, and What a Proof Is Worth}
+\label{ch:certificates}
+
+The last chapter ended with a promise: minimality is a non-existence claim, and non-existence is what refutation proofs are for. This chapter is about what such a proof costs, when it is cheap, and --- because this book learned it the hard way --- when a proof that checks perfectly well is worth nothing at all.
+
+\section{The asymmetry}
+\label{sec:asymmetry}
+
+Three independent literature surveys, commissioned for this book and reproduced in its research corpus, were each asked a different question --- about finite combinatorics, about engineering mathematics, about optimization benchmarks --- and each came back with the same structural observation, unprompted.
+
+\begin{artifact}{C.prin.asymmetry}
+An improvement is checked in milliseconds by replaying the object: a shorter sequence, a better circuit, a valid colouring, a rank-22 tensor decomposition. An optimality claim is checked, in most of the published literature, by nobody, because its certificate is either petabytes or does not exist. Schur number five was a two-petabyte proof. Boolean Pythagorean triples was two hundred terabytes. For most published lower bounds there is no certificate format at all.
+\ArtifactScope{C.prin.asymmetry}
+\end{artifact}
+
+The asymmetry decides which problems a proof-carrying stack should attempt. A problem whose positive answer is a small object and whose negative answer is an exhaustive search is a problem where you can win in weeks on the positive side and never on the negative. A problem with neither is a bonfire.
+
+\section{Three escape hatches}
+\label{sec:hatches}
+
+There are exactly three shapes in which the negative direction is also cheap, and the same surveys arrived at all three.
+
+\begin{artifact}{C.prin.three-hatches}
+\begin{enumerate}
+\item \emph{Univariate nonnegativity on an interval.} A polynomial that is nonnegative on \([a, b]\) is a sum of squares in a specific form, completely --- the Markov–Lukács theorem --- so the certificate is an exact rational identity with no degree bound to guess and no relaxation gap.
+\item \emph{Infeasibility of a semidefinite program.} One rational dual ray; sometimes smaller than the positive certificate.
+\item \emph{Small pure-SAT instances.} A proof-producing conflict-driven solver emits a DRAT refutation as a side effect of searching; the certificate costs nothing extra and any of several independent checkers accepts it.
+\end{enumerate}
+Every theorem in Part IV of this book is the third shape. Reject any target that fits none of the three unless you only want the positive direction.
+\ArtifactScope{C.prin.three-hatches}
+\end{artifact}
+
+\section{DRAT, in one page}
+\label{sec:drat}
+
+A conjunctive normal form is a set of clauses over Boolean variables. A solver searching for a satisfying assignment learns new clauses as it goes, each implied by the ones before it. When it derives the empty clause, the formula is unsatisfiable, and the sequence of learned clauses --- written to a file, one per line, deletions marked with \code{d} --- \emph{is} a proof: a checker can replay it, verifying each clause by unit propagation against the clauses before it and confirming that the last one is empty. That file format is DRAT. It is the format the SAT competition has required since 2013, and it is what the artifacts in this book are.
+
+A backward checker starts from the empty clause and works toward the formula, verifying only the lemmas the empty clause actually depends on. It is faster, and it has a property that the next section turns on.
+
+\section{A proof that carries no information}
+\label{sec:vacuous}
+
+While this book's ledger was being assembled, the certificates for the three theorems of Part IV were re-checked with the stack's own tools, and each was subjected to a control: truncate the proof file and confirm the checker rejects it. Two of the three did. The third --- the certificate for byte reversal over the unary five-family language --- was accepted with two bytes removed from its final line, with its last fifty lines removed, and with its \emph{first half} deleted.
+
+The checker was not broken. Empty and garbage proofs were correctly rejected. What had happened was simpler and more instructive: the formula in question is refuted by unit propagation alone. No search is needed; the clauses conflict as soon as their consequences are followed. And for such a formula the empty clause is itself derivable by one propagation step from the formula, so a backward checker asked whether the empty clause is justified says yes --- for any proof whose last line is the empty clause, whatever precedes it.
+
+\begin{artifact}{C.thm.vacuous-certificate}
+If a formula conflicts under unit propagation, every DRAT file ending in the empty clause is accepted by a backward checker, because the empty clause is RUP from the formula. The certificate is then the formula; the proof file is decoration. The object \obj{M.avx2.reverse.len2.unary5} is such a case, and its ledger record says so. The other two Part IV formulas reach a propagation fixpoint without conflict; their proofs are load-bearing, and their truncation controls fail as they should.
+\ArtifactScope{C.thm.vacuous-certificate}
+\end{artifact}
+
+\begin{keyidea}[title={The rule this generalizes}]
+The reasoning stack this book uses has a standing rule: \emph{a checker that cannot fail is worse than no checker}, because it manufactures unfalsifiable claims at full speed. This is that rule one arrow upstream. \emph{A proof that cannot be wrong is worse than no proof}, because it reads as evidence. A 957,982-byte file, produced by a well-known solver and accepted by an independent checker, looks like a strong certificate; it was a formula's worth of information wearing a proof's clothes. Every certificate object in this ledger now records whether its formula is propagation-refutable, and a script decides the question before any small proof is believed.
+\end{keyidea}
+
+None of this makes the theorem false. Byte reversal does need two instructions in that language, and the formula that says so is unsatisfiable. What changed is the honest description of the evidence: for that object, the evidence is the formula and a one-line propagation check, not the file that was shipped as the proof.
+
+\section{Cost is a named model}
+\label{sec:cost}
+
+Instruction count is a fact about a program. Cost is a fact about a program \emph{and a machine model}, and the model has to be a term in the theorem. Part IV's cost theorem names its profile --- five integers, one per instruction family, taken from Intel's documented register-form latencies for one microarchitecture --- and the ledger prints it. Intel scopes those numbers to dependency chains; the theorem inherits that scope and claims nothing about throughput, port pressure, or wall-clock time. The compiler literature's best data point on the gap between model and machine is Unison, which reports eighty-one percent of functions \emph{proven optimal} under a constant-latency model and seventeen percent \emph{slower on silicon}. Both statements are true. A certificate certifies optimality relative to a model, and this book says which one.
+
+\section{Exercises}
+
+\begin{enumerate}
+\item Run the propagation check on each of the three Part IV formulas and confirm which are refutable without search. Then delete the first half of the load-bearing proofs and confirm the checker rejects them.
+\item Design a formula that is \emph{not} refutable by unit propagation but whose refutation is nevertheless trivial. Is its DRAT load-bearing? What does \enquote{load-bearing} mean, precisely?
+\item The cost profile in Part IV assigns latency one to \code{vpshufb} and three to \code{vpermd}. Find a published profile for a different microarchitecture and state what the cost theorem would become under it. Does the optimal sequence change?
+\end{enumerate}

@@ -1,0 +1,257 @@
+/* ============================================================
+ * epub.css — house EPUB stylesheet (docs/architecture/epub-pipeline.md)
+ *
+ * Constraints (learned the hard way — htsd/legal-tech night-mode
+ * findings, datacenter Kindle QA; docs/research/):
+ *   - Kindle-safe subset: no flexbox, no rgba(), no CSS variables,
+ *     no vh/vw; em and % units only.
+ *   - Dark-mode-safe: no hard-coded text colors except on elements
+ *     that also declare their own background; decorative borders use
+ *     currentColor so they follow the reader's theme. Callout borders
+ *     use mid-tone hues that stay legible on white and black.
+ *   - pre blocks wrap (pre-wrap) AND scroll (overflow-x) so code
+ *     survives narrow screens.
+ *   - Small caps via font-variant, never fake uppercasing.
+ *
+ * TODO(fonts): font profile OTF embedding deliberately skipped for
+ * now (ADR 0004 / epub-pipeline.md "Fonts"). When enabled, add
+ * @font-face rules here, populate epub/fonts/ at build time, and add
+ * the font items to the OPF manifest. System fonts must look fine
+ * until then — hence no font-family on body.
+ * ============================================================ */
+
+/* ---------- base typography ---------- */
+
+body {
+  margin: 0 5%;
+  line-height: 1.5;
+  widows: 2;
+  orphans: 2;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 1.5em;  margin: 2em 0 1em 0; }
+h2 { font-size: 1.25em; margin: 1.6em 0 0.6em 0; }
+h3 { font-size: 1.1em;  margin: 1.4em 0 0.5em 0; }
+
+/* Trade-book paragraphs: indented, no gap; openers unindented. */
+p { margin: 0; text-indent: 1.4em; }
+h1 + p, h2 + p, h3 + p,
+hr.scene + p,
+blockquote p, aside p, li p, figcaption,
+p.no-indent { text-indent: 0; }
+
+/* Chapter opening */
+h1.chapter-title { margin-top: 3em; }
+.chapter-number {
+  display: block;
+  font-size: 0.6em;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+}
+
+/* Scene break — print gets a fleuron; here, a short quiet rule. */
+hr.scene {
+  border: 0;
+  border-top: 0.07em solid currentColor;
+  width: 20%;
+  margin: 1.8em auto;
+}
+
+/* ---------- inline semantics (authoring-contract table) ---------- */
+
+i.term, i.work, i.foreign { font-style: italic; }
+dfn.keyterm { font-style: normal; font-weight: bold; }
+span.person { font-variant: small-caps; letter-spacing: 0.03em; }
+
+code {
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+/* ---------- block quotes ---------- */
+
+blockquote.quotation {
+  margin: 1em 2em;
+  font-size: 0.95em;
+}
+blockquote.quotation p { margin-bottom: 0.4em; }
+footer.attribution {
+  text-align: right;
+  font-size: 0.95em;
+  margin-top: 0.3em;
+}
+
+/* ---------- callout family (mirrors preamble/boxes.tex 1:1) --------
+ * Design language matches print: a quiet frame implied by a heavier
+ * LEFT rule carrying the semantic color; title as a small bold line.
+ * No backgrounds: tints break night mode on readers that force dark
+ * pages, so the hue lives entirely in the border (mid-tones chosen to
+ * read on both white and black). */
+
+aside.callout {
+  margin: 1.2em 0;
+  padding: 0.5em 1em;
+  border-left: 0.35em solid #808080;
+  page-break-inside: avoid;
+}
+h3.callout-title {
+  font-size: 0.95em;
+  margin: 0 0 0.4em 0;
+  letter-spacing: 0.04em;
+}
+aside.callout p { margin-bottom: 0.4em; }
+
+aside.callout-keyidea    { border-left-color: #3f7cac; }
+aside.callout-example    { border-left-color: #5c9c6e; }
+aside.callout-warning    { border-left-color: #c0663a; }
+aside.callout-sidebar    { border-left-color: #8a8a8a; }
+aside.callout-definition { border-left-color: #7a6aa8; }
+
+/* Math/logic callouts: distinct hues matching latex/preamble/colors.tex. */
+aside.callout-proofkit    { border-left-color: #1d4ed8; }
+aside.callout-tryit       { border-left-color: #0f766e; }
+aside.callout-goingdeeper { border-left-color: #4338ca; }
+aside.callout-archive     { border-left-color: #92400e; }
+
+/* A decorative icon badge before each math/logic title. The title text
+   carries the accessible label, so the glyph is presentational (it is
+   not read as content); it echoes the fontawesome icon in the print
+   build (compass / pencil / layers / scroll). */
+aside.callout-proofkit    h3.callout-title::before { content: "\220E\00A0"; }  /* end-of-proof */
+aside.callout-tryit       h3.callout-title::before { content: "\270E\00A0"; }  /* pencil */
+aside.callout-goingdeeper h3.callout-title::before { content: "\25BE\00A0"; }  /* deeper */
+aside.callout-archive     h3.callout-title::before { content: "\2709\00A0"; }  /* letter */
+
+/* Title text sits a shade darker than the border accents above:
+   WCAG 2.2 AA needs 4.5:1 against white for text (Ace color-contrast
+   rule; borders are exempt). Each is the same hue at >=4.8:1. */
+aside.callout-keyidea    h3.callout-title { color: #3c77a5; }
+aside.callout-example    h3.callout-title { color: #4a7d58; }
+aside.callout-warning    h3.callout-title { color: #ad5c34; }
+aside.callout-sidebar    h3.callout-title { color: #717171; }
+aside.callout-definition h3.callout-title { color: #7868a7; }
+aside.callout-proofkit    h3.callout-title { color: #1746c0; }
+aside.callout-tryit       h3.callout-title { color: #0d6b63; }
+aside.callout-goingdeeper h3.callout-title { color: #3f34bd; }
+aside.callout-archive     h3.callout-title { color: #8a3d0d; }
+
+/* importance= scales rule weight, exactly as boxes.tex scales leftrule */
+aside.callout-low  { border-left-width: 0.15em; }
+aside.callout-high { border-left-width: 0.6em; }
+
+/* ---------- code blocks (preamble/code.tex voices) ---------- */
+
+pre {
+  font-family: monospace;
+  font-size: 0.85em;
+  line-height: 1.4;
+  margin: 1em 0;
+  padding: 0.6em 0.8em;
+  overflow-x: auto;
+  white-space: pre-wrap;      /* narrow screens: wrap, never clip */
+  border-left: 0.25em solid #808080;
+}
+pre code { font-size: 1em; }
+
+/* prompt (human voice): accent rule; output (machine): thin + smaller */
+pre.prompt { border-left-color: #3f7cac; }
+pre.output { border-left-width: 0.12em; font-size: 0.8em; }
+
+figure.listing-figure { margin: 1em 0; }
+figure.listing-figure pre { margin-bottom: 0.3em; }
+
+/* ---------- figures & tables ---------- */
+
+figure.figure, figure.table-figure {
+  margin: 1.5em 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+figure.figure img { max-width: 100%; }
+
+figcaption {
+  font-size: 0.9em;
+  text-align: left;
+  margin: 0.5em 0;
+}
+.caption-label { font-weight: bold; }
+
+.table-wrap { overflow-x: auto; }
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  /* booktabs discipline: top/mid/bottom rules only, via currentColor */
+  border-top: 0.12em solid currentColor;
+  border-bottom: 0.12em solid currentColor;
+}
+thead th { border-bottom: 0.07em solid currentColor; }
+th, td { padding: 0.35em 0.7em; vertical-align: top; }
+th.col-l, td.col-l { text-align: left; }
+th.col-c, td.col-c { text-align: center; }
+th.col-r, td.col-r { text-align: right; }
+
+/* Tables switch to lining figures where supported (print parity). */
+table { font-variant-numeric: lining-nums tabular-nums; }
+
+/* ---------- endnotes ---------- */
+
+a.noteref { text-decoration: none; }
+section.endnotes {
+  margin-top: 2.5em;
+  font-size: 0.9em;
+  border-top: 0.07em solid currentColor;
+  padding-top: 0.8em;
+}
+h2.endnotes-title { font-size: 1em; margin: 0 0 0.6em 0; }
+section.endnotes ol { margin: 0 0 0 1.4em; padding: 0; }
+section.endnotes li { margin-bottom: 0.5em; }
+/* Underlined: an in-text link needs a non-color cue (WCAG 1.4.1 /
+   Ace link-in-text-block) — reader-default link blue alone is not
+   enough against body text. Superscript noterefs are exempt. */
+a.backlink { text-decoration: underline; }
+
+/* ---------- citations & bibliography ---------- */
+
+a.citation { text-decoration: underline; }  /* see backlink note */
+a.citation-sup { text-decoration: none; }
+ul.bibliography, ol.bibliography { margin: 1em 0 1em 1.4em; padding: 0; }
+ul.bibliography { list-style: none; margin-left: 0; }
+ul.bibliography li, ol.bibliography li {
+  margin-bottom: 0.6em;
+  /* hanging indent for the unnumbered authoryear list */
+  padding-left: 1.4em;
+  text-indent: -1.4em;
+}
+ol.bibliography li { padding-left: 0; text-indent: 0; }
+
+/* ---------- front matter ---------- */
+
+.cover-page { text-align: center; margin: 0; }
+.cover-image { max-width: 100%; height: auto; }
+
+.titlepage { text-align: center; margin-top: 15%; }
+.titlepage h1.book-title { font-size: 2em; margin-bottom: 0.3em; }
+.titlepage p { text-indent: 0; }
+.book-subtitle { font-size: 1.1em; font-style: italic; margin-bottom: 2em; }
+.book-author { font-size: 1.2em; margin-bottom: 4em; }
+.book-publisher { font-variant: small-caps; letter-spacing: 0.08em; }
+
+.copyright { margin-top: 20%; font-size: 0.85em; }
+.copyright p { text-indent: 0; margin-bottom: 0.7em; }
+.cp-title { font-weight: bold; }
+
+/* nav.xhtml doubles as the visible Contents page */
+nav#toc ol { list-style: none; margin: 0 0 0 0.2em; padding: 0; }
+nav#toc > ol > li { margin-bottom: 0.5em; }
+nav#toc ol ol { margin-left: 1.4em; font-size: 0.95em; }
+nav#toc a { text-decoration: none; }

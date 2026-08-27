@@ -1,0 +1,28 @@
+{
+  "id": "W.def.word",
+  "kind": "definition",
+  "part": 0,
+  "title": "The word of width n",
+  "statement": "Word n is the ring Z/2^n Z. Bitwise operations are defined from the binary expansion; shifts are multiplication and floor division by powers of two. Nothing is assumed: the carrier is constructed from the naturals.",
+  "formal": {
+    "language": "prose",
+    "statement": "Word n := Nat mod 2^n, with testBit i x := (x div 2^i) mod 2; and/or/xor pointwise on bits."
+  },
+  "epistemic_status": "stated",
+  "external_status": "proved",
+  "notes": "In axeyum the kernel has NO bit-vector prelude yet: `BitVec w` is a per-width inductive built on the fly during reconstruction (crates/axeyum-solver/src/reconstruct.rs:370). Building a `word_prelude` on the 0-axiom `nat` prelude is the first increment of the book. See axeyum-guide/01-words.md.",
+  "axeyum": {
+    "crate": "axeyum-lean-kernel",
+    "reconstruction": "none"
+  },
+  "book": {
+    "chapter": "ch01-prologue-words",
+    "label": "def:word"
+  },
+  "evidence": [],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

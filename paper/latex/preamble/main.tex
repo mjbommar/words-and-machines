@@ -1,0 +1,41 @@
+%% ============================================================
+%% preamble/main.tex — module loader (mirrors book-template ADR 0005).
+%%
+%% Purpose      : loads every preamble module in a fixed,
+%%                dependency-ordered sequence. main.tex inputs this file
+%%                once, immediately after \documentclass.
+%% Dependencies : latex/generated/metadata.tex must already be input
+%%                (all modules read \Paper... macros and \ifPaper...
+%%                conditionals defined there).
+%%
+%% LOAD ORDER (fixed — do not reorder):
+%%   1. packages       encodings, core packages, bib system (natbib/biblatex)
+%%   2. fonts          engine+profile font dispatch, microtype
+%%   3. colors         primitives -> semantic tokens -> component bindings
+%%   4. styling        title/section format, running heads, line spacing, draft
+%%   5. boxes          tcolorbox callouts             (module: boxes)
+%%   6. code           listings environments          (module: code)
+%%   7. commands        semantic inline macros + math/algorithm helpers
+%%   8. hyperref-last  hyperref + cleveref — ALWAYS LAST
+%%
+%% Rationale:
+%%   * fonts before styling: styling uses font-dependent small caps.
+%%   * colors before styling/boxes/code: they bind component colors.
+%%   * hyperref last (the standard footgun: it patches \ref, floats,
+%%     footnotes); cleveref must follow hyperref, so it lives there too.
+%% ============================================================
+
+\input{preamble/packages}
+\input{preamble/fonts}
+\input{preamble/colors}
+\input{preamble/styling}
+
+\ifPaperModuleBoxes
+  \input{preamble/boxes}
+\fi
+\ifPaperModuleCode
+  \input{preamble/code}
+\fi
+
+\input{preamble/commands}
+\input{preamble/hyperref-last}

@@ -1,0 +1,39 @@
+[project]
+name = "book-epub-converter"
+version = "0.1.0"
+description = "Book-agnostic LaTeX-to-EPUB converter for the book template (ADR 0007)"
+requires-python = ">=3.11"
+dependencies = [
+    "texsoup>=0.3.3",
+    "lxml>=5.0",
+    "pyyaml>=6.0",
+]
+
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+# outline_composer.py --format toml (stdlib tomllib is read-only). The
+# script also declares it inline (PEP 723); the group is what `make
+# test-compose` runs against.
+compose = [
+    "tomli-w>=1.0",
+]
+sbe = [
+    "inflect>=7.5.0",
+    "simplemma>=2.0.0",
+]
+sbe-build = [
+    { include-group = "sbe" },
+    "datasets>=5.0.1",
+    "huggingface-hub>=1.27.0",
+    "polars>=1.43.2",
+    "pyarrow>=25.0.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["epub/converter"]

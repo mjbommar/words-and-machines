@@ -1,0 +1,104 @@
+% ============================================================
+% references.bib — sample bibliography exercising both citation
+% presets (authoryear / superscript).
+%
+% HOUSE RULES (guides/CITATIONS.md):
+%   * Every entry carries `verified = {YYYY-MM-DD}` — the date a human
+%     last confirmed the source says what we cite it for. biber does
+%     not know this field; preamble/packages.tex drops it with a
+%     \DeclareSourcemap so builds stay warning-free.
+%   * Every @online entry carries urldate (when the URL was fetched)
+%     in addition to verified (when the CLAIM was checked).
+%   * Every url entry carries `archived = {Wayback snapshot URL}` —
+%     verify_citation.py --archive fills it; the release gate
+%     requires it. Also dropped by the sourcemap.
+% ============================================================
+
+@book{bringhurst2013,
+  author    = {Bringhurst, Robert},
+  title     = {The Elements of Typographic Style},
+  edition   = {4},
+  publisher = {Hartley \& Marks},
+  location  = {Point Roberts, WA},
+  date      = {2013},
+  isbn      = {978-0-88179-212-6},
+  verified  = {2026-07-06},
+}
+
+@book{knuth1986texbook,
+  author    = {Knuth, Donald E.},
+  title     = {The \TeX book},
+  publisher = {Addison-Wesley},
+  location  = {Reading, MA},
+  date      = {1986},
+  isbn      = {0-201-13447-0},
+  verified  = {2026-07-06},
+}
+
+@book{lamport1994latex,
+  author    = {Lamport, Leslie},
+  title     = {\LaTeX: A Document Preparation System},
+  edition   = {2},
+  publisher = {Addison-Wesley},
+  location  = {Reading, MA},
+  date      = {1994},
+  isbn      = {0-201-52983-1},
+  verified  = {2026-07-06},
+}
+
+@book{felici2012,
+  author    = {Felici, James},
+  title     = {The Complete Manual of Typography},
+  subtitle  = {A Guide to Setting Perfect Type},
+  edition   = {2},
+  publisher = {Adobe Press},
+  location  = {Berkeley, CA},
+  date      = {2012},
+  isbn      = {978-0-321-77326-5},
+  verified  = {2026-07-06},
+}
+
+@article{knuthplass1981,
+  author       = {Knuth, Donald E. and Plass, Michael F.},
+  title        = {Breaking Paragraphs into Lines},
+  journaltitle = {Software: Practice and Experience},
+  volume       = {11},
+  number       = {11},
+  pages        = {1119--1184},
+  date         = {1981},
+  doi          = {10.1002/spe.4380111102},
+  verified     = {2026-07-06},
+}
+
+@online{kdp2026print,
+  archived = {https://web.archive.org/web/20260703220019/https://kdp.amazon.com/en_US/help/topic/G201834180},
+  author       = {{Amazon Kindle Direct Publishing}},
+  title        = {Print Options: Trim Size, Bleed, and Paper},
+  organization = {Amazon},
+  url          = {https://kdp.amazon.com/en_US/help/topic/G201834180},
+  urldate      = {2026-07-06},
+  verified     = {2026-07-06},
+}
+
+@online{w3c2023epub,
+  archived = {https://web.archive.org/web/20260627211858/https://www.w3.org/TR/epub-33/},
+  author       = {{W3C}},
+  title        = {EPUB 3.3},
+  type         = {W3C Recommendation},
+  organization = {World Wide Web Consortium},
+  date         = {2023-05-25},
+  url          = {https://www.w3.org/TR/epub-33/},
+  urldate      = {2026-07-06},
+  verified     = {2026-07-06},
+}
+
+@online{butterick2019practical,
+  archived = {https://web.archive.org/web/20260707143937/https://practicaltypography.com/},
+  author   = {Butterick, Matthew},
+  title    = {Practical Typography},
+  edition  = {2},
+  date     = {2019},
+  url      = {https://practicaltypography.com},
+  urldate  = {2026-07-06},
+  verified = {2026-07-06},
+}

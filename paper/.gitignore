@@ -1,0 +1,48 @@
+# Build output — everything lands in build/
+build/
+
+# Generated LaTeX inputs (from paper.yaml; never hand-edited)
+latex/generated/*
+!latex/generated/.gitkeep
+
+# Generated submission dossier (regenerate with make ssrn)
+SSRN-METADATA.md
+ARXIV-SUBMISSION.md
+
+# Release snapshots (stamped, large; keep out of the template repo)
+releases/
+
+# LaTeX aux (belt and suspenders; builds are out-of-tree)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Built figures (regenerate with make figures). Keep the SOURCES
+# (scripts/data/*.csv, latex/figures/src/*.tikz), drop the outputs.
+latex/figures/*.pdf
+latex/figures/*.png
+latex/figures/*.svg
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# TeX package cache
+.texlive-cache/
+
+# OS noise
+.DS_Store

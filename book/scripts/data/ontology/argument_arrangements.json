@@ -1,0 +1,1305 @@
+{
+  "name": "argument_arrangements",
+  "level": "macro",
+  "entry_type": "record",
+  "description": "Named macro-arrangements for nonfiction and argument — classical oration and its progymnasmatic kin, legal, scientific, business, persuasive, dialectical, mathematical, journalistic, essayistic and homiletic forms. Many carry 'beats': [{name, position 0-1, purpose}].",
+  "categories": {
+    "classical_oration": [
+      {
+        "name": "classical oration",
+        "definition": "The full six-part Ciceronian arrangement: open, narrate the facts, divide the issues, prove, refute, and close.",
+        "beats": [
+          {"name": "exordium", "position": 0.0, "purpose": "Win attention and goodwill; establish the speaker's standing to speak."},
+          {"name": "narratio", "position": 0.15, "purpose": "Lay out the facts of the case in the order most favourable to the argument."},
+          {"name": "partitio", "position": 0.3, "purpose": "State what is agreed, what is at issue, and in what order it will be taken."},
+          {"name": "confirmatio", "position": 0.42, "purpose": "Present the positive proofs, strongest arguments bracketing the weaker ones."},
+          {"name": "refutatio", "position": 0.72, "purpose": "Answer the strongest opposing arguments before the audience raises them."},
+          {"name": "peroratio", "position": 0.9, "purpose": "Recapitulate, amplify, and move the audience to act."}
+        ],
+        "aka": "Ciceronian arrangement, dispositio",
+        "register": "formal argument of any length; the ancestor of most nonfiction structure",
+        "caution": "Six parts in six thousand words is a speech; in a book, each part is a chapter, and partitio has to be re-stated."
+      },
+      {
+        "name": "four-part oration",
+        "definition": "The reduced arrangement — opening, statement of facts, proof, and close — for occasions with no contested division of issues.",
+        "beats": [
+          {"name": "exordium", "position": 0.0, "purpose": "Secure attention and frame the occasion."},
+          {"name": "narratio", "position": 0.2, "purpose": "Supply the facts the proof will depend on."},
+          {"name": "confirmatio", "position": 0.45, "purpose": "Prove the case, absorbing refutation into the positive line."},
+          {"name": "peroratio", "position": 0.85, "purpose": "Summarize and close with amplification."}
+        ],
+        "register": "op-eds, short talks, memos with an argumentative edge"
+      },
+      {
+        "name": "prothesis and pistis",
+        "definition": "Aristotle's minimum: state the thing, then prove it — everything else is optional.",
+        "beats": [
+          {"name": "prothesis", "position": 0.0, "purpose": "State the proposition to be proved, without ornament."},
+          {"name": "pistis", "position": 0.25, "purpose": "Supply the proofs, artistic and inartistic, that establish it."}
+        ],
+        "effect": "The useful corrective when an arrangement has grown ceremonial: cut to statement and proof and see what is missing."
+      },
+      {
+        "name": "insinuatio",
+        "definition": "An indirect opening used when the audience is hostile or the case is discreditable: approach obliquely before naming the claim.",
+        "effect": "Buys a hearing that a direct exordium would forfeit.",
+        "register": "unpopular positions, apologies, adversarial audiences",
+        "caution": "If the audience notices the manoeuvre before the claim arrives, the concealment itself becomes the charge."
+      },
+      {
+        "name": "chreia elaboration",
+        "definition": "The progymnasmatic eight-part expansion of a saying or anecdote into a full argument.",
+        "beats": [
+          {"name": "praise of the author", "position": 0.0, "purpose": "Establish the authority of the person quoted."},
+          {"name": "paraphrase", "position": 0.12, "purpose": "Restate the saying in the writer's own words."},
+          {"name": "cause", "position": 0.25, "purpose": "Explain why the saying is true."},
+          {"name": "contrary", "position": 0.4, "purpose": "Show what follows if the opposite were the case."},
+          {"name": "comparison", "position": 0.55, "purpose": "Set the case beside an analogous one."},
+          {"name": "example", "position": 0.68, "purpose": "Give a historical or observed instance."},
+          {"name": "testimony", "position": 0.82, "purpose": "Cite an authority who agrees."},
+          {"name": "epilogue", "position": 0.93, "purpose": "Exhort the reader to accept the saying."}
+        ],
+        "register": "training exercise; still the fastest way to turn a quotation into a 1,200-word essay",
+        "tags": ["progymnasmata"]
+      },
+      {
+        "name": "encomium",
+        "definition": "Formal praise arranged by the standard headings of a subject's origins, upbringing, deeds and comparison.",
+        "beats": [
+          {"name": "prologue", "position": 0.0, "purpose": "Announce the subject and the grounds of praise."},
+          {"name": "origin", "position": 0.15, "purpose": "Nation, ancestry, parentage — the inherited goods."},
+          {"name": "upbringing", "position": 0.3, "purpose": "Education, training, habits formed."},
+          {"name": "deeds", "position": 0.45, "purpose": "Acts of mind, body and fortune — the substance of the praise."},
+          {"name": "comparison", "position": 0.75, "purpose": "Set the subject above a comparable figure."},
+          {"name": "epilogue", "position": 0.9, "purpose": "Close with an exhortation to emulate."}
+        ],
+        "register": "award citations, obituaries, forewords, keynote introductions",
+        "tags": ["epideictic", "progymnasmata"]
+      },
+      {
+        "name": "invective",
+        "definition": "The mirror of encomium: blame arranged by the same headings, turned to censure.",
+        "aka": "psogos",
+        "caution": "The symmetry with praise is exactly what makes it read as unfair; a single unanswered virtue costs the whole piece.",
+        "tags": ["epideictic", "progymnasmata"]
+      },
+      {
+        "name": "synkrisis",
+        "definition": "Paired praise or blame in which two subjects are compared point by point on the same headings.",
+        "effect": "The parallel headings do the arguing; a comparison that changes criteria between subjects reads instantly as rigged.",
+        "tags": ["progymnasmata", "comparison"]
+      },
+      {
+        "name": "commonplace",
+        "definition": "Amplification of a vice or virtue in general, aimed at the type rather than at a named person.",
+        "aka": "koinos topos",
+        "register": "editorial, sermon, and the outrage column",
+        "caution": "Generic denunciation persuades nobody who does not already agree; it is a heat source, not a proof."
+      },
+      {
+        "name": "confirmation exercise",
+        "definition": "Establishing the credibility of a narrative by arguing that it is clear, plausible, possible, consistent and fitting.",
+        "aka": "kataskeue",
+        "tags": ["progymnasmata"]
+      },
+      {
+        "name": "refutation exercise",
+        "definition": "Attacking a narrative through a fixed sequence of defects, each heading a separate line of attack.",
+        "beats": [
+          {"name": "obscurity", "position": 0.0, "purpose": "Show the account is unclear about who, when or how."},
+          {"name": "implausibility", "position": 0.2, "purpose": "Show it is unlikely on ordinary experience."},
+          {"name": "impossibility", "position": 0.4, "purpose": "Show it could not have happened as told."},
+          {"name": "inconsistency", "position": 0.6, "purpose": "Show it contradicts itself or the record."},
+          {"name": "impropriety", "position": 0.78, "purpose": "Show it is unbecoming of the people it describes."},
+          {"name": "inexpediency", "position": 0.9, "purpose": "Show that believing it would be harmful."}
+        ],
+        "aka": "anaskeue",
+        "effect": "A ready-made checklist for dismantling any received story; stop at the strongest two or three headings.",
+        "tags": ["progymnasmata"]
+      },
+      {
+        "name": "thesis exercise",
+        "definition": "A general question argued without reference to particular persons or occasions, under fixed heads.",
+        "beats": [
+          {"name": "statement of the question", "position": 0.0, "purpose": "Pose the general question ('should one marry?')."},
+          {"name": "the lawful", "position": 0.18, "purpose": "Argue from what is permitted or required."},
+          {"name": "the just", "position": 0.36, "purpose": "Argue from fairness and desert."},
+          {"name": "the advantageous", "position": 0.54, "purpose": "Argue from benefit and cost."},
+          {"name": "the possible", "position": 0.72, "purpose": "Argue from feasibility."},
+          {"name": "the honourable", "position": 0.86, "purpose": "Argue from what is fitting and praiseworthy."}
+        ],
+        "tags": ["progymnasmata"]
+      },
+      {
+        "name": "ethopoeia",
+        "definition": "Argument arranged as the speech a named character would plausibly deliver in a given situation.",
+        "effect": "Converts abstract disagreement into a voice the reader has to answer.",
+        "register": "dialogue-form nonfiction, imagined-objection passages, historical writing"
+      },
+      {
+        "name": "deliberative arrangement",
+        "definition": "Argument about future action organized around advantage and harm, ending in a recommendation.",
+        "beats": [
+          {"name": "statement of the decision", "position": 0.0, "purpose": "Name the choice actually before the audience."},
+          {"name": "the present situation", "position": 0.15, "purpose": "Establish the facts that constrain the choice."},
+          {"name": "advantages of the course urged", "position": 0.35, "purpose": "Argue expediency, security and honour."},
+          {"name": "disadvantages of the alternatives", "position": 0.6, "purpose": "Cost the rejected options honestly."},
+          {"name": "call to decide", "position": 0.88, "purpose": "Ask for the specific action, from the people who can take it."}
+        ],
+        "register": "policy writing, board papers, strategy memos"
+      },
+      {
+        "name": "forensic arrangement",
+        "definition": "Argument about past acts organized around accusation and defence, with justice as the governing question.",
+        "register": "legal argument, investigative writing, accountability journalism"
+      },
+      {
+        "name": "epideictic arrangement",
+        "definition": "Argument of praise or blame organized around shared values on a ceremonial occasion.",
+        "effect": "Its real work is consolidating what an audience already holds, which is why it precedes deliberation more often than it follows it.",
+        "register": "eulogy, commencement, launch, retrospective"
+      },
+      {
+        "name": "stasis-driven arrangement",
+        "definition": "Locate the point at which the parties actually disagree — fact, definition, quality or jurisdiction — and arrange the whole piece to that question.",
+        "beats": [
+          {"name": "stasis of fact", "position": 0.0, "purpose": "Did it happen? Settle or concede before moving on."},
+          {"name": "stasis of definition", "position": 0.3, "purpose": "What shall we call it? Name the act correctly."},
+          {"name": "stasis of quality", "position": 0.6, "purpose": "How serious, how justified, how mitigated?"},
+          {"name": "stasis of jurisdiction", "position": 0.85, "purpose": "Is this the right forum and the right procedure?"}
+        ],
+        "effect": "The single highest-leverage diagnostic in argument: most stalled disputes are two parties arguing at different stases.",
+        "tags": ["stasis theory"]
+      }
+    ],
+    "legal_forms": [
+      {
+        "name": "irac",
+        "definition": "Issue, rule, application, conclusion — the baseline unit of legal analysis.",
+        "beats": [
+          {"name": "issue", "position": 0.0, "purpose": "State the legal question in dispute."},
+          {"name": "rule", "position": 0.2, "purpose": "State the governing law with authority."},
+          {"name": "application", "position": 0.45, "purpose": "Apply the rule to these facts, both ways where reasonable."},
+          {"name": "conclusion", "position": 0.88, "purpose": "Answer the question asked."}
+        ],
+        "caution": "Taught as a container and used as one; the analysis lives in application, which is where student writing is thinnest."
+      },
+      {
+        "name": "creac",
+        "definition": "Conclusion, rule, explanation, application, conclusion — IRAC with the answer first and a separate rule-explanation section.",
+        "beats": [
+          {"name": "conclusion", "position": 0.0, "purpose": "Give the answer immediately, as a thesis."},
+          {"name": "rule", "position": 0.12, "purpose": "State the governing standard."},
+          {"name": "explanation", "position": 0.3, "purpose": "Illustrate how courts have applied the rule in analogous cases."},
+          {"name": "application", "position": 0.6, "purpose": "Map those cases onto the present facts."},
+          {"name": "conclusion", "position": 0.9, "purpose": "Restate the answer, now earned."}
+        ],
+        "aka": "CRuPAC, CREXAC"
+      },
+      {
+        "name": "crac",
+        "definition": "Conclusion, rule, application, conclusion — the compressed thesis-first variant for readers who know the law.",
+        "beats": [
+          {"name": "conclusion", "position": 0.0, "purpose": "State the outcome as a claim."},
+          {"name": "rule", "position": 0.15, "purpose": "Supply the authority in one or two sentences."},
+          {"name": "application", "position": 0.4, "purpose": "Argue the facts under the rule."},
+          {"name": "conclusion", "position": 0.9, "purpose": "Close on the requested relief."}
+        ],
+        "register": "briefs and memoranda for expert readers"
+      },
+      {
+        "name": "treat",
+        "definition": "Thesis, rule, explanation, application, thesis — a persuasive framing that opens and closes on the advocated proposition.",
+        "beats": [
+          {"name": "thesis", "position": 0.0, "purpose": "Assert the proposition this section proves."},
+          {"name": "rule", "position": 0.15, "purpose": "State the legal standard, framed favourably but accurately."},
+          {"name": "explanation", "position": 0.35, "purpose": "Develop the rule through precedent."},
+          {"name": "application", "position": 0.65, "purpose": "Apply to the record, distinguishing adverse cases."},
+          {"name": "thesis", "position": 0.92, "purpose": "Restate the proposition as now established."}
+        ]
+      },
+      {
+        "name": "ilac",
+        "definition": "Issue, law, application, conclusion — the common-law teaching variant that separates finding the law from stating a rule.",
+        "beats": [
+          {"name": "issue", "position": 0.0, "purpose": "Identify the question raised by the facts."},
+          {"name": "law", "position": 0.2, "purpose": "Set out statute and authority, including uncertainty."},
+          {"name": "application", "position": 0.5, "purpose": "Reason from law to facts."},
+          {"name": "conclusion", "position": 0.9, "purpose": "State the likely outcome and its confidence."}
+        ]
+      },
+      {
+        "name": "mirat",
+        "definition": "Material facts, issue, rule, application, tentative conclusion — the variant that makes fact selection an explicit step.",
+        "beats": [
+          {"name": "material facts", "position": 0.0, "purpose": "Select and state only the facts that bear on the issue."},
+          {"name": "issue", "position": 0.2, "purpose": "Frame the legal question those facts raise."},
+          {"name": "rule", "position": 0.35, "purpose": "State the applicable law."},
+          {"name": "application", "position": 0.55, "purpose": "Reason both sides of the application."},
+          {"name": "tentative conclusion", "position": 0.9, "purpose": "Give a qualified answer, flagging what would change it."}
+        ],
+        "effect": "The 'tentative' is the point: it licenses honest uncertainty that IRAC's 'conclusion' suppresses."
+      },
+      {
+        "name": "case brief",
+        "definition": "Standard reduction of a decided case to its usable parts for later argument.",
+        "beats": [
+          {"name": "facts", "position": 0.0, "purpose": "The operative facts the court treated as material."},
+          {"name": "procedural posture", "position": 0.2, "purpose": "How the case arrived and under what standard of review."},
+          {"name": "issue", "position": 0.4, "purpose": "The question the court answered."},
+          {"name": "holding", "position": 0.55, "purpose": "The answer, stated narrowly."},
+          {"name": "reasoning", "position": 0.7, "purpose": "The chain that got the court there."},
+          {"name": "disposition", "position": 0.92, "purpose": "What the court ordered."}
+        ]
+      },
+      {
+        "name": "appellate brief structure",
+        "definition": "The conventional order of a brief on appeal, from questions presented to requested relief.",
+        "beats": [
+          {"name": "questions presented", "position": 0.0, "purpose": "Frame the issues in terms that suggest the answer."},
+          {"name": "statement of the case", "position": 0.2, "purpose": "Narrate the record persuasively but without argument."},
+          {"name": "summary of argument", "position": 0.45, "purpose": "Give the whole argument in a page, for the judge who reads no further."},
+          {"name": "argument", "position": 0.55, "purpose": "Develop each point under its own heading, strongest first."},
+          {"name": "conclusion", "position": 0.95, "purpose": "State the precise relief sought."}
+        ],
+        "caution": "The summary is the most-read section and the most commonly written last and worst."
+      },
+      {
+        "name": "question presented",
+        "definition": "A single-sentence issue statement built as under-does-when: governing law, legal question, key facts.",
+        "example": "Under the FLSA, does a courier qualify as an employee when the platform sets prices, routes and penalties?",
+        "effect": "Loads the facts that decide the case into the question itself."
+      },
+      {
+        "name": "persuasive statement of facts",
+        "definition": "A fact section that argues by selection, order and emphasis while remaining scrupulously accurate.",
+        "caution": "One overstated fact costs the credibility of every other; the adversary reads this section hunting."
+      },
+      {
+        "name": "point heading hierarchy",
+        "definition": "Argument headings written as complete propositions so that the table of contents reads as the outline of the argument.",
+        "effect": "A brief whose contents page states the case in six sentences has already made half its argument."
+      },
+      {
+        "name": "analogical precedent reasoning",
+        "definition": "Derive a rule from decided cases, compare their material facts to the present ones, and argue that like cases must be decided alike.",
+        "beats": [
+          {"name": "rule from precedent", "position": 0.0, "purpose": "State the principle the prior cases share."},
+          {"name": "factual comparison", "position": 0.35, "purpose": "Line up the material facts side by side."},
+          {"name": "conclusion of likeness", "position": 0.8, "purpose": "Argue the present case falls on the established side of the line."}
+        ]
+      },
+      {
+        "name": "distinguishing precedent",
+        "definition": "Accept the adverse case and argue that a material difference makes its rule inapplicable here.",
+        "caution": "The difference must be material to the reason for the rule, not merely a difference the record happens to contain."
+      },
+      {
+        "name": "burden-shifting framework",
+        "definition": "A three-stage arrangement in which each party in turn carries a defined burden of production.",
+        "beats": [
+          {"name": "prima facie case", "position": 0.0, "purpose": "Claimant establishes the minimum elements."},
+          {"name": "legitimate justification", "position": 0.4, "purpose": "Respondent articulates a lawful reason."},
+          {"name": "pretext", "position": 0.75, "purpose": "Claimant shows the stated reason is not the real one."}
+        ],
+        "register": "employment and discrimination argument; a useful general template wherever a rebuttable presumption exists"
+      },
+      {
+        "name": "element-by-element analysis",
+        "definition": "Arrange the argument by the elements of the claim, disposing of each in order and conceding the ones not in dispute.",
+        "effect": "Conceding uncontested elements early buys credibility for the contested one."
+      },
+      {
+        "name": "syllogistic legal proof",
+        "definition": "State the rule as the major premise, the facts as the minor, and the outcome as the conclusion.",
+        "caution": "Almost every real dispute is about the minor premise; a brief that only polishes the syllogism has not argued the case."
+      },
+      {
+        "name": "policy argument",
+        "definition": "Argue from the consequences of a rule — institutional competence, administrability, incentives — rather than from its sources.",
+        "register": "appellate advocacy, regulatory comment, law review",
+        "caution": "Weakest where the text is clearest; a policy lead against plain language signals that the text is against you."
+      },
+      {
+        "name": "bobbitt's modalities",
+        "definition": "The six recognized forms of constitutional argument — textual, historical, structural, doctrinal, ethical, prudential — used as an arrangement checklist.",
+        "effect": "Running a claim through all six exposes which modality your case actually rests on, and which the other side will use."
+      },
+      {
+        "name": "oral argument roadmap",
+        "definition": "An opening that states the relief sought and the two or three points to be made, so the bench knows where interruptions fit.",
+        "caution": "More than three points and the roadmap becomes a list the court will not hold."
+      }
+    ],
+    "scientific_forms": [
+      {
+        "name": "imrad",
+        "definition": "Introduction, methods, results and discussion — the standard arrangement of the empirical research article.",
+        "beats": [
+          {"name": "introduction", "position": 0.0, "purpose": "Establish the problem and the gap this study fills."},
+          {"name": "methods", "position": 0.25, "purpose": "Describe procedure in enough detail to be repeated."},
+          {"name": "results", "position": 0.5, "purpose": "Report findings without interpretation."},
+          {"name": "discussion", "position": 0.75, "purpose": "Interpret, bound, and connect back to the gap."}
+        ],
+        "caution": "The order of writing is rarely the order of reading; most readers go abstract, figures, discussion, methods."
+      },
+      {
+        "name": "hourglass model",
+        "definition": "Broad framing narrowing to a specific study, then widening again to implications.",
+        "beats": [
+          {"name": "broad context", "position": 0.0, "purpose": "Why this domain matters to a non-specialist."},
+          {"name": "narrowing", "position": 0.2, "purpose": "Move from field to question to hypothesis."},
+          {"name": "the neck", "position": 0.4, "purpose": "The specific study: methods and results at maximum precision."},
+          {"name": "widening", "position": 0.7, "purpose": "What the result means for the question."},
+          {"name": "broad implications", "position": 0.9, "purpose": "What it means for the field."}
+        ],
+        "effect": "Gives readers a symmetric entrance and exit, which is why abstracts written to this shape summarize cleanly."
+      },
+      {
+        "name": "cars model",
+        "definition": "Swales's three rhetorical moves for research introductions: establish a territory, establish a niche, occupy the niche.",
+        "beats": [
+          {"name": "establishing a territory", "position": 0.0, "purpose": "Claim centrality, generalize the topic, review prior work."},
+          {"name": "establishing a niche", "position": 0.45, "purpose": "Counter-claim, indicate a gap, raise a question or continue a tradition."},
+          {"name": "occupying the niche", "position": 0.75, "purpose": "State the present work's purpose, announce findings, preview structure."}
+        ],
+        "aka": "create a research space",
+        "effect": "Makes the gap explicit, which is the move most rejected introductions omit."
+      },
+      {
+        "name": "ocar",
+        "definition": "Opening, challenge, action, resolution — Schimel's story-shaped arrangement for a scientific paper.",
+        "beats": [
+          {"name": "opening", "position": 0.0, "purpose": "Establish the setting and the characters of the problem."},
+          {"name": "challenge", "position": 0.25, "purpose": "State the unresolved question that creates tension."},
+          {"name": "action", "position": 0.5, "purpose": "What was done and what was found."},
+          {"name": "resolution", "position": 0.85, "purpose": "How the finding answers the challenge."}
+        ],
+        "register": "papers, proposals and talks aimed beyond the immediate subfield"
+      },
+      {
+        "name": "ldr",
+        "definition": "Lead, development, resolution — the front-loaded variant that states the conclusion first and develops it afterwards.",
+        "beats": [
+          {"name": "lead", "position": 0.0, "purpose": "State the central finding immediately."},
+          {"name": "development", "position": 0.2, "purpose": "Supply the evidence and reasoning behind it."},
+          {"name": "resolution", "position": 0.85, "purpose": "Close on significance rather than suspense."}
+        ],
+        "register": "abstracts, executive-facing science writing, press releases"
+      },
+      {
+        "name": "structured abstract",
+        "definition": "A fixed-heading abstract that forces each element of the study to be stated separately.",
+        "beats": [
+          {"name": "background", "position": 0.0, "purpose": "Why the question matters."},
+          {"name": "objective", "position": 0.2, "purpose": "The specific aim, in one sentence."},
+          {"name": "methods", "position": 0.4, "purpose": "Design, setting, participants, measures."},
+          {"name": "results", "position": 0.65, "purpose": "Primary outcome with effect size and interval."},
+          {"name": "conclusions", "position": 0.9, "purpose": "What follows, bounded by the design."}
+        ],
+        "caution": "The headings make omissions conspicuous, which is their purpose and the reason authors resist them."
+      },
+      {
+        "name": "prisma review structure",
+        "definition": "The reporting arrangement for systematic reviews: protocol, search, screening, extraction, synthesis, risk of bias.",
+        "beats": [
+          {"name": "protocol and registration", "position": 0.0, "purpose": "Declare the question and method before looking."},
+          {"name": "search strategy", "position": 0.2, "purpose": "State sources, terms, and dates so the search is reproducible."},
+          {"name": "screening and eligibility", "position": 0.4, "purpose": "Account for every record, included and excluded."},
+          {"name": "data extraction", "position": 0.6, "purpose": "State what was pulled from each study and by whom."},
+          {"name": "synthesis", "position": 0.75, "purpose": "Combine results, quantitatively or narratively."},
+          {"name": "risk of bias", "position": 0.9, "purpose": "Assess study quality and its effect on the conclusion."}
+        ]
+      },
+      {
+        "name": "registered report",
+        "definition": "A two-stage arrangement in which rationale and method are reviewed and accepted before data are collected.",
+        "beats": [
+          {"name": "stage 1: rationale and method", "position": 0.0, "purpose": "Question, hypotheses, design, analysis plan, power."},
+          {"name": "in-principle acceptance", "position": 0.5, "purpose": "Editorial commitment independent of outcome."},
+          {"name": "stage 2: results and discussion", "position": 0.6, "purpose": "Report as planned, separating pre-registered from exploratory analysis."}
+        ],
+        "effect": "Structurally removes the incentive to arrange a paper around whichever result happened to be significant."
+      },
+      {
+        "name": "specific aims page",
+        "definition": "The one-page grant arrangement: significance, gap, long-term goal, objective, aims, and expected impact.",
+        "beats": [
+          {"name": "the hook", "position": 0.0, "purpose": "Name the problem in terms the panel already cares about."},
+          {"name": "the gap", "position": 0.2, "purpose": "State what is not known and why the gap blocks progress."},
+          {"name": "objective and hypothesis", "position": 0.4, "purpose": "Say precisely what this project will do and expect."},
+          {"name": "the aims", "position": 0.6, "purpose": "Two or three non-dependent aims, each testable."},
+          {"name": "payoff", "position": 0.9, "purpose": "State the expected impact if the aims succeed."}
+        ],
+        "caution": "Aims that depend on one another turn one failed experiment into a failed project; reviewers look for this first."
+      },
+      {
+        "name": "case report",
+        "definition": "Clinical narrative arrangement: presentation, history, investigations, management, outcome, discussion.",
+        "beats": [
+          {"name": "presentation", "position": 0.0, "purpose": "Who presented, with what, when."},
+          {"name": "history and examination", "position": 0.2, "purpose": "Relevant background and findings."},
+          {"name": "investigations", "position": 0.4, "purpose": "Tests performed and results."},
+          {"name": "management", "position": 0.6, "purpose": "Intervention and its rationale."},
+          {"name": "outcome and follow-up", "position": 0.8, "purpose": "What happened and over what period."},
+          {"name": "discussion", "position": 0.9, "purpose": "Why this case is instructive."}
+        ]
+      },
+      {
+        "name": "soap note",
+        "definition": "Subjective, objective, assessment, plan — the clinical note arrangement that separates report from observation from judgement from action.",
+        "beats": [
+          {"name": "subjective", "position": 0.0, "purpose": "What the patient reports, in their terms."},
+          {"name": "objective", "position": 0.3, "purpose": "Measured and observed findings."},
+          {"name": "assessment", "position": 0.6, "purpose": "The clinician's interpretation and differential."},
+          {"name": "plan", "position": 0.85, "purpose": "What will be done and when it will be reviewed."}
+        ],
+        "effect": "Generalizes well beyond medicine as a discipline for keeping observation and inference in separate paragraphs."
+      },
+      {
+        "name": "literature review funnel",
+        "definition": "Survey arranged from the broadest relevant literature down to the specific studies the present work engages.",
+        "caution": "A funnel with no exit is a bibliography; the narrow end must land on a claim about what the field has not settled."
+      },
+      {
+        "name": "conference abstract",
+        "definition": "A compressed self-contained arrangement — question, method, result, significance — written to be selected rather than read.",
+        "caution": "Written before the data exist more often than anyone admits; keep the claim inside what the design can produce."
+      }
+    ],
+    "business_forms": [
+      {
+        "name": "scqa",
+        "definition": "Situation, complication, question, answer — Minto's opening arrangement, which manufactures a question the reader wants answered.",
+        "beats": [
+          {"name": "situation", "position": 0.0, "purpose": "State the stable, uncontested background."},
+          {"name": "complication", "position": 0.3, "purpose": "Introduce the change or problem that disturbs it."},
+          {"name": "question", "position": 0.6, "purpose": "Name the question the complication raises."},
+          {"name": "answer", "position": 0.8, "purpose": "Give the answer, which becomes the document's governing thought."}
+        ],
+        "effect": "The reader arrives at the thesis already wanting it, which is the whole trick.",
+        "caution": "If the situation is not genuinely uncontested, the reader argues with paragraph one and never reaches the answer."
+      },
+      {
+        "name": "pyramid principle",
+        "definition": "Lead with the governing thought, support it with a small set of mutually exclusive key lines, and support each of those in turn.",
+        "beats": [
+          {"name": "governing thought", "position": 0.0, "purpose": "The single answer the whole document argues."},
+          {"name": "key line", "position": 0.15, "purpose": "Three to five supporting arguments, collectively sufficient."},
+          {"name": "support", "position": 0.4, "purpose": "Data and reasoning under each key-line argument."},
+          {"name": "synthesis", "position": 0.9, "purpose": "Restate the governing thought as now supported."}
+        ],
+        "aka": "Minto pyramid",
+        "register": "consulting decks, executive memos, board papers"
+      },
+      {
+        "name": "mece grouping",
+        "definition": "Organize supporting arguments so that they are mutually exclusive and collectively exhaustive.",
+        "effect": "Overlapping groups make an argument feel repetitive; incomplete ones make it feel evasive.",
+        "caution": "Strict MECE is often unattainable; say which dimension you cut on rather than pretending the cut is natural."
+      },
+      {
+        "name": "bluf",
+        "definition": "Bottom line up front: the recommendation or finding in the first sentence, with support following.",
+        "beats": [
+          {"name": "bottom line", "position": 0.0, "purpose": "State the conclusion or ask in one sentence."},
+          {"name": "so what", "position": 0.15, "purpose": "Why it matters to this reader now."},
+          {"name": "support", "position": 0.35, "purpose": "The evidence, ordered by weight."},
+          {"name": "next step", "position": 0.9, "purpose": "The specific action and owner."}
+        ],
+        "register": "military and executive communication"
+      },
+      {
+        "name": "decision memo",
+        "definition": "Arrangement for a document whose purpose is to obtain one decision from one group.",
+        "beats": [
+          {"name": "the decision requested", "position": 0.0, "purpose": "Name the choice and who must make it."},
+          {"name": "background", "position": 0.15, "purpose": "Only the context needed to evaluate the options."},
+          {"name": "options", "position": 0.35, "purpose": "Two or three real options, each costed."},
+          {"name": "recommendation", "position": 0.65, "purpose": "Which one, and the reasoning."},
+          {"name": "risks and mitigations", "position": 0.8, "purpose": "What could go wrong and what would be done."},
+          {"name": "the ask", "position": 0.95, "purpose": "Approval sought, by when."}
+        ],
+        "caution": "Options padded to make the recommendation obvious are recognized immediately and cost trust."
+      },
+      {
+        "name": "working backwards",
+        "definition": "Write the launch announcement and customer FAQ before building anything, and arrange the plan around them.",
+        "beats": [
+          {"name": "press release", "position": 0.0, "purpose": "Describe the finished product to the customer in their language."},
+          {"name": "customer faq", "position": 0.45, "purpose": "Answer what a sceptical customer would ask."},
+          {"name": "internal faq", "position": 0.75, "purpose": "Answer what a sceptical colleague would ask about feasibility and cost."}
+        ],
+        "aka": "PR/FAQ",
+        "effect": "Forces the value proposition to survive being stated plainly before resources are committed."
+      },
+      {
+        "name": "narrative memo",
+        "definition": "A prose document read silently at the start of a meeting, replacing slides with complete sentences and full arguments.",
+        "aka": "six-pager",
+        "effect": "Prose cannot hide a missing argument the way a bullet can; the discipline is in the paragraphs, not the page count."
+      },
+      {
+        "name": "pitch deck arc",
+        "definition": "The conventional investor sequence from problem through solution, market, model, traction, team and ask.",
+        "beats": [
+          {"name": "problem", "position": 0.0, "purpose": "Whose pain, how expensive, how frequent."},
+          {"name": "solution", "position": 0.15, "purpose": "What you built and why it addresses that pain."},
+          {"name": "market", "position": 0.3, "purpose": "Size and reachability of the buying population."},
+          {"name": "business model", "position": 0.45, "purpose": "How money is made and kept."},
+          {"name": "traction", "position": 0.6, "purpose": "Evidence that this is already working."},
+          {"name": "team", "position": 0.75, "purpose": "Why these people win this specific race."},
+          {"name": "the ask", "position": 0.9, "purpose": "Amount, use of funds, milestone it buys."}
+        ]
+      },
+      {
+        "name": "business case structure",
+        "definition": "Problem, options, costs and benefits, risks, and recommendation, arranged to support an investment decision.",
+        "register": "capital requests, procurement, programme approval"
+      },
+      {
+        "name": "star method",
+        "definition": "Situation, task, action, result — the standard arrangement for narrating one's own contribution.",
+        "beats": [
+          {"name": "situation", "position": 0.0, "purpose": "Set the context briefly and concretely."},
+          {"name": "task", "position": 0.25, "purpose": "State what you specifically were responsible for."},
+          {"name": "action", "position": 0.45, "purpose": "What you did, in the first person singular."},
+          {"name": "result", "position": 0.85, "purpose": "Quantified outcome and what you learned."}
+        ],
+        "register": "interviews, performance reviews, promotion documents",
+        "caution": "The action beat is where 'we' creeps in and erases the claim."
+      },
+      {
+        "name": "sbi feedback",
+        "definition": "Situation, behaviour, impact — feedback arranged so that observation precedes interpretation.",
+        "beats": [
+          {"name": "situation", "position": 0.0, "purpose": "When and where, specifically."},
+          {"name": "behaviour", "position": 0.35, "purpose": "What was observable, stated without adjectives of character."},
+          {"name": "impact", "position": 0.75, "purpose": "The effect on you, the team, or the work."}
+        ],
+        "effect": "Keeps feedback arguable on facts rather than on the recipient's personality."
+      },
+      {
+        "name": "spin sequence",
+        "definition": "Situation, problem, implication, need-payoff — a questioning order that lets the buyer state the value.",
+        "beats": [
+          {"name": "situation questions", "position": 0.0, "purpose": "Establish facts about the buyer's context."},
+          {"name": "problem questions", "position": 0.3, "purpose": "Surface difficulties and dissatisfactions."},
+          {"name": "implication questions", "position": 0.6, "purpose": "Make the cost of the problem explicit."},
+          {"name": "need-payoff questions", "position": 0.85, "purpose": "Have the buyer articulate the value of solving it."}
+        ],
+        "register": "consultative selling; also useful for internal advocacy"
+      },
+      {
+        "name": "elevator pitch",
+        "definition": "A thirty-second arrangement — who, what problem, why you, what you want — designed for a single unrepeatable encounter.",
+        "caution": "Compression is not the difficulty; deciding what to omit is."
+      }
+    ],
+    "persuasion_sequences": [
+      {
+        "name": "monroe's motivated sequence",
+        "definition": "A five-step persuasive order that ends by asking for a specific act.",
+        "beats": [
+          {"name": "attention", "position": 0.0, "purpose": "Arrest the audience with a fact, story or question."},
+          {"name": "need", "position": 0.2, "purpose": "Establish a problem that touches them directly."},
+          {"name": "satisfaction", "position": 0.45, "purpose": "Present a solution that meets the stated need."},
+          {"name": "visualization", "position": 0.7, "purpose": "Show the future with the solution adopted and without it."},
+          {"name": "action", "position": 0.9, "purpose": "Ask for one concrete, immediate step."}
+        ],
+        "register": "advocacy speech, fundraising, campaign communication",
+        "caution": "The visualization step is where the sequence turns manipulative if the futures are not honestly drawn."
+      },
+      {
+        "name": "aida",
+        "definition": "Attention, interest, desire, action — the oldest copywriting funnel.",
+        "beats": [
+          {"name": "attention", "position": 0.0, "purpose": "Stop the reader."},
+          {"name": "interest", "position": 0.25, "purpose": "Make the subject relevant to them."},
+          {"name": "desire", "position": 0.55, "purpose": "Convert relevance into wanting."},
+          {"name": "action", "position": 0.9, "purpose": "Remove friction from the next step."}
+        ]
+      },
+      {
+        "name": "problem-agitate-solve",
+        "definition": "Name the reader's problem, intensify their sense of its cost, then offer the resolution.",
+        "beats": [
+          {"name": "problem", "position": 0.0, "purpose": "Name the pain in the reader's own words."},
+          {"name": "agitate", "position": 0.35, "purpose": "Make the consequences of inaction vivid and near."},
+          {"name": "solve", "position": 0.75, "purpose": "Present the remedy and the first step."}
+        ],
+        "aka": "PAS",
+        "caution": "The agitation step is the most abused move in commercial prose; the honest version agitates only with true consequences."
+      },
+      {
+        "name": "before-after-bridge",
+        "definition": "Show the current unsatisfactory state, the improved state, and the bridge that connects them.",
+        "beats": [
+          {"name": "before", "position": 0.0, "purpose": "Describe the reader's world as it is."},
+          {"name": "after", "position": 0.4, "purpose": "Describe it as it could be, concretely."},
+          {"name": "bridge", "position": 0.8, "purpose": "Name what gets them from one to the other."}
+        ],
+        "aka": "BAB"
+      },
+      {
+        "name": "four ps",
+        "definition": "Promise, picture, proof, push — a persuasive order that pairs every claim with evidence before asking.",
+        "beats": [
+          {"name": "promise", "position": 0.0, "purpose": "State the benefit as a claim."},
+          {"name": "picture", "position": 0.3, "purpose": "Make the benefit imaginable in specifics."},
+          {"name": "proof", "position": 0.6, "purpose": "Supply evidence that the promise is kept."},
+          {"name": "push", "position": 0.9, "purpose": "Ask for the action while the proof is fresh."}
+        ]
+      },
+      {
+        "name": "features-advantages-benefits",
+        "definition": "Move from what a thing is, to what it does, to what that means for this audience.",
+        "beats": [
+          {"name": "feature", "position": 0.0, "purpose": "State the attribute factually."},
+          {"name": "advantage", "position": 0.4, "purpose": "State what the attribute makes possible."},
+          {"name": "benefit", "position": 0.8, "purpose": "State what that is worth to this specific reader."}
+        ],
+        "aka": "FAB",
+        "caution": "Most technical writing stops at the feature; most marketing skips to the benefit and cannot support it."
+      },
+      {
+        "name": "foot-in-the-door",
+        "definition": "Secure agreement to a small request first, so that the larger request is consistent with a commitment already made.",
+        "see_also": "interaction_moves/persuasion_moves",
+        "register": "campaigning, fundraising, negotiation",
+        "caution": "An influence technique before it is an arrangement; disclosing that a sequence is running usually defuses it."
+      },
+      {
+        "name": "door-in-the-face",
+        "definition": "Open with a request expected to be refused, then retreat to the request actually wanted.",
+        "see_also": "interaction_moves/persuasion_moves",
+        "effect": "Works through reciprocal concession rather than through the merits of the second request.",
+        "caution": "One transparent use costs the relationship the technique was borrowing against."
+      },
+      {
+        "name": "inoculation",
+        "definition": "Pre-expose the audience to a weakened form of the opposing argument together with its refutation, building resistance to the full version.",
+        "beats": [
+          {"name": "forewarning", "position": 0.0, "purpose": "Tell the audience an attack on this belief is coming."},
+          {"name": "weakened attack", "position": 0.35, "purpose": "Present the counterargument in a manageable form."},
+          {"name": "refutational preemption", "position": 0.7, "purpose": "Answer it, giving the audience the counter-arguments to reuse."}
+        ],
+        "effect": "The best-evidenced defensive arrangement in persuasion research."
+      },
+      {
+        "name": "two-sided refutational message",
+        "definition": "Present both sides and explicitly refute the opposing one, rather than presenting your side alone.",
+        "effect": "Outperforms one-sided messages with educated or opposed audiences, and inoculates against later counter-messaging.",
+        "caution": "Two-sided without refutation is worse than one-sided: it supplies the opposition's case for free."
+      },
+      {
+        "name": "fear appeal with efficacy",
+        "definition": "Establish threat severity and personal susceptibility, then supply a response the audience believes is effective and within their power.",
+        "beats": [
+          {"name": "severity", "position": 0.0, "purpose": "Show the threat is serious."},
+          {"name": "susceptibility", "position": 0.25, "purpose": "Show it applies to this audience."},
+          {"name": "response efficacy", "position": 0.55, "purpose": "Show the recommended action works."},
+          {"name": "self-efficacy", "position": 0.8, "purpose": "Show the audience can actually take it."}
+        ],
+        "caution": "Threat without efficacy produces defensive avoidance — the audience controls the fear instead of the danger."
+      }
+    ],
+    "dialectical_forms": [
+      {
+        "name": "rogerian argument",
+        "definition": "An arrangement that establishes common ground and states the opposing view sympathetically before advancing one's own.",
+        "beats": [
+          {"name": "introduction of the issue", "position": 0.0, "purpose": "Frame the problem as shared rather than as a contest."},
+          {"name": "the opposing position", "position": 0.2, "purpose": "State it so its holders would accept the statement."},
+          {"name": "contexts where it is valid", "position": 0.4, "purpose": "Concede where the opposing view is right."},
+          {"name": "the writer's position", "position": 0.6, "purpose": "State one's own view without triumph."},
+          {"name": "contexts where it is valid", "position": 0.78, "purpose": "Bound one's own claim honestly."},
+          {"name": "benefits of adoption", "position": 0.9, "purpose": "Show the opponent what they gain by moving."}
+        ],
+        "register": "polarized subjects, internal disputes, mediation",
+        "caution": "Slow and easily read as insincere if the concessions are token; the fair statement must cost something."
+      },
+      {
+        "name": "thesis-antithesis-synthesis",
+        "definition": "Advance a position, develop its strongest opposition, and resolve both into a third position that preserves what each got right.",
+        "beats": [
+          {"name": "thesis", "position": 0.0, "purpose": "State the position in its strongest form."},
+          {"name": "antithesis", "position": 0.35, "purpose": "Develop the opposition with equal force."},
+          {"name": "synthesis", "position": 0.75, "purpose": "Show what survives of both and on what higher terms."}
+        ],
+        "caution": "The synthesis must genuinely resolve the tension; splitting the difference is arithmetic, not dialectic."
+      },
+      {
+        "name": "scholastic disputatio",
+        "definition": "The medieval question form: pose a question, marshal the apparent answer, cite the authority against it, resolve, and answer each objection in turn.",
+        "beats": [
+          {"name": "quaestio", "position": 0.0, "purpose": "Pose the question as answerable yes or no."},
+          {"name": "videtur quod", "position": 0.15, "purpose": "Set out the strongest objections to the answer to be given."},
+          {"name": "sed contra", "position": 0.45, "purpose": "Cite the authority or argument on the other side."},
+          {"name": "respondeo", "position": 0.6, "purpose": "Give the reasoned determination."},
+          {"name": "ad primum", "position": 0.82, "purpose": "Answer each objection individually, in order."}
+        ],
+        "effect": "The objections come first and are stated by the author, which makes evasion structurally visible.",
+        "register": "philosophy, theology; a strong template for any FAQ-shaped argument"
+      },
+      {
+        "name": "socratic examination",
+        "definition": "Question an interlocutor's confident claim until its consequences contradict something else they hold.",
+        "beats": [
+          {"name": "elicit the claim", "position": 0.0, "purpose": "Get the position stated clearly and voluntarily."},
+          {"name": "secure premises", "position": 0.3, "purpose": "Obtain assent to propositions that seem unrelated."},
+          {"name": "derive the contradiction", "position": 0.7, "purpose": "Show the premises are inconsistent with the claim."},
+          {"name": "aporia", "position": 0.9, "purpose": "Leave the interlocutor without the belief and without a replacement."}
+        ],
+        "aka": "elenchus",
+        "caution": "In writing, an interlocutor who exists only to be wrong reads as a straw man with dialogue tags."
+      },
+      {
+        "name": "toulmin layout",
+        "definition": "The anatomy of a single argument — claim, grounds, warrant, backing, qualifier, rebuttal — used as an arrangement for contested reasoning.",
+        "beats": [
+          {"name": "claim", "position": 0.0, "purpose": "The proposition to be accepted."},
+          {"name": "grounds", "position": 0.2, "purpose": "The data or facts it rests on."},
+          {"name": "warrant", "position": 0.4, "purpose": "The principle licensing the move from grounds to claim."},
+          {"name": "backing", "position": 0.6, "purpose": "Support for the warrant itself, where it is not obvious."},
+          {"name": "qualifier", "position": 0.8, "purpose": "The strength claimed: presumably, probably, necessarily."},
+          {"name": "rebuttal", "position": 0.9, "purpose": "The conditions under which the claim would not hold."}
+        ],
+        "effect": "Unstated warrants are where most nonfiction arguments actually fail; writing them out is the diagnostic.",
+        "tags": ["toulmin", "diagnostic"]
+      },
+      {
+        "name": "dissoi logoi",
+        "definition": "Set out contrasting arguments on the same question without resolving them, exhibiting the case on both sides.",
+        "register": "teaching, exploratory writing, judicial opinion summarizing a split"
+      },
+      {
+        "name": "in utramque partem",
+        "definition": "Argue both sides of a question in turn as a method of arriving at the more defensible one.",
+        "effect": "Discovery procedure as much as arrangement; the side that is harder to argue well is usually the true one."
+      },
+      {
+        "name": "steelmanning",
+        "definition": "Reconstruct the opposing position in the strongest form its holders would endorse, then argue against that.",
+        "caution": "A steelman the opponent does not recognize is a different argument you have just won."
+      },
+      {
+        "name": "devil's advocate",
+        "definition": "Assign or adopt the contrary position deliberately so that a consensus has to be defended before it is acted on.",
+        "register": "decision meetings, editorial review, red teams",
+        "caution": "Known to be an assigned role, it is easily discounted; genuine dissent outperforms rehearsed dissent."
+      },
+      {
+        "name": "platonic dialogue",
+        "definition": "Argument staged as conversation between differentiated characters whose positions develop under questioning.",
+        "effect": "Lets a writer hold several live positions at once without adjudicating prematurely.",
+        "caution": "Requires characters with independent motives; otherwise it is a monologue with quotation marks."
+      },
+      {
+        "name": "catechetical form",
+        "definition": "Fixed question and answer pairs arranged so that each answer prepares the next question.",
+        "register": "instruction, FAQs, doctrinal texts",
+        "caution": "Assumes the reader's questions; a catechism answering questions nobody asked is the commonest FAQ failure."
+      },
+      {
+        "name": "policy debate stock issues",
+        "definition": "The affirmative burden decomposed into fixed issues that a plan must satisfy.",
+        "beats": [
+          {"name": "topicality", "position": 0.0, "purpose": "Show the proposal is within the question under debate."},
+          {"name": "harms", "position": 0.2, "purpose": "Establish significant harm in the status quo."},
+          {"name": "inherency", "position": 0.45, "purpose": "Show the status quo will not fix it without the change."},
+          {"name": "solvency", "position": 0.7, "purpose": "Show the plan actually remedies the harm."},
+          {"name": "advantages versus disadvantages", "position": 0.9, "purpose": "Net-benefit the plan against its costs."}
+        ],
+        "effect": "Inherency is the issue most policy writing skips and most opponents attack."
+      },
+      {
+        "name": "four-step refutation",
+        "definition": "They say, but, because, therefore — a compact unit for answering a specific opposing argument.",
+        "beats": [
+          {"name": "they say", "position": 0.0, "purpose": "State the opposing claim accurately and briefly."},
+          {"name": "but", "position": 0.25, "purpose": "State your response as a claim."},
+          {"name": "because", "position": 0.5, "purpose": "Give the evidence or reasoning."},
+          {"name": "therefore", "position": 0.85, "purpose": "State what follows for the larger argument."}
+        ],
+        "register": "debate, review response, comment letters"
+      },
+      {
+        "name": "concession and rebuttal",
+        "definition": "Grant a genuine point to the opposition and show that the main claim survives it.",
+        "aka": "concessio",
+        "effect": "The cheapest credibility available in argument, provided the conceded point is one the reader believed mattered."
+      }
+    ],
+    "proof_strategies": [
+      {
+        "name": "direct proof",
+        "definition": "Derive the conclusion from the hypotheses by a chain of accepted inferences.",
+        "register": "mathematics; the model for any deductive argument"
+      },
+      {
+        "name": "proof by contradiction",
+        "definition": "Assume the negation of the claim and derive a contradiction, establishing the claim.",
+        "aka": "reductio ad absurdum",
+        "caution": "Often hides a direct proof; readers understand the constructive version better where one exists."
+      },
+      {
+        "name": "proof by contraposition",
+        "definition": "Prove 'if not Q then not P' in place of 'if P then Q'.",
+        "effect": "Useful when the negation of the conclusion is more tractable than the hypothesis."
+      },
+      {
+        "name": "mathematical induction",
+        "definition": "Establish a base case and an inductive step that carries the property from each case to the next.",
+        "beats": [
+          {"name": "statement", "position": 0.0, "purpose": "Say precisely what is being proved for all n."},
+          {"name": "base case", "position": 0.25, "purpose": "Verify the smallest case explicitly."},
+          {"name": "inductive hypothesis", "position": 0.5, "purpose": "Assume the property at n, stating it exactly."},
+          {"name": "inductive step", "position": 0.7, "purpose": "Derive the property at n+1 from the hypothesis."},
+          {"name": "conclusion", "position": 0.95, "purpose": "Invoke induction to conclude for all n."}
+        ],
+        "caution": "The base case is where published proofs most often fail, because it is the part nobody rereads."
+      },
+      {
+        "name": "strong induction",
+        "definition": "Assume the property for all cases below n rather than only at n-1.",
+        "effect": "Required whenever the step needs more than its immediate predecessor, as in recursion on divisors."
+      },
+      {
+        "name": "structural induction",
+        "definition": "Prove a property for all elements of a recursively defined structure by proving it for constructors.",
+        "register": "computer science, formal semantics, type theory"
+      },
+      {
+        "name": "proof by exhaustion",
+        "definition": "Partition the possibilities into finitely many cases and prove the claim in each.",
+        "beats": [
+          {"name": "partition", "position": 0.0, "purpose": "Show the cases are exhaustive and, ideally, disjoint."},
+          {"name": "case analysis", "position": 0.3, "purpose": "Prove the claim within each case."},
+          {"name": "collection", "position": 0.9, "purpose": "Conclude that the claim holds generally."}
+        ],
+        "aka": "proof by cases",
+        "caution": "The exhaustiveness of the partition is the load-bearing step and the one most often asserted."
+      },
+      {
+        "name": "constructive proof",
+        "definition": "Establish existence by exhibiting the object, or an algorithm that produces it.",
+        "effect": "Strongest form of an existence claim because it hands the reader the thing itself."
+      },
+      {
+        "name": "nonconstructive proof",
+        "definition": "Establish that an object must exist without producing one.",
+        "caution": "Applied readers frequently want the object; say early which kind of proof you are giving."
+      },
+      {
+        "name": "proof by counterexample",
+        "definition": "Refute a universal claim by exhibiting one instance where it fails.",
+        "effect": "The cheapest decisive move in argument, and the reason universal claims should be made carefully."
+      },
+      {
+        "name": "diagonal argument",
+        "definition": "Construct an object that differs from every member of a supposed enumeration in at least one place.",
+        "register": "set theory, computability, logic"
+      },
+      {
+        "name": "pigeonhole argument",
+        "definition": "Show that placing more objects than containers forces at least one container to hold several.",
+        "effect": "Yields existence results from counting alone, with no construction required."
+      },
+      {
+        "name": "probabilistic method",
+        "definition": "Show an object with the desired property exists by proving that a random object has it with positive probability.",
+        "register": "combinatorics"
+      },
+      {
+        "name": "infinite descent",
+        "definition": "Show that any solution would generate a strictly smaller one, which is impossible in the positive integers.",
+        "aka": "Fermat's descent"
+      },
+      {
+        "name": "existence and uniqueness proof",
+        "definition": "Prove separately that a solution exists and that there is at most one.",
+        "beats": [
+          {"name": "existence", "position": 0.0, "purpose": "Exhibit or establish at least one solution."},
+          {"name": "uniqueness", "position": 0.5, "purpose": "Assume two solutions and show they coincide."},
+          {"name": "consequence", "position": 0.9, "purpose": "State what the uniqueness licenses — usually a definition."}
+        ]
+      },
+      {
+        "name": "bijective proof",
+        "definition": "Establish that two counts are equal by constructing an explicit one-to-one correspondence.",
+        "effect": "Explains why two quantities are equal instead of merely verifying that they are."
+      },
+      {
+        "name": "double counting",
+        "definition": "Count the same set two ways and equate the results.",
+        "register": "combinatorics; also a general argumentative move for reconciling two accounts of one quantity"
+      },
+      {
+        "name": "lemma-theorem-corollary architecture",
+        "definition": "Arrange a long proof as small proved lemmas, the main theorem, and consequences drawn cheaply afterwards.",
+        "beats": [
+          {"name": "definitions", "position": 0.0, "purpose": "Fix the objects and notation once."},
+          {"name": "lemmas", "position": 0.15, "purpose": "Prove the reusable technical steps in isolation."},
+          {"name": "theorem", "position": 0.6, "purpose": "Assemble the lemmas into the main result."},
+          {"name": "corollaries", "position": 0.85, "purpose": "Draw the consequences that now cost one line each."}
+        ],
+        "effect": "Keeps the main argument short enough to be checked; also the best available structure for long nonfiction chapters."
+      },
+      {
+        "name": "proof sketch then details",
+        "definition": "Give the idea of the proof in a paragraph before the formal argument.",
+        "effect": "Lets a reader decide whether to read the details, and lets them read the details knowing where they are going."
+      },
+      {
+        "name": "without loss of generality",
+        "definition": "Reduce the cases to be treated by arguing that symmetry or relabelling makes the remainder equivalent.",
+        "caution": "The most-abused phrase in mathematical writing; the reduction must be stated and justified, not merely invoked."
+      }
+    ],
+    "journalism_forms": [
+      {
+        "name": "inverted pyramid",
+        "definition": "Most newsworthy information first, supporting detail in descending order of importance.",
+        "beats": [
+          {"name": "lede", "position": 0.0, "purpose": "The single most important fact, in one sentence."},
+          {"name": "supporting detail", "position": 0.2, "purpose": "Attribution, the second-most-important facts, immediate context."},
+          {"name": "background", "position": 0.55, "purpose": "History and prior developments."},
+          {"name": "residual detail", "position": 0.85, "purpose": "Material that can be cut from the bottom without damage."}
+        ],
+        "effect": "Designed for a reader who stops anywhere and an editor who cuts from the end.",
+        "caution": "Zero narrative tension by construction; it is a delivery mechanism, not a shape."
+      },
+      {
+        "name": "wall street journal formula",
+        "definition": "Open on a specific person, widen to the trend, develop it, and return to the person at the close.",
+        "beats": [
+          {"name": "anecdotal lede", "position": 0.0, "purpose": "One named individual in a concrete moment."},
+          {"name": "nut graf", "position": 0.2, "purpose": "State the larger story the anecdote illustrates and why now."},
+          {"name": "development", "position": 0.35, "purpose": "Evidence, sources, counter-view, scale."},
+          {"name": "return to the person", "position": 0.9, "purpose": "Close on the opening subject, now differently understood."}
+        ],
+        "aka": "anecdotal lede plus nut graf",
+        "caution": "The anecdote must be representative; a vivid outlier at the top misleads for the length of the piece."
+      },
+      {
+        "name": "wine glass structure",
+        "definition": "An inverted-pyramid news top joined to a chronological narrative bottom.",
+        "beats": [
+          {"name": "news top", "position": 0.0, "purpose": "Deliver what happened, for readers who need only that."},
+          {"name": "turn", "position": 0.3, "purpose": "Signal the shift to narrative — 'It began three weeks earlier.'"},
+          {"name": "chronology", "position": 0.4, "purpose": "Tell the story in order, from the beginning."},
+          {"name": "close", "position": 0.92, "purpose": "End on the moment or line that carries the meaning."}
+        ]
+      },
+      {
+        "name": "nut graf",
+        "definition": "The paragraph that states what the story is about, why it matters, and why it is running now.",
+        "effect": "The contract with the reader; a feature without one is a set of scenes.",
+        "caution": "Placed too late it loses readers, too early it wastes the lede's momentum — conventionally paragraphs three to six."
+      },
+      {
+        "name": "anecdotal lede",
+        "definition": "Open on a scene or person rather than on the news, deferring the general claim.",
+        "caution": "Requires a nut graf within a few paragraphs or the reader cannot tell what they are reading."
+      },
+      {
+        "name": "five ws lede",
+        "definition": "A summary opening that answers who, what, when, where, why and how in a sentence or two.",
+        "caution": "Cramming all six produces the unreadable lede; pick the two that are actually news."
+      },
+      {
+        "name": "tick-tock",
+        "definition": "Minute-by-minute reconstruction of how an event unfolded, assembled from multiple sources.",
+        "effect": "Tension comes from the reader knowing the outcome and watching the participants not know it.",
+        "register": "post-crisis reporting, disaster and deal narratives"
+      },
+      {
+        "name": "explainer",
+        "definition": "Arrangement built on the questions a non-expert would ask, in the order they would ask them.",
+        "caution": "Question order is the whole craft; expert-ordered explainers answer question four first."
+      },
+      {
+        "name": "q and a format",
+        "definition": "Edited interview presented as questions and answers, with the arrangement carried by question sequence.",
+        "effect": "Preserves the subject's voice and shifts responsibility for claims onto them, which cuts both ways."
+      },
+      {
+        "name": "profile structure",
+        "definition": "A person rendered through scene, biography and the testimony of others, organized around a governing tension.",
+        "caution": "Without a tension it becomes a résumé with adjectives; the subject's self-description is not the tension."
+      },
+      {
+        "name": "obituary structure",
+        "definition": "Death, significance, life in brief, defining achievement, personal detail, survivors.",
+        "register": "news obituary; the arrangement is fixed enough that departures read as editorial comment"
+      },
+      {
+        "name": "review structure",
+        "definition": "Describe the work, place it in context, evaluate against a stated standard, and recommend.",
+        "caution": "The standard must be visible; unstated criteria make a review a report of the reviewer's mood."
+      },
+      {
+        "name": "listicle",
+        "definition": "Enumerated arrangement where each item is self-contained and the order carries the argument.",
+        "effect": "Sets the reader's expectation of length and effort, which is why it converts; the cost is that the connective argument disappears."
+      },
+      {
+        "name": "to-be-sure paragraph",
+        "definition": "A paragraph acknowledging the strongest objection or the limits of the argument, conventionally placed before the close.",
+        "caution": "Ritualized into meaninglessness in opinion writing; a to-be-sure that concedes nothing signals the writer knows the weakness and is stepping around it."
+      },
+      {
+        "name": "kicker",
+        "definition": "A final line or paragraph chosen for resonance rather than information.",
+        "effect": "The last thing read and the most quoted; earn it with an image or line already planted earlier."
+      },
+      {
+        "name": "live blog",
+        "definition": "Reverse-chronological accretion in which the arrangement is imposed by time and later revised by summary.",
+        "caution": "Readers arrive at the top and read backwards; every entry must carry its own context."
+      }
+    ],
+    "essay_forms": [
+      {
+        "name": "five-paragraph theme",
+        "definition": "Introduction with a three-part thesis, three body paragraphs, and a restating conclusion.",
+        "beats": [
+          {"name": "introduction", "position": 0.0, "purpose": "Funnel to a thesis naming three supports."},
+          {"name": "first support", "position": 0.2, "purpose": "Topic sentence, evidence, analysis."},
+          {"name": "second support", "position": 0.42, "purpose": "Topic sentence, evidence, analysis."},
+          {"name": "third support", "position": 0.64, "purpose": "Topic sentence, evidence, analysis."},
+          {"name": "conclusion", "position": 0.86, "purpose": "Restate and generalize."}
+        ],
+        "register": "school writing and standardized tests",
+        "caution": "A scaffold for learners, not a form; its symmetry forces three reasons whether or not three exist."
+      },
+      {
+        "name": "delayed-thesis essay",
+        "definition": "The claim is withheld until the evidence has been walked, so the reader reaches it as a conclusion.",
+        "beats": [
+          {"name": "occasion", "position": 0.0, "purpose": "Open on the problem, scene or anomaly, not the claim."},
+          {"name": "exploration", "position": 0.2, "purpose": "Work through evidence and competing readings."},
+          {"name": "narrowing", "position": 0.6, "purpose": "Eliminate the alternatives that fail."},
+          {"name": "thesis", "position": 0.85, "purpose": "State the claim the reader has been assembling."}
+        ],
+        "register": "op-eds for hostile audiences, literary essays"
+      },
+      {
+        "name": "braided essay",
+        "definition": "Two or more distinct strands alternated in sections, related by resonance rather than by argument.",
+        "beats": [
+          {"name": "strand a", "position": 0.0, "purpose": "Establish the first line — often personal or narrative."},
+          {"name": "strand b", "position": 0.25, "purpose": "Introduce the second — often researched or historical."},
+          {"name": "alternation", "position": 0.4, "purpose": "Cut between strands so each recontextualizes the other."},
+          {"name": "convergence", "position": 0.85, "purpose": "Bring the strands into contact without stating the equation."}
+        ],
+        "caution": "The reader must be able to feel the connection by the second alternation; explaining it kills the form."
+      },
+      {
+        "name": "segmented essay",
+        "definition": "Numbered or white-space-separated sections whose gaps carry as much meaning as the text.",
+        "aka": "collage essay",
+        "caution": "The gaps must do work; segmentation used to hide missing transitions is visible immediately."
+      },
+      {
+        "name": "lyric essay",
+        "definition": "An essay organized by image, rhythm and association rather than by claim and support.",
+        "register": "literary nonfiction",
+        "caution": "The absence of argument is a choice that must be paid for in precision elsewhere."
+      },
+      {
+        "name": "hermit crab essay",
+        "definition": "An essay that borrows an unrelated document's form — recipe, syllabus, field guide, court filing — and inhabits it.",
+        "effect": "The borrowed form supplies constraint and irony at once; the mismatch between shell and content is the argument.",
+        "caution": "One-joke risk; the form has to keep generating meaning past the recognition."
+      },
+      {
+        "name": "exploratory essay",
+        "definition": "Arranged as a record of inquiry — the question, the false starts, the revisions — rather than as a report of its conclusion.",
+        "caution": "Requires genuine uncertainty; staged wandering toward a predetermined answer reads as condescension."
+      },
+      {
+        "name": "cause-and-effect essay",
+        "definition": "Arranged from causes to consequences, or backwards from an outcome to its causes.",
+        "caution": "Correlation dressed as sequence is the standard failure; state the mechanism, not just the order."
+      },
+      {
+        "name": "definition essay",
+        "definition": "Establish what a contested term should mean, usually by distinguishing it from near neighbours and testing it against cases.",
+        "effect": "Frequently the whole argument in disguise: whoever fixes the definition has usually won the dispute."
+      },
+      {
+        "name": "process analysis",
+        "definition": "Arranged as the ordered stages of how something is done or how it happens.",
+        "register": "instruction, science explainers, how-to writing",
+        "caution": "Two different forms share the name — how to do it, and how it happens; mixing them confuses the reader's role."
+      },
+      {
+        "name": "classification and division",
+        "definition": "Sort a subject into categories on a single stated principle, then treat each category.",
+        "caution": "The principle of division must be constant; a taxonomy that switches criteria mid-list is the commonest structural fault in nonfiction."
+      },
+      {
+        "name": "they say / i say",
+        "definition": "Enter an existing conversation by summarizing what others claim before advancing one's own view.",
+        "see_also": "paragraph_shapes/argumentative_shapes",
+        "beats": [
+          {"name": "they say", "position": 0.0, "purpose": "Summarize the prevailing view fairly and specifically."},
+          {"name": "i say", "position": 0.3, "purpose": "State your response — agree, disagree, or both with a difference."},
+          {"name": "reasons and evidence", "position": 0.5, "purpose": "Support the response."},
+          {"name": "so what / who cares", "position": 0.85, "purpose": "Say who this matters to and why it is worth the argument."}
+        ],
+        "effect": "Makes the motive for the piece explicit, which is what most unmotivated essays lack."
+      },
+      {
+        "name": "op-ed structure",
+        "definition": "News hook, thesis, three supporting arguments, concession, and a call for a specific change.",
+        "beats": [
+          {"name": "hook", "position": 0.0, "purpose": "Tie to something that happened this week."},
+          {"name": "thesis", "position": 0.15, "purpose": "State the argument in one sentence, early."},
+          {"name": "argument", "position": 0.3, "purpose": "Two or three supports, evidence per support."},
+          {"name": "to be sure", "position": 0.75, "purpose": "Concede the strongest objection honestly."},
+          {"name": "call", "position": 0.9, "purpose": "Name who should do what."}
+        ],
+        "register": "700-900 words; the constraint is the form"
+      },
+      {
+        "name": "abdce",
+        "definition": "Action, background, development, climax, ending — a narrative arrangement for essays and features.",
+        "beats": [
+          {"name": "action", "position": 0.0, "purpose": "Open in motion, mid-event."},
+          {"name": "background", "position": 0.2, "purpose": "Supply what the reader now needs to understand it."},
+          {"name": "development", "position": 0.4, "purpose": "Carry the action forward with rising consequence."},
+          {"name": "climax", "position": 0.8, "purpose": "The decisive moment or realization."},
+          {"name": "ending", "position": 0.92, "purpose": "Land on the changed state, briefly."}
+        ]
+      },
+      {
+        "name": "zuihitsu",
+        "definition": "The Japanese 'follow the brush' form: loosely linked fragments, lists and observations arranged by association.",
+        "register": "literary nonfiction; the ancestor of the segmented essay by a different route"
+      }
+    ],
+    "speech_and_sermon_forms": [
+      {
+        "name": "three-point sermon",
+        "definition": "One text, one theme, three parallel points, and an application.",
+        "beats": [
+          {"name": "introduction", "position": 0.0, "purpose": "Establish the need the text addresses."},
+          {"name": "first point", "position": 0.15, "purpose": "State, explain, illustrate, apply."},
+          {"name": "second point", "position": 0.4, "purpose": "State, explain, illustrate, apply."},
+          {"name": "third point", "position": 0.65, "purpose": "State, explain, illustrate, apply."},
+          {"name": "application", "position": 0.88, "purpose": "Ask the hearer for a specific response."}
+        ],
+        "caution": "The parallelism can force a third point the text does not contain."
+      },
+      {
+        "name": "expository sermon",
+        "definition": "Arrangement follows the structure of the text itself, verse by verse or unit by unit.",
+        "effect": "Constrains the preacher's agenda by making the text set the order."
+      },
+      {
+        "name": "topical sermon",
+        "definition": "Arrangement follows a subject, gathering texts to it.",
+        "caution": "Places the whole weight on the preacher's selection, which is why it is the easiest form to abuse."
+      },
+      {
+        "name": "textual sermon",
+        "definition": "The divisions of a single short passage supply the divisions of the sermon.",
+        "register": "between expository and topical; useful for a dense verse or two"
+      },
+      {
+        "name": "lowry loop",
+        "definition": "A narrative homiletic in five stages that treats the sermon as a plot rather than as an outline.",
+        "beats": [
+          {"name": "upsetting the equilibrium", "position": 0.0, "purpose": "Introduce a discrepancy the hearer feels."},
+          {"name": "analyzing the discrepancy", "position": 0.25, "purpose": "Deepen the problem rather than rushing to relieve it."},
+          {"name": "disclosing the clue to resolution", "position": 0.55, "purpose": "Turn the problem with an unexpected key, usually from the text."},
+          {"name": "experiencing the gospel", "position": 0.75, "purpose": "Let the resolution land as experience, not statement."},
+          {"name": "anticipating the consequences", "position": 0.92, "purpose": "Show what living from that resolution looks like."}
+        ],
+        "aka": "the homiletical plot",
+        "effect": "The most transferable sermon form for secular argument: it is an arc, not a list."
+      },
+      {
+        "name": "four pages of the sermon",
+        "definition": "Trouble in the text, trouble in the world, grace in the text, grace in the world.",
+        "beats": [
+          {"name": "trouble in the text", "position": 0.0, "purpose": "Name the difficulty inside the passage."},
+          {"name": "trouble in the world", "position": 0.25, "purpose": "Locate the same difficulty in the hearers' lives."},
+          {"name": "grace in the text", "position": 0.55, "purpose": "Show what the passage does about it."},
+          {"name": "grace in the world", "position": 0.8, "purpose": "Show what that means now, concretely."}
+        ],
+        "effect": "The two-by-two grid generalizes to any argument that must move between analysis and lived stakes."
+      },
+      {
+        "name": "puritan plain-style sermon",
+        "definition": "Text, doctrine, reasons, uses — exposition followed by proof followed by application.",
+        "beats": [
+          {"name": "text", "position": 0.0, "purpose": "Read and open the passage in its context."},
+          {"name": "doctrine", "position": 0.2, "purpose": "State the general truth the text yields."},
+          {"name": "reasons", "position": 0.45, "purpose": "Prove the doctrine from scripture and reason."},
+          {"name": "uses", "position": 0.75, "purpose": "Apply it — for instruction, reproof, comfort, examination."}
+        ],
+        "register": "seventeenth-century English and colonial preaching; a strikingly clean argument template"
+      },
+      {
+        "name": "homily",
+        "definition": "A short exposition tied to the day's reading, aiming at one point rather than a structure.",
+        "caution": "Brevity is the form; a homily with three points is a short sermon that ran out of time."
+      },
+      {
+        "name": "celebration close",
+        "definition": "A closing movement that restates the sermon's good news in rising, patterned language until the congregation participates.",
+        "register": "African American preaching tradition",
+        "effect": "The content of the celebration must be the content of the sermon; otherwise the emotion has no referent."
+      },
+      {
+        "name": "call-and-response structure",
+        "definition": "Arrangement built around scheduled audience reply, so the speech is composed in units that invite completion.",
+        "effect": "Changes the unit of composition from paragraph to exchange."
+      },
+      {
+        "name": "altar call",
+        "definition": "A closing arrangement that converts assent into an immediate, public, physical act.",
+        "caution": "The secular analogue — sign here, now, in the room — carries the same ethical burden about pressure and consent."
+      },
+      {
+        "name": "eulogy",
+        "definition": "Praise of the dead arranged around a governing quality, illustrated by story, and turned toward the living.",
+        "see_also": "rhetorical_situations/venue_and_genre",
+        "beats": [
+          {"name": "acknowledgement", "position": 0.0, "purpose": "Name the loss and the room's shared grief."},
+          {"name": "the governing quality", "position": 0.2, "purpose": "Say what this person was, in one claim."},
+          {"name": "stories", "position": 0.4, "purpose": "Two or three specific memories that prove it."},
+          {"name": "turn to the living", "position": 0.8, "purpose": "Say what the quality asks of those present."},
+          {"name": "farewell", "position": 0.95, "purpose": "Close with the direct address the occasion needs."}
+        ],
+        "caution": "Specific and small beats grand and general every time."
+      },
+      {
+        "name": "ted-style talk",
+        "definition": "Personal opening, one counterintuitive idea, evidence in three movements, and a closing implication.",
+        "beats": [
+          {"name": "personal opening", "position": 0.0, "purpose": "Establish why this speaker, in a scene."},
+          {"name": "the idea", "position": 0.2, "purpose": "State the counterintuitive claim plainly."},
+          {"name": "evidence", "position": 0.4, "purpose": "Three movements: study, story, demonstration."},
+          {"name": "implication", "position": 0.85, "purpose": "What changes if the audience accepts it."}
+        ],
+        "caution": "The format rewards counterintuition, which selects for claims that are surprising rather than true."
+      },
+      {
+        "name": "stump speech",
+        "definition": "A repeatable arrangement of fixed modules — story, indictment, promise, ask — reordered for each audience.",
+        "effect": "Repetition across venues is a feature: the modules get tested and the surviving ones harden."
+      },
+      {
+        "name": "acceptance speech",
+        "definition": "Gratitude, acknowledgement of others, a claim about what the honour represents, and a brief dedication.",
+        "caution": "The list of thanks is the part the audience tolerates, not the part they came for; the claim is the speech."
+      }
+    ]
+  }
+}

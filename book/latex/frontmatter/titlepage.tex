@@ -1,0 +1,41 @@
+%% titlepage.tex — full title page (recto).
+%% Everything from metadata macros (ADR 0002) — no literal strings.
+%% Ends with \clearpage (NOT \cleardoublepage): the copyright page
+%% must land on this page's verso, per publishing convention.
+\thispagestyle{empty}
+\begin{center}
+  \vspace*{0.14\textheight}
+
+  {\Huge\bfseries\color{bk-chapter-title}\BookTitle\par}
+
+  \ifBookHasSubtitle
+    \vspace{1.2\baselineskip}
+    {\Large\itshape\color{text-muted}\BookSubtitle\par}
+  \fi
+
+  \ifBookHasEditionSuffix
+    \vspace{1.2\baselineskip}
+    {\large\bklabelcaps{\BookEditionSuffix}\par}
+  \fi
+
+  \vspace{2.5\baselineskip}
+  {\color{bk-titlepage-rule}\rule{0.35\textwidth}{0.6pt}\par}
+  \vspace{2.5\baselineskip}
+
+  {\LARGE\BookAuthor\par}
+
+  \vfill
+
+  % Imprint (when set) is the display brand; publisher backs it.
+  \ifBookHasImprint
+    {\large\bklabelcaps{\BookImprint}\par}
+    \smallskip
+    {\small\color{text-muted}\BookPublisher\par}
+  \else
+    {\large\bklabelcaps{\BookPublisher}\par}
+  \fi
+  \smallskip
+  {\small\color{text-muted}\BookYear\par}
+  \vspace*{2\baselineskip}
+\end{center}
+\clearpage

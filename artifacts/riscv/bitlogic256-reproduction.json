@@ -1,0 +1,32 @@
+{
+  "object": "M.riscv.bitlogic256",
+  "rows_parsed": 256,
+  "semantic_errors": [],
+  "base_len_histogram": {
+    "0": 5,
+    "1": 12,
+    "2": 42,
+    "3": 112,
+    "4": 73,
+    "5": 12
+  },
+  "ext_len_histogram": {
+    "0": 5,
+    "1": 27,
+    "2": 112,
+    "3": 88,
+    "4": 24
+  },
+  "base_max": 5,
+  "ext_max": 4,
+  "mismatches_vs_document": [],
+  "ch_0xD8": {
+    "base": 3,
+    "ext": 3
+  },
+  "maj_0xE8": {
+    "base": 4,
+    "ext": 4
+  },
+  "verdict": "REPRODUCED"
+}

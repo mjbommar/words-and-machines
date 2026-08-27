@@ -1,0 +1,22 @@
+{
+  "id": "OP.avx2.transpose4x4",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Is _MM_TRANSPOSE4_PS (8 instructions) minimal?",
+  "statement": "The textbook SIMD shuffle, in every game engine and BLAS microkernel; universally believed optimal, never proved. 16 tags, 4 registers, ~2.5k vars at depth 8. Effort estimate: weeks.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

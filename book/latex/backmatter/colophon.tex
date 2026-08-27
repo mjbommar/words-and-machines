@@ -1,0 +1,39 @@
+%% colophon.tex — production note (traditionally the last page).
+%% Typeface names are dispatched on \BookFontProfile so the colophon
+%% is always TRUE for the build that produced it — a colophon that
+%% lies about its own fonts is the classic self-publishing tell.
+\chapter{Colophon}
+
+\noindent This book was designed and typeset with
+\ifluatex Lua\LaTeX\else Xe\LaTeX\fi{} from a single-source template:
+metadata, trim, typography, and edition structure all derive from one
+configuration file, and every output format---print interior, bleed
+variant, and ebook---builds from the same LaTeX sources.
+
+\medskip
+
+\noindent The text is set in
+\ifdefstring{\BookFontProfile}{libertinus}{%
+  Libertinus Serif, with Libertinus Sans for titling accents and
+  Libertinus Mono for code%
+}{}%
+\ifdefstring{\BookFontProfile}{garamond}{%
+  EB Garamond, with a companion humanist sans for titling accents and
+  Noto Sans Mono for code%
+}{}%
+\ifdefstring{\BookFontProfile}{plex}{%
+  IBM Plex Serif, with IBM Plex Sans for titling accents and IBM Plex
+  Mono for code (SemiBold serving as bold throughout)%
+}{}%
+, at a base size of \BookBaseSize{} on a \BookTrimWidth{} by
+\BookTrimHeight{} trim.
+
+\medskip
+
+\noindent Interior architecture: a modular preamble with a four-layer
+color system, semantic callout boxes, and micro-typographic protrusion
+tuned per typeface. Citations are managed with biblatex and biber.
+
+\bigskip
+
+\noindent\textit{\BookPublisher\ \textperiodcentered\ \BookYear}

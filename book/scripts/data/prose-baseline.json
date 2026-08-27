@@ -1,0 +1,54 @@
+{
+  "_generated_by": "scripts/prose_metrics.py --write-baseline",
+  "_note": "house percentile bands from edited books; regenerate per the prose_metrics.py docstring, never hand-edit",
+  "source_roots": [
+    "foundations-book",
+    "wiki-history-book",
+    "legal-tech-history-book",
+    "datacenter-2026-book",
+    "history-through-rfc-book"
+  ],
+  "chapters": 128,
+  "metrics": {
+    "cv": {
+      "p10": 0.52,
+      "p50": 0.59,
+      "p90": 0.68
+    },
+    "mtld": {
+      "p10": 90.18,
+      "p50": 113.95,
+      "p90": 161.3
+    },
+    "mattr": {
+      "p10": 0.801,
+      "p50": 0.823,
+      "p90": 0.856
+    },
+    "comp": {
+      "p10": 0.384,
+      "p50": 0.419,
+      "p90": 0.475
+    },
+    "adv_pct": {
+      "p10": 0.7,
+      "p50": 1.1,
+      "p90": 1.6
+    },
+    "para_cv": {
+      "p10": 0.33,
+      "p50": 0.42,
+      "p90": 0.55
+    },
+    "spec": {
+      "p10": 3.8,
+      "p50": 6.4,
+      "p90": 10.63
+    },
+    "mean_len": {
+      "p10": 11.47,
+      "p50": 14.0,
+      "p90": 23.44
+    }
+  }
+}

@@ -1,0 +1,43 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      # Pinned for reproducible builds: TL<year>-historic tags are frozen
+      # snapshots of a finished TeX Live release. arXiv runs TeX Live 2025;
+      # matching it here means a CI-green paper compiles on arXiv too.
+      # The full image carries Libertinus/Plex/newtx and the algorithm bundle.
+      image: texlive/texlive:TL2025-historic
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tooling (uv, poppler)
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq poppler-utils
+          wget -qO- https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Doctor (toolchain + drift audit)
+        run: make doctor
+
+      - name: Build the paper + figures + QA gates
+        run: make validate
+
+      - name: arXiv source bundle (verifies a standalone compile)
+        run: make arxiv
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-build
+          path: |
+            build/latex/main.pdf
+            build/arxiv/*.tar.gz
+          retention-days: 14

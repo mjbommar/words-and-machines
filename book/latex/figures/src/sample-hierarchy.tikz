@@ -1,0 +1,13 @@
+% Sample figure source (module: figures) — a two-node hierarchy showing
+% the workflow: bare tikzpicture body, book palette, grayscale-safe.
+% Build with `make figures`; include via \includegraphics{figures/sample-hierarchy}.
+\begin{tikzpicture}[
+  box/.style={draw=gray-500, fill=gray-100, rounded corners=2pt,
+    minimum width=3cm, minimum height=0.8cm, font=\small},
+  hi/.style={box, draw=ml-blue-700, fill=ml-blue-50, text=ml-blue-700},
+  arr/.style={->, >=stealth, line width=0.7pt, gray-500}]
+  \node[hi]  (a) at (0,1.2) {source of truth};
+  \node[box] (b) at (0,0)   {derived artifact};
+  \draw[arr] (a) -- (b) node[midway, right, font=\scriptsize\itshape,
+    text=gray-600] {~generate};
+\end{tikzpicture}

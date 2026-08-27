@@ -1,0 +1,1340 @@
+{
+  "name": "dialogue_mechanics",
+  "level": "micro",
+  "entry_type": "record",
+  "description": "The mechanical layer of dialogue on the page: attribution tags and action beats, speech typography and punctuation, exchange shapes, subtext technique, and the rendering of silence.",
+  "categories": {
+    "tags_and_beats": [
+      {
+        "name": "said as the invisible tag",
+        "definition": "Using 'said' as the default attribution verb, on the principle that readers process it as punctuation rather than as a word.",
+        "pattern": "\"[Line],\" said [speaker]. / \"[Line],\" [speaker] said.",
+        "example": "\"The March file is gone,\" she said. \"I looked twice.\"",
+        "effect": "Attributes without adding a second performance on top of the line; the dialogue keeps the reader's whole attention.",
+        "register": "all fiction and narrative nonfiction",
+        "polarity": "virtue",
+        "caution": "Invisible is not free — three 'saids' in four consecutive short lines start to be heard. Alternate with beats and untagged lines.",
+        "tags": [
+          "attribution",
+          "default"
+        ],
+        "see_also": "pov_and_narration/speech_and_thought_representation"
+      },
+      {
+        "name": "asked as the second invisible tag",
+        "definition": "The small closed set of tag verbs that stay transparent alongside 'said' — asked, told, replied in moderation, and volume verbs like whispered and shouted when the volume is genuine information.",
+        "example": "\"Who signed for it?\" she asked.\n\"Nobody,\" he whispered. \"That's the point.\"",
+        "effect": "Carries a grammatical or acoustic fact the line cannot carry itself, without editorializing.",
+        "caution": "'Replied', 'answered', and 'responded' are already at the edge; past three in a chapter they read as a thesaurus at work.",
+        "tags": [
+          "attribution"
+        ]
+      },
+      {
+        "name": "said-bookism",
+        "definition": "Replacing 'said' with an ostentatious substitute — expostulated, opined, ejaculated, riposted — in flight from repetition.",
+        "example": "Weak: \"You cannot be serious,\" he expostulated. Fixed: \"You cannot be serious.\" He put down the fork.",
+        "effect": "Drags the reader's eye off the line and onto the narrator's vocabulary.",
+        "polarity": "fault",
+        "aka": [
+          "swifty verb",
+          "elegant variation in tags"
+        ],
+        "caution": "The instinct behind it is right — the repetition was real; the fix is a beat or no tag at all, not a longer verb.",
+        "tags": [
+          "attribution"
+        ]
+      },
+      {
+        "name": "adverb-loaded tag",
+        "definition": "A tag that supplies with an adverb the emotion the quoted line should have earned on its own.",
+        "example": "Weak: \"I don't care what it costs,\" she said angrily. Fixed: \"I don't care what it costs.\" She said it twice, the second time to the window.",
+        "effect": "Tells the reader the reading rather than letting the line produce it; the adverb usually marks a line that is not yet doing its job.",
+        "polarity": "fault",
+        "aka": [
+          "Tom Swifty tag",
+          "-ly attribution"
+        ],
+        "caution": "The rare keeper is the adverb that contradicts the line ('\"Fine,\" she said pleasantly') — there the adverb is information, not commentary.",
+        "tags": [
+          "attribution",
+          "adverb"
+        ],
+        "see_also": "diction_and_register/boosters"
+      },
+      {
+        "name": "non-speech verb as tag",
+        "definition": "Attaching the quotation to a verb that cannot produce articulated speech — laughed, smiled, grinned, shrugged, sighed — as though it were a speech verb.",
+        "example": "Weak: \"Forget it,\" he laughed. Fixed: \"Forget it.\" He laughed, and did not look at her.",
+        "effect": "Reads as a mechanical impossibility to attentive readers; the fix is one period, which also gives the beat its own weight.",
+        "polarity": "fault",
+        "aka": [
+          "impossible tag",
+          "laughed-as-tag"
+        ],
+        "caution": "'Sighed' and 'breathed' pass in some commercial registers; check the house style before hunting them all.",
+        "tags": [
+          "attribution",
+          "punctuation"
+        ]
+      },
+      {
+        "name": "beat-for-tag substitution",
+        "definition": "Attributing a line by placing the speaker's physical action in the same paragraph instead of a reporting clause, so paragraph adjacency does the work the tag would have done.",
+        "pattern": "\"[Line].\" [Speaker's action in the same paragraph.]",
+        "example": "\"That is not my signature.\" She turned the page face down and left it there.",
+        "effect": "Attributes, paces, and characterizes in one stroke, and puts a body in a scene that was becoming voices only.",
+        "aka": [
+          "action beat as attribution"
+        ],
+        "caution": "The beat must belong to the speaker — an action by the other party in the same paragraph reassigns the line without meaning to.",
+        "tags": [
+          "beat",
+          "attribution"
+        ],
+        "see_also": [
+          "pov_and_narration/speech_and_thought_representation",
+          "interaction_moves/dialogue_beats"
+        ]
+      },
+      {
+        "name": "gesture beat",
+        "definition": "A beat built from the speaker's body — hands, gaze, posture — chosen because it is legible from outside and specific to that character.",
+        "example": "\"We can revisit it in the spring.\" He squared the papers against the desk, edge by edge, until they were a block.",
+        "effect": "Gives the line a physical tempo and lets the body dissent from the words.",
+        "caution": "Nodding, shrugging, and smiling are the three gestures every draft overuses; if the beat could belong to anyone, it belongs to no one.",
+        "tags": [
+          "beat"
+        ],
+        "see_also": "interaction_moves/emotional_expressions"
+      },
+      {
+        "name": "prop beat",
+        "definition": "A beat routed through an object the scene has already established — a cup, a phone, a folder — so the action carries the scene's own furniture.",
+        "example": "\"I never saw the second invoice.\" She set the cup down on the ring it had already made.",
+        "effect": "Attributes while advancing the scene's physical situation; props accumulate meaning across a chapter in a way gestures do not.",
+        "caution": "Props must have been placed before they are used, or the beat reads as a set dressed mid-take.",
+        "tags": [
+          "beat",
+          "object"
+        ],
+        "see_also": "settings_and_environments/interior_spaces"
+      },
+      {
+        "name": "interior-thought beat",
+        "definition": "A line of the viewpoint character's interiority placed between two spoken lines, doing the attributing and supplying the gap between what is thought and what is said.",
+        "example": "\"Of course. Whatever's easiest.\"\nIt was not what was easiest. It was what would take longest to undo.\n\"Then we'll leave it as it is,\" he said.",
+        "effect": "Opens the distance between the said and the meant — the cheapest subtext available in close third or first person.",
+        "register": "close third and first person only",
+        "caution": "Available to one character only; a thought beat for the non-viewpoint speaker is a point-of-view break.",
+        "tags": [
+          "beat",
+          "interiority"
+        ],
+        "see_also": "pov_and_narration/psychic_distance_ladder"
+      },
+      {
+        "name": "contradicting beat",
+        "definition": "A beat whose physical content argues against the line it accompanies, so the reader believes the body over the words.",
+        "example": "\"I'm not upset.\" She was still holding the phone she had put down twice.",
+        "effect": "Manufactures subtext out of two neutral elements; neither line nor beat has to be clever.",
+        "caution": "Once per exchange. A scene in which every beat contradicts every line becomes a wink at the reader.",
+        "tags": [
+          "beat",
+          "subtext"
+        ],
+        "see_also": "dialogue_mechanics/subtext_techniques"
+      },
+      {
+        "name": "inert beat",
+        "definition": "A beat that occupies a line without characterizing, pacing, or contradicting — sipping, nodding, looking up, crossing the room for no reason.",
+        "example": "Weak: \"I'll think about it.\" He nodded. \"Good,\" she said, nodding. Fixed: \"I'll think about it.\" \"That's not a yes.\"",
+        "effect": "Costs a line and returns nothing; a page of inert beats reads as choreography notes.",
+        "polarity": "fault",
+        "aka": [
+          "furniture beat",
+          "nodding beat"
+        ],
+        "caution": "Test: delete the beat. If nothing is lost but the attribution, use 'said' instead.",
+        "tags": [
+          "beat"
+        ]
+      },
+      {
+        "name": "rhythm-reset beat",
+        "definition": "A deliberately longer beat dropped into a fast exchange to reset the tempo before the next volley.",
+        "example": "\"You knew.\"\n\"I knew what was in the file.\"\n\"You knew.\"\nOutside, a truck backed up somewhere behind the building, beeping, for a long time.\n\"I knew,\" he said.",
+        "effect": "Buys silence without a paragraph break and makes the line after it land harder for having been waited for.",
+        "caution": "Use the room, not the character — a beat about the speaker's feelings at this point deflates the pressure the exchange built.",
+        "tags": [
+          "beat",
+          "pacing"
+        ],
+        "see_also": "sound_and_rhythm/paragraph_rhythm"
+      },
+      {
+        "name": "beat splitting the line",
+        "definition": "An action beat inserted inside a single character's utterance, breaking the quotation into two sentences rather than interrupting a clause.",
+        "pattern": "\"[First sentence].\" [Beat.] \"[Second sentence].\"",
+        "example": "\"I read the whole thing.\" She turned the folder around so it faced him. \"Twice.\"",
+        "effect": "Places a pause exactly where the speaker's attention moves, and gives the second half the weight of an afterthought.",
+        "caution": "Distinct from the medial tag: the beat needs its own full stop, because an action is not a reporting clause.",
+        "tags": [
+          "beat",
+          "punctuation"
+        ],
+        "see_also": "syntactic_constructions/interruption_and_parenthesis"
+      },
+      {
+        "name": "front-loaded tag",
+        "definition": "Attribution placed before the quoted line, so the reader knows the speaker going in.",
+        "pattern": "[Speaker] said, \"[Line].\"",
+        "example": "Halloran said, \"Nobody is going to ask you about the March file.\"",
+        "effect": "Useful when the speaker is new to the scene, or when the line would be misassigned without warning.",
+        "register": "formal, journalistic, and stage-setting",
+        "caution": "It spends the line's surprise in advance; in a fast exchange it flattens every entry to the same shape.",
+        "tags": [
+          "attribution",
+          "placement"
+        ]
+      },
+      {
+        "name": "medial tag",
+        "definition": "Attribution inserted between two parts of one utterance, at the place where the speaker would draw breath.",
+        "pattern": "\"[First part],\" said [speaker], \"[second part].\"",
+        "example": "\"I signed it,\" she said, \"the way I signed everything that year.\"",
+        "effect": "Attributes early enough to be useful and creates a pause the punctuation alone could not.",
+        "caution": "Break at a clause boundary. A tag dropped mid-phrase reads as an interruption the speaker did not make.",
+        "aka": [
+          "split dialogue tag"
+        ],
+        "tags": [
+          "attribution",
+          "placement"
+        ],
+        "see_also": "syntactic_constructions/interruption_and_parenthesis"
+      },
+      {
+        "name": "late tag",
+        "definition": "Attribution arriving after a long line whose speaker the reader has already assigned, so the tag either confirms what was obvious or forces a re-read.",
+        "example": "Weak: \"Nobody in this building has read that file since the spring, and I include the people who signed it, and I include myself,\" said Halloran. Fixed: front the tag, or beat the line's opening.",
+        "effect": "At best redundant; at worst it corrects the reader's assumption three clauses too late.",
+        "polarity": "fault",
+        "caution": "Deliberate late attribution is a real device when the speaker's identity is the reveal — but then it is a reveal, and needs a paragraph of its own.",
+        "tags": [
+          "attribution",
+          "placement"
+        ]
+      },
+      {
+        "name": "re-anchoring tag",
+        "definition": "A single tag dropped back into a long untagged run to reset the reader's count of who is speaking.",
+        "example": "\"You could have called.\"\n\"At two in the morning.\"\n\"At any hour you liked.\"\n\"And said what?\" she said. \"That I had read it?\"",
+        "effect": "Buys another eight lines of tagless speed for the price of two words.",
+        "caution": "Anchor on the line that would be ambiguous, not the line that happens to be fourth; count the alternation yourself before deciding the reader can.",
+        "tags": [
+          "attribution",
+          "pacing"
+        ]
+      },
+      {
+        "name": "untagged volley",
+        "definition": "A run of lines between two established speakers carried by strict alternation alone, with no tags and no beats.",
+        "example": "\"You signed it.\"\n\"I signed a lot of things.\"\n\"You signed this one twice.\"",
+        "effect": "Strips an exchange to pure speed; the reader hears the scene instead of watching it.",
+        "aka": [
+          "tagless run"
+        ],
+        "caution": "Two speakers, short lines, no interruptions to the alternation — and re-anchor before the reader can lose the count.",
+        "tags": [
+          "attribution",
+          "two-hander"
+        ],
+        "see_also": [
+          "pov_and_narration/speech_and_thought_representation",
+          "dialogue_mechanics/exchange_shapes"
+        ]
+      },
+      {
+        "name": "name in the line",
+        "definition": "Using a vocative inside the spoken line to identify who is being addressed, and by implication who is speaking.",
+        "pattern": "\"[Vocative], [line].\"",
+        "example": "\"Marie, look at the date on it.\"",
+        "effect": "Attributes and orients a three-way scene without a tag, and marks the moment one character singles another out.",
+        "caution": "People use names far less than dialogue does — mostly to summon, warn, or wound. Reserve it for those.",
+        "tags": [
+          "attribution",
+          "vocative"
+        ],
+        "see_also": "syntactic_constructions/interruption_and_parenthesis"
+      },
+      {
+        "name": "vocative overuse",
+        "definition": "Salting names through an exchange so the reader can keep track, until characters address each other more often than people do.",
+        "example": "Weak: \"I don't know, Marie.\" \"You do know, Frank.\" \"Marie.\" \"Frank.\" Fixed: keep the first, cut the rest, add one beat.",
+        "effect": "Reads as radio drama or as a hostage video; it also drains the vocative of the force it should have when it matters.",
+        "polarity": "fault",
+        "aka": [
+          "name-calling in every line"
+        ],
+        "caution": "Count the vocatives in any exchange over ten lines; more than two is almost always the tracking problem in disguise.",
+        "tags": [
+          "vocative"
+        ]
+      },
+      {
+        "name": "ambiguous attribution",
+        "definition": "A line whose speaker cannot be determined from the paragraph it sits in — usually a beat by one character in the same paragraph as another character's speech.",
+        "example": "Broken: \"You should tell them.\" Halloran looked at the door. (Whose line?) Fixed: split the paragraph, or give the line the tag.",
+        "effect": "Stops the reader mid-scene to audit the last six lines; nothing else in dialogue costs more attention.",
+        "polarity": "fault",
+        "aka": [
+          "floating line"
+        ],
+        "caution": "Most common after an interruption breaks the alternation, and in three-handers where the reader is tracking two possible answerers.",
+        "tags": [
+          "attribution"
+        ]
+      },
+      {
+        "name": "stage-direction pileup",
+        "definition": "Stacking blocking, gesture, and facial description around every line until the choreography outweighs the talk.",
+        "example": "Weak: She stood, crossed to the window, folded her arms, and turned back before she said, \"No.\" Fixed: She went to the window. \"No.\"",
+        "effect": "Turns a scene into a rehearsal script; the reader loses the thread of the argument between the movements.",
+        "polarity": "fault",
+        "aka": [
+          "blocking overload"
+        ],
+        "caution": "Readers infer position from very little. Give one physical fact per exchange and let the rest stay unspecified.",
+        "tags": [
+          "beat",
+          "blocking"
+        ]
+      }
+    ],
+    "typography_of_speech": [
+      {
+        "name": "cut-off dash",
+        "definition": "An em dash at the end of a quotation marking speech severed by an interruption, an event, or the speaker's own stop.",
+        "pattern": "\"[Partial line]—\"",
+        "example": "\"If you had told me before the board met—\"\n\"I tried to tell you in March.\"",
+        "effect": "The line stops rather than fades; the reader hears the collision.",
+        "caution": "The dash goes inside the closing quotation mark, with no comma. A tag after it starts a new sentence.",
+        "tags": [
+          "punctuation",
+          "interruption"
+        ],
+        "see_also": [
+          "syntactic_constructions/interruption_and_parenthesis",
+          "sound_and_rhythm/pause_and_punctuation_rhythm"
+        ]
+      },
+      {
+        "name": "trailing ellipsis",
+        "definition": "An ellipsis closing a quotation to mark speech that fades, wanders, or is abandoned by the speaker rather than cut off by another.",
+        "pattern": "\"[Line]…\"",
+        "example": "\"I suppose if the dates were wrong then the whole schedule would…\" She stopped and started again.",
+        "effect": "Renders a speaker losing the thread, softening, or declining to finish; the drift is the characterization.",
+        "caution": "Three or four on a page makes every character sound tentative; it is the single most overused mark in draft dialogue.",
+        "tags": [
+          "punctuation",
+          "pause"
+        ]
+      },
+      {
+        "name": "cut-versus-fade convention",
+        "definition": "The house rule distinguishing the two marks: a dash for speech stopped from outside, an ellipsis for speech that runs down from inside.",
+        "example": "Cut: \"But the ledger says—\" \"The ledger is wrong.\" Fade: \"But the ledger says…\" Nobody finished it for her.",
+        "effect": "Once applied consistently, the punctuation alone tells the reader whether the speaker was overruled or gave up.",
+        "caution": "Mixing the two within a book teaches the reader nothing; pick the convention early and note it in the style sheet.",
+        "tags": [
+          "punctuation",
+          "convention"
+        ]
+      },
+      {
+        "name": "resumed line after interruption",
+        "definition": "Rendering a speaker who is cut off and then picks the sentence back up, dash closing the first fragment and opening the resumption.",
+        "example": "\"What I am telling you is that the file—\"\n\"Nobody cares about the file.\"\n\"—the file was signed out to you.\"",
+        "effect": "Shows a speaker refusing to be derailed; the syntax of the resumed clause proves the sentence was held in mind through the interruption.",
+        "caution": "Only works if the resumed fragment is grammatically continuous with the first; readers check.",
+        "tags": [
+          "punctuation",
+          "interruption"
+        ]
+      },
+      {
+        "name": "dash-initial dialogue",
+        "definition": "A quotation convention using an opening dash for each speech and no quotation marks, common in French, Spanish, and Irish practice.",
+        "pattern": "— [Line], said [speaker].",
+        "example": "— You signed for it, he said.\n— I signed for a box. I did not open the box.",
+        "effect": "Puts speech and narration on the same typographic plane; the page reads as one continuous voice.",
+        "register": "literary fiction, translated fiction",
+        "aka": [
+          "tiret",
+          "Joycean dash",
+          "quotation dash"
+        ],
+        "caution": "Nested quotation and mid-line narration become genuinely hard; commit to it for the whole book or not at all.",
+        "tags": [
+          "convention",
+          "typography"
+        ]
+      },
+      {
+        "name": "unquoted dialogue",
+        "definition": "Running speech with no quotation marks and no dashes at all, distinguished from narration by paragraphing and diction alone.",
+        "example": "He asked her when she had last seen the file.\nIn March, she said. Before any of this.\nAnd you signed it.\nI signed it.",
+        "effect": "Dissolves the boundary between narration and speech; the effect is incantatory and slightly unmoored.",
+        "register": "literary fiction",
+        "aka": [
+          "McCarthy style"
+        ],
+        "caution": "Requires short scenes, few speakers, and no interior quotation; and it costs the reader real work, which the prose must repay.",
+        "tags": [
+          "convention",
+          "typography"
+        ],
+        "see_also": "pov_and_narration/speech_and_thought_representation"
+      },
+      {
+        "name": "quotation within quotation",
+        "definition": "A speaker quoting another speaker, marked with the alternate quotation mark inside the outer pair.",
+        "pattern": "\"[Line] '[inner quotation]' [line].\"",
+        "example": "\"He looked at me and said, 'That is not the number I gave the auditors,' and then he left.\"",
+        "effect": "Lets a character stage a scene inside their own line — the most compact form of reported speech available in dialogue.",
+        "caution": "Two nestings deep is the practical limit in prose, and single-inside-double is the American convention; the British house reverses it.",
+        "tags": [
+          "punctuation",
+          "convention"
+        ],
+        "see_also": "pov_and_narration/speech_and_thought_representation"
+      },
+      {
+        "name": "new speaker, new paragraph",
+        "definition": "The base convention of English dialogue typography: each change of speaker starts a new paragraph, along with that speaker's beats and interiority.",
+        "example": "\"You could have said something.\" She did not turn around.\n\"I did say something.\" He waited. \"You were in Brussels.\"",
+        "effect": "Does most of the attribution work in any well-set exchange, which is why tagless dialogue is legible at all.",
+        "polarity": "virtue",
+        "caution": "Violating it is not a stylistic choice but an ambiguity; if two speakers must share a paragraph, both need tags.",
+        "tags": [
+          "convention",
+          "paragraphing"
+        ]
+      },
+      {
+        "name": "continuing-quotation open quote",
+        "definition": "When one speaker's turn runs to several paragraphs, each new paragraph opens with a quotation mark and only the final paragraph closes one.",
+        "example": "\"It started with the March schedule.\n\n\"By June there were two of them, and by the time anyone asked, only one had a signature on it.\"",
+        "effect": "Signals a long unbroken turn without letting the reader assume the speaker changed.",
+        "register": "testimony, long monologue, oral history",
+        "caution": "A turn long enough to need this is long enough to need auditing — see whether it is a monologue disguised as dialogue.",
+        "tags": [
+          "convention",
+          "paragraphing"
+        ],
+        "see_also": "dialogue_mechanics/dialogue_faults"
+      },
+      {
+        "name": "italics for unspoken speech",
+        "definition": "Setting remembered lines, imagined speech, telepathy, or speech in another language in italics rather than quotation marks.",
+        "example": "She heard it again in her father's voice. Sign nothing you have not read.",
+        "effect": "Marks the line as not present in the room while keeping its full grammatical force as speech.",
+        "caution": "One italic job per book. If italics already carry direct thought, they cannot also carry memory, emphasis, and the foreign language without collapsing.",
+        "tags": [
+          "typography",
+          "italics"
+        ],
+        "see_also": "pov_and_narration/speech_and_thought_representation"
+      },
+      {
+        "name": "capitals for volume",
+        "definition": "Full capitals or small capitals used to render shouting, amplified announcement, or non-human voice.",
+        "example": "The tannoy came on. ALL PASSENGERS FOR THE 6:40 SERVICE.",
+        "effect": "Renders loudness typographically when the prose cannot afford to say it.",
+        "caution": "In character speech it almost always reads as comic; small caps for institutional or machine voice survive better than capitals for anger.",
+        "tags": [
+          "typography",
+          "volume"
+        ],
+        "see_also": "diction_and_register/boosters"
+      },
+      {
+        "name": "phonetic respelling",
+        "definition": "Spelling a speaker's words as they sound — wuz, gonna, tuh, 'orrible — to mark accent or class.",
+        "example": "Weak: \"Ah don't rightly know wot 'e wuz doin' wiv it.\" Fixed: \"I don't rightly know what he was doing with it.\" — the syntax and the 'rightly' carry the voice.",
+        "effect": "Slows reading, and marks the respelled speaker as deviant from an unmarked standard the narrator quietly occupies.",
+        "polarity": "fault",
+        "aka": [
+          "eye dialect"
+        ],
+        "caution": "Carry dialect in word choice, idiom, and syntax instead; reserve spelling for the one or two words that cannot be got any other way.",
+        "tags": [
+          "dialect",
+          "typography"
+        ],
+        "see_also": [
+          "diction_and_register/period_and_dialect_diction",
+          "pov_and_narration/speech_and_thought_representation"
+        ]
+      },
+      {
+        "name": "question mark inside the quotation",
+        "definition": "Terminal question and exclamation marks belong inside the closing quotation mark when they belong to the quoted utterance, and the tag that follows stays lowercase.",
+        "pattern": "\"[Question]?\" she asked.",
+        "example": "\"Who countersigned it?\" she asked.",
+        "effect": "Keeps the mark with the speech act it modifies.",
+        "caution": "The tag is not capitalized after a question mark — it is still the same sentence. This is the most-missed rule in draft dialogue.",
+        "tags": [
+          "punctuation",
+          "mechanics"
+        ]
+      },
+      {
+        "name": "comma before the tag",
+        "definition": "A declarative quotation takes a comma, not a period, before an attributive tag — and a period, not a comma, before an action beat.",
+        "pattern": "\"[Line],\" she said. / \"[Line].\" She stood up.",
+        "example": "\"The file was never logged,\" she said.\n\"The file was never logged.\" She stood up.",
+        "effect": "The punctuation tells the reader whether what follows is speech machinery or scene.",
+        "caution": "The comma splice with a beat — \"The file was never logged,\" she stood up — is the commonest mechanical error in dialogue.",
+        "tags": [
+          "punctuation",
+          "mechanics"
+        ]
+      },
+      {
+        "name": "solo line paragraph",
+        "definition": "A single unattributed line of speech given its own paragraph with no tag, beat, or narration around it.",
+        "example": "They went through the schedule twice more and found nothing.\n\n\"Somebody moved it.\"\n\nNeither of them said anything for a while.",
+        "effect": "The white space above and below makes the line land like a struck note; ideal for the line that changes the scene.",
+        "caution": "Only when the speaker is unmistakable, and once per scene — the device is entirely made of its own rarity.",
+        "tags": [
+          "paragraphing",
+          "emphasis"
+        ],
+        "see_also": "syntactic_constructions/sentence_length_moves"
+      },
+      {
+        "name": "set-off speech block",
+        "definition": "A long speech rendered as an indented block without quotation marks, the way documentary and oral-history prose sets testimony.",
+        "example": "She gave the account she had given the auditors, in the same order:\n\n    I opened the box in March. There was one schedule in it. I signed the cover sheet and sent the box back the same afternoon.",
+        "effect": "Marks a turn as testimony or document rather than conversation, and licenses a length no exchange would tolerate.",
+        "register": "narrative nonfiction, oral history, documentary fiction",
+        "caution": "In fiction it breaks the scene frame — the reader hears an archive, not a room.",
+        "tags": [
+          "typography",
+          "testimony"
+        ],
+        "see_also": "evidence_types/documentary_and_physical_evidence"
+      },
+      {
+        "name": "message-thread formatting",
+        "definition": "Rendering texts, chat, or email in a distinct typographic treatment — sans-serif block, timestamps, alternating indent — rather than as quoted speech.",
+        "example": "    22:14  you up\n    22:51  i saw the march file\n    22:51  call me",
+        "effect": "Reproduces the medium's own silences: the delay between messages is on the page, and unanswered lines stay visibly unanswered.",
+        "register": "contemporary fiction and narrative nonfiction",
+        "caution": "Check what the treatment costs in EPUB and in print at trim size; elaborate chat styling is the most common reflow casualty.",
+        "tags": [
+          "typography",
+          "digital"
+        ],
+        "see_also": "dialogue_mechanics/exchange_shapes"
+      }
+    ],
+    "exchange_shapes": [
+      {
+        "name": "stichomythia",
+        "definition": "Alternating single lines of roughly equal length between two speakers, each line answering the shape of the one before it.",
+        "example": "\"You knew in March.\"\n\"I knew in April.\"\n\"You signed in March.\"\n\"I signed what they sent.\"",
+        "effect": "Formalizes an argument into something closer to duel than conversation; the symmetry itself reads as pressure.",
+        "register": "drama, heightened literary fiction",
+        "aka": [
+          "line-for-line exchange"
+        ],
+        "caution": "Borrowed from verse drama; more than eight lines and prose starts to sound like a chant.",
+        "tags": [
+          "shape",
+          "two-hander"
+        ],
+        "see_also": "rhetorical_figures/repetition_figures"
+      },
+      {
+        "name": "ping-pong exchange",
+        "definition": "A run of short paired lines — statement, riposte, statement, riposte — with tags stripped to the minimum and no beats.",
+        "example": "\"Where is it?\"\n\"Filed.\"\n\"Filed where?\"\n\"Wherever you put it.\"",
+        "effect": "The fastest gear dialogue has; length on the page collapses while scene time speeds up.",
+        "caution": "It cannot carry information the reader has not already got. Use it for pressure, then break out to a beat before anything must be understood.",
+        "tags": [
+          "shape",
+          "pace"
+        ],
+        "see_also": "dialogue_mechanics/tags_and_beats"
+      },
+      {
+        "name": "shortening-line escalation",
+        "definition": "An exchange whose lines get measurably shorter as the conflict rises, until the speakers are trading single words.",
+        "example": "\"I would have told you if there had been anything worth telling.\"\n\"You had six weeks.\"\n\"I had nothing.\"\n\"You had this.\"\n\"No.\"",
+        "effect": "Puts the escalation in the typography; the reader feels the acceleration before registering the content.",
+        "caution": "It has one direction. Plan where the floor is, because after the one-word lines the only move left is silence or an act.",
+        "tags": [
+          "shape",
+          "escalation"
+        ],
+        "see_also": "sound_and_rhythm/sentence_length_contours"
+      },
+      {
+        "name": "elliptical exchange",
+        "definition": "An exchange in which each turn omits what the previous turn established, so the lines are grammatical fragments that only cohere as a pair.",
+        "example": "\"Coffee?\"\n\"Had one.\"\n\"Since when.\"\n\"Since Brussels.\"",
+        "effect": "Renders long-standing intimacy or long-standing habit — people who have stopped supplying each other with context.",
+        "caution": "Only between characters with a shared history the reader has; between strangers it reads as an author saving keystrokes.",
+        "tags": [
+          "shape",
+          "ellipsis"
+        ],
+        "see_also": "syntactic_constructions/ellipsis_and_compression"
+      },
+      {
+        "name": "three-hander tagging",
+        "definition": "The attribution discipline a three-way scene requires: alternation no longer identifies anyone, so every turn needs a tag, a beat, a vocative, or an unmistakable idiom.",
+        "example": "\"Somebody signed it.\" Halloran did not look up from the folder.\n\"Not me,\" said Marie.\n\"Nobody said you, Marie.\"\n\"You looked at me when you said somebody.\"",
+        "effect": "Keeps three voices separable at speed; the vocative and the idiom do the work the alternation did in a two-hander.",
+        "caution": "Give the third party a stake and a syntax of their own, or the scene silently becomes a two-hander with a witness.",
+        "tags": [
+          "shape",
+          "attribution"
+        ],
+        "see_also": "dialogue_mechanics/tags_and_beats"
+      },
+      {
+        "name": "designated silent party",
+        "definition": "A group scene in which one present character is given no lines, their silence tracked by beats until it becomes the scene's loudest element.",
+        "example": "The three of them worked through the schedule for an hour. Marie, who had signed all of it, refilled the water twice and said nothing.",
+        "effect": "Concentrates the reader's attention on the one person not talking; the eventual first line arrives with everything behind it.",
+        "caution": "The silence must be visibly maintained — one beat every half page — or the reader simply forgets the character is in the room.",
+        "tags": [
+          "shape",
+          "group"
+        ],
+        "see_also": [
+          "dialogue_mechanics/silence_and_pause",
+          "interaction_moves/group_and_crowd_dynamics"
+        ]
+      },
+      {
+        "name": "rendered overlap",
+        "definition": "Two speakers talking at once, rendered by interleaved fragments, a bracketed simultaneity note, or a dash-and-resume pattern rather than by narration.",
+        "example": "\"—and I have said twice now that the file—\"\n\"—nobody is accusing you—\"\n\"—that the file was not in the box.\"",
+        "effect": "Puts the collision on the page; the reader's difficulty in parsing it is the point.",
+        "aka": [
+          "crosstalk"
+        ],
+        "caution": "Prose has no real simultaneity. Two or three lines is the ceiling before the reader stops and re-reads.",
+        "tags": [
+          "shape",
+          "interruption"
+        ],
+        "see_also": "interaction_moves/dialogue_beats"
+      },
+      {
+        "name": "interrogation ladder",
+        "definition": "A questioning exchange built as a rising series — each answer narrowing the ground for the next question — with the decisive question held for last.",
+        "example": "\"You logged the box.\"\n\"Yes.\"\n\"You logged it on the twelfth.\"\n\"If that's what it says.\"\n\"The box was collected on the ninth.\"",
+        "effect": "Gives a question scene a shape the reader can feel closing; each rung removes an answer that was available a moment ago.",
+        "register": "crime, legal, journalistic",
+        "caution": "The interesting version is the one where the questioner is also learning; a ladder whose answers are all foreknown is a lecture in question form.",
+        "tags": [
+          "shape",
+          "interrogation"
+        ],
+        "see_also": [
+          "interaction_moves/argumentative_exchange_moves",
+          "argument_arrangements/legal_forms"
+        ]
+      },
+      {
+        "name": "one-sided phone call",
+        "definition": "A telephone exchange rendered from one end only, the other party's turns inferable from the pauses and from what the audible speaker answers.",
+        "example": "\"No. No, she left in March.\" A pause. \"Because I signed the exit form myself.\" Longer. \"Then somebody has two of them.\"",
+        "effect": "Makes the reader do the reconstruction, which is more engaging than hearing both halves; it also withholds the other party's tone.",
+        "caution": "The audible speaker must not repeat the question back for the reader's benefit — that is the tell that turns the device into exposition.",
+        "tags": [
+          "shape",
+          "phone"
+        ],
+        "see_also": "information_release/release_moves"
+      },
+      {
+        "name": "epistolary exchange",
+        "definition": "A conversation conducted across documents — letters, memos, emails — where each turn is composed, dated, and aware of its own record.",
+        "example": "Re: March schedule (2 Apr): As discussed, please confirm the cover sheet was signed in your presence.\nRe: Re: March schedule (2 Apr): I have no recollection of the conversation you are describing.",
+        "effect": "Every turn is performed for a future reader, which lets subtext live in formality, in the timestamp, and in what is quoted back.",
+        "register": "documentary fiction, narrative nonfiction",
+        "caution": "The delay between turns is the medium's whole rhythm; collapse it and the exchange becomes ordinary dialogue in bad clothes.",
+        "tags": [
+          "shape",
+          "document"
+        ],
+        "see_also": [
+          "pov_and_narration/point_of_view_types",
+          "openings_and_closings/framing_devices"
+        ]
+      },
+      {
+        "name": "text-message exchange",
+        "definition": "A conversation in short asynchronous messages, where read receipts, delay, typing indicators, and deleted drafts are available as turns.",
+        "example": "    did you send it\n    yes\n    to who\n    [typing]\n    to who",
+        "effect": "Silence is timestamped and therefore unmistakable; a repeated unanswered line does work no spoken exchange can do.",
+        "caution": "Register is the whole characterization here — punctuation, capitalization, and message length carry what voice carries elsewhere.",
+        "tags": [
+          "shape",
+          "digital"
+        ],
+        "see_also": "dialogue_mechanics/typography_of_speech"
+      },
+      {
+        "name": "transcript rendering",
+        "definition": "An exchange presented in the format of a record — speaker labels, line numbers, inaudible markers — rather than as narrated scene.",
+        "example": "Q. And you signed the cover sheet.\nA. I signed something that afternoon.\nQ. The cover sheet.\nA. [inaudible]",
+        "effect": "Strips every beat and tag away and forces the reader to hear only the words, which makes evasion far more visible.",
+        "register": "legal, journalistic, documentary",
+        "caution": "Its flatness is the effect; used twice in a book it becomes a formatting habit rather than an argument.",
+        "tags": [
+          "shape",
+          "document"
+        ],
+        "see_also": "evidence_types/documentary_and_physical_evidence"
+      },
+      {
+        "name": "monologue interrupted",
+        "definition": "A long turn deliberately broken once or twice by another speaker, so the length is dramatized as something the room is tolerating.",
+        "example": "\"—and by the time anyone opened the second box—\"\n\"There was a second box.\"\n\"There were always two boxes. As I have been saying.\"",
+        "effect": "Converts a speech into a scene: the interruptions establish the audience and give the speaker something to push against.",
+        "caution": "The interruption must cost the speaker something; a listener who only says 'go on' is a stenographer.",
+        "tags": [
+          "shape",
+          "monologue"
+        ],
+        "see_also": "dialogue_mechanics/dialogue_faults"
+      },
+      {
+        "name": "aborted exchange",
+        "definition": "A conversation that never reaches its subject — opened, deflected once, and abandoned by mutual consent.",
+        "example": "\"About March—\"\n\"Do you want the good chair or that one?\"\n\"That one's fine.\"",
+        "effect": "Shows two people agreeing not to have the scene; the reader carries the unhad conversation forward as pressure.",
+        "caution": "Needs the reader to know what was avoided; without that it reads as a scene the writer lost interest in.",
+        "tags": [
+          "shape",
+          "avoidance"
+        ],
+        "see_also": "dialogue_mechanics/subtext_techniques"
+      },
+      {
+        "name": "choral reply",
+        "definition": "A crowd answering as one voice, rendered as a single quoted line attributed to the group or reported as unison.",
+        "example": "\"Who authorized it?\" Halloran said, to the room.\nNobody said anything, and then four people said Marie.",
+        "effect": "Turns a crowd into a character for one line; the unison is either comic or menacing and rarely anything in between.",
+        "caution": "Once per scene, and never for information — a crowd cannot deliver an explanation without becoming absurd.",
+        "tags": [
+          "shape",
+          "group"
+        ],
+        "see_also": "interaction_moves/group_and_crowd_dynamics"
+      },
+      {
+        "name": "the relay",
+        "definition": "A line passed along a chain of speakers — A tells B, B tells C — with the content changing slightly at each handoff.",
+        "example": "\"He says the box was collected on the ninth.\"\n\"She says he says it was the ninth.\"\n\"So somebody is saying the ninth.\"",
+        "effect": "Dramatizes distortion and distance in a single exchange, and lets the reader watch a fact become a rumor.",
+        "tags": [
+          "shape",
+          "group"
+        ],
+        "see_also": [
+          "interaction_moves/group_and_crowd_dynamics",
+          "information_release/release_moves"
+        ]
+      },
+      {
+        "name": "nested exchange",
+        "definition": "A conversation reported inside a conversation, one speaker performing both halves of an earlier scene for a present listener.",
+        "example": "\"So I said, 'It was in the box,' and he said, 'Which box,' and I said, 'You know which box.'\"",
+        "effect": "Compresses a whole prior scene into one turn while characterizing the reporter through what they choose to reproduce.",
+        "caution": "The reporter is an unreliable narrator by construction; if you do not want that, summarize instead.",
+        "tags": [
+          "shape",
+          "reported speech"
+        ],
+        "see_also": "pov_and_narration/speech_and_thought_representation"
+      },
+      {
+        "name": "the earned long turn",
+        "definition": "A single extended speech placed after a scene of short exchange, its length licensed by everything that has been refused up to that point.",
+        "example": "They had gone eight lines at four words each. Then Marie put both hands flat on the table and talked for a page and a half without being interrupted once.",
+        "effect": "The shift in turn length is itself the event; the reader registers that something has broken open.",
+        "caution": "Earned once per book, maybe twice. Placed early it is just a monologue.",
+        "tags": [
+          "shape",
+          "pace"
+        ],
+        "see_also": "scene_patterns/scene_shapes"
+      }
+    ],
+    "subtext_techniques": [
+      {
+        "name": "answering the wrong question",
+        "definition": "A speaker responds to a question adjacent to the one asked, and the gap between the two is where the meaning sits.",
+        "example": "\"Did you read it before you signed it?\"\n\"It was the last week of the quarter.\"",
+        "effect": "The evasion is legible without being announced; the reader convicts the speaker without the narrator saying anything.",
+        "caution": "The wrong answer must be a plausible answer to something, or it reads as a non sequitur rather than a dodge.",
+        "tags": [
+          "subtext",
+          "evasion"
+        ],
+        "see_also": "interaction_moves/dialogue_beats"
+      },
+      {
+        "name": "deflection by counter-question",
+        "definition": "Returning a question instead of answering it, so the burden of the exchange moves back across the table.",
+        "example": "\"Where did the second copy go?\"\n\"Why are you asking me and not Halloran?\"",
+        "effect": "Buys the speaker a turn and tells the reader the answer exists and is being kept.",
+        "caution": "Two in a row and the exchange stalls; the second question has to concede something or the scene stops moving.",
+        "tags": [
+          "subtext",
+          "evasion"
+        ],
+        "see_also": [
+          "interaction_moves/dialogue_beats",
+          "interaction_moves/argumentative_exchange_moves"
+        ]
+      },
+      {
+        "name": "refused beat",
+        "definition": "A speaker declines the response their partner's turn requires — no answer to the greeting, no thanks for the offer, no laugh at the joke.",
+        "example": "\"Good to see you again.\"\n\"You have the schedule?\"",
+        "effect": "Withholding the expected second half of a pair is the cheapest hostility in dialogue and needs no adverb at all.",
+        "caution": "Readers notice the refusal only if the ritual was clearly invoked; establish the expected reply before you deny it.",
+        "tags": [
+          "subtext",
+          "status"
+        ],
+        "see_also": [
+          "interaction_moves/dialogue_beats",
+          "interaction_moves/social_rituals"
+        ]
+      },
+      {
+        "name": "displacement object",
+        "definition": "Running an unspeakable subject through a mundane one, so the argument about the marriage is conducted entirely about the dishes.",
+        "example": "\"You always leave the pan.\"\n\"I leave one pan.\"\n\"Every night, one pan, for someone else to find in the morning.\"",
+        "effect": "Lets characters say the true thing with full heat while retaining deniability; the reader hears both conversations at once.",
+        "aka": [
+          "the argument about the dishes"
+        ],
+        "caution": "The reader must already know the real subject. Establish it, then never name it inside the exchange.",
+        "tags": [
+          "subtext",
+          "displacement"
+        ],
+        "see_also": "dialogue_mechanics/tags_and_beats"
+      },
+      {
+        "name": "the unspoken referent",
+        "definition": "An exchange conducted entirely in pronouns and deictics — it, that, the whole thing — because naming the subject is what neither speaker will do.",
+        "example": "\"Have you told him?\"\n\"There's nothing to tell yet.\"\n\"There will be.\"",
+        "effect": "The refusal to name is the characterization; the reader supplies the noun and is thereby implicated.",
+        "caution": "The reader needs an antecedent from somewhere. Two floating referents in one scene and the scene is merely vague.",
+        "tags": [
+          "subtext",
+          "reference"
+        ],
+        "see_also": "discourse_moves/coherence_relations"
+      },
+      {
+        "name": "agreement that undercuts",
+        "definition": "A speaker concedes in words while the terms of the concession withdraw everything it appeared to give.",
+        "example": "\"You're right. You've always been better with the paperwork than I am. That's why they gave it to you.\"",
+        "effect": "Hostility rendered as compliance; there is nothing in the line to object to, which is the trap.",
+        "aka": [
+          "hostile concession"
+        ],
+        "caution": "Keep the sting in the specifics, not in the tone; a sarcastic delivery converts it into ordinary aggression.",
+        "tags": [
+          "subtext",
+          "status"
+        ],
+        "see_also": [
+          "interaction_moves/argumentative_exchange_moves",
+          "interaction_moves/status_transactions"
+        ]
+      },
+      {
+        "name": "over-politeness as hostility",
+        "definition": "Escalating formality — full names, please and thank you, complete sentences — where the relationship licenses none.",
+        "example": "\"Thank you for the clarification, Mr. Halloran. I'll be sure to put it in writing.\"",
+        "effect": "Signals that the relationship has been withdrawn; the courtesy is the announcement of it.",
+        "aka": [
+          "weaponized courtesy",
+          "formality as attack"
+        ],
+        "caution": "Depends on an established informal baseline — the reader must have heard these two speak casually first.",
+        "tags": [
+          "subtext",
+          "register"
+        ],
+        "see_also": [
+          "diction_and_register/register_levels",
+          "interaction_moves/status_transactions"
+        ]
+      },
+      {
+        "name": "the shared reference",
+        "definition": "An allusion, nickname, or shorthand that both speakers understand fully and the reader decodes at partial strength.",
+        "example": "\"It's Brussels again.\"\n\"It is not Brussels again.\"\n\"It is exactly Brussels again.\"",
+        "effect": "Creates the intimacy of overheard talk; the reader's partial exclusion is the evidence that these two have a history.",
+        "caution": "Decodable within a page or two. A reference the reader never gets is not intimacy, it is withheld information.",
+        "tags": [
+          "subtext",
+          "allusion"
+        ],
+        "see_also": "information_release/release_moves"
+      },
+      {
+        "name": "the true thing said as a joke",
+        "definition": "A speaker delivers the thing they actually mean in a register that makes it retractable.",
+        "example": "\"You'd sign anything, wouldn't you.\" He laughed at the end of it, a half-beat late.",
+        "effect": "Lets a confession or an accusation reach the room while both parties keep the option of not having heard it.",
+        "caution": "The retraction option has to be visible — a laugh, a shrug, an immediate change of subject — or it is just an accusation.",
+        "tags": [
+          "subtext",
+          "humor"
+        ],
+        "see_also": "humor_and_wit/comic_timing"
+      },
+      {
+        "name": "the repeated word that shifts",
+        "definition": "A single word passed back and forth across an exchange, arriving each time with a different weight.",
+        "example": "\"It was routine.\"\n\"Routine.\"\n\"Routine. That's the word they used.\"\n\"That's the word you used.\"",
+        "effect": "Makes the scene's argument audible as a contest over one term, with no narration required.",
+        "caution": "Three appearances is the working maximum; the fourth turns the device into a chant.",
+        "tags": [
+          "subtext",
+          "repetition"
+        ],
+        "see_also": [
+          "rhetorical_figures/repetition_figures",
+          "stakes_and_stasis/stasis_points"
+        ]
+      },
+      {
+        "name": "the delayed answer",
+        "definition": "A line that answers something said much earlier — pages or chapters back — without marking the connection.",
+        "example": "\"I read it,\" she said, apropos of nothing anyone in the room had raised. He knew exactly which sentence she meant.",
+        "effect": "Proves that a character has been holding a scene in mind, and rewards the reader who has too.",
+        "caution": "The original line must have been distinctive enough to be recalled; give it its own paragraph the first time.",
+        "tags": [
+          "subtext",
+          "structure"
+        ],
+        "see_also": [
+          "openings_and_closings/false_endings_and_codas",
+          "interaction_moves/dialogue_beats"
+        ]
+      },
+      {
+        "name": "the negation that confirms",
+        "definition": "A denial that introduces the very thing nobody had raised, so the disclaimer becomes the disclosure.",
+        "example": "\"This isn't about the money.\"\n\"Nobody mentioned money.\"",
+        "effect": "Lets the reader catch what a character has just given away, one beat before the character does.",
+        "caution": "Only lands if the other speaker declines to be polite about it — or pointedly says nothing at all.",
+        "tags": [
+          "subtext",
+          "slip"
+        ],
+        "see_also": "interaction_moves/dialogue_beats"
+      },
+      {
+        "name": "the topic that will not stay changed",
+        "definition": "One speaker steers away three times and the other steers back, until the returning itself is the scene's content.",
+        "example": "\"How's the flat?\"\n\"Fine. About March—\"\n\"Did you get the boiler done?\"\n\"About March.\"",
+        "effect": "Dramatizes will without any narration of it; the reader counts the returns and knows who is going to win.",
+        "caution": "Three returns is the shape. Two is a hiccup, five is a comedy sketch.",
+        "tags": [
+          "subtext",
+          "persistence"
+        ],
+        "see_also": "interaction_moves/dialogue_beats"
+      },
+      {
+        "name": "the answer aimed past the asker",
+        "definition": "In a scene with three or more present, a character answers one person's question while directing the answer at another.",
+        "example": "\"Was the box sealed when it came back?\" Marie asked.\n\"It was sealed,\" Halloran said, looking at the auditor. \"It was sealed when it left, too.\"",
+        "effect": "Turns a two-person exchange into a three-person power scene without a line of explanation.",
+        "caution": "Needs one beat of blocking — where the eyes go — and no more; the moment it is explained it stops working.",
+        "tags": [
+          "subtext",
+          "group"
+        ],
+        "see_also": [
+          "interaction_moves/power_moves",
+          "dialogue_mechanics/exchange_shapes"
+        ]
+      }
+    ],
+    "silence_and_pause": [
+      {
+        "name": "silence in the answer slot",
+        "definition": "Leaving the responding turn structurally empty — a beat, a paragraph break, or a line of narration where the reply belonged.",
+        "example": "\"Did you know before the board met?\"\nOutside, someone was locking up the bicycles.\n\"I'm going to take that as a yes.\"",
+        "effect": "An unfilled reply slot is read as an answer, and usually as the worst available one.",
+        "caution": "Only works where a reply was clearly owed; in a loose conversation a silence is just a gap.",
+        "tags": [
+          "silence",
+          "turn-taking"
+        ],
+        "see_also": "interaction_moves/dialogue_beats"
+      },
+      {
+        "name": "the pause before capitulation",
+        "definition": "A measured beat placed between the demand and the surrender, so the giving-in is visibly a decision.",
+        "example": "\"Sign it.\"\nShe looked at the page for long enough that he started to speak again, and then she signed it.",
+        "effect": "Buys the concession its cost; without the pause the character reads as having never held the position.",
+        "caution": "Give the pause a physical duration the reader can measure — an action, a sound, a count — not the word 'finally'.",
+        "tags": [
+          "silence",
+          "concession"
+        ],
+        "see_also": "interaction_moves/argumentative_exchange_moves"
+      },
+      {
+        "name": "white space as pause",
+        "definition": "Using paragraph break, extra leading, or a section break to time a silence typographically rather than describing it.",
+        "example": "\"You could still withdraw it.\"\n\n\n\"No,\" he said. \"I couldn't.\"",
+        "effect": "The reader's eye travel becomes the pause; the effect is felt rather than reported.",
+        "caution": "Vertical space is fragile in EPUB and reflowable formats; verify it survives the build before relying on it.",
+        "tags": [
+          "silence",
+          "typography"
+        ],
+        "see_also": [
+          "sound_and_rhythm/pause_and_punctuation_rhythm",
+          "dialogue_mechanics/typography_of_speech"
+        ]
+      },
+      {
+        "name": "sustained refusal to speak",
+        "definition": "A character present through a whole exchange who will not talk, their refusal maintained by beats and by other characters' reactions to it.",
+        "example": "They asked her four times, in four different ways. She answered the first one with a shake of the head and the other three with nothing at all.",
+        "effect": "Converts silence from absence into action; the refusing character is doing the most in the scene.",
+        "caution": "Give the refusal a cost that mounts, or the scene stalls; someone must be losing something for every question that goes unanswered.",
+        "tags": [
+          "silence",
+          "refusal"
+        ],
+        "see_also": [
+          "dialogue_mechanics/exchange_shapes",
+          "interaction_moves/conflict_moves"
+        ]
+      },
+      {
+        "name": "the broken silence",
+        "definition": "The mechanics of who speaks first after a pause, and what that costs them.",
+        "example": "Neither of them said anything for the length of the platform announcement.\n\"All right,\" Halloran said, and by saying it first he had conceded the argument.",
+        "effect": "Makes a pause into a contest with a winner; the reader learns the balance of the room from one line.",
+        "caution": "State the cost once, then trust it. The device dies the moment the narration explains it a second time.",
+        "tags": [
+          "silence",
+          "status"
+        ],
+        "see_also": "interaction_moves/status_transactions"
+      },
+      {
+        "name": "pause rendered as an action beat",
+        "definition": "Timing a silence with a physical event of measurable duration instead of naming it as a pause.",
+        "example": "Weak: There was a long pause. Fixed: She poured the rest of the water into the glass, and then into the other glass, and set the jug down.",
+        "effect": "Gives the reader an actual duration rather than an assertion of one, and characterizes the waiting.",
+        "caution": "The action must be idle; a beat that advances the plot fills the silence instead of measuring it.",
+        "tags": [
+          "silence",
+          "beat"
+        ],
+        "see_also": "dialogue_mechanics/tags_and_beats"
+      },
+      {
+        "name": "the delayed reply",
+        "definition": "An answer that arrives a full beat late, the lateness marked so the reader registers the interval as content.",
+        "example": "\"You'd tell me if it was serious.\"\nHe finished the sentence he was writing.\n\"I'd tell you.\"",
+        "effect": "The interval reads as calculation, reluctance, or the assembling of a lie — and the words alone would show none of it.",
+        "caution": "Reserve it for lines whose content is otherwise unremarkable; on a dramatic line the delay is redundant.",
+        "tags": [
+          "silence",
+          "timing"
+        ]
+      },
+      {
+        "name": "the question left unanswered",
+        "definition": "A question that the scene moves past without any reply at all, the narration declining to note the omission.",
+        "example": "\"Whose initials are those?\"\nThey worked through the rest of the box before the light went, and then they went home.",
+        "effect": "Leaves the question live in the reader's hands rather than the characters'; it is still open pages later.",
+        "caution": "Pay it off somewhere, or the reader files it as an authorial oversight rather than a character's evasion.",
+        "tags": [
+          "silence",
+          "structure"
+        ],
+        "see_also": "information_release/release_moves"
+      },
+      {
+        "name": "group silence around an exchange",
+        "definition": "A two-person exchange conducted in front of witnesses whose collective silence is tracked as a presence.",
+        "example": "\"Say it again,\" Marie said, \"with everyone here.\"\nNobody at the table moved. Somebody's phone buzzed twice and was not picked up.",
+        "effect": "Raises the stakes of every line by giving it an audience that will not intervene.",
+        "caution": "Note the room twice at most; a witness beat after every line turns the crowd into a laugh track.",
+        "tags": [
+          "silence",
+          "group"
+        ],
+        "see_also": "interaction_moves/group_and_crowd_dynamics"
+      },
+      {
+        "name": "silence in an argumentative exchange",
+        "definition": "In argument or nonfiction dialogue, the unanswered objection — the point conceded by no response rather than by agreement.",
+        "example": "\"You have not addressed the third schedule.\"\n\"We should take the others in order.\"",
+        "effect": "The gap is the argument's real result; readers of argument track unanswered points more reliably than answered ones.",
+        "register": "argument, reportage, dialogue-form nonfiction",
+        "caution": "If the writer wants the silence read as a concession, some later line must treat it as one.",
+        "tags": [
+          "silence",
+          "argument"
+        ],
+        "see_also": [
+          "interaction_moves/argumentative_exchange_moves",
+          "fallacies_eristic/eristic_stratagems"
+        ]
+      }
+    ],
+    "dialogue_faults": [
+      {
+        "name": "as-you-know-bob",
+        "definition": "Characters tell each other things both already know, so the reader can overhear the exposition.",
+        "example": "Broken: \"As you know, Marie, the March schedule has to be countersigned by two directors.\" Fixed: give the information to someone who does not have it, or put it in narration.",
+        "effect": "Breaks the reality of the scene at exactly the moment the writer needed the reader to believe it.",
+        "polarity": "fault",
+        "aka": [
+          "maid-and-butler dialogue",
+          "expository dialogue"
+        ],
+        "caution": "The 'as you know' is only the visible marker; the fault survives every attempt to disguise it with a question mark.",
+        "tags": [
+          "exposition"
+        ],
+        "see_also": "information_release/nonfiction_release"
+      },
+      {
+        "name": "on-the-nose dialogue",
+        "definition": "Characters say exactly and only what they mean, with no gap between intention and utterance.",
+        "example": "Broken: \"I'm angry at you because you didn't defend me at the board meeting.\" Fixed: \"How was the meeting?\" \"You'd know.\"",
+        "effect": "Removes the reader's work and therefore the reader's engagement; every line is fully spent on arrival.",
+        "polarity": "fault",
+        "aka": [
+          "no-subtext dialogue"
+        ],
+        "caution": "Some characters and some genres are legitimately direct; the fault is when nobody in the book has an inside.",
+        "tags": [
+          "subtext"
+        ],
+        "see_also": "dialogue_mechanics/subtext_techniques"
+      },
+      {
+        "name": "undifferentiated voices",
+        "definition": "Every character speaks in the same syntax, vocabulary, and rhythm, so tags become the only means of telling them apart.",
+        "example": "Test: strip every tag from a page of dialogue and hand it to a reader. If they cannot assign the lines, the voices are one voice.",
+        "effect": "Forces heavy tagging, kills tagless exchange, and makes the cast feel like one author talking to himself.",
+        "polarity": "fault",
+        "aka": [
+          "one-voice cast"
+        ],
+        "caution": "Differentiate by sentence length, register, and what each character will not say — not by tics and catchphrases.",
+        "tags": [
+          "voice"
+        ],
+        "see_also": "character_and_persona/voice_and_speech_traits"
+      },
+      {
+        "name": "dialogue as infodump",
+        "definition": "A character delivers a paragraph of background, procedure, or history that the scene has no dramatic reason to contain.",
+        "example": "Broken: three hundred words on how the countersignature process works, spoken by the one person with no reason to explain it. Fixed: cut to the two lines that matter to the listener.",
+        "effect": "The scene stops; the reader can feel the author's hand on the character's mouth.",
+        "polarity": "fault",
+        "caution": "If the information is genuinely needed, narration can deliver it in a third of the space and without the pretense.",
+        "tags": [
+          "exposition"
+        ],
+        "see_also": "information_release/nonfiction_release"
+      },
+      {
+        "name": "over-tagged exchange",
+        "definition": "Every line attributed, often with a beat as well, in a two-hander where alternation would have carried it.",
+        "example": "Broken: \"No,\" she said. \"Why not?\" he asked. \"Because,\" she answered. Fixed: \"No.\" \"Why not?\" \"Because.\"",
+        "effect": "Halves the pace of an exchange that was written to be fast.",
+        "polarity": "fault",
+        "caution": "Usually a symptom of undifferentiated voices — the writer can feel that the lines are not self-identifying.",
+        "tags": [
+          "attribution"
+        ],
+        "see_also": "dialogue_mechanics/tags_and_beats"
+      },
+      {
+        "name": "greeting preamble",
+        "definition": "Starting a dialogue scene at the hellos, so the reader sits through arrival, coats, and weather before the scene begins.",
+        "example": "Broken: \"Hi.\" \"Hi. Come in.\" \"Thanks. Filthy out there.\" \"Coffee?\" Fixed: open on \"You should have called me first.\"",
+        "effect": "Spends the reader's attention on the least loaded lines in the scene.",
+        "polarity": "fault",
+        "aka": [
+          "throat-clearing dialogue"
+        ],
+        "caution": "Ritual openings earn their place only when the ritual is being violated or refused.",
+        "tags": [
+          "structure"
+        ],
+        "see_also": [
+          "scene_patterns/scene_openings",
+          "interaction_moves/social_rituals"
+        ]
+      },
+      {
+        "name": "unmotivated topic switch",
+        "definition": "A speaker changes subject with no pressure, deflection, or interruption to license it, because the writer needed the next topic.",
+        "example": "Broken: \"I signed it in March.\" \"Do you still see your brother?\" Fixed: give the switch a motive, and let the other speaker notice it.",
+        "effect": "Readers track conversational coherence closely; an unmotivated jump registers as a manuscript seam.",
+        "polarity": "fault",
+        "caution": "Motivated switches are a fine device — deflection, exhaustion, cruelty — but the other character has to react to them.",
+        "tags": [
+          "coherence"
+        ],
+        "see_also": [
+          "interaction_moves/dialogue_beats",
+          "discourse_moves/coherence_relations"
+        ]
+      },
+      {
+        "name": "monologue disguised as dialogue",
+        "definition": "One character talks for pages while another supplies 'go on', 'I see', and 'what happened then'.",
+        "example": "Broken: \"And then?\" \"Then the second box arrived.\" \"Go on.\" Fixed: cut the prompter, set it as a block, or give the listener a stake.",
+        "effect": "The quotation marks are doing nothing but disguising narration as scene.",
+        "polarity": "fault",
+        "aka": [
+          "prompter dialogue"
+        ],
+        "caution": "Either make the listener a participant with something to lose, or stop pretending and use narration.",
+        "tags": [
+          "structure"
+        ],
+        "see_also": "dialogue_mechanics/exchange_shapes"
+      },
+      {
+        "name": "dialect overload",
+        "definition": "Rendering a speaker's variety so thoroughly — respellings, apostrophes, glossed idiom — that reading becomes decoding.",
+        "example": "Broken: a page of apostrophes and dropped consonants. Fixed: two markers of syntax and one of idiom, then let the reader hold the voice.",
+        "effect": "Exhausts the reader and, applied to only some characters, quietly marks those characters as other.",
+        "polarity": "fault",
+        "caution": "The modern practice is light and syntactic; if you must be heavy, be heavy for everyone including the narrator.",
+        "tags": [
+          "dialect"
+        ],
+        "see_also": [
+          "dialogue_mechanics/typography_of_speech",
+          "diction_and_register/period_and_dialect_diction"
+        ]
+      },
+      {
+        "name": "quip that stops the scene",
+        "definition": "A joke placed where the scene's pressure was building, releasing it and leaving the exchange with nowhere to go.",
+        "example": "Broken: \"You knew and you said nothing.\" \"I say nothing beautifully. It's my one skill.\" Fixed: hold the quip until the pressure has paid out.",
+        "effect": "Trades a scene's accumulated tension for one line's return, usually a bad exchange rate.",
+        "polarity": "fault",
+        "caution": "The same joke three lines later, after the confrontation lands, often works — it is placement, not the joke.",
+        "tags": [
+          "humor",
+          "pace"
+        ],
+        "see_also": "humor_and_wit/comic_timing"
+      },
+      {
+        "name": "dialogue summarizing an off-page scene",
+        "definition": "Characters recount to each other an event the reader did not witness, in the level of detail only a narrator would supply.",
+        "example": "Broken: \"So I went in, and he was at the desk, and he said the box had been logged twice…\" Fixed: dramatize the scene, or report it in narration in two sentences.",
+        "effect": "Asks the reader to sit through a scene at second hand, with the tension already resolved.",
+        "polarity": "fault",
+        "aka": [
+          "reported scene in quotes"
+        ],
+        "caution": "Legitimate when the telling is itself the event — a lie, a confession, a version being constructed for a listener.",
+        "tags": [
+          "structure"
+        ],
+        "see_also": "dialogue_mechanics/exchange_shapes"
+      },
+      {
+        "name": "floating heads",
+        "definition": "A long exchange with no beats, no setting, and no bodies, so the voices talk in an unplaceable void.",
+        "example": "Broken: forty lines of tagless dialogue with no indication of where anyone is. Fixed: one physical anchor every eight to ten lines.",
+        "effect": "The reader loses the room, then the blocking, then the count of who is speaking.",
+        "polarity": "fault",
+        "aka": [
+          "talking heads",
+          "white-room dialogue"
+        ],
+        "caution": "The fix is one physical fact, not a paragraph of description; the fault is absence, and its opposite is stage-direction pileup.",
+        "tags": [
+          "beat",
+          "setting"
+        ],
+        "see_also": [
+          "dialogue_mechanics/tags_and_beats",
+          "settings_and_environments/interior_spaces"
+        ]
+      },
+      {
+        "name": "too-cooperative dialogue",
+        "definition": "Every question gets its answer, every request is granted, and no one misunderstands anything.",
+        "example": "Broken: \"Where's the file?\" \"In the second box.\" \"Can I see it?\" \"Of course.\" Fixed: make one of those refusals, and one a misunderstanding.",
+        "effect": "Removes friction from the only part of the book made of friction; the exchange becomes an information transfer.",
+        "polarity": "fault",
+        "caution": "Real conversation is full of partial answers, mishearings, and questions nobody bothers to answer.",
+        "tags": [
+          "conflict"
+        ],
+        "see_also": "interaction_moves/argumentative_exchange_moves"
+      },
+      {
+        "name": "unearned eloquence",
+        "definition": "Every character speaks in balanced, fully formed periods regardless of pressure, education, or how fast the scene is moving.",
+        "example": "Broken: a panicked witness producing three subordinate clauses in sequence. Fixed: fragments, repetition, and one sentence that never gets finished.",
+        "effect": "Flattens the cast toward the author's own written register and drains urgency out of every high-pressure scene.",
+        "polarity": "fault",
+        "caution": "Some characters are genuinely eloquent; the test is whether pressure changes anyone's syntax.",
+        "tags": [
+          "voice",
+          "register"
+        ],
+        "see_also": [
+          "diction_and_register/register_levels",
+          "character_and_persona/voice_and_speech_traits"
+        ]
+      },
+      {
+        "name": "uncontracted speech",
+        "definition": "Dialogue written without contractions or fragments, so characters speak the way documents are written.",
+        "example": "Broken: \"I do not know what you are referring to and I would not have signed it.\" Fixed: \"I don't know what you mean. And I wouldn't have signed it.\"",
+        "effect": "Makes every speaker sound either foreign, robotic, or under oath, and does so without meaning to.",
+        "polarity": "fault",
+        "caution": "Full forms are a real device for emphasis, formality, and denial — 'I did not sign it' — which only works if the baseline is contracted.",
+        "tags": [
+          "register",
+          "mechanics"
+        ],
+        "see_also": "diction_and_register/register_levels"
+      }
+    ]
+  }
+}

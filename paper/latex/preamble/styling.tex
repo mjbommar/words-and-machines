@@ -1,0 +1,106 @@
+%% ============================================================
+%% preamble/styling.tex — section format, running heads, spacing, draft
+%%
+%% Purpose      : how the paper LOOKS — titlesec section formats,
+%%                fancyhdr running heads, line spacing (setspace), the
+%%                theorem environments, widow/orphan policy, and the
+%%                \DraftMode build-mode handling.
+%% Dependencies : titlesec + fancyhdr + setspace + amsthm (packages.tex),
+%%                colors.tex (pt-* tokens), generated/metadata.tex.
+%% Provenance   : titlesec section rules in the primary color, from the
+%%                datacenter/moratorium SSRN-cluster styling.tex; the
+%%                DRAFT banner discipline from book-template styling.tex.
+%% ============================================================
+
+\makeatletter
+
+% ----------------------------------------------------------------------
+% Line spacing (paper.yaml typography.linespacing). Law reviews double.
+% ----------------------------------------------------------------------
+\ifdefstring{\PaperLineSpacing}{double}{\doublespacing}{%
+  \ifdefstring{\PaperLineSpacing}{onehalf}{\onehalfspacing}{\singlespacing}}
+
+% ----------------------------------------------------------------------
+% ISO date for the draft banner.
+% ----------------------------------------------------------------------
+\newcommand{\pt@isodate}{\the\year-\two@digits\month-\two@digits\day}
+
+% ----------------------------------------------------------------------
+% Build modes. \DraftMode: line numbers + a "DRAFT" banner (never a
+% diagonal watermark — it fights running heads). The default build
+% suppresses it. \AnonMode is read in frontmatter/titleblock.
+% ----------------------------------------------------------------------
+\ifdefined\DraftMode
+  \usepackage[switch,columnwise]{lineno}
+  \newcommand{\pt@draftbanner}{%
+    {\normalfont\sffamily\bfseries\footnotesize\color{pt-draft}%
+      DRAFT\,\textperiodcentered\,\pt@isodate\,\textperiodcentered\,Comments welcome}}
+\else
+  \newcommand{\pt@draftbanner}{}
+\fi
+
+% ======================================================================
+% Section headings — titlesec, sans, primary color, with a thin rule
+% under \section (the SSRN-cluster look).
+% ======================================================================
+\titleformat{\section}
+  {\normalfont\Large\sffamily\bfseries\color{pt-section}}
+  {\thesection}{0.6em}{}[{\color{pt-section-rule}\titlerule[0.6pt]}]
+\titleformat{\subsection}
+  {\normalfont\large\sffamily\bfseries\color{pt-section}}
+  {\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\sffamily\bfseries\color{pt-section}}
+  {\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4\baselineskip}{0.6\baselineskip}
+\titlespacing*{\subsection}{0pt}{1.1\baselineskip}{0.4\baselineskip}
+
+% ======================================================================
+% Running heads — short title (recto) + page number (outer). Draft mode
+% replaces the centered head with the DRAFT banner.
+% ======================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\ifdefined\DraftMode
+  \fancyhead[C]{\pt@draftbanner}
+  \fancyhead[R]{\color{pt-folio}\thepage}
+\else
+  \fancyhead[L]{\color{pt-running-head}\footnotesize\PaperShortTitle}
+  \fancyhead[R]{\color{pt-folio}\thepage}
+\fi
+% First page of each section (\section* title pages fall back to plain);
+% keep the folio in the footer there.
+\fancypagestyle{plain}{%
+  \fancyhf{}\renewcommand{\headrulewidth}{0pt}%
+  \fancyhead[C]{\pt@draftbanner}%
+  \fancyfoot[C]{\color{pt-folio}\thepage}}
+
+% ======================================================================
+% Theorem environments (amsthm) — shared numbering by section.
+% ======================================================================
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% ======================================================================
+% Float + caption polish; page-breaking policy.
+% ======================================================================
+\captionsetup{labelfont={bf,color=primary}, textfont={color=text-primary}}
+\captionsetup[sub]{labelfont={bf}, textfont={}}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\interfootnotelinepenalty=10000
+\tolerance=1500
+\emergencystretch=1.5em
+
+\makeatother

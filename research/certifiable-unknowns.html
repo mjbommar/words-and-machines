@@ -1,0 +1,833 @@
+<title>Certifiable Unknowns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root {
+  --ground:      #F6F7F5;
+  --surface:     #FFFFFF;
+  --surface-alt: #EFF1EE;
+  --ink:         #151A18;
+  --ink-soft:    #4A534F;
+  --ink-faint:   #78827D;
+  --rule:        #D9DDD7;
+  --rule-soft:   #E7EAE5;
+  --accent:      #2F6F62;
+  --accent-soft: #DCE9E5;
+  --gap:         #8F6A22;
+  --gap-soft:    #F0E7D2;
+  --blocked:     #8A4B45;
+  --blocked-soft:#F2E1DE;
+
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:    "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --measure: 66ch;
+  --pad: clamp(1.15rem, 4vw, 2.6rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #0E1211;
+    --surface:     #151A19;
+    --surface-alt: #1B2120;
+    --ink:         #E5E9E5;
+    --ink-soft:    #A3ADA8;
+    --ink-faint:   #78827D;
+    --rule:        #2A3230;
+    --rule-soft:   #212827;
+    --accent:      #63AC9B;
+    --accent-soft: #1C2E2A;
+    --gap:         #CFA555;
+    --gap-soft:    #2C2517;
+    --blocked:     #C67C73;
+    --blocked-soft:#2E1D1B;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:      #0E1211;
+  --surface:     #151A19;
+  --surface-alt: #1B2120;
+  --ink:         #E5E9E5;
+  --ink-soft:    #A3ADA8;
+  --ink-faint:   #78827D;
+  --rule:        #2A3230;
+  --rule-soft:   #212827;
+  --accent:      #63AC9B;
+  --accent-soft: #1C2E2A;
+  --gap:         #CFA555;
+  --gap-soft:    #2C2517;
+  --blocked:     #C67C73;
+  --blocked-soft:#2E1D1B;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 61rem;
+  margin: 0 auto;
+  padding: 0 var(--pad) 6rem;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  border-bottom: 2px solid var(--ink);
+  padding: clamp(2.5rem, 7vw, 4.5rem) 0 1.6rem;
+  margin-bottom: 2.6rem;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+}
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+
+.standfirst {
+  font-size: clamp(1.06rem, 2.3vw, 1.28rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin: 0;
+}
+.standfirst strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- structure ---------- */
+
+section { margin-bottom: 4.2rem; }
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.55rem;
+  margin-bottom: 1.7rem;
+}
+
+.sec-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  flex: none;
+}
+
+h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3.4vw, 1.72rem);
+  letter-spacing: -0.018em;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.06rem;
+  letter-spacing: -0.008em;
+  margin: 0 0 0.4rem;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 1.05rem; max-width: var(--measure); }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, .lane:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+code, .m {
+  font-family: var(--mono);
+  font-size: 0.855em;
+  background: var(--surface-alt);
+  padding: 0.09em 0.34em;
+  border-radius: 2px;
+}
+
+strong { font-weight: 600; }
+
+/* ---------- the asymmetry panel ---------- */
+
+.asym {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 1.9rem 0;
+}
+
+.asym > div {
+  background: var(--surface);
+  padding: 1.25rem 1.3rem;
+}
+
+.asym .k {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.6rem;
+}
+
+.asym .v {
+  font-family: var(--display);
+  font-size: 1.42rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.45rem;
+}
+.asym .cheap .v { color: var(--accent); }
+.asym .dear .v  { color: var(--blocked); }
+
+.asym .n {
+  font-size: 0.92rem;
+  line-height: 1.48;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ---------- escape hatches ---------- */
+
+.hatches {
+  counter-reset: hatch;
+  list-style: none;
+  padding: 0;
+  margin: 1.6rem 0 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.hatches li {
+  counter-increment: hatch;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.9rem 1.05rem;
+  background: var(--accent-soft);
+  border-left: 2px solid var(--accent);
+  max-width: var(--measure);
+}
+
+.hatches li::before {
+  content: counter(hatch);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent);
+  padding-top: 0.28em;
+}
+
+.hatches b { font-family: var(--display); font-weight: 600; }
+
+/* ---------- lanes ---------- */
+
+.lane {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  margin-bottom: 1.5rem;
+}
+
+.lane-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1rem;
+  padding: 1.05rem 1.3rem;
+  border-bottom: 1px solid var(--rule-soft);
+  background: var(--surface-alt);
+}
+
+.lane-head h3 { margin: 0; font-size: 1.12rem; }
+
+.verdict {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  padding: 0.25em 0.6em;
+  border-radius: 2px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+.v-go      { background: var(--accent-soft);  color: var(--accent); }
+.v-build   { background: var(--gap-soft);     color: var(--gap); }
+.v-blocked { background: var(--blocked-soft);  color: var(--blocked); }
+
+.lane-body { padding: 1.15rem 1.3rem 1.35rem; }
+.lane-body > p { font-size: 1rem; }
+
+/* ---------- the interval device ---------- */
+
+.iv {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1.1fr) minmax(10rem, 1.6fr) auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  padding: 0.62rem 0;
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--mono);
+  font-size: 0.79rem;
+}
+.iv:first-of-type { border-top: 0; }
+
+.iv-name { color: var(--ink); font-weight: 500; }
+.iv-name small {
+  display: block;
+  font-family: var(--body);
+  font-size: 0.92em;
+  color: var(--ink-faint);
+  letter-spacing: 0;
+  margin-top: 0.1em;
+}
+
+.bar {
+  position: relative;
+  height: 1.45rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--rule);
+}
+
+/* hatched region = the unknown interval */
+.bar span {
+  position: absolute;
+  top: -1px; bottom: -1px;
+  left: var(--a); right: var(--b);
+  background-color: var(--gap-soft);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0 4px,
+    var(--gap) 4px 5px
+  );
+  border-left: 2px solid var(--gap);
+  border-right: 2px solid var(--gap);
+  opacity: 0.85;
+}
+
+.iv-gap {
+  font-weight: 600;
+  color: var(--gap);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+.iv-gap.tight { color: var(--accent); }
+
+.iv-legend {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex;
+  gap: 1.3rem;
+  flex-wrap: wrap;
+  margin: 0.2rem 0 0.9rem;
+}
+
+/* ---------- fact strip ---------- */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 1px;
+  background: var(--rule-soft);
+  border: 1px solid var(--rule-soft);
+  margin-top: 1.1rem;
+}
+.strip > div { background: var(--surface); padding: 0.72rem 0.85rem; }
+.strip dt {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.28rem;
+}
+.strip dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.79rem;
+  line-height: 1.35;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- blocked table ---------- */
+
+.scroller { overflow-x: auto; margin: 1.5rem 0 0; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 34rem;
+  font-size: 0.9rem;
+}
+
+th {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 0 0.9rem 0.55rem 0;
+  border-bottom: 1px solid var(--ink);
+  vertical-align: bottom;
+}
+
+td {
+  padding: 0.7rem 0.9rem 0.7rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  line-height: 1.45;
+}
+td:first-child { font-family: var(--display); font-weight: 600; }
+td .m { font-size: 0.8rem; }
+
+/* ---------- callout ---------- */
+
+.callout {
+  border-left: 2px solid var(--blocked);
+  background: var(--blocked-soft);
+  padding: 1.15rem 1.35rem;
+  margin: 1.7rem 0;
+}
+.callout p { max-width: 58ch; }
+.callout p:first-child { margin-top: 0; }
+
+.stale {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+.stale li { display: flex; gap: 0.7rem; }
+.stale b { color: var(--blocked); font-weight: 600; flex: none; min-width: 5.2rem; }
+
+/* ---------- pick ---------- */
+
+.pick {
+  border: 2px solid var(--ink);
+  padding: clamp(1.3rem, 4vw, 2.1rem);
+  margin-top: 1.6rem;
+}
+.pick h3 { font-size: 1.3rem; margin-bottom: 0.7rem; }
+.pick p { font-size: 1.02rem; }
+
+.footnote {
+  margin-top: 4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.87rem;
+  color: var(--ink-faint);
+  line-height: 1.55;
+}
+.footnote p { max-width: 70ch; }
+
+@media (max-width: 34rem) {
+  .iv { grid-template-columns: 1fr auto; }
+  .bar { grid-column: 1 / -1; order: 3; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">
+    <span>Axeyum &middot; target survey</span>
+    <span>25 Aug 2026</span>
+    <span>4 sweeps &middot; 3 web, 1 local</span>
+  </p>
+  <h1>Certifiable Unknowns</h1>
+  <p class="standfirst">
+    Open problems where a machine could produce genuinely new mathematics <strong>and</strong> hand back
+    an object small enough to check. Ranked against what this stack measurably does today &mdash; not
+    what its documentation says it does.
+  </p>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>The asymmetry is the whole map</h2>
+  </div>
+
+  <p>
+    Three independent sweeps &mdash; combinatorics, engineering, optimization &mdash; converged on one
+    structural fact without being told to look for it. In essentially every open problem worth
+    attacking, the two directions cost wildly different amounts to verify.
+  </p>
+
+  <div class="asym">
+    <div class="cheap">
+      <p class="k">Improvement / witness</p>
+      <p class="v">Milliseconds</p>
+      <p class="n">
+        A better circuit, a shorter tour, a valid colouring, a rank&#8209;22 scheme. You replay the
+        object. No solver in the loop, no trust required.
+      </p>
+    </div>
+    <div class="dear">
+      <p class="k">Optimality / nonexistence</p>
+      <p class="v">Petabytes, or nothing at all</p>
+      <p class="n">
+        Schur&nbsp;5 was a 2&nbsp;PB proof. Boolean Pythagorean triples, 200&nbsp;TB. For most
+        published lower bounds, no certificate format exists in the first place.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    That asymmetry decides which problems are reachable. It also has exactly three escape hatches
+    &mdash; shapes where the <em>negative</em> answer is cheap to check too. Two separate sweeps
+    arrived at the same three, which is the most reusable thing either produced:
+  </p>
+
+  <ol class="hatches">
+    <li><span><b>Univariate nonnegativity on an interval.</b> Sum&#8209;of&#8209;squares is
+      <em>complete</em> here via Markov&ndash;Luk&aacute;cs &mdash; no degree bound to guess, no
+      relaxation gap. The certificate is exact rational.</span></li>
+    <li><span><b>SDP infeasibility with a rational dual ray.</b> One small rational matrix and one
+      inner product. Sometimes smaller than the positive certificate.</span></li>
+    <li><span><b>Small pure&#8209;SAT instances.</b> DRAT falls straight out of a proof&#8209;producing
+      CDCL core for free &mdash; which this repository already has.</span></li>
+  </ol>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>What this stack has already done</h2>
+  </div>
+
+  <p>
+    Worth stating plainly, because it sets the bar and it is easy to forget: <strong>this project has
+    already produced new mathematics.</strong> The claim ledger carries 21 entries marked
+    <code>novelty: new</code> &mdash; 18 off&#8209;diagonal Schur numbers and 3 Rado numbers &mdash;
+    of which two, <span class="m">R₄(5(x&minus;y)=3z) = 625</span> and
+    <span class="m">R₄(5(x&minus;y)=4z) = 741</span>, carry <code>external_status: open</code>, meaning
+    no published value existed.
+  </p>
+
+  <p>
+    The route was SAT search &rarr; self&#8209;produced DRAT &rarr; independent backward check &rarr;
+    witness replay. Three numbers from that run govern everything below.
+  </p>
+
+  <dl class="strip">
+    <div><dt>Proof emitted</dt><dd>19.9 GB<br>220,077,720 steps</dd></div>
+    <div><dt>Search time</dt><dd>8,762 s</dd></div>
+    <div><dt>Check time</dt><dd>14,500 s</dd></div>
+    <div><dt>Ratio</dt><dd>Checking cost<br>1.65&times; searching</dd></div>
+  </dl>
+
+  <p style="margin-top:1.3rem">
+    Certificate <em>production</em> is fast. Certificate <em>checking and elaboration</em> is what
+    fails to terminate &mdash; the fp16 monotonicity miter is worse in ratio, 24 seconds of search
+    against three hours of checking. So &ldquo;can we solve it&rdquo; and &ldquo;can we ship a
+    checkable proof of it&rdquo; have different answers, and the second one binds.
+  </p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>Three lanes, ranked</h2>
+  </div>
+
+  <p class="iv-legend">
+    <span>&#9646;&#9646; hatched = the open interval</span>
+    <span>gap of 1 = one query decides it</span>
+  </p>
+
+  <!-- LANE A -->
+  <article class="lane">
+    <div class="lane-head">
+      <h3>A &nbsp;&middot;&nbsp; Extend the pipeline that already works</h3>
+      <span class="verdict v-go">Run it now</span>
+    </div>
+    <div class="lane-body">
+      <p>
+        Small formulas, both&#8209;direction certificates, an unbounded supply of untried parameters.
+        The ledger already names the next cells. An independent sweep picked this family as the best
+        throughput domain in all of combinatorics without knowing the repo existed.
+      </p>
+
+      <div class="iv"><span class="iv-name">Rado R₄(6(x&minus;y)=5z)<small>frontier record, this ledger</small></span><span class="bar"><span style="--a:34%;--b:0%"></span></span><span class="iv-gap">&gt; 1500</span></div>
+      <div class="iv"><span class="iv-name">Rado R₅(3(x&minus;y)=1z)<small>the aᵏ law fails at five colours</small></span><span class="bar"><span style="--a:28%;--b:0%"></span></span><span class="iv-gap">&gt; 243</span></div>
+      <div class="iv"><span class="iv-name">Zarankiewicz z(m,n;3,3)<small>12&times;22: 264 vars, ~1.4M clauses</small></span><span class="bar"><span style="--a:52%;--b:14%"></span></span><span class="iv-gap">many open</span></div>
+      <div class="iv"><span class="iv-name">Multicolor Ramsey lower bounds<small>R(3,3,5) and siblings, structured colourings</small></span><span class="bar"><span style="--a:40%;--b:12%"></span></span><span class="iv-gap">45&ndash;57</span></div>
+
+      <dl class="strip">
+        <div><dt>Encoding</dt><dd>10³&ndash;10⁴ vars</dd></div>
+        <div><dt>Positive</dt><dd>witness replay</dd></div>
+        <div><dt>Negative</dt><dd>DRAT, GB scale</dd></div>
+        <div><dt>Lands as</dt><dd>checked claim</dd></div>
+      </dl>
+    </div>
+  </article>
+
+  <!-- LANE B -->
+  <article class="lane">
+    <div class="lane-head">
+      <h3>B &nbsp;&middot;&nbsp; Gap&#8209;of&#8209;one instances in applied cryptography</h3>
+      <span class="verdict v-go">Best new-result odds</span>
+    </div>
+    <div class="lane-body">
+      <p>
+        These are published as <em>intervals</em>: UNSAT proven at <span class="m">k&minus;1</span>,
+        SAT found at <span class="m">k</span>. Each is one hard call from closed, at a size this stack
+        handles, with a public encoding. And the authors state that prior published optimality results
+        &ldquo;may cause potentially incorrect results&rdquo; and had to be re&#8209;verified &mdash;
+        so a DRAT&#8209;certified answer would be <strong>the first ever produced for an S&#8209;box</strong>,
+        a soundness upgrade rather than a speed one.
+      </p>
+
+      <div class="iv"><span class="iv-name">Keccak &chi;₅ bit&#8209;gate complexity<small>SHA-3 core, every hardware implementation</small></span><span class="bar"><span style="--a:56%;--b:36%"></span></span><span class="iv-gap tight">[12, 13]</span></div>
+      <div class="iv"><span class="iv-name">RECTANGLE bit&#8209;gate complexity<small>lightweight block cipher</small></span><span class="bar"><span style="--a:50%;--b:42%"></span></span><span class="iv-gap tight">[11, 12]</span></div>
+      <div class="iv"><span class="iv-name">PRIMATEs⁻¹ multiplicative complexity<small>AND count &mdash; the MPC/ZK cost metric</small></span><span class="bar"><span style="--a:44%;--b:48%"></span></span><span class="iv-gap tight">[7, 8]</span></div>
+      <div class="iv"><span class="iv-name">R<sub>F₂</sub>(P₆) bilinear complexity<small>6-term binary polynomial multiplication</small></span><span class="bar"><span style="--a:60%;--b:32%"></span></span><span class="iv-gap tight">[16, 17]</span></div>
+      <div class="iv"><span class="iv-name">AES S&#8209;box AND&#8209;depth<small>lower bound derived in-session from ANF degree 7</small></span><span class="bar"><span style="--a:38%;--b:50%"></span></span><span class="iv-gap tight">[3, 4]</span></div>
+
+      <p style="margin-top:1.2rem">
+        <span class="m">R<sub>F₂</sub>(P₆)</span> is the closest fit: roughly 7k variables and 50k
+        clauses, hard because of symmetry rather than size, and it underpins GHASH &mdash; which runs
+        in every TLS stack and NIC offload on earth. The precedent to imitate is Wang's 2026 bound
+        <span class="m">R(&lang;3,3,3&rang;) &ge; 20</span> over F₂: forty minutes to search on a
+        laptop, verifies in seconds, independently re&#8209;checked by a third party who wrote their
+        own checker in a different language. That is this project's thesis, already demonstrated in
+        the target domain.
+      </p>
+
+      <dl class="strip">
+        <div><dt>Encoding</dt><dd>10³&ndash;10⁴ vars</dd></div>
+        <div><dt>Published?</dt><dd>yes, reusable</dd></div>
+        <div><dt>Audience</dt><dd>NIST LWC, MPC, ZK</dd></div>
+        <div><dt>First&#8209;of&#8209;kind</dt><dd>yes</dd></div>
+      </dl>
+    </div>
+  </article>
+
+  <!-- LANE C -->
+  <article class="lane">
+    <div class="lane-head">
+      <h3>C &nbsp;&middot;&nbsp; Certify results nobody has ever certified</h3>
+      <span class="verdict v-build">Zero new mathematics</span>
+    </div>
+    <div class="lane-body">
+      <p>
+        The optimization sweep found an unoccupied niche that is this project's exact thesis. Primal
+        results across the whole field are checked rigorously &mdash; MIPLIB runs an exact GMP rational
+        checker on every submitted solution. Dual results are checked by <em>nobody</em>.
+      </p>
+
+      <div class="callout">
+        <p>
+          The state&#8209;of&#8209;the&#8209;art graph&#8209;colouring lower bounds rest on a custom
+          CaDiCaL propagator with <strong>no proof logging of any kind</strong>. No machine&#8209;checkable
+          certificate exists for any job&#8209;shop instance &mdash; open or closed. One nurse&#8209;rostering
+          benchmark says it in plain text: <em>&ldquo;It is not possible to verify lower bounds.&rdquo;</em>
+          And a 2026 paper published a 0.0000% optimality gap that is refuted by a better feasible
+          solution which had been sitting on MIPLIB for nine months.
+        </p>
+      </div>
+
+      <p>
+        Concrete targets, in rising order of effort: exact&#8209;rational PSD certificates for the
+        Krpan&ndash;Povh 2026 Lov&aacute;sz&#8209;theta clique bounds (turning published numbers into
+        checkable objects); proof&#8209;logging existing chromatic lower bounds via VeriPB; the first
+        certificate for a closed job&#8209;shop instance such as <span class="m">abz07 = 656</span>.
+      </p>
+
+      <dl class="strip">
+        <div><dt>New math needed</dt><dd>none</dd></div>
+        <div><dt>Risk</dt><dd>low</dd></div>
+        <div><dt>Format</dt><dd>VeriPB / exact ℚ</dd></div>
+        <div><dt>Precedent</dt><dd>none exists</dd></div>
+      </dl>
+    </div>
+  </article>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>Blocked, and by what exactly</h2>
+  </div>
+
+  <p>
+    These are attractive and out of reach today. Each names the specific component that stops it, so
+    the list doubles as a build queue.
+  </p>
+
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr><th>Target</th><th>Blocking component</th><th>Measured</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Anything &gt; ~20 GB DRAT</td>
+          <td>Backward checking costs 6.6&ndash;10&times; proof size in RAM, and an OOM kill is
+              indistinguishable from a refutation</td>
+          <td class="m">5 GB proof<br>needs &gt; 26 GiB</td>
+        </tr>
+        <tr>
+          <td>Anything needing LRAT at scale</td>
+          <td>RAT steps cannot be expressed as LRAT, and inprocessing emits them up to the 16M&#8209;clause
+              ceiling</td>
+          <td class="m">typed error</td>
+        </tr>
+        <tr>
+          <td>Cube&#8209;and&#8209;conquer with reuse</td>
+          <td>The proof core has <em>no assumption interface</em> &mdash; zero occurrences of
+              <span class="m">assum</span>. Cubes go in as root units; every cube pays full startup</td>
+          <td class="m">warm <em>or</em> proved,<br>never both</td>
+        </tr>
+        <tr>
+          <td>Search results as kernel theorems</td>
+          <td>Enumeration routes reconstruct as <span class="m">StructuralAttestation</span> &mdash;
+              modules that assert <span class="m">axiom P</span> and <span class="m">axiom ¬P</span>
+              and contain none of the reasoning</td>
+          <td class="m">29 of 65 routes</td>
+        </tr>
+        <tr>
+          <td>Steiner <span class="m">hc*</span> family</td>
+          <td>Hypercube symmetry is canonically DRAT&#8209;hard &mdash; the pigeonhole barrier. Needs
+              PR/SR or VeriPB, i.e. a proof&#8209;system choice, not a faster solver</td>
+          <td class="m">|Aut| ≈ 2&times;10¹²</td>
+        </tr>
+        <tr>
+          <td>Certified stability polynomials</td>
+          <td>Wants exact rational SOS with PSD blocks to 21&times;21; the CAS is
+              <span class="m">i128</span>&#8209;backed with BigInt only inside the GCD inner loop</td>
+          <td class="m">check before<br>committing</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>Do not trust the registries</h2>
+  </div>
+
+  <p>
+    A finding that arrived sideways and matters more than any single problem. The optimization sweep
+    checked update dates on every benchmark library it touched. <strong>Six of eight are unmaintained,
+    offline, or publish no status at all.</strong>
+  </p>
+
+  <ul class="stale">
+    <li><b>2002</b><span>DIMACS COLOR still marks <span class="m">queen10_10</span> unknown &mdash; settled in 2004</span></li>
+    <li><b>2011</b><span>QAPLIB's last What's&#8209;New entry; every gap percentage quoted from it is 15 years old</span></li>
+    <li><b>2015</b><span>SteinLib still marks instances open that were closed by 2020</span></li>
+    <li><b>2020</b><span>The best public Steiner results table, six years stale</span></li>
+    <li><b>&mdash;</b><span>BPPLIB publishes no optimality status; CVRPLIB was entirely offline all session</span></li>
+  </ul>
+
+  <p style="margin-top:1.3rem">
+    An &ldquo;open instance&rdquo; sourced from any of these is a claim about 2011&ndash;2020, not
+    about 2026. This is the same pathology this repository already worries about at close range
+    &mdash; a ledger nobody is running &mdash; arriving from a sixth direction. It is also a warning
+    about the survey you are reading: <strong>verify currency before committing a roadmap to any
+    single entry above.</strong>
+  </p>
+
+  <p>
+    One inversion proves the point. Classical one&#8209;dimensional bin packing has <em>no</em> named
+    open instance as of April 2026. The AI and ANI classes were designed to be hard, defeated MIP
+    solvers for a decade, and then fell &mdash; not to a bigger solver, but to a structural theorem
+    showing the restricted problem is not strongly NP&#8209;hard, followed by a polynomial&#8209;time
+    algorithm. A benchmark can measure the wrong thing for ten years.
+  </p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <h2>What I would actually pick</h2>
+  </div>
+
+  <div class="pick">
+    <h3>Lane B, starting with R<sub>F₂</sub>(P₆), then the three S&#8209;box intervals.</h3>
+    <p>
+      It is the only lane where all four criteria hold at once. The novelty is real and externally
+      confirmed &mdash; these are published intervals, not unformalized folklore. The instances are
+      small enough that this stack's proof&#8209;producing core is the right tool rather than a
+      liability. Both directions carry certificates, and the negative one is DRAT, which the
+      repository already emits and independently checks. And the audience is immediate: Ascon is the
+      NIST lightweight standard, Keccak is FIPS 202, and AND count is literally the cost metric for
+      every MPC and zero&#8209;knowledge evaluation.
+    </p>
+    <p>
+      Run Lane A in parallel as throughput &mdash; it needs no new machinery and each cell is a
+      genuine result. Treat Lane C as the strategic bet: it needs no new mathematics, and it is the
+      one place where this project's actual thesis has no competitor.
+    </p>
+  </div>
+</section>
+
+<div class="footnote">
+  <p>
+    Assembled from four parallel sweeps: three web surveys across finite combinatorics, engineering
+    and industrial mathematics, and optimization plus verification; one read&#8209;only sweep of this
+    repository's solver frontier, CAS, kernel preludes, reconstruction routes, evidence formats, and
+    fact ledger.
+  </p>
+  <p>
+    Carried caveats worth respecting. One sweep exhausted its search quota early and marked several
+    entries unverified rather than guessing. Several 2026 arXiv preprints encountered read as
+    unrefereed and were excluded. The Hadamard order&#8209;668 question appears to have been resolved
+    by construction in 2026 but is not independently verified &mdash; which makes it a verification
+    target, not an open problem. Bounds move; every number here is as of 25 August 2026 and
+    inherits whatever staleness its source carries.
+  </p>
+</div>
+
+</div>

@@ -1,0 +1,93 @@
+%% ============================================================
+%% preamble/fonts.tex — engine + profile font dispatch, microtype
+%%
+%% Purpose      : loads the typeface stack chosen by paper.yaml
+%%                (typography.font_profile x typography.engine). The KEY
+%%                differentiator of this template: the SAME profile
+%%                renders on pdflatex (arXiv-safest), xelatex, or
+%%                lualatex, so switching engines never means rewriting
+%%                the font setup.
+%%
+%%   libertinus — distinctive house serif. pdflatex: libertinus package;
+%%                unicode engines: fontspec Libertinus + Libertinus Math.
+%%   newtx      — Times-like (law/econ). pdflatex: newtxtext/newtxmath;
+%%                unicode: TeX Gyre Termes + Termes Math.
+%%   lmodern    — Computer Modern look, maximally arXiv-safe. pdflatex:
+%%                lmodern; unicode: Latin Modern + Latin Modern Math.
+%%   plex       — IBM Plex (OpenType-only; xelatex/lualatex). pdflatex is
+%%                rejected upstream by generate_metadata.py; guarded here.
+%%
+%% Dependencies : iftex, etoolbox, generated/metadata.tex
+%%                (\PaperFontProfile). Loads fontspec/unicode-math itself
+%%                on the Unicode engines. microtype loads LAST here, after
+%%                the typefaces, so pdflatex profiles get protrusion.
+%% RULE         : fonts by family/package NAME, never file path (portability).
+%% ============================================================
+
+
+% ======================================================================
+% pdfTeX branch — 8-bit font packages.
+% ======================================================================
+\ifPDFTeX
+  \ifdefstring{\PaperFontProfile}{libertinus}{%
+    \usepackage{libertinus}%          % serif + sans + libertinust1math
+    \usepackage[varqu,scaled=0.96]{zi4}%  % Inconsolata mono (clean for code)
+  }{}%
+  \ifdefstring{\PaperFontProfile}{newtx}{%
+    \usepackage{newtxtext}%
+    \usepackage{newtxmath}%
+    \usepackage[varqu,scaled=0.95]{zi4}%
+  }{}%
+  \ifdefstring{\PaperFontProfile}{lmodern}{%
+    \usepackage{lmodern}%
+  }{}%
+  \ifdefstring{\PaperFontProfile}{plex}{%
+    \PackageError{paper-template}%
+      {font_profile 'plex' is OpenType-only}%
+      {Set typography.engine to xelatex or lualatex, or pick another profile.}%
+  }{}%
+\else
+% ======================================================================
+% Unicode branch (XeLaTeX / LuaLaTeX) — fontspec + unicode-math.
+% ======================================================================
+  \usepackage{fontspec}
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX}%
+  \ifdefstring{\PaperFontProfile}{libertinus}{%
+    \setmainfont{Libertinus Serif}%
+    \setsansfont{Libertinus Sans}%
+    \setmonofont{Libertinus Mono}[Scale=MatchLowercase,%
+      AutoFakeSlant=0.18, AutoFakeBold=1.5]%
+    \setmathfont{Libertinus Math}%
+  }{}%
+  \ifdefstring{\PaperFontProfile}{newtx}{%
+    \setmainfont{TeX Gyre Termes}%
+    \setsansfont{TeX Gyre Heros}[Scale=0.90]%
+    \setmonofont{TeX Gyre Cursor}[Scale=MatchLowercase]%
+    \setmathfont{TeX Gyre Termes Math}%
+  }{}%
+  \ifdefstring{\PaperFontProfile}{lmodern}{%
+    \setmainfont{Latin Modern Roman}%
+    \setsansfont{Latin Modern Sans}%
+    \setmonofont{Latin Modern Mono}[Scale=MatchLowercase]%
+    \setmathfont{Latin Modern Math}%
+  }{}%
+  \ifdefstring{\PaperFontProfile}{plex}{%
+    \setmainfont{IBM Plex Serif}%
+    \setsansfont{IBM Plex Sans}%
+    \setmonofont{IBM Plex Mono}[Scale=MatchLowercase]%
+    % Plex ships no math font; STIX Two Math pairs cleanly and is in TL.
+    \setmathfont{STIX Two Math}%
+  }{}%
+\fi
+
+% ======================================================================
+% Micro-typography — protrusion everywhere; expansion on pdfTeX/LuaTeX
+% only (XeTeX has no font expansion). Loaded AFTER the typefaces so the
+% pdfTeX font packages are protrusion-eligible.
+% ======================================================================
+\ifxetex
+  \usepackage[protrusion=true,expansion=false,final]{microtype}
+\else
+  \usepackage[protrusion=true,expansion=true,factor=1100,final]{microtype}
+\fi

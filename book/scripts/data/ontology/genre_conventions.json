@@ -1,0 +1,996 @@
+{
+  "name": "genre_conventions",
+  "level": "macro",
+  "entry_type": "record",
+  "description": "The reader contract by genre: what each form promises in exchange for attention, the scenes it is obliged to deliver, the moves that signal membership, the ways the contract can be paid and then broken, and the worldbuilding duties that come with invented ground. Beat sheets live in story_beat_templates/genre_sheets; this branch owns the obligation, not the sequence.",
+  "categories": {
+    "genre_promises": [
+      {
+        "name": "mystery contract",
+        "definition": "The reader is promised a puzzle that is solvable, a solution that is fair, and an ending in which disorder is named and accounted for.",
+        "promise": "You will be outwitted but not cheated: every fact needed to beat me is on the page before I use it.",
+        "obligatory_scenes": [
+          "the discovery of the crime",
+          "the canvass that gives each suspect a defensible story",
+          "the false solution the reader accepts",
+          "the summation"
+        ],
+        "exhausted_moves": [
+          "the hard-drinking detective with a dead partner",
+          "the killer who explains the whole plan at gunpoint",
+          "the twist produced by withholding a scene rather than a meaning",
+          "the guilty party introduced in the final chapter"
+        ],
+        "effect": "Fairness converts the reader from spectator into competitor, which is what makes the solution land.",
+        "caution": "A solution reached with information the reader never had is not surprising, only void; the fairness is the genre, and the puzzle is only its occasion.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "narrative_structures/mystery_and_thriller"
+        ],
+        "tags": ["fiction", "crime"]
+      },
+      {
+        "name": "thriller contract",
+        "definition": "The reader is promised a threat large enough to matter, an antagonist competent enough to win, and a protagonist who will be made to face both.",
+        "promise": "Something terrible will happen unless someone stops it, and you will be beside them for every hour of it.",
+        "obligatory_scenes": [
+          "the threat demonstrated on someone the reader cares about",
+          "the villain at full power",
+          "the hero at the mercy of the villain",
+          "the final confrontation on the antagonist's terms"
+        ],
+        "exhausted_moves": [
+          "the ex-special-forces protagonist with an estranged daughter",
+          "the villain who monologues instead of firing",
+          "the mole inside the agency revealed with no earlier presence",
+          "the countdown stopped with one second left"
+        ],
+        "effect": "Dread is manufactured by the antagonist's competence, not by the protagonist's peril.",
+        "caution": "Threat inflation is not escalation; a world-ending stake the reader cannot picture is weaker than a specific one they can.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "stakes_and_stasis/ticking_clocks"
+        ],
+        "tags": ["fiction", "suspense"]
+      },
+      {
+        "name": "crime and noir contract",
+        "definition": "The reader is promised the machinery that produces a crime, followed through its consequences to a settlement in which nobody comes out clean.",
+        "promise": "You will see how ordinary appetite becomes a body, and the accounting will be honest about who pays.",
+        "obligatory_scenes": [
+          "the job proposed and its terms accepted",
+          "the first small compromise",
+          "the double cross",
+          "the reckoning that costs the protagonist what they wanted"
+        ],
+        "exhausted_moves": [
+          "rain, neon, and a voiceover doing the work of characterization",
+          "the femme fatale with motive but no interiority",
+          "the heist undone solely by one greedy crew member",
+          "the corrupt cop revealed as the twist"
+        ],
+        "effect": "Moral descent read as inevitability is the genre's pleasure; the reader consents to the slide and then watches the bill arrive.",
+        "caution": "Noir fatalism is a shape, not a mood; without a decision the protagonist actually makes, it becomes weather.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "narrative_structures/mystery_and_thriller"
+        ],
+        "tags": ["fiction", "crime"]
+      },
+      {
+        "name": "romance contract",
+        "definition": "The reader is promised two people who will end together, with the ending bought by change in the characters rather than by circumstance.",
+        "promise": "They will be together at the end, and you will believe they deserve to be.",
+        "obligatory_scenes": [
+          "the meeting that establishes the incompatibility",
+          "forced proximity that makes retreat impossible",
+          "the black moment",
+          "the proof of love",
+          "the union"
+        ],
+        "exhausted_moves": [
+          "the misunderstanding that one sentence would resolve",
+          "the third-act breakup with no root in either character's flaw",
+          "the wealthy love interest repaired by attention",
+          "the airport run as the grand gesture"
+        ],
+        "register": "The emotional ending register is non-negotiable; the tonal range around it is wide, from cozy to dark.",
+        "caution": "A happy ending is the contract, not a preference; a romance that withholds the union has written a different genre and will be reviewed as a breach.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "narrative_structures/romance_shapes"
+        ],
+        "tags": ["fiction", "relationship"]
+      },
+      {
+        "name": "horror contract",
+        "definition": "The reader is promised fear, and fear with a logic: a threat whose rules can be inferred even when they cannot be defeated.",
+        "promise": "You will be frightened by something that makes a terrible kind of sense.",
+        "obligatory_scenes": [
+          "normality established well enough to be lost",
+          "the anomaly explained away",
+          "the first sighting",
+          "isolation from help",
+          "the premature escape",
+          "the confrontation on the threat's terms"
+        ],
+        "exhausted_moves": [
+          "the jump scare that turns out to be a cat",
+          "the character who investigates the basement alone for no stated reason",
+          "the lore found complete in a convenient diary",
+          "the closing shot of the thing standing behind them"
+        ],
+        "effect": "Dread is the interest paid on a rule the reader has worked out and the characters have not.",
+        "caution": "Explaining the threat fully spends it; explaining nothing turns dread into noise. The genre lives on partial rules.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "tones_and_moods/genre_atmospheres"
+        ],
+        "tags": ["fiction", "fear"]
+      },
+      {
+        "name": "science fiction contract",
+        "definition": "The reader is promised one rigorous difference from the known world and the chance to think through everything that follows from it.",
+        "promise": "One thing is different, and I will not cheat about what that costs.",
+        "obligatory_scenes": [
+          "the novum encountered rather than announced",
+          "the rules demonstrated in use",
+          "the extrapolated consequence nobody wanted",
+          "the price paid by someone specific"
+        ],
+        "exhausted_moves": [
+          "the scientist explaining the premise to a visiting journalist",
+          "the artificial mind that wants to be human",
+          "the single-biome planet",
+          "the council chamber debating the discovery"
+        ],
+        "effect": "Cognitive estrangement: the invented difference makes the reader's own world newly visible.",
+        "caution": "Rigor is about consequence, not vocabulary; invented nouns without downstream effects are set dressing.",
+        "see_also": [
+          "genre_conventions/worldbuilding_basics",
+          "themes_and_questions/philosophical_questions"
+        ],
+        "tags": ["fiction", "speculative"]
+      },
+      {
+        "name": "fantasy contract",
+        "definition": "The reader is promised entry into a world with its own laws, and the assurance that those laws will hold under pressure.",
+        "promise": "You may leave your world for one that is coherent, and its coherence will be tested in front of you.",
+        "obligatory_scenes": [
+          "the crossing into the world",
+          "the rules of the impossible shown in use",
+          "the cost of magic paid",
+          "the confrontation with the world's governing power"
+        ],
+        "exhausted_moves": [
+          "the farm boy with a prophecy",
+          "the tavern where the party assembles",
+          "the mentor killed to motivate the protagonist",
+          "the dark lord with no interior life",
+          "the map with a Bad Place in the northeast"
+        ],
+        "effect": "Wonder survives exactly as long as consistency does.",
+        "caution": "The reader forgives an impossible world and never forgives an inconsistent one; a rule bent to save a protagonist retroactively cancels the tension of every earlier scene.",
+        "see_also": [
+          "genre_conventions/worldbuilding_basics",
+          "narrative_structures/journey_and_quest"
+        ],
+        "tags": ["fiction", "speculative"]
+      },
+      {
+        "name": "western contract",
+        "definition": "The reader is promised a place where law has not settled, and a story that weighs violence and order against each other in it.",
+        "promise": "Someone will have to decide what justice is worth here, and the decision will be paid for in person.",
+        "obligatory_scenes": [
+          "the arrival of the stranger with a past",
+          "the outrage that makes refusal impossible",
+          "the preparation",
+          "the street duel",
+          "the departure"
+        ],
+        "exhausted_moves": [
+          "the saloon brawl used to establish setting",
+          "the noble rancher against the railroad",
+          "stoic silence standing in for interiority",
+          "the ride into the sunset"
+        ],
+        "register": "Landscape carries argument; the country is a party to the story, not a backdrop.",
+        "caution": "The genre's inherited politics are part of its furniture; using the furniture without noticing it is itself a choice readers now read.",
+        "see_also": "story_beat_templates/genre_sheets",
+        "tags": ["fiction", "frontier"]
+      },
+      {
+        "name": "historical fiction contract",
+        "definition": "The reader is promised a past inhabited rather than visited: material conditions, constraints, and beliefs rendered as the characters would have held them.",
+        "promise": "You will live inside the period's limits, not tour its landmarks.",
+        "obligatory_scenes": [
+          "ordinary work done in period detail",
+          "the historical hinge touched by the private story",
+          "a belief the modern reader dislikes, held sincerely",
+          "the consequence the record already knows"
+        ],
+        "exhausted_moves": [
+          "the protagonist with twenty-first-century politics and no cost for them",
+          "the famous person walking on to be recognized",
+          "research delivered as a tour of the marketplace",
+          "costume itemized in catalogue detail"
+        ],
+        "effect": "Constraint is the pleasure: a world where fewer things are possible makes each choice heavier.",
+        "caution": "Anachronism of value is more damaging than anachronism of fact, because it dissolves the constraint the genre exists to supply.",
+        "see_also": [
+          "settings_and_environments/time_periods",
+          "evidence_types/documentary_and_physical_evidence"
+        ],
+        "tags": ["fiction", "period"]
+      },
+      {
+        "name": "literary fiction contract",
+        "definition": "The reader is promised sentences that repay attention and a person who will be more clearly seen by the last page than the first.",
+        "promise": "Nothing here is only plumbing; the language and the seeing are the goods.",
+        "obligatory_scenes": [
+          "the ordinary rendered strange enough to be noticed",
+          "sustained pressure on one relationship",
+          "the moment of self-knowledge, taken or refused"
+        ],
+        "exhausted_moves": [
+          "the epiphany delivered at a window",
+          "the deliberately unnamed city",
+          "the close on an ambiguous gesture",
+          "the writer protagonist with writer's block"
+        ],
+        "register": "Interiority and prose surface carry the load that plot carries elsewhere.",
+        "caution": "Literary standing is not a licence to skip event; a refusal of plot still owes the reader change, or it owes an explicit argument for stasis.",
+        "see_also": [
+          "narrative_structures/classical_models",
+          "pov_and_narration/psychic_distance_ladder"
+        ],
+        "tags": ["fiction"]
+      },
+      {
+        "name": "memoir contract",
+        "definition": "The reader is promised a life told by the person who lived it, with the telling self honest about the remembered self.",
+        "promise": "I will not spare myself to make you like me.",
+        "obligatory_scenes": [
+          "the situation and its stakes established",
+          "the compact of honesty: what will be told and what will not",
+          "the reckoning with the remembered self",
+          "the understanding the writer holds now, and its limits"
+        ],
+        "exhausted_moves": [
+          "the chronological march from childhood to the present",
+          "the redemption arc that arrives at the writing of this book",
+          "the family member rendered as a villain with no inner life",
+          "the italicized dream sequence"
+        ],
+        "effect": "The double self is the form: an experiencing narrator whose limits a reflecting narrator can see.",
+        "caution": "Memoir's first contract is truthfulness about the writer; a book that flatters its narrator has broken faith before any fact is checked.",
+        "see_also": [
+          "pov_and_narration/narrator_reliability_types",
+          "character_and_persona/authorial_personae"
+        ],
+        "tags": ["nonfiction", "life-writing"]
+      },
+      {
+        "name": "popular science contract",
+        "definition": "The reader is promised a real thing explained until they can hold it, without being lied to for the sake of clarity.",
+        "promise": "You will understand this, and I will tell you where my simplifications stop being true.",
+        "obligatory_scenes": [
+          "the puzzle posed in the reader's terms",
+          "the counterintuitive result explained",
+          "the evidence weighed with its limits stated",
+          "the working model handed over"
+        ],
+        "exhausted_moves": [
+          "the lone-genius origin story with a bathtub in it",
+          "the analogy that quietly performs the proof",
+          "the quantum metaphor for a non-quantum thing",
+          "the closing claim that the field will change everything"
+        ],
+        "effect": "Trust is the product; the reader is buying a model they can use in someone else's argument.",
+        "caution": "The lie-to-children simplification is legitimate only when the book says it is one; unlabelled, it becomes the reader's permanent belief.",
+        "see_also": [
+          "evidence_types/statistics_presentation_modes",
+          "argument_arrangements/proof_strategies"
+        ],
+        "tags": ["nonfiction", "explanatory"]
+      },
+      {
+        "name": "true crime contract",
+        "definition": "The reader is promised a real harm to real people, told with the victim as a person and the reporting as the source of authority.",
+        "promise": "This happened, these are the people it happened to, and I will show you how I know.",
+        "obligatory_scenes": [
+          "the victim restored to personhood",
+          "the discovery of the crime",
+          "the investigation's failures named",
+          "the reckoning, or the documented absence of one"
+        ],
+        "exhausted_moves": [
+          "the perpetrator's childhood offered as explanation",
+          "the crime scene lingered over for atmosphere",
+          "the cliffhanger break borrowed from podcast pacing",
+          "the shrug that we may never know, standing in for reporting"
+        ],
+        "effect": "Restraint reads as credibility; the genre's authority is entirely borrowed from its sourcing.",
+        "caution": "The standing temptation is to grant the perpetrator the interiority the book denies the victim; readers now notice, and reviewers name it.",
+        "see_also": [
+          "evidence_types/documentary_and_physical_evidence",
+          "rhetorical_situations/constraint_types"
+        ],
+        "tags": ["nonfiction", "crime"]
+      },
+      {
+        "name": "satire contract",
+        "definition": "The reader is promised a recognizable target and an exaggeration with an argument underneath it.",
+        "promise": "You will laugh, and the laugh will have a claim inside it that you could state if asked.",
+        "obligatory_scenes": [
+          "the norm established so the deviation reads as deviation",
+          "escalation past plausibility while the internal logic holds",
+          "the target's own reasoning turned against it",
+          "the moment the joke stops and the cost is shown"
+        ],
+        "exhausted_moves": [
+          "the thinly renamed public figure",
+          "the modest-proposal pastiche",
+          "the dystopia that is one current policy taken literally",
+          "the narrator who explains the satire in case it was missed"
+        ],
+        "register": "Horatian warmth and Juvenalian contempt are different contracts; readers detect a switch mid-book as bad faith.",
+        "caution": "Satire that never risks the reader's own position flatters instead of indicting, which is the failure mode the form was invented against.",
+        "see_also": [
+          "narrative_structures/tragedy_comedy_satire",
+          "themes_and_questions/moral_dilemmas"
+        ],
+        "tags": ["fiction", "argument"]
+      },
+      {
+        "name": "self-help and business contract",
+        "definition": "The reader is promised a change they can make, explained by a mechanism and demonstrated on a case.",
+        "promise": "You will be able to do something differently on Monday.",
+        "obligatory_scenes": [
+          "the reader's problem named in the reader's own words",
+          "the mechanism explained, not just the result",
+          "the worked case with numbers or specifics",
+          "the strongest objection answered",
+          "the first small action"
+        ],
+        "exhausted_moves": [
+          "the airport anecdote about an unnamed CEO",
+          "the three-letter acronym framework",
+          "the study cited without effect size or replication status",
+          "the chapter that restates its own title six ways"
+        ],
+        "effect": "Actionability is the whole product; insight without a next step reads as entertainment and is priced accordingly.",
+        "caution": "Overclaiming is the genre's endemic breach; a mechanism stated with its boundary conditions outsells nothing but survives scrutiny.",
+        "see_also": [
+          "argument_arrangements/business_forms",
+          "rhetorical_situations/audience_models"
+        ],
+        "tags": ["nonfiction", "prescriptive"]
+      },
+      {
+        "name": "narrative journalism contract",
+        "definition": "The reader is promised a true story that has been shaped, with the shaping never paid for in facts.",
+        "promise": "Every scene here happened, and I can tell you how I know each one.",
+        "obligatory_scenes": [
+          "the scene the reporter witnessed",
+          "the documentary spine that outlives memory",
+          "the counter-account from the other side",
+          "the note on method"
+        ],
+        "exhausted_moves": [
+          "the composite character",
+          "omniscient interiority for a subject never interviewed",
+          "the kicker quote too good to have been checked",
+          "the ride-along opening"
+        ],
+        "effect": "Novelistic technique is on loan from fiction; the sourcing note is the interest payment that keeps the loan honest.",
+        "caution": "Reconstructed thought is the boundary: attribute it to an interview or do not have it. Readers who catch one invention discount the whole book.",
+        "see_also": [
+          "rhetorical_situations/venue_and_genre",
+          "evidence_types/documentary_and_physical_evidence"
+        ],
+        "tags": ["nonfiction", "reportage"]
+      }
+    ],
+    "obligatory_scenes": [
+      {
+        "name": "the discovery of the body",
+        "definition": "The scene in which the crime becomes undeniable, demanded by mystery, procedural, and crime fiction.",
+        "effect": "Converts a social world into a field of suspects; every subsequent fact is read against this one.",
+        "caution": "Discovery reported in summary throws away the genre's only irreversible moment.",
+        "see_also": "story_beat_templates/genre_sheets"
+      },
+      {
+        "name": "the summation scene",
+        "definition": "The scene in which the investigator lays out the solution and the reasoning that produced it, demanded by the fair-play mystery.",
+        "effect": "Compresses the whole book into a re-reading and lets the reader grade their own attention.",
+        "aka": ["the drawing-room summation", "the reveal"],
+        "caution": "If the summation introduces evidence rather than reorganizing it, the fairness contract fails here and nowhere else.",
+        "see_also": "narrative_structures/mystery_and_thriller"
+      },
+      {
+        "name": "the confession scene",
+        "definition": "The scene in which the guilty party accounts for the crime in their own voice, demanded by inverted mysteries, courtroom stories, and much crime fiction.",
+        "effect": "Moves the recognition from the reader to the criminal, which is the only remaining pleasure once the puzzle is spent.",
+        "caution": "A confession that exists to explain plot mechanics rather than to reveal a person is a summary wearing dialogue tags."
+      },
+      {
+        "name": "the villain at full power",
+        "definition": "A scene showing the antagonist succeeding at what they do, with the protagonist absent and unable to blunt it, demanded by the thriller.",
+        "effect": "Sets the ceiling of threat; the reader now knows what the protagonist is actually up against.",
+        "caution": "Competence, not cruelty, is what sets the ceiling; gratuitous violence lowers the antagonist's stature by making them ordinary."
+      },
+      {
+        "name": "the hero at the mercy of the villain",
+        "definition": "The scene in which the antagonist has the protagonist and could end it, demanded by the thriller and the action-adventure.",
+        "effect": "Proves the threat by letting it touch the protagonist, and forces the antagonist to reveal what they want more than victory.",
+        "caution": "The escape must cost something the reader can name, or the scene retroactively becomes decoration."
+      },
+      {
+        "name": "the speech in praise of the villain",
+        "definition": "The scene in which another character articulates the antagonist's competence, reach, or appeal, demanded by thrillers and much crime fiction.",
+        "effect": "Installs the threat in the reader's mind through a witness rather than through the narrator's assertion.",
+        "aka": ["the villain's advocate"],
+        "register": "Most credible from a character with reason to resent the antagonist."
+      },
+      {
+        "name": "the black moment scene",
+        "definition": "The scene in which the relationship appears permanently lost for reasons rooted in the flaw each character has been protecting, demanded by romance.",
+        "effect": "Makes the union that follows a choice rather than an outcome, which is what the genre is actually selling.",
+        "aka": ["the dark moment", "the all-is-lost beat"],
+        "caution": "A separation caused by a withheld sentence rather than a flaw reads as contrivance and is the genre's most-cited failure.",
+        "see_also": [
+          "narrative_structures/romance_shapes",
+          "narrative_structures/plot_points_and_turns"
+        ]
+      },
+      {
+        "name": "the proof of love scene",
+        "definition": "The scene in which a character surrenders the thing they said they would never surrender, demanded by romance.",
+        "effect": "Pays the change the reader was promised in a currency the book has already established as expensive.",
+        "caution": "A grand gesture that costs money or effort rather than self-conception is spectacle, not proof."
+      },
+      {
+        "name": "the first sighting of the monster",
+        "definition": "The scene in which the threat is seen plainly enough to stop being an ambiguity, demanded by horror.",
+        "effect": "Trades atmosphere for certainty; dread now runs on rules rather than on the unknown.",
+        "caution": "Too early spends the dread, too late reads as evasion. The reveal should redistribute fear, not end it."
+      },
+      {
+        "name": "the premature escape scene",
+        "definition": "The scene in which the characters appear to have survived, with substantial book remaining, demanded by horror and the survival story.",
+        "effect": "Relief becomes the source of the next dread, because the reader knows the page count and the characters do not.",
+        "aka": ["the false victory", "the false dawn"],
+        "see_also": [
+          "narrative_structures/plot_points_and_turns",
+          "arc_shapes/tension_curves"
+        ]
+      },
+      {
+        "name": "the novum encounter",
+        "definition": "The scene in which the story's one rigorous difference from the known world is met in use rather than announced, demanded by science fiction.",
+        "effect": "Produces cognitive estrangement: the reader infers the world from behavior and feels the difference before it is named.",
+        "caution": "An encounter staged as an explanation to a newcomer converts the genre's central pleasure into a lecture.",
+        "see_also": "genre_conventions/worldbuilding_basics"
+      },
+      {
+        "name": "the crossing into the secondary world",
+        "definition": "The scene in which a character passes from the known order into the world with different laws, demanded by portal fantasy and most quest fantasy.",
+        "effect": "Fixes the reader's frame of reference and tells them which rules are now suspended.",
+        "caution": "In secondary worlds without a portal, this obligation is discharged by the first scene that shows the rules being different, and something must discharge it.",
+        "see_also": [
+          "narrative_structures/journey_and_quest",
+          "scene_patterns/scene_shapes"
+        ]
+      },
+      {
+        "name": "the cost of magic scene",
+        "definition": "The scene in which using the impossible is shown to take something from the user, demanded by fantasy with any operative magic.",
+        "effect": "Converts power into stakes; magic that costs nothing cannot generate tension no matter how well it is described.",
+        "caution": "The cost must be paid on the page at least once before the climax relies on it, or it will read as an invention of convenience.",
+        "see_also": "genre_conventions/worldbuilding_basics"
+      },
+      {
+        "name": "the street duel",
+        "definition": "The face-to-face armed confrontation in the open, decided quickly and watched by the community, demanded by the western.",
+        "effect": "Collapses the story's argument about law and violence into a few seconds that the town must then live with.",
+        "aka": ["the walk-down", "the showdown"],
+        "caution": "The interest is in what the town does afterward; a duel with no aftermath is choreography.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "interaction_moves/conflict_moves"
+        ]
+      },
+      {
+        "name": "the historical hinge scene",
+        "definition": "The scene in which the private story touches the public event whose outcome the reader already knows, demanded by historical fiction.",
+        "effect": "Dramatic irony becomes structural: the reader's foreknowledge does the suspense work that surprise would do elsewhere.",
+        "caution": "The character must have a reason to be there that the plot needed anyway; contrived proximity to famous events is the genre's most visible seam."
+      },
+      {
+        "name": "the moment of self-knowledge",
+        "definition": "The scene in which a character sees something true about themselves that the book has been arranging for them to see, demanded by literary fiction and character-driven work in any genre.",
+        "effect": "Delivers the change the reader has been reading for, whether the character then acts on it or refuses to.",
+        "aka": ["anagnorisis", "recognition"],
+        "caution": "Refusal is a legitimate discharge of this obligation; absence is not.",
+        "see_also": [
+          "narrative_structures/classical_models",
+          "scene_patterns/scene_shapes"
+        ]
+      },
+      {
+        "name": "the reckoning with the remembered self",
+        "definition": "The scene in which the narrating memoirist judges the person they were, without the judgment resolving into self-congratulation, demanded by memoir.",
+        "effect": "Establishes the double perspective that separates memoir from autobiography and gives the reader a reason to trust the telling.",
+        "caution": "Reckoning that lands on the writer's present virtue is the genre's characteristic breach; the honest version usually leaves something unresolved.",
+        "see_also": "pov_and_narration/narrator_reliability_types"
+      },
+      {
+        "name": "the counterintuitive result explained",
+        "definition": "The scene in which the finding that contradicts common sense is walked through until the reader can reconstruct it, demanded by popular science.",
+        "effect": "Converts a fact the reader could have read in a headline into a model they can operate.",
+        "caution": "The explanation must survive being restated by the reader; if only the metaphor is portable, nothing was explained.",
+        "see_also": "evidence_types/statistics_presentation_modes"
+      },
+      {
+        "name": "the debunking scene",
+        "definition": "The scene in which a widely held belief is examined and shown to fail, demanded by skeptical nonfiction, popular science, and investigative work.",
+        "effect": "Buys the author's authority for the constructive claims that follow it.",
+        "caution": "State the belief in its strongest form and name who holds it; a debunking of a position nobody defends is a straw exercise readers recognize.",
+        "see_also": [
+          "fallacies_eristic/relevance_fallacies",
+          "argumentation_schemes/dialectical_and_burden"
+        ]
+      },
+      {
+        "name": "the victim restored to personhood",
+        "definition": "The scene that reconstructs who the victim was on their own terms, before and apart from the harm done to them, demanded by true crime and much investigative reporting.",
+        "effect": "Reasserts the moral center the genre's mechanics keep pulling away from the victim and toward the perpetrator.",
+        "caution": "Restoration built only from grieving relatives' quotes produces a saint rather than a person; the specifics of an ordinary life do more."
+      },
+      {
+        "name": "the trial scene",
+        "definition": "The scene in which the story's factual dispute is submitted to a formal procedure with its own rules, demanded by legal thrillers, courtroom drama, and much true crime.",
+        "effect": "Forces every prior ambiguity into the binary the institution requires, which is where the story's real disagreement becomes visible.",
+        "caution": "Procedure is the source of the tension, not an obstacle to it; scenes that ignore the rules to get to a speech lose the genre's central pleasure.",
+        "see_also": [
+          "story_beat_templates/genre_sheets",
+          "argument_arrangements/legal_forms"
+        ]
+      },
+      {
+        "name": "the choice under pressure",
+        "definition": "The scene in which a character must choose between two things they want, with conditions that forbid delay, demanded across genres wherever character is claimed to matter.",
+        "effect": "Character is defined by the choice rather than described; the reader learns what the person values by what they give up.",
+        "caution": "A choice between a good and an evil is not a choice; the pressure has to make both options cost.",
+        "see_also": [
+          "scene_patterns/scene_shapes",
+          "themes_and_questions/moral_dilemmas"
+        ]
+      },
+      {
+        "name": "the hard bargain",
+        "definition": "The scene in which a character accepts terms they know are bad because the alternative is worse, demanded by noir, tragedy, dark fantasy, and the corruption plot.",
+        "effect": "Installs the debt the rest of the story will collect; every later scene is read as an installment.",
+        "caution": "The terms must be specific and stated; a vague pact cannot be collected on with any force.",
+        "see_also": [
+          "themes_and_questions/recurring_motifs",
+          "interaction_moves/negotiation_moves"
+        ]
+      },
+      {
+        "name": "the ritual of induction",
+        "definition": "The scene in which an outsider is formally admitted to a closed group and taught its rules, demanded by heist, spy, military, school-of-magic, and cult narratives.",
+        "effect": "Delivers the world's rules through a character who legitimately needs them, and marks the point past which ignorance stops being an excuse.",
+        "caution": "This is the one licensed place for rule exposition, which is exactly why it attracts an infodump; keep the rules to the ones the plot will break.",
+        "see_also": [
+          "interaction_moves/social_rituals",
+          "genre_conventions/worldbuilding_basics"
+        ]
+      }
+    ],
+    "convention_moves": [
+      {
+        "name": "the genre-signalling opening",
+        "definition": "An opening constructed so the reader can identify the genre within a page and start applying its expectations.",
+        "effect": "Lets the reader stop asking what kind of book this is and start caring about what happens in it.",
+        "example": "A body, a spaceship's failing air scrubber, or a wedding invitation addressed to the wrong person, each in the first paragraph.",
+        "caution": "Signalling one genre and delivering another loses more readers than a slow opening does.",
+        "see_also": [
+          "openings_and_closings/hooks_and_ledes",
+          "rhetorical_situations/constraint_types"
+        ]
+      },
+      {
+        "name": "the tonal contract",
+        "definition": "The commitment, made in the first page or two, about how much violence, sex, comedy, and despair this book will contain.",
+        "effect": "Readers calibrate their defenses; a book that keeps its tonal word can go further inside it than one that surprises.",
+        "caution": "Tonal breach is felt as betrayal even when the writing is good: the cozy that turns graphic, or the comedy that turns to grief without preparation.",
+        "see_also": [
+          "tones_and_moods/genre_atmospheres",
+          "rhetorical_situations/constraint_types"
+        ]
+      },
+      {
+        "name": "the reassurance beat",
+        "definition": "A short passage that confirms the book is still the book the reader bought, placed after an experiment or a long digression.",
+        "effect": "Buys tolerance for the next departure by proving the departure was deliberate.",
+        "example": "After forty pages of family history, a chapter that returns to the investigation and moves it forward twice.",
+        "caution": "Reassurance too frequently applied becomes the book, and the experiments stop happening."
+      },
+      {
+        "name": "the cliche played straight",
+        "definition": "A stock genre element delivered without irony or apology, executed well enough to demonstrate command of the form.",
+        "effect": "Reads as competence rather than laziness because the execution shows the writer chose it; it also earns the reader's trust for later departures.",
+        "register": "Works when the surrounding prose is specific; fails when everything around it is equally stock.",
+        "caution": "The line between playing it straight and having nothing else is thin, and reviewers police it.",
+        "see_also": "rhetorical_figures/vices_and_decorum_figures"
+      },
+      {
+        "name": "the fair-play clue",
+        "definition": "A fact the reader is shown in full, in a context that makes it easy to misread, so the solution is available without being visible.",
+        "effect": "Makes the reveal produce recognition rather than information, which is the difference between a good mystery and a plot summary.",
+        "example": "The clue placed at the end of a paragraph whose last sentence is more interesting.",
+        "caution": "Concealment by prose trickery (a scene that ends one line early) breaks the contract even when it is technically fair.",
+        "see_also": "narrative_structures/mystery_and_thriller"
+      },
+      {
+        "name": "the genre clock",
+        "definition": "A deadline the genre's readers expect as a matter of form, such as the thriller's countdown or the romance's approaching wedding.",
+        "effect": "Supplies a shape the reader can feel without being told, because they already know how the clock behaves in this form.",
+        "caution": "A clock the plot then ignores is worse than none; readers track the stated time.",
+        "see_also": [
+          "stakes_and_stasis/ticking_clocks",
+          "arc_shapes/tension_curves"
+        ]
+      },
+      {
+        "name": "the cozy boundary",
+        "definition": "The convention that violence, cruelty, and sex happen off the page, with the story picking up in the aftermath.",
+        "effect": "Lets a book handle murder as a puzzle and a community as the real subject, which is the entire appeal of the cozy subgenres.",
+        "register": "Cozy mystery, village crime, much middle-grade and inspirational fiction.",
+        "caution": "The boundary is load-bearing: one on-page atrocity resets the reader's expectations for the whole book.",
+        "see_also": "narrative_structures/mystery_and_thriller"
+      },
+      {
+        "name": "the escalating body count",
+        "definition": "The convention that each act raises the cost of the threat, most literally in horror and thriller, by removing characters the reader had begun to hold.",
+        "effect": "Establishes that the story will not protect anyone, which makes the survivors' peril credible.",
+        "caution": "Escalation by quantity alone numbs; the second death must matter more than the first because of who it was, not how many."
+      },
+      {
+        "name": "the courtship obstacle ladder",
+        "definition": "The graded sequence of impediments between two people, arranged so each removal creates a harder one, running from external circumstance down to the internal flaw.",
+        "effect": "Keeps the pair apart for structural reasons rather than by evasion, so the union arrives on schedule and earned.",
+        "caution": "If the last rung is still external, the ending resolves a situation rather than a person.",
+        "see_also": [
+          "narrative_structures/romance_shapes",
+          "stakes_and_stasis/relational_stakes"
+        ]
+      },
+      {
+        "name": "the rules stated then obeyed",
+        "definition": "The convention that a speculative or procedural work declares its constraints early and never violates them for convenience.",
+        "effect": "Every obeyed rule increases the reader's willingness to extend credit for the next impossibility.",
+        "caution": "One broken rule is retroactive: it does not cost the scene, it costs every scene whose tension depended on the rule.",
+        "see_also": "genre_conventions/worldbuilding_basics"
+      },
+      {
+        "name": "the genre-appropriate ending register",
+        "definition": "The tonal key an ending is expected to land in, independent of what happens: romance closes warm, noir closes cold, horror closes unresolved, popular science closes usable.",
+        "effect": "The reader's satisfaction is largely a register judgment; the same events in the wrong key read as the wrong book.",
+        "caution": "A deliberate departure needs to be prepared for at least a third of the book, or it reads as a failure of nerve or of craft.",
+        "see_also": "openings_and_closings/book_endings"
+      },
+      {
+        "name": "the series promise",
+        "definition": "The commitment, visible by the last chapter, about what will and will not carry over: the recurring investigator, the unresolved mythology, the couple who are settled.",
+        "effect": "Tells the reader whether to hold questions open, which changes how they read the ending they just got.",
+        "caution": "A first book that resolves nothing to force a sequel converts a promise into a hostage situation, and readers name it as such.",
+        "see_also": "narrative_structures/episodic_and_serial"
+      },
+      {
+        "name": "the cover-and-blurb contract",
+        "definition": "The genre expectations set by packaging — cover conventions, comparison titles, category placement, jacket copy — before a word of the book is read.",
+        "effect": "Most reader disappointment is a mismatch between this contract and the text, not a defect in the text.",
+        "caution": "The author usually cannot control packaging but can be read against it; know what the packaging promises and either deliver it or argue for different packaging.",
+        "see_also": [
+          "rhetorical_situations/venue_and_genre",
+          "rhetorical_situations/constraint_types"
+        ]
+      },
+      {
+        "name": "the named trope delivered",
+        "definition": "The explicit, marketable device readers select the book for — enemies to lovers, locked room, found family, one bed — supplied in recognizable form.",
+        "effect": "In trope-literate markets this is the actual purchase decision, and delivering it is a floor rather than a ceiling.",
+        "caution": "Delivering the label without its emotional mechanism is the most common complaint in trope-driven categories.",
+        "see_also": "narrative_structures/romance_shapes"
+      },
+      {
+        "name": "the front-matter apparatus signal",
+        "definition": "Maps, family trees, dramatis personae, epigraphs, timelines, and document facsimiles used to declare genre and scale before chapter one.",
+        "effect": "Sets scope expectations cheaply: a map promises a journey, a cast list promises an ensemble, a document promises an archive.",
+        "caution": "Apparatus that the text does not need signals a scale the book cannot deliver, and readers check.",
+        "see_also": "genre_conventions/worldbuilding_basics"
+      },
+      {
+        "name": "the genre lexicon",
+        "definition": "The diction stratum a genre expects: procedural jargon, period vocabulary, invented terminology, or the deliberately plain register of much commercial fiction.",
+        "effect": "A handful of correctly used specialist words buys more authority than a page of description.",
+        "caution": "Lexicon without comprehension is detected fastest by exactly the readers the genre depends on.",
+        "see_also": [
+          "diction_and_register/register_levels",
+          "diction_and_register/naming_strategies"
+        ]
+      },
+      {
+        "name": "the comp-title calibration",
+        "definition": "Reading the two or three books a project will be compared to and matching their structural expectations deliberately, whether by conforming or by departing.",
+        "effect": "Converts vague genre feel into checkable decisions: chapter length, POV count, time to first body, heat level, apparatus.",
+        "register": "Planning and revision, not drafting.",
+        "caution": "Calibration is diagnostic, not generative; comps tell you the contract, they do not tell you the book."
+      }
+    ],
+    "subversion_moves": [
+      {
+        "name": "pay the promise then break the form",
+        "definition": "Deliver the genre's core satisfaction in full, then violate its structural conventions around the delivery.",
+        "effect": "The reader who came for the promise is paid and therefore willing to follow the departure.",
+        "example": "A mystery that solves fairly and completely at the two-thirds mark, then spends its last act on what the solution does to the community.",
+        "caution": "The order matters: payment first buys the licence, and no amount of ambition buys it retroactively."
+      },
+      {
+        "name": "the obligatory scene in the wrong register",
+        "definition": "Deliver the scene the genre demands, but tonally displaced — the showdown as farce, the reunion as horror, the summation as an apology.",
+        "effect": "The obligation is discharged while the meaning is inverted, so the reader feels both satisfaction and unease.",
+        "caution": "Works once or twice per book; a whole book of displaced registers is a different genre, and should be signalled as one."
+      },
+      {
+        "name": "the withheld reveal",
+        "definition": "Refuse the genre's expected disclosure and make the refusal the book's argument rather than an evasion of it.",
+        "effect": "Redirects the reader's attention from the answer to their own demand for one.",
+        "example": "An investigation that ends with the crime unsolved because the institutions involved were never going to solve it, which is the book's claim.",
+        "caution": "Requires the book to have named this as its subject well before the ending; otherwise it is indistinguishable from an author who could not finish.",
+        "see_also": "scene_patterns/pacing_moves"
+      },
+      {
+        "name": "the anticlimax as thesis",
+        "definition": "Build to the genre's expected climax and deliberately deliver something smaller, so the deflation carries the meaning.",
+        "effect": "The gap between the promised scale and the delivered one is where the argument sits.",
+        "caution": "The reader must be able to state the argument afterward; an anticlimax nobody can account for is just a weak ending.",
+        "see_also": [
+          "arc_shapes/tension_curves",
+          "rhetorical_figures/amplification_and_addition_figures"
+        ]
+      },
+      {
+        "name": "genre-crossing",
+        "definition": "Run two genres' contracts at once and pay both, so each supplies what the other structurally lacks.",
+        "effect": "The second contract can carry the load at the exact points where the first traditionally sags.",
+        "example": "A procedural whose middle act is a workplace comedy; a romance whose obstacle ladder is a haunting.",
+        "caution": "Two contracts mean two sets of obligatory scenes; a cross that skips one genre's obligations is not a cross, it is a lapse.",
+        "see_also": "genre_conventions/genre_promises"
+      },
+      {
+        "name": "the detective who fails",
+        "definition": "Keep every convention of the investigation while denying the investigator the solution or the power to act on it.",
+        "effect": "Transfers the genre's competence pleasure into a critique of the institutions the competence was supposed to serve.",
+        "caution": "The failure has to be caused by something the book has been describing; failure by authorial fiat reads as spite.",
+        "see_also": "narrative_structures/mystery_and_thriller"
+      },
+      {
+        "name": "the romance without the union",
+        "definition": "Run the courtship structure faithfully and withhold the ending, relabeling the book as love story rather than romance.",
+        "effect": "The withheld ending recasts every earlier beat as elegy.",
+        "caution": "This is a genre change, not a subversion, and must be signalled by packaging and register; readers who bought a romance will treat it as breach regardless of quality.",
+        "see_also": "narrative_structures/romance_shapes"
+      },
+      {
+        "name": "deconstruct after establishing competence",
+        "definition": "Write the genre straight for long enough to prove command of it, then take it apart from the inside.",
+        "effect": "The critique lands as expertise rather than as contempt, because the reader has already seen the writer do the thing well.",
+        "caution": "The proof of competence must be real and sustained; a chapter of pastiche does not license a book of dismantling."
+      },
+      {
+        "name": "the third-time break",
+        "definition": "Establish a convention by honoring it visibly twice, then break it on the third occurrence.",
+        "effect": "The break is legible as a break rather than as inconsistency, because the reader has been trained on the pattern within this book.",
+        "example": "Two chapters that each end with the detective's summary; the third ends mid-thought.",
+        "caution": "Pattern-setting requires the reader to have noticed; the first two instances should be conspicuous enough to be remembered."
+      },
+      {
+        "name": "the promise paid in another currency",
+        "definition": "Refuse the literal obligatory scene while delivering the emotional satisfaction it exists to produce.",
+        "effect": "Satisfies the contract at the level that actually matters and frees the book from a scene that would have been rote.",
+        "example": "No duel, but a public refusal that costs the same and settles the same question.",
+        "caution": "Works only if the substitute is more costly than the original; cheaper substitutes are simply omissions."
+      },
+      {
+        "name": "the borrowed genre frame",
+        "definition": "Tell material from one domain in the structural grammar of another genre — a memoir as procedural, a business book as quest, a scientific dispute as courtroom.",
+        "effect": "The borrowed structure supplies momentum and expectation to material that has none of its own.",
+        "caution": "The borrowed genre brings its obligatory scenes with it; readers will wait for them.",
+        "see_also": "rhetorical_situations/venue_and_genre"
+      },
+      {
+        "name": "the reader implicated",
+        "definition": "Turn the genre's own appetite into the subject, making the reader's enjoyment part of what the book is about.",
+        "effect": "Most available in horror and true crime, where the pleasure being sold is uncomfortable on inspection.",
+        "example": "A true-crime narrative that documents its own audience's consumption of the case alongside the case.",
+        "caution": "Scolding the reader for finishing the book is not implication; the move works only when the book keeps delivering what it is indicting."
+      },
+      {
+        "name": "the demystified monster",
+        "definition": "Explain the genre's source of dread completely and continue the story in what remains.",
+        "effect": "Shifts the book from fear of the unknown to fear of the known, which is a different and sometimes colder effect.",
+        "caution": "Whatever replaces the mystery has to be at least as strong; most demystifications simply end the tension and coast."
+      },
+      {
+        "name": "the broken contract",
+        "definition": "Withholding the genre's central satisfaction without paying for it in argument, structure, or an alternative currency.",
+        "polarity": "fault",
+        "effect": "The reader experiences the book as a failure of craft even when every sentence is good, because the exchange they entered was not honored.",
+        "caution": "The tell is that the writer cannot state what the reader received instead. If there is no answer, the subversion is an omission.",
+        "see_also": "rhetorical_situations/constraint_types"
+      },
+      {
+        "name": "bait-and-switch genre",
+        "definition": "Signalling one genre through opening, packaging, and register, then delivering a different one without preparation.",
+        "polarity": "fault",
+        "effect": "Produces the sharpest negative reviews in commercial fiction, usually phrased as dishonesty rather than as disappointment.",
+        "caution": "The legitimate version prepares the switch inside the text early enough that a rereading shows it was always the other genre.",
+        "see_also": "genre_conventions/convention_moves"
+      },
+      {
+        "name": "the empty deconstruction",
+        "definition": "Taking a genre apart as the book's whole content, with nothing constructed in the space cleared.",
+        "polarity": "fault",
+        "effect": "Reads as knowingness rather than as argument; the reader is shown the machinery and given no reason to care that they were shown it.",
+        "caution": "Ask what the reader is meant to feel at the end other than clever. If there is no answer, the book is a commentary on other books."
+      }
+    ],
+    "worldbuilding_basics": [
+      {
+        "name": "the novum",
+        "definition": "Suvin's term for the single validated innovation that separates a speculative world from the known one and from which the rest is derived.",
+        "effect": "Concentrates invention so the reader has one thing to accept and many things to infer.",
+        "example": "A cheap, reliable way to record a person's memories; everything else in the book is a consequence of it.",
+        "aka": ["the big idea"],
+        "caution": "Multiple unrelated nova divide the reader's credit and none of them gets fully worked out.",
+        "see_also": "genre_conventions/genre_promises"
+      },
+      {
+        "name": "the one big lie",
+        "definition": "The craft convention of asking the reader to grant exactly one impossibility and then behaving with complete rigor about everything else.",
+        "effect": "The rigor around the lie is what makes the lie credible; each honest detail pays for the dishonest one.",
+        "aka": ["one impossible thing"],
+        "caution": "A second lie granted quietly halfway through cancels the credit earned by the first."
+      },
+      {
+        "name": "the extrapolated consequence",
+        "definition": "The downstream second- and third-order effects of the world's premise on law, labor, religion, family, and language.",
+        "effect": "Distinguishes a built world from a decorated one; readers of speculative fiction read specifically for these.",
+        "example": "If memories can be recorded, what happens to testimony, to grief, and to the insurance industry.",
+        "caution": "Work out more than appears on the page, then show the consequences that touch a character."
+      },
+      {
+        "name": "the point of divergence",
+        "definition": "The identified moment at which an alternate history departs from the record, with everything after it derived rather than assumed.",
+        "effect": "Gives the reader a fixed reference against which every difference becomes legible as an argument about causation.",
+        "caution": "Divergences that produce a present indistinguishable from ours except in one convenient respect abandon the form's whole method.",
+        "see_also": "genre_conventions/genre_promises"
+      },
+      {
+        "name": "iceberg exposition",
+        "definition": "Building far more of the world than the text states and letting the unstated mass show as confidence in what is stated.",
+        "effect": "The reader senses depth from the narrator's lack of anxiety about explaining, not from the volume of detail supplied.",
+        "aka": ["the theory of omission"],
+        "caution": "The iceberg has to exist; omission without the underlying work produces vagueness, which reads nothing like restraint."
+      },
+      {
+        "name": "incluing",
+        "definition": "Walton's term for seeding the world through details dropped in passing, so the reader assembles it without ever being addressed as a newcomer.",
+        "effect": "The reader's inference does the work, which makes the world feel discovered rather than delivered.",
+        "example": "A character checks the tide tables before scheduling a funeral, and the reader learns three things about the world without a sentence of explanation.",
+        "aka": ["clueing in"],
+        "caution": "Requires enough repetition that the inference is reachable; incluing pitched too fine reads as authorial mumbling."
+      },
+      {
+        "name": "the lived-in detail",
+        "definition": "A concrete, unglamorous specific that implies a functioning world: maintenance, prices, paperwork, weather, the smell of the job.",
+        "effect": "Ordinary friction is what readers accept as evidence that the world exists independent of the plot.",
+        "caution": "The detail must be consistent with the world's rules; a lived-in detail that contradicts the system is worse than a generic one."
+      },
+      {
+        "name": "hard and soft magic",
+        "definition": "The distinction between a system whose rules the reader knows well enough to predict outcomes and one kept deliberately unexplained.",
+        "effect": "Hard systems let magic solve problems satisfyingly; soft systems preserve awe and must not be used to solve them.",
+        "register": "Sanderson's first law restated: the reader's satisfaction with a magical solution is proportional to their understanding of the magic.",
+        "caution": "The failure is the mixture: a system explained enough to invite prediction, then used to produce an outcome the reader could not have predicted."
+      },
+      {
+        "name": "the cost-and-limits rule",
+        "definition": "The craft principle that what a power cannot do, and what it takes from its user, generate more story than what it can do.",
+        "effect": "Limits create the problems that plots are made of; costs create the choices that characters are made of.",
+        "register": "Sanderson's second law restated for prose: limitations are more interesting than powers.",
+        "caution": "Costs must be paid on the page before the climax depends on them.",
+        "see_also": "genre_conventions/obligatory_scenes"
+      },
+      {
+        "name": "the consistency ledger",
+        "definition": "A working document recording every world fact as it is committed to the page — distances, dates, prices, ranks, spellings, who knows what.",
+        "effect": "Turns continuity from memory into lookup, which is the only method that survives revision.",
+        "register": "Drafting and revision practice, not a technique visible in the text.",
+        "caution": "The ledger must be updated during revision, when most contradictions are introduced.",
+        "see_also": "narrative_structures/plot_points_and_turns"
+      },
+      {
+        "name": "naming and calendar coherence",
+        "definition": "Keeping personal names, place names, units, currency, and time reckoning inside one or a few defensible systems rather than sampling at random.",
+        "effect": "Naming is the highest-bandwidth worldbuilding signal in the text: readers infer history, migration, and class from it before they infer anything else.",
+        "example": "Two naming strata in one region imply a conquest, and readers will expect the conquest to be real.",
+        "caution": "Apostrophes and unpronounceable clusters signal fantasy without carrying information; a coherent sound system does both."
+      },
+      {
+        "name": "the logistics check",
+        "definition": "Asking where the food, water, money, fuel, and labor come from, and who is doing the work that the setting requires.",
+        "effect": "Catches the failure mode where a world has castles and armies but no visible agriculture, and usually generates the more interesting characters.",
+        "caution": "The answers belong in the ledger, not necessarily in the prose; the reader should feel the economy, not audit it."
+      },
+      {
+        "name": "the competent-outsider viewpoint",
+        "definition": "A POV character new to this part of the world but skilled at something, so their questions are motivated and their competence keeps them from being a tourist.",
+        "effect": "Licenses explanation at the exact rate the character would actually need it.",
+        "caution": "The outsider must stop being an outsider; a viewpoint that needs the world explained in chapter thirty has become a device.",
+        "see_also": "pov_and_narration/point_of_view_types"
+      },
+      {
+        "name": "the tour guide problem",
+        "definition": "Structuring scenes so a character can walk the viewpoint through the setting, with the plot pausing while the world is displayed.",
+        "polarity": "fault",
+        "effect": "Attention drops because nothing is at stake; the reader is being shown rather than involved.",
+        "caution": "The fix is to give the tour a purpose the character would pursue anyway, or to cut it and inclue the same facts across three later scenes."
+      },
+      {
+        "name": "infodump",
+        "definition": "A block of world or backstory explanation delivered outside the pressure of the scene, sized well beyond what the moment requires.",
+        "polarity": "fault",
+        "effect": "Suspends the story's clock; readers skim, and what they skim they will not know later when it matters.",
+        "aka": ["expository lump"],
+        "caution": "The usable portion is almost always the one or two facts the next scene needs. The rest belongs in the ledger.",
+        "see_also": "scene_patterns/scene_functions"
+      },
+      {
+        "name": "as-you-know exposition",
+        "definition": "Dialogue in which characters tell each other things they both already know, for the reader's benefit.",
+        "polarity": "fault",
+        "effect": "Breaks character logic and announces the author's presence more loudly than direct narration would have.",
+        "aka": ["as you know, Bob", "maid-and-butler dialogue"],
+        "caution": "If the information must arrive in dialogue, give one speaker a reason to be wrong about it, or a reason to resent saying it.",
+        "see_also": "dialogue_mechanics/dialogue_faults"
+      },
+      {
+        "name": "the appendix crutch",
+        "definition": "Relegating rules, glossaries, timelines, and genealogies to back matter that the narrative then depends on the reader having consulted.",
+        "polarity": "fault",
+        "effect": "The reader who does not flip is confused, and the reader who does flip is no longer in the story.",
+        "caution": "Back matter is legitimate as reward and reference; it is a fault only when comprehension of the plot requires it."
+      },
+      {
+        "name": "exhausted secondary-world defaults",
+        "definition": "The set of stock settings and furniture that arrive unbidden — the pseudo-medieval European kingdom, the desert people, the wise forest folk, the corrupt empire, the plucky rebellion, the single-climate planet.",
+        "polarity": "fault",
+        "effect": "Readers and language models both produce these first; their presence signals that no choice was made.",
+        "caution": "Interrogate any world element you did not decide on. One deliberate substitution in the default set does more work than a page of new nouns.",
+        "see_also": "settings_and_environments/fantastical_settings"
+      },
+      {
+        "name": "worldbuilder's disease",
+        "definition": "Building the world as a substitute for writing the book, with maps, languages, and dynastic tables accumulating while the draft does not.",
+        "polarity": "fault",
+        "effect": "Produces a setting with no story in it, and often a writer too invested in the material to cut any of it.",
+        "caution": "Build to the depth the next three scenes require; the ledger grows from the draft, not ahead of it."
+      }
+    ]
+  }
+}

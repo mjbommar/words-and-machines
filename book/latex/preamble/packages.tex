@@ -1,0 +1,121 @@
+%% ============================================================
+%% preamble/packages.tex — core packages + citation presets
+%%
+%% Purpose      : loads every general-purpose package the template
+%%                needs, plus biblatex with the citation-style preset
+%%                selected in book.yaml. NO hyperref here (ADR 0005:
+%%                hyperref loads last, in hyperref-last.tex).
+%% Dependencies : generated/metadata.tex (\BookCitationStyle,
+%%                \BookBibTitle). Nothing else.
+%% Provenance   : package set distilled from the portfolio-wide
+%%                intersection (docs/research/*.md); the authoryear
+%%                biblatex block is the house block that appears
+%%                byte-identical in ai-law-finance-book.md and
+%%                ai-professional-services-book.md; the superscript
+%%                preset (\scite + two-column footnotesize
+%%                bibliography) is datacenter-2026-book.md's.
+%% ============================================================
+
+% --- Programming/conditional helpers (needed by every later module) --
+\usepackage{etoolbox}   % \ifdefstring, \AtBeginEnvironment, patching
+\usepackage{iftex}      % \ifluatex / \ifxetex (kernel ships it; explicit for clarity)
+
+% Fail fast on pdfTeX: the font profiles are OpenType-only (ADR 0004).
+\ifPDFTeX
+  \PackageError{book-template}
+    {This template requires LuaLaTeX (default) or XeLaTeX}
+    {Compile with latexmk -lualatex (see docs/decisions/0004-engines-and-fonts.md).}
+\fi
+
+% --- Language & quoting ----------------------------------------------
+% babel gives csquotes real language data and selects hyphenation
+% patterns. The template ships English-first; non-English books swap
+% this option when they change book.yaml's language (the metadata
+% macro \BookLanguage feeds PDF/EPUB metadata, not babel, because
+% babel wants its own option vocabulary).
+\usepackage[american]{babel}
+\usepackage{csquotes}   % \enquote, biblatex integration; must precede biblatex
+
+% --- Layout & structure ----------------------------------------------
+\usepackage{geometry}   % configured in preamble/geometry.tex
+\usepackage{fancyhdr}   % running-head styles in preamble/styling.tex
+\usepackage{titlesec}   % chapter/section styling in preamble/styling.tex
+
+% --- Graphics, color, tables -----------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}          % chapters write \includegraphics{name} only
+\usepackage{xcolor}                % primitives defined in preamble/colors.tex
+\usepackage{booktabs}              % the ONLY table rules chapters may use
+\usepackage{multicol}              % two-column bibliography (superscript preset)
+\usepackage{tcolorbox}             % callout family configured in preamble/boxes.tex
+
+% --- Micro-typography -------------------------------------------------
+% Expansion (hz) is LuaTeX-only; XeTeX gets protrusion only. Tracking
+% is deliberately left off: letterspaced small caps vary per profile
+% and microtype tracking support differs across engines — keeping it
+% off keeps all three profiles warning-free on both engines.
+\ifluatex
+  \usepackage[protrusion=true,expansion=true,factor=1100,stretch=20,shrink=20,final]{microtype}
+\else
+  \usepackage[protrusion=true,expansion=false,factor=1100,final]{microtype}
+\fi
+
+% ======================================================================
+% Citations — biblatex + biber (ADR: latex-pipeline.md "Bibliography")
+% Preset dispatched on \BookCitationStyle (book.yaml citations.style):
+%   authoryear  — parenthetical scholarly citations (house block)
+%   superscript — numeric superscript \scite + compact two-column
+%                 footnotesize bibliography (trade endnote voice)
+% Chapters use \autocite/\textcite (authoryear) or \scite (superscript)
+% per the authoring contract; \BookPrintBibliography renders the list
+% either way, titled with \BookBibTitle.
+% ======================================================================
+\ifdefstring{\BookCitationStyle}{superscript}{%
+  \usepackage[backend=biber,style=numeric-comp,sorting=none,
+              autocite=superscript,url=true,doi=true]{biblatex}%
+  % \scite — "silent cite": superscript number, no space fiddling in prose.
+  \newcommand{\scite}{\supercite}%
+  % Compact reference list: unnumbered backmatter chapter heading set
+  % outside the columns (multicols' optional arg), then footnotesize
+  % ragged-right entries in two columns (datacenter pattern).
+  \newcommand{\BookPrintBibliography}{%
+    \begin{multicols}{2}[\chapter{\BookBibTitle}]%
+      \begingroup
+        \footnotesize\raggedright
+        \setlength{\bibitemsep}{0.35\baselineskip}%
+        \printbibliography[heading=none]%
+      \endgroup
+    \end{multicols}}%
+}{%
+  % authoryear house block: at most two names in citations, never
+  % truncate the bibliography itself.
+  \usepackage[backend=biber,style=authoryear,maxcitenames=2,
+              maxbibnames=99,url=true,doi=true]{biblatex}%
+  \setlength{\bibitemsep}{0.4\baselineskip}% breathing room between entries
+  \newcommand{\BookPrintBibliography}{%
+    \printbibliography[heading=bibintoc,title={\BookBibTitle}]}%
+}
+
+% biblatex's default URL setup inserts visible stretchable glue between
+% URL characters ("https : / / …" once justified). Zero the glue and
+% rely on penalties, so URLs break cleanly but never gap.
+\setlength{\biburlnumskip}{0mu}
+\setlength{\biburlucskip}{0mu}
+\setlength{\biburllcskip}{0mu}
+\setcounter{biburlnumpenalty}{9000}
+\setcounter{biburlucpenalty}{9500}
+\setcounter{biburllcpenalty}{9500}
+
+% Every entry in references.bib carries custom `verified = {date}` and
+% `archived = {Wayback URL}` fields (guides/CITATIONS.md contract).
+% biber's data model doesn't know them, so drop both at source-mapping
+% time — before validation — which keeps the build warning-free
+% without a custom .dbx.
+\DeclareSourcemap{%
+  \maps[datatype=bibtex]{%
+    \map{\step[fieldset=verified, null]}%
+    \map{\step[fieldset=archived, null]}%
+  }%
+}
+
+\addbibresource{bib/references.bib}

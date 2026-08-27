@@ -1,0 +1,105 @@
+%% ============================================================
+%% preamble/geometry.tex — trim, margins, bleed, ebook geometry
+%%
+%% Purpose      : sets the page geometry for all build modes from the
+%%                metadata trim macros. One source of numbers; the
+%%                mode conditionals (\BleedMode/\EbookMode) are read
+%%                here and ONLY here (chapters never see them).
+%% Dependencies : geometry (loaded in packages.tex);
+%%                generated/metadata.tex (\BookTrimWidth,
+%%                \BookTrimHeight, \BookBleed).
+%% Provenance   : 6x9 interior numbers proven through KDP/Lulu print
+%%                runs of the-last-book and datacenter-2026-book
+%%                (docs/architecture/latex-pipeline.md §geometry).
+%%
+%% THE NUMBERS (at 6x9; other trims scale proportionally):
+%%   inner (gutter)  0.875in   KDP-safe for up to ~600 pages
+%%   outer           0.625in   thumb space without wasting measure
+%%   top             0.750in   running head sits inside this margin
+%%   bottom          0.875in   deeper than top: optical page balance
+%% Scaling: margins are fixed FRACTIONS of the trim (0.875/6 etc.), so
+%% a 5x8 novella tightens and a 7x10 workbook relaxes sensibly. All
+%% presets stay above KDP's 0.375in gutter / 0.25in outside minima
+%% (make doctor cross-checks the gutter against the page count).
+%%
+%% MEASURE CAP: fraction-based margins give unreadably long lines on
+%% large trims (8.5x11 would run ~90+ chars at 11pt). The text width
+%% is therefore capped at \bk@maxmeasure (33em ~= 66-70 chars at body
+%% size); any excess is added to the OUTER margin, which reads as a
+%% deliberate marginalia zone on textbook trims. At 6x9 the cap is
+%% inactive (4.5in < 33em at all supported base sizes).
+%% ============================================================
+
+\makeatletter
+
+% Resolve metadata dimension macros into real lengths.
+\newlength{\bk@trimw}\setlength{\bk@trimw}{\BookTrimWidth}
+\newlength{\bk@trimh}\setlength{\bk@trimh}{\BookTrimHeight}
+\newlength{\bk@bleed}\setlength{\bk@bleed}{\BookBleed}
+
+% Margin fractions of trim (exact 6x9 values shown in the header).
+\newlength{\bk@inner}\setlength{\bk@inner}{0.145833\bk@trimw}   % 0.875in @ 6in
+\newlength{\bk@outer}\setlength{\bk@outer}{0.104167\bk@trimw}   % 0.625in @ 6in
+\newlength{\bk@top}\setlength{\bk@top}{0.083333\bk@trimh}       % 0.750in @ 9in
+\newlength{\bk@bottom}\setlength{\bk@bottom}{0.097222\bk@trimh} % 0.875in @ 9in
+
+% Measure cap (see header). Runs after fonts.tex, so 1em = body size.
+\newlength{\bk@maxmeasure}\setlength{\bk@maxmeasure}{33em}
+\newlength{\bk@textw}\setlength{\bk@textw}{\dimexpr\bk@trimw-\bk@inner-\bk@outer\relax}
+\ifdim\bk@textw>\bk@maxmeasure
+  \addtolength{\bk@outer}{\dimexpr\bk@textw-\bk@maxmeasure\relax}
+\fi
+
+\ifdefined\EbookMode
+  % --- Ebook/screen PDF: no physical binding, so no gutter. ----------
+  % Symmetric 0.75in margins at trim size, widened equally on both
+  % sides when the measure cap demands it; links get color in
+  % hyperref-last.tex; blank versos are disabled in styling.tex.
+  \newlength{\bk@ehmargin}\setlength{\bk@ehmargin}{0.75in}
+  \newlength{\bk@etextw}\setlength{\bk@etextw}{\dimexpr\bk@trimw-2\bk@ehmargin\relax}
+  \ifdim\bk@etextw>\bk@maxmeasure
+    \addtolength{\bk@ehmargin}{\dimexpr0.5\dimexpr\bk@etextw-\bk@maxmeasure\relax\relax}
+  \fi
+  \geometry{
+    paperwidth=\bk@trimw,
+    paperheight=\bk@trimh,
+    hmargin=\bk@ehmargin,
+    vmargin=0.75in,
+    headheight=15pt,   % fancyhdr needs >= \baselineskip of the head font
+    headsep=16pt,
+    footskip=24pt,
+  }
+\else\ifdefined\BleedMode
+  % --- POD bleed variant (ADR 0006). ---------------------------------
+  % Paper grows by one bleed strip on EVERY edge (2 x \BookBleed per
+  % axis: 6.25x9.25 at the default 6x9/0.125). The trim box sits
+  % centered, so shifting = adding the bleed to every margin; content
+  % lands at identical trim-relative positions as the print build,
+  % and the printer's knife cuts the extra strip away.
+  \geometry{
+    paperwidth=\dimexpr\bk@trimw+2\bk@bleed\relax,
+    paperheight=\dimexpr\bk@trimh+2\bk@bleed\relax,
+    inner=\dimexpr\bk@inner+\bk@bleed\relax,
+    outer=\dimexpr\bk@outer+\bk@bleed\relax,
+    top=\dimexpr\bk@top+\bk@bleed\relax,
+    bottom=\dimexpr\bk@bottom+\bk@bleed\relax,
+    headheight=15pt,
+    headsep=16pt,
+    footskip=24pt,
+  }
+\else
+  % --- Standard print interior (the canonical geometry). -------------
+  \geometry{
+    paperwidth=\bk@trimw,
+    paperheight=\bk@trimh,
+    inner=\bk@inner,
+    outer=\bk@outer,
+    top=\bk@top,
+    bottom=\bk@bottom,
+    headheight=15pt,
+    headsep=16pt,
+    footskip=24pt,
+  }
+\fi\fi
+
+\makeatother

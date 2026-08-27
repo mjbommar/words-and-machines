@@ -1,0 +1,1174 @@
+{
+  "name": "fallacies_eristic",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "Informal fallacies, formal slips, statistical misreadings, and eristic stratagems — bad arguments and winning-at-any-cost tactics — each with textual cues for spotting them in a draft or an opponent's move.",
+  "categories": {
+    "relevance_fallacies": [
+      {
+        "name": "abusive ad hominem",
+        "definition": "Attacking the arguer's character instead of the argument, where character has no bearing on the claim.",
+        "polarity": "fault",
+        "cues": ["\"coming from someone who\"", "epithets attached to the source rather than the claim", "biography where evidence should be"],
+        "example": "You would expect that argument from a dropout."
+      },
+      {
+        "name": "guilt by association",
+        "definition": "Discrediting a claim because disliked people or groups also hold it.",
+        "polarity": "fault",
+        "cues": ["\"the same thing X says\"", "\"that's a talking point of\"", "naming an unpopular co-believer"],
+        "example": "That's exactly what the cranks argue."
+      },
+      {
+        "name": "genetic fallacy",
+        "definition": "Judging a claim by its origin — who invented it, where it came from — rather than its current support.",
+        "polarity": "fault",
+        "cues": ["\"that idea started as\"", "\"originally a\"", "etymology or founding story doing evaluative work"],
+        "example": "The whole framework came out of a marketing department, so ignore it."
+      },
+      {
+        "name": "appeal to unqualified authority",
+        "definition": "Citing an authority outside their field of competence, or one with no relevant expertise at all.",
+        "polarity": "fault",
+        "cues": ["credential mismatch (\"Dr. X, a physicist, says the treatment\")", "\"experts agree\" with no expert named", "celebrity endorsement of a technical claim"],
+        "example": "A Nobel laureate in chemistry says the currency will collapse."
+      },
+      {
+        "name": "appeal to anonymous authority",
+        "definition": "Attributing a claim to unnamed authorities or sources that cannot be checked.",
+        "polarity": "fault",
+        "cues": ["\"scientists say\"", "\"studies show\"", "\"sources close to\"", "\"it is widely believed\""],
+        "example": "Studies show that most of it is wasted."
+      },
+      {
+        "name": "appeal to popularity",
+        "definition": "Treating widespread belief as proof of truth.",
+        "polarity": "fault",
+        "cues": ["\"everyone knows\"", "\"most people agree\"", "poll numbers offered on a question of fact"],
+        "example": "Two-thirds of the country thinks it's unsafe, so it is.",
+        "aka": "argumentum ad populum"
+      },
+      {
+        "name": "bandwagon appeal",
+        "definition": "Urging adoption because others are adopting, treating momentum as merit.",
+        "polarity": "fault",
+        "cues": ["\"everyone is moving to\"", "\"don't get left behind\"", "adoption counts offered as quality evidence"],
+        "example": "Half the industry has switched already."
+      },
+      {
+        "name": "appeal to tradition",
+        "definition": "Treating long practice as sufficient justification.",
+        "polarity": "fault",
+        "cues": ["\"we have always\"", "\"time-honored\"", "\"for generations\""],
+        "example": "The department has run it this way for forty years."
+      },
+      {
+        "name": "appeal to novelty",
+        "definition": "Treating newness as evidence of superiority.",
+        "polarity": "fault",
+        "cues": ["\"the modern approach\"", "\"outdated thinking\"", "\"in 2026 we know better\""],
+        "example": "Nobody does it the old way anymore."
+      },
+      {
+        "name": "appeal to nature",
+        "definition": "Inferring that what is natural is therefore good or safe, or that the artificial is therefore harmful.",
+        "polarity": "fault",
+        "cues": ["\"all-natural\"", "\"chemical-free\"", "\"the way it was meant to be\""],
+        "example": "It's a plant extract, so it can't be toxic."
+      },
+      {
+        "name": "appeal to pity",
+        "definition": "Substituting sympathy for the arguer or subject for reasons bearing on the claim.",
+        "polarity": "fault",
+        "cues": ["hardship narrative attached to a factual or policy conclusion", "\"after everything they've been through\""],
+        "example": "The vendor put three years into the bid, so the contract should be theirs.",
+        "aka": "argumentum ad misericordiam"
+      },
+      {
+        "name": "appeal to force",
+        "definition": "Backing a claim with a threat of harm or sanction rather than evidence.",
+        "polarity": "fault",
+        "cues": ["\"you'll regret\"", "\"careful what you put in writing\"", "consequences to the arguer, not to the argument"],
+        "example": "People who raise that question tend not to get renewed.",
+        "aka": "argumentum ad baculum"
+      },
+      {
+        "name": "appeal to spite",
+        "definition": "Exploiting the audience's resentment of a person or group to win assent.",
+        "polarity": "fault",
+        "cues": ["\"after what they did to us\"", "framing a policy as payback"],
+        "example": "Vote it down and watch their faces."
+      },
+      {
+        "name": "appeal to flattery",
+        "definition": "Complimenting the audience so that agreement feels like a confirmation of their good sense.",
+        "polarity": "fault",
+        "cues": ["\"any intelligent reader can see\"", "\"as sophisticated observers know\""],
+        "example": "You're too smart to fall for the official line."
+      },
+      {
+        "name": "appeal to ridicule",
+        "definition": "Presenting the opposing view in a way that makes it laughable, in place of refuting it.",
+        "polarity": "fault",
+        "cues": ["mock paraphrase", "\"apparently we're supposed to believe\"", "scare quotes around the opponent's terms"],
+        "example": "So the plan is that money just appears."
+      },
+      {
+        "name": "appeal to emotion",
+        "definition": "Using an affective surge — outrage, fear, tenderness — as the load-bearing support for a conclusion.",
+        "polarity": "fault",
+        "cues": ["vivid single-victim narrative followed by a general policy claim", "imperative sentences after an anecdote"],
+        "example": "Look at this child's photograph and tell me the program should be cut."
+      },
+      {
+        "name": "appeal to consequences",
+        "definition": "Arguing that a claim is false because its truth would be unwelcome (or true because it would be welcome).",
+        "polarity": "fault",
+        "cues": ["\"if that were true, then\" followed by an undesirable state rather than a contradiction", "\"we can't afford to believe\""],
+        "example": "If the reserves are that low, the town is finished — so they can't be.",
+        "aka": "argumentum ad consequentiam"
+      },
+      {
+        "name": "red herring",
+        "definition": "Argument sense: introducing a topic that is interesting but irrelevant, so that attention leaves the disputed point. Distinct from the mystery-plot red herring, which is a deliberately planted false lead.",
+        "see_also": "narrative_structures/mystery_and_thriller",
+        "polarity": "fault",
+        "cues": ["\"the real question is\"", "abrupt topic pivot after a hard question", "answer that never touches the premise challenged"],
+        "example": "Asked about the overruns, he described the site's safety record."
+      },
+      {
+        "name": "straw man",
+        "definition": "Refuting a distorted, exaggerated, or weakened version of the opposing position.",
+        "polarity": "fault",
+        "cues": ["\"so you're saying\"", "\"opponents want to\"", "an absolute quantifier the opponent never used"],
+        "example": "They want no oversight of any kind."
+      },
+      {
+        "name": "hollow man",
+        "definition": "Attributing a position to an opponent that no identifiable opponent actually holds.",
+        "polarity": "fault",
+        "cues": ["unnamed \"some people say\" attributions", "\"there are those who argue\" with no citation"],
+        "example": "Some argue the deficit doesn't exist at all."
+      },
+      {
+        "name": "missing the point",
+        "definition": "Offering premises that support some conclusion, but not the one at issue.",
+        "polarity": "fault",
+        "cues": ["conclusion swells beyond the evidence's scope", "argument proves an adjacent, easier claim"],
+        "example": "Evidence that the program is popular is offered as evidence that it works.",
+        "aka": "ignoratio elenchi"
+      },
+      {
+        "name": "two wrongs make a right",
+        "definition": "Justifying a wrong by pointing to a comparable wrong by someone else.",
+        "polarity": "fault",
+        "cues": ["\"they did it first\"", "\"everyone in the sector does it\""],
+        "example": "Our accounting is no worse than the competitor's."
+      },
+      {
+        "name": "appeal to the stone",
+        "definition": "Dismissing a claim as absurd without giving any reason.",
+        "polarity": "fault",
+        "cues": ["\"that's ridiculous\"", "\"nonsense on stilts\"", "dismissal with no engagement"],
+        "example": "That's just not serious.",
+        "aka": "argumentum ad lapidem"
+      },
+      {
+        "name": "argument by repetition",
+        "definition": "Asserting the same claim until repetition substitutes for support.",
+        "polarity": "fault",
+        "cues": ["identical phrasing recurring across a piece", "slogan restated at each turn"],
+        "example": "The third time the same sentence appears, it has still not been argued.",
+        "aka": "argumentum ad nauseam"
+      },
+      {
+        "name": "moralistic fallacy",
+        "definition": "Inferring that because something ought not to be so, it is not so.",
+        "polarity": "fault",
+        "cues": ["\"it would be unjust if\" used to deny a factual claim", "moral premise, empirical conclusion"],
+        "example": "It would be monstrous for the disparity to be that large, so the figure must be wrong."
+      },
+      {
+        "name": "naturalistic fallacy",
+        "definition": "Inferring an evaluative conclusion directly from purely descriptive premises.",
+        "polarity": "fault",
+        "cues": ["is-statements followed by ought-conclusions with no bridging value premise", "\"that's just how it works\" as a justification", "\"human nature\" invoked to settle a normative question"],
+        "example": "Competition is how the market works, therefore it is how it should work.",
+        "aka": "is-ought fallacy"
+      }
+    ],
+    "ambiguity_fallacies": [
+      {
+        "name": "equivocation",
+        "definition": "A key term shifts meaning between premises so that a conclusion follows only verbally.",
+        "polarity": "fault",
+        "cues": ["a term appearing in two senses in one paragraph", "abstract nouns like 'freedom', 'natural', 'theory' unmarked by definition"],
+        "example": "It's only a theory — meaning conjecture in one line and scientific theory in the next."
+      },
+      {
+        "name": "amphiboly",
+        "definition": "The ambiguity is grammatical rather than lexical: sentence structure permits two readings and the argument uses the convenient one.",
+        "polarity": "fault",
+        "cues": ["dangling modifiers", "unclear scope of negation or coordination", "\"and/or\" chains"],
+        "example": "The rule bars officers and employees who hold shares — which does it modify?"
+      },
+      {
+        "name": "fallacy of accent",
+        "definition": "The meaning turns on which word is stressed, or on typographic emphasis added by the quoter.",
+        "polarity": "fault",
+        "cues": ["italics added by the quoting party", "\"we should not speak ill of our friends\"-style stress games"],
+        "example": "We do not knowingly sell defective units."
+      },
+      {
+        "name": "contextomy",
+        "definition": "Quoting accurately but stripping context so the quotation supports the opposite of what the source meant.",
+        "polarity": "fault",
+        "cues": ["ellipses in the middle of a cited sentence", "single clause quoted from a longer conditional", "no page or timestamp"],
+        "example": "\"The results are striking\" — from a sentence beginning \"If replicated,\".",
+        "aka": "quoting out of context"
+      },
+      {
+        "name": "fallacy of composition",
+        "definition": "Inferring that a whole has a property because its parts do.",
+        "polarity": "fault",
+        "cues": ["\"if it works for one, it works for all\"", "aggregating individually rational choices into a claim about the system"],
+        "example": "Every household can save more, so the economy can save more."
+      },
+      {
+        "name": "fallacy of division",
+        "definition": "Inferring that a part has a property because the whole does.",
+        "polarity": "fault",
+        "cues": ["group averages applied to an individual", "\"the industry is profitable, so this firm is\""],
+        "example": "The class scored well, so this student did."
+      },
+      {
+        "name": "reification",
+        "definition": "Treating an abstraction, index, or statistic as a concrete acting thing.",
+        "polarity": "fault",
+        "cues": ["abstractions as grammatical agents (\"the market decided\", \"data wants\")", "index numbers with verbs of intention"],
+        "example": "Inflation chose to punish savers.",
+        "aka": "hypostatization"
+      },
+      {
+        "name": "definist fallacy",
+        "definition": "Defining a contested term so that the disputed conclusion is settled by the definition.",
+        "polarity": "fault",
+        "cues": ["\"by definition\" doing argumentative work", "stipulation introduced mid-dispute"],
+        "example": "Since censorship means state action only, a platform ban is by definition not censorship."
+      },
+      {
+        "name": "persuasive definition",
+        "definition": "Redefining a term with strong emotive charge to keep the charge while changing the reference.",
+        "polarity": "fault",
+        "cues": ["\"true X is\"", "\"real Y means\"", "honorific adjectives inside a definition"],
+        "example": "Real reform means cutting the budget."
+      },
+      {
+        "name": "no true Scotsman",
+        "definition": "Rescuing a generalization from counterexamples by redefining membership to exclude them.",
+        "polarity": "fault",
+        "cues": ["\"no genuine\"", "\"nobody who really\"", "a qualifier added only after a counterexample lands"],
+        "example": "No serious economist believes that — after three are named."
+      },
+      {
+        "name": "continuum fallacy",
+        "definition": "Arguing that because no precise line can be drawn, no distinction exists.",
+        "polarity": "fault",
+        "cues": ["\"where exactly do you draw the line\"", "\"one more grain\" constructions"],
+        "example": "There's no exact moment a puddle becomes a pond, so the distinction is meaningless.",
+        "aka": "sorites fallacy"
+      },
+      {
+        "name": "etymological fallacy",
+        "definition": "Insisting a word must mean what its root historically meant.",
+        "polarity": "fault",
+        "cues": ["\"comes from the Latin\"", "\"literally means\" applied to settled modern usage"],
+        "example": "'Decimate' can only mean to reduce by a tenth."
+      },
+      {
+        "name": "loki's wager",
+        "definition": "Refusing to allow a concept into the argument because its boundaries cannot be exactly specified.",
+        "polarity": "fault",
+        "cues": ["\"define it precisely or we can't discuss it\"", "endless definitional preliminaries that never end"],
+        "example": "Until you can say exactly which pixels are the face, we cannot talk about faces."
+      },
+      {
+        "name": "weasel wording",
+        "definition": "Vague qualifiers create an impression of support while committing to nothing checkable.",
+        "polarity": "fault",
+        "cues": ["\"up to\"", "\"as much as\"", "\"helps support\"", "\"many believe\"", "\"virtually\""],
+        "example": "Users may see savings of up to forty percent."
+      },
+      {
+        "name": "scope ambiguity",
+        "definition": "The reach of a quantifier, negation, or modal is left unfixed and the argument exploits the convenient reading.",
+        "polarity": "fault",
+        "cues": ["\"all X are not Y\"", "\"you must not\" (permission vs. prohibition)", "unbracketed 'only'"],
+        "example": "Everyone did not pass the audit."
+      },
+      {
+        "name": "syntactic pivot on 'only'",
+        "definition": "Placement of a restrictive adverb changes the claim's content while the sentence reads as the same assertion.",
+        "polarity": "fault",
+        "cues": ["'only' or 'just' floating between candidates", "restrictive modifiers separated from what they restrict"],
+        "example": "We only tested the units that failed / We tested only the units that failed."
+      }
+    ],
+    "presumption_fallacies": [
+      {
+        "name": "begging the question",
+        "definition": "The conclusion is smuggled into the premises, so the argument gives no independent reason.",
+        "polarity": "fault",
+        "cues": ["premise restates the conclusion in synonyms", "\"because it is\"", "evaluative term repeated on both sides of 'therefore'"],
+        "example": "The policy is unfair because it treats people unjustly.",
+        "aka": "petitio principii"
+      },
+      {
+        "name": "circular reasoning",
+        "definition": "Two or more claims support each other in a closed loop with no external anchor.",
+        "polarity": "fault",
+        "cues": ["A cited for B and B cited for A", "self-referential sourcing chains"],
+        "example": "The document is authentic because the archive accepted it; the archive accepted it because it is authentic."
+      },
+      {
+        "name": "question-begging epithet",
+        "definition": "A loaded label does the arguing, presupposing the very evaluation at issue.",
+        "polarity": "fault",
+        "cues": ["adjectives like 'so-called', 'discredited', 'common-sense' attached to the disputed thing", "evaluative modifier inside the noun phrase naming the issue", "\"this failed experiment\" before any argument that it failed"],
+        "example": "This discredited proposal is back before the committee."
+      },
+      {
+        "name": "loaded question",
+        "definition": "A question whose presuppositions cannot be denied by any direct answer.",
+        "polarity": "fault",
+        "cues": ["yes/no question with an embedded assertion", "\"why do you\" plus a contested predicate"],
+        "example": "Why did the department hide the figures?",
+        "aka": "complex question"
+      },
+      {
+        "name": "false dilemma",
+        "definition": "Presenting two options as exhaustive when more exist.",
+        "polarity": "fault",
+        "cues": ["\"either... or...\"", "\"you're either with\"", "\"the only alternative is\""],
+        "example": "Either we deregulate or the sector dies."
+      },
+      {
+        "name": "false equivalence",
+        "definition": "Treating two things as comparable on a dimension where they differ by an order of magnitude or in kind.",
+        "polarity": "fault",
+        "cues": ["\"both sides\"", "\"just as bad as\"", "parallel construction across mismatched cases"],
+        "example": "A parking ticket and a felony are both breaking the law."
+      },
+      {
+        "name": "false balance",
+        "definition": "Presenting a lopsided evidentiary dispute as an even contest by giving each side equal space.",
+        "polarity": "fault",
+        "cues": ["\"critics say\" paragraph appended to a well-evidenced finding", "one dissenting expert against a literature"],
+        "example": "The article gives a paragraph to the consensus and a paragraph to its only opponent."
+      },
+      {
+        "name": "hasty generalization",
+        "definition": "Drawing a broad conclusion from too few or unrepresentative instances.",
+        "polarity": "fault",
+        "cues": ["\"in my experience\" plus a universal claim", "case count of one or two", "\"every time I've seen\""],
+        "example": "Both start-ups I advised failed after taking outside money, so outside money kills start-ups."
+      },
+      {
+        "name": "sweeping generalization",
+        "definition": "Applying a sound general rule to a case whose special features make it an exception.",
+        "polarity": "fault",
+        "cues": ["\"the rule is clear\" against an atypical fact pattern", "no acknowledgment of standard exceptions"],
+        "example": "Exercise is healthy, so the patient in traction should run.",
+        "aka": "fallacy of accident"
+      },
+      {
+        "name": "suppressed evidence",
+        "definition": "Omitting known facts that would materially change the audience's assessment.",
+        "polarity": "fault",
+        "cues": ["one-sided evidence lists", "no limitations paragraph", "the inconvenient year missing from a series"],
+        "example": "The five-year trend is cited; the sixth year, which reverses it, is not."
+      },
+      {
+        "name": "cherry picking",
+        "definition": "Selecting the subset of data or quotations that supports the claim and ignoring the rest.",
+        "polarity": "fault",
+        "cues": ["\"consider these three cases\"", "start dates chosen at a local minimum", "one favorable trial out of many"],
+        "example": "The chart begins in the worst month of the decade."
+      },
+      {
+        "name": "special pleading",
+        "definition": "Applying a standard generally, then exempting one's own case without principled grounds.",
+        "polarity": "fault",
+        "cues": ["\"this situation is different\" with no stated difference", "\"an exception is warranted here\""],
+        "example": "Every division must cut ten percent, except the one making the argument."
+      },
+      {
+        "name": "moving the goalposts",
+        "definition": "Raising or changing the evidentiary standard once the original standard has been met.",
+        "polarity": "fault",
+        "cues": ["\"but that's not really\"", "new conditions appearing after a concession", "\"I'd want to see it in humans\" after a human trial"],
+        "example": "First one replication was demanded, then three, then a different population."
+      },
+      {
+        "name": "unfalsifiable claim",
+        "definition": "A claim insulated so that no observation could count against it.",
+        "polarity": "fault",
+        "cues": ["\"that's exactly what they would say\"", "auxiliary excuses added per counterexample", "no answer to 'what would change your mind'"],
+        "example": "The absence of evidence is itself proof of the cover-up.",
+        "aka": "self-sealing argument"
+      },
+      {
+        "name": "shifting the burden of proof",
+        "definition": "Demanding the other side disprove an unsupported assertion rather than supporting it.",
+        "polarity": "fault",
+        "cues": ["\"prove it didn't happen\"", "\"nobody has shown otherwise\"", "\"until you can explain\""],
+        "example": "Show me a study proving the additive is safe, or admit it isn't."
+      },
+      {
+        "name": "argument from incredulity",
+        "definition": "Treating the arguer's inability to imagine an explanation as evidence that none exists.",
+        "polarity": "fault",
+        "cues": ["\"I just can't see how\"", "\"it defies belief that\"", "\"what are the odds\""],
+        "example": "There's no way that happened by chance."
+      },
+      {
+        "name": "nirvana fallacy",
+        "definition": "Rejecting a workable option because it falls short of an unattainable ideal.",
+        "polarity": "fault",
+        "cues": ["\"it doesn't solve the whole problem\"", "\"still leaves gaps\"", "comparison to a perfect alternative that does not exist"],
+        "example": "The screening misses some cases, so it's pointless.",
+        "aka": "perfect solution fallacy"
+      },
+      {
+        "name": "argument to moderation",
+        "definition": "Assuming the truth lies midway between two positions.",
+        "polarity": "fault",
+        "cues": ["\"the truth is somewhere in the middle\"", "\"a balanced view would be\"", "splitting a factual difference"],
+        "example": "One side says the bridge is sound, the other that it will collapse; call it structurally marginal.",
+        "aka": "middle ground fallacy"
+      },
+      {
+        "name": "fallacy of relative privation",
+        "definition": "Dismissing a problem because a worse one exists.",
+        "polarity": "fault",
+        "cues": ["\"there are bigger problems\"", "\"first-world problem\"", "\"people are starving\""],
+        "example": "Why worry about outages when the grid in other countries is worse?"
+      },
+      {
+        "name": "just-world reasoning",
+        "definition": "Inferring from an outcome that the party deserved it, so no further explanation is needed.",
+        "polarity": "fault",
+        "cues": ["\"they brought it on themselves\"", "\"what did they expect\"", "outcome offered as evidence of prior conduct"],
+        "example": "The firm failed, which shows the management was bad."
+      },
+      {
+        "name": "chronological snobbery",
+        "definition": "Assuming that a belief held earlier is discredited by the mere passage of time.",
+        "polarity": "fault",
+        "cues": ["\"that was the thinking in the nineties\"", "\"pre-internet reasoning\""],
+        "example": "That objection dates from before the reform, so it no longer applies."
+      },
+      {
+        "name": "thought-terminating cliche",
+        "definition": "A stock phrase deployed to close down inquiry without answering it.",
+        "see_also": "diction_and_register/loaded_language",
+        "polarity": "fault",
+        "cues": ["\"it is what it is\"", "\"we've been over this\"", "\"agree to disagree\"", "\"trust the process\""],
+        "example": "That's above our pay grade."
+      }
+    ],
+    "causal_fallacies": [
+      {
+        "name": "post hoc ergo propter hoc",
+        "definition": "Inferring causation from mere temporal succession.",
+        "polarity": "fault",
+        "cues": ["\"ever since\"", "\"after we introduced\"", "\"within weeks of\"", "before/after pairs with no comparison group"],
+        "example": "Complaints dropped after the new form went out, so the form fixed it."
+      },
+      {
+        "name": "cum hoc ergo propter hoc",
+        "definition": "Inferring causation from co-occurrence or correlation alone.",
+        "polarity": "fault",
+        "cues": ["\"linked to\"", "\"associated with\" reported as caused by", "scatterplot rhetoric"],
+        "example": "Counties with more libraries have lower crime, so libraries cut crime."
+      },
+      {
+        "name": "reverse causation",
+        "definition": "Getting the causal arrow backwards.",
+        "polarity": "fault",
+        "cues": ["healthier subjects doing more of the exposure", "outcome that plausibly precedes the supposed cause"],
+        "example": "Sick people use more health care, so health care makes people sick."
+      },
+      {
+        "name": "confounding",
+        "definition": "Attributing to one variable an effect actually produced by a third that drives both.",
+        "polarity": "fault",
+        "cues": ["no covariates named", "\"controlling for\" absent from an observational claim", "obvious lurking variable unmentioned"],
+        "example": "Coffee drinkers get more cancer — and smoked more."
+      },
+      {
+        "name": "causal oversimplification",
+        "definition": "Naming one cause for a multi-causal outcome.",
+        "polarity": "fault",
+        "cues": ["\"the reason is\"", "\"it all comes down to\"", "single-factor headline for a complex event"],
+        "example": "The blackout happened because of the storm.",
+        "aka": "fallacy of the single cause"
+      },
+      {
+        "name": "joint effect",
+        "definition": "Treating one effect of a common cause as the cause of another effect of it.",
+        "polarity": "fault",
+        "cues": ["two symptoms of one process presented as cause and effect", "the earlier-appearing indicator treated as the driver", "\"X leads to Y\" where both are outputs of the same system"],
+        "example": "Falling barometric pressure does not cause the storm; both come from the same system."
+      },
+      {
+        "name": "spurious correlation",
+        "definition": "A statistical association arising from coincidence, shared trends, or common data processing rather than any relation.",
+        "polarity": "fault",
+        "cues": ["two long upward time series compared", "high r with tiny n", "no plausible mechanism proposed"],
+        "example": "Cheese consumption tracks engineering doctorates."
+      },
+      {
+        "name": "slippery slope fallacy",
+        "definition": "Asserting a chain of consequences without arguing any of the links.",
+        "polarity": "fault",
+        "cues": ["\"next thing you know\"", "\"where does it end\"", "\"the first step toward\""],
+        "example": "Allow the exception and there will be no rule left."
+      },
+      {
+        "name": "circular cause and consequence",
+        "definition": "Explaining an outcome by a cause that is itself explained by that outcome, with no independent evidence for either.",
+        "polarity": "fault",
+        "cues": ["feedback narratives with no measurement", "\"which in turn reinforces\" chains"],
+        "example": "Neighborhoods decline because investment leaves, and investment leaves because they decline."
+      },
+      {
+        "name": "furtive fallacy",
+        "definition": "Attributing outcomes to deliberate concealed agency by default.",
+        "polarity": "fault",
+        "cues": ["\"who benefits\" as the whole argument", "\"no accident that\"", "\"conveniently timed\""],
+        "example": "The report's release date was chosen to bury it."
+      },
+      {
+        "name": "narrative fallacy",
+        "definition": "Imposing a coherent causal story on outcomes that were substantially driven by chance or unmeasured factors.",
+        "polarity": "fault",
+        "cues": ["post-mortems where every event has a reason", "\"the seeds were sown when\"", "retrospective inevitability"],
+        "example": "The company failed because of the 2019 rebrand."
+      },
+      {
+        "name": "magical thinking",
+        "definition": "Positing a causal link on grounds of resemblance, contagion, or symbolic association.",
+        "polarity": "fault",
+        "cues": ["\"sends a message\" as a causal mechanism", "ritual acts with claimed outcomes"],
+        "example": "Renaming the program restores public trust."
+      },
+      {
+        "name": "cargo cult reasoning",
+        "definition": "Copying the surface features of a successful process while omitting the mechanism that made it work.",
+        "polarity": "fault",
+        "cues": ["\"best practice\" transplants with no theory of why", "ceremony preserved, substance dropped"],
+        "example": "Adopting the standup meeting without the delivery discipline around it."
+      },
+      {
+        "name": "ignoring counterfactual baseline",
+        "definition": "Crediting an intervention with a change that would have happened anyway.",
+        "polarity": "fault",
+        "cues": ["no comparison group", "\"since the program began\" trends", "attribution of secular trends to a policy"],
+        "example": "Sales rose after the campaign — as they do every fourth quarter."
+      }
+    ],
+    "statistical_fallacies": [
+      {
+        "name": "base-rate neglect",
+        "definition": "Judging a probability from the specific evidence while ignoring how common the condition is to begin with.",
+        "see_also": "stakes_and_stasis/epistemic_stakes",
+        "polarity": "fault",
+        "cues": ["test accuracy quoted without prevalence", "\"ninety-nine percent accurate\" with no denominator"],
+        "example": "A 99%-accurate test for a 1-in-10,000 condition still yields mostly false positives."
+      },
+      {
+        "name": "prosecutor's fallacy",
+        "definition": "Confusing the probability of the evidence given innocence with the probability of innocence given the evidence.",
+        "polarity": "fault",
+        "cues": ["\"the chance of a random match is one in a million, so\"", "conditional probabilities silently swapped"],
+        "example": "One-in-a-million match odds treated as one-in-a-million odds of innocence."
+      },
+      {
+        "name": "defense attorney's fallacy",
+        "definition": "Dismissing probabilistic evidence because many people share the trait, ignoring the other evidence that narrows the pool.",
+        "polarity": "fault",
+        "cues": ["\"thousands of people match that profile\"", "evidence evaluated in isolation from the case"],
+        "example": "Ten thousand men in the city wear that size, so the print means nothing."
+      },
+      {
+        "name": "denominator neglect",
+        "definition": "Presenting counts without the population they came from.",
+        "polarity": "fault",
+        "cues": ["raw counts across differently sized groups", "\"more cases in\" a large city", "\"record number of\""],
+        "example": "More accidents happen on clear days than in fog."
+      },
+      {
+        "name": "denominator switching",
+        "definition": "Changing the base between comparisons so the numbers are no longer commensurable.",
+        "polarity": "fault",
+        "cues": ["percentages of different wholes compared", "\"of those surveyed\" vs. \"of all customers\" in adjacent sentences"],
+        "example": "Forty percent of respondents and twenty percent of the population, compared as if equal."
+      },
+      {
+        "name": "relative risk inflation",
+        "definition": "Reporting a relative change to make a tiny absolute change sound large.",
+        "polarity": "fault",
+        "cues": ["\"doubles your risk\"", "\"a fifty percent increase\" without the baseline rate"],
+        "example": "Risk rises from two in a million to four in a million: a 100% increase."
+      },
+      {
+        "name": "ecological fallacy",
+        "definition": "Inferring an individual-level relationship from group-level data.",
+        "polarity": "fault",
+        "cues": ["district or country averages used to describe persons", "aggregate correlations applied to individuals"],
+        "example": "Richer counties vote a certain way, so richer people do."
+      },
+      {
+        "name": "atomistic fallacy",
+        "definition": "Inferring a group-level relationship from individual-level data, ignoring context effects.",
+        "polarity": "fault",
+        "cues": ["individual results generalized to systems", "no multilevel structure acknowledged"],
+        "example": "Individual tutoring works, therefore universal tutoring would raise national scores proportionally."
+      },
+      {
+        "name": "simpson's paradox misreading",
+        "definition": "Reporting an aggregate association that reverses within every subgroup, or the reverse.",
+        "polarity": "fault",
+        "cues": ["pooled results with heterogeneous groups", "no stratified table", "differing group sizes"],
+        "example": "Both departments admit women at higher rates; the university appears to admit men at higher rates."
+      },
+      {
+        "name": "regression fallacy",
+        "definition": "Attributing to an intervention an improvement that is regression to the mean from an extreme starting point.",
+        "polarity": "fault",
+        "cues": ["selection on an extreme score", "\"worst performers improved most\"", "no control group"],
+        "example": "The clinics with the worst quarter improved after the visit — as they would have anyway."
+      },
+      {
+        "name": "survivorship bias",
+        "definition": "Drawing conclusions from the cases that remained visible while the ones that disappeared are unobserved.",
+        "polarity": "fault",
+        "cues": ["\"the companies that lasted\"", "\"successful founders all\"", "sample drawn from current members"],
+        "example": "Studying returning bombers' damage rather than the ones that never returned."
+      },
+      {
+        "name": "selection bias",
+        "definition": "The sample is assembled in a way that makes it unrepresentative of the target population.",
+        "polarity": "fault",
+        "cues": ["opt-in surveys", "convenience samples", "\"customers who responded\"", "no response rate reported"],
+        "example": "An online poll of a site's own readers reported as national opinion."
+      },
+      {
+        "name": "berkson's paradox",
+        "definition": "Conditioning on a selection criterion creates a spurious negative association between two independent traits.",
+        "polarity": "fault",
+        "cues": ["hospital or admitted-only samples", "correlations computed within a filtered population"],
+        "example": "Among admitted patients, two unrelated diseases appear inversely related."
+      },
+      {
+        "name": "texas sharpshooter fallacy",
+        "definition": "Drawing the target around the cluster: defining the hypothesis after seeing where the data fell.",
+        "polarity": "fault",
+        "cues": ["subgroup results with no prespecification", "\"a cluster of cases near\"", "unusual date ranges"],
+        "example": "Cancer cases cluster in this block — as some block must be highest."
+      },
+      {
+        "name": "multiple comparisons neglect",
+        "definition": "Reporting a significant result from many tests without correcting for the number of chances to find one.",
+        "polarity": "fault",
+        "cues": ["long subgroup tables with one starred cell", "\"significant for men aged 45-54\"", "no correction mentioned"],
+        "example": "One of twenty outcomes reached p < 0.05."
+      },
+      {
+        "name": "p-hacking",
+        "definition": "Trying analytic variants until one crosses a significance threshold, then reporting only that one.",
+        "polarity": "fault",
+        "cues": ["p just below 0.05", "unusual exclusions or covariate sets", "outcome not matching the registration"],
+        "example": "Results held after dropping the two 'outlier' sites.",
+        "aka": "garden of forking paths"
+      },
+      {
+        "name": "harking",
+        "definition": "HARKing — hypothesizing after the results are known: presenting a hypothesis formed after seeing the data as if it had been predicted in advance.",
+        "polarity": "fault",
+        "cues": ["exploratory findings written up as confirmatory", "\"as predicted\" without a preregistration"],
+        "example": "The paper's stated hypothesis matches the one subgroup that worked.",
+        "aka": "hypothesizing after the results are known"
+      },
+      {
+        "name": "publication bias",
+        "definition": "Treating the published literature as the evidence base when null results were less likely to be published.",
+        "polarity": "fault",
+        "cues": ["all cited studies positive", "no funnel plot or registry check", "small studies with large effects"],
+        "example": "Twelve published trials are positive; the registry lists thirty."
+      },
+      {
+        "name": "law of small numbers",
+        "definition": "Expecting small samples to show the properties of large ones, so noise reads as signal.",
+        "polarity": "fault",
+        "cues": ["rankings of small units (counties, schools, clinics)", "\"the highest rate in the country\" for a tiny population"],
+        "example": "The smallest counties have both the highest and the lowest cancer rates."
+      },
+      {
+        "name": "gambler's fallacy",
+        "definition": "Believing independent trials must self-correct in the short run.",
+        "polarity": "fault",
+        "cues": ["\"due for\"", "\"can't keep going\"", "\"the law of averages\""],
+        "example": "Red has come up six times, so black is overdue."
+      },
+      {
+        "name": "conjunction fallacy",
+        "definition": "Judging a conjunction more probable than one of its conjuncts because the story is more representative.",
+        "polarity": "fault",
+        "cues": ["a detailed scenario preferred over a general one", "\"and also\" adding specificity"],
+        "example": "Bank teller and activist rated likelier than bank teller."
+      },
+      {
+        "name": "spurious precision",
+        "definition": "Reporting more significant figures than the measurement can support.",
+        "polarity": "fault",
+        "cues": ["decimals on survey estimates", "\"37.42 percent\" from a sample of 400", "unrounded model outputs"],
+        "example": "The forecast puts the loss at $1,283,417."
+      },
+      {
+        "name": "extrapolation beyond the data",
+        "definition": "Projecting a fitted relationship past the range where it was observed.",
+        "polarity": "fault",
+        "cues": ["straight lines extended off the chart", "\"at this rate, by 2050\"", "growth curves without saturation"],
+        "example": "At the current rate of improvement, times will fall below zero by the next century."
+      },
+      {
+        "name": "mean-median conflation",
+        "definition": "Using the average where a skewed distribution makes it unrepresentative.",
+        "polarity": "fault",
+        "cues": ["\"average income\"", "\"the typical user\" with no dispersion", "no median or distribution reported"],
+        "example": "Average salary at the firm rises when one executive is hired."
+      },
+      {
+        "name": "mcnamara fallacy",
+        "definition": "Treating what is measured as the whole of what matters and discarding the rest.",
+        "polarity": "fault",
+        "cues": ["dashboards standing in for judgment", "\"if you can't measure it\"", "proxy defended as the outcome"],
+        "example": "Body counts as the metric of progress."
+      },
+      {
+        "name": "false negative neglect",
+        "definition": "Reading a negative test or null result as proof of absence without regard to power or sensitivity.",
+        "polarity": "fault",
+        "cues": ["\"the study found no effect\"", "\"tested negative\"", "no power calculation or detection limit"],
+        "example": "A trial of forty patients found no difference, so there is none."
+      },
+      {
+        "name": "misleading axis framing",
+        "definition": "Chart construction — truncated axes, dual scales, cumulative totals — creates an impression the data do not support.",
+        "polarity": "fault",
+        "cues": ["y-axis not starting at zero on a bar chart", "two y-axes", "cumulative curves that can only rise"],
+        "example": "A two-point move fills the whole chart."
+      },
+      {
+        "name": "unadjusted comparison",
+        "definition": "Comparing groups or periods without adjusting for composition, inflation, or population change.",
+        "polarity": "fault",
+        "cues": ["nominal dollars across decades", "crude rates across differently aged populations", "\"more than ever before\""],
+        "example": "Ticket sales in dollars are at a record — before adjusting for prices."
+      }
+    ],
+    "formal_and_probabilistic_fallacies": [
+      {
+        "name": "affirming the consequent",
+        "definition": "From 'if P then Q' and Q, concluding P.",
+        "polarity": "fault",
+        "cues": ["\"if it were X, we'd see Y — and we see Y\"", "diagnostic reasoning without ruling out alternatives"],
+        "example": "If it rained, the street is wet; the street is wet, so it rained."
+      },
+      {
+        "name": "denying the antecedent",
+        "definition": "From 'if P then Q' and not-P, concluding not-Q.",
+        "polarity": "fault",
+        "cues": ["\"since we didn't do X, Y won't happen\"", "conditionals read as biconditionals"],
+        "example": "If you overtrain you get injured; she didn't overtrain, so she isn't injured."
+      },
+      {
+        "name": "undistributed middle",
+        "definition": "Two categories share a middle term that is never taken in its full extent, so no link follows.",
+        "polarity": "fault",
+        "cues": ["\"both are\" constructions", "shared attribute used to equate classes"],
+        "example": "Frauds use spreadsheets; this firm uses spreadsheets."
+      },
+      {
+        "name": "illicit major",
+        "definition": "The predicate term is distributed in the conclusion but not in the premise.",
+        "polarity": "fault",
+        "cues": ["universal negative conclusion from a particular premise", "'all' appearing only in the conclusion"],
+        "example": "All auditors are careful; no clerks are auditors; so no clerks are careful."
+      },
+      {
+        "name": "illicit minor",
+        "definition": "The subject term is distributed in the conclusion but not in the premise.",
+        "polarity": "fault",
+        "cues": ["conclusion covering the whole class when the premise covered only some", "\"all\" in the conclusion where the premise said \"all X are Y\" the other way round", "class inclusion silently reversed"],
+        "example": "All accountants are trained; all accountants are employees; so all employees are trained."
+      },
+      {
+        "name": "fallacy of four terms",
+        "definition": "A syllogism uses four distinct terms because one word carries two senses.",
+        "polarity": "fault",
+        "cues": ["a repeated word with shifting reference", "technical and lay senses of one term in one argument"],
+        "example": "Nothing is better than wisdom; a dry crust is better than nothing."
+      },
+      {
+        "name": "existential fallacy",
+        "definition": "Deriving a claim that something exists from premises that are purely universal.",
+        "polarity": "fault",
+        "cues": ["\"therefore some\" following only 'all' or 'no' premises", "empty-category subjects"],
+        "example": "All unicorns are horned, so some horned things are unicorns."
+      },
+      {
+        "name": "quantifier shift",
+        "definition": "Swapping the order of quantifiers, turning 'each has some' into 'some serves all'.",
+        "polarity": "fault",
+        "cues": ["\"everyone has a\" becoming \"there is a\"", "\"every problem has a solution\" constructions"],
+        "example": "Everyone has a mother, therefore someone is everyone's mother."
+      },
+      {
+        "name": "affirming a disjunct",
+        "definition": "From 'P or Q' and P, concluding not-Q, when the disjunction is inclusive.",
+        "polarity": "fault",
+        "cues": ["\"it's either A or B\" followed by exclusion", "inclusive 'or' treated as exclusive"],
+        "example": "The failure was hardware or software; it was hardware, so not software."
+      },
+      {
+        "name": "denying a conjunct",
+        "definition": "From 'not both P and Q' and not-P, concluding Q.",
+        "polarity": "fault",
+        "cues": ["\"we can't have both\" plus one denial", "exclusion read as exhaustion"],
+        "example": "We can't have both speed and cheapness; it isn't fast, so it's cheap."
+      },
+      {
+        "name": "masked man fallacy",
+        "definition": "Substituting co-referring terms inside a belief or knowledge context, where substitution is not valid.",
+        "polarity": "fault",
+        "cues": ["\"he doesn't know that X is Y, therefore\"", "identity claims inside 'believes that' clauses"],
+        "example": "She knows her colleague; she doesn't know the whistleblower; so her colleague isn't the whistleblower."
+      },
+      {
+        "name": "modal scope fallacy",
+        "definition": "Confusing the necessity of a conditional with the necessity of its consequent.",
+        "polarity": "fault",
+        "cues": ["\"must\" migrating from the inference to the fact", "\"necessarily, if... then\" collapsed"],
+        "example": "If he is running, he must be moving — so he must be moving."
+      }
+    ],
+    "eristic_stratagems": [
+      {
+        "name": "extension",
+        "definition": "Stretching the opponent's claim beyond its stated limits so that a wider, weaker version can be refuted.",
+        "polarity": "fault",
+        "cues": ["dropped qualifiers", "\"so in all cases\"", "the opponent's 'often' returned as 'always'"],
+        "example": "He said the policy usually helps; it is answered as if he claimed it always helps.",
+        "aka": "Schopenhauer's first stratagem"
+      },
+      {
+        "name": "homonymy",
+        "definition": "Deliberately exploiting a second sense of the opponent's word to refute something they never said.",
+        "polarity": "fault",
+        "cues": ["a pun-adjacent pivot", "\"you said 'free' — free how?\""],
+        "example": "'Honour' as reputation answered with 'honour' as virtue."
+      },
+      {
+        "name": "absolutizing the relative",
+        "definition": "Taking a claim made under a stated condition and refuting it as if made unconditionally.",
+        "polarity": "fault",
+        "cues": ["stripped 'in this context' or 'for these patients'", "\"generally speaking\" removed from the quotation"],
+        "example": "\"Under sedation the drug is safe\" answered with cases of unsedated harm.",
+        "aka": "a dicto secundum quid ad dictum simpliciter"
+      },
+      {
+        "name": "concealing the conclusion",
+        "definition": "Obtaining assent to premises one at a time, in scattered order, so the opponent cannot see what is being built.",
+        "polarity": "fault",
+        "cues": ["questions asked out of logical sequence", "long strings of small agreements before any conclusion appears"],
+        "example": "Six unconnected concessions later, the conclusion is announced as already granted."
+      },
+      {
+        "name": "arguing from false premises the opponent accepts",
+        "definition": "Using premises one believes false because the opponent is committed to them.",
+        "polarity": "fault",
+        "cues": ["\"by your own standard\" chains", "premises the arguer would reject in another context"],
+        "example": "Using an opponent's ranking system to derive a conclusion the arguer does not otherwise endorse."
+      },
+      {
+        "name": "provoking anger",
+        "definition": "Irritating the opponent so their judgment degrades and they overstate.",
+        "polarity": "fault",
+        "cues": ["needling asides", "personal jabs mid-argument", "repeated interruption"],
+        "example": "Steady condescension until the opponent says something indefensible."
+      },
+      {
+        "name": "rapid-fire questioning",
+        "definition": "Asking many questions quickly so that answers cannot be considered and confusion looks like concession.",
+        "polarity": "fault",
+        "cues": ["question stacking", "no pause for reply", "\"just answer yes or no\" repeated"],
+        "example": "Five questions in one breath, then a claim that none were answered."
+      },
+      {
+        "name": "diversion",
+        "definition": "When losing on the point, changing the subject to one where the arguer is stronger.",
+        "polarity": "fault",
+        "cues": ["\"but the deeper issue\"", "sudden broadening to principle", "topic shift immediately after a concession"],
+        "example": "Cornered on the number, he moves to the moral stakes.",
+        "aka": "mutatio controversiae"
+      },
+      {
+        "name": "generalizing the granted instance",
+        "definition": "Treating a single conceded case as an admission of the general rule.",
+        "polarity": "fault",
+        "cues": ["\"you already agreed that\"", "one example escalated to a principle"],
+        "example": "He conceded one exception, and is told he has conceded the class."
+      },
+      {
+        "name": "argumentum ad auditores",
+        "definition": "Aiming an invalid but plausible-sounding objection at the audience rather than the opponent, knowing the audience cannot check it.",
+        "polarity": "fault",
+        "cues": ["technical-sounding refutations aimed outward", "asides to the room", "applause lines mid-exchange"],
+        "example": "A jargon-laden objection lands with spectators though it means nothing to the specialist."
+      },
+      {
+        "name": "appeal to an authority the opponent reveres",
+        "definition": "Quoting a source the opponent cannot repudiate without cost, whether or not it is relevant.",
+        "polarity": "fault",
+        "cues": ["scripture, founding documents, or a revered figure quoted at a technical dispute", "\"even your own side says\""],
+        "example": "Citing the opponent's own mentor against them."
+      },
+      {
+        "name": "declaring the point beyond the opponent",
+        "definition": "Dismissing an objection as too advanced or too specialized for the objector to evaluate.",
+        "polarity": "fault",
+        "cues": ["\"you'd need the background to see why\"", "\"this is settled among people who work on it\""],
+        "example": "The question is waved off as naive rather than answered."
+      },
+      {
+        "name": "bewildering with words",
+        "definition": "Burying a weak position in unintelligible verbiage so that the audience assumes there is content.",
+        "polarity": "fault",
+        "cues": ["nested abstractions", "coinages without definitions", "unusually long sentences at exactly the weak point"],
+        "example": "Three clauses of terminology where a number belongs."
+      },
+      {
+        "name": "retorsion",
+        "definition": "Turning the opponent's own argument back so that it tells against their position.",
+        "polarity": "fault",
+        "cues": ["\"by that logic\"", "mirrored structure of the opponent's sentence"],
+        "example": "If disclosure is dangerous, so is your own undisclosed proposal."
+      },
+      {
+        "name": "claiming victory on an unproven point",
+        "definition": "Announcing that a point has been established and proceeding as if it were settled.",
+        "polarity": "fault",
+        "cues": ["\"as we have established\"", "\"now that this is settled\"", "\"having shown\" with nothing shown"],
+        "example": "The summary asserts a conclusion the body never supported."
+      },
+      {
+        "name": "interrupting the derivation",
+        "definition": "Breaking off the discussion or forcing a recess when the opponent's argument is about to close.",
+        "polarity": "fault",
+        "cues": ["procedural objections at the decisive step", "\"we're out of time\"", "sudden calls for a break"],
+        "example": "The clock is invoked one question before the conclusion."
+      },
+      {
+        "name": "anticipatory objection",
+        "definition": "Refuting an argument before the opponent has stated it, in a weakened form of one's own making.",
+        "polarity": "fault",
+        "cues": ["\"you're about to say\"", "\"the usual response is\"", "preemptive paraphrase"],
+        "example": "Their objection is stated for them, badly, and dismissed."
+      },
+      {
+        "name": "arguing to exhaustion",
+        "definition": "Prolonging the exchange until the opponent yields from fatigue rather than conviction.",
+        "polarity": "fault",
+        "cues": ["reopened settled points", "very long replies to short objections", "\"one more thing\" cycles"],
+        "example": "The tenth round of the same objection, reworded."
+      },
+      {
+        "name": "insisting on a yes-or-no answer",
+        "definition": "Forcing a binary answer to a question whose honest answer requires a distinction.",
+        "polarity": "fault",
+        "cues": ["\"yes or no\"", "\"it's a simple question\"", "refusal to accept qualification"],
+        "example": "Answer yes or no: has the program wasted money?"
+      },
+      {
+        "name": "false concession",
+        "definition": "Granting a trivial point loudly so that the appearance of fairness covers refusal on the real one.",
+        "polarity": "fault",
+        "cues": ["\"you're right about the small thing\"", "concession followed by 'but' and the original position intact"],
+        "example": "He concedes a date error and repeats the disputed claim unchanged."
+      },
+      {
+        "name": "personal escalation",
+        "definition": "When the argument is lost, abandoning the subject and attacking the person.",
+        "polarity": "fault",
+        "cues": ["shift from claims to conduct", "insults arriving after a concession", "\"and frankly, you\""],
+        "example": "The last exchange is entirely about the opponent's motives.",
+        "aka": "Schopenhauer's last stratagem"
+      },
+      {
+        "name": "manufactured technicality",
+        "definition": "Disputing a minor formal point to avoid the substantive one.",
+        "polarity": "fault",
+        "cues": ["objections about terminology or citation format", "\"strictly speaking\" preceding a non-answer"],
+        "example": "The response addresses only the misuse of a word in the question."
+      }
+    ],
+    "rhetorical_dark_patterns": [
+      {
+        "name": "motte-and-bailey",
+        "definition": "Advancing a controversial claim, then retreating under challenge to a nearly unobjectionable one and treating its defense as vindicating the first.",
+        "polarity": "fault",
+        "cues": ["\"all I'm saying is\"", "\"obviously nobody denies\"", "the defended claim differing from the asserted one"],
+        "example": "The strong causal claim in the headline becomes 'it's worth studying' under questioning."
+      },
+      {
+        "name": "gish gallop",
+        "definition": "Overwhelming with a rapid volume of assertions, so that refuting each costs more than making them.",
+        "polarity": "fault",
+        "cues": ["dense lists of unsourced claims", "many topics per paragraph", "\"and another thing\" chains"],
+        "example": "Thirty claims in four minutes, each requiring an hour to check."
+      },
+      {
+        "name": "sealioning",
+        "definition": "Persistent, superficially polite demands for evidence and explanation used to exhaust rather than to learn.",
+        "polarity": "fault",
+        "cues": ["\"I'm just asking for a source\" repeated", "unrelenting civility with no updating", "questions that reset after each answer"],
+        "example": "Every answer produces the same request, rephrased."
+      },
+      {
+        "name": "just asking questions",
+        "definition": "Insinuating a claim through interrogatives while disclaiming any assertion.",
+        "polarity": "fault",
+        "cues": ["\"isn't it strange that\"", "\"I'm only asking\"", "\"people are wondering\"", "questions with no interest in answers"],
+        "example": "Why has nobody explained the timing? — asserting a cover-up without asserting it.",
+        "aka": "JAQing off"
+      },
+      {
+        "name": "whataboutism",
+        "definition": "Deflecting criticism by raising a counter-accusation instead of answering.",
+        "polarity": "fault",
+        "cues": ["\"what about\"", "\"and yet\"", "immediate pivot to the critic's side's conduct"],
+        "example": "Asked about the fine, the reply lists the regulator's failures."
+      },
+      {
+        "name": "darvo",
+        "definition": "Denying the conduct, attacking the person who raised it, and reversing victim and offender roles.",
+        "polarity": "fault",
+        "cues": ["\"the real victim here\"", "\"this is a smear\"", "complaint reframed as the harm"],
+        "example": "The accused announces that the accusation has destroyed their life, and stops there.",
+        "aka": "deny, attack, reverse victim and offender"
+      },
+      {
+        "name": "concern trolling",
+        "definition": "Undermining a position while posing as a sympathetic supporter worried about tactics or optics.",
+        "polarity": "fault",
+        "cues": ["\"as someone who agrees with you\"", "\"this hurts your own cause\"", "\"I say this as a friend\""],
+        "example": "A supporter's letter that advises abandoning the only effective demand."
+      },
+      {
+        "name": "tone policing",
+        "definition": "Rejecting an argument on grounds of the manner in which it was made.",
+        "polarity": "fault",
+        "cues": ["\"if you'd said it more calmly\"", "\"nobody will listen when you're angry\"", "focus on delivery after a substantive point"],
+        "example": "The reply addresses the adjective and not the finding."
+      },
+      {
+        "name": "isolated demand for rigor",
+        "definition": "Applying a demanding evidentiary standard to one claim while accepting comparable claims freely.",
+        "polarity": "fault",
+        "cues": ["methodological objections raised only against unwelcome results", "\"peer-reviewed only\" applied selectively"],
+        "example": "The unwelcome study needs replication; the welcome one is a press release."
+      },
+      {
+        "name": "kafkatrap",
+        "definition": "Structuring the charge so that denial is treated as confirmation.",
+        "polarity": "fault",
+        "cues": ["\"your denial proves it\"", "\"only someone guilty would object\"", "no available disconfirming response"],
+        "example": "Objecting to the accusation is entered as evidence for it."
+      },
+      {
+        "name": "nutpicking",
+        "definition": "Representing a group by its least defensible members.",
+        "polarity": "fault",
+        "cues": ["screenshots of anonymous accounts as evidence about a movement", "\"this is what they believe\" over a fringe example"],
+        "example": "A random comment stands in for a professional literature."
+      },
+      {
+        "name": "firehose of falsehood",
+        "definition": "High-volume, multichannel, mutually inconsistent claims that aim at exhaustion and cynicism rather than belief.",
+        "polarity": "fault",
+        "cues": ["contradictory versions circulating at once", "speed and repetition over consistency", "no retraction after refutation"],
+        "example": "Four incompatible explanations issued in a week, none withdrawn."
+      },
+      {
+        "name": "dog whistle",
+        "definition": "Phrasing that reads as innocuous to a general audience while carrying a specific message to an in-group.",
+        "polarity": "fault",
+        "cues": ["oddly specific stock phrases", "coded numerals or place names", "deniability built into the wording"],
+        "example": "A term with an innocent surface meaning and a well-known second reading."
+      },
+      {
+        "name": "manufactured controversy",
+        "definition": "Generating the appearance of live scientific or factual dispute to delay action.",
+        "polarity": "fault",
+        "cues": ["\"the science isn't settled\"", "institute-funded contrarian reports", "debate framing over an unbalanced literature"],
+        "example": "Two decades of 'more research is needed' from one funded lab.",
+        "aka": "manufactured doubt"
+      },
+      {
+        "name": "sanewashing",
+        "definition": "Restating an incoherent or extreme statement in reasonable terms it did not have, then defending the improved version.",
+        "polarity": "fault",
+        "cues": ["\"what he really meant was\"", "paraphrase far more coherent than the quotation", "quote and gloss diverging"],
+        "example": "A rambling remark is reported as a considered policy position."
+      },
+      {
+        "name": "strategic ambiguity",
+        "definition": "Wording chosen so that two audiences hear incompatible commitments and neither can quote a broken promise.",
+        "polarity": "fault",
+        "cues": ["unquantified verbs (\"support\", \"explore\", \"review\")", "no deadline, no agent, no number"],
+        "example": "We remain committed to addressing the concerns raised."
+      },
+      {
+        "name": "preemptive victim framing",
+        "definition": "Positioning any coming criticism as persecution, so that criticism confirms the frame.",
+        "polarity": "fault",
+        "cues": ["\"they'll come after me for saying this\"", "\"you're not allowed to say\" before saying it"],
+        "example": "The claim opens by predicting censorship it never encounters."
+      },
+      {
+        "name": "burden inversion by asymmetric caution",
+        "definition": "Demanding proof of safety from one side while assuming safety on the other, without stating the asymmetry.",
+        "polarity": "fault",
+        "cues": ["precaution invoked in one direction only", "\"until we know for certain\" applied selectively"],
+        "example": "The new option must prove harmlessness; the status quo need not."
+      },
+      {
+        "name": "flooding the record",
+        "definition": "Burying the decisive item in volume — thousands of pages, exhaustive disclosure, endless caveats.",
+        "polarity": "fault",
+        "cues": ["document dumps on a Friday", "material fact in an appendix footnote", "unindexed productions"],
+        "example": "The disclosure is complete and unreadable."
+      },
+      {
+        "name": "false consensus signaling",
+        "definition": "Asserting that agreement already exists so that dissent looks eccentric.",
+        "polarity": "fault",
+        "cues": ["\"we all know\"", "\"nobody seriously disputes\"", "\"the conversation has moved on\""],
+        "example": "The claim's contested status is dissolved by a clause."
+      }
+    ]
+  }
+}

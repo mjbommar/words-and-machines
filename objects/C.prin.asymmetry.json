@@ -1,0 +1,27 @@
+{
+  "id": "C.prin.asymmetry",
+  "kind": "principle",
+  "part": 2,
+  "title": "The asymmetry",
+  "statement": "An improvement -- a shorter sequence, a better circuit, a valid colouring -- is checked in milliseconds by replaying the object. An optimality claim is checked, in most of the literature, by nobody: the certificate is petabytes or does not exist. Three independent literature sweeps converged on this without being asked.",
+  "formal": {
+    "language": "prose",
+    "statement": "positive witness: O(|object|) replay. negative: refutation proof over the whole search space."
+  },
+  "epistemic_status": "stated",
+  "evidence": [],
+  "book": {
+    "chapter": "ch03-certificates-and-cost",
+    "label": "prin:asymmetry"
+  },
+  "sources": [
+    "research/surveys/01-finite-combinatorics.md",
+    "research/surveys/02-engineering-industrial.md",
+    "research/surveys/03-optimization-verification.md"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

@@ -1,0 +1,67 @@
+%% copyright.tex — copyright page (verso of the title page).
+%% Every line is macro-driven and conditionally present, so one file
+%% serves every book and every edition without editing (ADR 0002).
+%% Block order follows trade convention: rights -> publisher ->
+%% identifiers -> PCIP -> disclosures -> printing statement.
+\thispagestyle{empty}
+\begingroup
+\footnotesize
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+\null\vfill % push the whole block to the foot of the page
+
+{\itshape\BookTitle\ifBookHasSubtitle: \BookSubtitle\fi}%
+\ifBookHasEditionSuffix\ (\BookEditionSuffix)\fi
+
+Copyright \textcopyright{} \BookYear{} \BookCopyrightHolder.
+All rights reserved. No part of this publication may be reproduced,
+stored in a retrieval system, or transmitted in any form or by any
+means---electronic, mechanical, photocopying, recording, or
+otherwise---without the prior written permission of the publisher,
+except for brief quotations in reviews.
+
+\BookEditionStatement.
+
+\ifBookHasImprint
+  Published by \BookImprint, an imprint of \BookPublisher.
+\else
+  Published by \BookPublisher.
+\fi
+
+% Identifiers — each printed only when assigned.
+\ifBookHasISBNPrint
+  ISBN \BookISBNPrint\ (paperback)\\
+\fi
+\ifdefstring{\BookISBNHardcover}{}{}{%
+  ISBN \BookISBNHardcover\ (hardcover)\\
+}%
+\ifdefstring{\BookISBNEpub}{}{}{%
+  ISBN \BookISBNEpub\ (ebook)\\
+}%
+\ifBookHasLCCN
+  Library of Congress Control Number: \BookLCCN
+\fi
+
+% PCIP-style block (Publisher's Cataloging-in-Publication) — the
+% self-published analogue of LC CIP data; libraries and some
+% distributors expect the shape even when entries are sparse.
+\emph{Publisher's Cataloging-in-Publication Data}\\
+Names: \BookAuthor, author.\\
+Title: \BookTitle\ifBookHasSubtitle{} : \BookSubtitle\fi\ / \BookAuthor.\\
+Description: \BookEditionStatement. \textbar{} \BookPublisher, \BookYear.%
+\ifBookHasISBNPrint\\
+Identifiers: ISBN \BookISBNPrint\ (paperback)%
+\ifdefstring{\BookISBNEpub}{}{}{ \textbar{} ISBN \BookISBNEpub\ (ebook)}.%
+\fi
+
+% AI-assistance disclosure (KDP requires one on file; printing it on
+% the copyright page keeps reader-facing and platform statements in
+% sync — both derive from book.yaml publishing.ai_disclosure).
+\ifBookHasAIDisclosure
+  \BookAIDisclosure
+\fi
+
+Printed in the United States of America.
+
+\endgroup
+\cleardoublepage

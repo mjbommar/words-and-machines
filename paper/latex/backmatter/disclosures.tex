@@ -1,0 +1,31 @@
+%% ============================================================
+%% backmatter/disclosures.tex — Disclosures & Limitations section
+%%
+%% Purpose      : the back-matter apparatus SSRN moderators expect and
+%%                arXiv readers appreciate — data availability, funding,
+%%                competing interests, and AI-assistance disclosure — all
+%%                read from generated metadata (paper.yaml disclosure:).
+%%                Printed for SSRN and preprint; omitted for a pure arXiv
+%%                build only if you prefer (kept by default).
+%% Dependencies : generated/metadata.tex (\PaperDataAvail, \PaperFunding,
+%%                \PaperCompeting, \PaperAIStatement, \ifPaperAIUsed).
+%% Provenance   : the us-data-center-opposition "Disclosures and
+%%                Limitations" back matter; SSRN's 2026-06-15 AI-disclosure
+%%                requirement.
+%% ============================================================
+
+\section*{Disclosures and limitations}
+\addcontentsline{toc}{section}{Disclosures and limitations}
+
+\begin{description}[leftmargin=0pt, font=\normalfont\bfseries\color{primary},
+                    itemsep=0.3em, style=nextline]
+  \item[Data availability] \PaperDataAvail
+  \item[Funding] \PaperFunding.
+  \item[Competing interests] \PaperCompeting.
+  \ifPaperAIUsed
+    \item[AI assistance] \PaperAIStatement
+  \fi
+  \item[Limitations] This is a template; its ``results'' are illustrative and
+    make no empirical claim. Replace this section with your paper's genuine
+    disclosures before submission.
+\end{description}

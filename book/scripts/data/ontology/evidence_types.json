@@ -1,0 +1,1177 @@
+{
+  "name": "evidence_types",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "What can support a claim and how it is presented — testimony, documents, statistics and their framing, examples, authorities, comparisons, study designs, case selection, and the hierarchy of sources — with the misuse risk attached to each.",
+  "categories": {
+    "testimonial_evidence": [
+      {
+        "name": "eyewitness testimony",
+        "definition": "A first-hand account of an observed event by someone present at it.",
+        "caution": "Confidence tracks accuracy poorly; memory is reconstructive and vulnerable to suggestion between the event and the account.",
+        "example": "A bystander describes the sequence of the collision."
+      },
+      {
+        "name": "expert testimony",
+        "definition": "An opinion offered by someone qualified by training or experience to interpret evidence a lay audience cannot.",
+        "caution": "Check that the opinion falls inside the witness's actual specialty and that the methods are accepted in the field, not invented for the case."
+      },
+      {
+        "name": "lay opinion",
+        "definition": "An ordinary observer's inference from what they perceived — speed, mood, intoxication — rather than raw description.",
+        "caution": "Legitimate only for judgments people make routinely; it smuggles in interpretation."
+      },
+      {
+        "name": "hearsay",
+        "definition": "A report of what someone else said, offered to establish that what they said was true.",
+        "caution": "The original speaker cannot be questioned; each retelling loses qualification and gains confidence."
+      },
+      {
+        "name": "double hearsay",
+        "definition": "A report of a report — two or more links between the assertion and anyone who observed anything.",
+        "caution": "Error compounds at every link; trace the chain to its first link or drop the claim."
+      },
+      {
+        "name": "statement against interest",
+        "definition": "An assertion that damages the speaker's own position, which is therefore less likely to be self-serving invention.",
+        "example": "A firm's own filing concedes the defect rate."
+      },
+      {
+        "name": "excited utterance",
+        "definition": "A statement made under the immediate stress of an event, before reflection could shape it.",
+        "caution": "Spontaneity buys sincerity, not accuracy — stress degrades perception."
+      },
+      {
+        "name": "present sense impression",
+        "definition": "A description made while perceiving the event or immediately after, minimizing memory decay.",
+        "example": "A dispatcher's log entry written as the call came in."
+      },
+      {
+        "name": "dying declaration",
+        "definition": "A statement about the cause of one's own impending death, traditionally admitted despite hearsay rules.",
+        "caution": "A legal category, not an epistemic guarantee."
+      },
+      {
+        "name": "party admission",
+        "definition": "A statement by a party to a dispute, used against them by their opponent.",
+        "caution": "Context of the admission matters: negotiation talk, hypotheticals, and apologies are routinely misread as concessions of fact."
+      },
+      {
+        "name": "deposition testimony",
+        "definition": "Sworn out-of-court testimony taken under questioning by opposing counsel and transcribed verbatim.",
+        "caution": "Excerpting a deposition changes it; the surrounding questions usually carry the qualification."
+      },
+      {
+        "name": "sworn affidavit",
+        "definition": "A written statement made under oath or penalty of perjury, without cross-examination.",
+        "caution": "Untested by adversarial questioning; often drafted by the party's lawyer and signed."
+      },
+      {
+        "name": "on-the-record source",
+        "definition": "A named source who accepts attribution for what they say.",
+        "example": "The commissioner, by name, confirming the timeline."
+      },
+      {
+        "name": "background source",
+        "definition": "A source whose information may be used with an agreed non-identifying description.",
+        "caution": "The description ('a person familiar with the matter') hides both the source's access and their stake."
+      },
+      {
+        "name": "anonymous source",
+        "definition": "A source whose identity is withheld entirely, typically because disclosure carries risk.",
+        "caution": "The reader cannot assess motive or access; requires corroboration and an explicit reason for the anonymity."
+      },
+      {
+        "name": "whistleblower account",
+        "definition": "An insider's disclosure of wrongdoing, usually against their own interest and with documentary support.",
+        "caution": "Insider access is real but partial; the vantage point shapes what is visible."
+      },
+      {
+        "name": "oral history",
+        "definition": "A recorded long-form recollection collected as a historical source in its own right.",
+        "caution": "Excellent for meaning, texture, and lived experience; weak for dates, quantities, and sequence."
+      },
+      {
+        "name": "contemporaneous notes",
+        "definition": "Notes written at or near the time of the events they describe.",
+        "example": "A field notebook dated the day of the inspection.",
+        "caution": "Establish when they were written; notes 'reconstructed later' are memory, not record."
+      },
+      {
+        "name": "self-report survey response",
+        "definition": "A subject's own account of their behavior, attitudes, or history, collected instrumentally.",
+        "caution": "Subject to social desirability, recall error, and question wording; behaviors are systematically over- or under-reported by category."
+      },
+      {
+        "name": "character and reputation evidence",
+        "definition": "Testimony about how a person is regarded in a community, offered to support or undercut credibility.",
+        "caution": "Rarely bears on a specific act; strongly prejudicial relative to its probative value."
+      }
+    ],
+    "documentary_and_physical_evidence": [
+      {
+        "name": "primary document",
+        "definition": "A record produced by a participant in or witness to the events, without an intervening interpreter.",
+        "example": "The original contract, the minutes taken at the meeting."
+      },
+      {
+        "name": "business record",
+        "definition": "A document created in the regular course of an organization's operations, at or near the time of the transaction.",
+        "caution": "Regularity is the basis of its reliability; a record created for the dispute is not one."
+      },
+      {
+        "name": "public record",
+        "definition": "A document filed with or produced by a government body and available for inspection.",
+        "example": "Property deeds, licensing registers, inspection reports."
+      },
+      {
+        "name": "court filing",
+        "definition": "A pleading, motion, exhibit, or order entered on a case docket.",
+        "caution": "Allegations in a complaint are claims, not findings; cite the ruling, not the pleading, for what was decided."
+      },
+      {
+        "name": "hearing transcript",
+        "definition": "A verbatim record of spoken proceedings, produced by a certified reporter or an audited machine pass.",
+        "caution": "Transcripts drop tone and cross-talk; check the certification and the errata sheet."
+      },
+      {
+        "name": "regulatory filing",
+        "definition": "A disclosure a regulated entity is legally required to submit, often under penalty for misstatement.",
+        "example": "Annual reports, prospectuses, adverse-event reports."
+      },
+      {
+        "name": "audited financial statement",
+        "definition": "Financial accounts examined by an independent auditor against a reporting standard.",
+        "caution": "An audit opinion covers material misstatement under a standard, not economic reality; read the opinion type and the notes."
+      },
+      {
+        "name": "internal memorandum",
+        "definition": "A document written for internal circulation, revealing what an organization believed or intended at the time.",
+        "caution": "Internal documents are often drafts or advocacy; distinguish a proposal from a decision."
+      },
+      {
+        "name": "correspondence",
+        "definition": "Letters, emails, or messages between identified parties, evidencing knowledge, timing, and intent.",
+        "caution": "Threads are quoted out of order routinely; check headers, timestamps, and who was actually on the message."
+      },
+      {
+        "name": "leaked document",
+        "definition": "An internal record disclosed without the holder's authorization.",
+        "caution": "Authenticate independently and consider selection: the leaker chose which documents you see."
+      },
+      {
+        "name": "freedom-of-information release",
+        "definition": "Records disclosed by a public body in response to a statutory request, often with redactions.",
+        "caution": "Redaction and exemption patterns shape the picture; note what was withheld and under which exemption."
+      },
+      {
+        "name": "administrative dataset",
+        "definition": "Records generated by an operating system of administration — tax, benefits, registration — repurposed as data.",
+        "caution": "Definitions follow administrative need, change without notice, and count only what the system touches."
+      },
+      {
+        "name": "system log",
+        "definition": "Machine-generated event records with timestamps, produced automatically rather than composed.",
+        "caution": "Clock drift, timezone handling, and retention windows determine what a log can prove."
+      },
+      {
+        "name": "file metadata",
+        "definition": "Embedded creation, modification, authorship, and device fields attached to a digital artifact.",
+        "caution": "Trivially editable and routinely rewritten by ordinary copying and export."
+      },
+      {
+        "name": "photographic evidence",
+        "definition": "A still image offered as a record of an appearance, condition, or event.",
+        "caution": "Framing, lens, and moment are choices; provenance and unedited originals matter more than the image."
+      },
+      {
+        "name": "video footage",
+        "definition": "A moving-image record, often with continuous timing that fixes sequence and duration.",
+        "caution": "Angle, frame rate, and edit points change perceived causation; establish the full unedited clip."
+      },
+      {
+        "name": "audio recording",
+        "definition": "A captured record of speech or sound, preserving wording and tone.",
+        "caution": "Ambiguous audio is heard as whatever a caption suggests; provide the transcript and the raw file."
+      },
+      {
+        "name": "physical trace evidence",
+        "definition": "Material residue — marks, fragments, wear patterns — interpreted through a forensic discipline.",
+        "caution": "Interpretive strength varies enormously across disciplines; several long-accepted comparison methods lack validated error rates."
+      },
+      {
+        "name": "chain of custody record",
+        "definition": "Documentation of every transfer and storage condition of an item of evidence from collection to analysis.",
+        "caution": "A gap in custody does not prove tampering but removes the basis for excluding it."
+      },
+      {
+        "name": "archival collection",
+        "definition": "An organized body of retained records with a finding aid describing provenance and arrangement.",
+        "caution": "Archives preserve what someone chose to keep; the shape of the collection is itself evidence about the keeper."
+      },
+      {
+        "name": "map or survey record",
+        "definition": "A spatial record of boundaries, features, or measurements made to a stated standard.",
+        "caution": "Projection, datum, and survey date determine what the lines mean."
+      },
+      {
+        "name": "instrument reading",
+        "definition": "A measurement produced by a calibrated device rather than by human judgment.",
+        "caution": "Calibration date, detection limit, and units are part of the evidence; a reading without them is a number."
+      }
+    ],
+    "statistical_forms": [
+      {
+        "name": "point estimate",
+        "definition": "A single value offered as the best estimate of a quantity in the population.",
+        "caution": "Meaningless without an interval; a point estimate presented alone implies precision it does not have."
+      },
+      {
+        "name": "confidence interval",
+        "definition": "A range constructed so that, over repeated sampling, a stated proportion of such intervals would contain the true value.",
+        "caution": "It is not the probability that the parameter lies in this interval; and it covers sampling error only, not bias."
+      },
+      {
+        "name": "margin of error",
+        "definition": "Half-width of the confidence interval for a survey estimate, typically at 95%.",
+        "caution": "Applies to the full sample; subgroup margins are much wider, and non-response bias is not included."
+      },
+      {
+        "name": "standard error",
+        "definition": "The standard deviation of an estimate's sampling distribution — how much the estimate would move across samples.",
+        "caution": "Often confused with the standard deviation of the data, which describes spread, not estimate precision."
+      },
+      {
+        "name": "p-value",
+        "definition": "The probability of data at least as extreme as observed, if the null hypothesis were true.",
+        "caution": "Not the probability the hypothesis is true, not a measure of effect size, and not a threshold of importance."
+      },
+      {
+        "name": "effect size",
+        "definition": "A standardized magnitude of a difference or relationship, independent of sample size.",
+        "example": "Cohen's d, Hedges' g, correlation r.",
+        "caution": "Standardized units hide practical meaning; translate back into the raw scale for the reader."
+      },
+      {
+        "name": "absolute risk difference",
+        "definition": "The arithmetic difference in event rates between two groups.",
+        "caution": "The honest headline number, and the one most often omitted in favor of relative measures."
+      },
+      {
+        "name": "relative risk",
+        "definition": "The ratio of the event rate in the exposed group to the rate in the unexposed.",
+        "caution": "A large ratio on a tiny base rate is a small change in the world."
+      },
+      {
+        "name": "odds ratio",
+        "definition": "The ratio of the odds of an outcome in one group to the odds in another.",
+        "caution": "Approximates relative risk only for rare outcomes; for common outcomes it exaggerates."
+      },
+      {
+        "name": "number needed to treat",
+        "definition": "How many people must receive an intervention for one additional good outcome to occur.",
+        "example": "An NNT of 90 means 89 of 90 treated see no benefit from this outcome."
+      },
+      {
+        "name": "hazard ratio",
+        "definition": "The ratio of instantaneous event rates between groups over follow-up time.",
+        "caution": "Assumes the ratio is constant over time; check the survival curves for crossings."
+      },
+      {
+        "name": "correlation coefficient",
+        "definition": "A standardized measure of linear association between two variables, from -1 to 1.",
+        "caution": "Blind to non-linear relationships, driven by outliers, and unrelated to causation or to slope."
+      },
+      {
+        "name": "regression coefficient",
+        "definition": "The estimated change in the outcome per unit change in a predictor, holding other model terms fixed.",
+        "caution": "'Holding fixed' is a property of the model, not of the world; controls can also be colliders."
+      },
+      {
+        "name": "coefficient of determination",
+        "definition": "The share of variance in the outcome accounted for by the model.",
+        "caution": "High R-squared can accompany a useless model, and low R-squared a real effect."
+      },
+      {
+        "name": "standard deviation",
+        "definition": "A summary of how far values typically fall from the mean.",
+        "caution": "Interpretable as a rule of thumb only for roughly symmetric distributions."
+      },
+      {
+        "name": "interquartile range",
+        "definition": "The spread of the middle half of the data, from the 25th to the 75th percentile.",
+        "caution": "A good companion to the median; still says nothing about extremes."
+      },
+      {
+        "name": "rate",
+        "definition": "A count normalized by exposure — population, person-years, vehicle-miles.",
+        "caution": "The denominator is the argument; state it explicitly every time."
+      },
+      {
+        "name": "prevalence",
+        "definition": "The share of a population with a condition at a point in time.",
+        "caution": "Reflects both how often the condition arises and how long it lasts."
+      },
+      {
+        "name": "incidence",
+        "definition": "The rate of new cases arising in a population over a period.",
+        "caution": "Routinely confused with prevalence; changes in one can move the other in the opposite direction."
+      },
+      {
+        "name": "sensitivity and specificity",
+        "definition": "A test's true-positive rate among those with the condition and true-negative rate among those without.",
+        "caution": "Both are properties of the test, not answers to the reader's question, which needs prevalence too."
+      },
+      {
+        "name": "positive predictive value",
+        "definition": "The probability that a positive result is a true positive, given the population's base rate.",
+        "caution": "Falls sharply as prevalence falls, which is why screening rare conditions produces mostly false alarms."
+      },
+      {
+        "name": "likelihood ratio",
+        "definition": "How much more likely a finding is under one hypothesis than another — the multiplier on prior odds.",
+        "example": "A likelihood ratio of 10 shifts odds by an order of magnitude."
+      },
+      {
+        "name": "posterior probability",
+        "definition": "The probability of a hypothesis after updating a stated prior with the evidence.",
+        "caution": "Requires the prior to be stated and defended; hidden priors do the work in most Bayesian rhetoric."
+      },
+      {
+        "name": "statistical power",
+        "definition": "The probability a study would detect an effect of a stated size if it exists.",
+        "caution": "Underpowered null results are uninformative; power calculated after the fact from the observed effect is meaningless."
+      },
+      {
+        "name": "pooled effect estimate",
+        "definition": "A weighted combination of results across studies in a meta-analysis.",
+        "caution": "Pooling incompatible designs and populations produces a precise number describing nothing."
+      },
+      {
+        "name": "heterogeneity statistic",
+        "definition": "A measure of how much variation across pooled studies exceeds chance.",
+        "example": "High I-squared says the studies are estimating different things."
+      },
+      {
+        "name": "prediction interval",
+        "definition": "A range expected to contain a future individual observation, not just the mean.",
+        "caution": "Always wider than a confidence interval; the one readers actually want when asking 'what will happen to me'."
+      },
+      {
+        "name": "index number",
+        "definition": "A composite series rescaled to a base period to summarize movement in a bundle.",
+        "caution": "Weights and basket composition determine the story; a reweighted index is a different index."
+      },
+      {
+        "name": "elasticity",
+        "definition": "The percentage change in one quantity per percentage change in another.",
+        "caution": "Estimated locally; it does not survive extrapolation to large changes."
+      },
+      {
+        "name": "compound growth rate",
+        "definition": "The constant rate that would take a series from its start value to its end value over the period.",
+        "caution": "Endpoint-sensitive: shifting the start year by one can reverse the impression."
+      }
+    ],
+    "statistics_presentation_modes": [
+      {
+        "name": "per-capita framing",
+        "definition": "Expressing a count relative to population so that units of different size can be compared.",
+        "caution": "The relevant denominator is not always population — exposure, vehicle-miles, or patient-days may be the right base."
+      },
+      {
+        "name": "absolute-and-relative pairing",
+        "definition": "Reporting the change both as a ratio and in absolute terms so neither impression stands alone.",
+        "example": "Risk rose 50% — from 2 in 10,000 to 3 in 10,000."
+      },
+      {
+        "name": "natural frequencies",
+        "definition": "Expressing conditional probabilities as counts within a stated reference group.",
+        "example": "Of 1,000 tested, 10 have the condition; 9 test positive; 99 healthy people also test positive.",
+        "caution": "The single most effective repair for base-rate confusion in lay and expert readers alike."
+      },
+      {
+        "name": "denominator disclosure",
+        "definition": "Naming the population, time window, and inclusion rule behind every rate in the text.",
+        "caution": "Where the denominator is unstated, assume it was chosen."
+      },
+      {
+        "name": "inflation adjustment",
+        "definition": "Converting nominal amounts to constant currency of a stated year.",
+        "caution": "Name the index and base year; different deflators give materially different histories."
+      },
+      {
+        "name": "seasonal adjustment",
+        "definition": "Removing recurring within-year patterns so that underlying movement is visible.",
+        "caution": "Adjusted series get revised; month-to-month changes in adjusted data are often smaller than the revision."
+      },
+      {
+        "name": "age standardization",
+        "definition": "Reweighting rates to a common age structure so populations of different ages can be compared.",
+        "caution": "The standard population chosen changes the numbers; state it."
+      },
+      {
+        "name": "indexed-to-baseline presentation",
+        "definition": "Rescaling several series to 100 at a common date to compare growth rather than level.",
+        "caution": "Choice of base date determines the visual ranking entirely."
+      },
+      {
+        "name": "logarithmic scale",
+        "definition": "Plotting on a log axis so that equal vertical distances represent equal proportional change.",
+        "caution": "Honest for growth processes and misread by most general readers; label it loudly."
+      },
+      {
+        "name": "zero-baseline bar chart",
+        "definition": "Anchoring bar length at zero so that visual length is proportional to value.",
+        "caution": "The convention exists because truncated bars misstate ratios; line charts of levels may legitimately omit zero."
+      },
+      {
+        "name": "rolling average",
+        "definition": "Smoothing a noisy series by averaging over a moving window.",
+        "caution": "Suppresses turning points and lags them by roughly half the window."
+      },
+      {
+        "name": "cumulative versus periodic framing",
+        "definition": "Choosing between running totals and per-period counts, which tell different stories about the same data.",
+        "caution": "Cumulative curves can only rise, which makes any slowdown look like continued growth."
+      },
+      {
+        "name": "share-of-total framing",
+        "definition": "Presenting components as percentages of a whole rather than as levels.",
+        "caution": "A share can fall while the level rises; say which one moved."
+      },
+      {
+        "name": "rank versus level presentation",
+        "definition": "Reporting position in a league table instead of the underlying magnitude.",
+        "caution": "Ranks hide how close the field is; a three-place drop may be a rounding error."
+      },
+      {
+        "name": "disaggregation by subgroup",
+        "definition": "Splitting an aggregate into components to show whether the average describes anyone.",
+        "caution": "Post-hoc subgroup splitting multiplies false positives; prespecify or label as exploratory."
+      },
+      {
+        "name": "uncertainty visualization",
+        "definition": "Showing error bars, bands, or fan charts so that the estimate's precision is visible with the estimate.",
+        "caution": "State what the band represents — standard error, 95% interval, prediction interval — since they differ by a factor of two or more."
+      },
+      {
+        "name": "sensitivity analysis",
+        "definition": "Reporting how the conclusion changes under alternative defensible assumptions.",
+        "example": "The result holds under all three discount rates."
+      },
+      {
+        "name": "fermi estimate",
+        "definition": "An order-of-magnitude calculation from decomposable, checkable assumptions.",
+        "caution": "Excellent for sanity-checking a claim; never a substitute for measurement when measurement exists."
+      },
+      {
+        "name": "familiar-reference-class framing",
+        "definition": "Expressing a risk or quantity in a unit the reader already calibrates against.",
+        "example": "The same risk as driving 200 miles."
+      },
+      {
+        "name": "significant-figure discipline",
+        "definition": "Rounding reported numbers to the precision the estimate actually supports.",
+        "caution": "Extra decimals are a claim about measurement quality; readers hear them as one."
+      },
+      {
+        "name": "one-in-N phrasing",
+        "definition": "Expressing a small probability as a count within a concrete population.",
+        "caution": "Comparisons between one-in-N figures with different N are read badly; keep the reference constant."
+      },
+      {
+        "name": "small multiples",
+        "definition": "Repeating one chart form across categories on a shared scale so comparison is direct.",
+        "caution": "Only works if the scale is genuinely shared."
+      }
+    ],
+    "example_types": [
+      {
+        "name": "representative case",
+        "definition": "An instance chosen because it is typical of the class the claim is about.",
+        "caution": "Typicality must be argued from the distribution, not asserted."
+      },
+      {
+        "name": "extreme case",
+        "definition": "An instance at the far end of the relevant scale, used to expose a mechanism at maximum visibility.",
+        "caution": "Reveals what is possible, not what is usual."
+      },
+      {
+        "name": "counterexample",
+        "definition": "A single instance that falls under a general claim and violates it.",
+        "example": "One documented case is enough against 'never'."
+      },
+      {
+        "name": "hard case",
+        "definition": "An instance near the boundary, where the rule under discussion gives an uncomfortable answer.",
+        "caution": "Hard cases test a rule's limits; they are poor material for building one."
+      },
+      {
+        "name": "paradigm case",
+        "definition": "The uncontested central instance of a concept, used to anchor its meaning.",
+        "example": "If this is not fraud, the word has no application."
+      },
+      {
+        "name": "borderline case",
+        "definition": "An instance whose classification is genuinely unsettled, used to expose vagueness.",
+        "caution": "Useful for definition work; misleading as evidence about the central cases."
+      },
+      {
+        "name": "limiting case",
+        "definition": "The degenerate instance where a parameter goes to zero or infinity, testing whether a claim still behaves.",
+        "example": "What does the formula say for a population of one?"
+      },
+      {
+        "name": "thought experiment",
+        "definition": "An imagined, fully specified scenario constructed to isolate a variable that reality confounds.",
+        "caution": "Yields conceptual conclusions only; intuitions about vivid hypotheticals are unstable."
+      },
+      {
+        "name": "hypothetical",
+        "definition": "An invented but realistic scenario used to test how a rule or principle would apply.",
+        "caution": "Whoever writes the facts wins the hypothetical; invite the other side to vary them."
+      },
+      {
+        "name": "intuition pump",
+        "definition": "A narrative device engineered so a particular intuition emerges, with knobs that can be turned to test its robustness.",
+        "caution": "Turn the knobs; if the intuition flips on an irrelevant detail, it was not tracking the principle."
+      },
+      {
+        "name": "reductio example",
+        "definition": "A case constructed so that applying the opponent's principle to it yields an unacceptable result.",
+        "caution": "Only bites if the case really falls under the principle as stated."
+      },
+      {
+        "name": "anecdote",
+        "definition": "A single real incident recounted for its illustrative or emotional force.",
+        "caution": "Carries no inferential weight about frequency; readers over-generalize from it anyway, so mark its status."
+      },
+      {
+        "name": "vignette",
+        "definition": "A short compressed scene, real or constructed, that renders an abstraction concrete.",
+        "example": "Two paragraphs following one claim through the appeals process."
+      },
+      {
+        "name": "composite case",
+        "definition": "A single narrative assembled from features of several real cases.",
+        "caution": "Must be disclosed as composite; presented as one person's story it is fabrication."
+      },
+      {
+        "name": "worked example",
+        "definition": "A calculation or procedure carried through step by step with real numbers.",
+        "example": "Running the same claim through the formula with the reported figures."
+      },
+      {
+        "name": "negative example",
+        "definition": "An instance of what the concept is not, used to sharpen its boundary by contrast.",
+        "example": "This is delegation; that is abdication."
+      },
+      {
+        "name": "existence proof",
+        "definition": "A single demonstrated instance establishing that something is possible.",
+        "caution": "Establishes possibility only — never frequency, cost, or scalability."
+      },
+      {
+        "name": "minimal pair",
+        "definition": "Two cases identical except in the one feature at issue, isolating that feature's effect.",
+        "example": "The same application under two names."
+      },
+      {
+        "name": "stylized fact",
+        "definition": "A broad empirical regularity, deliberately simplified, that a theory is expected to reproduce.",
+        "caution": "Simplification hides exceptions; check that the regularity survives at the level of your claim."
+      },
+      {
+        "name": "running example",
+        "definition": "One case carried through an entire argument, taking on new aspects at each stage.",
+        "caution": "Efficient and memorable, but the reader may generalize the whole argument from the one case."
+      },
+      {
+        "name": "cautionary case",
+        "definition": "A documented failure presented to establish that a risk is realized in practice, not just in principle.",
+        "caution": "Selection matters: one disaster does not establish a rate."
+      },
+      {
+        "name": "demonstration",
+        "definition": "An in-text performance of the phenomenon rather than a description of it.",
+        "example": "A paragraph written in the style it is criticizing."
+      }
+    ],
+    "authority_types": [
+      {
+        "name": "subject-matter expert",
+        "definition": "A person with deep, current, domain-specific training whose judgment is credentialed by peers.",
+        "caution": "Expertise is narrow; a leading figure one subfield over is a lay reader on your question."
+      },
+      {
+        "name": "experienced practitioner",
+        "definition": "Someone whose authority comes from repeated hands-on engagement rather than formal study.",
+        "caution": "Strong on tacit knowledge and failure modes, weak on frequencies and on cases they never see."
+      },
+      {
+        "name": "institutional authority",
+        "definition": "An organization whose standing, procedures, and accountability underwrite a claim.",
+        "caution": "Institutional endorsement is a procedural guarantee, not an evidentiary one."
+      },
+      {
+        "name": "regulatory body",
+        "definition": "A public agency empowered to set and enforce binding requirements in a domain.",
+        "caution": "Its determinations reflect legal mandate and evidentiary standard, which may differ from scientific consensus."
+      },
+      {
+        "name": "standards organization",
+        "definition": "A body that publishes consensus technical standards through a documented process.",
+        "example": "ISO, IEEE, ASTM, W3C."
+      },
+      {
+        "name": "adjudicative authority",
+        "definition": "A court or tribunal whose findings of fact are made under procedural rules and a stated standard of proof.",
+        "caution": "A verdict is a legal resolution under a burden of proof, not a scientific finding."
+      },
+      {
+        "name": "consensus statement",
+        "definition": "A position developed by a convened panel of specialists reviewing evidence to a stated method.",
+        "caution": "Check who convened the panel, who sat on it, and how dissent was recorded."
+      },
+      {
+        "name": "systematic review body",
+        "definition": "An organization whose function is to appraise and synthesize evidence to a published protocol.",
+        "example": "Cochrane, national evidence-review agencies."
+      },
+      {
+        "name": "professional guideline",
+        "definition": "A recommendation issued by a professional body to guide practice, usually with graded evidence levels.",
+        "caution": "Read the grade attached to each recommendation; strong recommendations often rest on weak evidence."
+      },
+      {
+        "name": "official statistics agency",
+        "definition": "A national or supranational body producing statistics under methodological and independence standards.",
+        "caution": "Definitions and series breaks are documented in the methodology notes and ignored in most citations."
+      },
+      {
+        "name": "reference work",
+        "definition": "A curated compilation — dictionary, handbook, standard treatise — whose authority is editorial and cumulative.",
+        "caution": "Lags the field by years; use it for settled meaning, not for the frontier."
+      },
+      {
+        "name": "textbook authority",
+        "definition": "A teaching text presenting the consolidated view of a field to newcomers.",
+        "caution": "Simplifies deliberately; a textbook claim is a summary of a literature, not a citation to it."
+      },
+      {
+        "name": "principal investigator",
+        "definition": "The researcher who designed and ran the study, able to speak to decisions not visible in the paper.",
+        "caution": "Also the party most invested in the interpretation."
+      },
+      {
+        "name": "journalist of record",
+        "definition": "A reporter with a sustained beat, institutional editing, and correction practice.",
+        "caution": "Reporting is a secondary source; follow it to its documents."
+      },
+      {
+        "name": "insider with access",
+        "definition": "A source whose authority is positional — they were in the room — rather than expert.",
+        "caution": "Access is not perspective; a participant's view of a system is partial by construction."
+      },
+      {
+        "name": "forecaster with a track record",
+        "definition": "A person or market whose predictive authority rests on scored, public, out-of-sample performance.",
+        "caution": "Demand the full record, including resolved misses; selective retrospectives are the norm."
+      },
+      {
+        "name": "canonical text",
+        "definition": "A foundational work treated as authoritative within a tradition.",
+        "caution": "Its authority is interpretive and internal to the tradition; citing it settles usage, not fact."
+      }
+    ],
+    "comparison_devices": [
+      {
+        "name": "analogy",
+        "definition": "Evidential sense: transferring understanding from a familiar case to an unfamiliar one on the basis of shared relevant structure, offered in support of a claim. Distinct from the figure, which is judged by aptness rather than by how far the structures actually correspond.",
+        "see_also": "rhetorical_figures/metaphor_family",
+        "caution": "Every analogy has a breaking point; name it before a critic does."
+      },
+      {
+        "name": "disanalogy",
+        "definition": "Explicitly marking where a comparison stops holding, to bound what it licenses.",
+        "example": "Like a mortgage, except that the collateral can vanish."
+      },
+      {
+        "name": "benchmark comparison",
+        "definition": "Measuring a case against an agreed reference standard.",
+        "caution": "The benchmark encodes a set of values; who chose it, and what does it reward?"
+      },
+      {
+        "name": "before-and-after comparison",
+        "definition": "Comparing measurements from the same unit across an intervention.",
+        "caution": "Without a control, this confounds the intervention with every trend and shock in the same period."
+      },
+      {
+        "name": "control-group comparison",
+        "definition": "Comparing treated units to comparable untreated units over the same period.",
+        "caution": "Comparability is the whole argument; state how it was achieved."
+      },
+      {
+        "name": "counterfactual comparison",
+        "definition": "Comparing what happened to a constructed estimate of what would have happened otherwise.",
+        "caution": "Make the counterfactual explicit and falsifiable, or it is a preference in the form of a number."
+      },
+      {
+        "name": "cross-national comparison",
+        "definition": "Comparing outcomes across countries to isolate the effect of institutions or policy.",
+        "caution": "Definitions, measurement systems, and compositions differ; harmonization is usually assumed rather than done."
+      },
+      {
+        "name": "peer-group comparison",
+        "definition": "Comparing a unit to a defined set of similar units rather than to the whole population.",
+        "caution": "Peer-group definition determines the result; peer sets are frequently drawn to flatter."
+      },
+      {
+        "name": "historical parallel",
+        "definition": "Setting a present case beside a past one to import its lessons.",
+        "caution": "The lesson depends on which features are held to matter; base rates of successful historical analogy are poor."
+      },
+      {
+        "name": "scale comparison",
+        "definition": "Rendering a magnitude comprehensible by equating it to a familiar physical or budgetary quantity.",
+        "example": "An area the size of a mid-sized state.",
+        "caution": "Familiar referents distort in their own way; a state's area is not well known either."
+      },
+      {
+        "name": "unit conversion to human terms",
+        "definition": "Recasting an aggregate into per-person, per-day, or per-household units.",
+        "example": "The program costs about the price of a coffee per taxpayer per month.",
+        "caution": "The device systematically shrinks large sums; use it symmetrically for costs and benefits."
+      },
+      {
+        "name": "ratio comparison",
+        "definition": "Expressing one quantity as a multiple of another to make relative size vivid.",
+        "caution": "Ratios of small numbers are unstable; report the components."
+      },
+      {
+        "name": "chance-level baseline",
+        "definition": "Comparing performance to what random behavior would achieve.",
+        "example": "Sixty percent accuracy on a two-way task is ten points above guessing."
+      },
+      {
+        "name": "best-in-class comparison",
+        "definition": "Measuring against the leading performer to show the size of the achievable gap.",
+        "caution": "The frontier case may be unrepresentative or unreachable for structural reasons."
+      },
+      {
+        "name": "worst-case comparison",
+        "definition": "Setting a case against the plausible floor to establish that current conditions are not the bottom.",
+        "caution": "Easily becomes relative privation — 'it could be worse' is not a defense."
+      },
+      {
+        "name": "cost-benefit comparison",
+        "definition": "Placing consequences of an action on a common scale to compare totals.",
+        "caution": "Monetization decisions and discount rates carry the conclusion; expose them."
+      },
+      {
+        "name": "opportunity-cost comparison",
+        "definition": "Comparing an option not to nothing but to the best displaced alternative.",
+        "caution": "The alternative must be genuinely available with the same resources."
+      },
+      {
+        "name": "side-by-side matrix",
+        "definition": "A table comparing options along shared, stated criteria.",
+        "caution": "Criterion selection and row order do the persuading; a matrix looks neutral and rarely is."
+      },
+      {
+        "name": "trend comparison",
+        "definition": "Comparing rates of change rather than levels between series.",
+        "caution": "Different starting points make growth rates non-comparable; show the levels too."
+      },
+      {
+        "name": "order-of-magnitude comparison",
+        "definition": "Comparing quantities by powers of ten rather than exact values, to establish which dominates.",
+        "example": "One is a rounding error on the other."
+      }
+    ],
+    "case_selection_strategies": [
+      {
+        "name": "typical case selection",
+        "definition": "Choosing a case that sits at the center of the distribution to explore the usual mechanism.",
+        "caution": "Good for mechanism, weak for range."
+      },
+      {
+        "name": "deviant case selection",
+        "definition": "Choosing a case the existing theory fails to explain, to expose an omitted variable.",
+        "example": "The one district where the reform reduced enrollment."
+      },
+      {
+        "name": "crucial case selection",
+        "definition": "Choosing a case where a theory's prediction is most clearly at stake, so the result is maximally informative.",
+        "caution": "Crucial-case status must be argued from the theory before the result is known."
+      },
+      {
+        "name": "least-likely case",
+        "definition": "Confirming a theory in a case where conditions were least favorable to it, which strengthens the inference.",
+        "example": "If it works here, it should work anywhere.",
+        "aka": "Sinatra inference"
+      },
+      {
+        "name": "most-likely case",
+        "definition": "Testing a theory where conditions maximally favor it, so failure is strongly disconfirming.",
+        "caution": "Success in a most-likely case establishes very little."
+      },
+      {
+        "name": "most-similar systems design",
+        "definition": "Comparing cases alike in most respects but differing in the outcome, to isolate the difference that matters.",
+        "caution": "'Alike in most respects' is a claim to defend with evidence, not a stipulation."
+      },
+      {
+        "name": "most-different systems design",
+        "definition": "Comparing cases that differ in most respects yet share the outcome, to find a common factor.",
+        "caution": "Shared factors are easy to find post hoc; prespecify candidates."
+      },
+      {
+        "name": "paired comparison",
+        "definition": "Analyzing two matched cases in depth against each other rather than against a population.",
+        "example": "Two neighboring towns that adopted opposite policies."
+      },
+      {
+        "name": "pathway case",
+        "definition": "Selecting a case where the causal mechanism should be observable in operation, to trace it directly.",
+        "caution": "Mechanism visibility, not representativeness, is the criterion; do not generalize frequencies from it."
+      },
+      {
+        "name": "influential case",
+        "definition": "Examining the case that drives an aggregate result, to test whether the finding is an artifact of one observation.",
+        "example": "Dropping the largest state reverses the correlation."
+      },
+      {
+        "name": "process tracing",
+        "definition": "Following the sequence of events within a case to test whether the hypothesized mechanism actually operated.",
+        "caution": "Requires evidence at each link; a plausible narrative that fits the outcome is not a trace."
+      },
+      {
+        "name": "negative case analysis",
+        "definition": "Deliberately seeking cases that do not fit the emerging account and revising until they do or are explained.",
+        "caution": "The default without it is confirmation by accumulation."
+      },
+      {
+        "name": "disconfirming case search",
+        "definition": "Actively hunting for the observation that would falsify the claim before publishing it.",
+        "example": "Looking for the counterexample yourself so a reviewer does not have to."
+      },
+      {
+        "name": "purposive sampling",
+        "definition": "Selecting cases deliberately for their informational value against stated criteria.",
+        "caution": "Legitimate for qualitative inference, illegitimate for estimating proportions."
+      },
+      {
+        "name": "theoretical saturation sampling",
+        "definition": "Continuing to add cases until new ones stop yielding new categories.",
+        "caution": "Saturation is a judgment; report how it was assessed."
+      },
+      {
+        "name": "stratified sampling",
+        "definition": "Dividing the population into strata and sampling within each to guarantee coverage.",
+        "caution": "Strata must be weighted back when producing population estimates."
+      },
+      {
+        "name": "random case selection",
+        "definition": "Selecting cases by chance from a defined frame to eliminate selection on unobservables.",
+        "caution": "With small numbers of cases, random selection can still produce an unrepresentative set."
+      },
+      {
+        "name": "snowball sampling",
+        "definition": "Recruiting further cases through referrals from existing ones, used for hidden populations.",
+        "caution": "Samples network clusters, not populations; well-connected members are over-represented."
+      },
+      {
+        "name": "convenience sampling",
+        "definition": "Selecting whatever cases are accessible.",
+        "caution": "The default and the weakest; state it plainly rather than describing the sample as if it were drawn."
+      },
+      {
+        "name": "longitudinal single case",
+        "definition": "Following one case over time so it serves as its own comparison.",
+        "caution": "Controls stable case features, not period effects."
+      }
+    ],
+    "study_designs": [
+      {
+        "name": "randomized controlled trial",
+        "definition": "Units are assigned to conditions by chance, so treatment is independent of both observed and unobserved characteristics.",
+        "caution": "Internal validity is bought with narrow populations, short horizons, and consent-based samples."
+      },
+      {
+        "name": "cluster randomized trial",
+        "definition": "Randomization at the group level — school, clinic, village — when the intervention operates on groups.",
+        "caution": "Effective sample size is the number of clusters, not participants; analyses that ignore this overstate precision."
+      },
+      {
+        "name": "crossover trial",
+        "definition": "Each unit receives both conditions in a randomized order and serves as its own control.",
+        "caution": "Requires the effect to wash out between periods; carryover invalidates the design."
+      },
+      {
+        "name": "stepped-wedge trial",
+        "definition": "All units eventually receive the intervention, with the timing of rollout randomized.",
+        "caution": "Confounded with time trends unless the analysis models them."
+      },
+      {
+        "name": "prospective cohort study",
+        "definition": "A defined group is followed forward in time and outcomes are recorded as they occur.",
+        "caution": "Exposure is not assigned; confounding by indication is the standing threat."
+      },
+      {
+        "name": "retrospective cohort study",
+        "definition": "A cohort is assembled from existing records and followed forward within them.",
+        "caution": "Limited to what the records happened to capture, and to units the records covered."
+      },
+      {
+        "name": "case-control study",
+        "definition": "Cases with the outcome and controls without it are compared on prior exposure.",
+        "caution": "Efficient for rare outcomes; vulnerable to recall bias and to control-selection bias, and yields odds, not risks."
+      },
+      {
+        "name": "cross-sectional survey",
+        "definition": "Exposure and outcome are measured at the same moment in a sample of a population.",
+        "caution": "Cannot establish temporal order, so it cannot distinguish cause from consequence."
+      },
+      {
+        "name": "ecological study",
+        "definition": "Analysis at the level of groups or areas rather than individuals.",
+        "caution": "Cheap, wide, and exposed to the ecological fallacy; hypothesis-generating at best."
+      },
+      {
+        "name": "case series",
+        "definition": "A descriptive account of several cases sharing an exposure or outcome, with no comparison group.",
+        "caution": "Detects new phenomena and signals; establishes no rate and no effect."
+      },
+      {
+        "name": "single case report",
+        "definition": "A detailed description of one instance, published for its novelty or instructive value.",
+        "caution": "The bottom of every evidence hierarchy and the origin of many real discoveries; treat as a hypothesis."
+      },
+      {
+        "name": "natural experiment",
+        "definition": "An external event assigns exposure in a way plausibly independent of the outcome, mimicking randomization.",
+        "caution": "The as-if-random claim needs defending with balance tests, not asserted from the narrative."
+      },
+      {
+        "name": "difference-in-differences",
+        "definition": "Compares the change over time in a treated group to the change in an untreated group.",
+        "caution": "Rests on parallel pre-trends; show them."
+      },
+      {
+        "name": "regression discontinuity",
+        "definition": "Exploits a threshold rule so that units just above and just below the cutoff are comparable.",
+        "caution": "Estimates a local effect at the threshold only; manipulation of the running variable breaks it."
+      },
+      {
+        "name": "instrumental variables",
+        "definition": "Uses a variable that shifts exposure but affects the outcome only through it, to recover a causal effect.",
+        "caution": "The exclusion restriction is untestable and usually the weakest link; weak instruments are badly biased."
+      },
+      {
+        "name": "propensity score matching",
+        "definition": "Matches treated and untreated units on estimated probability of treatment given observed covariates.",
+        "caution": "Balances what was measured; unobserved confounding is untouched."
+      },
+      {
+        "name": "synthetic control",
+        "definition": "Builds a weighted combination of untreated units that reproduces the treated unit's pre-period path.",
+        "caution": "Requires a long, well-fitting pre-period and a donor pool free of spillovers."
+      },
+      {
+        "name": "interrupted time series",
+        "definition": "Models a series before and after an intervention to detect a change in level or slope.",
+        "caution": "Sensitive to autocorrelation, seasonality, and anticipation effects."
+      },
+      {
+        "name": "field experiment",
+        "definition": "A randomized intervention run in a real-world setting rather than a laboratory.",
+        "caution": "Gains external validity, loses control; attrition and non-compliance become central."
+      },
+      {
+        "name": "laboratory experiment",
+        "definition": "A controlled setting where variables are manipulated and extraneous influences held constant.",
+        "caution": "Strong on mechanism, weak on generalization to stakes and populations outside the lab."
+      },
+      {
+        "name": "audit study",
+        "definition": "Matched fictitious applications or inquiries differing in one attribute are sent to real decision-makers.",
+        "example": "Identical resumes with different names.",
+        "caution": "Measures the decision at one stage under the researcher's stimulus, not the full process."
+      },
+      {
+        "name": "survey experiment",
+        "definition": "Randomly varying question wording, framing, or vignette content within a survey.",
+        "caution": "Measures stated response to a hypothetical, which may not track behavior."
+      },
+      {
+        "name": "qualitative interview study",
+        "definition": "Systematic in-depth interviewing analyzed for themes, meanings, and mechanisms.",
+        "caution": "Answers 'how' and 'why' questions; cannot answer 'how many'."
+      },
+      {
+        "name": "ethnography",
+        "definition": "Sustained immersion in a setting, producing an account of practice as participants live it.",
+        "caution": "Depth is bought with a single site and an inseparable observer."
+      },
+      {
+        "name": "content analysis",
+        "definition": "Systematic coding of texts or media against a defined scheme, with reported inter-coder agreement.",
+        "caution": "Without a reported reliability statistic, coding is just reading."
+      },
+      {
+        "name": "simulation model",
+        "definition": "A computational model producing outcomes from specified assumptions and parameters.",
+        "caution": "Output is an implication of the assumptions, never evidence about the world; report calibration and sensitivity."
+      },
+      {
+        "name": "replication study",
+        "definition": "A repeat of an earlier study's procedure to test whether the result recurs.",
+        "caution": "Distinguish direct from conceptual replication; the latter can fail for uninformative reasons."
+      },
+      {
+        "name": "preregistered study",
+        "definition": "A study whose hypotheses and analysis plan were deposited publicly before data collection.",
+        "caution": "Check the registration against the paper; deviations are common and often unreported."
+      }
+    ],
+    "source_hierarchy": [
+      {
+        "name": "primary source",
+        "definition": "A record created by a direct participant or instrument, without interpretive mediation.",
+        "caution": "Primary does not mean true; it means unmediated."
+      },
+      {
+        "name": "secondary source",
+        "definition": "An account that interprets, synthesizes, or reports on primary material.",
+        "caution": "Cite it for its analysis, not as a stand-in for the underlying record."
+      },
+      {
+        "name": "tertiary source",
+        "definition": "A compilation of secondary sources — encyclopedias, handbooks, review directories.",
+        "caution": "A navigation aid; almost never an acceptable citation for a contested claim."
+      },
+      {
+        "name": "systematic review",
+        "definition": "A synthesis that specifies its search, inclusion criteria, and appraisal method in advance.",
+        "see_also": "rhetorical_situations/venue_and_genre",
+        "caution": "Quality varies enormously; check the protocol, the search dates, and the risk-of-bias assessment."
+      },
+      {
+        "name": "meta-analysis",
+        "definition": "A systematic review that statistically combines results across studies.",
+        "caution": "Inherits every bias of its inputs and adds pooling assumptions of its own."
+      },
+      {
+        "name": "peer-reviewed article",
+        "definition": "A paper accepted after review by referees selected for competence in the field.",
+        "caution": "Peer review filters gross error, not fraud, and cannot verify data it never sees."
+      },
+      {
+        "name": "preprint",
+        "definition": "A manuscript posted publicly before or during peer review.",
+        "caution": "Fast and unfiltered; cite as a preprint explicitly and check for a later published version that differs."
+      },
+      {
+        "name": "working paper",
+        "definition": "A research paper circulated by an institution or series ahead of journal publication.",
+        "caution": "Standard currency in some fields, unreviewed in all; version numbers matter."
+      },
+      {
+        "name": "conference paper",
+        "definition": "A paper accepted for a conference, with review standards ranging from full to abstract-only.",
+        "see_also": "rhetorical_situations/venue_and_genre",
+        "caution": "State which; in some fields conference proceedings are the strongest venue, in others the weakest."
+      },
+      {
+        "name": "dissertation",
+        "definition": "An extended supervised research work examined by a committee.",
+        "see_also": "rhetorical_situations/venue_and_genre",
+        "caution": "Often the most thorough treatment of a narrow topic and the least read; verify whether findings were later published or abandoned."
+      },
+      {
+        "name": "grey literature",
+        "definition": "Research and reporting published outside commercial or academic channels.",
+        "example": "Agency reports, think-tank studies, technical notes.",
+        "caution": "Not indexed consistently; assess the producing body's method and interest directly."
+      },
+      {
+        "name": "government report",
+        "definition": "An official publication of a public body, often carrying data unavailable elsewhere.",
+        "caution": "Mandate shapes scope; read the methodological annex and the terms of reference."
+      },
+      {
+        "name": "advocacy organization report",
+        "definition": "Research published by an organization with a declared position on the subject.",
+        "caution": "Often first to a neglected topic and methodologically uneven; check the data appendix, not the executive summary."
+      },
+      {
+        "name": "industry analyst report",
+        "definition": "Market or technology analysis produced commercially, frequently paywalled.",
+        "caution": "Methods are usually undisclosed and clients are usually the subjects."
+      },
+      {
+        "name": "trade press",
+        "definition": "Journalism written for practitioners of a specific industry.",
+        "caution": "Closer to operational reality than general press, and closer to the industry's framing."
+      },
+      {
+        "name": "general press report",
+        "definition": "Reporting for a lay audience by a newsroom with editing and correction practices.",
+        "caution": "A pointer to sources, not a source; headline claims routinely outrun the article's own body."
+      },
+      {
+        "name": "press release",
+        "definition": "An announcement issued by an interested party to shape coverage.",
+        "see_also": "rhetorical_situations/venue_and_genre",
+        "caution": "Institutional press releases systematically overstate the underlying study; go to the paper."
+      },
+      {
+        "name": "self-published commentary",
+        "definition": "Blogs, newsletters, and posts published without editorial gatekeeping.",
+        "caution": "Can be expert and current, or unaccountable; judge by the argument and the shown work, and cite with dates."
+      },
+      {
+        "name": "collaboratively edited reference",
+        "definition": "A wiki or similar work whose content is edited by an open community with revision history.",
+        "caution": "Use the revision history and the cited references; never cite the page for a contested claim."
+      },
+      {
+        "name": "social media post",
+        "definition": "A short public statement by an account, occasionally the primary record of an announcement.",
+        "caution": "Verify account authenticity, archive it, and distinguish an official statement from a personal one."
+      },
+      {
+        "name": "binding legal authority",
+        "definition": "A statute, regulation, or decision that controls the question within a jurisdiction.",
+        "caution": "Check currency and jurisdiction; superseded law reads exactly like current law."
+      },
+      {
+        "name": "persuasive legal authority",
+        "definition": "A decision or commentary that carries argumentative weight without binding force.",
+        "caution": "Label it as persuasive; presenting it as controlling is a citation error with substantive consequences."
+      },
+      {
+        "name": "agency guidance",
+        "definition": "An interpretive document explaining how a regulator reads its own rules.",
+        "caution": "Usually not legally binding, frequently treated as if it were; note the distinction."
+      },
+      {
+        "name": "technical standard",
+        "definition": "A published specification developed by a standards body, sometimes incorporated into law by reference.",
+        "caution": "Versioned and often paywalled; cite the version and its date."
+      },
+      {
+        "name": "dataset with codebook",
+        "definition": "Released data accompanied by variable definitions, collection method, and known limitations.",
+        "caution": "Data without a codebook cannot be interpreted, only manipulated."
+      },
+      {
+        "name": "retracted publication",
+        "definition": "A paper formally withdrawn by journal or authors for error or misconduct.",
+        "caution": "Retracted work keeps accumulating citations for years; check retraction databases before citing anything old and load-bearing."
+      }
+    ]
+  }
+}

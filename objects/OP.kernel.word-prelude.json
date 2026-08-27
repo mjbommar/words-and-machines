@@ -1,0 +1,22 @@
+{
+  "id": "OP.kernel.word-prelude",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "A zero-axiom word prelude in the axeyum kernel, and reflection for minimality",
+  "statement": "Today BitVec w is rebuilt per proof and enumeration routes reconstruct as StructuralAttestation, so no minimality result is a kernel theorem. Build Word n on the 0-axiom nat prelude; add proof-by-reflection (kernel-run enumeration, then a verified DRAT checker) so Part IV theorems become theorems. Effort estimate: months.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

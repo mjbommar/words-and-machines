@@ -1,0 +1,25 @@
+{
+  "id": "C.prin.three-hatches",
+  "kind": "principle",
+  "part": 2,
+  "title": "The three shapes where the negative direction is also cheap",
+  "statement": "(1) Univariate nonnegativity on an interval: sum-of-squares is complete (Markov-Lukacs), the certificate is exact rational. (2) SDP infeasibility: one rational dual ray. (3) Small pure-SAT instances: DRAT falls out of a proof-producing CDCL core for free. Reject any target that fits none of these unless you only want the positive direction.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "stated",
+  "evidence": [],
+  "book": {
+    "chapter": "ch03-certificates-and-cost",
+    "label": "prin:hatches"
+  },
+  "sources": [
+    "research/surveys/02-engineering-industrial.md"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

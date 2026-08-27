@@ -1,0 +1,19 @@
+%% Object ledger bindings. The status words printed by \ObjStatus etc. are
+%% GENERATED from ../objects/*.json by scripts/gen_ledger.py -- the book cannot
+%% claim a status the ledger does not hold.
+\input{preamble/objects-keys}
+\input{preamble/objects-generated}
+\makeatletter
+\newcommand{\ObjStatus}[1]{\csname objstatus@\csname objkey@#1\endcsname\endcsname}
+\newcommand{\ObjScope}[1]{\csname objscope@\csname objkey@#1\endcsname\endcsname}
+\newcommand{\ObjEvidence}[1]{\csname objevidence@\csname objkey@#1\endcsname\endcsname}
+\newcommand{\ObjTitle}[1]{\csname objtitle@\csname objkey@#1\endcsname\endcsname}
+\makeatother
+\newcommand{\obj}[1]{\texttt{#1}}
+%% An artifact box: one per book object that has something to check.
+%% Usage: \begin{artifact}{M.avx2.reverse.len2.unary5} prose \ArtifactScope{M.avx2.reverse.len2.unary5} \end{artifact}
+\newtcolorbox{artifact}[1]{bookcallout,
+  title={Object \texttt{#1}: \ObjTitle{#1}},
+  colframe=callout-keyidea-frame, colback=callout-keyidea-bg,
+  coltitle=callout-keyidea-frame, colbacktitle=callout-keyidea-bg}
+\newcommand{\ArtifactScope}[1]{\par\medskip\noindent{\small\textbf{Status:} \ObjStatus{#1}.\ \textbf{Scope:} \ObjScope{#1}\ \textbf{Evidence:} \ObjEvidence{#1}}\par}

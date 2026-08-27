@@ -1,0 +1,40 @@
+{
+  "id": "C.thm.vacuous-certificate",
+  "kind": "theorem",
+  "part": 2,
+  "title": "A certificate over a propagation-refutable formula carries no information",
+  "statement": "If a CNF conflicts under unit propagation alone, then every DRAT file whose final step is the empty clause is accepted by a backward checker, because the empty clause is itself RUP from the formula. The certificate is then the formula, and the proof file is decoration. This was found live in this repository: object M.avx2.reverse.len2.unary5 is exactly such a case, and its half-deleted proof is accepted.",
+  "formal": {
+    "language": "python",
+    "statement": "scripts/up_refutes.py CNF exits 0 iff unit propagation conflicts.",
+    "fragment": "SAT"
+  },
+  "scope": "DIMACS CNF; backward DRAT checking",
+  "epistemic_status": "computed",
+  "external_status": "proved",
+  "evidence": [
+    {
+      "kind": "computation",
+      "artifact": "scripts/up_refutes.py",
+      "checker_command": "sh -c \"gunzip -c artifacts/simd/avx2-reverse-k1-unary-five-family/one-step.cnf.gz > /tmp/isa-up.cnf && python3 scripts/up_refutes.py /tmp/isa-up.cnf\"",
+      "negative_control": "sh -c \"gunzip -c artifacts/simd/avx2-reverse-k1-multisource-14-family/one-step.cnf.gz > /tmp/isa-up2.cnf && python3 scripts/up_refutes.py /tmp/isa-up2.cnf\"",
+      "check_status": "checked",
+      "checked_on": "2026-08-27",
+      "note": "Positive: the unary five-family one-step CNF (2,663 vars) conflicts under UP. Negative control: the multi-source one-step CNF (2,697 vars) reaches a UP fixpoint without conflict, so its DRAT IS load-bearing (and its truncation is rejected)."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-cnf",
+    "route": "check_drat_backward"
+  },
+  "book": {
+    "chapter": "ch03-certificates-and-cost",
+    "label": "thm:vacuous"
+  },
+  "notes": "This is the CLAUDE.md rule \"a checker that cannot fail is worse than no checker\", one arrow upstream: a proof that cannot be wrong is worse than no proof, because it reads as evidence.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

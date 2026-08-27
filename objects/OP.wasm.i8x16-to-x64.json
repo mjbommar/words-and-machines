@@ -1,0 +1,22 @@
+{
+  "id": "OP.wasm.i8x16-to-x64",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Minimal x64 lowerings for v8's canonical WASM i8x16.shuffle set",
+  "statement": "ARM64 does it in one tbl2; x64 has no equivalent and LLVM's canonicalization breaks v8's matcher (WebAssembly/simd#196). 16 tags, two sources; tiny. Effort estimate: weeks.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

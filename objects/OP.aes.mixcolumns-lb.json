@@ -1,0 +1,22 @@
+{
+  "id": "OP.aes.mixcolumns-lb",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "A nontrivial lower bound on AES MixColumns XOR count",
+  "statement": "Best known descended 94->92->91->89->88 (Jean 2026); no lower bound beyond the trivial 32 has ever been published. A certified >=55 would be the first. Effort estimate: months.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

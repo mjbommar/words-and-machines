@@ -1,0 +1,22 @@
+{
+  "id": "OP.gpu.lop3-npn222",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Minimum LOP3.LUT count for all 222 4-input NPN classes",
+  "statement": "Exact 3-LUT synthesis on a shipping ISA; nothing comparable published. ~5k vars, DRAT 10 KB-5 MB each. Effort estimate: days.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

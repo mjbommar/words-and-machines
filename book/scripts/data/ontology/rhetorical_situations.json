@@ -1,0 +1,1176 @@
+{
+  "name": "rhetorical_situations",
+  "level": "macro",
+  "entry_type": "record",
+  "description": "Bitzer's triangle expanded into working categories: the exigences that call writing into being, models of the audience it addresses, the venues and genres it must inhabit, the classical occasions and their modern descendants, the constraints that bound what can be said, and the personae an author can adopt.",
+  "categories": {
+    "exigence_types": [
+      {
+        "name": "crisis event",
+        "definition": "A sudden harmful occurrence that demands immediate public response and suspends normal deliberation.",
+        "effect": "Grants instant attention and licenses direct address.",
+        "caution": "The window closes fast, and early facts are usually wrong."
+      },
+      {
+        "name": "new evidence",
+        "definition": "A study, dataset, or document that unsettles the standing account and obliges someone to reconcile it.",
+        "effect": "Justifies revisiting a question the audience thought settled."
+      },
+      {
+        "name": "policy window",
+        "definition": "Kingdon's moment when the problem, policy, and politics streams converge and a proposal can actually pass.",
+        "register": "nonfiction, policy and advocacy",
+        "caution": "Windows are short; arguments written for a closed window read as stale."
+      },
+      {
+        "name": "pending decision",
+        "definition": "A vote, ruling, purchase, or hire about to be made, which the writing means to inform or change.",
+        "effect": "Supplies a natural deadline and a defined decider."
+      },
+      {
+        "name": "scandal disclosure",
+        "definition": "Revelation of wrongdoing that creates a demand for explanation, apology, or accountability.",
+        "caution": "Invites moralizing that outruns the established facts."
+      },
+      {
+        "name": "public misconception",
+        "definition": "A widely held belief the writer takes to be false, whose persistence is itself the urgency.",
+        "effect": "Frames the piece as correction rather than novelty.",
+        "caution": "Repeating the myth to refute it can entrench it."
+      },
+      {
+        "name": "scholarly gap",
+        "definition": "An unexamined question or unstudied population in a literature, offered as warrant for new work.",
+        "register": "academic",
+        "caution": "A gap alone is not a reason; the gap must matter."
+      },
+      {
+        "name": "contradiction in the literature",
+        "definition": "Two credible bodies of work reaching incompatible conclusions, which someone must reconcile.",
+        "effect": "Sets up a natural adjudicating structure."
+      },
+      {
+        "name": "misapplied precedent",
+        "definition": "A rule, ruling, or prior case being extended to facts it was never meant to cover.",
+        "register": "legal, institutional"
+      },
+      {
+        "name": "litigation filed",
+        "definition": "A complaint, motion, or appeal that obliges responsive argument on a court's schedule.",
+        "register": "legal"
+      },
+      {
+        "name": "regulatory comment period",
+        "definition": "A formal open interval in which an agency must receive and answer written objections.",
+        "effect": "Guarantees a reader of record, which rewards specificity over rhetoric."
+      },
+      {
+        "name": "release of a work",
+        "definition": "The publication or shipment of a book, film, product, or standard, which occasions review and appraisal.",
+        "register": "criticism, trade press"
+      },
+      {
+        "name": "death of a public figure",
+        "definition": "A death that calls for obituary, eulogy, or reassessment of a life's work.",
+        "caution": "Decorum constrains candor; the honest assessment often has to wait."
+      },
+      {
+        "name": "anniversary",
+        "definition": "A dated recurrence — of a founding, an atrocity, a discovery — that licenses retrospective writing.",
+        "effect": "Manufactures timeliness for a subject that has none.",
+        "caution": "Readers recognize the peg; the piece must earn more than the date."
+      },
+      {
+        "name": "technological arrival",
+        "definition": "A new capability whose appearance forces reconsideration of practices built around its absence.",
+        "caution": "Encourages inflated novelty claims about continuities."
+      },
+      {
+        "name": "shift made visible by data",
+        "definition": "A demographic, economic, or environmental change that a new release of numbers makes undeniable.",
+        "effect": "Lets the argument begin from a fact the audience cannot dispute."
+      },
+      {
+        "name": "rival publication",
+        "definition": "A piece so wrong, or so influential, that leaving it unanswered would concede the field.",
+        "effect": "Supplies a ready-made opponent and structure.",
+        "caution": "Amplifies the target; sometimes silence is the stronger move."
+      },
+      {
+        "name": "request for proposals",
+        "definition": "A funder's or client's solicitation that defines the question, the format, and the deadline.",
+        "register": "grant writing, consulting"
+      },
+      {
+        "name": "call for papers",
+        "definition": "A conference or journal invitation that sets a theme and a submission window.",
+        "register": "academic"
+      },
+      {
+        "name": "onboarding need",
+        "definition": "New people repeatedly needing the same orientation, which documentation exists to absorb.",
+        "register": "technical writing",
+        "effect": "Defines the reader precisely: someone at hour one."
+      },
+      {
+        "name": "recurrent failure",
+        "definition": "A problem that has happened more than once, making a written postmortem the price of not repeating it.",
+        "register": "technical, organizational"
+      },
+      {
+        "name": "moral outrage",
+        "definition": "A shared sense of violated norms seeking articulation and a target.",
+        "caution": "The most available energy and the least durable; outrage-driven pieces age badly."
+      },
+      {
+        "name": "rumor requiring correction",
+        "definition": "An unverified claim spreading fast enough that its correction becomes urgent.",
+        "caution": "Correction can broadcast the rumor to people who had not heard it."
+      },
+      {
+        "name": "leadership transition",
+        "definition": "A change of officeholder that reopens settled questions and invites agenda-setting.",
+        "effect": "Legitimizes proposals that would otherwise seem like second-guessing."
+      },
+      {
+        "name": "calendared ritual",
+        "definition": "An annual report, budget cycle, or state-of-the-field address whose occasion is simply that it is time.",
+        "caution": "Ritual exigence produces ritual prose unless a real question is imported."
+      },
+      {
+        "name": "personal experience newly generalizable",
+        "definition": "A private episode the writer comes to see as an instance of something public.",
+        "register": "essay, memoir",
+        "caution": "The generalization must be argued, not asserted by adjacency."
+      },
+      {
+        "name": "the unremarked-upon",
+        "definition": "A silence, absence, or normalized condition that the writer treats as the scandal.",
+        "effect": "Strong for essays and criticism; the piece must supply its own urgency."
+      },
+      {
+        "name": "a question asked",
+        "definition": "A direct request from a reader, student, client, or interviewer that the writing answers.",
+        "effect": "Guarantees a real audience with a real want."
+      },
+      {
+        "name": "unmet obligation of the record",
+        "definition": "A promise, prediction, or commitment made publicly that has come due for accounting.",
+        "register": "journalism, criticism"
+      },
+      {
+        "name": "manufactured exigence",
+        "definition": "Urgency produced by publicity or coordinated campaign rather than by events.",
+        "caution": "Writing to it lends real attention to an artificial problem; name it as such instead."
+      }
+    ],
+    "audience_models": [
+      {
+        "name": "hostile expert",
+        "definition": "A reader who knows the field as well as the writer and wants the argument to fail.",
+        "effect": "Forces precise concession, tight citation, and anticipatory rebuttal.",
+        "caution": "Writing only to this reader produces defensive, unreadable prose."
+      },
+      {
+        "name": "sympathetic novice",
+        "definition": "A reader who wants the writer to be right but lacks the background to follow shorthand.",
+        "effect": "Rewards analogy, worked examples, and glossing on first use."
+      },
+      {
+        "name": "mixed jury",
+        "definition": "A heterogeneous decision-making body spanning expertise, priors, and interest.",
+        "effect": "Pushes toward layered argument: a narrative anyone can follow with technical support beneath it.",
+        "caution": "Averaging the audience produces prose that lands with none of it."
+      },
+      {
+        "name": "universal audience",
+        "definition": "Perelman and Olbrechts-Tyteca's construct: all reasonable people, as the writer imagines them, used as a test of argument quality.",
+        "effect": "Filters out appeals that work only on partisans."
+      },
+      {
+        "name": "particular audience",
+        "definition": "A specific group with known commitments, addressed on the premises it actually holds.",
+        "caution": "Arguments tuned to a particular audience embarrass the writer when they travel."
+      },
+      {
+        "name": "self as audience",
+        "definition": "Deliberation addressed to oneself, which Perelman treats as a limiting case of argumentation.",
+        "register": "essay, journal, decision memo"
+      },
+      {
+        "name": "gatekeeper",
+        "definition": "An editor, peer reviewer, or program officer who must approve before any other reader sees the work.",
+        "effect": "Imposes genre compliance as a precondition of being read at all."
+      },
+      {
+        "name": "the undecided middle",
+        "definition": "Readers with no fixed position who will be moved by whichever side seems more reasonable.",
+        "effect": "Rewards visible fairness and steelmanning over point-scoring."
+      },
+      {
+        "name": "the committed base",
+        "definition": "Readers who already agree and read for confirmation, ammunition, and solidarity.",
+        "effect": "Good for mobilization, useless for persuasion.",
+        "caution": "Base-directed writing is the main engine of unearned certainty."
+      },
+      {
+        "name": "the opposition's persuadables",
+        "definition": "Members of the other side whose commitments are weaker than their tribe's.",
+        "effect": "Requires arguing from their premises rather than one's own."
+      },
+      {
+        "name": "overhearing audience",
+        "definition": "People not addressed but present, who judge the exchange rather than participate in it.",
+        "effect": "The real target of most public debate; how one treats the opponent is the argument."
+      },
+      {
+        "name": "downstream audience",
+        "definition": "Readers who encounter the work quoted, excerpted, or summarized rather than whole.",
+        "caution": "Any sentence that survives alone should be one the writer would defend alone."
+      },
+      {
+        "name": "adversarial cross-examiner",
+        "definition": "A reader hunting for the one overstatement that discredits everything else.",
+        "effect": "Disciplines quantifiers, hedges, and scope claims."
+      },
+      {
+        "name": "the skimmer",
+        "definition": "A reader who takes headings, first sentences, and figures and nothing else.",
+        "effect": "Argues for load-bearing topic sentences and self-sufficient captions."
+      },
+      {
+        "name": "the deep reader",
+        "definition": "A reader who will follow a long chain of reasoning and notice inconsistency across chapters.",
+        "effect": "Permits deferred payoff and structural callbacks."
+      },
+      {
+        "name": "the busy decision-maker",
+        "definition": "An executive or official who reads only until the decision is clear.",
+        "effect": "Demands the answer first, Minto-style, with support after."
+      },
+      {
+        "name": "lay jury of peers",
+        "definition": "Ordinary citizens deciding a technical matter under formal rules of evidence.",
+        "register": "legal",
+        "effect": "Rewards narrative coherence and credible witnesses over statistical nuance."
+      },
+      {
+        "name": "discourse community",
+        "definition": "Swales's specialist group sharing goals, genres, and a lexis, whose conventions signal membership.",
+        "caution": "Its shorthand is exclusionary to everyone outside it."
+      },
+      {
+        "name": "interdisciplinary audience",
+        "definition": "Specialists from several fields, each expert in something and novice in the rest.",
+        "caution": "Every field's jargon is another field's obstacle; no single register satisfies all."
+      },
+      {
+        "name": "the future reader",
+        "definition": "Whoever finds the work in an archive after the occasion has passed.",
+        "effect": "Argues for dating claims and spelling out context that is currently obvious."
+      },
+      {
+        "name": "the implied reader",
+        "definition": "Iser's reader inscribed in the text itself — the competence and disposition the writing presupposes.",
+        "register": "narratology, criticism"
+      },
+      {
+        "name": "the authorial audience",
+        "definition": "Rabinowitz's hypothetical audience the author wrote for, whose knowledge the text takes for granted.",
+        "register": "narratology"
+      },
+      {
+        "name": "the narrative audience",
+        "definition": "Rabinowitz's role the reader plays inside the fiction, treating its events as fact.",
+        "register": "narratology, fiction"
+      },
+      {
+        "name": "the ideal reader",
+        "definition": "The single imagined person, sometimes a real acquaintance, whom the writer writes to.",
+        "effect": "A practical device for fixing register and level of assumed knowledge."
+      },
+      {
+        "name": "the resistant reader",
+        "definition": "Fetterley's reader who refuses the text's assumed sympathies and reads against its grain.",
+        "register": "criticism"
+      },
+      {
+        "name": "captive audience",
+        "definition": "Readers required to be there — students, employees, jurors — who cannot leave but can disengage.",
+        "caution": "Attention is compelled, not earned, which conceals bad writing."
+      },
+      {
+        "name": "self-selected audience",
+        "definition": "Readers who sought the work out and share its premises by the act of arriving.",
+        "effect": "Permits starting further in; less setup required."
+      },
+      {
+        "name": "the client",
+        "definition": "A reader who commissioned the work and will judge it against a brief and an interest.",
+        "register": "professional"
+      },
+      {
+        "name": "the funder",
+        "definition": "A reader deciding whether to pay for the work described, judging feasibility as much as merit.",
+        "register": "grant writing"
+      },
+      {
+        "name": "the regulator",
+        "definition": "An official reader assessing compliance, whose questions are fixed in advance by rule.",
+        "effect": "Rewards a structure that maps onto the rule."
+      },
+      {
+        "name": "the aggrieved stakeholder",
+        "definition": "A reader with a personal stake in the subject who will scrutinize how they are characterized.",
+        "caution": "Getting their situation slightly wrong forfeits every other point."
+      },
+      {
+        "name": "the translated reader",
+        "definition": "A reader who will meet the work in another language and cultural frame.",
+        "caution": "Wordplay, idiom, and local reference are the first casualties."
+      },
+      {
+        "name": "the acquiring editor",
+        "definition": "A publisher's editor deciding whether to buy the book, who reads the proposal for a category and a market before reading the pages for merit.",
+        "effect": "Forces the writer to state what shelf the work sits on and who is already buying that shelf.",
+        "caution": "Writing to this reader alone produces a proposal that sells and a book nobody finishes."
+      },
+      {
+        "name": "the trade reviewer",
+        "definition": "A professional reviewer writing to a word limit for booksellers and librarians, reading fast and against the conventions of the announced category.",
+        "effect": "Rewards a clear category promise kept, and punishes hybrids that cannot be described in one sentence.",
+        "caution": "Two hundred words of judgement reach more people than the book does; the first fifty pages carry it."
+      },
+      {
+        "name": "the bookstore browser",
+        "definition": "A reader deciding in under two minutes, from cover, flap copy, and one opened page, whether to buy.",
+        "effect": "Puts weight on the first page of every chapter, not only the first page of the book.",
+        "caution": "Optimizing every opening for the browser produces a book of hooks with no middle."
+      },
+      {
+        "name": "the classroom adopter",
+        "definition": "An instructor judging the work as an assignable text: level, length, apparatus, and whether it teaches across a term.",
+        "effect": "Values chapter self-sufficiency, discussable questions, and an index that supports assigning parts.",
+        "caution": "Adoption is decided by structure and price as much as by argument."
+      },
+      {
+        "name": "the audiobook listener",
+        "definition": "A reader who receives the work only as sound, with no page to turn back to, no figures, and no visible headings.",
+        "effect": "Makes cadence, signposting, and named antecedents load-bearing, since nothing can be re-scanned.",
+        "caution": "Tables, parenthetical asides, and long numeric strings do not survive narration; see the narration channel."
+      },
+      {
+        "name": "the citation checker",
+        "definition": "A reader who follows the notes to the sources to see whether they say what the text claims they say.",
+        "effect": "Sets the true standard for a citation: not that it exists, but that it supports the sentence attached to it.",
+        "caution": "A single misrepresented source discredits every unchecked one."
+      },
+      {
+        "name": "the quoting reader",
+        "definition": "A reader who will lift one sentence out and carry it elsewhere, where it must stand without its paragraph.",
+        "effect": "Rewards claims written to survive extraction — self-contained, qualified in place, not dependent on the previous sentence.",
+        "caution": "The sentence most likely to be quoted is the most overstated one; write it to be quotable and defensible."
+      },
+      {
+        "name": "the second-time reader",
+        "definition": "A reader who already knows how it ends and is reading for how it was set up.",
+        "effect": "Pays off plants, motifs, and early qualifications that the first reading passed over.",
+        "caution": "Nothing may depend on this reader; a payoff only they can see is a payoff nobody gets."
+      },
+      {
+        "name": "the search algorithm",
+        "definition": "The non-human first reader: retrieval, recommendation, and model-training systems that index the work and decide which humans are shown it.",
+        "effect": "Makes titles, subtitles, headings, and keywords part of the rhetorical situation rather than packaging.",
+        "caution": "Writing for the index degrades the prose; the metadata dossier is the place to serve it."
+      }
+    ],
+    "venue_and_genre": [
+      {
+        "name": "op-ed",
+        "definition": "A short signed argument in a general-interest outlet, one claim defended against the obvious objection.",
+        "register": "public, semi-formal",
+        "caution": "Length forces a single point; two points make neither."
+      },
+      {
+        "name": "letter to the editor",
+        "definition": "A very short published response correcting or extending a previously published piece.",
+        "register": "public"
+      },
+      {
+        "name": "news report",
+        "definition": "An account of what happened, sourced and attributed, with the writer's judgment kept out of the sentences.",
+        "register": "journalistic, neutral"
+      },
+      {
+        "name": "feature article",
+        "definition": "A longer reported piece organized around character and scene rather than the day's news.",
+        "register": "journalistic"
+      },
+      {
+        "name": "investigative long-read",
+        "definition": "An extended reported argument that documents wrongdoing or systemic failure from primary evidence.",
+        "caution": "Every load-bearing sentence must survive a lawyer's read."
+      },
+      {
+        "name": "magazine essay",
+        "definition": "A discursive nonfiction piece that thinks in public, blending reportage, argument, and voice.",
+        "register": "literary nonfiction"
+      },
+      {
+        "name": "personal essay",
+        "definition": "An essay whose evidence is the writer's own experience, arranged toward a general insight.",
+        "caution": "Without the turn to something larger it stays anecdote."
+      },
+      {
+        "name": "criticism",
+        "definition": "Evaluative writing that judges a work against a stated standard and shows the reasoning.",
+        "register": "literary, arts"
+      },
+      {
+        "name": "book review",
+        "definition": "A short account of what a book attempts, whether it succeeds, and whether the attempt was worth making.",
+        "register": "trade press, academic"
+      },
+      {
+        "name": "blog post",
+        "definition": "Self-published writing with no gatekeeper, free in length and register, dated and revisable.",
+        "caution": "The absence of an editor is felt by readers before it is felt by writers."
+      },
+      {
+        "name": "newsletter issue",
+        "definition": "Recurring writing delivered to subscribers, whose form is shaped by cadence and accumulated relationship.",
+        "register": "informal to semi-formal"
+      },
+      {
+        "name": "social thread",
+        "definition": "A serialized argument in short posts, each of which must stand alone and pull to the next.",
+        "caution": "Fragments circulate without the thread; the weakest unit defines the reception."
+      },
+      {
+        "name": "forum comment",
+        "definition": "A contribution to a running asynchronous discussion, addressed to prior posts and read by lurkers.",
+        "register": "informal"
+      },
+      {
+        "name": "technical documentation",
+        "definition": "Writing that lets a reader accomplish a task with a system, judged only by whether they succeed.",
+        "register": "technical, neutral",
+        "effect": "Voice is a liability; completeness and ordering are the craft."
+      },
+      {
+        "name": "tutorial",
+        "definition": "A guided sequence that takes a beginner from nothing to a working result by doing.",
+        "register": "technical, instructional"
+      },
+      {
+        "name": "reference entry",
+        "definition": "A lookup-oriented description of one thing, complete in itself and not meant to be read in order.",
+        "register": "technical, neutral"
+      },
+      {
+        "name": "design document",
+        "definition": "A proposal describing a problem, alternatives considered, and a chosen approach, written to be argued with.",
+        "register": "technical, professional"
+      },
+      {
+        "name": "postmortem",
+        "definition": "A blameless account of a failure, its causes, and the changes that follow.",
+        "register": "technical, organizational",
+        "caution": "Passive voice becomes evasion when the point is accountability."
+      },
+      {
+        "name": "whitepaper",
+        "definition": "A quasi-technical document that explains a problem and positions a solution, usually with commercial intent.",
+        "caution": "Readers discount it as marketing unless the evidence is checkable."
+      },
+      {
+        "name": "monograph",
+        "definition": "A book-length scholarly treatment of a single subject by one author.",
+        "register": "academic"
+      },
+      {
+        "name": "edited-volume chapter",
+        "definition": "A contribution written to a collection's theme and to an editor's frame.",
+        "register": "academic"
+      },
+      {
+        "name": "journal article",
+        "definition": "A peer-reviewed report of original research, usually in IMRaD arrangement.",
+        "register": "academic, formal"
+      },
+      {
+        "name": "literature review",
+        "definition": "A synthesis of existing work that maps positions and locates an opening.",
+        "register": "academic"
+      },
+      {
+        "name": "systematic review",
+        "definition": "A review with a pre-registered protocol, explicit inclusion criteria, and reproducible search.",
+        "register": "academic",
+        "effect": "Method transparency substitutes for the reviewer's authority."
+      },
+      {
+        "name": "conference paper",
+        "definition": "A short research report written for a deadline and a talk, often reporting work in progress.",
+        "register": "academic"
+      },
+      {
+        "name": "dissertation",
+        "definition": "A book-length demonstration of research competence written for a committee before any other reader.",
+        "caution": "Its examination genre and its book genre are not the same document."
+      },
+      {
+        "name": "grant proposal",
+        "definition": "An argument that a question matters, that a plan will answer it, and that this team can execute it.",
+        "register": "academic, professional",
+        "effect": "Reviewers score against published criteria; structure should mirror them."
+      },
+      {
+        "name": "business memo",
+        "definition": "Internal writing that states a recommendation, its basis, and what it asks of the reader.",
+        "register": "professional"
+      },
+      {
+        "name": "executive summary",
+        "definition": "A standalone condensation that must convey the decision without the document behind it.",
+        "caution": "It is not an introduction; it is the whole argument at one-tenth scale."
+      },
+      {
+        "name": "board deck",
+        "definition": "Slides prepared for a governing body, where the appendix carries the evidence and the page carries the ask.",
+        "register": "professional"
+      },
+      {
+        "name": "pitch deck",
+        "definition": "A short persuasive slide sequence aimed at investment, structured around problem, solution, and traction.",
+        "register": "professional"
+      },
+      {
+        "name": "press release",
+        "definition": "An announcement written for journalists in inverted-pyramid form, designed to be quoted.",
+        "register": "institutional"
+      },
+      {
+        "name": "policy brief",
+        "definition": "A short document translating research into options for a decision-maker with no time and no background.",
+        "effect": "Recommendation-first; the analysis exists to survive challenge, not to lead."
+      },
+      {
+        "name": "legislative testimony",
+        "definition": "Prepared written and spoken remarks to a legislative body, followed by questioning.",
+        "register": "formal, public"
+      },
+      {
+        "name": "regulatory comment",
+        "definition": "A formal submission to an agency during rulemaking, which the agency must consider on the record.",
+        "effect": "Specific, cited objections create legal obligations; rhetoric does not."
+      },
+      {
+        "name": "amicus brief",
+        "definition": "A filing by a non-party offering the court context or consequences the parties will not supply.",
+        "register": "legal, formal",
+        "caution": "Repeating a party's brief wastes the one thing amicus status offers."
+      },
+      {
+        "name": "appellate brief",
+        "definition": "A written argument to a reviewing court, confined to the record and to preserved issues.",
+        "register": "legal, formal"
+      },
+      {
+        "name": "judicial opinion",
+        "definition": "A court's written explanation of its holding, which binds or persuades future cases.",
+        "register": "legal, formal"
+      },
+      {
+        "name": "contract",
+        "definition": "Operative language that creates obligations, read adversarially and interpreted against the drafter.",
+        "register": "legal",
+        "caution": "Elegance is irrelevant; ambiguity is the only real defect."
+      },
+      {
+        "name": "keynote address",
+        "definition": "A framing talk that sets an event's theme, aimed at orientation and morale more than instruction.",
+        "register": "spoken, public"
+      },
+      {
+        "name": "conference talk",
+        "definition": "A timed spoken presentation of work to peers, with questions after.",
+        "register": "spoken, academic"
+      },
+      {
+        "name": "lightning talk",
+        "definition": "A very short talk admitting exactly one idea and one example.",
+        "register": "spoken"
+      },
+      {
+        "name": "sermon",
+        "definition": "An address expounding a text and applying it to a congregation's life.",
+        "register": "spoken, homiletic"
+      },
+      {
+        "name": "eulogy",
+        "definition": "A speech honoring the dead, addressed to the living, that gives a life a shape.",
+        "register": "spoken, ceremonial"
+      },
+      {
+        "name": "commencement address",
+        "definition": "A ceremonial speech to graduates, conventionally offering counsel by way of narrative.",
+        "register": "spoken, ceremonial",
+        "caution": "The most convention-bound occasion in public speech."
+      },
+      {
+        "name": "toast",
+        "definition": "A very short ceremonial speech at a gathering, praising a person or an occasion.",
+        "register": "spoken, informal"
+      },
+      {
+        "name": "podcast interview",
+        "definition": "Extended recorded conversation where argument emerges through exchange rather than composition.",
+        "register": "spoken, informal"
+      },
+      {
+        "name": "documentary narration",
+        "definition": "Voiceover written to accompany images, carrying only what the picture cannot.",
+        "register": "spoken, scripted"
+      },
+      {
+        "name": "screenplay",
+        "definition": "A script in industry format specifying only what an audience will see and hear.",
+        "register": "fiction, dramatic"
+      },
+      {
+        "name": "stage play",
+        "definition": "A dramatic script for live performance, where scale, exposition, and time obey the theater's limits.",
+        "register": "fiction, dramatic"
+      },
+      {
+        "name": "short story",
+        "definition": "A prose fiction of a single sitting, usually one turn and few characters.",
+        "register": "fiction"
+      },
+      {
+        "name": "novel",
+        "definition": "Book-length prose fiction, long enough to sustain multiple arcs and a developed world.",
+        "register": "fiction"
+      },
+      {
+        "name": "manifesto",
+        "definition": "A declarative statement of principles and intent, written to recruit rather than to persuade skeptics.",
+        "caution": "Its refusal to hedge is the genre, and also its limit."
+      },
+      {
+        "name": "open letter",
+        "definition": "A letter addressed to one party and published for another, whose real audience is the onlooker.",
+        "register": "public"
+      },
+      {
+        "name": "petition",
+        "definition": "A request for action whose force comes from the count of signatories rather than the argument."
+      },
+      {
+        "name": "syllabus",
+        "definition": "A course document that is simultaneously a plan, a contract, and an argument about what matters.",
+        "register": "academic, institutional"
+      },
+      {
+        "name": "textbook chapter",
+        "definition": "Instructional exposition of settled knowledge, sequenced for learners and shorn of controversy.",
+        "caution": "Consensus framing hides the live disputes that make a field interesting."
+      },
+      {
+        "name": "lecture",
+        "definition": "Sustained spoken exposition to students, paced for note-taking and structured by recap.",
+        "register": "spoken, academic"
+      },
+      {
+        "name": "encyclopedia entry",
+        "definition": "A neutral summary of established knowledge on one topic, attributed and non-original.",
+        "register": "reference, neutral"
+      },
+      {
+        "name": "obituary",
+        "definition": "A published account of a life just ended, part news report and part appraisal.",
+        "register": "journalistic"
+      },
+      {
+        "name": "annual report",
+        "definition": "A periodic institutional account of performance, part disclosure and part self-presentation.",
+        "register": "institutional",
+        "caution": "The compulsory parts are read; the narrative parts usually are not."
+      },
+      {
+        "name": "cover letter",
+        "definition": "A short self-presentation that argues fit between a person and a specific position.",
+        "register": "professional"
+      },
+      {
+        "name": "personal statement",
+        "definition": "An applicant's narrative of formation and purpose, judged on coherence as much as content.",
+        "register": "semi-formal"
+      },
+      {
+        "name": "recommendation letter",
+        "definition": "A third-party assessment whose conventions make understatement read as criticism.",
+        "register": "professional, formal"
+      }
+    ],
+    "occasion_types": [
+      {
+        "name": "deliberative",
+        "definition": "Aristotle's genus concerned with future action, arguing what a body should or should not do.",
+        "effect": "Its topics are the expedient and the harmful."
+      },
+      {
+        "name": "forensic",
+        "definition": "Aristotle's genus concerned with past acts, arguing accusation and defense.",
+        "effect": "Its topics are the just and the unjust.",
+        "aka": "judicial"
+      },
+      {
+        "name": "epideictic",
+        "definition": "Aristotle's genus of display, concerned with the present, distributing praise and blame and reinforcing shared values.",
+        "effect": "Consolidates a community's commitments rather than deciding anything."
+      },
+      {
+        "name": "encomium",
+        "definition": "Formal praise of a person, thing, or quality, one of the progymnasmata exercises.",
+        "register": "ceremonial"
+      },
+      {
+        "name": "invective",
+        "definition": "Formal blame, the paired opposite of encomium.",
+        "aka": "psogos",
+        "caution": "Reads as unserious unless the charges are specific and sourced."
+      },
+      {
+        "name": "funeral oration",
+        "definition": "Praise of the dead that turns into instruction for the living, as in Pericles and Lincoln.",
+        "register": "ceremonial, formal"
+      },
+      {
+        "name": "commemoration",
+        "definition": "Speech or writing marking an anniversary, which re-narrates a past event for present purposes.",
+        "caution": "Whose memory is being consolidated is always a live question."
+      },
+      {
+        "name": "inaugural",
+        "definition": "An address at the assumption of office, defining a tenure's terms before any action.",
+        "register": "ceremonial, formal"
+      },
+      {
+        "name": "apologia",
+        "definition": "A formal self-defense of character or conduct in response to accusation.",
+        "caution": "Denial, differentiation, transcendence, and apology are distinct strategies with different costs."
+      },
+      {
+        "name": "jeremiad",
+        "definition": "A lament that a community has fallen from its founding standards, coupled with a call to return.",
+        "effect": "Powerful and structurally conservative; its ideal always lies in the past."
+      },
+      {
+        "name": "protreptic",
+        "definition": "Exhortation urging an audience toward a way of life or a discipline.",
+        "register": "philosophical, homiletic"
+      },
+      {
+        "name": "deliberation in committee",
+        "definition": "Structured group decision-making under rules of order, where procedure shapes what can be argued.",
+        "register": "institutional"
+      },
+      {
+        "name": "policy debate",
+        "definition": "Formal contest over a proposition of policy with assigned sides and stock issues.",
+        "effect": "Its stock issues — harm, inherency, solvency, disadvantages — organize much nonfiction argument."
+      },
+      {
+        "name": "adjudicative hearing",
+        "definition": "A proceeding in which a neutral decides a contested matter on a record, under rules of evidence.",
+        "register": "legal, formal"
+      },
+      {
+        "name": "commission of inquiry",
+        "definition": "A chartered investigation that establishes an authoritative account of a past failure.",
+        "effect": "The modern descendant of forensic rhetoric at institutional scale."
+      },
+      {
+        "name": "product launch",
+        "definition": "An announcement occasion mixing epideictic display with deliberative appeal to adopt.",
+        "register": "commercial"
+      },
+      {
+        "name": "performance review",
+        "definition": "A recurring evaluative occasion combining praise, blame, and forward-looking direction.",
+        "register": "professional",
+        "caution": "Its blended genres are why so much of it says nothing."
+      },
+      {
+        "name": "retrospective",
+        "definition": "A backward-looking assessment at a set interval, judging what was done against what was intended.",
+        "register": "professional, critical"
+      },
+      {
+        "name": "award citation",
+        "definition": "A very short epideictic text naming precisely what is being honored and why.",
+        "register": "ceremonial"
+      },
+      {
+        "name": "dedication",
+        "definition": "A short text consecrating a work, place, or building to a person or purpose.",
+        "register": "ceremonial"
+      },
+      {
+        "name": "call to action",
+        "definition": "A mobilizing occasion that converts shared conviction into a specific next step.",
+        "caution": "Fails when the step is unspecified or beyond the audience's power."
+      },
+      {
+        "name": "confession",
+        "definition": "A first-person disclosure of fault whose credibility depends on offering more than was demanded.",
+        "register": "personal, homiletic"
+      },
+      {
+        "name": "testimony",
+        "definition": "First-person witness offered as evidence, whose authority is presence rather than analysis.",
+        "caution": "Its moral force resists cross-examination, which is exactly why it is used."
+      },
+      {
+        "name": "negotiation",
+        "definition": "An exchange occasion where argument is instrumental to agreement rather than to truth.",
+        "effect": "Concession is a move, not a defeat."
+      },
+      {
+        "name": "didactic occasion",
+        "definition": "Teaching, where the aim is the audience's later competence rather than present assent.",
+        "register": "instructional"
+      },
+      {
+        "name": "state-of-the-field address",
+        "definition": "A survey occasion in which a discipline narrates its own progress and sets an agenda.",
+        "register": "academic",
+        "caution": "Epideictic wearing deliberative clothes; the praise is doing the arguing."
+      }
+    ],
+    "constraint_types": [
+      {
+        "name": "word or time limit",
+        "definition": "A hard ceiling on length or duration that forces selection before it forces style.",
+        "effect": "The first real editorial decision is what to leave out."
+      },
+      {
+        "name": "format template",
+        "definition": "A required structure — section headings, forms, slide masters — the writing must fill.",
+        "caution": "Templates get filled rather than used; the argument can vanish into the boxes."
+      },
+      {
+        "name": "house style guide",
+        "definition": "An outlet's binding rules on usage, citation, and mechanics.",
+        "register": "editorial"
+      },
+      {
+        "name": "genre convention",
+        "definition": "The reader's learned expectations for a form, which can be met, bent, or broken at a price.",
+        "effect": "Meeting them buys attention to spend on the parts that are new."
+      },
+      {
+        "name": "review and approval",
+        "definition": "A chain of people who must sign off, each of whom can subtract but rarely add.",
+        "caution": "Predicting the objection and pre-softening the prose is how institutional writing dies."
+      },
+      {
+        "name": "legal exposure",
+        "definition": "Defamation, privacy, and contempt risk that limits what can be asserted about whom.",
+        "register": "journalism, publishing"
+      },
+      {
+        "name": "embargo",
+        "definition": "An agreed date before which information cannot be published.",
+        "effect": "Permits preparation but forbids the timing advantage."
+      },
+      {
+        "name": "confidentiality obligation",
+        "definition": "A contractual or professional duty that bars the use of specific knowledge the writer holds.",
+        "caution": "Writing around a hole is visible; better to name the constraint."
+      },
+      {
+        "name": "classification level",
+        "definition": "A formal secrecy tier controlling what may be written and who may read it.",
+        "register": "governmental"
+      },
+      {
+        "name": "anonymity requirement",
+        "definition": "Blind review or source protection that removes the writer's or subject's identity from the text.",
+        "effect": "Strips ethos, forcing the argument to carry itself."
+      },
+      {
+        "name": "disclosure requirement",
+        "definition": "A duty to state funding, conflicts, or affiliations that colors how claims are received.",
+        "register": "academic, journalistic"
+      },
+      {
+        "name": "citation norms",
+        "definition": "A field's rules for what must be attributed and how much prior work must be acknowledged.",
+        "caution": "Under-citation reads as ignorance; over-citation reads as insecurity."
+      },
+      {
+        "name": "accessibility requirement",
+        "definition": "Obligations such as alt text, reading order, and contrast that constrain how content may be presented.",
+        "effect": "Forces every visual argument to have a linguistic equivalent."
+      },
+      {
+        "name": "localization burden",
+        "definition": "The cost imposed on translated or internationalized text, which penalizes idiom and cultural reference."
+      },
+      {
+        "name": "reading-level target",
+        "definition": "A mandated comprehension grade that limits sentence length and lexical choice.",
+        "register": "public communication",
+        "caution": "Optimizing the metric can destroy the precision it was meant to protect."
+      },
+      {
+        "name": "assumed prior knowledge",
+        "definition": "What the audience already has, which determines how much must be built before the argument starts.",
+        "effect": "Misjudging it upward loses readers; downward insults them."
+      },
+      {
+        "name": "medium affordances",
+        "definition": "What the channel permits — print permanence, screen scroll, audio linearity, no footnotes aloud.",
+        "effect": "Audio and print reward opposite handling of qualification and enumeration."
+      },
+      {
+        "name": "distribution algorithm",
+        "definition": "A platform's ranking system, which rewards particular openings, lengths, and affects.",
+        "caution": "Writing to it optimizes for reach at the cost of the argument's shape."
+      },
+      {
+        "name": "paywall",
+        "definition": "Access restriction that determines who can read past the opening and who only sees the headline."
+      },
+      {
+        "name": "character limit",
+        "definition": "A platform ceiling that forces compression, abbreviation, and serialization.",
+        "caution": "Compression reads as confidence; hedges are the first thing cut and the first thing missed."
+      },
+      {
+        "name": "institutional voice",
+        "definition": "Writing on behalf of an employer or body, where first person and personal judgment are unavailable.",
+        "register": "institutional"
+      },
+      {
+        "name": "funder expectations",
+        "definition": "The priorities of whoever pays, which shape what questions can be asked and how results are framed."
+      },
+      {
+        "name": "political feasibility",
+        "definition": "The bound on which recommendations can be made seriously in a given moment.",
+        "caution": "Treating it as fixed makes analysis a servant of the status quo."
+      },
+      {
+        "name": "decorum",
+        "definition": "The classical fit among speaker, subject, audience, and occasion — what is fitting rather than merely permitted.",
+        "effect": "Violating it deliberately is a rhetorical move with a known cost."
+      },
+      {
+        "name": "taboo",
+        "definition": "A subject or term that cannot be raised directly without the audience refusing the rest.",
+        "caution": "Circumlocution around it is usually more conspicuous than naming it."
+      },
+      {
+        "name": "deadline",
+        "definition": "The time available, which caps research, revision, and verification.",
+        "effect": "Often the binding constraint that all other constraints are blamed on."
+      },
+      {
+        "name": "the available evidence",
+        "definition": "What can actually be documented, which limits what may be claimed regardless of what is believed."
+      },
+      {
+        "name": "prior commitments on the record",
+        "definition": "Positions the writer has already published, which constrain revision without an explicit accounting.",
+        "effect": "Openly changing one's mind is stronger than quietly not mentioning it."
+      },
+      {
+        "name": "hostile monitoring",
+        "definition": "The certainty that opponents will excerpt the least defensible sentence.",
+        "caution": "Defensive writing against this produces prose with no sentences worth quoting at all."
+      },
+      {
+        "name": "production budget",
+        "definition": "Money and rights available for figures, images, permissions, and design, which limit the visual argument."
+      },
+      {
+        "name": "the rhetor's standing",
+        "definition": "The credentials, position, and history the audience knows, which license some claims and bar others.",
+        "effect": "Determines whether a claim needs argument or merely assertion."
+      }
+    ],
+    "author_personae": [
+      {
+        "name": "the expert",
+        "definition": "A persona grounded in credential and command of the literature, claiming the right to be believed.",
+        "effect": "Compresses argument; a citation can replace a demonstration.",
+        "caution": "Any error is disproportionately costly to this persona."
+      },
+      {
+        "name": "the eyewitness",
+        "definition": "A persona whose authority is having been there, reporting what was seen rather than what is known.",
+        "caution": "Presence licenses description, not generalization."
+      },
+      {
+        "name": "the guide",
+        "definition": "A persona who knows the territory and walks the reader through it at the reader's pace.",
+        "register": "explanatory nonfiction",
+        "effect": "Makes difficulty feel navigable rather than diminishing."
+      },
+      {
+        "name": "the skeptic",
+        "definition": "A persona who withholds assent and tests claims, including the writer's own.",
+        "caution": "Doubt without a positive account eventually reads as evasion."
+      },
+      {
+        "name": "the convert",
+        "definition": "A persona who once held the opposing view and narrates the change, using former error as evidence.",
+        "effect": "Disarms the reader who currently holds that view."
+      },
+      {
+        "name": "the insider",
+        "definition": "A persona speaking from within an institution, trading access for the constraints of membership.",
+        "caution": "Readers discount the parts that would cost the insider something."
+      },
+      {
+        "name": "the outsider",
+        "definition": "A persona with no stake in the field's settlements, licensed to ask the naive question.",
+        "caution": "Unearned outsider status reads as ignorance dressed as independence."
+      },
+      {
+        "name": "the everyman",
+        "definition": "A persona claiming ordinary standing and common sense against specialists.",
+        "effect": "Builds identification quickly.",
+        "caution": "Frequently a costume worn by the very expert it disclaims."
+      },
+      {
+        "name": "the ironist",
+        "definition": "A persona whose stated position is not the held position, inviting the reader into the gap.",
+        "caution": "Excerpted or translated, irony inverts into its literal meaning."
+      },
+      {
+        "name": "the prophet",
+        "definition": "A persona who denounces a present decline and warns of consequence, speaking for a violated standard.",
+        "register": "jeremiad, polemic",
+        "caution": "Wears out; unfulfilled warnings discount the next one."
+      },
+      {
+        "name": "the reasonable moderate",
+        "definition": "A persona positioned between camps, whose authority is visible fairness to both.",
+        "caution": "The midpoint is set by whoever staked the extremes."
+      },
+      {
+        "name": "the advocate",
+        "definition": "A persona openly arguing for one side and asking to be judged by the argument, not by neutrality.",
+        "effect": "Honest partisanship costs less credibility than concealed partisanship."
+      },
+      {
+        "name": "the honest broker",
+        "definition": "Pielke's persona that expands the range of options a decision-maker can see without choosing among them.",
+        "register": "policy"
+      },
+      {
+        "name": "the reporter",
+        "definition": "A self-effacing persona that keeps out of the sentences and lets sources and scenes carry the account.",
+        "register": "journalistic"
+      },
+      {
+        "name": "the essayist",
+        "definition": "Montaigne's persona of a mind trying something out in public, whose changes of direction are the content.",
+        "register": "literary nonfiction",
+        "caution": "Requires a mind worth watching; performance of thinking is not thinking."
+      },
+      {
+        "name": "the curmudgeon",
+        "definition": "A persona of practiced impatience with fashion, cant, and enthusiasm.",
+        "effect": "Licenses blunt judgment.",
+        "caution": "One register only; cannot express admiration credibly."
+      },
+      {
+        "name": "the enthusiast",
+        "definition": "A persona of open delight in the subject, recruiting by transmitted interest.",
+        "caution": "Undifferentiated praise makes every judgment worthless."
+      },
+      {
+        "name": "the teacher",
+        "definition": "A persona organized around the reader's understanding, willing to repeat, sequence, and check.",
+        "caution": "Slides into condescension when the reader is not actually a student."
+      },
+      {
+        "name": "the fellow sufferer",
+        "definition": "A persona who shares the reader's predicament rather than solving it from outside.",
+        "register": "memoir, self-help"
+      },
+      {
+        "name": "the penitent",
+        "definition": "A persona accounting for a personal failure, whose credibility rests on conceding more than required.",
+        "caution": "Confession used instrumentally is recognized and resented."
+      },
+      {
+        "name": "the investigator",
+        "definition": "A persona structured by the pursuit of an answer, taking the reader along the search rather than to its result.",
+        "effect": "Converts exposition into suspense."
+      },
+      {
+        "name": "the synthesist",
+        "definition": "A persona whose contribution is assembly — reading across fields and showing what they add up to.",
+        "caution": "Must be scrupulous about attribution or it reads as appropriation."
+      },
+      {
+        "name": "the contrarian",
+        "definition": "A persona defined against consensus, whose value depends on being right often enough to matter.",
+        "caution": "Predictable inversion is as lazy as predictable agreement."
+      },
+      {
+        "name": "the institutionalist",
+        "definition": "A persona defending procedure, precedent, and slow correction against urgency.",
+        "register": "legal, policy"
+      },
+      {
+        "name": "the practitioner",
+        "definition": "A persona whose authority is having done the work, speaking from craft rather than study.",
+        "effect": "Concrete detail is its native evidence."
+      },
+      {
+        "name": "the eiron",
+        "definition": "The classical self-deprecator who feigns less knowledge than they hold and lets the reader outpace them.",
+        "aka": "the naif",
+        "effect": "The reader who arrives at the conclusion first believes it more."
+      },
+      {
+        "name": "the alazon",
+        "definition": "The classical boaster who claims more than they are, used as a foil rather than adopted sincerely.",
+        "caution": "Adopted unironically it is the least persuasive posture in rhetoric."
+      },
+      {
+        "name": "the translator",
+        "definition": "A persona standing between a specialist community and a general readership, accountable to both.",
+        "caution": "Simplification the field would disown destroys the standing that makes the persona work."
+      },
+      {
+        "name": "the moral witness",
+        "definition": "A persona whose claim is to have seen suffering and to be obliged to report it.",
+        "register": "documentary, testimonial"
+      },
+      {
+        "name": "the amicus",
+        "definition": "A persona of the interested non-party, offering context and consequence rather than advocacy for either side.",
+        "register": "legal, policy"
+      },
+      {
+        "name": "the archivist",
+        "definition": "A persona whose authority is custody of the record, arguing by producing the document.",
+        "effect": "Restraint amplifies; the evidence is meant to speak."
+      },
+      {
+        "name": "the ranter",
+        "definition": "A persona of undisguised anger that abandons decorum for force.",
+        "caution": "Sustains a page, rarely a chapter, and forfeits the undecided reader."
+      }
+    ]
+  }
+}

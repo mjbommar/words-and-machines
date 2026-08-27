@@ -1,0 +1,130 @@
+%% ============================================================
+%% preamble/packages.tex — encodings, core packages, bibliography system
+%%
+%% Purpose      : loads general-purpose packages the template needs plus
+%%                the bibliography system selected in paper.yaml
+%%                (citations.system). NO hyperref here (it loads last, in
+%%                hyperref-last.tex, followed only by cleveref).
+%% Dependencies : generated/metadata.tex (\ifPaperBib*, \ifPaperModule*,
+%%                \PaperBibStyle, \PaperBibTitle, \ifPaperSortCites).
+%% Provenance   : the package stack is the portfolio-wide intersection
+%%                (the ~15-line block copy-pasted across ioctl/needles/
+%%                binary-* papers); the biblatex authoryear block is the
+%%                datacenter/moratorium SSRN-cluster house block.
+%% ============================================================
+
+% --- Programming/conditional helpers (needed by every later module) ---
+\usepackage{etoolbox}
+\usepackage{iftex}
+
+% --- Encoding (engine-conditional) -----------------------------------
+% pdfTeX needs 8-bit font + input encoding; the Unicode engines don't
+% (fontspec handles it). fonts.tex loads the actual typefaces.
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\fi
+
+% --- Language & quoting ----------------------------------------------
+\usepackage[american]{babel}
+\usepackage{csquotes}   % \enquote, biblatex integration; MUST precede biblatex
+
+% --- Layout & structure ----------------------------------------------
+% Paper size from paper.yaml (letterpaper|a4paper); 1in margins.
+\usepackage[\PaperPaperOption,margin=1in]{geometry}
+\usepackage{setspace}       % line spacing (styling.tex)
+\usepackage{fancyhdr}       % running heads (styling.tex)
+\usepackage{titlesec}       % section formatting (styling.tex)
+\usepackage{titling}        % \thetitle/\theauthor hooks for the title block
+\usepackage[bottom]{footmisc} % footnotes pinned to the page bottom
+
+% --- Math -------------------------------------------------------------
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% --- Graphics, color, floats -----------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}          % sections write \includegraphics{name} only
+\usepackage{xcolor}                % primitives in preamble/colors.tex
+\usepackage{float}
+\usepackage{rotating}              % sidewaystable/sidewaysfigure (wide floats)
+\usepackage{pdflscape}             % landscape pages that rotate in the PDF
+\usepackage[labelfont=bf,font=small,skip=6pt]{caption}
+\usepackage{subcaption}
+
+% --- Tables -----------------------------------------------------------
+\usepackage{booktabs}              % the ONLY table rules sections may use
+\usepackage{tabularx}
+\usepackage{longtable}             % multi-page tables (with booktabs rules)
+\usepackage{threeparttable}        % table notes bound to the tabular width
+\usepackage{multirow}
+\usepackage{makecell}
+
+% --- Title-page background (optional hero image) ----------------------
+% eso-pic places a full-page picture behind page 1 when
+% typography.title_background is set (frontmatter/titleblock.tex).
+\usepackage{eso-pic}
+
+% --- Lists ------------------------------------------------------------
+\usepackage{enumitem}
+
+% --- Units (module: siunitx) -----------------------------------------
+\ifPaperModuleSI
+  \usepackage{siunitx}
+  \sisetup{group-separator={,}, group-minimum-digits=4,
+           detect-weight=true, detect-family=true}
+\fi
+
+% ======================================================================
+% Bibliography system — dispatched on \ifPaperBibNatbib / \ifPaperBibBiblatex
+% (paper.yaml citations.system). One \PrintBibliography macro renders
+% either; sections cite with \citep/\citet (both systems support these).
+%
+%   natbib   — arXiv-robust: version-agnostic .bbl, trivial to ship.
+%   biblatex — SSRN-cluster house block: authoryear + biber, or numeric.
+% ======================================================================
+\ifPaperBibNatbib
+  % numeric -> numbers+sort&compress (plainnat look); authoryear -> round.
+  \ifPaperBibNumeric
+    \ifPaperSortCites
+      \usepackage[numbers,sort&compress,square,comma]{natbib}
+    \else
+      \usepackage[numbers,square,comma]{natbib}
+    \fi
+    \newcommand{\PaperBibStyleFile}{plainnat}
+  \else
+    \usepackage[authoryear,round]{natbib}
+    \newcommand{\PaperBibStyleFile}{plainnat}
+  \fi
+  \bibliographystyle{\PaperBibStyleFile}
+  % One renderer, both systems. natbib: a \bibliography call over bib/.
+  \newcommand{\PrintBibliography}{%
+    \phantomsection\addcontentsline{toc}{section}{\PaperBibTitle}%
+    \renewcommand{\refname}{\PaperBibTitle}%
+    \bibliography{bib/references}}
+\else
+  % biblatex path. natbib=true provides \citep/\citet/\citeauthor so the
+  % SAME section source compiles under either bibliography system.
+  \ifPaperBibNumeric
+    \usepackage[backend=biber,style=numeric-comp,sorting=nyt,natbib=true,
+                url=true,doi=true,maxbibnames=99]{biblatex}
+  \else
+    \usepackage[backend=biber,style=authoryear,sorting=nyt,natbib=true,
+                maxcitenames=2,maxbibnames=99,url=true,doi=true]{biblatex}
+  \fi
+  \setlength{\bibitemsep}{0.4\baselineskip}
+  \addbibresource{bib/references.bib}
+  \newcommand{\PrintBibliography}{%
+    \printbibliography[heading=bibintoc,title={\PaperBibTitle}]}
+\fi
+
+% Let biblatex break long URLs cleanly at any character rather than gap a
+% justified line. We set only the break PENALTIES (robust across biblatex
+% versions); the \biburl*skip muskips are left at their defaults, since
+% \setlength rejects their mu units under current biblatex.
+\ifPaperBibBiblatex
+  \setcounter{biburlnumpenalty}{9000}
+  \setcounter{biburlucpenalty}{9500}
+  \setcounter{biburllcpenalty}{9500}
+\fi

@@ -1,0 +1,49 @@
+%% ============================================================
+%% preamble/hyperref-last.tex — xurl + hyperref + cleveref (ALWAYS LAST)
+%%
+%% Purpose      : URL line-break hygiene (xurl), hyperref with PDF
+%%                metadata from the generated macros, and cleveref (which
+%%                MUST load after hyperref). Link coloring is text-only,
+%%                never boxed.
+%% Dependencies : every other module (hyperref patches cross-refs,
+%%                floats, footnotes — hence the "last" contract),
+%%                colors.tex (link/url/cite tokens), generated/metadata.tex.
+%% Provenance   : the recurring \emergencystretch/URL-break hack solved
+%%                once here (it appears hand-rolled in four portfolio
+%%                papers); colored-text links from the SSRN cluster.
+%% ============================================================
+
+\usepackage{xurl}       % break long URLs/DOIs at any character (before hyperref)
+\usepackage{hyperref}
+\usepackage{orcidlink}  % \orcidlink{0000-...} in the author block
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=link,
+  citecolor=cite,
+  urlcolor=url,
+  pdfcreator={paper-template (LaTeX)},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+}
+% PDF metadata carries author identity — so a double-blind (\AnonMode)
+% build must strip it too, not just the visible title page. Otherwise a
+% referee opening File > Properties sees the real authors.
+\ifdefined\AnonMode
+  \hypersetup{pdftitle={\PaperTitle}, pdfauthor={}, pdfsubject={}, pdfkeywords={}}
+\else
+  \hypersetup{
+    pdftitle={\PaperTitle},
+    pdfauthor={\PaperAuthorPlain},
+    pdfsubject={\PaperAbstract},
+    pdfkeywords={\PaperKeywords},
+  }
+\fi
+
+% cleveref LAST (after hyperref, and after amsmath/amsthm). Capitalized
+% names at sentence start; ranges compressed.
+\usepackage[capitalize,nameinlink]{cleveref}
+\crefname{table}{Table}{Tables}
+\crefname{figure}{Figure}{Figures}
+\crefname{equation}{Eq.}{Eqs.}
+\crefname{algorithm}{Algorithm}{Algorithms}

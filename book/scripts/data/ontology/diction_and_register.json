@@ -1,0 +1,2195 @@
+{
+  "name": "diction_and_register",
+  "level": "micro",
+  "entry_type": "record",
+  "description": "Word-level choice machinery: the etymological strata of English, register levels, connotation axes and loaded language, the interactional metadiscourse of hedges, boosters, attitude and engagement markers and self-mention, plus precision, verb-strength, naming, and figurative controls and the diction faults each one guards against.",
+  "categories": {
+    "etymological_layers": [
+      {
+        "name": "Anglo-Saxon core",
+        "definition": "The native Germanic stratum of English: the short, mostly monosyllabic words for body, weather, kin, work, and violence.",
+        "example": "hand, blood, bread, dark, break, hold, wife, dirt",
+        "effect": "Concrete, early-acquired, high-imagery; these words are processed fastest and felt hardest, which is why they carry punch and plainness.",
+        "register": "all registers; dominant in the plain and the intimate"
+      },
+      {
+        "name": "Latinate stratum",
+        "definition": "Words borrowed from Latin, directly or through French, typically polysyllabic and abstract.",
+        "example": "consideration, jurisdiction, facilitate, remuneration",
+        "effect": "Creates distance, generality, and institutional authority; the reader processes the concept without picturing anything.",
+        "caution": "A Latinate noun phrase can name a thing without committing to who did it — which is exactly why bureaucracies prefer it."
+      },
+      {
+        "name": "Greek technical stratum",
+        "definition": "Scientific and scholarly vocabulary built from Greek roots and combining forms.",
+        "example": "photosynthesis, epistemology, hemorrhage, morpheme",
+        "effect": "Signals a specialist discourse and a defined term; a Greek-rooted word tells the reader this is a technical sense, not a loose one.",
+        "register": "technical, academic"
+      },
+      {
+        "name": "Norman-French middle register",
+        "definition": "The stratum entering after 1066: government, law, cuisine, courtesy — sitting between Saxon plainness and Latin abstraction.",
+        "example": "judge, court, beef, mutton, courage, chamber — the classic pairing being Saxon animal to French meat: cow/beef, swine/pork, sheep/mutton",
+        "effect": "The polite, civil middle of English; formal without being clinical."
+      },
+      {
+        "name": "Old Norse layer",
+        "definition": "Words from Scandinavian settlement, unusual in being everyday rather than learned.",
+        "example": "sky, skin, egg, knife, take, they, ugly, want",
+        "effect": "Blunt and plain; the sk- cluster in particular reads as hard-edged native English."
+      },
+      {
+        "name": "etymological doublet",
+        "definition": "A pair of words with the same ultimate root that entered English by different routes and now differ in register.",
+        "example": "shirt/skirt, ward/guard, cattle/chattel, frail/fragile",
+        "effect": "Gives two settings for the same idea; the choice between them is almost pure register."
+      },
+      {
+        "name": "Saxon-Latinate synonym pair",
+        "definition": "Two near-synonyms from the Germanic and Latin strata that differ chiefly in weight and warmth.",
+        "example": "ask/inquire, buy/purchase, end/terminate, help/assist, dead/deceased",
+        "effect": "The most common register lever in English prose; changing one member of the pair reprices the whole sentence.",
+        "caution": "Near-synonyms are rarely exact — deceased is not dead plus formality, it is dead plus a legal frame."
+      },
+      {
+        "name": "lexical triplet",
+        "definition": "A three-way set from the Germanic, French, and Latin strata covering low, middle, and high register.",
+        "example": "kingly / royal / regal; rise / mount / ascend; ask / question / interrogate; fire / flame / conflagration",
+        "effect": "A ready-made three-position dial for elevation; the classic teaching example of how etymology maps onto register."
+      },
+      {
+        "name": "legal binomial",
+        "definition": "A fixed pair joining a Germanic and a Romance term for the same thing, a survival of bilingual legal drafting.",
+        "example": "last will and testament; free and clear; goods and chattels; breaking and entering",
+        "effect": "Sounds inevitable and old; the redundancy is the point in law and pure ballast anywhere else.",
+        "caution": "Outside legal drafting, binomials are usually two words doing one word's work."
+      },
+      {
+        "name": "phrasal verb",
+        "definition": "A Germanic verb plus particle functioning as a unit, usually with a single Latinate equivalent.",
+        "example": "put off / postpone; give up / relinquish; find out / ascertain; go into / investigate",
+        "effect": "Lowers the register and speeds the clause; the fastest way to make institutional prose sound like a person.",
+        "caution": "Phrasal verbs are often idiomatic and translate badly — a real cost in books meant for translation."
+      },
+      {
+        "name": "inkhorn term",
+        "definition": "An ostentatiously learned coinage from Latin or Greek, in the sixteenth-century sense of the controversy and in the modern sense of pretension.",
+        "example": "obtestate, adnichilate, illecebrous",
+        "effect": "Signals learning at the cost of communication; the historical case study in why borrowed abstraction repels readers.",
+        "caution": "The modern equivalents are alive and well in management and academic prose."
+      },
+      {
+        "name": "aureate diction",
+        "definition": "Deliberately gilded, Latin-heavy vocabulary used for elevation, especially in late-medieval and Renaissance verse.",
+        "example": "celestial, refulgent, mellifluate",
+        "effect": "Ceremonial elevation; still available for irony, almost never for sincerity."
+      },
+      {
+        "name": "calque",
+        "definition": "A loan translation — a foreign compound rendered morpheme by morpheme rather than borrowed whole.",
+        "example": "loanword (from Lehnwort); flea market (from marche aux puces); worldview (from Weltanschauung)",
+        "effect": "Imports a foreign concept in native-looking clothes, so it reads as English while carrying a foreign shape of thought."
+      },
+      {
+        "name": "unassimilated borrowing",
+        "definition": "A foreign word kept in its original form, often italicized, because English has no equivalent.",
+        "example": "schadenfreude, sprezzatura, ennui, sfumato",
+        "effect": "Names a concept precisely and flags that the concept is foreign; also flags the writer's range.",
+        "caution": "One per chapter is seasoning; three is a signal that the writer is performing rather than explaining."
+      },
+      {
+        "name": "hybrid formation",
+        "definition": "A word combining roots or affixes from different strata.",
+        "example": "talkative (Germanic root, Latin suffix); beautiful (French root, Germanic suffix); television (Greek + Latin)",
+        "effect": "Proof that etymological purity is not a workable rule; useful against readers who object to a word on grounds of ancestry."
+      },
+      {
+        "name": "Saxon monosyllable",
+        "definition": "The one-syllable native word chosen deliberately over a longer synonym.",
+        "example": "use, not utilize; end, not terminate; help, not facilitate",
+        "effect": "Direct, weighted, and hard to hide behind; each word takes its own stress, so the sentence gains rhythm as well as clarity."
+      },
+      {
+        "name": "Latinate polysyllable",
+        "definition": "A long, abstract borrowing chosen for precision, elevation, or distance.",
+        "example": "commensurate, notwithstanding, interlocutory, provisional",
+        "effect": "Compresses a complicated relation into one token; the right choice when the concept genuinely is abstract.",
+        "caution": "Justified by precision, never by tone. If the plain word means the same thing, it is padding."
+      },
+      {
+        "name": "plain-Saxon preference",
+        "definition": "The editorial rule of thumb — Orwell's fourth rule, and the plain-language movement generally — to prefer the short native word unless a longer one earns its place.",
+        "example": "Never use a long word where a short one will do. (Orwell, Politics and the English Language)",
+        "effect": "A reliable default that raises concreteness and lowers pomposity across a whole manuscript.",
+        "caution": "Applied mechanically it flattens genuine technical distinctions and produces a monotone of one-syllable words."
+      },
+      {
+        "name": "nominal style",
+        "definition": "Prose that carries its content in Latinate nouns rather than verbs, so events become entities.",
+        "example": "The implementation of the reduction in expenditure was undertaken by the department.",
+        "effect": "Removes agency and time from the sentence; the standard shape of institutional writing.",
+        "caution": "The cure is to find the buried verb and give it a subject: The department cut spending."
+      },
+      {
+        "name": "macaronic mixture",
+        "definition": "Deliberate blending of two languages within a sentence or text.",
+        "example": "Medieval sermons mixing Latin and English; contemporary Spanglish narration.",
+        "effect": "Marks a speaker who lives in both languages; in dialogue it does characterization no description can match.",
+        "caution": "Only convincing from inside the community it depicts."
+      },
+      {
+        "name": "etymological fallacy",
+        "definition": "The mistake of treating a word's historical root as its real meaning.",
+        "polarity": "fault",
+        "example": "Insisting decimate can only mean reduce by a tenth, or that nice must mean ignorant.",
+        "effect": "Nothing good — it substitutes the writer's history lesson for the reader's understanding.",
+        "caution": "Etymology is a source of texture and connotation, never an authority about current meaning."
+      },
+      {
+        "name": "semantic drift",
+        "definition": "The historical shift in a word's meaning: narrowing, broadening, amelioration, or pejoration.",
+        "example": "silly (blessed to foolish); awful (awe-inspiring to bad); girl (a young person of either sex to female)",
+        "effect": "Explains why quoting old sources requires glossing, and why period fiction needs a dated-sense check."
+      }
+    ],
+    "register_levels": [
+      {
+        "name": "frozen register",
+        "definition": "Language fixed by ritual or law and not rewritten for the occasion (Joos's first clock).",
+        "example": "the Lord's Prayer; the Miranda warning; a statute's operative text",
+        "effect": "Authority derived from invariance; quoting frozen language into prose imports its solemnity wholesale."
+      },
+      {
+        "name": "formal register",
+        "definition": "Prepared, one-way, syntactically complete language addressed to an audience rather than an interlocutor.",
+        "example": "a keynote address; a judicial opinion; the front matter of a serious nonfiction book",
+        "effect": "Signals that the writer has thought before speaking; costs immediacy.",
+        "register": "nonfiction default for institutional subjects"
+      },
+      {
+        "name": "consultative register",
+        "definition": "The standard register of informed conversation between people who do not share a private code: complete sentences, no slang, some contraction.",
+        "example": "a doctor explaining a diagnosis; most trade nonfiction narration",
+        "effect": "The workhorse register of published prose — formal enough to trust, loose enough to read."
+      },
+      {
+        "name": "casual register",
+        "definition": "Language for people already inside the group: contractions, ellipsis, slang, shared reference.",
+        "example": "So we bailed. Nobody said anything.",
+        "effect": "Creates intimacy and speed; also excludes anyone outside the reference set."
+      },
+      {
+        "name": "intimate register",
+        "definition": "Private language between people with a shared history: nicknames, fragments, in-jokes, unexplained reference.",
+        "example": "Not the blue one. You know.",
+        "effect": "In fiction it is the highest-bandwidth signal of closeness; on the page it must be legible to an outsider while sounding as if it were not written for one."
+      },
+      {
+        "name": "grand style",
+        "definition": "The high style of classical rhetoric (genus grande): elevated diction, full periods, figures deployed openly, aimed at moving the audience.",
+        "example": "the peroration of a funeral oration",
+        "effect": "Moves; also risks bombast if the occasion does not carry it.",
+        "caution": "The grand style must be paid for by the subject. Applied to small matters it is the definition of bathos."
+      },
+      {
+        "name": "middle style",
+        "definition": "The middle style (genus medium): moderate ornament, aimed at pleasing and holding attention.",
+        "example": "the familiar essay; feature journalism",
+        "effect": "Sustains a long text; the style most books are written in even when they visit the other two."
+      },
+      {
+        "name": "plain style",
+        "definition": "The low or plain style (genus tenue): unornamented, aimed at teaching.",
+        "example": "instructions, procedure, technical explanation",
+        "effect": "Maximum clarity, minimum resistance; also the style whose plainness can be an argument in itself.",
+        "caution": "Plain is not the same as flat — the plain style still has cadence and still chooses its words."
+      },
+      {
+        "name": "technical register",
+        "definition": "Vocabulary defined within a discipline where terms carry specified, narrow senses.",
+        "example": "In law, consideration; in statistics, significant; in physics, work.",
+        "effect": "Precision inside the field, misunderstanding outside it.",
+        "caution": "The dangerous terms are the ones that look like ordinary English — readers will import the everyday sense unless you gloss."
+      },
+      {
+        "name": "academese",
+        "definition": "The house register of scholarly writing: nominalization, hedging, agentless passives, heavy citation-bearing syntax.",
+        "example": "It has been suggested that a degree of correlation may obtain between the variables in question.",
+        "effect": "Signals membership and caution; costs readability and often agency.",
+        "caution": "A trade book that keeps academic register loses the audience it was translated for."
+      },
+      {
+        "name": "legalese",
+        "definition": "The drafting register of law: binomials, archaic deictics, defined terms, exhaustive qualification.",
+        "example": "hereinafter, aforesaid, notwithstanding the foregoing",
+        "effect": "Precision purchased with unreadability; sometimes a genuine trade, often an inherited habit.",
+        "polarity": "fault"
+      },
+      {
+        "name": "bureaucratese",
+        "definition": "Institutional prose that maximizes abstraction and minimizes attributable agency.",
+        "example": "Mistakes were made in the implementation of the revised guidance.",
+        "effect": "Diffuses responsibility; the register's core function, whether or not anyone intends it.",
+        "caution": "Quoting it is devastating; imitating it unawares is the commonest infection in policy writing.",
+        "polarity": "fault"
+      },
+      {
+        "name": "journalese",
+        "definition": "The compressed, formulaic register of news writing: stock epithets, headline nouns used as verbs, attribution formulas.",
+        "example": "slammed, blasted, amid growing concerns, sources close to",
+        "effect": "Fast and familiar; also a stock of dead phrases that survive because they fit a column width."
+      },
+      {
+        "name": "corporate register",
+        "definition": "The vocabulary of management and consulting: agentless improvement verbs, abstract nouns of value, process metaphors.",
+        "example": "leverage, deliverable, operationalize, alignment, best-in-class",
+        "effect": "Signals membership in a professional culture; almost always reduces information per word.",
+        "caution": "Distinct from technical register in that its terms usually have no definitions to look up.",
+        "polarity": "fault"
+      },
+      {
+        "name": "vernacular",
+        "definition": "The everyday spoken language of a place or community, used in writing without translation into standard prose.",
+        "example": "regional idiom and syntax preserved in narration, not just in dialogue",
+        "effect": "Grounds a text in a specific speech community and refuses the standard-English default."
+      },
+      {
+        "name": "colloquialism",
+        "definition": "An informal expression normal in speech and marked in formal writing.",
+        "example": "kind of, a lot, plenty, no big deal",
+        "effect": "Lowers distance; a few colloquialisms in an otherwise formal paragraph read as the writer stepping closer to the reader."
+      },
+      {
+        "name": "slang",
+        "definition": "Vocabulary marking membership in a group and typically short-lived.",
+        "example": "the current generation's terms of approval, whatever they are this year",
+        "effect": "Immediate and dating; slang fixes a text to a moment.",
+        "caution": "In a book with a five-year shelf life, slang is a liability unless the moment is the subject."
+      },
+      {
+        "name": "argot",
+        "definition": "The specialized and partly concealing vocabulary of a closed group — trade, criminal, or institutional.",
+        "example": "thieves' cant; carnival lingo; hospital shorthand",
+        "effect": "Powerful texture in reported nonfiction; each term should be glossed once and then trusted."
+      },
+      {
+        "name": "dialect",
+        "definition": "A regional or social variety with its own lexicon, grammar, and pronunciation.",
+        "example": "Scots wee, ken; Appalachian a-fixing; AAVE habitual be",
+        "effect": "Characterizes precisely and economically when rendered through word choice and syntax.",
+        "caution": "Render dialect lexically and syntactically, not by respelling — eye dialect reads as mockery."
+      },
+      {
+        "name": "code-switching",
+        "definition": "Moving between registers or languages within a text, often to mark a change of audience or role.",
+        "example": "A narrator who writes clinically about the procedure and colloquially about the waiting room.",
+        "effect": "Shows the speaker's range and the social position of each variety; a characterization device in its own right."
+      },
+      {
+        "name": "register clash",
+        "definition": "Deliberate collision of a high and low register in the same sentence.",
+        "example": "The Board resolved, unanimously and after due deliberation, to punt.",
+        "effect": "Comedy, irony, or deflation depending on which direction the drop runs; bathos is the descending case."
+      },
+      {
+        "name": "register drift",
+        "definition": "Unintentional slide from one register into another across a passage.",
+        "polarity": "fault",
+        "example": "A formal argument that shifts into blog voice for two sentences and back.",
+        "effect": "Breaks the reader's model of who is speaking.",
+        "caution": "Most often introduced during revision, when new sentences are written in a different mood than the draft."
+      },
+      {
+        "name": "house style",
+        "definition": "A publisher's or publication's codified preferences on spelling, punctuation, numbers, and usage.",
+        "example": "serial comma; -ize versus -ise; whether contractions are permitted",
+        "effect": "Consistency the reader never notices until it breaks.",
+        "caution": "House style governs mechanics; it does not govern voice, and confusing the two flattens a book."
+      }
+    ],
+    "connotation_axes": [
+      {
+        "name": "concrete to abstract",
+        "definition": "The axis from words naming perceptible things to words naming categories and relations.",
+        "example": "hammer / tool / implement / instrumentality",
+        "effect": "Concreteness raises imageability, memory, and credibility; abstraction buys scope. Most weak prose sits one rung too high."
+      },
+      {
+        "name": "general to specific",
+        "definition": "The taxonomic axis from superordinate to basic-level to subordinate terms.",
+        "example": "vehicle / car / 1974 Datsun",
+        "effect": "The basic level (car, dog, chair) is the fastest to process; going below it signals expertise and observed detail."
+      },
+      {
+        "name": "warm to clinical",
+        "definition": "The axis between words that engage feeling and words that hold it off.",
+        "example": "died / passed away / expired / experienced mortality",
+        "effect": "Clinical diction is the standard instrument of professional distance; it can be humane or evasive depending on who is protected by it."
+      },
+      {
+        "name": "formal to casual",
+        "definition": "The axis of social distance encoded in vocabulary.",
+        "example": "residence / house / place / crib",
+        "effect": "Sets how far the writer is standing from the reader, independent of what is being said."
+      },
+      {
+        "name": "archaic to current",
+        "definition": "The axis of a word's felt datedness.",
+        "example": "whilst / while; wireless / radio; icebox / fridge",
+        "effect": "Dated vocabulary evokes a period and a class; a single archaism in modern prose reads as either texture or affectation."
+      },
+      {
+        "name": "common to rare",
+        "definition": "The frequency axis, which governs processing effort and the sense that a word has been chosen.",
+        "example": "start / commence / inaugurate",
+        "effect": "Rare words are noticed; that attention is a resource, spent well on the sentence's key term and wasted on its connectives."
+      },
+      {
+        "name": "plain to ornate",
+        "definition": "The axis of decorative elaboration in word choice.",
+        "example": "the sea / the wine-dark sea / the illimitable azure deep",
+        "effect": "Ornament signals occasion; unearned ornament signals insecurity."
+      },
+      {
+        "name": "native to foreign",
+        "definition": "How assimilated a word feels to English.",
+        "example": "kill / execute / liquidate; feeling / sentiment / affect",
+        "effect": "Foreign-feeling words carry either expertise or evasion, and readers register which."
+      },
+      {
+        "name": "neutral to loaded",
+        "definition": "The axis of built-in evaluation.",
+        "example": "protester / activist / agitator / mob",
+        "effect": "Loaded terms perform the argument before it is made, which is why an honest argument makes its own loading visible."
+      },
+      {
+        "name": "literal to figurative",
+        "definition": "How far a word has traveled from its physical sense.",
+        "example": "grasp a rope / grasp an idea; a bright light / a bright student",
+        "effect": "Faded metaphors are invisible and useful; live ones are visible and must be governed."
+      },
+      {
+        "name": "monosyllabic to polysyllabic",
+        "definition": "The length axis, which controls both weight and pace.",
+        "example": "cut / reduce / diminish / attenuate",
+        "effect": "Short words land, long words glide; the same content changes speed entirely with the swap."
+      },
+      {
+        "name": "human to institutional agency",
+        "definition": "Whether the sentence's actors are people or entities.",
+        "example": "the nurse decided / the ward decided / policy dictated",
+        "effect": "Institutional agents make responsibility disappear; naming the human restores it, sometimes unfairly."
+      },
+      {
+        "name": "semantic prosody",
+        "definition": "The evaluative coloring a word acquires from the company it habitually keeps, independent of its dictionary meaning.",
+        "example": "cause takes bad outcomes (cause harm, cause delay); commit takes offenses; utterly takes negatives.",
+        "effect": "Explains why a technically correct word can feel wrong; corpus evidence, not intuition, is the way to check.",
+        "caution": "Machine-generated prose frequently violates semantic prosody in ways that read as subtly off."
+      },
+      {
+        "name": "collocational strength",
+        "definition": "How strongly a word expects particular neighbors.",
+        "example": "strong tea but powerful engine; heavy rain but strong wind",
+        "effect": "Getting collocation wrong is the surest marker of a non-native or a thesaurus-assisted sentence."
+      }
+    ],
+    "loaded_language": [
+      {
+        "name": "orthophemism",
+        "definition": "The direct, neutral term between the euphemism and the dysphemism.",
+        "see_also": "rhetorical_figures/metonymy_and_naming_family",
+        "example": "died, between passed away and croaked",
+        "effect": "The default for honest exposition; naming this middle term makes the other two visible as choices."
+      },
+      {
+        "name": "purr word",
+        "definition": "A term whose positive charge does the persuading without any propositional content.",
+        "example": "freedom, natural, innovative, common sense",
+        "effect": "Attracts assent before an argument exists.",
+        "caution": "If deleting the word changes no fact, it was doing evaluative work you have not defended."
+      },
+      {
+        "name": "snarl word",
+        "definition": "The negative counterpart: a term that condemns without describing.",
+        "example": "elitist, radical, bureaucratic, so-called",
+        "effect": "Costs nothing to deploy and cannot be rebutted, because there is no claim in it."
+      },
+      {
+        "name": "dog whistle",
+        "definition": "A term with a mainstream surface meaning and a second meaning legible to a target audience.",
+        "example": "coded appeals whose deniability is the point",
+        "effect": "Two audiences read two messages, and the speaker can disown one."
+      },
+      {
+        "name": "thought-terminating cliche",
+        "definition": "A stock phrase deployed to close an inquiry rather than answer it.",
+        "see_also": "fallacies_eristic/presumption_fallacies",
+        "example": "It is what it is. Everything happens for a reason. That's just human nature.",
+        "effect": "Ends discussion by supplying the feeling of an explanation.",
+        "caution": "Easy to write unawares at the end of a hard paragraph — check every paragraph-closing aphorism."
+      },
+      {
+        "name": "ideograph",
+        "definition": "A high-order abstraction that a culture treats as self-justifying warrant for policy (McGee).",
+        "example": "liberty, security, the rule of law, property",
+        "effect": "Carries enormous persuasive force with almost no fixed content, so arguments are often fought over which ideograph applies."
+      },
+      {
+        "name": "rhetorical redefinition",
+        "definition": "Renaming a thing so that the new label carries a different evaluation.",
+        "example": "estate tax / death tax; undocumented / illegal; enhanced interrogation / torture",
+        "effect": "The most consequential single-word move in public argument; whoever fixes the name usually wins the frame.",
+        "caution": "In nonfiction, name your own choice explicitly and say why, rather than pretending one label is neutral."
+      },
+      {
+        "name": "hedged attribution",
+        "definition": "Words that assign a claim to unnamed others so the writer carries none of it.",
+        "example": "critics say, some argue, it is widely believed",
+        "effect": "Imports a position without an owner or a source.",
+        "caution": "A weasel construction unless the some can be named. Name them or drop the claim."
+      },
+      {
+        "name": "honorific and title choice",
+        "definition": "The decision of how to name a person — full name, surname, first name, title, or role — and how consistently.",
+        "example": "Dr. King / King / Martin / the Reverend",
+        "effect": "Encodes deference, intimacy, and status; inconsistency across people in the same book encodes bias.",
+        "caution": "Audit surname-versus-first-name usage across genders and races; this is a standard editorial check."
+      },
+      {
+        "name": "people-first and identity-first phrasing",
+        "definition": "The choice between naming the person before the attribute and naming the attribute as identity.",
+        "example": "a person with autism / an autistic person; a person experiencing homelessness / a homeless person",
+        "effect": "Communities differ in preference, and the choice is read as a statement about whose usage you follow.",
+        "caution": "There is no universally safe default; follow the usage of the community you are writing about and be consistent."
+      }
+    ],
+    "hedges": [
+      {
+        "name": "epistemic modal",
+        "definition": "A modal auxiliary marking a claim as possible rather than certain.",
+        "cues": [
+          "may",
+          "might",
+          "could",
+          "can",
+          "would",
+          "should (predictive)"
+        ],
+        "example": "The delay may have cost the project its funding.",
+        "effect": "Lowers commitment to the proposition while leaving the claim on the table."
+      },
+      {
+        "name": "epistemic adverb",
+        "definition": "A sentence adverb encoding the writer's degree of confidence.",
+        "cues": [
+          "perhaps",
+          "possibly",
+          "probably",
+          "presumably",
+          "arguably",
+          "conceivably",
+          "seemingly"
+        ],
+        "example": "Arguably, the second audit was the only one that mattered.",
+        "effect": "Places the qualification outside the proposition, so the claim can still be read as a claim.",
+        "caution": "Arguably in particular has become a tic that means nothing; delete it and see whether the sentence weakens."
+      },
+      {
+        "name": "tentative reporting verb",
+        "definition": "A lexical verb that presents a finding as indication rather than proof.",
+        "cues": [
+          "suggest",
+          "indicate",
+          "appear",
+          "seem",
+          "tend",
+          "point to",
+          "imply"
+        ],
+        "example": "The records suggest that the transfers began earlier.",
+        "effect": "The standard academic hedge; commits to a direction without committing to a fact."
+      },
+      {
+        "name": "quantity approximator",
+        "definition": "A qualifier that makes a numeric or quantitative claim inexact on purpose.",
+        "cues": [
+          "about",
+          "roughly",
+          "approximately",
+          "some",
+          "around",
+          "nearly",
+          "upwards of"
+        ],
+        "example": "roughly four thousand pages of discovery",
+        "effect": "Honest imprecision; signals that the exact figure is either unknown or not the point.",
+        "caution": "Approximating a number you actually have throws away your best evidence."
+      },
+      {
+        "name": "frequency approximator",
+        "definition": "A qualifier limiting how often a generalization holds.",
+        "cues": [
+          "often",
+          "usually",
+          "typically",
+          "generally",
+          "in most cases",
+          "as a rule",
+          "commonly"
+        ],
+        "example": "Auditors typically stop at the first clean quarter.",
+        "effect": "Converts a universal claim into a defensible tendency."
+      },
+      {
+        "name": "degree downtoner",
+        "definition": "A qualifier reducing the intensity of an adjective or verb.",
+        "cues": [
+          "somewhat",
+          "fairly",
+          "rather",
+          "relatively",
+          "to some extent",
+          "a little",
+          "quite (British sense)"
+        ],
+        "example": "a somewhat unusual arrangement",
+        "effect": "Softens evaluation.",
+        "caution": "The commonest padding in draft prose; two downtoners in one sentence cancel the sentence."
+      },
+      {
+        "name": "plausibility shield",
+        "definition": "An impersonal construction attributing the appearance of a fact to the evidence rather than to the writer.",
+        "cues": [
+          "it seems",
+          "it appears",
+          "apparently",
+          "on the face of it"
+        ],
+        "example": "It appears that no one signed off.",
+        "effect": "Removes the writer as the source of the judgment while still making it."
+      },
+      {
+        "name": "attribution shield",
+        "definition": "Assigning a claim to a named source so its truth is the source's responsibility.",
+        "cues": [
+          "according to",
+          "X argues that",
+          "on X's account",
+          "in X's telling"
+        ],
+        "example": "According to the inspector general, the figures had been revised twice.",
+        "effect": "The honest form of hedging: the reader can go check.",
+        "caution": "Only a shield if the source is nameable and named — otherwise it is a weasel construction."
+      },
+      {
+        "name": "evidential hedge",
+        "definition": "A marker of how the writer came to know, which implicitly limits how far the claim can be trusted.",
+        "cues": [
+          "reportedly",
+          "allegedly",
+          "ostensibly",
+          "by all accounts",
+          "on the available evidence"
+        ],
+        "example": "The meeting reportedly lasted twenty minutes.",
+        "effect": "Signals second-hand knowledge; legally load-bearing in journalism."
+      },
+      {
+        "name": "impersonal hedge",
+        "definition": "An extraposed construction that states a possibility without a subject who holds it.",
+        "cues": [
+          "it is possible that",
+          "it may be the case that",
+          "there is reason to think"
+        ],
+        "example": "It is possible that the two events are unrelated.",
+        "effect": "Maximum distance between writer and claim.",
+        "caution": "Wordy by construction; usually replaceable by a single modal."
+      },
+      {
+        "name": "agentless passive hedge",
+        "definition": "A passive that deletes the agent so no one owns the claim or the act.",
+        "cues": [
+          "it has been suggested",
+          "it is widely assumed",
+          "concerns have been raised"
+        ],
+        "example": "Concerns were raised about the timeline.",
+        "effect": "Hides who raised them, which is sometimes protection and often evasion.",
+        "caution": "Ask by whom. If you can answer, name them."
+      },
+      {
+        "name": "conditional hedge",
+        "definition": "A conditional clause that makes the claim contingent on an assumption.",
+        "cues": [
+          "if",
+          "assuming",
+          "provided that",
+          "unless",
+          "insofar as"
+        ],
+        "example": "If the timestamps are accurate, the sequence is impossible.",
+        "effect": "Exposes the load-bearing assumption instead of burying it — the most intellectually honest hedge available."
+      },
+      {
+        "name": "scope restrictor",
+        "definition": "A qualifier limiting the domain over which a claim is asserted.",
+        "cues": [
+          "in the cases examined",
+          "for these purposes",
+          "at least in the United States",
+          "among the firms surveyed"
+        ],
+        "example": "Among the firms surveyed, none had a written policy.",
+        "effect": "Narrows the claim to what the evidence supports; a restrictor added late in revision usually rescues an overreach."
+      },
+      {
+        "name": "limitation statement",
+        "definition": "An explicit statement of what the evidence or method cannot show.",
+        "example": "These records cannot establish intent; they establish only sequence.",
+        "effect": "Builds credibility by pre-empting the strongest objection; the reader who was about to distrust you now does not."
+      },
+      {
+        "name": "numerical range",
+        "definition": "Reporting an interval or an order of magnitude instead of a point estimate.",
+        "cues": [
+          "between X and Y",
+          "on the order of",
+          "no more than",
+          "at least"
+        ],
+        "example": "on the order of ten thousand claims",
+        "effect": "Communicates precision about your imprecision — more trustworthy than a false-precision single number."
+      },
+      {
+        "name": "hedged performative",
+        "definition": "Softening the speech act itself rather than the proposition.",
+        "cues": [
+          "I would suggest",
+          "we might propose",
+          "one could argue",
+          "let me venture"
+        ],
+        "example": "I would suggest a simpler reading.",
+        "effect": "Politeness marker; lowers the social cost of disagreement.",
+        "caution": "In a book-length argument it reads as apologizing for having a thesis."
+      },
+      {
+        "name": "self-limiting knowledge claim",
+        "definition": "An explicit statement of the boundary of the writer's own knowledge.",
+        "cues": [
+          "to my knowledge",
+          "as far as I can tell",
+          "I have found no evidence that"
+        ],
+        "example": "As far as I can tell, no one has looked at the second set of ledgers.",
+        "effect": "Converts an absence of evidence into a checkable statement about the search rather than the world."
+      },
+      {
+        "name": "hypothetical framing",
+        "definition": "Using irrealis mood or counterfactual grammar to entertain a claim without asserting it.",
+        "cues": [
+          "were it the case",
+          "suppose that",
+          "on this reading",
+          "imagine"
+        ],
+        "example": "Suppose the second signature was forged.",
+        "effect": "Lets an argument run a scenario at full strength without adopting it."
+      },
+      {
+        "name": "scare quotes",
+        "definition": "Quotation marks used to distance the writer from a term's aptness rather than to quote a source.",
+        "example": "the department's 'review' of its own conduct",
+        "effect": "Registers skepticism in one keystroke.",
+        "caution": "Cheap and unfalsifiable — it sneers without arguing. Once per chapter, and only where the objection is obvious."
+      },
+      {
+        "name": "epistemic adjective",
+        "definition": "An adjective encoding likelihood or uncertain status.",
+        "cues": [
+          "likely",
+          "probable",
+          "apparent",
+          "putative",
+          "alleged",
+          "possible"
+        ],
+        "example": "the putative author of the memo",
+        "effect": "Hedges inside a noun phrase, where a modal cannot reach."
+      },
+      {
+        "name": "compound hedge",
+        "definition": "Two or more hedges stacked on the same proposition.",
+        "example": "It may perhaps be somewhat possible that the delay was a factor.",
+        "effect": "Each hedge multiplies the uncertainty until nothing is claimed.",
+        "caution": "A defining feature of unconfident draft prose. Keep the one hedge that carries real doubt and cut the rest."
+      },
+      {
+        "name": "hedge inflation",
+        "definition": "Sustained high hedge density across a text, independent of any actual uncertainty.",
+        "polarity": "fault",
+        "example": "A chapter where nearly every claim carries a modal or a downtoner.",
+        "effect": "Readers stop reading the hedges as information and start reading them as timidity; genuine uncertainty then goes unnoticed.",
+        "caution": "Measurable per thousand words; hedge density is the core number in a register report."
+      }
+    ],
+    "boosters": [
+      {
+        "name": "certainty adverb",
+        "definition": "A sentence adverb asserting that the claim is beyond reasonable doubt.",
+        "cues": [
+          "clearly",
+          "obviously",
+          "undoubtedly",
+          "certainly",
+          "plainly",
+          "evidently",
+          "of course"
+        ],
+        "example": "The transfer was clearly timed to the announcement.",
+        "effect": "Raises commitment and closes the question.",
+        "caution": "Clearly and obviously most often appear where the argument is weakest — they ask the reader to agree instead of showing why."
+      },
+      {
+        "name": "factive verb",
+        "definition": "A reporting verb that presupposes the truth of what follows.",
+        "cues": [
+          "show",
+          "demonstrate",
+          "establish",
+          "prove",
+          "reveal",
+          "confirm",
+          "find"
+        ],
+        "example": "The audit established that the funds had moved twice.",
+        "effect": "Commits the writer fully; the strongest ordinary way to endorse a finding.",
+        "caution": "Using a factive verb for a contested claim is an unearned booster a careful reader will catch."
+      },
+      {
+        "name": "amplifier",
+        "definition": "An adverb intensifying a gradable adjective or verb.",
+        "cues": [
+          "very",
+          "highly",
+          "deeply",
+          "profoundly",
+          "greatly",
+          "strongly",
+          "seriously"
+        ],
+        "example": "a deeply unpopular decision",
+        "effect": "Raises intensity without adding information.",
+        "caution": "Usually the sign that the adjective is too weak. Replace very tired with exhausted, not with very very tired."
+      },
+      {
+        "name": "maximizer",
+        "definition": "An adverb asserting the top of a scale.",
+        "cues": [
+          "completely",
+          "entirely",
+          "utterly",
+          "totally",
+          "absolutely",
+          "wholly"
+        ],
+        "example": "an entirely predictable failure",
+        "effect": "Removes any remaining degree; rhetorically forceful and easy to disprove with one counterexample."
+      },
+      {
+        "name": "universal quantifier",
+        "definition": "A quantifier claiming that a proposition holds without exception.",
+        "cues": [
+          "all",
+          "every",
+          "always",
+          "never",
+          "none",
+          "no one"
+        ],
+        "example": "No one at the firm asked where the money came from.",
+        "effect": "The strongest claim available in ordinary language and therefore the easiest to falsify.",
+        "caution": "Every universal in a nonfiction manuscript is a hostage. Check that you can defend each one."
+      },
+      {
+        "name": "emphatic do",
+        "definition": "The auxiliary do inserted into an affirmative clause for emphasis.",
+        "example": "He did read the memo. He read it twice.",
+        "effect": "Contradicts an expectation the reader is presumed to hold; carries a whole implied argument in one word."
+      },
+      {
+        "name": "assumed-consensus booster",
+        "definition": "A phrase asserting that agreement already exists.",
+        "cues": [
+          "of course",
+          "needless to say",
+          "as everyone knows",
+          "it goes without saying",
+          "famously"
+        ],
+        "example": "It goes without saying that the deadline was arbitrary.",
+        "effect": "Makes disagreement socially costly rather than argumentatively costly.",
+        "caution": "If it goes without saying, cut it. If it does not, prove it."
+      },
+      {
+        "name": "factive framing",
+        "definition": "A frame presenting the following clause as established reality.",
+        "cues": [
+          "the fact that",
+          "the reality is",
+          "in truth",
+          "make no mistake"
+        ],
+        "example": "The reality is that no one was going to read the report.",
+        "effect": "Smuggles a contested claim in as a premise.",
+        "caution": "The fact that is also a wordiness marker; nine times in ten the sentence is stronger without the frame."
+      },
+      {
+        "name": "concessive booster",
+        "definition": "A connective that raises commitment by contrast with an expected weaker reading.",
+        "cues": [
+          "indeed",
+          "in fact",
+          "far from it",
+          "if anything",
+          "still less"
+        ],
+        "example": "The system was not merely slow; indeed, it had stopped."
+      },
+      {
+        "name": "superlative",
+        "definition": "A claim to the top of a comparison class.",
+        "cues": [
+          "the largest",
+          "the first",
+          "the only",
+          "unprecedented",
+          "the worst"
+        ],
+        "example": "the largest single transfer in the account's history",
+        "effect": "Newsworthy by construction, which is why superlatives attract fact-checkers.",
+        "caution": "Every superlative requires a stated comparison class or it is decoration."
+      },
+      {
+        "name": "absolute adjective",
+        "definition": "An adjective that admits no degrees but is frequently used as though it did.",
+        "cues": [
+          "unique",
+          "definitive",
+          "unprecedented",
+          "total",
+          "final"
+        ],
+        "example": "a unique arrangement",
+        "effect": "Strong when accurate; when hedged (rather unique) it announces that the writer did not mean it."
+      },
+      {
+        "name": "typographic emphasis",
+        "definition": "Italics, bold, or capitals used to boost a word beyond what the syntax gives it.",
+        "example": "He said he would handle it.",
+        "effect": "Forces stress and therefore emphasis.",
+        "caution": "Print convention allows very little of this; more than a few per chapter reads as shouting or as unrewritten drafting."
+      },
+      {
+        "name": "repetition booster",
+        "definition": "Repeating a word or clause so that the repetition itself asserts importance.",
+        "example": "It was late. Late by a year, late by two budgets, late by the time anyone noticed.",
+        "effect": "Emphasis without any intensifier; the strongest booster that adds rather than inflates."
+      },
+      {
+        "name": "precision booster",
+        "definition": "Replacing an intensifier with an exact figure or detail.",
+        "example": "Not: an enormous backlog. But: 41,000 unread claims.",
+        "effect": "The number does the work the adjective was trying to do, and it can be checked.",
+        "caution": "Requires you actually to have the number; false precision is worse than the adjective."
+      },
+      {
+        "name": "litotes",
+        "definition": "Affirmation by denial of the contrary — understatement that reads as strong assertion.",
+        "cues": [
+          "not unimportant",
+          "no small matter",
+          "hardly a triumph",
+          "not exactly cheap"
+        ],
+        "example": "It was no small sum.",
+        "effect": "Dry emphasis; carries a raised eyebrow the plain assertion lacks.",
+        "caution": "A signature of British register and of academic irony; overuse produces prose that never says anything straight."
+      },
+      {
+        "name": "expletive intensifier",
+        "definition": "Profanity or taboo language used purely as an intensifier.",
+        "example": "reported speech where the intensifier is the point",
+        "effect": "Marks heat and register simultaneously.",
+        "caution": "Sets the book's register permanently at the first occurrence; decide in the style sheet, not mid-draft."
+      },
+      {
+        "name": "flat assertion",
+        "definition": "The unhedged, unboosted declarative — the strongest position available because it does not argue about its own strength.",
+        "example": "The money was gone.",
+        "effect": "Maximum authority at minimum cost; boosters weaken it by suggesting it needed help.",
+        "caution": "Only usable where the evidence is already on the page."
+      },
+      {
+        "name": "booster inflation",
+        "definition": "Sustained high booster density, so that ordinary claims arrive at maximum volume.",
+        "polarity": "fault",
+        "example": "A chapter in which nearly every finding is critical, essential, or profound.",
+        "effect": "The reader recalibrates downward, and the genuinely important claim now reads as routine.",
+        "caution": "Trackable per thousand words alongside hedge density; the two together profile a text's stance."
+      }
+    ],
+    "attitude_markers": [
+      {
+        "name": "evaluative sentence adverb",
+        "definition": "An adverb expressing the writer's affective response to the whole proposition.",
+        "cues": [
+          "unfortunately",
+          "regrettably",
+          "remarkably",
+          "curiously",
+          "surprisingly",
+          "predictably",
+          "mercifully"
+        ],
+        "example": "Predictably, the review found nothing.",
+        "effect": "Tells the reader how to feel about a fact before they have finished reading it.",
+        "caution": "One per paragraph is a voice; three is editorializing that the evidence has not earned."
+      },
+      {
+        "name": "importance marker",
+        "definition": "A marker asserting that an item deserves attention.",
+        "cues": [
+          "importantly",
+          "crucially",
+          "notably",
+          "significantly",
+          "tellingly",
+          "above all"
+        ],
+        "example": "Crucially, the second memo was never circulated.",
+        "effect": "Directs attention and ranks evidence.",
+        "caution": "If everything is crucial, the marker is noise. Use it to break a tie, not to open a paragraph."
+      },
+      {
+        "name": "affective adjective",
+        "definition": "An adjective carrying the writer's evaluation rather than a property of the thing.",
+        "cues": [
+          "striking",
+          "alarming",
+          "admirable",
+          "dismal",
+          "extraordinary",
+          "shocking"
+        ],
+        "example": "an alarming gap in the record",
+        "effect": "Fastest route to stance; also the fastest route to telling instead of showing.",
+        "caution": "If the fact is alarming, the reader will supply the adjective; supplying it yourself invites resistance."
+      },
+      {
+        "name": "deontic modal",
+        "definition": "A modal expressing obligation, necessity, or desirability rather than probability.",
+        "cues": [
+          "should",
+          "must",
+          "ought to",
+          "need to",
+          "has to"
+        ],
+        "example": "The rule should never have applied to volunteers.",
+        "effect": "Moves from describing to prescribing, and commits the writer to a normative position."
+      },
+      {
+        "name": "scalar even",
+        "definition": "The particle even, marking an item as unexpected at the far end of a scale.",
+        "example": "Even the auditors did not have access.",
+        "effect": "Encodes a whole implicit ranking in three letters; the reader infers everyone else lacked access too."
+      },
+      {
+        "name": "limiting particle",
+        "definition": "A particle marking an item as less than expected.",
+        "cues": [
+          "only",
+          "just",
+          "merely",
+          "barely",
+          "no more than"
+        ],
+        "example": "The fine came to just eight thousand dollars.",
+        "effect": "Evaluates by scale rather than by adjective.",
+        "caution": "Placement changes the meaning; only migrates in drafts and lands on the wrong constituent."
+      },
+      {
+        "name": "evaluative noun",
+        "definition": "A noun whose choice performs a judgment on the event it names.",
+        "cues": [
+          "blunder",
+          "triumph",
+          "farce",
+          "fiasco",
+          "achievement",
+          "scandal",
+          "misstep"
+        ],
+        "example": "the scheduling fiasco",
+        "effect": "Buries the verdict inside the reference, where it is harder to dispute than a stated claim.",
+        "caution": "In reported nonfiction this is the main place bias enters unnoticed."
+      },
+      {
+        "name": "skeptical reporting verb",
+        "definition": "A reporting verb that signals doubt about the reported claim.",
+        "cues": [
+          "claim",
+          "allege",
+          "insist",
+          "maintain",
+          "assert",
+          "purport"
+        ],
+        "example": "The company claims the data was anonymized.",
+        "effect": "Distances without stating disagreement.",
+        "caution": "Claim and said are not interchangeable; a fact-checker will read your reporting verbs as your position."
+      },
+      {
+        "name": "endorsing reporting verb",
+        "definition": "A reporting verb that signals agreement with the reported claim.",
+        "cues": [
+          "note",
+          "observe",
+          "point out",
+          "show",
+          "recognize",
+          "explain"
+        ],
+        "example": "As the inspector points out, the dates do not line up.",
+        "effect": "Aligns the writer with the source; point out in particular presupposes the point is correct."
+      },
+      {
+        "name": "irony marker",
+        "definition": "A word or device flagging that the label is being used at arm's length.",
+        "cues": [
+          "so-called",
+          "supposedly",
+          "purportedly",
+          "what passed for",
+          "in the current parlance"
+        ],
+        "example": "the so-called independent review",
+        "effect": "Conveys judgment in a modifier.",
+        "caution": "Sarcasm in nonfiction ages badly and costs credibility faster than it buys agreement."
+      },
+      {
+        "name": "emphatic negation",
+        "definition": "Negative adverbs and quantifiers that carry attitude as well as denial.",
+        "cues": [
+          "hardly",
+          "scarcely",
+          "by no means",
+          "nothing of the kind",
+          "far from"
+        ],
+        "example": "The response was hardly overwhelming.",
+        "effect": "Denies and evaluates at once; typically dry rather than heated."
+      },
+      {
+        "name": "value-laden comparative",
+        "definition": "A comparative that ranks and judges in the same phrase.",
+        "cues": [
+          "worse still",
+          "better yet",
+          "more troubling",
+          "if that were not enough"
+        ],
+        "example": "Worse still, the backups had been deleted.",
+        "effect": "Chains evaluations into an escalating series.",
+        "caution": "The classic transition of outrage writing; it can carry a paragraph past the evidence."
+      },
+      {
+        "name": "understatement",
+        "definition": "Deliberately describing something as smaller or milder than it is, leaving the reader to correct upward.",
+        "example": "Losing the only copy was inconvenient.",
+        "effect": "Trusts the reader, which flatters them; the resulting judgment feels like theirs."
+      },
+      {
+        "name": "exclamatory attitude",
+        "definition": "Syntax or punctuation carrying evaluation directly — exclamations, inversions, interjections.",
+        "example": "What a way to run an audit.",
+        "effect": "Voice at full volume; rare in expository prose and conspicuous when it appears.",
+        "caution": "One per book, at most, in serious nonfiction."
+      },
+      {
+        "name": "attitude leakage",
+        "definition": "Evaluative language arriving before the evidence that would justify it.",
+        "polarity": "fault",
+        "example": "Calling a decision indefensible in the sentence that first describes it.",
+        "effect": "Readers who have not yet seen the facts feel managed and start resisting.",
+        "caution": "Order matters more than intensity: earn the adjective, then use it, or let the facts stand and skip it."
+      }
+    ],
+    "engagement_markers": [
+      {
+        "name": "reader pronoun",
+        "definition": "Direct second-person address to the reader.",
+        "cues": [
+          "you",
+          "your",
+          "you might",
+          "if you have ever"
+        ],
+        "example": "You have signed one of these without reading it.",
+        "effect": "Collapses distance and implicates the reader in the subject.",
+        "caution": "Register-defining. Once you address the reader in chapter one, you cannot stop in chapter six."
+      },
+      {
+        "name": "inclusive we",
+        "definition": "First-person plural including the reader in the writer's reasoning.",
+        "cues": [
+          "we",
+          "us",
+          "our",
+          "let us"
+        ],
+        "example": "We have been assuming the timestamps are reliable.",
+        "effect": "Makes an argument feel jointly conducted rather than delivered.",
+        "caution": "Presumptuous when the we asserts shared values rather than shared reasoning."
+      },
+      {
+        "name": "directive",
+        "definition": "An imperative telling the reader to perform a cognitive act.",
+        "cues": [
+          "consider",
+          "note",
+          "observe",
+          "suppose",
+          "recall",
+          "compare",
+          "imagine"
+        ],
+        "example": "Consider what the timeline requires.",
+        "effect": "The most common engagement move in academic and expository prose; steers attention without addressing the reader personally."
+      },
+      {
+        "name": "physical-act directive",
+        "definition": "An imperative asking the reader to do something outside the text.",
+        "cues": [
+          "see",
+          "look at",
+          "try",
+          "check"
+        ],
+        "example": "Look at the second column of the table.",
+        "effect": "Points at evidence; in a book, mostly directs the eye to a figure or an appendix."
+      },
+      {
+        "name": "rhetorical question",
+        "definition": "A question posed for effect rather than to elicit an answer.",
+        "example": "Who was supposed to be watching?",
+        "effect": "Enlists the reader in reaching a conclusion they now feel they reached themselves.",
+        "caution": "A question the next sentence immediately answers is filler. It also stacks: three in a paragraph and the prose reads as a sermon."
+      },
+      {
+        "name": "shared-knowledge appeal",
+        "definition": "An assertion that a piece of knowledge is already common between writer and reader.",
+        "cues": [
+          "as we know",
+          "the familiar case of",
+          "everyone remembers",
+          "obviously"
+        ],
+        "example": "The familiar version of the story ends there.",
+        "effect": "Builds an in-group; also excludes the reader who does not know.",
+        "caution": "Every shared-knowledge appeal is a bet about your audience. Wrong bets read as condescension."
+      },
+      {
+        "name": "hypothetical second person",
+        "definition": "Putting the reader inside a scenario as its agent.",
+        "example": "Imagine you are the clerk who takes the call.",
+        "effect": "Converts an abstract problem into a decision the reader has to make; the most efficient empathy device in expository prose."
+      },
+      {
+        "name": "aside to the reader",
+        "definition": "A brief break from the argument to speak to the reader directly about the text itself.",
+        "example": "This is the part I got wrong in the first edition.",
+        "effect": "Reveals the writer as a person and resets attention.",
+        "caution": "Only works if the persona is already established; otherwise it reads as intrusion."
+      },
+      {
+        "name": "anticipated objection",
+        "definition": "Voicing the reader's likely counter before making the next move.",
+        "cues": [
+          "you might think",
+          "one could object",
+          "the obvious reply is",
+          "it is tempting to say"
+        ],
+        "example": "You might think the dates settle it. They do not.",
+        "effect": "Shows the writer has heard the objection, which buys the credit needed to answer it."
+      },
+      {
+        "name": "hortative",
+        "definition": "A first-person plural invitation to act or proceed together.",
+        "cues": [
+          "let us",
+          "let me",
+          "suppose we"
+        ],
+        "example": "Let me take the weaker version of the claim first.",
+        "effect": "Signposts a move and frames it as a shared decision.",
+        "caution": "Very high register; in casual voices let us reads as a lecture hall."
+      },
+      {
+        "name": "reader-role address",
+        "definition": "Naming the reader's presumed role and speaking to it.",
+        "example": "If you run a small nonprofit, this is where the exposure begins.",
+        "effect": "Segments the audience and raises stakes for the segment addressed."
+      },
+      {
+        "name": "appeal to reader experience",
+        "definition": "Invoking an experience the reader is presumed to have had.",
+        "cues": [
+          "anyone who has ever",
+          "if you have sat through",
+          "we have all"
+        ],
+        "example": "Anyone who has ever waited on hold with a state agency knows the sound.",
+        "effect": "Grounds an abstraction in a memory the reader supplies themselves.",
+        "caution": "The presumed experience is class-marked more often than writers notice."
+      },
+      {
+        "name": "permission to skip",
+        "definition": "Explicitly telling the reader that a passage can be skipped or is for specialists.",
+        "example": "Readers who know the statute can skip to the next section.",
+        "effect": "Respects the reader's time and lets a book serve two audiences at once."
+      },
+      {
+        "name": "code gloss",
+        "definition": "An in-line restatement or definition supplied so the reader can decode a term.",
+        "cues": [
+          "that is",
+          "in other words",
+          "i.e.",
+          "namely",
+          "what this means is",
+          "put differently"
+        ],
+        "example": "The account was in escrow — that is, no one could touch it without both signatures.",
+        "effect": "The main device for using a technical term once and keeping the general reader.",
+        "caution": "Glossing something the reader already understands is condescension; glossing twice is worse."
+      },
+      {
+        "name": "endophoric directive",
+        "definition": "A pointer to another part of the same text.",
+        "cues": [
+          "see chapter 4",
+          "as noted above",
+          "returning to the example in",
+          "below"
+        ],
+        "example": "The second problem, described in chapter 4, is worse.",
+        "effect": "Builds the text into a navigable object rather than a stream.",
+        "caution": "Cross-references are a maintenance liability — every one must survive reordering."
+      }
+    ],
+    "self_mention_and_stance": [
+      {
+        "name": "authorial I",
+        "definition": "First-person singular self-reference by the writer.",
+        "example": "I read the file twice before I believed the dates.",
+        "effect": "Puts a person behind the judgment; in reported nonfiction it also discloses method.",
+        "caution": "Register-defining and hard to reverse; decide before drafting whether the book has an I."
+      },
+      {
+        "name": "editorial we",
+        "definition": "First-person plural standing for a single author or an institutional voice.",
+        "example": "We turn now to the second objection.",
+        "effect": "Formal and impersonal; conventional in scholarly writing and stiff outside it.",
+        "caution": "Easily confused with inclusive we, which invites the reader in rather than standing in for the author."
+      },
+      {
+        "name": "exclusive we",
+        "definition": "First-person plural referring to the writer's team or institution, not the reader.",
+        "example": "We reviewed 14,000 filings for this chapter.",
+        "effect": "Reports collective work and establishes the evidentiary base."
+      },
+      {
+        "name": "impersonal self-reference",
+        "definition": "Referring to oneself in the third person or as the text.",
+        "cues": [
+          "the present author",
+          "this chapter argues",
+          "the study finds"
+        ],
+        "example": "This chapter argues the opposite.",
+        "effect": "Maximum distance; the text rather than the person carries the claim.",
+        "caution": "Chapters do not argue and studies do not find; sustained use makes prose agentless in a way readers feel as evasion."
+      },
+      {
+        "name": "announcement of purpose",
+        "definition": "Explicitly stating what the writer will do next or in the work as a whole.",
+        "cues": [
+          "I will argue",
+          "my aim here is",
+          "this book is about"
+        ],
+        "example": "I will argue that the delay was the policy, not a failure of it.",
+        "effect": "Contracts with the reader; makes the book auditable against its own promise."
+      },
+      {
+        "name": "positionality statement",
+        "definition": "Disclosing the writer's stake, standpoint, or conflict of interest.",
+        "example": "I worked for one of the firms in chapter six; that chapter names it.",
+        "effect": "Converts a discoverable bias into a credential for candor.",
+        "caution": "A disclosure is not a defense; it does not license the bias it names."
+      },
+      {
+        "name": "self-deprecation",
+        "definition": "Undercutting one's own authority or performance in passing.",
+        "example": "It took me four years to notice what a paralegal saw in an afternoon.",
+        "effect": "Lowers the reader's defenses and makes subsequent confident claims easier to accept.",
+        "caution": "In excess it becomes a bid for reassurance and undermines the argument for real."
+      },
+      {
+        "name": "self-citation",
+        "definition": "Reference to the writer's own prior work.",
+        "example": "I set out the earlier version of this argument in a 2019 paper.",
+        "effect": "Establishes track record and points readers to the fuller treatment.",
+        "caution": "A visible ratio; more than a handful in a trade book reads as self-promotion."
+      },
+      {
+        "name": "narrating I",
+        "definition": "The first person used as a character moving through the reported world, not as the arguer.",
+        "example": "The clerk slid the folder across the counter and asked if I was family.",
+        "effect": "The immersive first person of literary journalism; carries scene rather than stance.",
+        "caution": "Distinct from the authorial I, and mixing the two without signal confuses who is speaking."
+      }
+    ],
+    "precision_moves": [
+      {
+        "name": "exact figure",
+        "definition": "Giving the specific number instead of a quantity word.",
+        "example": "Not: a huge backlog. But: 41,388 unprocessed claims.",
+        "effect": "A number is checkable, memorable, and does the emphatic work of an adjective without asking for trust.",
+        "caution": "Only when you have it, and only at the precision your source supports."
+      },
+      {
+        "name": "order-of-magnitude anchor",
+        "definition": "Translating a number into a unit the reader's body already knows.",
+        "example": "enough paper to fill a shipping container; a delay longer than the war it was funding",
+        "effect": "Converts an unfelt magnitude into a felt one; the standard move for numbers above human scale.",
+        "caution": "The anchor must be accurate and familiar, or it teaches the wrong size."
+      },
+      {
+        "name": "proper noun",
+        "definition": "Naming the specific person, place, company, or document rather than the category.",
+        "example": "Not: a federal agency. But: the Bureau of Prisons.",
+        "effect": "Every proper noun is an implicit claim that the writer did the work; generic nouns imply the opposite."
+      },
+      {
+        "name": "brand and model",
+        "definition": "Naming the specific make of an object where the category would do.",
+        "example": "not a station wagon but a rust-sided Country Squire",
+        "effect": "Places the scene in a class, a decade, and a price bracket in three words.",
+        "caution": "Brand detail dates a text deliberately; make sure that is what you want."
+      },
+      {
+        "name": "basic-level term",
+        "definition": "Choosing the middle rung of the taxonomy — the level at which people naturally name things.",
+        "example": "chair rather than furniture or Barcelona chair",
+        "effect": "The fastest-processed and most imageable level; the right default unless expertise or precision demands otherwise."
+      },
+      {
+        "name": "subordinate-level term",
+        "definition": "Dropping below the basic level to the specific kind.",
+        "example": "elm rather than tree; sedge rather than grass",
+        "effect": "Signals a narrator who knows the world they are describing, which buys credit for everything else.",
+        "caution": "Unglossed specialist nouns exclude; one per paragraph is texture, five is a field guide."
+      },
+      {
+        "name": "term of art",
+        "definition": "Deploying a discipline's defined term where the loose word would blur a real distinction.",
+        "example": "consideration in contract law; standing in litigation; significance in statistics",
+        "effect": "Buys precision and signals competence; each one should be introduced once and then used consistently.",
+        "caution": "The trap is terms that look ordinary — readers will apply the everyday sense unless you say otherwise."
+      },
+      {
+        "name": "unit of measure",
+        "definition": "Attaching an explicit unit to a quantity.",
+        "example": "not high dosage but 400 milligrams a day for eleven months",
+        "effect": "Makes a claim comparable and falsifiable; unitless quantities cannot be argued with or checked."
+      },
+      {
+        "name": "precise date",
+        "definition": "Giving the day rather than the period.",
+        "example": "Not: in the early nineties. But: on 6 March 1992.",
+        "effect": "Dates create sequence, and sequence is where causal arguments live.",
+        "caution": "Precision implies a source. A dated claim invites a footnote."
+      },
+      {
+        "name": "price",
+        "definition": "Attaching the cost, in the currency and terms of the time, and adjusting where comparison matters.",
+        "example": "$4,800 — about $11,000 today",
+        "effect": "Money is the most universally legible measure of scale a reader has."
+      },
+      {
+        "name": "in-line source naming",
+        "definition": "Naming the source inside the sentence rather than only in a note.",
+        "example": "The inspector general's 2019 report put the figure at eleven.",
+        "effect": "Lets the reader weigh the evidence as they read it instead of deferring to a note they will not turn to."
+      },
+      {
+        "name": "telling detail",
+        "definition": "One specific particular chosen so it implies the whole scene or character.",
+        "example": "the receipts still rubber-banded by month",
+        "effect": "Synecdoche as reporting; a single observed detail outperforms a paragraph of summary description.",
+        "caution": "It must be observed, not invented, in nonfiction — and it must actually be typical, or it lies."
+      },
+      {
+        "name": "le mot juste",
+        "definition": "Discriminating among near-synonyms for the one that carries the exact sense, connotation, and register.",
+        "example": "reluctant, unwilling, hesitant, loath — four different states",
+        "effect": "The difference between a sentence that means something and a sentence that gestures at a meaning.",
+        "caution": "Discriminating is not the same as reaching for the rarer word; the exact word is often the plain one."
+      },
+      {
+        "name": "calibrated qualifier",
+        "definition": "Choosing a qualifier that matches the actual strength of the evidence.",
+        "example": "consistent with, rather than proves; suggests, rather than shows",
+        "effect": "Precision about confidence is a form of precision; readers who catch one overclaim discount everything after it."
+      },
+      {
+        "name": "operational definition",
+        "definition": "Defining a term by the procedure used to measure or identify it.",
+        "example": "By delay I mean any interval longer than the statutory thirty days, counted from the filing stamp.",
+        "effect": "Turns an arguable word into a countable one and forecloses definitional disputes."
+      },
+      {
+        "name": "stipulative definition",
+        "definition": "Declaring how a term will be used in this text, without claiming that is its general meaning.",
+        "example": "I use failure here in the narrow sense of a missed contractual deadline.",
+        "effect": "Buys a shorthand for the rest of the book at the cost of one sentence.",
+        "caution": "Stipulating a sense that conflicts with common usage guarantees readers will drift back to their own."
+      },
+      {
+        "name": "definition by negation",
+        "definition": "Fixing a term's boundary by saying what it excludes.",
+        "example": "This is not a story about fraud. Nobody stole anything.",
+        "effect": "Clears away the reading the reader was about to default to; especially useful for loaded subjects."
+      },
+      {
+        "name": "sensory particular",
+        "definition": "Naming a specific perceptible property — color, sound, texture, smell — rather than a general one.",
+        "example": "not old paper but paper gone the color of weak tea",
+        "effect": "Concrete sensory nouns and adjectives are the raw material of imageability.",
+        "caution": "One sense per sentence; stacked sensory detail reads as inventory."
+      },
+      {
+        "name": "false precision",
+        "definition": "Reporting more decimal places, or a narrower figure, than the evidence supports.",
+        "polarity": "fault",
+        "example": "a 37.4 percent increase derived from two rounded inputs",
+        "effect": "Looks rigorous and is not; a numerate reader who catches it discounts the whole chapter.",
+        "caution": "Round to the precision of your least precise input, and say where the number came from."
+      }
+    ],
+    "verb_strength_moves": [
+      {
+        "name": "strong verb over verb plus adverb",
+        "definition": "Replacing a weak verb modified by an adverb with a single verb that contains the manner.",
+        "example": "walked slowly and heavily becomes trudged; said loudly becomes shouted",
+        "effect": "One word instead of two, and the manner becomes part of the action instead of a comment on it.",
+        "caution": "Not a blanket rule — sometimes the adverb carries information the verb cannot, and hunting -ly words mechanically damages good sentences."
+      },
+      {
+        "name": "light verb unpacking",
+        "definition": "Collapsing a light verb plus nominalization into the verb hiding inside it.",
+        "example": "make a decision becomes decide; conduct an investigation becomes investigate; provide assistance becomes help",
+        "effect": "Cuts two or three words and restores the action to the verb slot, where readers look for it."
+      },
+      {
+        "name": "buried verb recovery",
+        "definition": "Finding the action that has been turned into an abstract noun and making it the sentence's verb again.",
+        "example": "The implementation of the reduction was undertaken becomes They cut it.",
+        "effect": "The single highest-yield revision move in institutional prose; usually restores the missing agent at the same time."
+      },
+      {
+        "name": "denominal verb",
+        "definition": "Using a noun as a verb.",
+        "example": "to shoulder, to table, to weather, to landfill",
+        "effect": "Compresses a whole action into a familiar object and gives prose a physical, idiomatic edge.",
+        "caution": "Fresh denominals from corporate register (to action, to solution) read as jargon; the tolerance is a live style dispute."
+      },
+      {
+        "name": "copula reduction",
+        "definition": "Lowering the proportion of sentences whose main verb is a form of to be.",
+        "example": "There was a delay in the shipment becomes The shipment sat in Newark for six weeks.",
+        "effect": "Forces a real predicate; a paragraph with no verbs but is and was reports states and never events.",
+        "caution": "To be is not a defect — identity and definition genuinely need it. The target is the ratio, not the word."
+      },
+      {
+        "name": "expletive excision",
+        "definition": "Removing there is, there are, and it is when they occupy the subject and verb slots without content.",
+        "example": "There are three reasons the audit failed becomes The audit failed for three reasons.",
+        "effect": "Recovers the sentence's real subject and typically saves three words.",
+        "caution": "Existential there is sometimes exactly right — it introduces something into the scene."
+      },
+      {
+        "name": "active over passive",
+        "definition": "Choosing the active voice so the agent occupies the subject position.",
+        "example": "The rule was waived becomes The regional director waived the rule.",
+        "effect": "Restores agency and usually shortens the clause.",
+        "caution": "Passive is right when the agent is unknown, irrelevant, or genuinely less important than the patient. The fault is the agentless passive used to hide someone."
+      },
+      {
+        "name": "agentive subject",
+        "definition": "Making the sentence's grammatical subject the entity that actually acts.",
+        "example": "Not: The policy resulted in delays. But: Clerks stopped processing claims after four.",
+        "effect": "Aligns grammar with causation; abstractions cannot do things, and sentences that say they do obscure who did."
+      },
+      {
+        "name": "specific motion verb",
+        "definition": "Selecting the verb that specifies manner of movement.",
+        "example": "walk / trudge / lope / stride / shuffle / pick his way",
+        "effect": "Carries characterization, terrain, and emotional state in the predicate rather than in description around it."
+      },
+      {
+        "name": "precise perception verb",
+        "definition": "Choosing among the fine-grained verbs of looking, hearing, and touching.",
+        "example": "glance, stare, glimpse, scan, study, watch",
+        "effect": "Duration and intention are built into the verb; watched for an hour and glimpsed are different events, not different intensities."
+      },
+      {
+        "name": "filter verb removal",
+        "definition": "Cutting the perception verb that stands between the reader and the perceived thing.",
+        "example": "She saw the door standing open becomes The door stood open.",
+        "effect": "Removes a layer of mediation and moves the reader from watching a character perceive to perceiving directly.",
+        "caution": "Keep the filter when whose perception it is matters, or when unreliability is the point."
+      },
+      {
+        "name": "transitive strengthening",
+        "definition": "Giving a verb a direct object so the action lands on something.",
+        "example": "The company reorganized becomes The company cut the claims unit to nine people.",
+        "effect": "Makes consequence visible; intransitive verbs let events happen to no one."
+      },
+      {
+        "name": "speech verb selection",
+        "definition": "Choosing among said and its alternatives on purpose.",
+        "example": "said, asked, told, admitted, conceded, insisted",
+        "effect": "Said is invisible and neutral; anything else is a claim about the speaker's state or the truth of what they say.",
+        "caution": "Substituting synonyms for said to avoid repetition is elegant variation in its purest form; readers notice quipped and stop reading the dialogue."
+      },
+      {
+        "name": "aspect choice",
+        "definition": "Using progressive, perfect, or simple aspect to shape how an event sits in time.",
+        "example": "He signed / He was signing / He had signed",
+        "effect": "Simple aspect gives discrete events, progressive gives duration and interruptibility, perfect gives consequence in the present."
+      },
+      {
+        "name": "historical present",
+        "definition": "Narrating past events in the present tense.",
+        "example": "He walks into the office and the file is already gone.",
+        "effect": "Immediacy and suspense; the outcome feels undecided.",
+        "caution": "Exhausting over a long stretch, and awkward to escape — switching back mid-chapter is jarring."
+      },
+      {
+        "name": "imperative attack",
+        "definition": "Opening a sentence with a verb in the imperative, putting the stress on the first syllable.",
+        "example": "Count the signatures.",
+        "effect": "Fastest possible sentence start; no subject to wade through before the action."
+      },
+      {
+        "name": "modal stripping",
+        "definition": "Removing hedging auxiliaries that add no meaning to the verb.",
+        "example": "would tend to suggest becomes suggests; can be seen to be becomes is",
+        "effect": "Recovers directness; the surviving modals then carry real epistemic weight."
+      },
+      {
+        "name": "metaphor-carrying verb",
+        "definition": "Locating the figure in the verb rather than in an adjective or a simile.",
+        "example": "The deadline crept, then bolted.",
+        "effect": "The most economical form of metaphor; no comparison has to be announced.",
+        "caution": "Two verb-metaphors from different domains in one sentence is a mixed metaphor even when no noun is involved."
+      },
+      {
+        "name": "verb-first inversion",
+        "definition": "Fronting the verb or its particle ahead of the subject for rhythm and emphasis.",
+        "example": "Gone were the paper files. Out came the second ledger.",
+        "effect": "Marked and slightly archaic; strong once, mannered twice."
+      }
+    ],
+    "naming_strategies": [
+      {
+        "name": "specific naming",
+        "definition": "Referring to a thing by its own name rather than by a category label.",
+        "example": "the Ely Street depot, not the facility",
+        "effect": "The reader can hold a named thing in memory across a chapter; a category label evaporates."
+      },
+      {
+        "name": "coinage",
+        "definition": "Inventing a term for a concept the language does not have a word for.",
+        "example": "Naming a recurring pattern so the rest of the book can refer to it in two words.",
+        "effect": "A well-made coinage is the most durable thing a nonfiction book can leave behind.",
+        "caution": "It must name something real that recurs, be pronounceable, and be defined once and used consistently. Coinages for things that already have names are vanity."
+      },
+      {
+        "name": "capitalized concept",
+        "definition": "Capitalizing an ordinary noun to mark it as the book's technical term.",
+        "example": "the Ratchet; the Slow Line",
+        "effect": "Flags a defined sense without inventing a word.",
+        "caution": "Reads as portentous quickly; more than two capitalized concepts in a book and the reader stops tracking them."
+      },
+      {
+        "name": "acronym management",
+        "definition": "Spelling out an initialism at first use and then using it consistently — or refusing it and using a plain short form.",
+        "example": "the Office of Special Counsel (OSC) — or, better, the counsel's office throughout",
+        "effect": "Acronyms cost the reader a lookup every time; a plain short form costs nothing.",
+        "caution": "Three or more live acronyms in a chapter exceeds most readers' working memory."
+      },
+      {
+        "name": "eponym",
+        "definition": "Naming a thing after a person associated with it.",
+        "example": "Goodhart's law; the Dunning-Kruger effect; a boycott",
+        "effect": "Attaches a story to a concept, which makes the concept memorable.",
+        "caution": "Eponyms encode credit, and the credit is often historically wrong."
+      },
+      {
+        "name": "name sound symbolism",
+        "definition": "Choosing a name whose phonetics fit the referent's character.",
+        "example": "Dickens's Gradgrind, Pecksniff, Cheeryble",
+        "effect": "Characterizes before any description arrives.",
+        "caution": "Broad in comic registers; in realist fiction the effect must be subtle enough to deny."
+      },
+      {
+        "name": "place-name texture",
+        "definition": "Using real or plausible toponyms with the right regional phonology.",
+        "example": "county names with the right suffixes; streets that sound like the town's founding era",
+        "effect": "Grounds a setting more reliably than description does, because names carry history."
+      },
+      {
+        "name": "epithet",
+        "definition": "A fixed descriptive tag attached to a name and repeated.",
+        "example": "swift-footed Achilles; the auditor with the yellow legal pad",
+        "effect": "Gives a minor figure a handle the reader can retrieve dozens of pages later.",
+        "caution": "Repeating the tag every mention is Homeric; in prose fiction twice is usually enough."
+      },
+      {
+        "name": "sobriquet",
+        "definition": "A nickname used in place of the formal name.",
+        "example": "what the staff called the room, versus what the sign on the door said",
+        "effect": "The gap between official and unofficial names is often the whole story of an institution."
+      },
+      {
+        "name": "first-mention full form",
+        "definition": "Giving the complete name on first appearance and a consistent short form thereafter.",
+        "example": "Deputy Commissioner Elaine Ross, then Ross throughout",
+        "effect": "The convention readers expect; violating it in either direction costs comprehension."
+      },
+      {
+        "name": "deliberate non-name",
+        "definition": "Withholding a name and using a definite description instead.",
+        "example": "the man from the ministry; the company that bought the debt",
+        "effect": "Generalizes, or withholds identity for suspense, or protects a source.",
+        "caution": "In nonfiction an unnamed actor should be unnamed for a stated reason; readers assume the reason is that you do not know."
+      },
+      {
+        "name": "term consistency",
+        "definition": "Using exactly one term for one concept throughout a text.",
+        "example": "Deciding once between claimant, applicant, and beneficiary, and never varying.",
+        "effect": "Readers treat a changed word as a changed thing; consistency is what makes technical prose followable.",
+        "caution": "Directly opposed to elegant variation, and the opposition is real: variety is a virtue in narration and a defect in terminology."
+      },
+      {
+        "name": "style sheet entry",
+        "definition": "Recording each naming decision — spelling, capitalization, short form, gloss — in a running list as the draft proceeds.",
+        "example": "a two-column sheet of terms and the chosen form",
+        "effect": "The only reliable way to keep naming consistent across a book-length manuscript and a copy edit."
+      },
+      {
+        "name": "metonymic naming",
+        "definition": "Referring to an institution or group by an associated place or object.",
+        "example": "Washington, the Street, the bench, City Hall",
+        "effect": "Compact and idiomatic.",
+        "caution": "Also a way to avoid saying who; the metonym has no address and cannot be held responsible."
+      },
+      {
+        "name": "label versus description",
+        "definition": "The choice between attaching a category label to someone and describing what they did.",
+        "example": "a fraudster, versus a man who signed his mother's name to nine checks",
+        "effect": "The label is shorter and does the reader's judging for them; the description is longer and more persuasive.",
+        "caution": "Labels are also legally riskier — description survives a defamation review that a label may not."
+      },
+      {
+        "name": "pseudonymization",
+        "definition": "Replacing a real name with a stated pseudonym or an initial to protect a source.",
+        "example": "I have changed the names of the two clerks; nothing else about them is altered.",
+        "effect": "Preserves the reporting while limiting harm.",
+        "caution": "Disclose the practice explicitly at first use or in a note — undisclosed pseudonyms are a nonfiction integrity failure."
+      }
+    ],
+    "diction_faults": [
+      {
+        "name": "elegant variation",
+        "definition": "Substituting synonyms for a repeated word purely to avoid repeating it (Fowler's term).",
+        "polarity": "fault",
+        "example": "the report... the document... the paper... the aforementioned study",
+        "effect": "Readers assume a new word means a new thing and start looking for the difference.",
+        "caution": "Repeat the plain word. The rule reverses for narration, where a third the man in a paragraph is its own fault; the test is whether the word is a term."
+      },
+      {
+        "name": "thesaurus-itis",
+        "definition": "Reaching for the less common synonym on the assumption that rarer means better.",
+        "polarity": "fault",
+        "example": "utilize, commence, endeavor, cognizant where use, start, try, aware were meant",
+        "effect": "Inflates register, blurs sense, and signals a writer performing rather than communicating.",
+        "caution": "Near-synonyms differ in connotation, collocation, and register; a thesaurus lists none of those."
+      },
+      {
+        "name": "near-miss word",
+        "definition": "A word whose general sense fits but whose specific sense does not.",
+        "polarity": "fault",
+        "example": "refute for dispute; disinterested for uninterested; fulsome for full; enormity for enormousness",
+        "effect": "Readers who know the distinction lose confidence in every other word choice on the page."
+      },
+      {
+        "name": "false friend",
+        "definition": "A word borrowed from another language whose English sense diverges from the source.",
+        "polarity": "fault",
+        "example": "actual (not current); eventual (not possible); sensible (not sensitive)",
+        "effect": "A reliable marker of translated or non-native text; also a hazard when quoting from translation."
+      },
+      {
+        "name": "malapropism",
+        "definition": "Substituting a similar-sounding word for the intended one.",
+        "polarity": "fault",
+        "example": "a pineapple of politeness, for pinnacle",
+        "effect": "Comic when deliberate and characterizing in dialogue; simply an error otherwise."
+      },
+      {
+        "name": "jargon creep",
+        "definition": "Progressive infiltration of a field's shorthand into passages written for a general audience.",
+        "polarity": "fault",
+        "example": "A chapter that opens in plain English and ends in undefined acronyms and terms of art.",
+        "effect": "Readers drop away one term at a time without noticing when they stopped following.",
+        "caution": "Reread a drafted chapter counting undefined specialist terms; the count almost always climbs toward the end."
+      },
+      {
+        "name": "noun string",
+        "definition": "Three or more nouns stacked as modifiers of a final noun.",
+        "polarity": "fault",
+        "example": "quality improvement outcome measurement framework",
+        "effect": "The reader must guess which nouns modify which; grammar gives no help.",
+        "caution": "Unstack with prepositions and verbs: a framework for measuring whether quality improved."
+      },
+      {
+        "name": "abstraction lock",
+        "definition": "Sustaining a passage entirely at the top of the ladder of abstraction, never touching a concrete instance.",
+        "polarity": "fault",
+        "example": "Three paragraphs on institutional accountability mechanisms with no institution, no mechanism, and no person.",
+        "effect": "The reader nods along and retains nothing; the argument becomes unfalsifiable because it never touches a case.",
+        "caution": "Rule of thumb: no more than two consecutive sentences without a concrete noun."
+      },
+      {
+        "name": "of-chain",
+        "definition": "A noun phrase built from a chain of of-prepositions.",
+        "polarity": "fault",
+        "example": "the review of the implementation of the recommendations of the panel",
+        "effect": "Each of forces the reader to hold another relation open; three is the practical limit and two is plenty.",
+        "caution": "Fix by making one of the nouns a verb."
+      },
+      {
+        "name": "wordy connective",
+        "definition": "A multi-word phrase doing the work of a single conjunction or preposition.",
+        "polarity": "fault",
+        "cues": [
+          "due to the fact that",
+          "in the event that",
+          "with regard to",
+          "for the purpose of",
+          "in spite of the fact that"
+        ],
+        "example": "due to the fact that becomes because",
+        "effect": "Pure padding at the joints of the argument, where the reader most needs speed."
+      },
+      {
+        "name": "elongated variant",
+        "definition": "The longer form of a word or phrase used where the short form is exact.",
+        "polarity": "fault",
+        "cues": [
+          "utilize",
+          "prior to",
+          "subsequent to",
+          "in order to",
+          "at this point in time",
+          "methodology (for method)"
+        ],
+        "example": "prior to becomes before",
+        "effect": "Adds syllables and a faint whiff of officialdom without adding meaning.",
+        "caution": "Methodology and utilize do have proper technical senses; the fault is using them as elevated synonyms."
+      },
+      {
+        "name": "circumlocution",
+        "definition": "Taking a phrase to say what a word says.",
+        "polarity": "fault",
+        "example": "individuals of advanced age; at an early juncture; in a situation where funds are limited",
+        "effect": "Distances and dilutes; frequently a symptom of avoiding the blunt word on purpose."
+      },
+      {
+        "name": "pleonasm",
+        "definition": "Using more words than the sense requires, typically a modifier already contained in its head.",
+        "polarity": "fault",
+        "example": "free gift, advance planning, past history, end result, revert back, close proximity",
+        "effect": "Each is invisible individually and cumulatively makes prose feel padded."
+      },
+      {
+        "name": "tautology",
+        "definition": "Restating the same proposition in different words as though it added something.",
+        "polarity": "fault",
+        "example": "The reason it failed is because it did not work.",
+        "effect": "Occupies the space where an explanation should be.",
+        "caution": "Common at the end of hard paragraphs, where a writer restates rather than concludes."
+      },
+      {
+        "name": "redundant category word",
+        "definition": "Naming the category of a word that already implies it.",
+        "polarity": "fault",
+        "example": "red in color, large in size, at the present time, in the field of medicine, a period of two weeks",
+        "effect": "One of the highest-frequency sources of wordiness and one of the easiest to cut mechanically."
+      },
+      {
+        "name": "vague quantifier",
+        "definition": "A quantity word that conveys no quantity.",
+        "polarity": "fault",
+        "cues": [
+          "a number of",
+          "several",
+          "various",
+          "numerous",
+          "many",
+          "a range of"
+        ],
+        "example": "a number of complaints",
+        "effect": "Signals either that the writer does not know the number or that the number is unimpressive.",
+        "caution": "If you have the figure, give it. If you do not, say so."
+      },
+      {
+        "name": "unanchored this",
+        "definition": "A demonstrative pronoun opening a sentence with no clear antecedent.",
+        "polarity": "fault",
+        "example": "This meant the schedule slipped. (This what?)",
+        "effect": "The reader has to reconstruct the referent from the previous sentence, and different readers reconstruct differently.",
+        "caution": "Fix by supplying the noun: This delay meant..."
+      },
+      {
+        "name": "filler adverb",
+        "definition": "Adverbs that occupy a slot without modifying anything.",
+        "polarity": "fault",
+        "cues": [
+          "basically",
+          "actually",
+          "really",
+          "quite",
+          "somewhat",
+          "essentially",
+          "literally",
+          "very"
+        ],
+        "example": "It was actually quite basically a failure.",
+        "effect": "Reads as spoken hesitation transcribed; each one dilutes the word it precedes."
+      },
+      {
+        "name": "adverb dependence",
+        "definition": "Relying on adverbs to supply intensity or manner that the verb and the evidence should carry.",
+        "polarity": "fault",
+        "example": "moved quickly, said angrily, dramatically increased",
+        "effect": "The adverb tells the reader what to conclude instead of giving them the grounds.",
+        "caution": "Not a ban — the fault is the pattern, not the part of speech. Count the -ly words per page before deciding."
+      },
+      {
+        "name": "adjective stacking",
+        "definition": "Piling multiple adjectives before a noun.",
+        "polarity": "fault",
+        "example": "a bleak, gray, unforgiving, institutional corridor",
+        "effect": "Each adjective dilutes the others; four modifiers produce a vaguer image than one exact one.",
+        "caution": "Cut to the one that carries information the noun does not."
+      },
+      {
+        "name": "cliche",
+        "definition": "A phrase whose figurative force has been used up by repetition.",
+        "polarity": "fault",
+        "example": "at the end of the day, a perfect storm, the tip of the iceberg, level playing field",
+        "effect": "Reads as filler and signals that the writer did not look at the thing being described.",
+        "caution": "Cliches are hardest to see in one's own drafting because they arrive fluently; they are exactly what a fluency-optimized generator produces most."
+      },
+      {
+        "name": "doublespeak",
+        "definition": "Language constructed to make an unwelcome reality unrecognizable.",
+        "polarity": "fault",
+        "example": "revenue enhancement for tax increase; involuntary separation for layoff",
+        "effect": "The reader either misses the meaning or notices the evasion and distrusts the source.",
+        "caution": "Quote it, name it, and translate it. Never adopt it into your own narration."
+      },
+      {
+        "name": "purple diction",
+        "definition": "Ornate, emotionally overpitched vocabulary applied to ordinary material.",
+        "polarity": "fault",
+        "example": "The luminous cascade of morning gilded the humble breakfast table.",
+        "effect": "The prose asks for a response the subject has not earned; readers feel manipulated."
+      },
+      {
+        "name": "euphemism creep",
+        "definition": "Adopting an institution's softening vocabulary as the text's own default.",
+        "see_also": "rhetorical_figures/metonymy_and_naming_family",
+        "polarity": "fault",
+        "example": "A book about layoffs that says restructuring throughout.",
+        "effect": "Silently transfers the institution's framing into supposedly neutral narration.",
+        "caution": "Decide once per book which term you will use and state why in a note if it is contested."
+      },
+      {
+        "name": "weasel word",
+        "definition": "A qualifier that appears to add precision while draining the claim of content.",
+        "polarity": "fault",
+        "cues": [
+          "some say",
+          "many believe",
+          "it could be argued",
+          "up to",
+          "helps to",
+          "may contribute to"
+        ],
+        "example": "Studies show the program helps to reduce costs by up to 40 percent.",
+        "effect": "Every element is technically defensible and the sentence asserts nothing.",
+        "caution": "Named for the weasel's reputed trick of sucking out an egg and leaving the shell intact."
+      },
+      {
+        "name": "hollow abstraction",
+        "definition": "Abstract nouns of approval strung together in place of a claim.",
+        "polarity": "fault",
+        "example": "innovative solutions delivering meaningful impact at scale",
+        "effect": "Cannot be disagreed with because nothing has been said.",
+        "caution": "Test: negate the sentence. If nobody would assert the negation, the original said nothing."
+      },
+      {
+        "name": "slop lexicon",
+        "definition": "A cluster of words and phrases that machine-generated prose overproduces relative to edited human writing.",
+        "polarity": "fault",
+        "cues": [
+          "delve",
+          "tapestry",
+          "testament to",
+          "landscape (figurative)",
+          "realm",
+          "navigate (figurative)",
+          "underscore",
+          "crucial",
+          "pivotal",
+          "multifaceted",
+          "it's important to note"
+        ],
+        "example": "This rich tapestry of interconnected challenges underscores the crucial need to navigate a complex landscape.",
+        "effect": "Instantly recognizable to editors and to detectors; the vocabulary of fluency without observation.",
+        "caution": "The list moves. Maintain it as a repo-level ban list from measurement rather than from memory, and check candidates against the actual corpus before banning."
+      },
+      {
+        "name": "anthropomorphized abstraction",
+        "definition": "Giving intentions and actions to entities that cannot have them.",
+        "polarity": "fault",
+        "example": "The data wants to be free. The market decided. The algorithm believes.",
+        "effect": "Hides the humans who chose, which is sometimes the point and always a claim.",
+        "caution": "Distinct from deliberate personification: the fault is the metaphor the writer did not notice making."
+      },
+      {
+        "name": "Latinate connective chain",
+        "definition": "Successive paragraphs opened with heavy formal connectives.",
+        "polarity": "fault",
+        "cues": [
+          "moreover",
+          "furthermore",
+          "additionally",
+          "consequently",
+          "in conclusion"
+        ],
+        "example": "Moreover... Furthermore... Additionally...",
+        "effect": "Signals that the writer is listing rather than arguing; the connectives assert a relation the content does not supply.",
+        "caution": "A measurable tell in both student and machine prose. Replace with a transition that names the actual relation, or with nothing."
+      }
+    ],
+    "figurative_diction_controls": [
+      {
+        "name": "tenor and vehicle",
+        "definition": "Richards's terms for the two halves of a metaphor: the subject (tenor) and the thing it is described in terms of (vehicle).",
+        "example": "In the mind is a machine, mind is the tenor and machine the vehicle.",
+        "effect": "Gives a vocabulary for diagnosing a bad figure — usually the vehicle is wrong, not the idea."
+      },
+      {
+        "name": "controlling metaphor",
+        "definition": "One governing figure sustained through a passage, chapter, or book, with subsequent language drawn from its domain.",
+        "see_also": "rhetorical_figures/metaphor_family",
+        "example": "A book about a bureaucracy figured throughout as a plumbing system: pressure, backflow, capacity.",
+        "effect": "Gives a long text conceptual coherence readers feel without naming.",
+        "caution": "It must be chosen deliberately, or an accidental one will emerge and constrain you anyway."
+      },
+      {
+        "name": "vehicle domain consistency",
+        "definition": "Keeping successive figures in one source domain within a passage.",
+        "see_also": "rhetorical_figures/metaphor_family",
+        "example": "If the argument is nautical, do not switch to farming three sentences later.",
+        "effect": "Consistency lets images accumulate; inconsistency makes each one cancel the last."
+      },
+      {
+        "name": "domain-native imagery",
+        "definition": "Drawing the vehicle from the world the subject actually inhabits.",
+        "example": "Describing a fisherman's fatigue in terms of tide and net rather than of office deadlines.",
+        "effect": "The figure earns its place twice — as image and as characterization of whose perception it is."
+      },
+      {
+        "name": "metaphor reanimation",
+        "definition": "Reviving a dead metaphor by extending or literalizing it.",
+        "see_also": "rhetorical_figures/metaphor_family",
+        "example": "The department had branches, and like branches they grew where the light was.",
+        "effect": "Recovers force from a phrase the reader was about to skim.",
+        "caution": "Only worth doing when the revived image does argumentative work; otherwise it is a joke about vocabulary."
+      },
+      {
+        "name": "metaphor density budget",
+        "definition": "A deliberate limit on how many live figures a passage carries.",
+        "example": "One developed figure per page in expository nonfiction; more in lyric passages.",
+        "effect": "Scarcity is what makes a figure land; in a metaphor-saturated page no single image is visible."
+      },
+      {
+        "name": "simile and metaphor choice",
+        "definition": "The decision to mark a comparison with like or as, or to assert identity.",
+        "example": "The room was like a cell / The room was a cell.",
+        "effect": "Simile keeps the two things separate and invites inspection of the likeness; metaphor fuses them and asserts.",
+        "caution": "Simile is safer and weaker; a page of similes reads as a writer unwilling to commit."
+      },
+      {
+        "name": "literalization risk",
+        "definition": "The danger that a figure will be read straight, especially in factual or technical contexts.",
+        "polarity": "fault",
+        "example": "Calling a merger a bloodbath in a chapter that also describes an actual injury.",
+        "effect": "Comic or confusing collision between figurative and literal registers.",
+        "caution": "Highest risk in nonfiction about violence, illness, and money, where every vehicle has a literal counterpart in the material."
+      },
+      {
+        "name": "deliberate catachresis",
+        "definition": "A knowingly wrong or strained application of a word, used for effect.",
+        "example": "a blind mouth (Milton)",
+        "effect": "Forces the reader to construct a meaning the language does not supply.",
+        "caution": "Distinguishable from an error only if the surrounding prose is visibly in control."
+      },
+      {
+        "name": "hyperbole calibration",
+        "definition": "Choosing the degree of overstatement and keeping it consistent so readers know how to discount.",
+        "example": "An overstatement inside a scrupulously literal chapter reads as an error, not a figure.",
+        "effect": "Readers calibrate to a text's exaggeration level within a page and read everything after against it."
+      },
+      {
+        "name": "personification restraint",
+        "definition": "Limiting the attribution of human agency to non-human subjects to places where it does real work.",
+        "example": "The house waited, as houses do — used once, in a chapter about return.",
+        "effect": "Powerful in isolation, cloying in quantity.",
+        "caution": "Distinct from anthropomorphized abstraction: the fault is unnoticed agency, the device is chosen agency."
+      },
+      {
+        "name": "synesthesia",
+        "definition": "Describing one sense in the vocabulary of another.",
+        "example": "a loud shirt; a sharp cheese; a warm voice",
+        "effect": "Compresses a complex impression into a short phrase; many instances are already idiomatic and therefore invisible."
+      },
+      {
+        "name": "concrete vehicle rule",
+        "definition": "The working rule that the vehicle should be more concrete than the tenor.",
+        "example": "An argument as a building, not a building as an argument.",
+        "effect": "Metaphor works by explaining the less known in terms of the better known; reversing the direction produces fog."
+      },
+      {
+        "name": "decorative figure",
+        "definition": "A figure added for texture rather than for meaning.",
+        "example": "A simile in the opening line that never connects to anything after it.",
+        "effect": "Costs the reader attention and returns nothing.",
+        "caution": "Test each figure by deleting it. If the paragraph loses only prettiness, leave it deleted."
+      }
+    ],
+    "period_and_dialect_diction": [
+      {
+        "name": "archaism",
+        "definition": "A word or form no longer in current use, deployed deliberately.",
+        "example": "whilst, betwixt, ere, thrice",
+        "effect": "Evokes a period or an elevated register in a single word.",
+        "caution": "One archaism reads as texture; three read as costume."
+      },
+      {
+        "name": "anachronistic diction",
+        "definition": "Vocabulary that did not exist, or did not carry the modern sense, in the period depicted.",
+        "polarity": "fault",
+        "example": "A character in 1890 describing a system as stressed, or a scene set in 1935 using teenager.",
+        "effect": "Breaks the historical frame for any reader who knows.",
+        "caution": "Check the first-attestation date and the sense date, not just the word — many old words acquired their modern meanings recently."
+      },
+      {
+        "name": "period lexicon check",
+        "definition": "Systematically dating the vocabulary of a historical passage against a dictionary with attestation dates.",
+        "example": "Running the nouns and verbs of a scene through the OED's first-use dates.",
+        "effect": "The only reliable way to catch anachronism, which is invisible to the ear.",
+        "caution": "Absolute period fidelity is unreadable; the goal is nothing that jars, not nothing post-dating the scene."
+      },
+      {
+        "name": "faux-antique diction",
+        "definition": "Invented old-sounding language assembled from a handful of markers.",
+        "polarity": "fault",
+        "example": "forsooth, methinks, prithee sprinkled over otherwise modern syntax",
+        "effect": "Reads as pastiche, because period voice lives in syntax and idiom, not in a few flagged words.",
+        "caution": "The convincing route is modern-legible syntax with period-accurate concrete nouns."
+      },
+      {
+        "name": "eye dialect",
+        "definition": "Nonstandard spelling of standard pronunciations to mark a speaker as uneducated.",
+        "example": "wuz, sez, enuff",
+        "effect": "Marks class rather than sound, since everyone says wuz.",
+        "caution": "Widely regarded as condescending and slows every reader; use lexicon, idiom, and syntax instead."
+      },
+      {
+        "name": "regionalism",
+        "definition": "Vocabulary specific to a geographic speech community.",
+        "example": "pop / soda / coke; bubbler; pavement versus sidewalk; wee",
+        "effect": "Places a speaker geographically in one word, without any respelling."
+      },
+      {
+        "name": "sociolect",
+        "definition": "Vocabulary marking social class, occupation, or institutional position.",
+        "example": "The difference between how the ward clerk, the attending, and the family describe the same event.",
+        "effect": "The most efficient way to show a hierarchy: let each level name the same thing differently."
+      },
+      {
+        "name": "idiolect",
+        "definition": "The individual speech signature of one character — favored words, tics, syntactic habits.",
+        "example": "A character who says fine to mean everything from agreement to fury.",
+        "effect": "Lets dialogue be attributed without tags and makes a voice recognizable across a book.",
+        "caution": "A tic repeated every appearance stops being characterization and becomes a label."
+      },
+      {
+        "name": "generational marker",
+        "definition": "Vocabulary that dates a speaker to a cohort rather than a place or class.",
+        "example": "icebox, dial the phone, tape it, roll down the window",
+        "effect": "Ages a character precisely, often without stating an age.",
+        "caution": "Also dates the writer when used unawares in narration."
+      },
+      {
+        "name": "dated technical vocabulary",
+        "definition": "Terms from a field's earlier state of the art.",
+        "example": "wireless, electronic brain, data processing, motorcar",
+        "effect": "Period-accurate and often quietly funny; also a way to mark how much a field has moved.",
+        "caution": "Gloss on first use if the modern reader cannot recover the referent."
+      },
+      {
+        "name": "translationese",
+        "definition": "Diction that follows the source language's idiom or word class rather than natural English.",
+        "polarity": "fault",
+        "example": "Overuse of abstract nouns and of the definite article in translated academic prose.",
+        "effect": "Fluent-looking English that is subtly not idiomatic; readers feel it as fog without locating it.",
+        "caution": "The same signature appears in machine-generated prose and in text translated by machine."
+      }
+    ]
+  }
+}

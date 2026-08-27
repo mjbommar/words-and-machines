@@ -1,0 +1,4477 @@
+{
+  "name": "story_beat_templates",
+  "level": "macro",
+  "entry_type": "record",
+  "description": "Named beat-sheet templates for fiction and narrative: screenwriting sheets, mythic journeys, classical and world dramaturgy, genre structures, and episodic or framed forms. Every record carries 'beats': [{name, position 0-1, purpose}], with 'acts' and a valence 'curve' where the tradition defines one.",
+  "categories": {
+    "screenwriting_sheets": [
+      {
+        "name": "save the cat beat sheet",
+        "definition": "Blake Snyder's fifteen-beat commercial screenplay template, pinned to fixed page positions and driven by a thematic lesson the hero refuses until the last act.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "opening image",
+            "position": 0.0,
+            "purpose": "show the hero's world in one image that the ending will answer"
+          },
+          {
+            "name": "theme stated",
+            "position": 0.05,
+            "purpose": "let a minor character say the lesson the hero cannot yet hear"
+          },
+          {
+            "name": "setup",
+            "position": 0.08,
+            "purpose": "establish the ordinary life, the supporting cast, and the thing that is missing"
+          },
+          {
+            "name": "catalyst",
+            "position": 0.12,
+            "purpose": "break the status quo with an event that cannot be undone"
+          },
+          {
+            "name": "debate",
+            "position": 0.17,
+            "purpose": "let the hero resist, weigh the cost, and voice the question the act will answer"
+          },
+          {
+            "name": "break into two",
+            "position": 0.25,
+            "purpose": "have the hero choose the new world rather than be dragged into it"
+          },
+          {
+            "name": "b story",
+            "position": 0.3,
+            "purpose": "open the relationship line that will carry the theme"
+          },
+          {
+            "name": "fun and games",
+            "position": 0.37,
+            "purpose": "deliver the premise the audience came for, at low cost to the hero"
+          },
+          {
+            "name": "midpoint",
+            "position": 0.5,
+            "purpose": "raise the stakes with a false victory or false defeat that makes the goal public"
+          },
+          {
+            "name": "bad guys close in",
+            "position": 0.6,
+            "purpose": "tighten external pressure while the hero's own team fractures"
+          },
+          {
+            "name": "all is lost",
+            "position": 0.75,
+            "purpose": "strip the hero of the thing the midpoint promised; something dies"
+          },
+          {
+            "name": "dark night of the soul",
+            "position": 0.79,
+            "purpose": "hold the hero in the loss long enough for the theme to land"
+          },
+          {
+            "name": "break into three",
+            "position": 0.82,
+            "purpose": "fuse the a and b stories into a plan the hero could not have made before"
+          },
+          {
+            "name": "finale",
+            "position": 0.88,
+            "purpose": "prove the change by action, dismantling the opposition top down"
+          },
+          {
+            "name": "final image",
+            "position": 0.99,
+            "purpose": "mirror the opening image so the distance travelled is visible"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.1
+          ],
+          [
+            0.12,
+            -0.1
+          ],
+          [
+            0.25,
+            0.3
+          ],
+          [
+            0.5,
+            0.6
+          ],
+          [
+            0.6,
+            -0.2
+          ],
+          [
+            0.75,
+            -0.9
+          ],
+          [
+            0.88,
+            0.6
+          ],
+          [
+            1.0,
+            0.8
+          ]
+        ],
+        "aka": "Snyder beat sheet, the fifteen beats",
+        "register": "commercial screenplay and plot-forward genre fiction; the default vocabulary of American development notes",
+        "caution": "The page positions are habits of a 110-page feature, not laws; hit them in a novel and every book comes out the same length in the same places."
+      },
+      {
+        "name": "syd field paradigm",
+        "definition": "The three-act paradigm built on two plot points and two pinches, with act two exactly twice the length of the acts around it.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "opening image",
+            "position": 0.0,
+            "purpose": "set tone and premise in the first minute of screen time"
+          },
+          {
+            "name": "setup",
+            "position": 0.04,
+            "purpose": "give the audience who, where, and what is at stake before anything moves"
+          },
+          {
+            "name": "inciting incident",
+            "position": 0.1,
+            "purpose": "involve the protagonist emotionally in a problem not of their choosing"
+          },
+          {
+            "name": "plot point one",
+            "position": 0.25,
+            "purpose": "spin the story into a new direction and lock act two shut behind it"
+          },
+          {
+            "name": "first pinch",
+            "position": 0.38,
+            "purpose": "remind the audience of the antagonistic force with a direct squeeze"
+          },
+          {
+            "name": "midpoint",
+            "position": 0.5,
+            "purpose": "split act two with an event that changes what the protagonist is doing and why"
+          },
+          {
+            "name": "second pinch",
+            "position": 0.62,
+            "purpose": "return the pressure at greater cost, now aimed at what the hero values"
+          },
+          {
+            "name": "plot point two",
+            "position": 0.75,
+            "purpose": "reverse the situation and set the single question act three will answer"
+          },
+          {
+            "name": "climax",
+            "position": 0.88,
+            "purpose": "answer the dramatic question in action, not explanation"
+          },
+          {
+            "name": "resolution",
+            "position": 0.96,
+            "purpose": "settle the new status quo and get out"
+          }
+        ],
+        "aka": "the paradigm, three-act with plot points",
+        "register": "feature screenplay; the baseline against which most other sheets define themselves",
+        "caution": "It describes where turns land, not what happens between them; a paradigm outline with an empty act two is the classic failure."
+      },
+      {
+        "name": "eight-sequence approach",
+        "definition": "A feature told as eight roughly equal sequences, each with its own goal, obstacle and small climax, inherited from the reel lengths of early cinema.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "sequence one: status quo and disturbance",
+            "position": 0.05,
+            "purpose": "establish the world and break it before the audience settles"
+          },
+          {
+            "name": "sequence two: the new dramatic question",
+            "position": 0.18,
+            "purpose": "let the attempt to restore normality fail and pose the real question"
+          },
+          {
+            "name": "sequence three: first attempts",
+            "position": 0.31,
+            "purpose": "commit to a plan in the new world and learn its rules the hard way"
+          },
+          {
+            "name": "sequence four: complications mount",
+            "position": 0.44,
+            "purpose": "exhaust the obvious solutions on the way to the midpoint"
+          },
+          {
+            "name": "sequence five: reversal and new direction",
+            "position": 0.56,
+            "purpose": "turn the story on a revelation that resets the objective"
+          },
+          {
+            "name": "sequence six: opposition at full strength",
+            "position": 0.69,
+            "purpose": "bring the antagonist's best move against a depleted hero"
+          },
+          {
+            "name": "sequence seven: last twists before the end",
+            "position": 0.81,
+            "purpose": "show the apparent solution failing and force the final choice"
+          },
+          {
+            "name": "sequence eight: resolution",
+            "position": 0.93,
+            "purpose": "settle the dramatic question and close the sequence chain"
+          }
+        ],
+        "aka": "sequence method, eight-reel structure",
+        "register": "feature film and long-form television; useful for novelists who think in chapters",
+        "caution": "Each sequence needs its own tension, not a slice of the main one, or the film becomes eight scenes of throat-clearing."
+      },
+      {
+        "name": "story circle",
+        "definition": "Dan Harmon's eight-step circle: a character in comfort wants something, crosses into an unfamiliar world, adapts, gets what they wanted, pays for it, and returns changed.",
+        "acts": 2,
+        "beats": [
+          {
+            "name": "in comfort",
+            "position": 0.0,
+            "purpose": "place the character in a zone of routine and competence"
+          },
+          {
+            "name": "want",
+            "position": 0.12,
+            "purpose": "surface the lack that routine cannot satisfy"
+          },
+          {
+            "name": "cross into the unfamiliar",
+            "position": 0.25,
+            "purpose": "put the character somewhere the old rules do not apply"
+          },
+          {
+            "name": "adapt",
+            "position": 0.38,
+            "purpose": "make them pay a learning cost, then improvise"
+          },
+          {
+            "name": "find",
+            "position": 0.5,
+            "purpose": "give them the thing they wanted, in a form they did not expect"
+          },
+          {
+            "name": "pay the price",
+            "position": 0.62,
+            "purpose": "charge them for it; the want and the need part ways here"
+          },
+          {
+            "name": "return",
+            "position": 0.8,
+            "purpose": "carry them back across the threshold, pursued or diminished"
+          },
+          {
+            "name": "changed",
+            "position": 0.93,
+            "purpose": "show the old world through new capacity"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.1
+          ],
+          [
+            0.25,
+            -0.2
+          ],
+          [
+            0.5,
+            0.6
+          ],
+          [
+            0.62,
+            -0.5
+          ],
+          [
+            0.8,
+            -0.1
+          ],
+          [
+            1.0,
+            0.5
+          ]
+        ],
+        "aka": "the embryo, Harmon circle",
+        "register": "half-hour television, episodic serials, short fiction; scales down better than most feature sheets",
+        "caution": "The circle is per character, not per episode; running it once for the ensemble flattens everyone into the same lesson."
+      },
+      {
+        "name": "seven-point structure",
+        "definition": "A structure planned backwards from resolution to hook, using two plot turns and two pinch points to force a state that is the opposite of where the character began.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "hook",
+            "position": 0.0,
+            "purpose": "open in the state that the resolution will invert"
+          },
+          {
+            "name": "first plot turn",
+            "position": 0.15,
+            "purpose": "introduce the change that makes the story necessary"
+          },
+          {
+            "name": "first pinch",
+            "position": 0.3,
+            "purpose": "apply antagonist pressure and show what losing would mean"
+          },
+          {
+            "name": "midpoint",
+            "position": 0.5,
+            "purpose": "flip the character from reacting to acting"
+          },
+          {
+            "name": "second pinch",
+            "position": 0.68,
+            "purpose": "take away the support the plan depended on"
+          },
+          {
+            "name": "second plot turn",
+            "position": 0.8,
+            "purpose": "hand over the last missing piece needed to win"
+          },
+          {
+            "name": "resolution",
+            "position": 0.92,
+            "purpose": "arrive at the endpoint the hook was written against"
+          }
+        ],
+        "aka": "seven-point plot, Wells structure",
+        "register": "genre novels, especially fantasy and thriller; a planning tool more than a drafting one",
+        "caution": "Because it is designed end-first, a weak resolution poisons every earlier beat."
+      },
+      {
+        "name": "nutshell technique",
+        "definition": "Jill Chamberlain's eight-element frame in which a protagonist's flaw and want collide at a point of no return, producing a catch that only a climactic choice can resolve.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "setup want",
+            "position": 0.04,
+            "purpose": "name the thing the protagonist thinks will fix their life"
+          },
+          {
+            "name": "flaw",
+            "position": 0.12,
+            "purpose": "expose the controllable fault that makes the want the wrong cure"
+          },
+          {
+            "name": "point of no return",
+            "position": 0.25,
+            "purpose": "commit them to a course they cannot walk back"
+          },
+          {
+            "name": "the catch",
+            "position": 0.32,
+            "purpose": "attach an unwanted condition to the thing they are getting"
+          },
+          {
+            "name": "crisis",
+            "position": 0.7,
+            "purpose": "strand them in the exact situation the flaw guaranteed"
+          },
+          {
+            "name": "climactic choice",
+            "position": 0.82,
+            "purpose": "force a choice between the want and the truth"
+          },
+          {
+            "name": "final step",
+            "position": 0.92,
+            "purpose": "act once more against the flaw, in public"
+          },
+          {
+            "name": "strength",
+            "position": 0.99,
+            "purpose": "leave them holding the virtue that the flaw was hiding"
+          }
+        ],
+        "aka": "the nutshell, want-flaw-catch frame",
+        "register": "screenplay diagnosis; a fast test for whether a premise is a story or a situation",
+        "caution": "It is a coherence check, not a page plan — nothing in it tells you what fills the middle hour."
+      },
+      {
+        "name": "six-stage plot structure",
+        "definition": "Michael Hauge's six stages of the outer journey, separated by five turning points, tracked against a hero's movement from identity to essence.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "setup",
+            "position": 0.03,
+            "purpose": "show the everyday life and the mask the hero lives behind"
+          },
+          {
+            "name": "turning point: opportunity",
+            "position": 0.1,
+            "purpose": "offer a new situation that creates a desire"
+          },
+          {
+            "name": "new situation",
+            "position": 0.17,
+            "purpose": "let the hero explore the new world and glimpse what life could be"
+          },
+          {
+            "name": "turning point: change of plans",
+            "position": 0.25,
+            "purpose": "convert vague desire into a specific visible goal"
+          },
+          {
+            "name": "progress",
+            "position": 0.37,
+            "purpose": "let the plan work well enough to raise the hero's investment"
+          },
+          {
+            "name": "turning point: point of no return",
+            "position": 0.5,
+            "purpose": "burn the retreat; commitment becomes total"
+          },
+          {
+            "name": "complications and higher stakes",
+            "position": 0.62,
+            "purpose": "make every obstacle cost more than the last"
+          },
+          {
+            "name": "turning point: major setback",
+            "position": 0.75,
+            "purpose": "take away the goal and the mask together"
+          },
+          {
+            "name": "final push",
+            "position": 0.83,
+            "purpose": "have the hero act from essence instead of identity"
+          },
+          {
+            "name": "turning point: climax",
+            "position": 0.92,
+            "purpose": "settle the outer goal and the inner cost in one confrontation"
+          },
+          {
+            "name": "aftermath",
+            "position": 0.98,
+            "purpose": "show the life that is possible now that the mask is gone"
+          }
+        ],
+        "aka": "Hauge's six stages, identity-to-essence structure",
+        "register": "screenplay and commercial fiction; strongest where inner and outer journeys must be visibly braided",
+        "caution": "The inner-journey vocabulary tempts writers to state the change in dialogue; the structure requires it be shown at each turning point."
+      },
+      {
+        "name": "twenty-two-step anatomy",
+        "definition": "John Truby's organic sequence, in which a haunted hero's need, desire and moral weakness drive revelations, plans and counterattacks toward a self-revelation earned in battle.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "weakness and need",
+            "position": 0.02,
+            "purpose": "give the hero a psychological and a moral flaw before anything happens"
+          },
+          {
+            "name": "ghost and story world",
+            "position": 0.05,
+            "purpose": "plant the past wound and the world it made"
+          },
+          {
+            "name": "inciting event",
+            "position": 0.1,
+            "purpose": "disturb the world in a way that demands a response"
+          },
+          {
+            "name": "desire",
+            "position": 0.14,
+            "purpose": "state the concrete goal that will carry the plot"
+          },
+          {
+            "name": "ally",
+            "position": 0.17,
+            "purpose": "give the hero someone to argue the theme with"
+          },
+          {
+            "name": "opponent and mystery",
+            "position": 0.21,
+            "purpose": "introduce the rival who wants the same thing and hides information"
+          },
+          {
+            "name": "fake-ally opponent",
+            "position": 0.25,
+            "purpose": "place a friendly face on the opposition"
+          },
+          {
+            "name": "first revelation and decision",
+            "position": 0.29,
+            "purpose": "change the hero's plan with new information"
+          },
+          {
+            "name": "plan",
+            "position": 0.33,
+            "purpose": "let the hero name the strategy that gives the middle its shape"
+          },
+          {
+            "name": "opponent's counterattack",
+            "position": 0.38,
+            "purpose": "show the antagonist acting on their own superior plan"
+          },
+          {
+            "name": "drive",
+            "position": 0.44,
+            "purpose": "run the escalating attempts, each with a moral cost"
+          },
+          {
+            "name": "attack by ally",
+            "position": 0.5,
+            "purpose": "have the person who loves the hero name what they are becoming"
+          },
+          {
+            "name": "apparent defeat",
+            "position": 0.56,
+            "purpose": "take the desire away and expose the need"
+          },
+          {
+            "name": "second revelation and obsessive drive",
+            "position": 0.62,
+            "purpose": "restart the pursuit with new information and less restraint"
+          },
+          {
+            "name": "audience revelation",
+            "position": 0.67,
+            "purpose": "let the audience learn what the hero does not, and wait"
+          },
+          {
+            "name": "third revelation and decision",
+            "position": 0.71,
+            "purpose": "give the hero the fact the audience already holds"
+          },
+          {
+            "name": "gate, gauntlet, visit to death",
+            "position": 0.76,
+            "purpose": "compress the pressure and make mortality explicit"
+          },
+          {
+            "name": "battle",
+            "position": 0.83,
+            "purpose": "settle the conflict of values in physical or verbal combat"
+          },
+          {
+            "name": "self-revelation",
+            "position": 0.9,
+            "purpose": "make the hero see the moral truth about themselves"
+          },
+          {
+            "name": "moral decision",
+            "position": 0.95,
+            "purpose": "prove the revelation by an act with a price"
+          },
+          {
+            "name": "new equilibrium",
+            "position": 0.99,
+            "purpose": "leave the world permanently altered by the change"
+          }
+        ],
+        "aka": "Truby's twenty-two steps, the anatomy of story",
+        "register": "literary-leaning screenplay and novel; the most morally explicit of the commercial sheets",
+        "caution": "Twenty-two obligatory steps in ninety minutes will feel like a checklist; treat weakness, revelation and self-revelation as load-bearing and the rest as optional."
+      },
+      {
+        "name": "story spine",
+        "definition": "Kenn Adams' improv sentence frame — once upon a time, every day, until one day, because of that, until finally, and ever since then — which yields causal rather than episodic plotting.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "once upon a time",
+            "position": 0.03,
+            "purpose": "name the character and the world in one line"
+          },
+          {
+            "name": "every day",
+            "position": 0.12,
+            "purpose": "establish the routine that the story will break"
+          },
+          {
+            "name": "until one day",
+            "position": 0.22,
+            "purpose": "introduce the single disturbance everything else follows from"
+          },
+          {
+            "name": "because of that",
+            "position": 0.36,
+            "purpose": "chain the first consequence, not the next event"
+          },
+          {
+            "name": "because of that",
+            "position": 0.52,
+            "purpose": "escalate the consequence chain toward a corner"
+          },
+          {
+            "name": "because of that",
+            "position": 0.68,
+            "purpose": "exhaust the options the chain has left"
+          },
+          {
+            "name": "until finally",
+            "position": 0.85,
+            "purpose": "resolve the disturbance in the only remaining way"
+          },
+          {
+            "name": "and ever since then",
+            "position": 0.97,
+            "purpose": "state the new normal, which is also the theme"
+          }
+        ],
+        "aka": "Pixar story spine, the improv spine",
+        "register": "pitching, children's stories, early premise testing; the fastest structural check there is",
+        "caution": "\"And then\" instead of \"because of that\" is the tell that a plot is episodic; the spine exists to catch exactly that."
+      },
+      {
+        "name": "eight-point arc",
+        "definition": "Nigel Watts' compact arc — stasis, trigger, quest, surprise, critical choice, climax, reversal, resolution — in which the choice, not the fight, is the moral centre.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "stasis",
+            "position": 0.0,
+            "purpose": "show the ordinary state the trigger will break"
+          },
+          {
+            "name": "trigger",
+            "position": 0.12,
+            "purpose": "let something outside the character's control start the story"
+          },
+          {
+            "name": "quest",
+            "position": 0.22,
+            "purpose": "send the character after the thing the trigger made necessary"
+          },
+          {
+            "name": "surprise",
+            "position": 0.45,
+            "purpose": "run the obstacles and reversals that make the middle"
+          },
+          {
+            "name": "critical choice",
+            "position": 0.62,
+            "purpose": "force a deliberate decision that reveals character"
+          },
+          {
+            "name": "climax",
+            "position": 0.75,
+            "purpose": "deliver the highest-consequence result of that choice"
+          },
+          {
+            "name": "reversal",
+            "position": 0.85,
+            "purpose": "change the character's status or self-understanding for good"
+          },
+          {
+            "name": "resolution",
+            "position": 0.95,
+            "purpose": "return to a stasis that is not the one we started in"
+          }
+        ],
+        "aka": "Watts' eight points",
+        "register": "literary short story and novel; a gentle alternative to page-pinned screenwriting sheets",
+        "caution": "Surprise is one beat here but half the book in practice; do not let its single line license a slack middle."
+      },
+      {
+        "name": "four-part story structure",
+        "definition": "Larry Brooks' four contexts — orphan, wanderer, warrior, martyr — separated by the first plot point, midpoint context shift and second plot point, with pinch points at the quarter marks.",
+        "acts": 4,
+        "beats": [
+          {
+            "name": "hook",
+            "position": 0.0,
+            "purpose": "buy the reader's attention in the opening pages"
+          },
+          {
+            "name": "setup: the orphan",
+            "position": 0.08,
+            "purpose": "show a protagonist without agency in the coming conflict"
+          },
+          {
+            "name": "inciting incident",
+            "position": 0.13,
+            "purpose": "put the antagonistic force on the board"
+          },
+          {
+            "name": "first plot point",
+            "position": 0.2,
+            "purpose": "define the need, the stakes and the opposition in one turn"
+          },
+          {
+            "name": "response: the wanderer",
+            "position": 0.3,
+            "purpose": "let the protagonist react, flee and fail to understand"
+          },
+          {
+            "name": "first pinch point",
+            "position": 0.37,
+            "purpose": "show the antagonist's power without the protagonist's mediation"
+          },
+          {
+            "name": "midpoint context shift",
+            "position": 0.5,
+            "purpose": "give the protagonist information that turns reaction into attack"
+          },
+          {
+            "name": "attack: the warrior",
+            "position": 0.58,
+            "purpose": "run proactive attempts that fail for better reasons"
+          },
+          {
+            "name": "second pinch point",
+            "position": 0.64,
+            "purpose": "reassert the threat at its most direct"
+          },
+          {
+            "name": "second plot point",
+            "position": 0.75,
+            "purpose": "deliver the last new information the ending will use"
+          },
+          {
+            "name": "resolution: the martyr",
+            "position": 0.84,
+            "purpose": "let the protagonist act as the sole agent of the solution"
+          },
+          {
+            "name": "climax",
+            "position": 0.92,
+            "purpose": "settle the conflict with no rescue from outside"
+          },
+          {
+            "name": "denouement",
+            "position": 0.98,
+            "purpose": "show the changed world briefly and stop"
+          }
+        ],
+        "aka": "story engineering four parts, four-box structure",
+        "register": "commercial novel planning; unusually explicit about what the protagonist may and may not do in each quarter",
+        "caution": "The rule that the hero cannot be rescued is the point of the martyr quarter; break it and the whole scheme collapses into coincidence."
+      },
+      {
+        "name": "five commandments of storytelling",
+        "definition": "The Story Grid unit — inciting incident, progressive complications, crisis, climax, resolution — applied fractally to scene, sequence, act and global story.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "inciting incident",
+            "position": 0.0,
+            "purpose": "upset the life balance of the unit's protagonist"
+          },
+          {
+            "name": "progressive complications",
+            "position": 0.2,
+            "purpose": "close off options until only bad ones remain"
+          },
+          {
+            "name": "crisis",
+            "position": 0.6,
+            "purpose": "pose a best-bad or irreconcilable-goods dilemma"
+          },
+          {
+            "name": "climax",
+            "position": 0.8,
+            "purpose": "answer the dilemma with a choice, not an accident"
+          },
+          {
+            "name": "resolution",
+            "position": 0.95,
+            "purpose": "show the consequence and hand off to the next unit"
+          }
+        ],
+        "aka": "the five commandments, Story Grid unit",
+        "register": "any length, any genre; the smallest complete structural unit in the commercial tradition",
+        "caution": "A scene missing the crisis question is the commonest cause of flat middles — and the commandments are a diagnostic for it, not a page plan."
+      },
+      {
+        "name": "story-value progression",
+        "definition": "Robert McKee's value-charged design, in which each scene turns a named value from positive to negative or back, and act climaxes turn it further than any scene inside them.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "opening value state",
+            "position": 0.0,
+            "purpose": "establish where the governing value sits before the story moves"
+          },
+          {
+            "name": "inciting incident",
+            "position": 0.1,
+            "purpose": "swing the value hard enough that balance must be restored"
+          },
+          {
+            "name": "object of desire",
+            "position": 0.18,
+            "purpose": "let the protagonist name what would restore it"
+          },
+          {
+            "name": "first act climax",
+            "position": 0.25,
+            "purpose": "turn the value further than any preceding scene"
+          },
+          {
+            "name": "progressive complications",
+            "position": 0.36,
+            "purpose": "widen the gap between expectation and result, scene by scene"
+          },
+          {
+            "name": "midpoint reversal",
+            "position": 0.5,
+            "purpose": "invert the value so the pursuit changes character"
+          },
+          {
+            "name": "deepening complications",
+            "position": 0.6,
+            "purpose": "spend the remaining sources of conflict from outer to inner"
+          },
+          {
+            "name": "second act climax",
+            "position": 0.72,
+            "purpose": "leave the protagonist with no conservative options"
+          },
+          {
+            "name": "crisis dilemma",
+            "position": 0.8,
+            "purpose": "put the true self on the line in a single choice"
+          },
+          {
+            "name": "story climax",
+            "position": 0.9,
+            "purpose": "turn the value absolutely and irreversibly"
+          },
+          {
+            "name": "resolution",
+            "position": 0.97,
+            "purpose": "let the audience feel the new equilibrium settle"
+          }
+        ],
+        "aka": "value turns, McKee's story design",
+        "register": "screenplay and literary fiction; the discipline that keeps scenes from being conversations",
+        "caution": "If you cannot name the value a scene turns, the scene is exposition wearing a costume — but naming it aloud in dialogue is the cure that kills."
+      },
+      {
+        "name": "w-plot",
+        "definition": "A double-dip shape: two descents into failure with a deceptive high point between them, so the midpoint peak reads as false confidence.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "opening stability",
+            "position": 0.0,
+            "purpose": "start on level ground so the first fall registers"
+          },
+          {
+            "name": "trigger",
+            "position": 0.1,
+            "purpose": "disturb the balance and set the pursuit"
+          },
+          {
+            "name": "first descent",
+            "position": 0.25,
+            "purpose": "fail in a way the protagonist believes is recoverable"
+          },
+          {
+            "name": "recovery and new approach",
+            "position": 0.35,
+            "purpose": "climb with a smarter plan and better allies"
+          },
+          {
+            "name": "false peak",
+            "position": 0.5,
+            "purpose": "grant a revelation or victory that looks like the ending"
+          },
+          {
+            "name": "second descent begins",
+            "position": 0.6,
+            "purpose": "turn the peak's cost into escalating loss"
+          },
+          {
+            "name": "lowest point",
+            "position": 0.75,
+            "purpose": "reach a worse floor than the first, with fewer resources"
+          },
+          {
+            "name": "final climb",
+            "position": 0.86,
+            "purpose": "rebuild from what survived the second fall"
+          },
+          {
+            "name": "transformed stability",
+            "position": 0.96,
+            "purpose": "end higher than the opening, but not where the false peak promised"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.2
+          ],
+          [
+            0.25,
+            -0.7
+          ],
+          [
+            0.5,
+            0.6
+          ],
+          [
+            0.75,
+            -0.9
+          ],
+          [
+            1.0,
+            0.7
+          ]
+        ],
+        "aka": "double-dip structure, W-shaped plot",
+        "register": "novels and long-form drama that need two full reversals rather than one",
+        "caution": "The second fall must cost something the first did not, or the shape reads as repetition rather than escalation."
+      }
+    ],
+    "mythic_journeys": [
+      {
+        "name": "hero's journey",
+        "definition": "Vogler's twelve-stage working of the monomyth: an ordinary hero is called across a threshold, tested, brought to an ordeal, and returned home carrying something the old world needs.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "ordinary world",
+            "position": 0.0,
+            "purpose": "establish the life and the lack the adventure will address"
+          },
+          {
+            "name": "call to adventure",
+            "position": 0.1,
+            "purpose": "deliver the summons that makes staying impossible"
+          },
+          {
+            "name": "refusal of the call",
+            "position": 0.14,
+            "purpose": "voice the fear and the cost before the hero moves"
+          },
+          {
+            "name": "meeting the mentor",
+            "position": 0.18,
+            "purpose": "supply courage, a lesson, or a tool the hero cannot yet use well"
+          },
+          {
+            "name": "crossing the threshold",
+            "position": 0.25,
+            "purpose": "commit to the special world with its unfamiliar rules"
+          },
+          {
+            "name": "tests, allies, enemies",
+            "position": 0.35,
+            "purpose": "teach hero and reader the new world through trial and company"
+          },
+          {
+            "name": "approach to the inmost cave",
+            "position": 0.45,
+            "purpose": "plan, hesitate, and let the team's fractures show"
+          },
+          {
+            "name": "the ordeal",
+            "position": 0.5,
+            "purpose": "bring the hero to a death — literal, symbolic, or of the old self"
+          },
+          {
+            "name": "reward",
+            "position": 0.6,
+            "purpose": "seize what the ordeal was for, along with its complications"
+          },
+          {
+            "name": "the road back",
+            "position": 0.7,
+            "purpose": "start home under pursuit; the special world does not release cleanly"
+          },
+          {
+            "name": "resurrection",
+            "position": 0.85,
+            "purpose": "test the transformation at the highest stakes of the story"
+          },
+          {
+            "name": "return with the elixir",
+            "position": 0.95,
+            "purpose": "bring back something that heals the ordinary world"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.1
+          ],
+          [
+            0.25,
+            -0.1
+          ],
+          [
+            0.5,
+            -0.7
+          ],
+          [
+            0.6,
+            0.5
+          ],
+          [
+            0.85,
+            -0.4
+          ],
+          [
+            1.0,
+            0.8
+          ]
+        ],
+        "aka": "the monomyth, Vogler's twelve stages, the writer's journey",
+        "register": "fantasy, adventure, coming-of-age, and any narrative whose subject is initiation",
+        "caution": "It is a description of a pattern in myth, not a plotting requirement; forcing mentors and elixirs onto domestic or ensemble stories produces pastiche."
+      },
+      {
+        "name": "monomyth departure-initiation-return",
+        "definition": "Campbell's three-movement scheme in its own terms, running from the call through the belly of the whale and the road of trials to the freedom to live.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "call to adventure",
+            "position": 0.0,
+            "purpose": "open the world with a summons the hero did not seek"
+          },
+          {
+            "name": "refusal and supernatural aid",
+            "position": 0.08,
+            "purpose": "refuse, then receive protection from an unexpected quarter"
+          },
+          {
+            "name": "crossing the first threshold",
+            "position": 0.16,
+            "purpose": "pass the guardian that separates the known from the unknown"
+          },
+          {
+            "name": "belly of the whale",
+            "position": 0.24,
+            "purpose": "swallow the hero whole; the old identity stops functioning"
+          },
+          {
+            "name": "road of trials",
+            "position": 0.36,
+            "purpose": "run the sequence of ordeals that remakes capacity"
+          },
+          {
+            "name": "meeting with the goddess",
+            "position": 0.46,
+            "purpose": "offer union with the source of life or love"
+          },
+          {
+            "name": "temptation and atonement",
+            "position": 0.56,
+            "purpose": "face the seduction that would end the journey, then the holder of ultimate power"
+          },
+          {
+            "name": "apotheosis",
+            "position": 0.66,
+            "purpose": "grant the expanded understanding the trials were for"
+          },
+          {
+            "name": "the ultimate boon",
+            "position": 0.72,
+            "purpose": "obtain the object or knowledge the quest named"
+          },
+          {
+            "name": "refusal of the return",
+            "position": 0.78,
+            "purpose": "let the hero prefer the transfigured world to the ordinary one"
+          },
+          {
+            "name": "magic flight and rescue",
+            "position": 0.86,
+            "purpose": "escape with the boon, helped from outside if pursuit is winning"
+          },
+          {
+            "name": "crossing the return threshold",
+            "position": 0.92,
+            "purpose": "re-enter the ordinary world and find it unchanged and unimpressed"
+          },
+          {
+            "name": "master of two worlds",
+            "position": 0.97,
+            "purpose": "hold both realms at once without belonging only to either"
+          }
+        ],
+        "aka": "Campbell's monomyth, departure-initiation-return",
+        "register": "myth, epic, folklore studies; the source text that the screenwriting versions compress",
+        "caution": "Campbell was cataloguing comparative myth, not designing plots; the seventeen stages rarely appear complete in any single story, and no story needs them all."
+      },
+      {
+        "name": "heroine's journey",
+        "definition": "Maureen Murdock's cycle of separation and reunion: a woman succeeds by the terms of a masculine order, finds the success hollow, descends, and integrates what she rejected.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "separation from the feminine",
+            "position": 0.0,
+            "purpose": "reject the mother, the domestic, or the devalued inheritance"
+          },
+          {
+            "name": "identification with the masculine",
+            "position": 0.1,
+            "purpose": "adopt the values and mentors of the dominant order"
+          },
+          {
+            "name": "road of trials",
+            "position": 0.2,
+            "purpose": "defeat the ogres and myths that stand between her and achievement"
+          },
+          {
+            "name": "the illusory boon of success",
+            "position": 0.3,
+            "purpose": "grant everything she set out to win"
+          },
+          {
+            "name": "awakening to aridity",
+            "position": 0.4,
+            "purpose": "let the achievement register as empty and the body register the cost"
+          },
+          {
+            "name": "descent to the goddess",
+            "position": 0.5,
+            "purpose": "strip the identity down in the underworld of grief and rage"
+          },
+          {
+            "name": "yearning to reconnect",
+            "position": 0.6,
+            "purpose": "surface the longing for what was abandoned at the start"
+          },
+          {
+            "name": "healing the mother-daughter split",
+            "position": 0.7,
+            "purpose": "reclaim the inheritance she refused"
+          },
+          {
+            "name": "healing the wounded masculine",
+            "position": 0.82,
+            "purpose": "withdraw the projections placed on the men in her life"
+          },
+          {
+            "name": "integration",
+            "position": 0.93,
+            "purpose": "hold both principles without discarding either"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.3,
+            0.6
+          ],
+          [
+            0.4,
+            -0.2
+          ],
+          [
+            0.5,
+            -0.9
+          ],
+          [
+            0.7,
+            0.1
+          ],
+          [
+            1.0,
+            0.7
+          ]
+        ],
+        "aka": "Murdock's heroine's journey, the descent-and-integration cycle",
+        "register": "literary and contemporary fiction, memoir; a psychological rather than adventure structure",
+        "caution": "It is a shape about internal division, not gender essence; read as a checklist of feminine traits it becomes the cliché it was written against."
+      },
+      {
+        "name": "the virgin's promise",
+        "definition": "Kim Hudson's thirteen-beat arc of creative awakening, in which a protagonist bound by a dependent world builds a secret life, is caught, and forces the kingdom to reorganize around her true self.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "dependent world",
+            "position": 0.0,
+            "purpose": "show the world that defines her by its needs"
+          },
+          {
+            "name": "price of conformity",
+            "position": 0.07,
+            "purpose": "make the cost of the mask visible and daily"
+          },
+          {
+            "name": "opportunity to shine",
+            "position": 0.14,
+            "purpose": "offer a glimpse of the talent or desire she has suppressed"
+          },
+          {
+            "name": "dresses the part",
+            "position": 0.2,
+            "purpose": "let her try the other life on in a small, deniable way"
+          },
+          {
+            "name": "secret world",
+            "position": 0.28,
+            "purpose": "build a hidden space where the true self can practise"
+          },
+          {
+            "name": "no longer fits her world",
+            "position": 0.37,
+            "purpose": "make the double life mechanically impossible to sustain"
+          },
+          {
+            "name": "caught shining",
+            "position": 0.45,
+            "purpose": "expose the secret before she is ready to defend it"
+          },
+          {
+            "name": "gives up what kept her stuck",
+            "position": 0.53,
+            "purpose": "surrender the belief or safety that bought her the old place"
+          },
+          {
+            "name": "kingdom in chaos",
+            "position": 0.62,
+            "purpose": "let her refusal destabilize everyone who depended on it"
+          },
+          {
+            "name": "wanders in the wilderness",
+            "position": 0.72,
+            "purpose": "leave her with neither the old world nor the secret one"
+          },
+          {
+            "name": "chooses her light",
+            "position": 0.82,
+            "purpose": "make the choice for the authentic self with the cost fully known"
+          },
+          {
+            "name": "the re-ordering",
+            "position": 0.9,
+            "purpose": "have the kingdom rearrange itself around who she now is"
+          },
+          {
+            "name": "the kingdom is brighter",
+            "position": 0.97,
+            "purpose": "show the community better off for the upheaval"
+          }
+        ],
+        "aka": "the virgin arc, feminine creative-awakening arc",
+        "register": "coming-of-age, romance, and any story where the antagonist is a role rather than a villain",
+        "caution": "Its conflict is between a self and a community, not a hero and an enemy — imported villains flatten it into an ordinary quest."
+      },
+      {
+        "name": "voyage and return",
+        "definition": "Booker's shape in which an ordinary protagonist falls into a strange world, is fascinated, then endangered, and escapes home with the world unchanged but themselves altered.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the ordinary world",
+            "position": 0.0,
+            "purpose": "establish an unremarkable life with a small restlessness"
+          },
+          {
+            "name": "the fall",
+            "position": 0.1,
+            "purpose": "drop the protagonist into a place that runs on other rules"
+          },
+          {
+            "name": "initial fascination",
+            "position": 0.2,
+            "purpose": "let the strangeness delight before it threatens"
+          },
+          {
+            "name": "growing unease",
+            "position": 0.35,
+            "purpose": "turn the marvellous slightly wrong"
+          },
+          {
+            "name": "frustration",
+            "position": 0.45,
+            "purpose": "trap the protagonist in the logic of the other world"
+          },
+          {
+            "name": "nightmare",
+            "position": 0.6,
+            "purpose": "make the strange world actively lethal"
+          },
+          {
+            "name": "the escape",
+            "position": 0.75,
+            "purpose": "break out by a thrilling margin"
+          },
+          {
+            "name": "return home",
+            "position": 0.87,
+            "purpose": "restore the ordinary world exactly as it was"
+          },
+          {
+            "name": "changed by the journey",
+            "position": 0.96,
+            "purpose": "show what the traveller understands that no one at home does"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.1
+          ],
+          [
+            0.2,
+            0.6
+          ],
+          [
+            0.45,
+            -0.3
+          ],
+          [
+            0.6,
+            -0.9
+          ],
+          [
+            0.75,
+            0.2
+          ],
+          [
+            1.0,
+            0.4
+          ]
+        ],
+        "aka": "the other-world round trip",
+        "register": "portal fantasy, satire, travel narrative, and dream stories",
+        "caution": "The home world must stay unchanged for the shape to mean anything; fix it on the way out and the story becomes a quest instead."
+      },
+      {
+        "name": "overcoming the monster",
+        "definition": "Booker's confrontation shape: a community is threatened by a devouring power, the hero prepares, is nearly consumed, finds the weakness, and kills it.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the shadow falls",
+            "position": 0.0,
+            "purpose": "establish the threat and the community it feeds on"
+          },
+          {
+            "name": "the call to confront",
+            "position": 0.1,
+            "purpose": "assign the hero the task no one else will take"
+          },
+          {
+            "name": "preparation and allies",
+            "position": 0.18,
+            "purpose": "gather weapons, knowledge, and companions"
+          },
+          {
+            "name": "the dream stage",
+            "position": 0.3,
+            "purpose": "let early success suggest the monster is beatable"
+          },
+          {
+            "name": "frustration",
+            "position": 0.42,
+            "purpose": "reveal the true scale of the thing"
+          },
+          {
+            "name": "the nightmare",
+            "position": 0.58,
+            "purpose": "put the hero inside the monster's power, nearly consumed"
+          },
+          {
+            "name": "discovery of the weakness",
+            "position": 0.72,
+            "purpose": "find the flaw that makes the impossible possible"
+          },
+          {
+            "name": "the killing stroke",
+            "position": 0.86,
+            "purpose": "destroy the monster at the last possible moment"
+          },
+          {
+            "name": "restoration",
+            "position": 0.96,
+            "purpose": "return the community to life and reward the hero"
+          }
+        ],
+        "aka": "monster plot, dragon-slaying shape",
+        "register": "horror, thriller, action, and folk tale",
+        "caution": "The monster must be genuinely stronger than the hero until the discovery, or the middle has no fear in it."
+      },
+      {
+        "name": "the quest plot",
+        "definition": "Booker's journey toward a known distant goal: a company sets out from an intolerable situation, survives ordeals and temptations, and arrives to find the last obstacles the hardest.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the oppressive situation",
+            "position": 0.0,
+            "purpose": "make staying home unbearable and the goal necessary"
+          },
+          {
+            "name": "the call to journey",
+            "position": 0.08,
+            "purpose": "name the destination and what waits there"
+          },
+          {
+            "name": "gathering companions",
+            "position": 0.16,
+            "purpose": "assemble a company whose skills and frictions will both matter"
+          },
+          {
+            "name": "setting out",
+            "position": 0.26,
+            "purpose": "run the first obstacles and establish the cost of travel"
+          },
+          {
+            "name": "temptations and tests",
+            "position": 0.38,
+            "purpose": "offer easier lives that would end the quest"
+          },
+          {
+            "name": "arrival and frustration",
+            "position": 0.52,
+            "purpose": "reach the destination and find the real difficulty begins there"
+          },
+          {
+            "name": "the final ordeals",
+            "position": 0.68,
+            "purpose": "impose the guarded last trials, at the highest cost so far"
+          },
+          {
+            "name": "achieving the goal",
+            "position": 0.85,
+            "purpose": "win the object or truth the journey named"
+          },
+          {
+            "name": "return and renewal",
+            "position": 0.96,
+            "purpose": "carry the prize back and repair the situation that sent them"
+          }
+        ],
+        "aka": "the journey plot",
+        "register": "epic fantasy, adventure, road narrative, and pilgrimage",
+        "caution": "Episodes on the road must change the company, not merely delay it, or the quest becomes a travelogue with a deadline."
+      },
+      {
+        "name": "rebirth plot",
+        "definition": "Booker's shape of frozen life and thaw: a protagonist falls under a dark power, sinks into a living death, and is released by an act of love or recognition from outside.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "falling under shadow",
+            "position": 0.0,
+            "purpose": "place the protagonist under a power they underestimate"
+          },
+          {
+            "name": "seeming stability",
+            "position": 0.12,
+            "purpose": "let life proceed as if the shadow were survivable"
+          },
+          {
+            "name": "the dark power stirs",
+            "position": 0.24,
+            "purpose": "close the trap and end the illusion of control"
+          },
+          {
+            "name": "deepening imprisonment",
+            "position": 0.36,
+            "purpose": "narrow the world to the terms of the affliction"
+          },
+          {
+            "name": "the living death",
+            "position": 0.5,
+            "purpose": "hold the protagonist in stasis long enough for it to feel permanent"
+          },
+          {
+            "name": "the redeeming figure",
+            "position": 0.64,
+            "purpose": "bring a force of love or truth that does not accept the stasis"
+          },
+          {
+            "name": "the awakening",
+            "position": 0.76,
+            "purpose": "crack the spell and restore agency"
+          },
+          {
+            "name": "the miraculous release",
+            "position": 0.87,
+            "purpose": "break the dark power's hold decisively"
+          },
+          {
+            "name": "the new life",
+            "position": 0.97,
+            "purpose": "show a life reorganized around what the thaw revealed"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.2
+          ],
+          [
+            0.24,
+            -0.3
+          ],
+          [
+            0.5,
+            -0.9
+          ],
+          [
+            0.64,
+            -0.5
+          ],
+          [
+            0.87,
+            0.4
+          ],
+          [
+            1.0,
+            0.8
+          ]
+        ],
+        "aka": "the thaw plot, redemption-from-without shape",
+        "register": "Christmas stories, fairy tale, literary transformation narratives",
+        "caution": "Because the rescue comes from outside, the protagonist risks passivity; give the awakening an act they must perform themselves."
+      },
+      {
+        "name": "katabasis descent",
+        "definition": "The underworld journey: a living protagonist crosses into the realm of the dead for knowledge, a person, or a debt, and returns under a condition that must not be broken.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the unbearable loss",
+            "position": 0.0,
+            "purpose": "establish what is missing that the living world cannot restore"
+          },
+          {
+            "name": "consulting the guide",
+            "position": 0.12,
+            "purpose": "learn the route, the price, and the rule that governs return"
+          },
+          {
+            "name": "the crossing",
+            "position": 0.24,
+            "purpose": "pay the ferryman and pass the boundary the living do not pass"
+          },
+          {
+            "name": "the shades",
+            "position": 0.38,
+            "purpose": "meet the dead who explain what the protagonist could not see above"
+          },
+          {
+            "name": "the audience with the ruler",
+            "position": 0.55,
+            "purpose": "petition the power that holds what was lost"
+          },
+          {
+            "name": "the condition",
+            "position": 0.66,
+            "purpose": "receive the boon bound to a prohibition"
+          },
+          {
+            "name": "the ascent",
+            "position": 0.78,
+            "purpose": "climb back with the condition pressing at every step"
+          },
+          {
+            "name": "the broken rule",
+            "position": 0.9,
+            "purpose": "test the prohibition where the loss is felt most"
+          },
+          {
+            "name": "return to the living",
+            "position": 0.97,
+            "purpose": "come back changed, carrying knowledge instead of the thing sought"
+          }
+        ],
+        "aka": "nekyia, the descent, underworld journey",
+        "register": "myth, tragedy, literary fiction, and grief narratives; also a chapter shape inside longer works",
+        "caution": "The condition is the story; a descent whose rule costs nothing to keep is only a tour."
+      },
+      {
+        "name": "wuxia jianghu journey",
+        "definition": "The martial-hero arc: an orphaned talent trains under a master, rises in the jianghu, is betrayed into exile, achieves a breakthrough in isolation, and returns to settle the debt.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "humble origins",
+            "position": 0.0,
+            "purpose": "place the hero low, orphaned, or dishonoured"
+          },
+          {
+            "name": "discovery of talent",
+            "position": 0.08,
+            "purpose": "reveal the aptitude that the sect world will contest"
+          },
+          {
+            "name": "training under a master",
+            "position": 0.17,
+            "purpose": "impose discipline, lineage, and a code the hero will be tested against"
+          },
+          {
+            "name": "first standing in the jianghu",
+            "position": 0.3,
+            "purpose": "win a name in the martial world and its obligations"
+          },
+          {
+            "name": "sect politics and attachment",
+            "position": 0.38,
+            "purpose": "entangle the hero in rivalries, debts, and love"
+          },
+          {
+            "name": "betrayal",
+            "position": 0.47,
+            "purpose": "have a trusted figure destroy the hero's standing"
+          },
+          {
+            "name": "exile and injury",
+            "position": 0.56,
+            "purpose": "strip skill, reputation, and allies together"
+          },
+          {
+            "name": "secret manual and breakthrough",
+            "position": 0.66,
+            "purpose": "reach a higher level in isolation, at a physical or moral price"
+          },
+          {
+            "name": "return and reckoning",
+            "position": 0.76,
+            "purpose": "reappear and dismantle the betrayer's position"
+          },
+          {
+            "name": "the final duel",
+            "position": 0.86,
+            "purpose": "settle the debt in single combat governed by the code"
+          },
+          {
+            "name": "withdrawal from the jianghu",
+            "position": 0.96,
+            "purpose": "leave the martial world rather than rule it"
+          }
+        ],
+        "aka": "jianghu arc, martial-hero journey",
+        "register": "wuxia and xianxia fiction, martial-arts film; kin to the revenge and mastery plots",
+        "caution": "The retreat at the end is the genre's moral position on power; ending on the throne instead turns a wuxia into an empire story."
+      }
+    ],
+    "classical_and_world": [
+      {
+        "name": "freytag's pyramid",
+        "definition": "The five-part dramatic pyramid — introduction, rise, climax, return, catastrophe — hinged on an exciting force early and a moment of final suspense late.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "introduction",
+            "position": 0.0,
+            "purpose": "set place, party, and the conditions of the conflict"
+          },
+          {
+            "name": "exciting force",
+            "position": 0.1,
+            "purpose": "release the impulse that starts the rising movement"
+          },
+          {
+            "name": "rising movement",
+            "position": 0.22,
+            "purpose": "build the protagonist's advantage through escalating scenes"
+          },
+          {
+            "name": "climax",
+            "position": 0.5,
+            "purpose": "put the protagonist at the height of their power and the turn at its point"
+          },
+          {
+            "name": "tragic force and reversal",
+            "position": 0.6,
+            "purpose": "release the counterforce that turns the movement downward"
+          },
+          {
+            "name": "falling movement",
+            "position": 0.72,
+            "purpose": "run the consequences as the opposition takes the initiative"
+          },
+          {
+            "name": "moment of final suspense",
+            "position": 0.85,
+            "purpose": "offer one last apparent chance of escape"
+          },
+          {
+            "name": "catastrophe",
+            "position": 0.93,
+            "purpose": "complete the fall and discharge the tension"
+          },
+          {
+            "name": "denouement",
+            "position": 0.98,
+            "purpose": "settle the survivors and close the frame"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.5,
+            0.8
+          ],
+          [
+            0.72,
+            -0.2
+          ],
+          [
+            0.85,
+            0.1
+          ],
+          [
+            1.0,
+            -0.9
+          ]
+        ],
+        "aka": "dramatic pyramid, Freytag's triangle",
+        "register": "five-act tragedy and classical drama; the ancestor of the school-taught plot diagram",
+        "caution": "Freytag was describing tragedy, where the climax sits at the middle and the fall follows; the modern habit of putting the climax at ninety percent is a different shape wearing his name."
+      },
+      {
+        "name": "greek tragedy",
+        "definition": "The Attic sequence of choral and spoken sections — prologos, parodos, alternating episodes and stasima, exodos — organized around reversal, recognition, and suffering.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "prologos",
+            "position": 0.0,
+            "purpose": "state the situation and the god or debt behind it"
+          },
+          {
+            "name": "parodos",
+            "position": 0.1,
+            "purpose": "bring the chorus on and establish the community's stake"
+          },
+          {
+            "name": "first episode and stasimon",
+            "position": 0.2,
+            "purpose": "set the protagonist's course and let the chorus weigh it"
+          },
+          {
+            "name": "second episode and stasimon",
+            "position": 0.35,
+            "purpose": "harden the opposition and narrow the options"
+          },
+          {
+            "name": "peripeteia",
+            "position": 0.5,
+            "purpose": "reverse the action so that the effort produces its opposite"
+          },
+          {
+            "name": "anagnorisis",
+            "position": 0.62,
+            "purpose": "convert ignorance into knowledge, usually of kinship or guilt"
+          },
+          {
+            "name": "kommos",
+            "position": 0.72,
+            "purpose": "let protagonist and chorus lament together"
+          },
+          {
+            "name": "pathos",
+            "position": 0.8,
+            "purpose": "deliver the destructive act, reported rather than shown"
+          },
+          {
+            "name": "final stasimon",
+            "position": 0.88,
+            "purpose": "give the chorus the general lesson the particular case supports"
+          },
+          {
+            "name": "exodos",
+            "position": 0.95,
+            "purpose": "clear the stage and leave the audience purged"
+          }
+        ],
+        "aka": "Attic tragedy, Aristotelian tragic form",
+        "register": "verse drama, adaptation, and any narrative where a community must witness a fall",
+        "caution": "The chorus is a structural organ, not decoration; dropping it removes the audience's licensed reaction and the form's moral balance."
+      },
+      {
+        "name": "old comedy structure",
+        "definition": "The Aristophanic sequence in which a fantastic scheme is proposed, formally debated in the agon, endorsed in the parabasis, and then played out in escalating comic episodes.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "prologos",
+            "position": 0.0,
+            "purpose": "introduce an ordinary citizen with an absurd remedy for a public ill"
+          },
+          {
+            "name": "parodos",
+            "position": 0.12,
+            "purpose": "bring on a hostile or curious chorus"
+          },
+          {
+            "name": "agon",
+            "position": 0.26,
+            "purpose": "settle the scheme by formal debate between opposed positions"
+          },
+          {
+            "name": "parabasis",
+            "position": 0.4,
+            "purpose": "step out of the fiction and address the audience directly"
+          },
+          {
+            "name": "first episodes",
+            "position": 0.54,
+            "purpose": "run the consequences of the enacted scheme as satirical set pieces"
+          },
+          {
+            "name": "escalating episodes",
+            "position": 0.68,
+            "purpose": "bring the scheme's victims on in worsening order"
+          },
+          {
+            "name": "climactic episode",
+            "position": 0.82,
+            "purpose": "cap the sequence with the largest target"
+          },
+          {
+            "name": "exodos",
+            "position": 0.93,
+            "purpose": "end in feast, song, or wedding regardless of logic"
+          }
+        ],
+        "aka": "Aristophanic comedy, the agon-parabasis form",
+        "register": "satire, political comedy, sketch and revue writing",
+        "caution": "The episodes after the parabasis are deliberately non-causal; imposing a plot on them removes the satire's freedom to keep changing targets."
+      },
+      {
+        "name": "roman new comedy",
+        "definition": "The Plautine and Terentian five-part shape — protasis, epitasis, catastrophe — in which a scheme by clever subordinates drives obstruction toward recognition and marriage.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "expository prologue",
+            "position": 0.0,
+            "purpose": "tell the audience the secret the characters do not know"
+          },
+          {
+            "name": "the household in place",
+            "position": 0.1,
+            "purpose": "introduce the lovers, the blocking figure, and the clever slave"
+          },
+          {
+            "name": "the scheme",
+            "position": 0.22,
+            "purpose": "launch the deception intended to defeat the obstruction"
+          },
+          {
+            "name": "complications multiply",
+            "position": 0.35,
+            "purpose": "let each patch on the deception require another"
+          },
+          {
+            "name": "crisis of the intrigue",
+            "position": 0.48,
+            "purpose": "bring the scheme to the edge of collapse"
+          },
+          {
+            "name": "near-discovery",
+            "position": 0.6,
+            "purpose": "escape exposure by improvisation and nerve"
+          },
+          {
+            "name": "recognition",
+            "position": 0.74,
+            "purpose": "reveal the birth or identity that dissolves the obstruction"
+          },
+          {
+            "name": "reconciliation",
+            "position": 0.85,
+            "purpose": "let the blocking figure accept what he cannot prevent"
+          },
+          {
+            "name": "marriage and resolution",
+            "position": 0.95,
+            "purpose": "close on the union and the restored household"
+          }
+        ],
+        "aka": "Plautine comedy, the intrigue plot",
+        "register": "farce, romantic comedy, sitcom; the ancestor of most comic plotting in English",
+        "caution": "The recognition token must be planted early; a birthmark produced in the last scene reads as authorial rescue rather than comic design."
+      },
+      {
+        "name": "shakespearean five-act",
+        "definition": "The Elizabethan five-act working of the pyramid, with the turning point at the third act and a fourth act of consequences before the fifth-act settlement.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "exposition and atmosphere",
+            "position": 0.0,
+            "purpose": "open on a public scene that sets tone and the state of the world"
+          },
+          {
+            "name": "the exciting force",
+            "position": 0.14,
+            "purpose": "introduce the demand, prophecy, or love that sets the action"
+          },
+          {
+            "name": "commitment",
+            "position": 0.25,
+            "purpose": "have the protagonist choose the course the play will test"
+          },
+          {
+            "name": "entanglement",
+            "position": 0.35,
+            "purpose": "complicate with subplot, disguise, or misinformation"
+          },
+          {
+            "name": "turning point",
+            "position": 0.48,
+            "purpose": "place the central act where fortune changes direction"
+          },
+          {
+            "name": "the aftermath",
+            "position": 0.58,
+            "purpose": "let the consequences begin before anyone can adjust"
+          },
+          {
+            "name": "counterplay",
+            "position": 0.68,
+            "purpose": "give the opposing force the initiative"
+          },
+          {
+            "name": "moment of final suspense",
+            "position": 0.78,
+            "purpose": "raise the possibility of a different ending"
+          },
+          {
+            "name": "catastrophe or resolution",
+            "position": 0.88,
+            "purpose": "settle the action in deaths or marriages"
+          },
+          {
+            "name": "restoration and closing address",
+            "position": 0.97,
+            "purpose": "hand the world to a survivor and speak the last lines outward"
+          }
+        ],
+        "aka": "Elizabethan five-act structure",
+        "register": "stage drama and adaptation; a useful chapter grouping for novels in five parts",
+        "caution": "The fourth act is where the form is usually lost — it is the consequences act, not a delay before the fifth."
+      },
+      {
+        "name": "kishotenketsu",
+        "definition": "The four-part East Asian structure — ki, sho, ten, ketsu — in which interest comes from a turn that recontextualizes what preceded it rather than from conflict.",
+        "acts": 4,
+        "beats": [
+          {
+            "name": "ki: introduction",
+            "position": 0.0,
+            "purpose": "present the situation and its people without opposition"
+          },
+          {
+            "name": "sho: development",
+            "position": 0.25,
+            "purpose": "deepen and extend the situation on its own terms"
+          },
+          {
+            "name": "ten: the turn arrives",
+            "position": 0.5,
+            "purpose": "introduce something that appears unrelated to everything so far"
+          },
+          {
+            "name": "ten: the connection seen",
+            "position": 0.62,
+            "purpose": "reveal how the new element reframes the first two parts"
+          },
+          {
+            "name": "ketsu: reconciliation",
+            "position": 0.75,
+            "purpose": "bring the reframed elements into harmony"
+          },
+          {
+            "name": "ketsu: closing image",
+            "position": 0.92,
+            "purpose": "settle on an image that holds both readings at once"
+          }
+        ],
+        "aka": "kishōtenketsu, qi-cheng-zhuan-he, ki-seung-jeon-gyeol",
+        "register": "literary fiction, manga, four-panel comics, contemplative and slice-of-life narrative",
+        "caution": "Four parts, six beats here: ten and ketsu are split so the turn and its recognition can be budgeted apart. Reading ten as a plot twist rebuilds the conflict structure the form exists without; the turn shifts perspective, it need not raise stakes."
+      },
+      {
+        "name": "jo-ha-kyu",
+        "definition": "The Japanese three-phase modulation of tempo — slow beginning, breaking development, swift conclusion — applied fractally to a whole programme, a play, a scene, and a gesture.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "jo: the auspicious opening",
+            "position": 0.0,
+            "purpose": "begin slowly and formally, withholding incident"
+          },
+          {
+            "name": "jo into ha: the first break",
+            "position": 0.2,
+            "purpose": "let the regular surface admit its first irregularity"
+          },
+          {
+            "name": "ha: development",
+            "position": 0.35,
+            "purpose": "break the established pattern and vary the tempo"
+          },
+          {
+            "name": "ha: intensification",
+            "position": 0.55,
+            "purpose": "accelerate and complicate toward the point of maximum instability"
+          },
+          {
+            "name": "kyu: the swift conclusion",
+            "position": 0.78,
+            "purpose": "resolve rapidly, in a fraction of the time the opening took"
+          },
+          {
+            "name": "the return to stillness",
+            "position": 0.95,
+            "purpose": "stop on silence rather than on a summary"
+          }
+        ],
+        "aka": "jo-ha-kyū, introduction-breaking-rapid",
+        "register": "Noh and kabuki, renga sequencing, martial arts, and any prose that wants pacing as a structural principle",
+        "caution": "The proportions are unequal by design — a kyu given a quarter of the running time is no longer a kyu."
+      },
+      {
+        "name": "noh five-dan",
+        "definition": "Zeami's five-section play: a travelling witness meets a disguised spirit who tells a story, withdraws, and returns in true form to dance its essence before a final stillness.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "the witness arrives",
+            "position": 0.0,
+            "purpose": "let the living traveller name himself, his origin, and his destination"
+          },
+          {
+            "name": "the travel song",
+            "position": 0.1,
+            "purpose": "carry the audience to the charged place through poetry alone"
+          },
+          {
+            "name": "the disguised figure enters",
+            "position": 0.22,
+            "purpose": "introduce the protagonist in ordinary form, unexplained"
+          },
+          {
+            "name": "question and answer",
+            "position": 0.32,
+            "purpose": "draw the local legend out until the teller knows too much"
+          },
+          {
+            "name": "the narrative dance",
+            "position": 0.45,
+            "purpose": "let chorus and restrained movement carry the story's grief"
+          },
+          {
+            "name": "the withdrawal",
+            "position": 0.55,
+            "purpose": "admit the true identity and leave the stage to change"
+          },
+          {
+            "name": "return in true form",
+            "position": 0.65,
+            "purpose": "reappear as ghost, god, or demon, fully manifest"
+          },
+          {
+            "name": "the climactic dance",
+            "position": 0.78,
+            "purpose": "replace language with movement at the point of highest intensity"
+          },
+          {
+            "name": "the closing chant",
+            "position": 0.9,
+            "purpose": "resolve or eternally suspend the spirit's condition"
+          },
+          {
+            "name": "the final stamp",
+            "position": 0.97,
+            "purpose": "end on one decisive sound and then silence"
+          }
+        ],
+        "aka": "godan structure, Zeami's five dan",
+        "register": "Noh drama; adaptable to ghost stories and any narrative built on a witness and a revenant",
+        "caution": "Nothing here is driven by a protagonist's goal; imported conflict destroys the form's central effect, which is contemplation of a fixed condition."
+      },
+      {
+        "name": "sanskrit five sandhi",
+        "definition": "The Natyashastra's five junctures — mukha, pratimukha, garbha, avamarsha, nirvahana — through which a seed is planted, unfolded, sprouted, doubted, and brought to fruit under a governing rasa.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "benediction and preliminaries",
+            "position": 0.0,
+            "purpose": "open with invocation and establish the performance frame"
+          },
+          {
+            "name": "mukha: planting the seed",
+            "position": 0.08,
+            "purpose": "introduce the germ of the action and the desired end"
+          },
+          {
+            "name": "pratimukha: unfolding",
+            "position": 0.22,
+            "purpose": "let the seed appear and disappear as the pursuit begins"
+          },
+          {
+            "name": "rasa deepening",
+            "position": 0.33,
+            "purpose": "thicken the emotional texture with subordinate flavours"
+          },
+          {
+            "name": "garbha: sprouting",
+            "position": 0.44,
+            "purpose": "make attainment visible but repeatedly deferred"
+          },
+          {
+            "name": "approaching certainty",
+            "position": 0.56,
+            "purpose": "bring the goal within reach so that doubt can matter"
+          },
+          {
+            "name": "avamarsha: the pause of deliberation",
+            "position": 0.66,
+            "purpose": "hold the action in doubt, temptation, or curse"
+          },
+          {
+            "name": "rasa climax",
+            "position": 0.76,
+            "purpose": "let the dominant flavour reach full intensity"
+          },
+          {
+            "name": "nirvahana: convergence on the fruit",
+            "position": 0.85,
+            "purpose": "gather every planted thread into the attainment"
+          },
+          {
+            "name": "aesthetic peace",
+            "position": 0.93,
+            "purpose": "settle the emotion into tranquillity rather than triumph"
+          },
+          {
+            "name": "closing benediction",
+            "position": 0.98,
+            "purpose": "return the audience to the world with a blessing"
+          }
+        ],
+        "aka": "pancha sandhi, the five junctures",
+        "register": "Sanskrit drama and its descendants; useful wherever emotional flavour, not conflict, is the organizing principle",
+        "caution": "The junctures are named by what the seed is doing, not by rising tension; mapping them onto three acts loses the deliberation phase that gives the form its weight."
+      },
+      {
+        "name": "propp's morphology",
+        "definition": "The recurring function sequence of the Russian wonder tale, condensed: an interdiction is violated, villainy creates a lack, the hero is dispatched, tested by a donor, and returns to unmask a false claimant.",
+        "acts": 4,
+        "beats": [
+          {
+            "name": "absentation and interdiction",
+            "position": 0.0,
+            "purpose": "remove a protector and impose a prohibition"
+          },
+          {
+            "name": "violation",
+            "position": 0.06,
+            "purpose": "break the prohibition and open the world to harm"
+          },
+          {
+            "name": "reconnaissance and trickery",
+            "position": 0.12,
+            "purpose": "let the villain gather information and deceive"
+          },
+          {
+            "name": "villainy or lack",
+            "position": 0.2,
+            "purpose": "inflict the harm or name the thing missing"
+          },
+          {
+            "name": "mediation and departure",
+            "position": 0.28,
+            "purpose": "dispatch the hero, who agrees to counteraction"
+          },
+          {
+            "name": "the donor's test",
+            "position": 0.36,
+            "purpose": "test the hero's manners or courage before granting aid"
+          },
+          {
+            "name": "receipt of the magical agent",
+            "position": 0.42,
+            "purpose": "hand over the helper or object that makes victory possible"
+          },
+          {
+            "name": "guidance to the object",
+            "position": 0.48,
+            "purpose": "transfer the hero to where the lack can be repaired"
+          },
+          {
+            "name": "struggle and branding",
+            "position": 0.55,
+            "purpose": "join combat and mark the hero with a wound or token"
+          },
+          {
+            "name": "victory and liquidation of the lack",
+            "position": 0.62,
+            "purpose": "defeat the villain and restore what was missing"
+          },
+          {
+            "name": "pursuit and rescue",
+            "position": 0.7,
+            "purpose": "flee the counterattack by cunning or transformation"
+          },
+          {
+            "name": "unrecognized arrival",
+            "position": 0.78,
+            "purpose": "return home unknown"
+          },
+          {
+            "name": "false claim and difficult task",
+            "position": 0.84,
+            "purpose": "let an impostor claim the deed and set a final test"
+          },
+          {
+            "name": "recognition and exposure",
+            "position": 0.9,
+            "purpose": "identify the hero by the mark and unmask the impostor"
+          },
+          {
+            "name": "punishment and transfiguration",
+            "position": 0.95,
+            "purpose": "punish the villain and remake the hero's appearance or station"
+          },
+          {
+            "name": "wedding and accession",
+            "position": 0.99,
+            "purpose": "close on marriage, throne, or both"
+          }
+        ],
+        "aka": "Propp's functions, morphology of the folktale",
+        "register": "folk tale, fairy tale, and structural analysis; a generator as well as a description",
+        "caution": "Propp's claim is that functions keep their order, not that all appear; using all thirty-one produces a pastiche no folk tale ever was."
+      },
+      {
+        "name": "fichtean curve",
+        "definition": "A crisis-dense shape that opens in motion and stacks escalating crises, each raising tension higher than the last, until a late climax and a very short fall.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "opening in motion",
+            "position": 0.0,
+            "purpose": "start inside trouble and explain nothing yet"
+          },
+          {
+            "name": "first crisis",
+            "position": 0.1,
+            "purpose": "establish the pattern: pressure, response, worse position"
+          },
+          {
+            "name": "response and complication",
+            "position": 0.2,
+            "purpose": "supply the backstory in the gaps between crises"
+          },
+          {
+            "name": "second crisis",
+            "position": 0.32,
+            "purpose": "raise the cost and remove an option"
+          },
+          {
+            "name": "third crisis",
+            "position": 0.46,
+            "purpose": "take away a support the protagonist counted on"
+          },
+          {
+            "name": "fourth crisis",
+            "position": 0.58,
+            "purpose": "push to the near-breaking point"
+          },
+          {
+            "name": "reckoning",
+            "position": 0.7,
+            "purpose": "force the choice the accumulated crises have been shaping"
+          },
+          {
+            "name": "climax",
+            "position": 0.82,
+            "purpose": "resolve at the highest point of the stack"
+          },
+          {
+            "name": "brief falling action",
+            "position": 0.92,
+            "purpose": "release tension quickly; the form does not linger"
+          },
+          {
+            "name": "new equilibrium",
+            "position": 0.98,
+            "purpose": "state the changed condition in a few lines"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            -0.3
+          ],
+          [
+            0.32,
+            -0.5
+          ],
+          [
+            0.58,
+            -0.8
+          ],
+          [
+            0.82,
+            0.3
+          ],
+          [
+            1.0,
+            0.5
+          ]
+        ],
+        "aka": "the crisis stack, rising-crisis structure",
+        "register": "thriller, horror, action, and serialized fiction that cannot afford a slow opening",
+        "caution": "Without troughs between crises the reader goes numb; the curve rises overall but must still dip after each peak."
+      },
+      {
+        "name": "homeric epic structure",
+        "definition": "The epic sequence: invocation, opening in the middle of things, catalogue and assembly, divine interference, aristeia, a descent, and a homecoming.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "invocation",
+            "position": 0.0,
+            "purpose": "name the subject and ask the muse for it"
+          },
+          {
+            "name": "beginning in the middle",
+            "position": 0.05,
+            "purpose": "enter at the crisis, not the origin"
+          },
+          {
+            "name": "assembly and quarrel",
+            "position": 0.12,
+            "purpose": "set the human conflict among leaders"
+          },
+          {
+            "name": "catalogue",
+            "position": 0.18,
+            "purpose": "enumerate the forces and give the world its scale"
+          },
+          {
+            "name": "divine intervention",
+            "position": 0.25,
+            "purpose": "let a god tilt the human situation"
+          },
+          {
+            "name": "exploits and trials",
+            "position": 0.38,
+            "purpose": "run the episodes that prove and test the hero"
+          },
+          {
+            "name": "aristeia",
+            "position": 0.52,
+            "purpose": "give the hero a stretch of unmatched excellence"
+          },
+          {
+            "name": "the descent",
+            "position": 0.62,
+            "purpose": "consult the dead and learn what the living cannot say"
+          },
+          {
+            "name": "divine council and turn",
+            "position": 0.72,
+            "purpose": "settle the outcome above before it happens below"
+          },
+          {
+            "name": "the supreme trial",
+            "position": 0.84,
+            "purpose": "stage the confrontation the whole poem has deferred"
+          },
+          {
+            "name": "homecoming",
+            "position": 0.95,
+            "purpose": "restore or fail to restore the hero to a household"
+          }
+        ],
+        "aka": "epic form, the Homeric pattern",
+        "register": "epic poetry and its prose descendants; also a template for large ensemble fantasy",
+        "caution": "The catalogue and the divine council are what make the scale felt; cutting them for pace turns an epic into a long adventure novel."
+      },
+      {
+        "name": "grimm fairy-tale pattern",
+        "definition": "The household folk-tale shape: a prohibition, a departure into the forest, a magical helper, three trials, and a settlement in which reward and punishment are both literal.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "once upon a time",
+            "position": 0.0,
+            "purpose": "state family, poverty, or lack in a single sentence"
+          },
+          {
+            "name": "prohibition",
+            "position": 0.1,
+            "purpose": "issue the warning the tale exists to break"
+          },
+          {
+            "name": "violation and expulsion",
+            "position": 0.18,
+            "purpose": "break the rule and lose the safety of home"
+          },
+          {
+            "name": "into the forest",
+            "position": 0.26,
+            "purpose": "cross into the place where the rules are magical"
+          },
+          {
+            "name": "the helper",
+            "position": 0.36,
+            "purpose": "reward simple kindness with disproportionate aid"
+          },
+          {
+            "name": "three trials",
+            "position": 0.5,
+            "purpose": "test the protagonist three times, hardest last"
+          },
+          {
+            "name": "confrontation",
+            "position": 0.7,
+            "purpose": "defeat the witch, wolf, or stepmother by wit or nerve"
+          },
+          {
+            "name": "reward and punishment",
+            "position": 0.82,
+            "purpose": "distribute both without mercy or ambiguity"
+          },
+          {
+            "name": "transformation restored",
+            "position": 0.9,
+            "purpose": "return the enchanted to their true shapes"
+          },
+          {
+            "name": "happily ever after",
+            "position": 0.97,
+            "purpose": "close the frame with marriage, plenty, or safety"
+          }
+        ],
+        "aka": "märchen structure, wonder-tale shape",
+        "register": "fairy tale, children's fiction, and adult retellings that trade on the pattern",
+        "caution": "The flat affect is the form: psychology stated rather than dramatized. Adding interiority is a legitimate retelling but it is no longer this structure."
+      },
+      {
+        "name": "aesop's fable",
+        "definition": "The minimal moral tale: a situation, an encounter, an action taken in character, an outcome that follows necessarily, and a stated moral.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "situation",
+            "position": 0.0,
+            "purpose": "name two creatures and the condition between them"
+          },
+          {
+            "name": "encounter",
+            "position": 0.25,
+            "purpose": "bring them into contact over a single want"
+          },
+          {
+            "name": "the action",
+            "position": 0.5,
+            "purpose": "let each act exactly as their nature requires"
+          },
+          {
+            "name": "outcome",
+            "position": 0.75,
+            "purpose": "deliver the consequence without mercy or delay"
+          },
+          {
+            "name": "the moral",
+            "position": 0.93,
+            "purpose": "state the general rule the case illustrates"
+          }
+        ],
+        "aka": "fable, apologue, the progymnasmatic fable",
+        "register": "fable, parable, and the opening exercise of the classical rhetorical curriculum",
+        "caution": "The moral must be derivable from the action; if the tag line supplies information the story withheld, the fable has failed as an argument."
+      },
+      {
+        "name": "ring composition",
+        "definition": "A symmetrical arrangement in which elements introduced on the way in are answered in reverse order on the way out, around a central pivot that carries the meaning.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "outer frame opens",
+            "position": 0.0,
+            "purpose": "state the terms and the occasion that will be returned to"
+          },
+          {
+            "name": "first element",
+            "position": 0.12,
+            "purpose": "introduce the motif that the last movement will answer"
+          },
+          {
+            "name": "second element",
+            "position": 0.26,
+            "purpose": "layer the next term inward, marked so it can be recognized again"
+          },
+          {
+            "name": "approach to the centre",
+            "position": 0.4,
+            "purpose": "narrow toward the turn with the innermost material"
+          },
+          {
+            "name": "the pivot",
+            "position": 0.5,
+            "purpose": "place the story's argument or revelation at the exact centre"
+          },
+          {
+            "name": "second element answered",
+            "position": 0.62,
+            "purpose": "return the innermost term transformed by the pivot"
+          },
+          {
+            "name": "first element answered",
+            "position": 0.78,
+            "purpose": "answer the earlier motif in reverse order"
+          },
+          {
+            "name": "outer frame closes",
+            "position": 0.94,
+            "purpose": "return to the opening terms with their meaning changed"
+          }
+        ],
+        "aka": "chiastic structure, ring form, ABCBA",
+        "register": "oral epic, scripture, essay, and literary fiction that rewards rereading",
+        "caution": "Symmetry has to be perceptible without a diagram; if only the author can find the ring, it is decoration rather than structure."
+      }
+    ],
+    "genre_sheets": [
+      {
+        "name": "whodunit mystery",
+        "definition": "The fair-play detective structure: a crime, an investigator engaged, a field of suspects with means and motive, a misdirected middle, and a solution the reader could have reached.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the world before the crime",
+            "position": 0.0,
+            "purpose": "show the closed community and plant every later clue in plain sight"
+          },
+          {
+            "name": "the body",
+            "position": 0.08,
+            "purpose": "commit the crime and freeze the situation the plot will thaw"
+          },
+          {
+            "name": "the detective engaged",
+            "position": 0.13,
+            "purpose": "bring in the investigator and their reason to care"
+          },
+          {
+            "name": "first canvass",
+            "position": 0.2,
+            "purpose": "collect testimony that is mostly true and partly self-serving"
+          },
+          {
+            "name": "false leads",
+            "position": 0.3,
+            "purpose": "let a plausible theory absorb the reader's attention"
+          },
+          {
+            "name": "interviews and alibis",
+            "position": 0.4,
+            "purpose": "narrow the field while giving each suspect a defensible story"
+          },
+          {
+            "name": "the crucial detail",
+            "position": 0.5,
+            "purpose": "place the decisive fact where it can be seen and not understood"
+          },
+          {
+            "name": "second crime",
+            "position": 0.6,
+            "purpose": "escalate by removing whoever was about to speak"
+          },
+          {
+            "name": "the wrong arrest",
+            "position": 0.68,
+            "purpose": "let the official theory take hold and be wrong"
+          },
+          {
+            "name": "the reversal",
+            "position": 0.78,
+            "purpose": "have the detective see the pattern the reader has been given"
+          },
+          {
+            "name": "the confrontation",
+            "position": 0.88,
+            "purpose": "gather the suspects and reconstruct the crime aloud"
+          },
+          {
+            "name": "denouement",
+            "position": 0.97,
+            "purpose": "settle guilt, motive, and what the community will do next"
+          }
+        ],
+        "aka": "fair-play mystery, classic detective plot",
+        "register": "crime fiction, cosy and golden-age forms, procedural television",
+        "caution": "Fair play is structural, not decorative: every clue used in the solution must have been available, and withholding one converts a mystery into a trick."
+      },
+      {
+        "name": "inverted detective story",
+        "definition": "The howdunit: the crime and criminal are shown first, and the tension comes from watching an investigator close on a mistake the audience already knows about.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the plan",
+            "position": 0.0,
+            "purpose": "let the audience watch the murderer prepare in full"
+          },
+          {
+            "name": "the crime committed",
+            "position": 0.14,
+            "purpose": "execute the plan, including the one imperfect element"
+          },
+          {
+            "name": "the cover",
+            "position": 0.24,
+            "purpose": "establish the alibi the rest of the story will erode"
+          },
+          {
+            "name": "the investigator arrives",
+            "position": 0.32,
+            "purpose": "introduce the detective and their apparent harmlessness"
+          },
+          {
+            "name": "first snag",
+            "position": 0.44,
+            "purpose": "let the detective notice the flaw the audience is watching for"
+          },
+          {
+            "name": "pressure and improvisation",
+            "position": 0.56,
+            "purpose": "force the criminal into new lies that create new evidence"
+          },
+          {
+            "name": "the second mistake",
+            "position": 0.68,
+            "purpose": "make the cover-up more incriminating than the crime"
+          },
+          {
+            "name": "the trap",
+            "position": 0.82,
+            "purpose": "have the detective stage a situation only the guilty would react to"
+          },
+          {
+            "name": "confession",
+            "position": 0.94,
+            "purpose": "close with the criminal's recognition rather than the reader's"
+          }
+        ],
+        "aka": "howdunit, the Columbo structure",
+        "register": "crime television and fiction; dramatic irony in place of puzzle",
+        "caution": "The pleasure is the criminal's competence eroding, so the detective must never look lucky — every step needs an inference the audience can check."
+      },
+      {
+        "name": "heist caper",
+        "definition": "The crew structure: an impossible target, a team assembled by specialism, a plan shown to the audience, execution that goes wrong, and a reveal that the failure was the plan.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the operator's situation",
+            "position": 0.0,
+            "purpose": "establish the leader's skill and their reason to need this job"
+          },
+          {
+            "name": "the target",
+            "position": 0.08,
+            "purpose": "present the score and the security that makes it impossible"
+          },
+          {
+            "name": "assembling the crew",
+            "position": 0.16,
+            "purpose": "introduce each specialist by the problem they solve"
+          },
+          {
+            "name": "casing",
+            "position": 0.24,
+            "purpose": "gather the constraints the plan will have to satisfy"
+          },
+          {
+            "name": "the plan",
+            "position": 0.32,
+            "purpose": "show the audience a version of the plan, complete and confident"
+          },
+          {
+            "name": "preparation",
+            "position": 0.4,
+            "purpose": "rehearse, build, and expose the crew's frictions"
+          },
+          {
+            "name": "the wild card",
+            "position": 0.48,
+            "purpose": "change one condition after the plan is locked"
+          },
+          {
+            "name": "the job begins",
+            "position": 0.58,
+            "purpose": "run the first phase exactly as promised"
+          },
+          {
+            "name": "complications",
+            "position": 0.68,
+            "purpose": "break the plan in ways that force improvisation on the clock"
+          },
+          {
+            "name": "the double-cross",
+            "position": 0.78,
+            "purpose": "have someone inside the crew act against it"
+          },
+          {
+            "name": "the reveal",
+            "position": 0.88,
+            "purpose": "show the hidden layer that reframes everything just watched"
+          },
+          {
+            "name": "the split",
+            "position": 0.97,
+            "purpose": "distribute the take and the consequences"
+          }
+        ],
+        "aka": "caper plot, crew structure",
+        "register": "crime film and fiction; also the shape of many con and prison-break stories",
+        "caution": "The reveal must use only material the audience saw; a hidden accomplice introduced in the last five minutes cheats the contract the plan sequence made."
+      },
+      {
+        "name": "romance beat sheet",
+        "definition": "The genre's obligatory arc: two people meet, are forced together, fall in love against internal resistance, break under the flaw that resistance protected, and choose each other with the flaw surrendered.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "both lives before",
+            "position": 0.0,
+            "purpose": "show each protagonist's wound and what it costs them daily"
+          },
+          {
+            "name": "the meeting",
+            "position": 0.08,
+            "purpose": "bring them together in a way that charges the room"
+          },
+          {
+            "name": "attraction and denial",
+            "position": 0.15,
+            "purpose": "establish the reason each refuses what they feel"
+          },
+          {
+            "name": "the adhesion",
+            "position": 0.22,
+            "purpose": "impose a reason they cannot simply walk away"
+          },
+          {
+            "name": "growing connection",
+            "position": 0.33,
+            "purpose": "let intimacy accumulate through small, specific concessions"
+          },
+          {
+            "name": "the turning point",
+            "position": 0.42,
+            "purpose": "cross a line — a kiss, a confession — that changes the terms"
+          },
+          {
+            "name": "midpoint commitment",
+            "position": 0.52,
+            "purpose": "give them the relationship, briefly, at full intensity"
+          },
+          {
+            "name": "retreat",
+            "position": 0.62,
+            "purpose": "let the old wound reassert itself against the new closeness"
+          },
+          {
+            "name": "the black moment",
+            "position": 0.73,
+            "purpose": "break them apart over the thing neither would surrender"
+          },
+          {
+            "name": "dark night",
+            "position": 0.8,
+            "purpose": "leave each alone with what the loss reveals"
+          },
+          {
+            "name": "the grand gesture",
+            "position": 0.89,
+            "purpose": "have one act publicly against their own defence"
+          },
+          {
+            "name": "the resolution",
+            "position": 0.97,
+            "purpose": "deliver the union the genre promised, with the cost paid"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.42,
+            0.6
+          ],
+          [
+            0.52,
+            0.9
+          ],
+          [
+            0.73,
+            -0.9
+          ],
+          [
+            0.89,
+            0.4
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "aka": "courtship arc, the romance obligatory scenes",
+        "register": "romance in all subgenres; the emotionally satisfying ending is a genre contract, not a choice",
+        "caution": "The black moment must come from the flaw established in act one — a misunderstanding a single sentence would clear reads as manufactured and breaks the reader's trust."
+      },
+      {
+        "name": "horror escalation",
+        "definition": "The ratchet: normality, an anomaly explained away, escalation past deniability, isolation, false victory, and a resolution that leaves the threat's logic intact.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "false normalcy",
+            "position": 0.0,
+            "purpose": "establish an ordinary life worth being afraid for"
+          },
+          {
+            "name": "the first sign",
+            "position": 0.1,
+            "purpose": "introduce an anomaly small enough to dismiss"
+          },
+          {
+            "name": "rational explanation",
+            "position": 0.18,
+            "purpose": "let a character explain it away convincingly"
+          },
+          {
+            "name": "escalation",
+            "position": 0.3,
+            "purpose": "repeat the anomaly at a scale that defeats the explanation"
+          },
+          {
+            "name": "point of no return",
+            "position": 0.4,
+            "purpose": "cut off the exit that would have ended the story"
+          },
+          {
+            "name": "isolation",
+            "position": 0.5,
+            "purpose": "remove help, communication, and disbelieving allies"
+          },
+          {
+            "name": "learning the rules",
+            "position": 0.58,
+            "purpose": "let the survivors work out what the threat can and cannot do"
+          },
+          {
+            "name": "false victory",
+            "position": 0.66,
+            "purpose": "appear to defeat or escape it"
+          },
+          {
+            "name": "full confrontation",
+            "position": 0.76,
+            "purpose": "meet the thing on its own terms with the real cost"
+          },
+          {
+            "name": "desperate measures",
+            "position": 0.86,
+            "purpose": "survive by sacrificing something that mattered"
+          },
+          {
+            "name": "the lingering dread",
+            "position": 0.96,
+            "purpose": "close on the sign that the rules still hold"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.3
+          ],
+          [
+            0.18,
+            0.1
+          ],
+          [
+            0.4,
+            -0.4
+          ],
+          [
+            0.66,
+            0.2
+          ],
+          [
+            0.86,
+            -0.9
+          ],
+          [
+            1.0,
+            -0.5
+          ]
+        ],
+        "aka": "the horror ratchet, escalating-dread structure",
+        "register": "horror across media; the sequence is closer to a tension schedule than a plot",
+        "caution": "Every escalation must cost the characters an option; repetition without narrowing produces boredom, which is fatal to fear."
+      },
+      {
+        "name": "redemption plot",
+        "definition": "The arc from a committed wrong to earned restoration: consequences, rock bottom, a catalyst, incremental atonement, a relapse test, and a sacrificial act that pays the original debt.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the wrong",
+            "position": 0.0,
+            "purpose": "establish the act, with the harm shown rather than described"
+          },
+          {
+            "name": "living with it",
+            "position": 0.1,
+            "purpose": "show the self-justification that keeps the character functional"
+          },
+          {
+            "name": "rock bottom",
+            "position": 0.2,
+            "purpose": "take away the last thing the justification was protecting"
+          },
+          {
+            "name": "the catalyst",
+            "position": 0.3,
+            "purpose": "offer a specific chance to act differently"
+          },
+          {
+            "name": "first steps",
+            "position": 0.4,
+            "purpose": "let small restitutions be refused or unnoticed"
+          },
+          {
+            "name": "temptation to relapse",
+            "position": 0.5,
+            "purpose": "make the old life available again on easy terms"
+          },
+          {
+            "name": "test of the new values",
+            "position": 0.62,
+            "purpose": "force a choice where honesty costs materially"
+          },
+          {
+            "name": "acceptance withheld",
+            "position": 0.72,
+            "purpose": "let the wronged party refuse to forgive on schedule"
+          },
+          {
+            "name": "the sacrifice",
+            "position": 0.85,
+            "purpose": "pay a price commensurate with the original harm"
+          },
+          {
+            "name": "the new life",
+            "position": 0.96,
+            "purpose": "grant restoration that is partial and hard-won"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            -0.6
+          ],
+          [
+            0.2,
+            -0.9
+          ],
+          [
+            0.4,
+            -0.2
+          ],
+          [
+            0.5,
+            -0.5
+          ],
+          [
+            0.72,
+            -0.3
+          ],
+          [
+            0.85,
+            0.2
+          ],
+          [
+            1.0,
+            0.7
+          ]
+        ],
+        "aka": "atonement arc",
+        "register": "literary and genre fiction, drama; often the antagonist's arc in an ensemble",
+        "caution": "Forgiveness granted by the victim on cue is the failure mode; redemption is measured by what the character surrenders, not by who absolves them."
+      },
+      {
+        "name": "corruption plot",
+        "definition": "The inverse arc: a decent person meets a pressure, makes a defensible first compromise, is rewarded for it, and descends by increments until the original self is unrecoverable.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the good position",
+            "position": 0.0,
+            "purpose": "establish the principle and the person who holds it"
+          },
+          {
+            "name": "the pressure",
+            "position": 0.1,
+            "purpose": "apply a need that the principle cannot meet"
+          },
+          {
+            "name": "first compromise",
+            "position": 0.19,
+            "purpose": "cross a small line for a good reason"
+          },
+          {
+            "name": "rationalization",
+            "position": 0.28,
+            "purpose": "build the story that makes the crossing sensible"
+          },
+          {
+            "name": "reward",
+            "position": 0.38,
+            "purpose": "let the compromise pay, publicly"
+          },
+          {
+            "name": "deeper compromise",
+            "position": 0.48,
+            "purpose": "raise the price and let the character pay it faster"
+          },
+          {
+            "name": "the warning",
+            "position": 0.58,
+            "purpose": "have someone who loves them name what is happening"
+          },
+          {
+            "name": "severing",
+            "position": 0.68,
+            "purpose": "cut the relationship that would have stopped the descent"
+          },
+          {
+            "name": "point of no return",
+            "position": 0.76,
+            "purpose": "commit an act with no defensible reading"
+          },
+          {
+            "name": "full descent",
+            "position": 0.86,
+            "purpose": "operate entirely by the new logic, competently"
+          },
+          {
+            "name": "destruction",
+            "position": 0.96,
+            "purpose": "let the consequences arrive without redemption"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.6
+          ],
+          [
+            0.19,
+            0.4
+          ],
+          [
+            0.38,
+            0.8
+          ],
+          [
+            0.58,
+            0.0
+          ],
+          [
+            0.76,
+            -0.5
+          ],
+          [
+            1.0,
+            -0.9
+          ]
+        ],
+        "aka": "fall arc, the descent plot",
+        "register": "tragedy, crime drama, literary fiction; the standard shape of the antihero series",
+        "caution": "Each step must be defensible when taken, or the character is not corrupted but merely revealed — a different, weaker story."
+      },
+      {
+        "name": "revenge tragedy",
+        "definition": "The Elizabethan pattern: a wrong beyond legal remedy, a revelation, a vow, delay filled with scheming and feigned madness, and a bloody climax that consumes the avenger.",
+        "acts": 5,
+        "beats": [
+          {
+            "name": "the wrong",
+            "position": 0.0,
+            "purpose": "commit an injury the law cannot or will not address"
+          },
+          {
+            "name": "the revelation",
+            "position": 0.1,
+            "purpose": "disclose the crime to the avenger, often by a ghost or document"
+          },
+          {
+            "name": "the vow",
+            "position": 0.18,
+            "purpose": "bind the avenger to a course with a formal promise"
+          },
+          {
+            "name": "scheming and delay",
+            "position": 0.28,
+            "purpose": "postpone the act while gathering proof and opportunity"
+          },
+          {
+            "name": "madness, real or feigned",
+            "position": 0.38,
+            "purpose": "let the mask of derangement license truth-telling"
+          },
+          {
+            "name": "the device",
+            "position": 0.5,
+            "purpose": "spring a play, letter, or trap that confirms the guilt publicly"
+          },
+          {
+            "name": "moral deterioration",
+            "position": 0.6,
+            "purpose": "have the avenger harm the innocent in service of the vow"
+          },
+          {
+            "name": "the counterplot",
+            "position": 0.7,
+            "purpose": "let the guilty move first and force the timetable"
+          },
+          {
+            "name": "the bloodbath",
+            "position": 0.83,
+            "purpose": "settle everything in a single accelerating catastrophe"
+          },
+          {
+            "name": "the avenger falls",
+            "position": 0.92,
+            "purpose": "kill the avenger with the same machinery"
+          },
+          {
+            "name": "restoration of order",
+            "position": 0.98,
+            "purpose": "let an outsider take the stage and count the bodies"
+          }
+        ],
+        "aka": "the revenge play, Senecan revenge structure",
+        "register": "tragedy, noir, and the modern vengeance thriller",
+        "caution": "The delay is the form's subject; removing it produces an efficient thriller with none of the moral cost that makes revenge tragedy tragic."
+      },
+      {
+        "name": "sports underdog",
+        "definition": "The competitive arc: an overlooked contender gets one chance, trains, wins early, is set back, recommits for a reason larger than winning, and meets the favourite at full strength.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the overlooked life",
+            "position": 0.0,
+            "purpose": "establish the talent and the circumstances wasting it"
+          },
+          {
+            "name": "the opportunity",
+            "position": 0.1,
+            "purpose": "offer a shot that should not be available"
+          },
+          {
+            "name": "reluctant commitment",
+            "position": 0.18,
+            "purpose": "let the fear of hoping be the real obstacle"
+          },
+          {
+            "name": "the coach and the code",
+            "position": 0.26,
+            "purpose": "impose a discipline that is also a moral position"
+          },
+          {
+            "name": "training",
+            "position": 0.34,
+            "purpose": "show the unglamorous work in compressed, specific detail"
+          },
+          {
+            "name": "first competition",
+            "position": 0.44,
+            "purpose": "win enough to make the ambition public and irreversible"
+          },
+          {
+            "name": "setback",
+            "position": 0.56,
+            "purpose": "take away the body, the team, or the mentor"
+          },
+          {
+            "name": "the dark moment",
+            "position": 0.65,
+            "purpose": "let the contender quit in a way that costs someone else"
+          },
+          {
+            "name": "recommitment",
+            "position": 0.74,
+            "purpose": "return for a reason that is not the trophy"
+          },
+          {
+            "name": "the big game",
+            "position": 0.87,
+            "purpose": "stage the contest with the opposition at their honest best"
+          },
+          {
+            "name": "victory or moral victory",
+            "position": 0.97,
+            "purpose": "settle the outer result and the inner one separately"
+          }
+        ],
+        "aka": "underdog structure, the training-montage arc",
+        "register": "sports film and fiction; transfers to any skill-mastery story, from music to law",
+        "caution": "If the ending needs the trophy to work, the inner arc was never load-bearing; the strongest versions can survive losing the match."
+      },
+      {
+        "name": "war story",
+        "definition": "The soldier's arc: enlistment and training, the first contact that ends abstraction, attrition and the loss of the group, a mission with a cost, and a homecoming into a world that cannot hear it.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "life before",
+            "position": 0.0,
+            "purpose": "show the peace and the belief that will not survive"
+          },
+          {
+            "name": "the call to service",
+            "position": 0.08,
+            "purpose": "give a reason for going that the story will interrogate"
+          },
+          {
+            "name": "training and the group",
+            "position": 0.16,
+            "purpose": "forge the unit whose members will be spent"
+          },
+          {
+            "name": "deployment",
+            "position": 0.24,
+            "purpose": "arrive at the place where the rules are different"
+          },
+          {
+            "name": "first combat",
+            "position": 0.32,
+            "purpose": "replace the idea of war with the fact of it"
+          },
+          {
+            "name": "loss of innocence",
+            "position": 0.4,
+            "purpose": "kill the first member of the group or the first civilian"
+          },
+          {
+            "name": "attrition",
+            "position": 0.5,
+            "purpose": "grind the unit down between engagements"
+          },
+          {
+            "name": "the mission",
+            "position": 0.6,
+            "purpose": "assign an objective whose value is questionable and whose cost is not"
+          },
+          {
+            "name": "the worst of it",
+            "position": 0.72,
+            "purpose": "put the protagonist past what they believed they would do"
+          },
+          {
+            "name": "sacrifice",
+            "position": 0.83,
+            "purpose": "spend a life for something the story refuses to price"
+          },
+          {
+            "name": "the objective settled",
+            "position": 0.91,
+            "purpose": "achieve or lose the mission, anticlimactically"
+          },
+          {
+            "name": "homecoming",
+            "position": 0.97,
+            "purpose": "return to a peace that has no vocabulary for it"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.4
+          ],
+          [
+            0.16,
+            0.5
+          ],
+          [
+            0.32,
+            -0.3
+          ],
+          [
+            0.5,
+            -0.6
+          ],
+          [
+            0.72,
+            -0.95
+          ],
+          [
+            0.91,
+            -0.3
+          ],
+          [
+            1.0,
+            -0.4
+          ]
+        ],
+        "aka": "combat narrative, the soldier's arc",
+        "register": "war fiction, film, and memoir; the homecoming beat is what separates it from the mission thriller",
+        "caution": "The genre's moral risk runs both ways: an arc that ends in glory falsifies the middle, one that ends only in horror can flatten the people it depicts."
+      },
+      {
+        "name": "survival story",
+        "definition": "Human against circumstance: a catastrophe, inventory and improvisation, psychological collapse, adaptation, an escape attempt, and a return carrying what the ordeal changed.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "normal life",
+            "position": 0.0,
+            "purpose": "establish competence and dependence on infrastructure"
+          },
+          {
+            "name": "the catastrophe",
+            "position": 0.08,
+            "purpose": "remove the infrastructure in a single event"
+          },
+          {
+            "name": "shock",
+            "position": 0.15,
+            "purpose": "spend the first hours doing the wrong things"
+          },
+          {
+            "name": "inventory",
+            "position": 0.23,
+            "purpose": "count what exists and convert panic into problems"
+          },
+          {
+            "name": "first solutions",
+            "position": 0.32,
+            "purpose": "solve water, warmth, or shelter and buy time"
+          },
+          {
+            "name": "the new threat",
+            "position": 0.42,
+            "purpose": "introduce a second-order danger the first solution created"
+          },
+          {
+            "name": "psychological crisis",
+            "position": 0.52,
+            "purpose": "let isolation and time do what the environment could not"
+          },
+          {
+            "name": "the anchor",
+            "position": 0.6,
+            "purpose": "supply a companion, ritual, or object that holds the mind together"
+          },
+          {
+            "name": "adaptation",
+            "position": 0.68,
+            "purpose": "show real skill acquired, and the person changed by acquiring it"
+          },
+          {
+            "name": "the attempt",
+            "position": 0.79,
+            "purpose": "stake everything on one route out"
+          },
+          {
+            "name": "the final trial",
+            "position": 0.89,
+            "purpose": "impose a last cost that the earlier version could not have paid"
+          },
+          {
+            "name": "return",
+            "position": 0.97,
+            "purpose": "reach other people and find the ordeal untranslatable"
+          }
+        ],
+        "aka": "man against nature, robinsonade arc",
+        "register": "survival fiction and film, disaster narrative, adventure memoir",
+        "caution": "Competence porn without deterioration is a procedure; the psychological crisis is what makes the practical detail matter."
+      },
+      {
+        "name": "courtroom drama",
+        "definition": "The trial structure: an injustice, an advocate who takes the case for a reason, discovery and pressure, the trial's set pieces, a late reversal in evidence, and a verdict that settles less than expected.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the injustice",
+            "position": 0.0,
+            "purpose": "commit the act and fix the audience's sense of what is true"
+          },
+          {
+            "name": "the accused",
+            "position": 0.08,
+            "purpose": "introduce a client who is sympathetic, unsympathetic, or both"
+          },
+          {
+            "name": "taking the case",
+            "position": 0.15,
+            "purpose": "give the advocate a personal reason and a professional cost"
+          },
+          {
+            "name": "discovery",
+            "position": 0.24,
+            "purpose": "gather facts that complicate the initial certainty"
+          },
+          {
+            "name": "building the theory",
+            "position": 0.33,
+            "purpose": "commit to the story the trial will have to sustain"
+          },
+          {
+            "name": "pressure outside the record",
+            "position": 0.42,
+            "purpose": "threaten the advocate's practice, family, or licence"
+          },
+          {
+            "name": "pre-trial rulings",
+            "position": 0.5,
+            "purpose": "decide what the jury will never hear"
+          },
+          {
+            "name": "the trial opens",
+            "position": 0.57,
+            "purpose": "state both theories to the jury and start the clock"
+          },
+          {
+            "name": "cross-examination",
+            "position": 0.67,
+            "purpose": "break or fail to break the opposing witness on the record"
+          },
+          {
+            "name": "the late reversal",
+            "position": 0.78,
+            "purpose": "produce evidence or a witness that changes the theory mid-trial"
+          },
+          {
+            "name": "closing arguments",
+            "position": 0.88,
+            "purpose": "make the moral case that the legal case only approximates"
+          },
+          {
+            "name": "verdict and aftermath",
+            "position": 0.96,
+            "purpose": "deliver the ruling and show what it did not fix"
+          }
+        ],
+        "aka": "legal thriller structure, trial narrative",
+        "register": "legal fiction, film and television; the beats survive translation into inquiry, tribunal, and hearing stories",
+        "caution": "Real procedure is the source of the tension, so invented rules cost credibility; the surprise witness is a genre convention that most jurisdictions would not permit."
+      },
+      {
+        "name": "bildungsroman arc",
+        "definition": "The formation novel: a young protagonist is wounded, leaves home, is educated by mentors and loves, collides with society, suffers disillusionment, and reaches an accommodation with the world.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the childhood world",
+            "position": 0.0,
+            "purpose": "establish the given self before anything has tested it"
+          },
+          {
+            "name": "the wound",
+            "position": 0.1,
+            "purpose": "impose the loss or shame that starts the formation"
+          },
+          {
+            "name": "departure",
+            "position": 0.2,
+            "purpose": "leave home for the city, the school, or the trade"
+          },
+          {
+            "name": "education",
+            "position": 0.3,
+            "purpose": "supply mentors, books, and their competing accounts of life"
+          },
+          {
+            "name": "first love",
+            "position": 0.4,
+            "purpose": "attach the self to another person and misjudge it"
+          },
+          {
+            "name": "collision with society",
+            "position": 0.5,
+            "purpose": "meet the class, money, or power that will not yield"
+          },
+          {
+            "name": "crisis of identity",
+            "position": 0.6,
+            "purpose": "let every borrowed model of the self fail at once"
+          },
+          {
+            "name": "disillusionment",
+            "position": 0.7,
+            "purpose": "strip the ambition down to what is actually available"
+          },
+          {
+            "name": "the mature choice",
+            "position": 0.83,
+            "purpose": "choose a life on terms the protagonist now understands"
+          },
+          {
+            "name": "return or integration",
+            "position": 0.95,
+            "purpose": "revisit the origin from the far side of formation"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            0.2
+          ],
+          [
+            0.2,
+            0.4
+          ],
+          [
+            0.4,
+            0.6
+          ],
+          [
+            0.6,
+            -0.6
+          ],
+          [
+            0.7,
+            -0.8
+          ],
+          [
+            0.83,
+            0.2
+          ],
+          [
+            1.0,
+            0.5
+          ]
+        ],
+        "aka": "coming-of-age structure, novel of formation",
+        "register": "literary fiction and memoir; the dominant shape of the first novel",
+        "caution": "Episodes of growth need a through-line of desire, or the book becomes a chronology; the reader must know what the protagonist is trying to become."
+      },
+      {
+        "name": "noir descent",
+        "definition": "The hardboiled shape: a compromised protagonist takes a small job, finds a larger corruption, is entangled by desire, betrays or is betrayed, and wins at a cost that is not worth it.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the narrator's world",
+            "position": 0.0,
+            "purpose": "establish a voice that already knows how this ends"
+          },
+          {
+            "name": "the client",
+            "position": 0.1,
+            "purpose": "bring in the job with a lie inside it"
+          },
+          {
+            "name": "the small case",
+            "position": 0.18,
+            "purpose": "start on something ordinary and slightly unpleasant"
+          },
+          {
+            "name": "the wider rot",
+            "position": 0.3,
+            "purpose": "trace the case upward into institutional corruption"
+          },
+          {
+            "name": "entanglement",
+            "position": 0.4,
+            "purpose": "let desire compromise the protagonist's judgement"
+          },
+          {
+            "name": "the beating",
+            "position": 0.5,
+            "purpose": "have power demonstrate itself physically"
+          },
+          {
+            "name": "betrayal",
+            "position": 0.6,
+            "purpose": "reveal that the client or the lover was running the protagonist"
+          },
+          {
+            "name": "moral compromise",
+            "position": 0.7,
+            "purpose": "force the protagonist to do something they cannot excuse"
+          },
+          {
+            "name": "the trap",
+            "position": 0.8,
+            "purpose": "close the frame around them with the evidence pointing their way"
+          },
+          {
+            "name": "violent resolution",
+            "position": 0.9,
+            "purpose": "settle it with violence that fixes nothing structural"
+          },
+          {
+            "name": "pyrrhic ending",
+            "position": 0.98,
+            "purpose": "leave the protagonist alive, correct, and worse off"
+          }
+        ],
+        "curve": [
+          [
+            0.0,
+            -0.1
+          ],
+          [
+            0.3,
+            -0.3
+          ],
+          [
+            0.5,
+            -0.6
+          ],
+          [
+            0.7,
+            -0.8
+          ],
+          [
+            0.9,
+            -0.2
+          ],
+          [
+            1.0,
+            -0.5
+          ]
+        ],
+        "aka": "hardboiled structure, the noir arc",
+        "register": "crime fiction and film noir; the voice is part of the structure, not a garnish",
+        "caution": "The corruption must be systemic for the ending to land; a single villain who can be arrested turns noir into a procedural."
+      },
+      {
+        "name": "western showdown",
+        "definition": "The frontier structure: a stranger with a past arrives where law has failed, refuses the fight, is forced to it by an outrage, prepares, and settles it in a duel before leaving.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "arrival",
+            "position": 0.0,
+            "purpose": "bring the stranger into a town with a problem"
+          },
+          {
+            "name": "the threat established",
+            "position": 0.1,
+            "purpose": "show the power that the law cannot touch"
+          },
+          {
+            "name": "refusal",
+            "position": 0.2,
+            "purpose": "have the stranger decline to be the town's solution"
+          },
+          {
+            "name": "the townspeople",
+            "position": 0.3,
+            "purpose": "sort the community into the brave, the bought, and the frightened"
+          },
+          {
+            "name": "provocations",
+            "position": 0.4,
+            "purpose": "escalate the pressure through small humiliations"
+          },
+          {
+            "name": "the outrage",
+            "position": 0.52,
+            "purpose": "cross a line that makes refusal impossible"
+          },
+          {
+            "name": "the past surfaces",
+            "position": 0.62,
+            "purpose": "reveal why the stranger stopped doing this"
+          },
+          {
+            "name": "preparation",
+            "position": 0.72,
+            "purpose": "clean the weapon, set the ground, send the innocents away"
+          },
+          {
+            "name": "the showdown",
+            "position": 0.87,
+            "purpose": "settle it face to face, quickly"
+          },
+          {
+            "name": "departure",
+            "position": 0.97,
+            "purpose": "leave, because the town has no place for what fixed it"
+          }
+        ],
+        "aka": "the frontier structure, the gunfighter arc",
+        "register": "westerns and their transpositions into science fiction, crime, and samurai film",
+        "caution": "The departure is the genre's argument about violence; letting the gunfighter settle down is a deliberate revision, not a variation."
+      },
+      {
+        "name": "superhero origin",
+        "definition": "The powered-transformation arc: an ordinary person acquires ability, misuses or fumbles it, learns a code through loss, meets a villain who mirrors them, fails, and accepts the role.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the ordinary person",
+            "position": 0.0,
+            "purpose": "establish the powerlessness the powers will answer"
+          },
+          {
+            "name": "the transformative event",
+            "position": 0.1,
+            "purpose": "grant the ability without consent or instruction"
+          },
+          {
+            "name": "discovery",
+            "position": 0.18,
+            "purpose": "test the limits comically and privately"
+          },
+          {
+            "name": "selfish first use",
+            "position": 0.25,
+            "purpose": "use the gift for personal gain"
+          },
+          {
+            "name": "the defining loss",
+            "position": 0.33,
+            "purpose": "let that use cost someone the hero loved"
+          },
+          {
+            "name": "the code",
+            "position": 0.4,
+            "purpose": "convert the loss into a rule the story will test"
+          },
+          {
+            "name": "first victory",
+            "position": 0.5,
+            "purpose": "act publicly and be recognized as a symbol"
+          },
+          {
+            "name": "the villain emerges",
+            "position": 0.6,
+            "purpose": "introduce an antagonist with the same power and no code"
+          },
+          {
+            "name": "the fall",
+            "position": 0.72,
+            "purpose": "have the villain beat the hero and expose the private identity"
+          },
+          {
+            "name": "rising again",
+            "position": 0.82,
+            "purpose": "return by choice, with the cost understood"
+          },
+          {
+            "name": "the final battle",
+            "position": 0.91,
+            "purpose": "win by holding the code the villain abandoned"
+          },
+          {
+            "name": "accepting the mantle",
+            "position": 0.98,
+            "purpose": "take on the permanent burden of the role"
+          }
+        ],
+        "aka": "origin story structure",
+        "register": "comics, superhero film, and any narrative about the acquisition of dangerous capability",
+        "caution": "The mirrored villain is what makes the code an argument; an antagonist with unrelated powers reduces the climax to a fight."
+      }
+    ],
+    "episodic_and_frame": [
+      {
+        "name": "rashomon structure",
+        "definition": "The contested-event structure: one incident narrated in incompatible versions by interested parties, with the frame refusing to certify any of them.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the frame",
+            "position": 0.0,
+            "purpose": "gather the tellers and establish why the account matters now"
+          },
+          {
+            "name": "the event named",
+            "position": 0.1,
+            "purpose": "state the bare facts everyone agrees on, and no more"
+          },
+          {
+            "name": "first account",
+            "position": 0.2,
+            "purpose": "give the most authoritative version and let it convince"
+          },
+          {
+            "name": "second account",
+            "position": 0.38,
+            "purpose": "contradict the first on a detail that changes the moral weight"
+          },
+          {
+            "name": "third account",
+            "position": 0.52,
+            "purpose": "complicate both by reframing motive rather than fact"
+          },
+          {
+            "name": "the account no one can dismiss",
+            "position": 0.67,
+            "purpose": "add the version that makes every teller look self-serving"
+          },
+          {
+            "name": "confrontation of accounts",
+            "position": 0.78,
+            "purpose": "set the versions against each other in the frame"
+          },
+          {
+            "name": "the gesture",
+            "position": 0.89,
+            "purpose": "settle the theme with an act rather than an adjudication"
+          },
+          {
+            "name": "the frame closes",
+            "position": 0.97,
+            "purpose": "return to the tellers, leaving the fact undecided"
+          }
+        ],
+        "aka": "multiple-perspective structure, contested-testimony form",
+        "register": "literary fiction, courtroom and journalism narratives, television episodes about memory",
+        "caution": "Every version must be internally coherent and self-flattering in a different way; versions that differ only in detail read as an error, not an epistemology."
+      },
+      {
+        "name": "arabian nights frame",
+        "definition": "The nested tale-cycle: a frame in which telling stories staves off a threat, and interior tales that are broken at their peaks so the frame's danger renews each night.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the frame's wound",
+            "position": 0.0,
+            "purpose": "establish the injury that made the listener dangerous"
+          },
+          {
+            "name": "the teller's gambit",
+            "position": 0.08,
+            "purpose": "let the storyteller volunteer, with a plan"
+          },
+          {
+            "name": "first tale opens",
+            "position": 0.16,
+            "purpose": "hook the listener with a world unlike the frame's"
+          },
+          {
+            "name": "the tale deepens",
+            "position": 0.3,
+            "purpose": "complicate the interior story and nest a tale inside it"
+          },
+          {
+            "name": "the interior crucible",
+            "position": 0.44,
+            "purpose": "put the inner protagonist to a moral test that speaks to the frame"
+          },
+          {
+            "name": "the break",
+            "position": 0.56,
+            "purpose": "stop at the peak; the listener must grant another night"
+          },
+          {
+            "name": "return to the frame",
+            "position": 0.66,
+            "purpose": "show the listener changed by what he wanted to hear next"
+          },
+          {
+            "name": "later tales as argument",
+            "position": 0.78,
+            "purpose": "let the sequence of stories make the case the teller cannot make directly"
+          },
+          {
+            "name": "the frame's transformation",
+            "position": 0.88,
+            "purpose": "have the listener's own judgement shift"
+          },
+          {
+            "name": "release",
+            "position": 0.97,
+            "purpose": "resolve the frame's threat by the accumulated effect of the telling"
+          }
+        ],
+        "aka": "frame-tale cycle, Scheherazade structure",
+        "register": "story collections, novels-in-tales, and any narrative where the act of telling is the plot",
+        "caution": "The interior tales must bear on the frame's danger; a frame that merely introduces unrelated stories is packaging, and the reader stops caring about the outer level."
+      },
+      {
+        "name": "epistolary sequence",
+        "definition": "A narrative told entirely in documents, where character comes from voice, plot from what correspondents withhold, and crisis from silences and intercepted texts.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the first document",
+            "position": 0.0,
+            "purpose": "establish voice, addressee, and the reason to write at all"
+          },
+          {
+            "name": "the correspondent answers",
+            "position": 0.1,
+            "purpose": "open the second voice and let the two accounts diverge"
+          },
+          {
+            "name": "intimacy through writing",
+            "position": 0.2,
+            "purpose": "let the letters do what the writers cannot do in person"
+          },
+          {
+            "name": "a third source",
+            "position": 0.33,
+            "purpose": "introduce a document neither writer intended the other to see"
+          },
+          {
+            "name": "unreliability surfaces",
+            "position": 0.45,
+            "purpose": "make the reader notice what a writer is shaping"
+          },
+          {
+            "name": "the crisis letter",
+            "position": 0.56,
+            "purpose": "write the letter that cannot be unwritten"
+          },
+          {
+            "name": "the silence",
+            "position": 0.68,
+            "purpose": "leave a gap in the correspondence and let the reader fill it"
+          },
+          {
+            "name": "the document from outside",
+            "position": 0.78,
+            "purpose": "supply the report, clipping, or entry that settles the facts"
+          },
+          {
+            "name": "the resolving letter",
+            "position": 0.88,
+            "purpose": "answer the crisis from the far side of the silence"
+          },
+          {
+            "name": "the last page",
+            "position": 0.97,
+            "purpose": "close with an editorial note, a burnt letter, or an unanswered one"
+          }
+        ],
+        "aka": "epistolary novel, documentary structure, found-document narrative",
+        "register": "literary fiction, horror, historical fiction; the modern forms substitute emails, transcripts, and case files",
+        "caution": "The form's constraint is that nothing can be narrated by someone who would not have written it down; every convenient document weakens the rest."
+      },
+      {
+        "name": "try-fail escalation",
+        "definition": "A middle built as a chain of attempts, each ending in 'yes, but' or 'no, and', so that failure produces information and a narrower next attempt.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the promise",
+            "position": 0.0,
+            "purpose": "state the goal and the terms of success clearly enough to fail against"
+          },
+          {
+            "name": "the obvious attempt",
+            "position": 0.12,
+            "purpose": "try what any competent person would try first"
+          },
+          {
+            "name": "yes, but",
+            "position": 0.24,
+            "purpose": "grant the objective and attach a complication that costs more"
+          },
+          {
+            "name": "regroup",
+            "position": 0.34,
+            "purpose": "let the character reinterpret the problem with the new information"
+          },
+          {
+            "name": "no, and",
+            "position": 0.46,
+            "purpose": "deny the objective and take away a resource as well"
+          },
+          {
+            "name": "reassessment at the midpoint",
+            "position": 0.56,
+            "purpose": "change the goal itself, not just the method"
+          },
+          {
+            "name": "the costly attempt",
+            "position": 0.66,
+            "purpose": "succeed at a price that damages the character's position"
+          },
+          {
+            "name": "crisis",
+            "position": 0.76,
+            "purpose": "leave only options that violate something the character values"
+          },
+          {
+            "name": "the earned attempt",
+            "position": 0.87,
+            "purpose": "use everything the failures taught, and nothing else"
+          },
+          {
+            "name": "payoff",
+            "position": 0.96,
+            "purpose": "show what the sequence of failures actually bought"
+          }
+        ],
+        "aka": "yes-but/no-and chain, try-fail middle",
+        "register": "any plot-driven fiction; the standard remedy for a sagging second act",
+        "caution": "Attempts that fail for the same reason twice read as stalling; each failure must change what the character knows or has."
+      },
+      {
+        "name": "scene and sequel loop",
+        "definition": "Dwight Swain's alternation: a scene of goal, conflict and disaster, followed by a sequel of reaction, dilemma and decision that generates the next scene's goal.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "scene: goal",
+            "position": 0.0,
+            "purpose": "give the viewpoint character a specific, immediate objective"
+          },
+          {
+            "name": "scene: conflict",
+            "position": 0.08,
+            "purpose": "oppose the objective with something that pushes back in real time"
+          },
+          {
+            "name": "scene: disaster",
+            "position": 0.16,
+            "purpose": "end on a setback that changes the situation, not a stalemate"
+          },
+          {
+            "name": "sequel: reaction",
+            "position": 0.22,
+            "purpose": "let the emotional response land before the thinking starts"
+          },
+          {
+            "name": "sequel: dilemma",
+            "position": 0.28,
+            "purpose": "lay out options that are all bad in different ways"
+          },
+          {
+            "name": "sequel: decision",
+            "position": 0.34,
+            "purpose": "choose, and thereby set the next scene's goal"
+          },
+          {
+            "name": "scene: escalated goal",
+            "position": 0.44,
+            "purpose": "pursue the new objective at higher exposure"
+          },
+          {
+            "name": "scene: major reversal",
+            "position": 0.56,
+            "purpose": "deliver a disaster that invalidates the strategy"
+          },
+          {
+            "name": "sequel: dark reflection",
+            "position": 0.66,
+            "purpose": "run reaction and dilemma at their deepest point"
+          },
+          {
+            "name": "sequel: desperate commitment",
+            "position": 0.74,
+            "purpose": "decide on the option that was previously unacceptable"
+          },
+          {
+            "name": "scene: final confrontation",
+            "position": 0.85,
+            "purpose": "put goal and opposition in the same room for the last time"
+          },
+          {
+            "name": "closing sequel",
+            "position": 0.97,
+            "purpose": "process the outcome and settle the new equilibrium"
+          }
+        ],
+        "aka": "motivation-reaction units, Swain's scene/sequel",
+        "register": "commercial novel drafting; a rhythm rather than a plot, applied at any scale",
+        "caution": "All scene and no sequel exhausts the reader; all sequel and no scene stops the book. The proportion, not the pattern, is where drafts go wrong."
+      },
+      {
+        "name": "picaresque episode chain",
+        "definition": "The rogue's chronicle: a low-born survivor moves from master to master, each episode a self-contained satire, with no transformation and no real ending.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "humble origins",
+            "position": 0.0,
+            "purpose": "establish birth, hunger, and the absence of protection"
+          },
+          {
+            "name": "departure and first master",
+            "position": 0.1,
+            "purpose": "enter service and learn the world's first lesson in cruelty"
+          },
+          {
+            "name": "survival by wit",
+            "position": 0.2,
+            "purpose": "let the rogue cheat successfully and enjoy it"
+          },
+          {
+            "name": "the next master",
+            "position": 0.32,
+            "purpose": "change social station and satirize a new institution"
+          },
+          {
+            "name": "the middle episodes",
+            "position": 0.45,
+            "purpose": "run interchangeable adventures whose order barely matters"
+          },
+          {
+            "name": "brush with respectability",
+            "position": 0.56,
+            "purpose": "offer a settled life on terms the rogue cannot keep"
+          },
+          {
+            "name": "exposure",
+            "position": 0.67,
+            "purpose": "let the imposture collapse publicly"
+          },
+          {
+            "name": "reflection without reform",
+            "position": 0.8,
+            "purpose": "have the rogue draw a moral they will not act on"
+          },
+          {
+            "name": "the open ending",
+            "position": 0.95,
+            "purpose": "stop rather than conclude, with the road still running"
+          }
+        ],
+        "aka": "picaresque, rogue's progress",
+        "register": "satire, comic novel, and road narrative",
+        "caution": "The absence of an arc is the form's argument about society; adding a redemption ending converts it into a bildungsroman and loses the satire."
+      },
+      {
+        "name": "case-of-the-week season arc",
+        "definition": "The episodic-serial braid: a self-contained case resolved each installment, threaded with a season-long mythology that surfaces in a minority of episodes and pays off at the finale.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "premise pilot",
+            "position": 0.0,
+            "purpose": "establish the team, the format, and the season's buried question"
+          },
+          {
+            "name": "format episodes",
+            "position": 0.12,
+            "purpose": "run standalone cases that teach the audience the show's rules"
+          },
+          {
+            "name": "first mythology episode",
+            "position": 0.24,
+            "purpose": "reveal that the weekly cases share a cause"
+          },
+          {
+            "name": "the runner deepens",
+            "position": 0.36,
+            "purpose": "let the serial thread cost a character something personal"
+          },
+          {
+            "name": "midseason turn",
+            "position": 0.48,
+            "purpose": "change the status quo so the format cannot continue unaltered"
+          },
+          {
+            "name": "cases under new conditions",
+            "position": 0.58,
+            "purpose": "run the weekly form with the serial pressure inside it"
+          },
+          {
+            "name": "the betrayal",
+            "position": 0.7,
+            "purpose": "expose an insider and break the team's assumptions"
+          },
+          {
+            "name": "penultimate escalation",
+            "position": 0.82,
+            "purpose": "put the season's antagonist directly in front of the protagonists"
+          },
+          {
+            "name": "finale",
+            "position": 0.92,
+            "purpose": "resolve the season question with a permanent consequence"
+          },
+          {
+            "name": "the hook for next season",
+            "position": 0.99,
+            "purpose": "open a new question in the last minute"
+          }
+        ],
+        "aka": "monster-of-the-week structure, procedural-serial hybrid",
+        "register": "network and streaming television; also serialized fiction and web serials",
+        "caution": "The mythology must be resolvable; strung out without answers, the audience learns that the serial thread is not a promise but a stall."
+      },
+      {
+        "name": "telenovela closed arc",
+        "definition": "The finite melodrama: a love across a class divide, obstructed by a secret of birth and an active schemer, driven by weekly reversals to a fixed, complete ending.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the divide",
+            "position": 0.0,
+            "purpose": "establish the two worlds and the barrier between them"
+          },
+          {
+            "name": "the forbidden spark",
+            "position": 0.09,
+            "purpose": "bring the lovers together across the barrier"
+          },
+          {
+            "name": "the hidden truth",
+            "position": 0.18,
+            "purpose": "plant the secret of parentage or identity that will resolve everything"
+          },
+          {
+            "name": "rising passion",
+            "position": 0.28,
+            "purpose": "let the relationship become undeniable and public"
+          },
+          {
+            "name": "family opposition",
+            "position": 0.38,
+            "purpose": "mobilize the older generation against it"
+          },
+          {
+            "name": "the schemer acts",
+            "position": 0.48,
+            "purpose": "have the antagonist manufacture the misunderstanding that separates them"
+          },
+          {
+            "name": "separation and suffering",
+            "position": 0.58,
+            "purpose": "spend a long stretch on the cost of being apart"
+          },
+          {
+            "name": "the revelation",
+            "position": 0.7,
+            "purpose": "disclose the secret that dissolves the class barrier"
+          },
+          {
+            "name": "the schemer exposed",
+            "position": 0.82,
+            "purpose": "unmask and punish the antagonist publicly"
+          },
+          {
+            "name": "reunion",
+            "position": 0.92,
+            "purpose": "restore the lovers with every obstacle answered"
+          },
+          {
+            "name": "the wedding",
+            "position": 0.99,
+            "purpose": "close the story completely; nothing is left running"
+          }
+        ],
+        "aka": "telenovela structure, closed serial melodrama",
+        "register": "Latin American serial drama and its international descendants; the closed ending distinguishes it from the open soap opera",
+        "caution": "The form runs on reversals at a fixed cadence; an episode without one breaks the contract, but reversals that cost nothing produce the genre's reputation for weightlessness."
+      },
+      {
+        "name": "time-loop iteration",
+        "definition": "The repeated-day structure: a protagonist relives an interval, learns the rules through iterations, exhausts hedonism and despair, and escapes by a change of character rather than of tactics.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the first pass",
+            "position": 0.0,
+            "purpose": "play the interval straight so the audience learns it"
+          },
+          {
+            "name": "the reset",
+            "position": 0.1,
+            "purpose": "return to the start and let the horror of it register"
+          },
+          {
+            "name": "testing the rules",
+            "position": 0.2,
+            "purpose": "establish what carries over and what does not"
+          },
+          {
+            "name": "exploitation",
+            "position": 0.32,
+            "purpose": "use perfect information for pleasure and advantage"
+          },
+          {
+            "name": "the limit of exploitation",
+            "position": 0.44,
+            "purpose": "show that nothing gained inside the loop persists"
+          },
+          {
+            "name": "despair",
+            "position": 0.54,
+            "purpose": "run the iterations of futility, including self-destruction"
+          },
+          {
+            "name": "the other person",
+            "position": 0.64,
+            "purpose": "make someone else's outcome the thing worth iterating for"
+          },
+          {
+            "name": "mastery",
+            "position": 0.74,
+            "purpose": "compress many attempts into visible, earned competence"
+          },
+          {
+            "name": "the unsolvable element",
+            "position": 0.84,
+            "purpose": "confront the one thing skill cannot fix"
+          },
+          {
+            "name": "the change that breaks the loop",
+            "position": 0.93,
+            "purpose": "escape by becoming different, not by acting differently"
+          },
+          {
+            "name": "the day after",
+            "position": 0.99,
+            "purpose": "let time move and show what the iterations cost"
+          }
+        ],
+        "aka": "loop narrative, repeated-day structure",
+        "register": "science fiction, comedy, and literary fiction about habit and change",
+        "caution": "Repetition is the form's material and its danger; each iteration shown must advance knowledge, character, or the audience's understanding of the rules."
+      },
+      {
+        "name": "framed retrospective",
+        "definition": "The in-medias-res frame: open at a crisis, cut to the origin, run the past forward until it catches the present, then continue past the opening image to the real ending.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "open at the crisis",
+            "position": 0.0,
+            "purpose": "start at the story's most charged moment with nothing explained"
+          },
+          {
+            "name": "the question hangs",
+            "position": 0.08,
+            "purpose": "freeze or pause on the question the flashback will answer"
+          },
+          {
+            "name": "back to the beginning",
+            "position": 0.16,
+            "purpose": "establish the ordinary world the opening made strange"
+          },
+          {
+            "name": "the past escalates",
+            "position": 0.3,
+            "purpose": "run the causal chain that leads toward the opening image"
+          },
+          {
+            "name": "the decision that made it inevitable",
+            "position": 0.42,
+            "purpose": "reach the choice the audience has been waiting to understand"
+          },
+          {
+            "name": "the timelines converge",
+            "position": 0.54,
+            "purpose": "arrive back at the opening, now legible"
+          },
+          {
+            "name": "past the opening",
+            "position": 0.66,
+            "purpose": "continue the crisis forward into what the frame withheld"
+          },
+          {
+            "name": "escalation in the present",
+            "position": 0.78,
+            "purpose": "raise the stakes above what the opening implied"
+          },
+          {
+            "name": "climax",
+            "position": 0.9,
+            "purpose": "resolve the situation the whole structure was engineered to charge"
+          },
+          {
+            "name": "the reframed close",
+            "position": 0.98,
+            "purpose": "answer the opening image with what it turned out to mean"
+          }
+        ],
+        "aka": "in medias res frame, flashback structure",
+        "register": "thriller, crime, literary fiction, and film; extremely common as a chapter-one device",
+        "caution": "The frame borrows tension against the flashback; if the past section is not itself dramatic, the audience spends it waiting rather than watching."
+      },
+      {
+        "name": "serial installment cliffhanger",
+        "definition": "The installment structure: each unit opens on a hook, delivers its own complete movement, and closes on an unresolved reversal that makes the next unit necessary.",
+        "acts": 3,
+        "beats": [
+          {
+            "name": "the hook",
+            "position": 0.0,
+            "purpose": "open in motion; the reader has decided by the second paragraph"
+          },
+          {
+            "name": "recap by implication",
+            "position": 0.08,
+            "purpose": "restate what is at stake without summarizing the last installment"
+          },
+          {
+            "name": "installment goal",
+            "position": 0.18,
+            "purpose": "set an objective the unit can genuinely settle"
+          },
+          {
+            "name": "complication",
+            "position": 0.3,
+            "purpose": "oppose the goal with something specific to this unit"
+          },
+          {
+            "name": "the local turn",
+            "position": 0.44,
+            "purpose": "deliver a reversal that pays this installment on its own"
+          },
+          {
+            "name": "consequence",
+            "position": 0.56,
+            "purpose": "let the turn cost something that carries forward"
+          },
+          {
+            "name": "the serial thread",
+            "position": 0.66,
+            "purpose": "advance the long arc by one visible increment"
+          },
+          {
+            "name": "apparent resolution",
+            "position": 0.78,
+            "purpose": "settle the local question so the unit feels complete"
+          },
+          {
+            "name": "the reversal",
+            "position": 0.9,
+            "purpose": "undercut the resolution in the last beat"
+          },
+          {
+            "name": "the cliff",
+            "position": 0.98,
+            "purpose": "end on the unanswered question, not on the explanation"
+          }
+        ],
+        "aka": "cliffhanger installment, feuilleton structure",
+        "register": "serialized fiction, web serials, comics, and chapter-level plotting in commercial novels",
+        "caution": "A cliffhanger that resolves trivially at the next opening teaches readers not to worry; the reversal has to still be true on the next page."
+      }
+    ]
+  }
+}

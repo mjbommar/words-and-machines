@@ -1,0 +1,22 @@
+{
+  "id": "OP.format.closure-transcript",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "A certificate format for universal reachability claims",
+  "statement": "\"Every 4-bit permutation is reachable in <=15 gates\" quantifies over 10^13 objects; one DRAT per instance is off by thirteen orders of magnitude. Needed: a streaming BFS-closure transcript with a checkable frontier invariant and a cardinality check. Pilot on M.riscv.table22 (known answer). Effort estimate: months.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

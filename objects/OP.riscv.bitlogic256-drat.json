@@ -1,0 +1,22 @@
+{
+  "id": "OP.riscv.bitlogic256-drat",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Certify the 256-function table with DRAT",
+  "statement": "For each function and each instruction set, a DRAT refutation at Len-1. ~10^3 vars per function; <1 GB total. The answer is already known (M.riscv.bitlogic256); only the proof is missing. Effort estimate: days.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "asserted",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "M.avx2.reverse.cost4.haswell",
+  "kind": "theorem",
+  "part": 4,
+  "title": "Under the Haswell dependent-latency profile, byte reversal has minimum cost 4",
+  "statement": "With costs vpshufb=1, vpermd=3, vpermq=3, vpalignr=1, vperm2i128=3 (Intel documented register-form latencies, a serial dependency-chain proxy), no sequence in the unary five-family language reverses 32 tags at total cost <= 3, and vpermd; vpshufb does it at cost 4. The cost bound is composed as a checked weighted-at-most CNF over the same formula.",
+  "formal": {
+    "language": "cnf-generator",
+    "statement": "encode_weighted_unary_avx2_sequence(target=reversed, bound=3, profile=intel-haswell-dependent-latency-cycles) is UNSAT; bound=4 is SAT.",
+    "fragment": "SAT + pseudo-Boolean"
+  },
+  "scope": "Same language as M.avx2.reverse.len2.unary5; profile intel-haswell-dependent-latency-cycles; NOT throughput, port pressure, or whole-machine cost.",
+  "epistemic_status": "proved",
+  "external_status": "open",
+  "depends_on": [
+    "M.avx2.reverse.len2.unary5"
+  ],
+  "evidence": [
+    {
+      "kind": "unsat-certificate",
+      "artifact": "artifacts/simd/avx2-reverse-haswell-cost-le3",
+      "sha256": {
+        "reverse-haswell-latency-le3.cnf": "b13372590ff2504d1d406facea3b350ca772eac5c7ca13623186a4f8debfa97b",
+        "reverse-haswell-latency-le3.drat": "06ac761e4fd4212b232163da999e7f44af075b94755ae15d208e408c9c3fbd42"
+      },
+      "checker_command": "scripts/check_object.sh artifacts/simd/avx2-reverse-haswell-cost-le3 synthesize_weighted_unary_avx2 3 120",
+      "check_status": "checked",
+      "checked_on": "2026-08-27",
+      "note": "6,024 vars / 235,303 clauses; CaDiCaL 3.0.1 UNSAT in 1.35 s; 12,554,825-byte DRAT accepted by axeyum backward checker; a 2-byte and a 64-byte truncation are both REJECTED (verified here). The formula is NOT UP-refutable, so this proof is load-bearing."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-search",
+    "example": "synthesize_weighted_unary_avx2",
+    "adr": [
+      "ADR-0583"
+    ],
+    "reconstruction": "StructuralAttestation"
+  },
+  "book": {
+    "chapter": "ch05-particular-machines",
+    "label": "thm:avx2-cost4"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

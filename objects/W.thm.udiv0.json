@@ -1,0 +1,47 @@
+{
+  "id": "W.thm.udiv0",
+  "kind": "theorem",
+  "part": 0,
+  "title": "Totality convention: udiv0",
+  "statement": "For every 8-bit word x, bvudiv x 0 = 0xFF. SMT-LIB makes unsigned division total by this convention; it is a theorem of the definition, not a choice a solver may make.",
+  "formal": {
+    "language": "smt-lib",
+    "statement": "(forall ((x (_ BitVec 8))) (= (bvudiv x #x00) #xff))",
+    "fragment": "QF_BV"
+  },
+  "scope": "width 8; the SMT-LIB 2.6 semantics of the operator",
+  "epistemic_status": "proved",
+  "external_status": "proved",
+  "depends_on": [
+    "W.def.word"
+  ],
+  "evidence": [
+    {
+      "kind": "front-door-verdict",
+      "artifact": "artifacts/words/bvudiv-by-zero-is-allones.smt2",
+      "checker_command": "scripts/check_smt.sh artifacts/words/bvudiv-by-zero-is-allones.smt2 unsat",
+      "check_status": "checked",
+      "checked_on": "2026-08-27",
+      "note": "The negated statement is asserted; axeyum front door (smtcomp_cli) returns unsat. Verdict-level evidence: the front door checks its own unsat internally (term-level/Alethe) but this CLI does not export the certificate. Exported-certificate form is an open exercise (see axeyum-guide/02-equivalence.md)."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-solver",
+    "example": "smtcomp_cli",
+    "route": "solve_smtlib",
+    "reconstruction": "TheoryReconstruction"
+  },
+  "book": {
+    "chapter": "ch01-prologue-words",
+    "label": "thm:udiv0"
+  },
+  "sources": [
+    "docs/research/01-foundations/bv-semantics-and-partial-operations.md (axeyum)",
+    "CLAUDE.md Hard Rules: a946f925 shipped a wrong-unsat when div-by-constant-zero was folded to a fixed convention"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

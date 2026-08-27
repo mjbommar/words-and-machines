@@ -1,0 +1,23 @@
+% pipeline.tikz — the build's data flow: paper.yaml -> generate_metadata ->
+% {PDF build, arXiv bundle, SSRN dossier}. A bare tikzpicture body; the
+% shared figure-preamble supplies fonts and the paper palette.
+\begin{tikzpicture}[
+    font=\small,
+    node distance=8mm and 14mm,
+    stage/.style={draw=fig-accent-dark, fill=fig-fill, line width=0.6pt,
+      rounded corners=1.5pt, inner sep=5pt, align=center, text=fig-ink},
+    result/.style={draw=fig-muted, fill=gray-50, line width=0.5pt,
+      rounded corners=1.5pt, inner sep=5pt, align=center, text=fig-ink},
+    arr/.style={-{Stealth[length=5pt]}, draw=fig-accent, line width=0.7pt},
+  ]
+  \node[stage] (yaml) {\texttt{paper.yaml}\\\footnotesize source of truth};
+  \node[stage, right=of yaml] (gen) {\texttt{generate\_}\\\texttt{metadata.py}};
+  \node[result, right=22mm of gen, yshift=11mm] (pdf) {PDF build};
+  \node[result, right=22mm of gen] (arxiv) {arXiv bundle\\\footnotesize +\,\texttt{.bbl}};
+  \node[result, right=22mm of gen, yshift=-11mm] (ssrn) {SSRN dossier};
+
+  \draw[arr] (yaml) -- (gen);
+  \draw[arr] (gen.east) -- (pdf.west);
+  \draw[arr] (gen.east) -- (arxiv.west);
+  \draw[arr] (gen.east) -- (ssrn.west);
+\end{tikzpicture}

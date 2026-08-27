@@ -1,0 +1,193 @@
+%% ============================================================
+%% preamble/styling.tex — chapter heads, running heads, page policy
+%%
+%% Purpose      : everything about how structure LOOKS: titlesec
+%%                chapter/section formats, fancyhdr page styles,
+%%                widow/orphan policy, \scenebreak, the
+%%                \enable/\disablecleardoublepage pair, and the
+%%                \DraftMode banner.
+%% Dependencies : titlesec + fancyhdr (packages.tex), colors.tex
+%%                (bk-* components), fonts.tex (\bklabelcaps).
+%% Provenance   : spelled-out \chapterword + right-aligned two-line
+%%                chapter heads from datacenter-2026-book.md; page-style
+%%                trio and blank-verso handling shared across the
+%%                portfolio (docs/architecture/latex-pipeline.md §5).
+%% ============================================================
+
+\makeatletter
+
+% ----------------------------------------------------------------------
+% ISO date (YYYY-MM-DD) for the draft banner.
+% ----------------------------------------------------------------------
+\newcommand{\bkisodate}{\the\year-\two@digits\month-\two@digits\day}
+
+% ----------------------------------------------------------------------
+% Draft banner (ADR 0006: \DraftMode). A simple typographic header
+% banner — visible on every page, cheap to render, impossible to
+% mistake for a release build — rather than a diagonal watermark
+% (which fights running heads and slows LuaTeX shipouts).
+% ----------------------------------------------------------------------
+\ifdefined\DraftMode
+  \newcommand{\bkdraftbanner}{%
+    {\normalfont\bfseries\small\color{bk-draft}%
+      DRAFT\quad\textperiodcentered\quad\BookEditionName\ edition%
+      \quad\textperiodcentered\quad\bkisodate}}
+\else
+  \newcommand{\bkdraftbanner}{}
+\fi
+
+% ======================================================================
+% Chapter heads — spelled-out chapter word, right-aligned two lines:
+%
+%                                          chapter one   <- small caps, accent
+%                                    The Actual Title    <- huge, bold
+%
+% \chapterword spells the counter (datacenter pattern); beyond thirty
+% it degrades gracefully to the arabic numeral.
+% ======================================================================
+\newcommand{\chapterword}{%
+  \ifcase\value{chapter}Zero\or One\or Two\or Three\or Four\or Five\or
+  Six\or Seven\or Eight\or Nine\or Ten\or Eleven\or Twelve\or
+  Thirteen\or Fourteen\or Fifteen\or Sixteen\or Seventeen\or
+  Eighteen\or Nineteen\or Twenty\or Twenty-One\or Twenty-Two\or
+  Twenty-Three\or Twenty-Four\or Twenty-Five\or Twenty-Six\or
+  Twenty-Seven\or Twenty-Eight\or Twenty-Nine\or Thirty\else
+  \arabic{chapter}\fi}
+
+% Numbered chapters (mainmatter).
+\titleformat{\chapter}[display]
+  {\normalfont\filleft}                                    % whole head right-aligned
+  {\large\color{bk-chapter-word}\bklabelcaps{Chapter \chapterword}}
+  {0.5\baselineskip}                                       % gap between the two lines
+  {\huge\bfseries\color{bk-chapter-title}}
+
+% Unnumbered chapters (front/backmatter, \chapter*): title line only,
+% same alignment so the book keeps one voice throughout.
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\filleft}
+  {}
+  {0pt}
+  {\huge\bfseries\color{bk-chapter-title}}
+
+% Drop from trim-top, then air before the text starts.
+\titlespacing*{\chapter}{0pt}{50pt}{40pt}
+\titlespacing*{name=\chapter,numberless}{0pt}{50pt}{40pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{bk-section-title}}
+  {\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{bk-section-title}}
+  {\thesubsection}{0.6em}{}
+
+% ======================================================================
+% Running heads (fancyhdr) — verso: author-short, recto: book title,
+% folios at the OUTER edge of the header line. Chapter openers and
+% display pages fall back to `plain` (folio centered in the footer).
+% In \DraftMode the centered running head is replaced by the draft
+% banner — a draft never needs pretty heads, it needs a label.
+% ======================================================================
+
+% Keep marks mixed-case; \bklabelcaps does the casing uniformly.
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\renewcommand{\sectionmark}[1]{}% sections don't drive heads in this design
+
+\fancypagestyle{frontmatterstyle}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhead[C]{\bkdraftbanner}%
+  \fancyfoot[C]{\color{bk-folio}\thepage}% roman folios, centered, no heads
+}
+
+\fancypagestyle{mainmatterstyle}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhead[LE,RO]{\color{bk-folio}\thepage}% folios outer
+  \ifdefined\DraftMode
+    \fancyhead[CE,CO]{\bkdraftbanner}%
+  \else
+    \fancyhead[CE]{\color{bk-running-head}\bklabelcaps{\BookAuthorShort}}%
+    \fancyhead[CO]{\color{bk-running-head}\bklabelcaps{\BookTitle}}%
+  \fi
+}
+
+\fancypagestyle{backmatterstyle}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhead[LE,RO]{\color{bk-folio}\thepage}%
+  \ifdefined\DraftMode
+    \fancyhead[CE,CO]{\bkdraftbanner}%
+  \else
+    \fancyhead[CE]{\color{bk-running-head}\bklabelcaps{\BookAuthorShort}}%
+    \fancyhead[CO]{\color{bk-running-head}\bklabelcaps{\leftmark}}% current section of apparatus
+  \fi
+}
+
+% Chapter-opening pages (book.cls forces `plain` there).
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhead[C]{\bkdraftbanner}%
+  \fancyfoot[C]{\color{bk-folio}\thepage}%
+}
+
+% ======================================================================
+% Floats: bodies set in \small (trade convention — matches the caption
+% size and keeps identical table column plans fitting the measure in
+% ALL THREE font profiles; Plex runs ~6% wider than Libertinus).
+% Patches \@floatboxreset because LaTeX's float machinery calls
+% \reset@font AFTER any \AtBeginEnvironment hook would run.
+% ======================================================================
+\apptocmd{\@floatboxreset}{\small}{}{%
+  \PackageWarning{book-template}{could not patch floats to \string\small}}
+
+% ======================================================================
+% Page-breaking policy
+% ======================================================================
+\widowpenalty=10000          % no widows —
+\clubpenalty=10000           % — and no orphans, ever (house rule)
+\displaywidowpenalty=10000
+\interfootnotelinepenalty=10000
+\tolerance=1500              % accept looser lines before hyphen abuse
+\emergencystretch=1.5em      % last-resort glue instead of overfull boxes
+\flushbottom                 % prose books balance facing pages;
+                             % the verse module switches to \raggedbottom
+
+% ======================================================================
+% Blank versos — \cleardoublepage control
+% openright chapters generate blank left-hand pages; a truly blank
+% verso must carry NO running head or folio (printer convention).
+% \disablecleardoublepage is for ebook builds and draft cycles where
+% blank sheets are noise. Called automatically for \EbookMode below.
+% ======================================================================
+\newcommand{\enablecleardoublepage}{%
+  \renewcommand{\cleardoublepage}{%
+    \clearpage
+    \if@twoside
+      \ifodd\c@page\else
+        \hbox{}\thispagestyle{empty}\newpage
+        \if@twocolumn\hbox{}\newpage\fi
+      \fi
+    \fi}}
+\newcommand{\disablecleardoublepage}{%
+  \renewcommand{\cleardoublepage}{\clearpage}}
+
+\enablecleardoublepage
+\ifdefined\EbookMode
+  \disablecleardoublepage   % continuous reading: no blank sheets on screen
+\fi
+
+% ======================================================================
+% \scenebreak — the only typographic break chapters may use.
+% Three spaced asterisks (profile-safe: every stack has *), centered,
+% quiet. EPUB converter maps it to <hr class="scene"/>.
+% ======================================================================
+\newcommand{\scenebreak}{%
+  \par
+  {\centering
+   \vspace{0.7\baselineskip}%
+   {\color{bk-scene}*\kern1.2em*\kern1.2em*}\par
+   \vspace{0.7\baselineskip}}%
+  \noindent\ignorespaces}
+
+\makeatother

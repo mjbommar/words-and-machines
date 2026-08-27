@@ -1,0 +1,29 @@
+{
+  "id": "P.def.lane-tags",
+  "kind": "definition",
+  "part": 3,
+  "title": "Provenance tags",
+  "statement": "A YMM register holds 32 distinct optional input tags, not bytes. Replaying an instruction sequence on tags establishes the complete permutation and every produced zero in one run; equal byte values can hide a wrong permutation, tags cannot. Because tags are symbolic, a permutation-only instruction set needs no bit-vector arithmetic at all: minimality becomes pure SAT, and DRAT falls out natively.",
+  "formal": {
+    "language": "prose",
+    "statement": "ByteTags = [Option<u8>; 32] with distinct Some tags; instruction = function on ByteTags."
+  },
+  "epistemic_status": "stated",
+  "axeyum": {
+    "crate": "axeyum-search",
+    "route": "simd::ByteTags",
+    "adr": [
+      "ADR-0559"
+    ]
+  },
+  "book": {
+    "chapter": "ch04-permutations",
+    "label": "def:tags"
+  },
+  "evidence": [],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

@@ -1,0 +1,135 @@
+# AI Instructions (canonical — ADR 0012)
+
+This is the single source of AI instructions for this book project.
+AGENTS.md and GEMINI.md are pointers here; never let them diverge.
+`make doctor` audits this file: every target/script referenced must exist.
+
+> Starting a book from this template? Replace this file with
+> `docs/CLAUDE-TEMPLATE.md` (copy it here, fill in the "This book"
+> identity block) — it adds the substantive sections (premise, voice,
+> register, SPIRIT) this repo-level file doesn't need.
+
+## Project map
+
+| Where | What |
+|---|---|
+| `book.yaml` | Single source of truth: title, author, ISBNs, trim, editions, keywords (ADR 0002) |
+| `latex/chapters/` | Canonical content — the only place prose lives |
+| `latex/generated/`, `build/` | Machine-written — **never edit, never commit** |
+| `docs/architecture/authoring-contract.md` | The complete LaTeX vocabulary chapters may use |
+| `docs/guides/` | STYLE, STYLE-CRAFT, STYLE-AI-TELLS, SIMPLIFIED-ENGLISH, WRITING-PROCESS, CITATIONS, REVIEW-QA, RESEARCH, VOICE-MODELS, ONTOLOGY; `styles/` = genre profiles (`style.profile`) |
+| `scripts/data/simplified_english/` | Simplified Book English: corpus-derived word tiers + curated substitution policy (guide: `docs/guides/SIMPLIFIED-ENGLISH.md`, derivation: `docs/architecture/simplified-english.md`) |
+| `scripts/data/ontology/` | Writing ontology: 20 branch files, macro arcs → micro constructions (design: `docs/architecture/writing-ontology.md`, usage: `docs/guides/ONTOLOGY.md`) |
+| `outline/composition.yaml` | Outline-composer state: registry, spine, node tree, promise ledger — canonical, hand-editable, committed (design: `docs/architecture/outline-composer.md`) |
+| `docs/publishing/` | KDP runbook, metadata dossier, release checklist, cover spec, narration channels |
+| `research/`, `outline/`, `notes/` | Research folders (README contract), outline, working notes |
+| `docs/review-NN/` | Review-round findings and synthesis |
+
+## Hard rules
+
+1. **Never edit `latex/generated/` or `build/`.** They are regenerated from
+   `book.yaml` by the build; edits there are silently destroyed.
+2. **Never introduce literal title/author/ISBN strings** in LaTeX, EPUB, or
+   cover sources. Use the metadata macros (`\BookTitle`, `\BookAuthor`, …)
+   from `latex/generated/metadata.tex`.
+3. **Chapters use ONLY the authoring contract**
+   (`docs/architecture/authoring-contract.md`). No raw TikZ, manual spacing,
+   `\newcommand`, or low-level TeX in chapter files. `make check` and the
+   EPUB coverage audit enforce this.
+4. **Every claim that needs a source gets a verified citation.** Open and
+   read the actual source before citing; `uv run scripts/verify_citation.py`
+   checks reachability and stamp coverage (`--key`, `--unused`, `--stamp`),
+   but confirming the source says what the prose claims is your job. Stamp
+   `verified = {YYYY-MM-DD}` in `references.bib` only after reading. Never
+   mark verified from a search snippet or memory. See `docs/guides/CITATIONS.md`.
+5. **Reviewers never edit.** Persona-review agents produce scored findings;
+   only revision work applies changes, from a synthesized fix brief.
+6. Fix briefs assign **non-overlapping files** to parallel editing agents;
+   run `make check` after parallel edits to catch cross-chapter repetition.
+7. Don't hand-type build stats or metadata into prose or docs — derive them
+   (`make stats`, `book.yaml`).
+
+## Build targets (complete vocabulary — see docs/architecture/build-system.md)
+
+| Target | What it does |
+|---|---|
+| `make pdf` / `make quick` | Print PDF (quick = single fast pass) |
+| `make bleed` / `make ebook` / `make grayscale` / `make draft` | Mode variants |
+| `make epub` / `make epub-check` | EPUB 3 + epubcheck / strict coverage audit |
+| `make epub-a11y` | Ace by DAISY accessibility audit (fails on serious/critical) |
+| `make cover-vars` | Page count → spine → `latex/generated/cover-vars.tex` |
+| `make kdp-cover` / `make lulu-cover` / `make cover-image` | Wrap covers, Kindle raster |
+| `make check` | Style + prose checkers on `latex/chapters/` |
+| `make preflight` | Font-embedding + image-DPI gates on interior and cover PDFs |
+| `make cover-ink` | Cover total-ink (TAC ≤ 240%) gate |
+| `make pdfx` | PDF/X-1a interior for IngramSpark/Lulu (KDP uses `make pdf`) |
+| `make onix` | ONIX 3.0 metadata feed from `book.yaml`, onixcheck-validated |
+| `make narration-export` | Per-chapter plain text for AI narration (`docs/publishing/NARRATION.md`) |
+| `make verify-citations` | URL reachability + `verified=`/`archived=` gates (runs in `make release`; `--archive` pins Wayback snapshots) |
+| `make stats` | Word counts + deltas (`book_stats.py`) |
+| `make vocab` | OpenGloss vocabulary-variety ideation report — overuse, per-sense synonyms with usage examples, `--suggest-bans` profile candidates, optional OGBert `--embed` re-ranking (advisory; `vocab_variety.py --help`) |
+| `make metrics` | Burstiness + lexical-diversity metrics per chapter (`prose_metrics.py`, advisory) |
+| `make prose-report` | One-command quality report: metrics vs house baseline, slop signals, vocab overuse + ban candidates, optional `--pangram`/`--deslop N`, with round-over-round deltas (`prose_report.py`, advisory) |
+| `make ontology` | Writing-ontology stats + schema lint (`writing_ontology.py`; also the loader/sampler library and browse CLI — `show`, `sample`) |
+| `make craft` | Macro-to-micro craft diagnostics on chapters: construction variety, figure detection, rhythm/cadence, register, arc profile vs target shape, setup/payoff ledger, discourse-move coverage (all advisory; see `docs/guides/ONTOLOGY.md`) |
+| — (no target) | Ontology generative CLIs — `prompt_roller.py` (ideation), `beat_scaffold.py` (outline scaffolds from 75+ beat templates), `palette_sampler.py` (drafting/deslop construction palettes), `variation_engine.py` (recast-directive sets for a passage), `exercise_generator.py` (progymnasmata drills), `objection_engine.py` + `sparring_partner.py` (argument red-team; `--llm` optional), `outline_composer.py` (stateful outline cascade: `init` → `deepen` → `lint` → `render`, state in `outline/composition.yaml`; children conditioned on the parent and the arc curve, deepening one node never touches its siblings) |
+| `make slop` | Multi-level slop audit — quantitative signals + 54-tell LLM judge with unit sampling (`slop_audit.py --llm --unit … --sample …`, OpenAI or Anthropic via pydantic-ai; advisory) |
+| `make pangram` | Pangram 4 AI-detector cross-check per chapter (`pangram_check.py`; needs `PANGRAM_API_KEY`; sends `model=pangram-4`, v3 deprecates 2026-09-30; `--api auto` = realtime for small runs, bulk queue for large; advisory). **Read `fraction_ai` as a verdict, never as a score** — it is 1-bit on single paragraphs; the continuous signal is `windows[].ai_assistance_score` (VOICE-MODELS.md §1b) |
+| — (no target) | `scripts/deslop.py` — voice-model rewrites for revision: A/B variants, `--batch` fix briefs, and `--candidates N` (the automated §7 loop: N variants scored by faithfulness + quant slop + the *continuous* Pangram window score, ranked best-first), `--fewshot` (exemplars picked by detector verdict), `--notes` (regenerate from extracted facts), `--servers` (pool across endpoints). Needs a locally served author-voice GGUF — any OpenAI-compatible endpoint (auto-probes :8091 then :8092; model guidance in docs/guides/VOICE-MODELS.md, workflow in REVIEW-QA §7) |
+| — (no target) | `scripts/rewrite_chapter.py` — whole-chapter rewrites through hosted models (GPT-5.6, Opus 5, Gemini 3.7, GLM 5.2, DeepSeek V4 Pro), one file per model for side-by-side comparison. The chapter-scale, hosted sibling of `deslop.py`: use that for paragraph ideation on a local voice model, this to hear a whole chapter in a different voice. `--brief-file` sets the direction, `--anchors` the bench, `--dry-run` prints the prompt for free. Guardrails run inside the retry loop and every rejected sample is kept as `.REJECTED.tex` — see the module docstring. **Never overwrites a chapter** — it writes candidates to `--outdir` and you choose |
+| — (no target) | `scripts/phrase_check.py` — provenance spot-check: do long spans of the book appear verbatim in a 4.3T-token corpus (Ai2 infini-gram)? Answers "does my text contain someone else's words", not "does a detector call this AI". Free, no key — **serial + throttled by design**, see `docs/guides/PROVENANCE.md` |
+| `make simplified` | Simplified Book English vocabulary report — unapproved words/phrases, terms used without an introduction, undefined abbreviations, declared-term drift; `% sbe-ok:` suppresses a line (`check_simplified.py`; `--terms`, `--glossary`, `--emit-config`, `--stats`, `--advisory`, `--explain`, `--strict`; advisory, not in `make check`) |
+| `make simplified-lexicon` | Rebuild `scripts/data/simplified_english/lexicon.json` from 9 reference corpora + OpenGloss + `curated.yaml` (`build_simplified_lexicon.py`) |
+| `make test-simplified` | SBE checker regression fixtures: first-use ordering, input-graph scope, glosses, names/codes, expansions, and policy grades |
+| `make test-compose` | Outline-composer regression fixtures: determinism, idempotent deepening, budget partition, promise lint, fault/descriptor-bank exclusion |
+| `make calibrate-simplified` | Current Markdown scorecard and term/abbreviation/substitution queues for the nine held-out sibling books (`calibrate_simplified.py`; `--format json`, `--projects-root`) |
+| `make doctor` | Toolchain, placeholders, cover-vars freshness, this file's target audit |
+| `make validate-all` | Everything above that gates a release |
+| `make release` | `validate-all` → `releases/<date>-<printing>/` + SHA256SUMS |
+| `make watch` / `make clean` | Rebuild loop / remove outputs |
+
+Editions: `make pdf EDITION=<name>` (declared in `book.yaml`, ADR 0011).
+
+## Writing workflow
+
+Full workflow: `docs/guides/WRITING-PROCESS.md`. Summary:
+
+```
+research → outline → draft → edit (content, then copy) →
+review panel (scored, no edits) → synthesize → revise → verify → polish
+```
+
+- Read `docs/guides/STYLE.md`, `STYLE-AI-TELLS.md`, and
+  `SIMPLIFIED-ENGLISH.md` **before** drafting; run `make check` after.
+- Explain necessary jargon and unusual or restricted uses at first authorial
+  use. `\keyterm{}` identifies a defining occurrence but still needs an inline
+  explanation or a real glossary definition; `book.yaml` records terminology
+  policy, not reader comprehension (SIMPLIFIED-ENGLISH.md §5).
+- Cite as you write — never leave citations "for later".
+- Each review round lives in `docs/review-NN/`; run `make stats` before and
+  after to quantify the round.
+
+## Agents (`.claude/agents/`)
+
+| Phase | Agent | Role |
+|---|---|---|
+| Research | `researcher` | Fill research folders with sourced, verified material |
+| Planning | `outliner` | Chapter outlines and structural balance |
+| Drafting | `chapter-drafter` | Outline → prose within the authoring contract |
+| Editing | `content-editor` | Structure, pacing, argument (developmental) |
+| Editing | `copy-editor` | Line edits, consistency, mechanics |
+| Enforcement | `style-enforcer` | STYLE/AI-TELLS conformance, runs the checkers |
+| Verification | `fact-checker` | Claims vs. sources |
+| Verification | `citation-verifier` | URL/metadata verification, `verified=` stamps |
+| Review | `reviewer-trade-critic` | Persona review, scores rubric, never edits |
+| Review | `reviewer-domain-expert` | Persona review, scores rubric, never edits |
+| Review | `reviewer-general-reader` | Persona review, scores rubric, never edits |
+| Synthesis | `review-synthesizer` | Panel findings → prioritized, non-overlapping fix briefs |
+
+## When you finish a session
+
+1. `make check` — style/prose gates green (or violations listed for the user).
+2. `make stats` — record word-count deltas.
+3. Update the project TODO / research trackers with what changed and what's next.
+4. If you touched anything the build derives from, run the relevant target
+   (`make pdf`, `make epub`) and report failures honestly.

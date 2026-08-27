@@ -1,0 +1,62 @@
+%% ============================================================
+%% preamble/boxes.tex — semantic callout family (module: boxes)
+%%
+%% Purpose      : four paper-oriented callouts —
+%%                keyresult / caution / note / databox — as tcolorbox
+%%                environments, each taking one optional keyval argument:
+%%                  \begin{keyresult}[title={Main finding}] ... \end{keyresult}
+%% Dependencies : tcolorbox + skins/breakable (loaded here), colors.tex
+%%                (callout-* tokens), fonts.tex (sans for titles). Loaded
+%%                only when \ifPaperModuleBoxes (paper.yaml modules.boxes).
+%% Provenance   : the SSRN cluster's highlightbox/databox, generalized to
+%%                the book-template callout skeleton (quiet hairline + a
+%%                heavier semantic-colored left rule; title as small bold
+%%                sans inside the tint, not a filled banner).
+%% HTML note    : tcolorbox is the one construct arXiv's LaTeXML supports
+%%                only partially. These callouts keep their internals to
+%%                plain text/lists (no TikZ decoration inside), which
+%%                converts acceptably; keep essential content in the box
+%%                BODY, never in its skin/decoration. See docs/guides/
+%%                SUBMISSION.md ("Accessibility / HTML").
+%% ============================================================
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\tcbset{
+  papercallout/.style={
+    enhanced jigsaw,
+    breakable,
+    lines before break=3,
+    boxrule=0.4pt,
+    leftrule=2.5pt,
+    arc=1pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=0.9\baselineskip,
+    after skip=0.9\baselineskip,
+    fonttitle=\normalfont\sffamily\bfseries\small,
+    toptitle=5pt, bottomtitle=2pt,
+    titlerule=0pt,
+  },
+}
+
+\newtcolorbox{keyresult}[1][]{papercallout,
+  title={Key result},
+  colframe=callout-keyresult-frame, colback=callout-keyresult-bg,
+  coltitle=callout-keyresult-frame, colbacktitle=callout-keyresult-bg, #1}
+
+\newtcolorbox{caution}[1][]{papercallout,
+  title={Caution},
+  colframe=callout-caution-frame, colback=callout-caution-bg,
+  coltitle=callout-caution-frame, colbacktitle=callout-caution-bg, #1}
+
+\newtcolorbox{note}[1][]{papercallout,
+  title={Note},
+  colframe=callout-note-frame, colback=callout-note-bg,
+  coltitle=callout-note-frame, colbacktitle=callout-note-bg, #1}
+
+% databox: a boxed data/methods callout (the SSRN-cluster \databox).
+\newtcolorbox{databox}[1][]{papercallout,
+  title={Data},
+  colframe=callout-data-frame, colback=callout-data-bg,
+  coltitle=callout-data-frame, colbacktitle=callout-data-bg, #1}

@@ -1,0 +1,1049 @@
+{
+  "name": "revision_moves",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "The verbs of editing: named, repeatable operations a reviser performs on existing prose — cutting, compressing, expanding, reordering, splitting and merging, substituting — plus a diagnosis table pairing each measurable symptom the craft diagnostics report with the move that treats it.",
+  "categories": {
+    "cut_moves": [
+      {
+        "name": "cut the throat-clearing opener",
+        "definition": "Delete the warm-up sentence or clause that announces the subject before the prose begins to say anything about it.",
+        "example": "'Before we can understand the settlement, it is worth considering its history. The history begins in 1974.' -> 'The history begins in 1974.'",
+        "effect": "The paragraph starts at its first real assertion, and the reader stops paying an entrance fee.",
+        "see_also": "openings_and_closings/hooks_and_ledes",
+        "caution": "Some throat-clearing is orientation the reader needs; cut it only when the following sentence stands without it."
+      },
+      {
+        "name": "cut the last sentence of the paragraph",
+        "definition": "Delete the closing sentence that restates, moralizes, or explains what the paragraph has already demonstrated.",
+        "example": "'...the deposit cleared four days after the account was frozen. The timing, in other words, was not a coincidence.' -> stop at 'frozen.'",
+        "effect": "Ends on the evidence rather than the gloss, and credits the reader with the inference.",
+        "aka": ["kill the summary sentence", "trust the last fact"],
+        "caution": "Keep it when the paragraph's point genuinely depends on an inference the reader cannot be expected to draw."
+      },
+      {
+        "name": "cut the first sentence of the paragraph",
+        "definition": "Delete an abstract topic sentence and let the paragraph's second sentence — usually the concrete one — open it.",
+        "example": "'Enforcement was inconsistent. In 1998 the agency issued six fines; in 1999 it issued none.' -> 'In 1998 the agency issued six fines; in 1999 it issued none.'",
+        "effect": "Replaces an assertion with a demonstration and converts the paragraph from a claim-plus-proof to a proof that implies its claim.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "drop the frame",
+        "definition": "Remove the framing matrix clause that reports the writer's relation to the content instead of the content.",
+        "example": "'What is interesting here is that the rule changed twice.' -> 'The rule changed twice.'",
+        "effect": "Removes a layer of mediation; the fact arrives without a chaperone.",
+        "aka": ["delete the matrix clause", "unframe"],
+        "see_also": "discourse_moves/metadiscourse_moves"
+      },
+      {
+        "name": "cut to the verb",
+        "definition": "Delete everything before the sentence's real verb, promoting the buried predicate to the front of the clause.",
+        "example": "'One thing that should be noted about the second draft is that it removed the deadline.' -> 'The second draft removed the deadline.'",
+        "effect": "Shortens the run-up to the action and puts a working verb where the reader is already looking for one.",
+        "see_also": "diction_and_register/verb_strength_moves"
+      },
+      {
+        "name": "cut the recap",
+        "definition": "Delete the sentence or clause that summarizes material the reader finished a page ago.",
+        "example": "'As we saw in the previous section, the fund was insolvent. The trustees knew.' -> 'The trustees knew.'",
+        "effect": "Removes redundancy and keeps forward motion; the connection survives without being narrated.",
+        "see_also": "discourse_moves/signposting_moves",
+        "caution": "In long-form nonfiction a single orienting clause after a chapter break earns its place."
+      },
+      {
+        "name": "cut the preview",
+        "definition": "Delete the announcement of what the following passage will do.",
+        "example": "'This chapter will examine three failures of oversight.' -> begin with the first failure.",
+        "effect": "Converts a table of contents into prose and saves the reader a paragraph of waiting.",
+        "see_also": "discourse_moves/signposting_moves",
+        "caution": "Technical and academic genres price previews as a service, not a fault; check the register before cutting."
+      },
+      {
+        "name": "cut the hedge stack",
+        "definition": "Reduce a pile of stacked qualifiers to the single hedge that carries the real uncertainty.",
+        "example": "'It may perhaps be possible that the figure is roughly accurate.' -> 'The figure is roughly accurate.'",
+        "effect": "Restores a stateable claim and makes the remaining hedge mean something.",
+        "see_also": "diction_and_register/hedges"
+      },
+      {
+        "name": "cut the booster",
+        "definition": "Delete the certainty intensifier and let the evidence supply the confidence.",
+        "example": "'This clearly and undeniably shows a pattern.' -> 'This shows a pattern.'",
+        "effect": "Removes the sound of a writer arguing with an imagined doubter, which reads as weakness rather than force.",
+        "see_also": "diction_and_register/boosters"
+      },
+      {
+        "name": "cut the second example",
+        "definition": "Delete the confirming instance that adds no new dimension to the one already given.",
+        "example": "Two anecdotes both showing a regulator missing a deadline -> keep the one with the checkable date.",
+        "effect": "Keeps illustrative weight while halving the wordcount; the surviving example gains room for detail.",
+        "see_also": "evidence_types/example_types",
+        "caution": "Two examples are not redundant when the second establishes range rather than repetition."
+      },
+      {
+        "name": "cut the restated thesis",
+        "definition": "Delete the reappearance of the book's thesis at the end of a section that has just proved something narrower.",
+        "example": "'...which is why the audit failed. Once again, institutions protect themselves before they protect the public.' -> stop at 'failed.'",
+        "effect": "Removes the machine-written cadence of thesis-evidence-thesis and lets sections accumulate instead of resetting.",
+        "aka": ["cut the thesis echo"],
+        "see_also": "discourse_moves/signposting_moves"
+      },
+      {
+        "name": "cut the intensifier",
+        "definition": "Delete very, really, extremely, incredibly, and their kin rather than upgrading the word they modify.",
+        "example": "'a very large loss' -> 'a large loss' or 'a $40 million loss'",
+        "effect": "Either the noun was strong enough or it was not; the cut exposes which, and usually prompts a substitution.",
+        "see_also": "diction_and_register/diction_faults"
+      },
+      {
+        "name": "cut the process narration",
+        "definition": "Delete sentences that describe the writing rather than perform it.",
+        "example": "'Having established the timeline, we now turn to motive.' -> begin the motive paragraph.",
+        "effect": "Removes scaffolding the reader was never meant to see; the section break already signals the turn.",
+        "aka": ["cut the stage directions"],
+        "see_also": "discourse_moves/metadiscourse_moves"
+      },
+      {
+        "name": "cut the implied qualifier",
+        "definition": "Delete a limiting phrase the sentence's own scope already carries.",
+        "example": "'In most cases, the deadline is typically thirty days.' -> 'The deadline is thirty days.'",
+        "effect": "Removes a doubled apology for the same imprecision and shortens the distance to the fact."
+      },
+      {
+        "name": "cut one of the paired adjectives",
+        "definition": "Where two coordinated modifiers cover nearly the same ground, delete the weaker one.",
+        "example": "'a slow and lumbering process' -> 'a lumbering process'",
+        "effect": "Removes the doublet rhythm that makes prose sound padded, and forces the surviving adjective to be exact.",
+        "aka": ["break the doublet"],
+        "see_also": "rhetorical_figures/amplification_and_addition_figures"
+      },
+      {
+        "name": "cut the explained joke",
+        "definition": "Delete the clause that tells the reader why the preceding line is funny.",
+        "example": "'He filed it under Miscellaneous, which was, of course, where everything inconvenient went.' -> stop at 'Miscellaneous.'",
+        "effect": "Restores the reader's discovery, which is the whole payment a joke offers.",
+        "see_also": "humor_and_wit/humor_faults"
+      },
+      {
+        "name": "cut the reader-address aside",
+        "definition": "Delete the parenthetical turn to the reader that interrupts an argument to check whether it is landing.",
+        "example": "'The number is 4 percent (yes, you read that right).' -> 'The number is 4 percent.'",
+        "effect": "Keeps the writer out of the reader's peripheral vision and lets the fact carry its own surprise.",
+        "see_also": "discourse_moves/reader_management_moves"
+      },
+      {
+        "name": "cut the connective adverb",
+        "definition": "Delete a sentence-initial however, moreover, furthermore, or additionally when the logical relation is already visible.",
+        "example": "'However, the second audit found nothing.' -> 'The second audit found nothing.'",
+        "effect": "Removes the loudest machine-prose tell at the sentence opener and lets juxtaposition do the connecting.",
+        "see_also": "discourse_moves/transition_families",
+        "caution": "Genuine concession and contrast sometimes need the signal; cut the ones the sentence order already implies."
+      },
+      {
+        "name": "cut the redundant definition",
+        "definition": "Delete a gloss of a term the reader has already been given, or one the context defines by use.",
+        "example": "'The escrow — an account held by a third party — was empty.' -> 'The escrow was empty.' (fourth mention)",
+        "effect": "Saves the reader from being taught twice, which reads as condescension by the second time.",
+        "see_also": "rhetorical_figures/definition_and_division_figures"
+      },
+      {
+        "name": "cut the contrast frame",
+        "definition": "Delete the not-x-but-y or it-is-not-merely construction and assert y directly.",
+        "example": "'This is not just a story about money; it is a story about trust.' -> 'This is a story about trust.'",
+        "effect": "Removes the single most detectable stock cadence in machine-assisted prose, and forces the claim to stand unaided.",
+        "aka": ["cut the not-x-but-y"],
+        "see_also": "rhetorical_figures/balance_and_antithesis_figures"
+      },
+      {
+        "name": "cut the scene's arrival and departure",
+        "definition": "Delete the character's approach to the room and exit from it; enter at the first consequential line, leave on the last.",
+        "example": "'She parked, walked up two flights, and knocked. He opened the door. \"You lied to the board.\"' -> '\"You lied to the board.\"'",
+        "effect": "Compresses dead time and starts the scene where the pressure is.",
+        "aka": ["enter late, leave early"],
+        "see_also": ["scene_patterns/scene_openings", "scene_patterns/scene_endings"]
+      },
+      {
+        "name": "cut the attributed obvious",
+        "definition": "Delete an authority citation for a claim no informed reader disputes.",
+        "example": "'As Smith (2011) notes, incentives influence behavior.' -> 'Incentives influence behavior.'",
+        "effect": "Reserves citation weight for claims that need it and stops the prose reading as a literature review.",
+        "see_also": "evidence_types/authority_types"
+      },
+      {
+        "name": "cut the parenthetical",
+        "definition": "Delete a bracketed aside, or promote it to a clause if it turns out to matter.",
+        "example": "'The rule (which had been amended in 2003) applied.' -> 'The rule applied.' or 'The 2003 amendment made the rule apply.'",
+        "effect": "Forces a decision the parenthesis was postponing: the material is either load-bearing or it is not.",
+        "see_also": "syntactic_constructions/interruption_and_parenthesis"
+      }
+    ],
+    "compression_moves": [
+      {
+        "name": "nominalization to verb",
+        "definition": "Convert an abstract noun back into the verb it was made from, and give that verb its agent.",
+        "example": "'The implementation of the policy by the board occurred in March.' -> 'The board implemented the policy in March.'",
+        "effect": "Cuts words, restores an actor, and turns a static clause into an event.",
+        "aka": ["unbury the verb"],
+        "see_also": "diction_and_register/verb_strength_moves"
+      },
+      {
+        "name": "subordinate clause to participial phrase",
+        "definition": "Recast a finite subordinate clause as a participial modifier attached to the main clause.",
+        "example": "'Because he had already signed the waiver, he could not sue.' -> 'Having signed the waiver, he could not sue.'",
+        "effect": "Removes a conjunction and a finite verb, and hangs the circumstance on the main clause instead of beside it.",
+        "see_also": "syntactic_constructions/participial_and_appositive",
+        "caution": "Check the implied subject; a participle that attaches to the wrong noun dangles."
+      },
+      {
+        "name": "relative clause to appositive",
+        "definition": "Strip the relative pronoun and copula so a defining clause becomes a renaming noun phrase.",
+        "example": "'Ruiz, who was the auditor on the account, resigned.' -> 'Ruiz, the auditor on the account, resigned.'",
+        "effect": "Two words shorter and rhythmically lighter; the identification stops competing with the main verb.",
+        "see_also": "syntactic_constructions/participial_and_appositive"
+      },
+      {
+        "name": "relative clause to modifier",
+        "definition": "Collapse a whole relative clause into a single premodifying adjective or noun.",
+        "example": "'a report that was produced internally' -> 'an internal report'",
+        "effect": "Maximum compression at the noun phrase; keeps the sentence's weight on its verb.",
+        "caution": "Premodifier stacks of three or more become bureaucratic; compress one clause, not three."
+      },
+      {
+        "name": "list to pair",
+        "definition": "Cut a four- or five-item list to the two items that mark its range.",
+        "example": "'fines, warnings, suspensions, consent decrees, and referrals' -> 'fines and referrals'",
+        "effect": "Preserves the span of the category while restoring sentence speed; the pair reads as a choice rather than an inventory.",
+        "see_also": "rhetorical_figures/amplification_and_addition_figures"
+      },
+      {
+        "name": "list to triple",
+        "definition": "Trim a long enumeration to three members ordered by increasing weight.",
+        "example": "seven consequences -> the mildest, a middling one, and the one that ends the argument",
+        "effect": "Recovers the tricolon's closure, which a six-item list dissipates.",
+        "see_also": "rhetorical_figures/balance_and_antithesis_figures"
+      },
+      {
+        "name": "appositive absorption",
+        "definition": "Fold an appositive's content into the noun phrase it renames, removing the commas.",
+        "example": "'The chair, a former prosecutor, objected.' -> 'The former prosecutor in the chair objected.'",
+        "effect": "Removes an interruption from a sentence that already has one, smoothing a stuttering middle."
+      },
+      {
+        "name": "sentence pair to semicolon",
+        "definition": "Join two closely related sentences with a semicolon and delete the connective that linked them.",
+        "example": "'The first audit found nothing. However, the second found the missing invoices.' -> 'The first audit found nothing; the second found the missing invoices.'",
+        "effect": "Puts the relation in the punctuation rather than in a word, and lets the parallel structure carry the contrast.",
+        "see_also": "sound_and_rhythm/pause_and_punctuation_rhythm"
+      },
+      {
+        "name": "clause to absolute",
+        "definition": "Reduce an accompanying-circumstance clause to a nominative absolute — noun plus participle, no conjunction.",
+        "example": "'While his hands were shaking, he signed it.' -> 'His hands shaking, he signed it.'",
+        "effect": "Compresses and simultaneously varies the sentence opener, which is why it doubles as a monotony cure.",
+        "see_also": "syntactic_constructions/absolute_constructions"
+      },
+      {
+        "name": "passive to active",
+        "definition": "Restore the agent to subject position and drop the by-phrase and auxiliary.",
+        "example": "'The file was destroyed by the contractor.' -> 'The contractor destroyed the file.'",
+        "effect": "Sheds two words and names who did it, which is usually the fact the passive was hiding.",
+        "see_also": "discourse_moves/metadiscourse_moves",
+        "caution": "Keep the passive when the patient is the paragraph's topic or the agent is genuinely unknown."
+      },
+      {
+        "name": "expletive removal",
+        "definition": "Delete a there-is or it-is opener and promote the real subject.",
+        "example": "'There are three reasons the deadline slipped.' -> 'The deadline slipped for three reasons.'",
+        "effect": "Removes a dummy subject and a linking verb, converting an announcement into a statement.",
+        "aka": ["cut the dummy subject"],
+        "see_also": "syntactic_constructions/focus_constructions",
+        "caution": "Existential there earns its place when the sentence's whole job is to introduce something new."
+      },
+      {
+        "name": "prepositional chain collapse",
+        "definition": "Break a run of three or more stacked of/for/to phrases by turning one into a possessive or a verb.",
+        "example": "'the effect of the reduction of the size of the panel' -> 'shrinking the panel'",
+        "effect": "Cuts the sentence's longest dead stretch and usually recovers a verb in the process."
+      },
+      {
+        "name": "phrase to word",
+        "definition": "Replace a multi-word circumlocution with the single word it paraphrases.",
+        "example": "'in the event that' -> 'if'; 'at this point in time' -> 'now'; 'due to the fact that' -> 'because'",
+        "effect": "The cheapest compression available and the one that most reliably lowers the register toward plain speech.",
+        "see_also": "diction_and_register/precision_moves"
+      },
+      {
+        "name": "gap the repeated verb",
+        "definition": "Delete a verb repeated across parallel clauses and let the structure supply it.",
+        "example": "'The first bid was rejected and the second bid was accepted.' -> 'The first bid was rejected, the second accepted.'",
+        "effect": "Tightens the parallel and speeds the second member, so the contrast snaps.",
+        "see_also": "syntactic_constructions/ellipsis_and_compression"
+      },
+      {
+        "name": "quotation to paraphrase",
+        "definition": "Replace a long block quotation with a compressed paraphrase, keeping only the phrase whose exact wording matters.",
+        "example": "Six lines of a consent decree -> 'The decree required quarterly reports \"in a form acceptable to the Commission.\"'",
+        "effect": "Retains the evidentiary weight and the telling phrase while removing the reader's obligation to translate legalese.",
+        "see_also": "evidence_types/documentary_and_physical_evidence",
+        "caution": "Paraphrase changes the record; keep the quotation whenever a reader might dispute your reading."
+      },
+      {
+        "name": "dialogue to summarized speech",
+        "definition": "Convert a rendered exchange into narrated report where the content matters and the performance does not.",
+        "example": "Two pages of negotiation -> 'They spent an hour arguing about the escrow and settled on sixty days.'",
+        "effect": "Buys back pace and reserves rendered dialogue for the exchanges whose exact words carry the scene.",
+        "see_also": ["pov_and_narration/speech_and_thought_representation", "dialogue_mechanics/exchange_shapes"]
+      },
+      {
+        "name": "scene to summary",
+        "definition": "Replace a dramatized sequence with a narrated compression of its outcome.",
+        "example": "A rendered board meeting -> 'The board voted five to two, and the chair left before the minutes were signed.'",
+        "effect": "Adjusts the pace of a chapter that dramatizes everything, and marks by contrast which scenes are worth full staging.",
+        "see_also": "scene_patterns/scene_functions"
+      },
+      {
+        "name": "connective to juxtaposition",
+        "definition": "Delete the logical connective and set the two statements side by side, letting parataxis assert the relation.",
+        "example": "'The fund was insolvent, and therefore the bonuses were paid out of new deposits.' -> 'The fund was insolvent. The bonuses came out of new deposits.'",
+        "effect": "Shortens, hardens, and moves the inference to the reader, where it lands harder.",
+        "see_also": "syntactic_constructions/coordination_and_subordination"
+      },
+      {
+        "name": "modifier into compound",
+        "definition": "Convert a postmodifying phrase into a hyphenated premodifier.",
+        "example": "'a plan that lasts five years' -> 'a five-year plan'",
+        "effect": "Compresses the noun phrase and keeps the sentence's stress on its predicate."
+      },
+      {
+        "name": "statistic compression",
+        "definition": "Replace a sentence of statistical apparatus with the single number that carries the point.",
+        "example": "'Of the 412 filings reviewed, 37 were found to contain at least one omission, a rate of approximately 9 percent.' -> 'Nine percent of the 412 filings had omissions.'",
+        "effect": "Keeps the checkable figures and drops the method narration into a note where it belongs.",
+        "see_also": "evidence_types/statistics_presentation_modes"
+      },
+      {
+        "name": "delete the doubled agent",
+        "definition": "When a clause names an actor and then re-describes that actor's function, keep one.",
+        "example": "'The committee, which was responsible for approving expenses, approved the expense.' -> 'The committee approved the expense.'",
+        "effect": "Removes a tautological loop that makes prose feel like it is treading water."
+      }
+    ],
+    "expansion_moves": [
+      {
+        "name": "unpack the abstraction into a case",
+        "definition": "Replace or follow an abstract claim with one concrete instance carrying names, dates, and quantities.",
+        "example": "'Oversight was weak.' -> 'The examiner assigned to the fund covered eleven other institutions and visited this one twice in six years.'",
+        "effect": "Converts a proposition the reader can only accept or reject into a scene the reader can check.",
+        "see_also": "evidence_types/example_types"
+      },
+      {
+        "name": "add the missing step",
+        "definition": "Insert the inferential step the argument skipped between two adjacent claims.",
+        "example": "'The rule changed, so the fines stopped.' -> add the sentence explaining that the new rule moved enforcement to a body without staff.",
+        "effect": "Closes a gap the writer crossed from knowledge and the reader cannot cross at all.",
+        "see_also": "argumentation_schemes/practical_and_value"
+      },
+      {
+        "name": "slow the key moment",
+        "definition": "Expand the two or three sentences on which a chapter turns, adding beats, sensory detail, or clause-level delay.",
+        "example": "'He signed it.' -> three sentences covering the pen, the date he wrote, and the pause before the second signature.",
+        "effect": "Matches textual duration to importance, which is how a reader learns what mattered.",
+        "see_also": "pov_and_narration/temporal_manipulation",
+        "caution": "Slowing a moment that does not carry weight is padding; expand only at the pivot."
+      },
+      {
+        "name": "add the counterexample",
+        "definition": "Introduce the instance that does not fit, and say what it costs the claim.",
+        "example": "After four cases of regulatory capture, add the agency that resisted it and why.",
+        "effect": "Raises credibility more than another confirming case, and pre-empts the reader's strongest objection.",
+        "see_also": ["evidence_types/case_selection_strategies", "information_release/nonfiction_release"]
+      },
+      {
+        "name": "add the particular",
+        "definition": "Attach a name, a date, a place, or a number to a sentence that currently has none.",
+        "example": "'A senior official later resigned.' -> 'The deputy comptroller, Ellen Prewitt, resigned that November.'",
+        "effect": "Raises the density of checkable detail, the single most reliable difference between reported and generated prose.",
+        "aka": ["specificity injection"],
+        "see_also": "diction_and_register/precision_moves"
+      },
+      {
+        "name": "add the sensory detail",
+        "definition": "Insert one perceptual particular — sound, texture, smell, light — into a passage rendered entirely in summary.",
+        "example": "'They met in the annex.' -> 'They met in the annex, where the radiator ran all summer.'",
+        "effect": "Anchors an abstract scene in a body and a place; one detail does more than three.",
+        "see_also": "rhetorical_figures/description_figures",
+        "caution": "One particular per passage; a catalogue of sensations reads as a set dressing exercise."
+      },
+      {
+        "name": "add the objection and answer it",
+        "definition": "State the strongest available objection in its own voice, then answer it on the page.",
+        "example": "'A reader will say the numbers are inflation-adjusted differently. They are — and adjusting them the other way moves the total by 3 percent, not by an order of magnitude.'",
+        "effect": "Converts a reader's private resistance into a shared step of the argument.",
+        "see_also": ["interaction_moves/argumentative_exchange_moves", "argument_arrangements/proof_strategies"]
+      },
+      {
+        "name": "add the mechanism",
+        "definition": "Explain how the stated effect is produced, not merely that it occurs.",
+        "example": "'The incentive distorted the ratings.' -> add the two sentences describing who paid whom, and when the fee was booked.",
+        "effect": "Turns a correlation into an account the reader can test against other cases.",
+        "see_also": "argumentation_schemes/causal_and_explanatory"
+      },
+      {
+        "name": "add the number",
+        "definition": "Supply the quantity behind a vague magnitude word.",
+        "example": "'a substantial shortfall' -> 'a $14 million shortfall'",
+        "effect": "Replaces an adjective the reader must take on trust with a fact the reader can weigh.",
+        "see_also": "evidence_types/statistics_presentation_modes"
+      },
+      {
+        "name": "restore the scene",
+        "definition": "Dramatize a moment the draft summarized, when the summary hides the decision the chapter is about.",
+        "example": "'They eventually agreed to release the report.' -> render the meeting in which the last objection was withdrawn.",
+        "effect": "Puts the reader in the room for the turn, which summary can report but not stage.",
+        "see_also": "scene_patterns/scene_types"
+      },
+      {
+        "name": "add the second beat",
+        "definition": "Give a one-exchange interaction a follow-up move, so it becomes an exchange rather than a statement.",
+        "example": "A question answered flatly -> the answer, a pause, and the speaker's correction of it.",
+        "effect": "Creates the small oscillation that makes an interaction feel live instead of transacted.",
+        "see_also": ["dialogue_mechanics/exchange_shapes", "interaction_moves/dialogue_beats"]
+      },
+      {
+        "name": "state the stakes",
+        "definition": "Add the sentence naming what is lost if the situation goes the wrong way, and for whom.",
+        "example": "'The audit was delayed.' -> 'The audit was delayed, and the fund took another eleven months of deposits.'",
+        "effect": "Gives a factual passage a reason to be read at speed rather than skimmed.",
+        "see_also": "stakes_and_stasis/societal_stakes"
+      },
+      {
+        "name": "restore the source's own words",
+        "definition": "Replace a paraphrase with the quotation where the original phrasing is the evidence.",
+        "example": "'The memo warned of insolvency.' -> 'The memo called the fund \"functionally insolvent as of the first quarter.\"'",
+        "effect": "Moves the claim from the writer's authority to the record's, which is where a contested claim belongs.",
+        "see_also": "evidence_types/documentary_and_physical_evidence"
+      },
+      {
+        "name": "add the limiting condition",
+        "definition": "Scope an overbroad claim by naming the conditions under which it holds.",
+        "example": "'Regulators miss fraud.' -> 'Regulators staffed on a per-institution basis miss fraud that crosses institutions.'",
+        "effect": "Trades rhetorical reach for defensibility, and usually makes the claim more interesting.",
+        "see_also": "stakes_and_stasis/claim_types"
+      },
+      {
+        "name": "add the missing transition",
+        "definition": "Insert the sentence that names the relation between two paragraphs whose connection exists only in the writer's head.",
+        "example": "Between a chapter on staffing and one on fraud, add the sentence linking caseload to detection rate.",
+        "effect": "Repairs the most common structural complaint in review — 'I lost the thread' — at the lowest cost.",
+        "see_also": "discourse_moves/coherence_relations"
+      },
+      {
+        "name": "voice the reader's question",
+        "definition": "Put the reader's likely objection or query on the page as a question, then answer it.",
+        "example": "'Why did nobody call the police? Because the loss had not yet been booked, and nothing had formally gone missing.'",
+        "effect": "Converts confusion into structure and gives a flat expository stretch a two-part rhythm.",
+        "see_also": ["rhetorical_figures/question_and_address_figures", "paragraph_shapes/expository_shapes"],
+        "caution": "Two in a chapter is a device; six is a tic."
+      },
+      {
+        "name": "dramatize the statistic",
+        "definition": "Follow a rate or total with a concrete equivalent the reader can picture.",
+        "example": "'2.4 million filings a year' -> 'about one filing every thirteen seconds of the working day'",
+        "effect": "Gives an unimaginable number a scale the reader's body understands.",
+        "see_also": "evidence_types/statistics_presentation_modes",
+        "caution": "The equivalent must be arithmetically honest; a vivid comparison that inflates is worse than the bare number."
+      },
+      {
+        "name": "extend the metaphor one clause",
+        "definition": "Take a live figure one step further into its source domain rather than abandoning it after the noun.",
+        "example": "'The agency was a sieve.' -> 'The agency was a sieve, and everyone knew which holes were the big ones.'",
+        "effect": "Converts decoration into thinking: the extension has to be true of the subject, so it does argumentative work.",
+        "see_also": ["metaphor_domains/mapping_controls", "diction_and_register/figurative_diction_controls"],
+        "caution": "One extension; a third clause turns the figure into an allegory the subject cannot support."
+      },
+      {
+        "name": "add the aftermath",
+        "definition": "Follow a decisive event with the sentence showing what it cost afterward.",
+        "example": "'The suit settled.' -> 'The suit settled, and the plaintiffs signed a clause forbidding them to describe the terms.'",
+        "effect": "Prevents the flat landing of a resolved passage and converts an outcome into a consequence.",
+        "see_also": "scene_patterns/scene_endings"
+      }
+    ],
+    "reordering_moves": [
+      {
+        "name": "promote the buried lede",
+        "definition": "Move the most consequential sentence of a passage — usually found in the middle or at the end — to the front.",
+        "example": "A paragraph on committee procedure whose fourth sentence reports that the minutes were altered -> open on the alteration.",
+        "effect": "Aligns the reader's attention with the material's importance, and often makes the surrounding sentences cuttable.",
+        "aka": ["unbury the lede"],
+        "see_also": "openings_and_closings/hooks_and_ledes"
+      },
+      {
+        "name": "invert the paragraph",
+        "definition": "Move the paragraph's final sentence to the front and let the rest follow as support.",
+        "example": "A build-up ending in 'the deposits were never insured' -> begin there.",
+        "effect": "Converts a suspended paragraph into a thesis-first one; the fastest test of whether the suspense was earned.",
+        "see_also": "paragraph_shapes/argumentative_shapes"
+      },
+      {
+        "name": "move the qualifier after the claim",
+        "definition": "Relocate a leading hedge or condition to the position after the assertion it limits.",
+        "example": "'Although the data are incomplete, enforcement fell.' -> 'Enforcement fell, though the data are incomplete.'",
+        "effect": "The claim reaches the reader before its caveat, so the sentence asserts rather than apologizes.",
+        "see_also": "syntactic_constructions/modifier_placement"
+      },
+      {
+        "name": "move the punch word last",
+        "definition": "Rearrange the clause so the word carrying the meaning takes the terminal position.",
+        "example": "'The fund was insolvent by March, according to its own auditors.' -> 'By March, its own auditors called the fund insolvent.'",
+        "effect": "Puts the emphasis where English intonation already places it, which is why end-placed words are remembered.",
+        "see_also": ["syntactic_constructions/sentence_architectures", "sound_and_rhythm/prose_cadence"]
+      },
+      {
+        "name": "front the adverbial",
+        "definition": "Move a time, place, or manner adverbial to the head of the sentence.",
+        "example": "'The board met again in November, after two postponements.' -> 'After two postponements, the board met again in November.'",
+        "effect": "Breaks a run of subject-first openers and sets the frame before the clause arrives.",
+        "see_also": "syntactic_constructions/modifier_placement"
+      },
+      {
+        "name": "front an absolute",
+        "definition": "Open the sentence with a nominative absolute, delaying the subject.",
+        "example": "'He signed with his hands shaking.' -> 'His hands shaking, he signed.'",
+        "effect": "Varies the opener class and adds a second observed detail without adding a sentence.",
+        "see_also": "syntactic_constructions/absolute_constructions"
+      },
+      {
+        "name": "cleft the sentence",
+        "definition": "Recast as an it-cleft or wh-cleft to force a specific element into focus.",
+        "example": "'The auditors reported it in March.' -> 'It was the auditors, not the trustees, who reported it.'",
+        "effect": "Explicitly marks contrast where a plain clause leaves the emphasis ambiguous.",
+        "see_also": "syntactic_constructions/focus_constructions",
+        "caution": "Clefts are heavy; one per page, at the sentence whose emphasis actually matters."
+      },
+      {
+        "name": "reorder the list by weight",
+        "definition": "Sort a series so the members ascend in force, with the heaviest last.",
+        "example": "'fines, criminal referrals, and warning letters' -> 'warning letters, fines, and criminal referrals'",
+        "effect": "Gives the series a climax rather than a random tail, which is what makes a list feel deliberate.",
+        "see_also": "rhetorical_figures/amplification_and_addition_figures"
+      },
+      {
+        "name": "move the example before the claim",
+        "definition": "Lead with the instance and let the generalization follow it.",
+        "example": "'Capture is common. Consider the examiner who...' -> 'The examiner covering eleven institutions visited this one twice in six years. Capture rarely looks like corruption.'",
+        "effect": "Turns an assertion the reader must trust into a conclusion the reader has already begun to draw.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "move the definition to first use",
+        "definition": "Relocate a term's gloss from wherever it landed to the term's first appearance.",
+        "example": "A definition of 'consent decree' in chapter four moved to its first mention in chapter one.",
+        "effect": "Removes the stretch of prose the reader spent guessing, and the later definition's insult.",
+        "see_also": "rhetorical_figures/definition_and_division_figures"
+      },
+      {
+        "name": "repair given-new order",
+        "definition": "Rearrange a sentence so known information sits at the front and new information at the end.",
+        "example": "'A second, unreported account held the missing funds.' (after a paragraph about the funds) -> 'The missing funds sat in a second account nobody had reported.'",
+        "effect": "Restores the topic chain across sentences; violated given-new order is what 'choppy' usually means.",
+        "aka": ["topic-comment repair"],
+        "see_also": "discourse_moves/transition_families"
+      },
+      {
+        "name": "move the objection earlier",
+        "definition": "Relocate an anticipated counterargument from a late section to the point where the reader first thinks of it.",
+        "example": "A methodological caveat in the final section moved to the paragraph introducing the dataset.",
+        "effect": "Stops the reader arguing with the page for twenty paragraphs; concessions cost less the sooner they are made.",
+        "see_also": ["argument_arrangements/dialectical_forms", "information_release/nonfiction_release"]
+      },
+      {
+        "name": "delay the thesis",
+        "definition": "Move the governing claim from the opening to a position after the evidence that earns it.",
+        "example": "A section opening on 'regulators protect institutions, not depositors' -> the same sentence at the section's end.",
+        "effect": "Lets the reader arrive at the conclusion rather than being handed it, which raises assent on contested claims.",
+        "see_also": ["arc_shapes/epistemic_arcs", "information_release/release_moves"],
+        "caution": "Delay costs orientation; readers of technical and business genres expect the claim first."
+      },
+      {
+        "name": "move the caveat out of the middle",
+        "definition": "Relocate a limiting clause that interrupts a sentence's spine to the head or tail of the sentence.",
+        "example": "'The fund, though the trustees disputed this until 2009, was insolvent.' -> 'The fund was insolvent. The trustees disputed this until 2009.'",
+        "effect": "Restores the clause's momentum; interruptions belong where they cost least, not where they occurred to the writer.",
+        "see_also": "syntactic_constructions/interruption_and_parenthesis"
+      },
+      {
+        "name": "put the strongest evidence last",
+        "definition": "Reorder a section's evidence so the most decisive item closes it.",
+        "example": "Three documents ordered by discovery date -> ordered by force, with the signed memo last.",
+        "effect": "Ends on the reader's peak conviction rather than on whatever the research turned up most recently.",
+        "see_also": "argument_arrangements/proof_strategies"
+      },
+      {
+        "name": "front the time marker",
+        "definition": "Move a date or duration to the sentence's opening slot when the passage is a chronology.",
+        "example": "'The bank failed in the third week of October, after two rescue attempts.' -> 'In the third week of October, after two rescue attempts, the bank failed.'",
+        "effect": "Makes a sequence readable as a sequence and varies openers in a passage that would otherwise be all subject-first.",
+        "see_also": "pov_and_narration/temporal_manipulation"
+      },
+      {
+        "name": "restore chronological order",
+        "definition": "Rewrite a paragraph that jumps backward and forward so events run in the order they happened.",
+        "example": "A paragraph reporting a resignation, then its cause, then its aftermath, then its date -> straight through from the cause.",
+        "effect": "Removes the reader's reconstruction work in passages where the sequence is the point rather than the device.",
+        "see_also": "pov_and_narration/temporal_manipulation",
+        "caution": "Only where the disorder is accidental; deliberate anachrony is a technique, not a defect."
+      },
+      {
+        "name": "move the topic sentence to the end",
+        "definition": "Shift a paragraph's governing sentence from the first position to the last.",
+        "example": "'Enforcement varied by region. In 1998... In 2001...' -> the regional variation stated after the two figures.",
+        "effect": "Varies paragraph architecture in a chapter where every paragraph opens on its claim, the commonest structural monotony.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "hoist the shared element",
+        "definition": "Factor a repeated word or phrase out of parallel clauses and state it once at the front.",
+        "example": "'The board approved the loan, the board approved the waiver, the board approved the extension.' -> 'The board approved the loan, the waiver, and the extension.'",
+        "effect": "Shortens and sharpens the parallel; the repetition survives as structure instead of as words.",
+        "see_also": "syntactic_constructions/ellipsis_and_compression"
+      }
+    ],
+    "splitting_and_merging": [
+      {
+        "name": "split the run-on",
+        "definition": "Break a sentence carrying two independent assertions into two sentences.",
+        "example": "'The examiner filed no report and the fund went on taking deposits for another year, which nobody flagged.' -> three sentences.",
+        "effect": "Recovers a stress position for each claim and raises burstiness where every sentence has drifted long.",
+        "see_also": "syntactic_constructions/sentence_length_moves"
+      },
+      {
+        "name": "split at the second subordinator",
+        "definition": "Cut a long sentence at its second subordinating conjunction and promote what follows to its own sentence.",
+        "example": "'Because X, the board, which had already Y, decided Z, although W.' -> two sentences, the concession standing alone.",
+        "effect": "A mechanical rule for a sentence you know is too long but cannot see where to break.",
+        "see_also": "syntactic_constructions/coordination_and_subordination"
+      },
+      {
+        "name": "split the paragraph at the turn",
+        "definition": "Break a paragraph where its subject or its stance changes, even mid-argument.",
+        "example": "A paragraph on the audit's findings that becomes a paragraph on the trustees' response -> two.",
+        "effect": "Gives the second movement its own opening position and restores paragraph-length variation.",
+        "see_also": "paragraph_shapes/transitional_shapes"
+      },
+      {
+        "name": "split on the semicolon",
+        "definition": "Replace a semicolon with a period when the two halves are doing separate work.",
+        "example": "'The report was never filed; the deadline had passed six weeks earlier.' -> two sentences.",
+        "effect": "Hardens the join; a period asserts twice where a semicolon asserts once with an aside.",
+        "see_also": "sound_and_rhythm/pause_and_punctuation_rhythm"
+      },
+      {
+        "name": "merge the thin paragraphs",
+        "definition": "Combine consecutive short paragraphs that develop one idea into a single paragraph.",
+        "example": "Three two-sentence paragraphs on the same meeting -> one paragraph of six sentences.",
+        "effect": "Removes the fragmented, listicle rhythm of prose broken by reflex rather than by structure.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "absorb the fragment",
+        "definition": "Fold a sentence fragment into the sentence before it, or promote it to a full clause.",
+        "example": "'The audit found nothing. Or almost nothing.' -> 'The audit found almost nothing.'",
+        "effect": "Forces a judgment about whether the fragment was an effect or an accident; kept fragments become deliberate.",
+        "see_also": "syntactic_constructions/ellipsis_and_compression",
+        "caution": "Fragments are a legitimate rhythmic device — this move is for the ones that recur unnoticed."
+      },
+      {
+        "name": "split the section",
+        "definition": "Divide an overlong section at its internal hinge and give each half its own heading.",
+        "example": "A twelve-page section covering both detection and response -> two sections.",
+        "effect": "Makes the structure navigable and exposes whether the second half was ever properly argued.",
+        "see_also": "argument_arrangements/essay_forms"
+      },
+      {
+        "name": "split the chapter at the false ending",
+        "definition": "Where a chapter reaches a natural close and then continues, cut it there and make the remainder a chapter.",
+        "example": "A chapter that resolves the investigation and then opens the trial -> two chapters.",
+        "effect": "Recovers a chapter ending the reader can feel, and gives the trailing material a proper opening.",
+        "see_also": "openings_and_closings/chapter_closings"
+      },
+      {
+        "name": "merge the near-duplicates",
+        "definition": "Combine two passages that make the same point in different words, keeping the better sentences from each.",
+        "example": "The same explanation of the escrow mechanism in chapters two and five -> one full treatment, one back-reference.",
+        "effect": "Removes the repetition that cross-chapter checks catch and parallel drafting causes.",
+        "caution": "Deliberate restatement across a long book is orientation; merge only what a reader would experience as déjà vu."
+      },
+      {
+        "name": "break the wall of text",
+        "definition": "Split a page-long paragraph at its two strongest internal boundaries.",
+        "example": "One 400-word paragraph -> three paragraphs of roughly 130 words.",
+        "effect": "Restores white space and forces each fragment to declare a topic, which usually reveals a missing one.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "split the compound claim",
+        "definition": "Separate a sentence that asserts two things at once into its component claims, so each can be supported.",
+        "example": "'The rule was ineffective and politically motivated.' -> two claims, two paragraphs, two kinds of evidence.",
+        "effect": "Exposes the half of the claim the draft never proved.",
+        "see_also": "stakes_and_stasis/claim_types"
+      },
+      {
+        "name": "merge the redundant list items",
+        "definition": "Collapse enumeration members that name the same thing at different levels of abstraction.",
+        "example": "'delays, slow processing, and extended timelines' -> 'delays'",
+        "effect": "Turns a padded list into a real taxonomy, and often shortens three items to one.",
+        "see_also": "rhetorical_figures/definition_and_division_figures"
+      },
+      {
+        "name": "split the speech into two turns",
+        "definition": "Break a long speech with an action beat, an interruption, or the other party's line.",
+        "example": "A twelve-line speech -> six lines, the listener looking away, then the rest.",
+        "effect": "Restores the pressure of a two-party scene and prevents the monologue-in-quotes effect.",
+        "see_also": ["dialogue_mechanics/tags_and_beats", "dialogue_mechanics/dialogue_faults"]
+      },
+      {
+        "name": "merge into a periodic sentence",
+        "definition": "Fuse a sequence of short sentences into one suspended sentence whose main clause arrives last.",
+        "example": "'The reports were late. The staff had quit. The board met anyway.' -> 'With the reports late and the staff gone, the board met anyway.'",
+        "effect": "Provides the long member a burstiness-flat passage needs, and subordinates detail to outcome.",
+        "see_also": "syntactic_constructions/sentence_architectures"
+      },
+      {
+        "name": "isolate the short paragraph",
+        "definition": "Split a passage so its single most important sentence stands alone as a one-sentence paragraph.",
+        "example": "'Nobody read it for nine years.' set alone after a long expository paragraph.",
+        "effect": "Buys maximum emphasis with no new words; the rarest formatting move in a draft is the loudest.",
+        "see_also": "paragraph_shapes/opening_paragraph_shapes",
+        "caution": "Once or twice a chapter. Repeated, it becomes the thriller-blog rhythm."
+      }
+    ],
+    "substitution_moves": [
+      {
+        "name": "swap the example's domain",
+        "definition": "Replace an illustration with an equivalent one drawn from a different field, era, or scale.",
+        "example": "A software-outage analogy for a regulatory failure -> the same structure told through a hospital's on-call roster.",
+        "effect": "Breaks a chapter's habit of drawing every case from one world and reaches readers the first domain excluded.",
+        "see_also": ["evidence_types/case_selection_strategies", "metaphor_domains/source_domains"]
+      },
+      {
+        "name": "trade the adjective for a fact",
+        "definition": "Replace an evaluative modifier with the observation that produced the evaluation.",
+        "example": "'a shocking delay' -> 'a delay of nineteen months'",
+        "effect": "Moves the judgment from the writer to the reader, where it is believed.",
+        "see_also": "diction_and_register/precision_moves"
+      },
+      {
+        "name": "swap the abstraction for the concrete noun",
+        "definition": "Replace a category noun with the physical thing it names in this instance.",
+        "example": "'documentation' -> 'the signed inspection sheet'",
+        "effect": "Gives the sentence something the reader can see, and usually removes a hedge along with it."
+      },
+      {
+        "name": "swap Latinate for Germanic",
+        "definition": "Replace a Latinate word with its short Anglo-Saxon equivalent, especially at the verb.",
+        "example": "'utilize' -> 'use'; 'commence' -> 'begin'; 'ascertain' -> 'find out'",
+        "effect": "Lowers the register toward speech and shortens the sentence's rhythmic units.",
+        "see_also": "diction_and_register/etymological_layers",
+        "caution": "The Latinate word sometimes carries a distinction the Germanic one loses; substitute for tone, not reflexively."
+      },
+      {
+        "name": "adverb to verb",
+        "definition": "Delete an -ly adverb by choosing a verb that already contains it.",
+        "example": "'walked quickly' -> 'hurried'; 'said angrily' -> 'snapped'",
+        "effect": "One word does two words' work, and the sentence loses the adverbial padding detectors count.",
+        "see_also": "diction_and_register/verb_strength_moves"
+      },
+      {
+        "name": "simile to metaphor",
+        "definition": "Remove the like or as and assert the identity.",
+        "example": "'The office ran like a machine that nobody maintained.' -> 'The office was a machine nobody maintained.'",
+        "effect": "Removes the softening comparison marker; the claim gets closer to the thing.",
+        "see_also": ["rhetorical_figures/metaphor_family", "diction_and_register/figurative_diction_controls"]
+      },
+      {
+        "name": "swap the dead metaphor for a live one",
+        "definition": "Replace an exhausted figure with one drawn from the subject's own working world.",
+        "example": "'a perfect storm of failures' -> a figure taken from the fund's own accounting: 'every entry booked twice and reconciled once'",
+        "effect": "Kills a stock phrase and produces an image only this subject could generate.",
+        "see_also": ["metaphor_domains/source_domains", "diction_and_register/figurative_diction_controls"]
+      },
+      {
+        "name": "quantifier to number",
+        "definition": "Replace many, several, most, or a majority with the count.",
+        "example": "'many of the filings' -> 'thirty-one of the forty-four filings'",
+        "effect": "Removes a rhetorical smear from an empirical claim and lets the reader judge the magnitude.",
+        "see_also": "evidence_types/statistics_presentation_modes"
+      },
+      {
+        "name": "label to behavior",
+        "definition": "Replace a character or institutional label with the action that earns it.",
+        "example": "'a careless administrator' -> 'an administrator who signed the forms without opening the file'",
+        "effect": "Shows instead of asserting, at almost no extra length.",
+        "see_also": "character_and_persona/physical_and_manner_tells"
+      },
+      {
+        "name": "tag to action beat",
+        "definition": "Replace a dialogue attribution with a physical action that identifies the speaker.",
+        "example": "'\"I signed it,\" he admitted reluctantly.' -> 'He turned the page back over. \"I signed it.\"'",
+        "effect": "Removes an adverb and an editorializing verb while adding staging.",
+        "see_also": "dialogue_mechanics/tags_and_beats"
+      },
+      {
+        "name": "upgrade the source",
+        "definition": "Replace a weak citation with the primary or better-credentialed source that supports the same claim.",
+        "example": "A trade-press summary -> the filed complaint it summarized.",
+        "effect": "Raises the claim's survivability under fact-check without changing a word of the prose around it.",
+        "see_also": "evidence_types/authority_types"
+      },
+      {
+        "name": "hedge to stated uncertainty",
+        "definition": "Replace a vague qualifier with the actual bound, range, or confidence.",
+        "example": "'roughly comparable' -> 'within 4 percentage points'",
+        "effect": "Turns hedging into information; the sentence gets both more honest and more useful.",
+        "see_also": "diction_and_register/hedges"
+      },
+      {
+        "name": "second person to case",
+        "definition": "Replace an addressed hypothetical with a named instance.",
+        "example": "'Imagine you are the examiner with eleven institutions.' -> 'The examiner had eleven institutions.'",
+        "effect": "Removes a reader-management device that dates quickly and substitutes evidence for invitation.",
+        "see_also": "discourse_moves/reader_management_moves"
+      },
+      {
+        "name": "pronoun to name",
+        "definition": "Replace a pronoun whose antecedent is more than a sentence away, or ambiguous between two candidates.",
+        "example": "'He told him he had signed it.' -> 'Ruiz told the chair that Ruiz had signed it.', then rewrite for grace.",
+        "effect": "Removes the most common source of re-reading in a passage with two same-gender actors.",
+        "see_also": "discourse_moves/coherence_relations"
+      },
+      {
+        "name": "negative to positive statement",
+        "definition": "Rewrite a not-construction as the affirmative claim it implies.",
+        "example": "'The board did not approve the extension.' -> 'The board rejected the extension.'",
+        "effect": "Shorter, faster to parse, and forces the writer to state what happened rather than what did not.",
+        "caution": "Some negations are exact — 'did not approve' and 'rejected' differ when the board simply never voted."
+      },
+      {
+        "name": "abstract subject to human agent",
+        "definition": "Replace an institutional or abstract grammatical subject with the person who acted.",
+        "example": "'Policy considerations led to the delay.' -> 'The deputy comptroller delayed it.'",
+        "effect": "Restores accountability to the syntax, which in institutional subjects is usually the missing fact.",
+        "see_also": "discourse_moves/metadiscourse_moves",
+        "caution": "Do not invent an agent the record does not support; if the actor is genuinely unknown, say so."
+      },
+      {
+        "name": "sharpen the connective",
+        "definition": "Replace a weak and or a vague this with the connective naming the actual relation.",
+        "example": "'The rule changed and enforcement fell.' -> 'Enforcement fell because the rule moved it to an unstaffed office.'",
+        "effect": "States a relation the reader was left to guess, and usually exposes whether the writer knows it.",
+        "see_also": "discourse_moves/transition_families"
+      },
+      {
+        "name": "stock phrase to plain words",
+        "definition": "Replace a set phrase, cliché, or house idiom with literal language.",
+        "example": "'at the end of the day' -> 'finally'; 'a delicate balance' -> the two things being traded off, named",
+        "effect": "Removes the phrases slop audits count and forces a specific statement where a placeholder sat.",
+        "see_also": "diction_and_register/diction_faults"
+      },
+      {
+        "name": "re-register the sentence",
+        "definition": "Raise or lower a sentence's diction deliberately to break a passage of unvarying formality.",
+        "example": "In a formal paragraph: 'The reconciliation was never performed.' -> 'Nobody ever checked.'",
+        "effect": "Produces the register drop that reads as a human decision, and lands hardest at a paragraph's end.",
+        "see_also": ["diction_and_register/register_levels", "humor_and_wit/incongruity_engines"],
+        "caution": "One drop per passage; repeated register-switching reads as inconsistency rather than emphasis."
+      }
+    ],
+    "diagnosis_to_move": [
+      {
+        "name": "high subject-first share -> front an absolute or adverbial",
+        "definition": "When most sentences open on their grammatical subject, vary the opener class rather than the opening word.",
+        "symptom": "construction_variety.py: subject-first share above the 85 percent default, or a run of three or more subject-first openers.",
+        "example": "'He signed the waiver.' -> 'His hands shaking, he signed the waiver.'",
+        "effect": "Raises opener diversity in the way the metric is actually measuring, instead of pasting connectives at the front.",
+        "see_also": ["syntactic_constructions/absolute_constructions", "syntactic_constructions/modifier_placement"],
+        "caution": "Subject-first is the unmarked English order; the target is a run break, not a low share."
+      },
+      {
+        "name": "low burstiness -> pair a long sentence with a very short one",
+        "definition": "When sentence lengths cluster around the mean, place a five-word sentence directly after a thirty-word one.",
+        "symptom": "prose_metrics.py: cv below 0.45.",
+        "example": "A paragraph of five 22-word sentences -> the fourth cut to 'Nobody checked.'",
+        "effect": "Moves the variation metric by changing the contour, which is what burstiness measures, rather than by adding words.",
+        "see_also": "syntactic_constructions/sentence_length_moves"
+      },
+      {
+        "name": "low lexical diversity -> substitute at the repeated head noun",
+        "definition": "When type-token measures fall, replace the recurring topic noun and its collocates rather than editing at random.",
+        "symptom": "prose_metrics.py: mtld or mattr below band; vocab_variety.py overuse rows.",
+        "example": "Six sentences on 'the process' -> 'the review', 'the sign-off', 'the eleven-day wait'.",
+        "effect": "Targets the actual source of low diversity: one abstraction reused where several concrete nouns belong.",
+        "see_also": "diction_and_register/naming_strategies"
+      },
+      {
+        "name": "uniform paragraph length -> split one and merge two",
+        "definition": "When every paragraph is the same size, break the longest at its turn and combine two adjacent thin ones.",
+        "symptom": "prose_metrics.py: para-cv below 0.30.",
+        "effect": "Restores paragraph-length variation, the layout-level version of burstiness and a documented machine-prose tell.",
+        "see_also": "paragraph_shapes/transitional_shapes"
+      },
+      {
+        "name": "high adverb share -> adverb to verb across the passage",
+        "definition": "When -ly adverbs run above the band, sweep the passage converting adverb-plus-weak-verb pairs into single strong verbs.",
+        "symptom": "prose_metrics.py: adv% above 2.5.",
+        "example": "'moved quickly to formally reject' -> 'rushed to reject'",
+        "effect": "Cuts the count and strengthens the verbs in one pass rather than deleting adverbs and leaving limp predicates.",
+        "see_also": "diction_and_register/verb_strength_moves"
+      },
+      {
+        "name": "low specificity -> add the particular",
+        "definition": "When checkable detail per hundred words is thin, attach a name, date, or figure to the passage's assertions.",
+        "symptom": "prose_metrics.py: spec (digits plus mid-sentence proper nouns per 100 words) below the corpus band.",
+        "effect": "Raises the density of verifiable particulars, which reads as reporting rather than generation.",
+        "see_also": "evidence_types/example_types"
+      },
+      {
+        "name": "opener run -> vary the opener class, not the first word",
+        "definition": "When consecutive sentences share an opener type, change the grammatical shape rather than swapping one connective for another.",
+        "symptom": "construction_variety.py run detection, or check_prose.py opener-run.",
+        "example": "'However, ... Instead, ... Later, ...' all read as one run -> replace the second with a fronted participial phrase.",
+        "effect": "Fixes what the reader hears, which is the repeated shape, not the repeated word.",
+        "see_also": "syntactic_constructions/participial_and_appositive"
+      },
+      {
+        "name": "high nominalization rate -> nominalization to verb across the paragraph",
+        "definition": "When buried verbs run high, convert the abstract nouns back to verbs and supply their agents paragraph by paragraph.",
+        "symptom": "register_report.py: nomin per 1000 words above the profile ceiling.",
+        "effect": "Lowers the metric and restores actors at the same time; the two defects always travel together.",
+        "see_also": "diction_and_register/verb_strength_moves"
+      },
+      {
+        "name": "high Latinate ratio -> swap Latinate for Germanic at the verb",
+        "definition": "When the Latinate share exceeds the profile target, substitute at the verbs first and leave technical nouns alone.",
+        "symptom": "register_report.py: latin ratio above the profile maximum.",
+        "effect": "Moves the ratio where the reader feels it while preserving the precision that Latinate terminology carries.",
+        "see_also": "diction_and_register/etymological_layers"
+      },
+      {
+        "name": "hedge density -> cut the hedge stack and state the confidence",
+        "definition": "When tentative markers run high, keep one hedge per claim and convert the rest to a stated bound.",
+        "symptom": "register_report.py: hedge per 1000 above the profile ceiling.",
+        "effect": "Reduces the count and improves the epistemics, rather than deleting hedges the claim needed.",
+        "see_also": "diction_and_register/hedges"
+      },
+      {
+        "name": "booster density -> cut the booster and add the evidence",
+        "definition": "When certainty markers run high, delete them and supply the fact that justified the confidence.",
+        "symptom": "register_report.py: boost per 1000 above the profile ceiling.",
+        "effect": "Trades assertion for proof; boosters cluster exactly where support is missing.",
+        "see_also": "diction_and_register/boosters"
+      },
+      {
+        "name": "zero contractions -> lower the register in asides and speech",
+        "definition": "When a draft has no contractions at all, introduce them first in dialogue and parenthetical asides rather than uniformly.",
+        "symptom": "register_report.py: contr rate at or near zero against a profile minimum.",
+        "effect": "Fixes the loudest formality signal in English prose without flattening a genuinely formal expository voice.",
+        "see_also": "diction_and_register/register_levels"
+      },
+      {
+        "name": "low compression ratio -> cut the repeated frame",
+        "definition": "When a passage compresses unusually well, find the recurring sentence frame driving the redundancy and vary or delete it.",
+        "symptom": "prose_metrics.py: comp below band; slop_audit.py paragraph compression-ratio z-outliers.",
+        "example": "Four paragraphs opening 'What makes this significant is that...' -> three of them recast.",
+        "effect": "Attacks the structural repetition the metric detects, which word-level substitution will not move.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "monotone cadence -> change the final word",
+        "definition": "When sentence endings concentrate in one stress shape, rewrite the tails so stressed monosyllables and trailing polysyllables alternate.",
+        "symptom": "rhythm_audit.py: one cadence label (trailing, falling, punch) dominating a chapter's endings.",
+        "example": "'...was unnecessary. ...was contradictory. ...was extraordinary.' -> end one on 'it broke.'",
+        "effect": "Restores the audible variety a reader registers as rhythm without touching sentence length.",
+        "see_also": "sound_and_rhythm/prose_cadence"
+      },
+      {
+        "name": "no figures detected -> plant one scheme per section",
+        "definition": "When a chapter shows almost no repetition, balance, or omission figures, place a single deliberate scheme at each section's strongest sentence.",
+        "symptom": "figure_detector.py: near-zero density across anaphora, tricolon, isocolon, asyndeton.",
+        "effect": "Adds patterned emphasis at the points that carry weight, instead of dusting figures across the chapter.",
+        "see_also": "rhetorical_figures/repetition_figures",
+        "caution": "Figure density is not a virtue in itself; the target is one or two placed well."
+      },
+      {
+        "name": "figure clumping -> redistribute the figures",
+        "definition": "When detected figures concentrate in one chapter or one page, move or cut some and place others where the prose is bare.",
+        "symptom": "figure_detector.py distribution report: all hits in one unit.",
+        "effect": "Evens out the texture; clumping usually marks the passage the writer enjoyed writing rather than the one that mattered.",
+        "see_also": "rhetorical_figures/repetition_figures"
+      },
+      {
+        "name": "flat tension curve -> raise the stakes at the midpoint",
+        "definition": "When a chapter's valence and tension rows both sit flat, insert or promote a consequence at the chapter's middle.",
+        "symptom": "arc_profiler.py: no movement in either row across the chapter's windows.",
+        "effect": "Gives a chapter a shape; flatness in both rows is the one arc finding worth acting on directly.",
+        "see_also": ["arc_shapes/tension_curves", "stakes_and_stasis/societal_stakes"]
+      },
+      {
+        "name": "unpaid promise -> pay it or cut the promise",
+        "definition": "When the ledger shows a question, forward reference, or introduced term with no downstream payoff, either deliver the payoff or delete the setup.",
+        "symptom": "setup_payoff.py rows with status unpaid or uncertain.",
+        "effect": "Closes the reader's open loops, which is what makes a long argument feel finished rather than abandoned.",
+        "see_also": "information_release/promise_management",
+        "caution": "An unpaid question can be deliberate; the move is to make the choice, not to close every loop."
+      },
+      {
+        "name": "near-duplicate paragraphs -> merge and differentiate",
+        "definition": "When two passages score as near-duplicates, merge them into one full treatment and leave a back-reference at the second site.",
+        "symptom": "find_near_duplicates.py cross-chapter matches; check_repetition.py hits.",
+        "effect": "Removes the repetition parallel drafting produces and recovers the space for the material the second pass should have added.",
+        "see_also": "discourse_moves/signposting_moves"
+      },
+      {
+        "name": "slop vocabulary density -> stock phrase to plain words",
+        "definition": "When stock-vocabulary density runs high, replace each flagged phrase with a literal statement rather than a synonym.",
+        "symptom": "slop_audit.py quantitative pass: slop-vocabulary density at file or paragraph level.",
+        "example": "'a testament to' -> the evidence itself; 'navigate the complexities of' -> the specific difficulty, named",
+        "effect": "Synonym substitution moves the phrase off the list and leaves the emptiness; literal statement removes both.",
+        "see_also": "diction_and_register/diction_faults"
+      },
+      {
+        "name": "contrast-frame rate -> cut the contrast frame",
+        "definition": "When not-x-but-y and its kin recur, rewrite each as a direct assertion and keep at most one in a chapter.",
+        "symptom": "slop_audit.py: contrast-frame rate above the corpus norm.",
+        "effect": "Removes the most recognizable machine cadence at the sentence level, which no amount of vocabulary work will hide.",
+        "see_also": "rhetorical_figures/balance_and_antithesis_figures"
+      },
+      {
+        "name": "thesis restatement -> cut the restated thesis",
+        "definition": "When sections end by restating the book's argument, delete the restatement and end on the section's own last fact.",
+        "symptom": "slop_audit.py LLM judge: thesis-restatement tell firing across multiple sections.",
+        "effect": "Breaks the claim-evidence-claim loop that makes chapters feel interchangeable.",
+        "see_also": "discourse_moves/signposting_moves"
+      },
+      {
+        "name": "high detector window score -> rewrite the flagged window by hand",
+        "definition": "When the AI-detector cross-check flags a window, rewrite that specific passage manually rather than re-prompting the whole chapter.",
+        "symptom": "pangram_check.py: elevated windows[].ai_assistance_score. Read fraction_ai as a one-bit verdict, never as a score.",
+        "effect": "Concentrates effort on the passage that actually scored, and keeps the rest of the chapter's voice intact.",
+        "see_also": "revision_moves/substitution_moves",
+        "caution": "The detector signal is advisory and window-local; a flagged window is a place to look, not a verdict on the chapter."
+      },
+      {
+        "name": "missing discourse-move coverage -> add the absent move",
+        "definition": "When the move profile lacks a family the genre expects — concession, counterargument, example — write the missing move into the section that needed it.",
+        "symptom": "move_annotator.py coverage audit against the genre profile.",
+        "effect": "Fixes a structural gap rather than a surface one; missing concession moves are why arguments read as brittle.",
+        "see_also": ["discourse_moves/coherence_relations", "interaction_moves/argumentative_exchange_moves"]
+      },
+      {
+        "name": "very-long band spike -> split at the second subordinator",
+        "definition": "When the very-long band carries an unusual share of sentences, break each offender mechanically at its second subordinator.",
+        "symptom": "construction_variety.py: elevated share in the 36-plus-word length band.",
+        "effect": "Reduces the band and raises burstiness in one pass, with a rule that does not require rereading the argument.",
+        "see_also": "syntactic_constructions/sentence_length_moves"
+      }
+    ]
+  }
+}

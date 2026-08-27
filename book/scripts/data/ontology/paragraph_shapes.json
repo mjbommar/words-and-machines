@@ -1,0 +1,637 @@
+{
+  "name": "paragraph_shapes",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "Paragraph-level architectures for fiction and nonfiction: the recurring internal orders a paragraph can take, each with a compact skeleton and the effect it produces on a reader.",
+  "categories": {
+    "expository_shapes": [
+      {
+        "name": "point-evidence-analysis",
+        "aka": "PEE, PEEL, PIE",
+        "definition": "Topic sentence states the point; one or two pieces of evidence follow; the closing sentences explain how the evidence supports the point.",
+        "example": "Claim. Here is the quotation or figure. Which matters because it shows X.",
+        "effect": "Reads as disciplined and checkable; the reader always knows what a paragraph is for.",
+        "register": "nonfiction, neutral to formal",
+        "caution": "Twenty in a row turns an argument into a worksheet."
+      },
+      {
+        "name": "topic-development-wrap",
+        "definition": "Topic sentence, several sentences of development in a single direction, and a closing sentence that consolidates without introducing new material.",
+        "example": "A is true. Here is how it works, and here, and here. So A holds across the range.",
+        "effect": "Maximum clarity; the paragraph can be skimmed by first and last sentence alone.",
+        "register": "nonfiction, neutral"
+      },
+      {
+        "name": "claim-warrant-backing",
+        "aka": "Toulmin paragraph",
+        "definition": "States a claim from data, then makes explicit the warrant licensing the inference, then backs the warrant itself.",
+        "example": "The bridge will fail. It is corroded past tolerance — corroded steel loses tensile strength, as the 1967 Point Pleasant collapse established.",
+        "effect": "Forecloses the 'why does that follow?' objection by answering it inside the paragraph.",
+        "register": "nonfiction, formal"
+      },
+      {
+        "name": "general-to-particular",
+        "aka": "deductive paragraph",
+        "definition": "Opens with the widest statement and narrows through progressively more specific instances.",
+        "example": "Cities ration space by price. Housing is the clearest case. In this block, a parking spot costs more than a bedroom did in 1990.",
+        "effect": "Orients before it details; safest shape for a reader new to the material.",
+        "register": "nonfiction, neutral"
+      },
+      {
+        "name": "particular-to-general",
+        "aka": "inductive paragraph",
+        "definition": "Accumulates particulars and withholds the governing statement until the end.",
+        "example": "This case. That case. A third. What they share is a single failure of supervision.",
+        "effect": "The reader arrives at the conclusion feeling they found it; useful when the claim would be resisted if stated first.",
+        "caution": "The reader can get lost if the particulars run long without a signal of direction."
+      },
+      {
+        "name": "definition-then-extension",
+        "definition": "Fixes a term's meaning, then extends it — edge cases, what it excludes, how far it stretches.",
+        "example": "By X I mean Y. That includes A and B. It does not include C, though C is often called X.",
+        "effect": "Stabilizes vocabulary before the argument leans on it.",
+        "register": "nonfiction, formal"
+      },
+      {
+        "name": "classification paragraph",
+        "definition": "Names a domain, divides it on a stated principle, and characterizes each division briefly.",
+        "example": "There are three kinds of X, divided by Y: the first does A, the second B, the third C.",
+        "effect": "Converts a mass of material into a handle the reader can carry forward.",
+        "caution": "Divisions must exhaust and not overlap, or the reader will find the leftover case."
+      },
+      {
+        "name": "process paragraph",
+        "definition": "Narrates a procedure or mechanism in strict chronological or causal order.",
+        "example": "First the valve opens. Pressure drops. The pump cuts in. Only then does the alarm clear.",
+        "effect": "Makes a mechanism feel inevitable and reproducible.",
+        "register": "nonfiction, neutral"
+      },
+      {
+        "name": "cause-to-effect paragraph",
+        "definition": "Begins with the cause and traces consequences forward, often through several links.",
+        "example": "The subsidy was cut. Enrollment fell. Two campuses closed within the year.",
+        "effect": "Reads as explanation; puts agency at the front."
+      },
+      {
+        "name": "effect-to-cause paragraph",
+        "definition": "Begins with an observed outcome and works backward to what produced it.",
+        "example": "Two campuses closed. Enrollment had collapsed. Behind that: a subsidy cut nobody debated.",
+        "effect": "Reads as investigation; supplies a small mystery and solves it.",
+        "aka": "diagnostic paragraph"
+      },
+      {
+        "name": "block comparison",
+        "definition": "Treats subject A completely, then subject B on the same points in the same order.",
+        "example": "Everything about A. Now everything about B, in the same sequence.",
+        "effect": "Keeps each subject coherent; best when the reader needs to hold each whole.",
+        "caution": "At length the reader forgets A by the time B arrives."
+      },
+      {
+        "name": "point-by-point comparison",
+        "definition": "Alternates between subjects on one criterion at a time.",
+        "example": "On cost, A is cheap and B is dear. On durability, A fails and B holds.",
+        "effect": "Makes differences sharp and immediately weighable.",
+        "caution": "Harder to write than block comparison: every criterion must actually discriminate, and the close has to say what the accumulated differences amount to."
+      },
+      {
+        "name": "problem-solution paragraph",
+        "definition": "States a difficulty in concrete terms, then proposes and qualifies a remedy.",
+        "example": "The queue was strangling the clinic. Booking by half-hour block fixed it — imperfectly, and only for scheduled visits.",
+        "effect": "Gives the reader a reason to care before asking them to follow a proposal."
+      },
+      {
+        "name": "question-answer paragraph",
+        "definition": "Poses an explicit question, then answers it within the same paragraph.",
+        "example": "Why did none of them speak? Because every one of them had signed the same clause.",
+        "effect": "Converts assertion into inquiry and buys the reader's attention cheaply.",
+        "caution": "Rhetorical questions stacked back to back read as coy."
+      },
+      {
+        "name": "statement-and-illustration",
+        "definition": "A general statement followed by one developed example or several brief ones, with no further analysis.",
+        "example": "The rule is honored mostly in the breach. Consider last March. Or the year before that.",
+        "effect": "Grounds abstraction fast without slowing to argue."
+      },
+      {
+        "name": "analogy paragraph",
+        "definition": "Develops a source domain in its own terms, then maps it, feature by feature, onto the target.",
+        "example": "A canal lock raises a boat in steps. A bank's capital rules do the same to leverage: hold, equalize, release.",
+        "effect": "Imports an intuition the reader already has.",
+        "caution": "Every analogy leaks; name the leak before a critic does."
+      },
+      {
+        "name": "enumeration paragraph",
+        "definition": "Announces a count and then delivers exactly that many items, marked ordinally.",
+        "example": "Three things went wrong. First… Second… Third…",
+        "effect": "Promises an end and delivers it; strong for a dense stretch a reader must retain.",
+        "caution": "Announcing four and delivering three is the most conspicuous way to lose trust."
+      },
+      {
+        "name": "funnel paragraph",
+        "definition": "Opens on the broadest context and narrows, sentence by sentence, to the specific matter at hand.",
+        "example": "The century. The decade. The month. The morning in question.",
+        "effect": "Situates a small subject inside a large one; classic opening move.",
+        "caution": "Starting at 'since the dawn of time' is the parody version."
+      },
+      {
+        "name": "inverted funnel",
+        "definition": "Opens on a specific instance and widens to the general significance.",
+        "example": "One misfiled form. A pattern of misfiled forms. A records system nobody owns.",
+        "effect": "Earns a large claim from a small, concrete purchase."
+      },
+      {
+        "name": "data-then-interpretation",
+        "definition": "Presents figures or findings flatly, then states what they mean and what they do not.",
+        "example": "Rates rose from 4% to 11%. The rise is real but concentrated in one region; nationally, little changed.",
+        "effect": "Separates the observation from the reading of it, which lets a skeptical reader audit both.",
+        "register": "nonfiction, formal"
+      },
+      {
+        "name": "term-and-gloss paragraph",
+        "definition": "Introduces a technical term and immediately restates it in plain language, then uses it.",
+        "example": "Call this hysteresis — the system remembers where it has been. Hysteresis explains the lag.",
+        "effect": "Buys the writer the compression of jargon without stranding the lay reader."
+      },
+      {
+        "name": "descending-importance paragraph",
+        "aka": "inverted pyramid paragraph",
+        "definition": "Puts the most consequential material first and arranges the rest in falling order of importance.",
+        "example": "The verdict. Then the vote count. Then the procedural history nobody will read.",
+        "effect": "Survives being cut from the bottom; suits news and executive prose.",
+        "register": "nonfiction, journalism"
+      }
+    ],
+    "argumentative_shapes": [
+      {
+        "name": "they say / i say",
+        "definition": "Voices the prevailing or opposing view fairly, then turns to the writer's own position against it.",
+        "see_also": "argument_arrangements/essay_forms",
+        "example": "It is widely held that A. I think the evidence points to B.",
+        "effect": "Gives the argument something to push against, so the writer's claim arrives with a reason to exist.",
+        "register": "nonfiction, neutral"
+      },
+      {
+        "name": "concession-pivot",
+        "aka": "yes-but",
+        "definition": "Grants what is true in the opposing case, then pivots on a hinge to what that concession does not settle.",
+        "example": "Granted, A. But A was never the question; the question was B.",
+        "effect": "Buys credibility with the fair-minded reader before spending it.",
+        "caution": "If the concession is trivial, the move reads as a feint."
+      },
+      {
+        "name": "objection-response",
+        "definition": "States an objection in its strongest available form and answers it directly.",
+        "example": "One might object that X. That holds only if Y, and Y fails here.",
+        "effect": "Removes the reader's private counterargument before it hardens."
+      },
+      {
+        "name": "claim-reason-evidence-link",
+        "definition": "Claim, the reason it holds, the evidence for the reason, then an explicit link back to the thesis.",
+        "example": "C, because R. Here is the support for R. Which is why the larger case stands.",
+        "effect": "The workhorse argumentative paragraph; nothing is left implicit."
+      },
+      {
+        "name": "steelman-then-refute",
+        "definition": "Builds the opposing case better than its advocates usually do, then refutes the improved version.",
+        "example": "The best version of their argument is this. Even so, it fails at the second step.",
+        "effect": "Refutation carries far more weight when the target was not a straw man.",
+        "caution": "Only attempt if you can actually beat the improved version."
+      },
+      {
+        "name": "rogerian bridge",
+        "definition": "Establishes shared ground and legitimate motive on the other side, then advances a position framed as serving that same interest.",
+        "example": "We both want A. You favor B for it. B undercuts A here; C serves it better.",
+        "effect": "Lowers a hostile reader's defenses; standard for adversarial audiences.",
+        "register": "nonfiction, persuasive"
+      },
+      {
+        "name": "reductio paragraph",
+        "definition": "Accepts the opposing premise for argument's sake and follows it to an absurd or unacceptable result.",
+        "example": "Suppose the rule holds without exception. Then this case counts too — and nobody will accept that.",
+        "effect": "Turns the opponent's own commitment into the instrument of refutation."
+      },
+      {
+        "name": "dilemma paragraph",
+        "definition": "Shows the opposing position is forced onto one of two horns, both unacceptable.",
+        "example": "Either the data are wrong or the theory is. They defend the data; so the theory goes.",
+        "effect": "Closes escape routes; strongest when the disjunction is genuinely exhaustive.",
+        "caution": "A false dilemma is the most commonly spotted fallacy in print."
+      },
+      {
+        "name": "burden-shift paragraph",
+        "definition": "Argues that the presumption lies with the other side, and that in the absence of their evidence the default holds.",
+        "example": "Nothing here needs proving. The claim is theirs; so is the burden, and it is unmet.",
+        "effect": "Converts an evidential stalemate into a procedural win."
+      },
+      {
+        "name": "concede-and-narrow",
+        "definition": "Accepts a criticism and responds by restricting the claim to the range the evidence actually covers.",
+        "example": "Fair. The claim is not universal — it holds for firms above the reporting threshold, and there it holds firmly.",
+        "effect": "Trades scope for security; a smaller claim that survives beats a large one that does not.",
+        "register": "nonfiction, formal"
+      },
+      {
+        "name": "counterexample paragraph",
+        "definition": "Quotes or states the universal claim precisely, then produces the single case that breaks it.",
+        "example": "The rule is said to hold everywhere. Denmark, 1994.",
+        "effect": "Maximum economy: one instance retires a generalization."
+      },
+      {
+        "name": "definition-dispute paragraph",
+        "definition": "Argues that the disagreement is about what counts as X, and settles the criterion before applying it.",
+        "example": "They call it a subsidy. A subsidy transfers value below cost. This transfers nothing; the dispute ends there.",
+        "effect": "Relocates the argument to the ground the writer can win on — the stasis of definition."
+      },
+      {
+        "name": "criteria-then-application",
+        "definition": "States the standard of judgment first and independently, then applies it to the case.",
+        "example": "A good test is cheap, fast, and specific. This one is fast. It is neither of the others.",
+        "effect": "Pre-commits to a standard, which makes the verdict look principled rather than arrived at.",
+        "register": "nonfiction, formal"
+      },
+      {
+        "name": "weighing paragraph",
+        "definition": "Sets benefits against costs on a common measure and states the net.",
+        "example": "It saves nine hours a week. It costs four hires and the goodwill of the ward. On balance, no.",
+        "effect": "Reads as judgment rather than advocacy."
+      },
+      {
+        "name": "elimination paragraph",
+        "aka": "disjunctive syllogism paragraph",
+        "definition": "Lists the live alternatives, rules them out in turn, and leaves one standing.",
+        "example": "It was the wiring, the load, or the operator. The wiring was new. The load was within spec.",
+        "effect": "Feels like detection; the conclusion arrives as residue, not assertion.",
+        "caution": "Only as strong as the completeness of the list."
+      },
+      {
+        "name": "authority-and-caveat",
+        "definition": "Cites an authority for a claim and immediately marks the limits of that authority's reach.",
+        "example": "The agency's own auditors found the gap — though they looked only at the two largest programs.",
+        "effect": "Uses borrowed credibility without overspending it.",
+        "register": "nonfiction, formal"
+      },
+      {
+        "name": "objection sandwich",
+        "definition": "Claim, anticipated objection, response, restatement of the claim in the objection-proofed form.",
+        "example": "C. You will say O. But O assumes A. So: C, for firms of this size.",
+        "effect": "The claim leaves the paragraph tougher than it entered."
+      },
+      {
+        "name": "conditional chain",
+        "definition": "Builds a series of if-then links from an agreed premise to a contested conclusion.",
+        "example": "If A, then B. If B, then C. A is not in dispute.",
+        "effect": "Makes each step individually deniable and therefore individually testable.",
+        "caution": "The reader will attack the weakest link; know which one it is."
+      },
+      {
+        "name": "analogical argument paragraph",
+        "definition": "Argues that because two cases are alike in relevant respects, what holds of one holds of the other.",
+        "example": "We license drivers for the same reason: the risk is borne by strangers. The same reason applies here.",
+        "effect": "Extends settled judgment to an unsettled case.",
+        "caution": "Name the relevant respect explicitly, or the disanalogy will be found for you."
+      },
+      {
+        "name": "inference-to-best-explanation paragraph",
+        "definition": "Lays out the facts to be explained, canvasses candidate explanations, and argues one accounts for more with less.",
+        "example": "Three oddities. Fraud explains one. Incompetence explains all three, and needs no conspiracy.",
+        "effect": "The characteristic shape of empirical and forensic argument."
+      },
+      {
+        "name": "limitation-then-claim",
+        "definition": "Front-loads what the evidence cannot show, then states what it does show.",
+        "example": "This cannot establish cause, and the sample is one city. It does establish that the association survives every control we have.",
+        "effect": "Disarms the methodological reader and makes the surviving claim harder to dismiss.",
+        "register": "nonfiction, academic"
+      },
+      {
+        "name": "so-what paragraph",
+        "definition": "Takes an established finding and spends the paragraph on its consequence for the reader's decisions.",
+        "example": "The finding holds. Which means the current schedule is set on a number that does not exist.",
+        "effect": "Converts information into stakes."
+      }
+    ],
+    "narrative_shapes": [
+      {
+        "name": "action-reaction",
+        "definition": "One character acts; the paragraph closes on the other's response, in that order.",
+        "example": "He put the envelope on the table. She did not look at it.",
+        "effect": "Keeps causality visible at the smallest scale and keeps scenes moving.",
+        "register": "fiction"
+      },
+      {
+        "name": "cumulative-then-punch",
+        "definition": "Several long, accreting sentences, then a short one that reverses or lands the meaning.",
+        "example": "Long, long, longer still — and then: four words.",
+        "effect": "Rhythmic contrast does the emphasis work; the last sentence gets all the pressure.",
+        "caution": "Every third paragraph doing this becomes a tic a reader can hear."
+      },
+      {
+        "name": "scene-beat paragraph",
+        "definition": "One unit of physical action rendered in real time, with no summary and no interior commentary.",
+        "example": "She crossed the room, took the glass, set it down without drinking.",
+        "effect": "Slows narrative time to the pace of the body."
+      },
+      {
+        "name": "dialogue-with-beat",
+        "definition": "A line of speech attached to a physical action from the same character instead of a speech tag.",
+        "example": "\"It was always going to end this way.\" He folded the map along its old creases.",
+        "effect": "Attributes the line, paces the exchange, and characterizes in one stroke.",
+        "register": "fiction"
+      },
+      {
+        "name": "narrative summary paragraph",
+        "definition": "Compresses a stretch of story time into a few sentences of telling.",
+        "example": "The winter passed. Two of them left. By March the shop was hers alone.",
+        "effect": "Moves time cheaply and lets the dramatized scenes matter more by contrast."
+      },
+      {
+        "name": "iterative paragraph",
+        "definition": "Narrates habitual, repeated action as a single generalized instance.",
+        "example": "Every morning he checked the traps, and every morning the third one was sprung and empty.",
+        "effect": "Establishes a world's normal, which a single deviation can then break.",
+        "aka": "frequentative paragraph"
+      },
+      {
+        "name": "flashback insert",
+        "definition": "A paragraph that steps back in time inside a present scene and returns to it at the close.",
+        "example": "The smell stopped her. Nineteen years ago, the same kitchen, the same smell. She put the pan down.",
+        "effect": "Supplies motive at the moment it is needed rather than in advance.",
+        "caution": "Return to the present in the same paragraph or the reader loses the scene."
+      },
+      {
+        "name": "free indirect paragraph",
+        "definition": "Narration in third person that takes on the character's diction and judgments without quotation or attribution.",
+        "example": "The train was late. Of course it was late. Nothing in this town had ever arrived on time.",
+        "effect": "Gives interiority without the flatness of 'she thought'.",
+        "register": "fiction"
+      },
+      {
+        "name": "staccato action list",
+        "definition": "A run of short, subject-first sentences with no subordination, one action each.",
+        "example": "He stood. He reached the door. The door was locked. He ran.",
+        "effect": "Raises apparent speed and drops the reader into physical panic.",
+        "caution": "Fatigues fast; a dozen sentences is the ceiling."
+      },
+      {
+        "name": "slow-motion paragraph",
+        "definition": "Dilates a moment of a second or two across many sentences of perceptual detail.",
+        "example": "The glass left his hand. She saw the label turn, once. It had not yet begun to fall.",
+        "effect": "Signals significance by spending narrative time out of proportion to clock time."
+      },
+      {
+        "name": "setup-then-turn",
+        "definition": "Establishes an expectation across the paragraph and breaks it in the final sentence.",
+        "example": "Everything as always. The kettle, the paper, the chair. His coat was gone.",
+        "effect": "The reversal is felt because the paragraph built the pattern it violates."
+      },
+      {
+        "name": "isolated line paragraph",
+        "definition": "A single short sentence given its own paragraph.",
+        "example": "Nobody moved.",
+        "effect": "White space above and below acts as a rest; the line reads at double weight.",
+        "caution": "Loses all force if repeated; it is a percussion instrument, not a rhythm."
+      },
+      {
+        "name": "three-beat escalation",
+        "definition": "Three successive actions or exchanges, each raising the pressure over the last.",
+        "example": "He asked. He asked again. He put his hand on the door.",
+        "effect": "Three is the smallest number that establishes a rising pattern."
+      },
+      {
+        "name": "anticlimax paragraph",
+        "definition": "Builds toward a payoff and deliberately delivers a lesser one.",
+        "example": "The safe took an hour, two drills, and both of Danny's thumbs. Inside: a phone bill.",
+        "effect": "Comic deflation, or the bitterness of effort wasted."
+      },
+      {
+        "name": "establishing paragraph",
+        "definition": "Places setting, then people, then the action beginning, in that order.",
+        "example": "The room, low and hot. Nine of them around the table. Someone started counting.",
+        "effect": "Orients the reader before asking them to track events."
+      },
+      {
+        "name": "interruption paragraph",
+        "definition": "Breaks an ongoing action or speech with an unexpected intrusion that gets its own paragraph.",
+        "example": "\"—and the whole point of the clause was—\" The lights went out.",
+        "effect": "Redirects a scene without transition; the break itself carries the shock."
+      },
+      {
+        "name": "witness paragraph",
+        "definition": "Renders an event strictly through one observer's limited perception, including what they cannot see or interpret.",
+        "example": "From where she stood there was only the noise, and then people running the wrong way.",
+        "effect": "Preserves uncertainty and keeps the reader inside the character's information.",
+        "register": "fiction and narrative nonfiction"
+      },
+      {
+        "name": "reconstruction paragraph",
+        "definition": "Narrative nonfiction paragraph that dramatizes an event while marking its sourcing.",
+        "example": "At 6:14, by the log, he took the call. He remembers standing; his deputy remembers otherwise.",
+        "effect": "Buys scenic immediacy without spending the reader's trust.",
+        "register": "nonfiction, journalism"
+      }
+    ],
+    "descriptive_shapes": [
+      {
+        "name": "far-to-near sweep",
+        "definition": "Description that moves inward through space from horizon to foreground.",
+        "example": "The ridge, the field below it, the fence, the boot on the wire.",
+        "effect": "Simulates the eye arriving; ends the paragraph on the detail that matters.",
+        "register": "fiction"
+      },
+      {
+        "name": "near-to-far sweep",
+        "definition": "Description that opens on a detail at hand and expands outward.",
+        "example": "The chipped cup. The table it sat on. The room, and past the window, the whole flat valley.",
+        "effect": "Expands the reader's frame; often used to close a scene."
+      },
+      {
+        "name": "survey-then-detail",
+        "definition": "One summarizing sentence for the whole, then two or three particulars chosen to support it.",
+        "example": "The office had been abandoned in a hurry. Coats still on hooks. A cursor blinking in an empty field.",
+        "effect": "The general claim tells the reader what to make of the particulars."
+      },
+      {
+        "name": "detail-then-name-it",
+        "definition": "Particulars first, with the summarizing judgment withheld to the last sentence.",
+        "example": "Coats on hooks. A blinking cursor. Nobody had planned to leave.",
+        "effect": "The reader does the inference and therefore believes it."
+      },
+      {
+        "name": "catalogue paragraph",
+        "definition": "An accumulation of concrete nouns with little subordination, listed for their mass effect.",
+        "example": "Ledgers, tin cups, a broken theodolite, forty years of receipts.",
+        "effect": "Conveys abundance or clutter faster than any measured description.",
+        "caution": "Lists blur past about seven items; vary the rhythm or stop."
+      },
+      {
+        "name": "dominant-impression paragraph",
+        "definition": "Every detail selected to serve one governing quality, stated or implied.",
+        "example": "Everything in the room was cold: the light, the chairs, the way she said his name.",
+        "effect": "Description does mood work instead of inventory work.",
+        "register": "fiction"
+      },
+      {
+        "name": "sensory rotation",
+        "definition": "Moves deliberately through more than one sense rather than staying visual.",
+        "example": "The light first. Then the diesel smell. Then the floor humming under the chair.",
+        "effect": "Breaks the default visual-only habit and makes a place feel inhabited."
+      },
+      {
+        "name": "moving-observer paragraph",
+        "definition": "Description organized by the path of a perceiver in motion, so space unfolds in the order walked.",
+        "example": "Through the gate, past the dogs, up two flights that smelled of paint, and there it was.",
+        "effect": "Gives description a spine of action so it does not stall the narrative."
+      },
+      {
+        "name": "figure-and-ground paragraph",
+        "definition": "Establishes a background in a few strokes and then places one sharply-rendered element against it.",
+        "example": "A hundred grey coats on a grey platform, and one yellow suitcase.",
+        "effect": "Directs attention exactly where the writer wants it."
+      },
+      {
+        "name": "before-and-after paragraph",
+        "definition": "Describes the same place or person at two times, in parallel construction.",
+        "example": "In June, the awnings were out and the chairs were full. In November: chain, padlock, a notice.",
+        "effect": "Change is shown rather than asserted; the parallel does the arithmetic."
+      },
+      {
+        "name": "character thumbnail",
+        "definition": "A short paragraph that fixes a person through two or three selected traits and one telling habit.",
+        "example": "Sixty, narrow, spoke in complete sentences even on the phone, and never once sat down in that office.",
+        "effect": "Introduces a minor figure at speed without a full portrait.",
+        "caution": "Physical inventory (hair, eyes, height) is the weakest version of this shape."
+      },
+      {
+        "name": "significant-object paragraph",
+        "aka": "ekphrastic paragraph",
+        "definition": "Describes one object at length so that its details carry the argument or the emotion.",
+        "example": "The ledger's last page was ruled for twelve entries and had four, in two hands, the second unsteady.",
+        "effect": "Lets a thing do the work of exposition."
+      },
+      {
+        "name": "atmosphere paragraph",
+        "definition": "Weather, light, sound, and season rendered to establish mood and time rather than plot.",
+        "example": "It had rained all week. The gutters were still running and the light never got above grey.",
+        "effect": "Sets emotional temperature.",
+        "caution": "The oldest cliché in prose lives here; earn it with specificity."
+      }
+    ],
+    "transitional_shapes": [
+      {
+        "name": "pivot paragraph",
+        "definition": "A short paragraph whose only job is to turn the argument or narrative from one line to another.",
+        "example": "That accounts for the supply side. Demand is a different story.",
+        "effect": "Marks a change of direction so the reader does not experience it as drift."
+      },
+      {
+        "name": "hinge sentence paragraph",
+        "definition": "A single-sentence paragraph that closes one movement and opens the next.",
+        "example": "The second failure was not an accident.",
+        "effect": "Fastest possible transition; the white space signals the seam."
+      },
+      {
+        "name": "janus paragraph",
+        "definition": "Looks back over what has been established and forward to what follows, in that order.",
+        "example": "So the mechanism is settled. What is not settled is whether anyone can afford it.",
+        "effect": "Consolidates and re-motivates in one paragraph; the workhorse of long-form structure.",
+        "register": "nonfiction"
+      },
+      {
+        "name": "summary-and-forecast",
+        "definition": "Recaps the section's findings in compressed form, then states what the next section will do.",
+        "example": "Three things are now clear: A, B, C. The rest of this chapter asks what follows from C.",
+        "effect": "Lets a reader rejoin the argument after a break; essential in book-length nonfiction."
+      },
+      {
+        "name": "roadmap paragraph",
+        "definition": "States the order of treatment for what follows, usually with explicit ordinals.",
+        "example": "I proceed in three steps. First the history, then the mechanism, then the objections.",
+        "effect": "Makes a long stretch navigable and sets an expectation the writer must then meet.",
+        "caution": "Deadly in fiction and stale in short essays; earn it with real length."
+      },
+      {
+        "name": "objection bridge",
+        "definition": "A transitional paragraph that voices the objection the last section provoked and uses it to introduce the next.",
+        "example": "None of which answers the obvious question: who pays? That is the subject of what follows.",
+        "effect": "Turns a structural seam into forward motion."
+      },
+      {
+        "name": "scale-shift paragraph",
+        "definition": "Moves the discussion up or down a level of abstraction and says so.",
+        "example": "Enough about this one clinic. The pattern is national, and the national numbers are worse.",
+        "effect": "Prevents the whiplash a reader feels when zoom changes silently."
+      },
+      {
+        "name": "time-bridge paragraph",
+        "definition": "Covers an interval in which nothing needed happens, so the next scene can start where it should.",
+        "example": "Nothing changed for eleven months. Then the letter came.",
+        "effect": "Skips dead time without a section break.",
+        "register": "fiction and narrative nonfiction"
+      },
+      {
+        "name": "contrast bridge",
+        "definition": "Opens on a concessive or adversative connective to set the new material against the old.",
+        "example": "But the picture from the other side of the ledger is not the same picture.",
+        "effect": "The cheapest and most common transition; effective in small doses.",
+        "caution": "A chapter where every fourth paragraph opens on 'However' reads as machine-written."
+      },
+      {
+        "name": "resumptive paragraph",
+        "definition": "Returns to a thread suspended earlier, naming it so the reader can pick it up.",
+        "example": "Return now to the auditor's memo, left waiting three sections ago.",
+        "effect": "Redeems a promise; without it, suspended threads read as forgotten."
+      },
+      {
+        "name": "digression-and-return",
+        "definition": "Marks a departure from the main line, takes it, and explicitly closes it.",
+        "example": "A word about the statute's history — [digression] — with that settled, back to the case.",
+        "effect": "Permits necessary background without losing the reader's place.",
+        "caution": "Unmarked digressions are indistinguishable from disorganization."
+      },
+      {
+        "name": "section recap",
+        "definition": "A closing paragraph that restates a section's conclusions in a compressed, portable form.",
+        "example": "In short: the rule is old, the enforcement is new, and the gap between them is where the money went.",
+        "effect": "Gives the reader something to carry into the next section."
+      }
+    ],
+    "opening_paragraph_shapes": [
+      {
+        "name": "billboard paragraph",
+        "definition": "Announces the piece's central claim in a single unhedged paragraph near the top.",
+        "see_also": "openings_and_closings/hooks_and_ledes",
+        "example": "The programme did not work. It never could have, and its designers knew the arithmetic.",
+        "effect": "Sets terms immediately; suits argument and commentary."
+      },
+      {
+        "name": "delayed-thesis opening",
+        "definition": "Opens with the problem, the evidence, or the puzzle and withholds the thesis until the reader has been prepared for it.",
+        "see_also": "openings_and_closings/hooks_and_ledes",
+        "example": "Here is what happened. Here is what everyone said about it. Neither account can be right.",
+        "effect": "Necessary when the thesis would be rejected on sight.",
+        "register": "nonfiction, persuasive"
+      },
+      {
+        "name": "conventional-wisdom reversal",
+        "definition": "States the received view compactly, then announces that it is wrong or incomplete.",
+        "example": "Everyone knows the rule was written for banks. The drafting file says otherwise.",
+        "effect": "Creates an information gap the reader wants closed.",
+        "caution": "Overused to the point of parody; the received view must actually be held by someone."
+      },
+      {
+        "name": "definition opening",
+        "definition": "Opens by fixing the meaning of the key term the piece will contest or apply.",
+        "see_also": "openings_and_closings/hooks_and_ledes",
+        "example": "A quorum is not a majority. The difference decided the vote.",
+        "effect": "Useful when the whole dispute rests on a word."
+      },
+      {
+        "name": "epigraph gloss",
+        "definition": "Opens by taking a quoted line and turning it — reading it against its usual sense.",
+        "see_also": "openings_and_closings/title_and_epigraph_strategies",
+        "example": "\"Move fast and break things.\" They did. The things were pension funds.",
+        "effect": "Borrows a familiar frame and repurposes it."
+      }
+    ]
+  }
+}

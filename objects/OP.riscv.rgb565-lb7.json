@@ -1,0 +1,22 @@
+{
+  "id": "OP.riscv.rgb565-lb7",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "\"At least 7 instructions are needed to pack a 5:6:5 RGB value\" -- prove or refute",
+  "statement": "The only bare lower-bound claim found in any ISA specification (Bitmanip v0.93 §4.1.3). No proof exists. QF_BV over RV64I with a declared immediate pool; a 6-instruction program or a DRAT at k=6. Effort estimate: weeks.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "asserted",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

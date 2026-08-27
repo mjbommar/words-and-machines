@@ -1,0 +1,208 @@
+%% ============================================================
+%% preamble/fonts.tex — engine-conditional fontspec, 3 profiles
+%%
+%% Purpose      : loads the font stack selected by book.yaml's
+%%                typography.font_profile (\BookFontProfile):
+%%                  libertinus — Libertinus Serif/Sans/Mono (default)
+%%                  garamond   — EB Garamond + Source Sans 3 (falls
+%%                               back to TeX Gyre Heros) + Noto Sans Mono
+%%                  plex       — IBM Plex Serif/Sans/Mono, SemiBold-as-bold
+%%                Also defines the small-caps helpers used by styling
+%%                (\bkscshape, \bklabelcaps) and the cover font switches
+%%                (\coverTitleFont, \coverSubtitleFont, \coverBodyFont).
+%% Dependencies : etoolbox (\ifdefstring), generated/metadata.tex
+%%                (\BookFontProfile). Loads fontspec itself. microtype
+%%                settings are guarded so this module also works under
+%%                latex/cover/cover.tex (article class, minimal preamble).
+%% Provenance   : ADR 0004. libertinus stack from datacenter/wiki/
+%%                the-last-book; garamond from complexity/htsd/legal-tech;
+%%                plex (incl. the SemiBold-as-bold print calibration and
+%%                the protrusion table) from history-through-rfc-book.md.
+%%
+%% RULES:
+%%   * Fonts are loaded by FAMILY NAME, never by file path — hard-coded
+%%     paths broke htsd's portability (ADR 0004).
+%%   * LuaLaTeX resolves texmf-dist fonts by name via luaotfload;
+%%     XeLaTeX needs the fonts visible to fontconfig. `make doctor`
+%%     checks the active profile resolves before a full build.
+%% ============================================================
+
+\RequirePackage{iftex}
+\ifPDFTeX
+  \PackageError{book-template}
+    {Font profiles are OpenType-only; compile with LuaLaTeX or XeLaTeX}{}
+\fi
+\RequirePackage{fontspec}
+
+% TeX ligatures (---, --, ``'') everywhere, in every profile.
+\defaultfontfeatures{Ligatures=TeX}
+
+% ----------------------------------------------------------------------
+% Helpers styling.tex relies on. Profiles that lack a real small-caps
+% face override these (Plex ships no smcp feature — see plex branch).
+%   \bkscshape      — font switch for small-caps contexts
+%   \bklabelcaps{x} — even small-caps label (running heads, "chapter one")
+% ----------------------------------------------------------------------
+\newcommand{\bkscshape}{\scshape}
+\newcommand{\bklabelcaps}[1]{{\scshape\MakeLowercase{#1}}}
+
+% ======================================================================
+% Profile: libertinus (default)
+% Body/sans/mono all from the Libertinus family — a single super-family
+% keeps color and x-height coherent with zero scaling fiddles.
+% ======================================================================
+\ifdefstring{\BookFontProfile}{libertinus}{%
+  % Oldstyle (text) figures in running prose; tables switch to lining
+  % below. Libertinus carries both onum and lnum/tnum.
+  \setmainfont{Libertinus Serif}[Numbers=OldStyle]
+  \setsansfont{Libertinus Sans}
+  % Libertinus Mono ships regular only; fake the slant/weight so code
+  % comments (\itshape) and keywords (\bfseries) don't fall back to
+  % upright with a font-shape warning.
+  \setmonofont{Libertinus Mono}[Scale=MatchLowercase,
+    AutoFakeSlant=0.18, AutoFakeBold=1.5]
+  % Lining + tabular figures inside every tabular: digits must align
+  % in columns even though prose uses oldstyle (ADR 0004).
+  \AtBeginEnvironment{tabular}{\addfontfeatures{Numbers={Monospaced,Lining}}}
+  % Cover identity (consumed by latex/cover/cover.tex).
+  \newcommand{\coverTitleFont}{\rmfamily\bfseries}
+  \newcommand{\coverSubtitleFont}{\sffamily}
+  \newcommand{\coverBodyFont}{\rmfamily}
+}{}
+
+% ======================================================================
+% Profile: garamond (trade / pop-sci voice)
+% EB Garamond body; Source Sans 3 companion sans with a documented
+% fallback chain (Source Sans 3 -> Source Sans Pro -> TeX Gyre Heros),
+% because Source Sans is the one stack member frequently absent from
+% stock TeX installs; Noto Sans Mono for code snippets in prose.
+% ======================================================================
+\ifdefstring{\BookFontProfile}{garamond}{%
+  \setmainfont{EB Garamond}[Numbers=OldStyle]
+  \IfFontExistsTF{Source Sans 3}{%
+    \setsansfont{Source Sans 3}%
+  }{%
+    \IfFontExistsTF{Source Sans Pro}{%
+      \setsansfont{Source Sans Pro}%
+    }{%
+      % TeX Gyre Heros (Helvetica clone) ships with TeX Live; scaled
+      % down because its x-height towers over Garamond's.
+      \setsansfont{TeX Gyre Heros}[Scale=0.88]%
+    }%
+  }%
+  \IfFontExistsTF{Noto Sans Mono}{%
+    % Real bold exists; italic doesn't — fake the slant for comments.
+    \setmonofont{Noto Sans Mono}[Scale=MatchLowercase,AutoFakeSlant=0.18]%
+  }{%
+    \setmonofont{TeX Gyre Cursor}[Scale=MatchLowercase]% Courier clone fallback
+  }%
+  \AtBeginEnvironment{tabular}{\addfontfeatures{Numbers={Monospaced,Lining}}}
+  \newcommand{\coverTitleFont}{\rmfamily\bfseries}
+  \newcommand{\coverSubtitleFont}{\sffamily}
+  \newcommand{\coverBodyFont}{\rmfamily}
+}{}
+
+% ======================================================================
+% Profile: plex (technical voice — RFC/hacking/vibe-coding books)
+% Optical calibration notes (from the RFC book's print proofs):
+%   * Plex true Bold is too heavy on cream 60# stock at 10-11pt —
+%     SemiBold is mapped as bold everywhere instead.
+%   * Plex has NO small caps (smcp) and NO oldstyle figures (onum);
+%     \bkscshape/\bklabelcaps degrade to letterspaced-free uppercase,
+%     and figures stay lining (they are lining-by-design, tabular in
+%     the mono; no tabular hook needed).
+% ======================================================================
+\ifdefstring{\BookFontProfile}{plex}{%
+  % SemiBold faces are addressed by POSTSCRIPT NAME (IBMPlexSans-SemiBold),
+  % not display name: fontconfig indexes Plex SemiBold under the mangled
+  % family "IBM Plex Sans SmBld" while texmf uses "... SemiBold", so the
+  % display name resolves on some machines and not others. The PS name is
+  % embedded in the font file itself and identical in the TTF and OTF
+  % releases — still a font NAME, never a file path (ADR 0004).
+  \setmainfont{IBM Plex Serif}[
+    BoldFont       = {IBMPlexSerif-SemiBold},
+    BoldItalicFont = {IBMPlexSerif-SemiBoldItalic},
+  ]
+  \setsansfont{IBM Plex Sans}[
+    BoldFont       = {IBMPlexSans-SemiBold},
+    BoldItalicFont = {IBMPlexSans-SemiBoldItalic},
+  ]
+  \setmonofont{IBM Plex Mono}[
+    Scale          = MatchLowercase,
+    BoldFont       = {IBMPlexMono-SemiBold},
+    BoldItalicFont = {IBMPlexMono-SemiBoldItalic},
+  ]
+  % No smcp in Plex: small-caps contexts become plain uppercase.
+  \renewcommand{\bkscshape}{\upshape}
+  \renewcommand{\bklabelcaps}[1]{{\small\sffamily\MakeUppercase{#1}}}
+  \newcommand{\coverTitleFont}{\sffamily\bfseries}% Plex Sans SemiBold display
+  \newcommand{\coverSubtitleFont}{\sffamily}
+  \newcommand{\coverBodyFont}{\rmfamily}
+}{}
+
+% ======================================================================
+% Per-profile microtype protrusion (hanging punctuation).
+% IMPLEMENTATION NOTE: these blocks MUST sit at top level. microtype's
+% list parser re-scans its argument, and dies with "Unknown slot
+% number" / "Improper alphabetic constant" if the list has already
+% been frozen as a macro argument — so no \ifdefstring{...}{...}
+% wrappers here; primitive \ifx / \ifdefined only (they skip tokens
+% without grabbing them). \ifdefined\SetProtrusion doubles as the
+% "is microtype loaded" guard for cover.tex contexts.
+% ======================================================================
+\ifdefined\SetProtrusion
+\makeatletter
+% \newcommand (not \def): \ifx also compares the \long prefix, and
+% \BookFontProfile comes from \newcommand in generated/metadata.tex.
+\newcommand{\bk@fontprofile@libertinus}{libertinus}
+\newcommand{\bk@fontprofile@garamond}{garamond}
+\newcommand{\bk@fontprofile@plex}{plex}
+
+\ifx\BookFontProfile\bk@fontprofile@libertinus
+  % Gentle trade-book edge hang; Libertinus' defaults are already fair.
+  \SetProtrusion[load=T1-default]{encoding=TU}{
+    . = {0,600}, {,} = {0,600}, : = {0,400}, ; = {0,400},
+    - = {0,600}, \textendash = {0,300}, \textemdash = {0,250},
+    \textquoteleft = {600,0}, \textquoteright = {0,600},
+  }
+\fi
+
+\ifx\BookFontProfile\bk@fontprofile@garamond
+  % Garamond's delicate serifs reward stronger period/comma hang.
+  \SetProtrusion[load=T1-default]{encoding=TU}{
+    . = {0,700}, {,} = {0,700}, : = {0,400}, ; = {0,400},
+    - = {0,600}, \textendash = {0,300}, \textemdash = {0,250},
+    \textquoteleft = {700,0}, \textquoteright = {0,700},
+  }
+\fi
+
+\ifx\BookFontProfile\bk@fontprofile@plex
+  % RFC book's hand-tuned table (incl. dashes, parens, slash — Plex's
+  % wide punctuation needs the stronger values).
+  \SetProtrusion[load=T1-default]{encoding=TU}{
+    . = {0,700}, {,} = {0,700}, : = {0,500}, ; = {0,500},
+    - = {0,700}, \textendash = {0,300}, \textemdash = {0,300},
+    ( = {400,0}, ) = {0,400}, / = {200,300},
+    \textquoteleft = {700,0}, \textquoteright = {0,700},
+  }
+\fi
+\makeatother
+\fi
+
+% ----------------------------------------------------------------------
+% CJK / emoji fallback hook (LuaLaTeX only — ADR 0004).
+% Disabled by default: fallback fonts are machine-dependent and color
+% emoji is rarely print-appropriate. To enable, define
+% \BookEnableFontFallback in pretex (or here) and adjust the families;
+% luaotfload then substitutes glyphs the body face lacks.
+% ----------------------------------------------------------------------
+\ifluatex
+  \ifdefined\BookEnableFontFallback
+    \directlua{luaotfload.add_fallback("bookfallback", {
+      "Noto Sans CJK SC:mode=node;script=hani;",
+      "Noto Color Emoji:mode=harf;",
+    })}
+    % NOTE: fallbacks attach per-font; re-declare the main font with
+    % RawFeature={fallback=bookfallback} in the active profile branch.
+  \fi
+\fi

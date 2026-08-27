@@ -1,0 +1,115 @@
+% ============================================================
+% Wrap cover: [bleed][back][spine][front][bleed]
+% One source serves KDP paperback, Lulu paperback, and Lulu
+% hardcover — dimensions come entirely from generated/cover-vars.tex
+% (run `make cover-vars PLATFORM=kdp` after the interior build).
+%
+% Build (3 passes for TikZ remember/overlay), from latex/:
+%   lualatex -interaction=nonstopmode -output-directory=../build/cover cover/cover.tex
+% then flatten with Ghostscript /prepress (make kdp-cover).
+%
+% Design is deliberately restrained typography-on-field; art
+% direction belongs to each book (docs/publishing/COVER-SPEC.md).
+% ============================================================
+\documentclass{article}
+
+\makeatletter
+\def\input@path{{../}{./}}% resolve generated/ + preamble/ whether run from latex/ or cover/
+\makeatother
+
+\input{generated/metadata}
+\input{generated/cover-vars}
+
+\usepackage{etoolbox}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Reuse the book's font + color identity so cover matches interior.
+\input{preamble/fonts}
+\input{preamble/colors}
+
+\usepackage[paperwidth=\CoverWidth, paperheight=\CoverHeight, margin=0pt]{geometry}
+\pagestyle{empty}
+\parindent=0pt
+
+% Panel geometry helpers -------------------------------------
+\newlength{\BackPanelLeft}\setlength{\BackPanelLeft}{\CoverBleed}
+\newlength{\SpineLeft}\setlength{\SpineLeft}{\dimexpr\CoverBleed+\CoverTrimWidth\relax}
+\newlength{\FrontPanelLeft}\setlength{\FrontPanelLeft}{\dimexpr\CoverBleed+\CoverTrimWidth+\CoverSpineWidth\relax}
+\newlength{\PanelSafe}\setlength{\PanelSafe}{0.375in}% text safe inset from trim
+
+\begin{document}%
+\begin{tikzpicture}[remember picture, overlay,
+    every node/.style={inner sep=0pt, outer sep=0pt}]
+  % Full-bleed field
+  \fill[cover-field] (current page.south west) rectangle (current page.north east);
+
+  % Accent band across the top of front and back panels
+  \fill[cover-accent]
+    (current page.south west) ++(0,\dimexpr\CoverHeight-\CoverBleed-2.1in\relax)
+    rectangle ++(\CoverWidth,0.06in);
+
+  % ---------------- FRONT PANEL (right) ----------------
+  \begin{scope}[shift={($(current page.south west)+(\FrontPanelLeft,\CoverBleed)$)}]
+    \node[anchor=north west, text width=\dimexpr\CoverTrimWidth-2\PanelSafe\relax,
+          align=left]
+      at (\PanelSafe,\dimexpr\CoverTrimHeight-1.0in\relax)
+      {\coverTitleFont\fontsize{34}{40}\selectfont\color{cover-title}\BookTitle};
+    \ifBookHasSubtitle
+      \node[anchor=north west, text width=\dimexpr\CoverTrimWidth-2\PanelSafe\relax,
+            align=left]
+        at (\PanelSafe,\dimexpr\CoverTrimHeight-2.6in\relax)
+        {\coverSubtitleFont\fontsize{15}{20}\selectfont\color{cover-subtitle}\BookSubtitle};
+    \fi
+    \ifBookHasEditionSuffix
+      \node[anchor=north west]
+        at (\PanelSafe,\dimexpr\CoverTrimHeight-3.4in\relax)
+        {\coverSubtitleFont\fontsize{12}{15}\selectfont\color{cover-subtitle}\BookEditionSuffix};
+    \fi
+    \node[anchor=south west]
+      at (\PanelSafe,0.75in)
+      {\coverTitleFont\fontsize{18}{22}\selectfont\color{cover-title}\BookAuthor};
+  \end{scope}
+
+  % ---------------- SPINE ----------------
+  % \ifCoverSpineText enforces the platform page minimum (KDP: 79 pages;
+  % cover-vars.tex sets it from the real page count). The width check on
+  % top is the house legibility threshold — 13pt rotated text needs room
+  % plus KDP's 0.0625in clearance each side.
+  \ifCoverSpineText
+  \ifdim\CoverSpineWidth>0.25in
+    \begin{scope}[shift={($(current page.south west)+(\SpineLeft,\CoverBleed)$)}]
+      \node[rotate=-90, anchor=center]
+        at (0.5\CoverSpineWidth,0.5\CoverTrimHeight)
+        {\coverTitleFont\fontsize{13}{13}\selectfont\color{cover-title}%
+         \BookTitle\hspace{2em}{\coverSubtitleFont\fontsize{11}{11}\selectfont\BookAuthorShort}};
+    \end{scope}
+  \fi
+  \fi
+
+  % ---------------- BACK PANEL (left) ----------------
+  \begin{scope}[shift={($(current page.south west)+(\BackPanelLeft,\CoverBleed)$)}]
+    \node[anchor=north west, text width=\dimexpr\CoverTrimWidth-2\PanelSafe\relax,
+          align=left]
+      at (\PanelSafe,\dimexpr\CoverTrimHeight-1.0in\relax)
+      {\coverBodyFont\fontsize{11}{16}\selectfont\color{cover-body}\BookDescription};
+    % Publisher imprint, bottom left
+    \node[anchor=south west]
+      at (\PanelSafe,0.5in)
+      {\coverSubtitleFont\fontsize{9}{11}\selectfont\color{cover-subtitle}\BookPublisher};
+    % Barcode quiet zone: 2in x 1.2in white box, bottom right of back panel.
+    % KDP overprints its own barcode here; Lulu requires the zone clear too.
+    \ifBookHasISBNPrint
+      \fill[white]
+        (\dimexpr\CoverTrimWidth-\PanelSafe-2in\relax,0.375in) rectangle ++(2in,1.2in);
+      \node[anchor=south west]
+        at (\dimexpr\CoverTrimWidth-\PanelSafe-2in\relax,1.65in)
+        {\coverSubtitleFont\fontsize{7}{8}\selectfont\color{cover-body}ISBN \BookISBNPrint};
+    \fi
+  \end{scope}
+\end{tikzpicture}%
+\end{document}

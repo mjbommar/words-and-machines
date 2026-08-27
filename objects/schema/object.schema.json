@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mjbommar/words-and-machines/objects/schema/object.schema.json",
+  "title": "Book object",
+  "description": "One record per object the book refers to: a definition, theorem, computation, exercise, principle, or open problem. Modelled on axeyum's artifacts/ontology/fact.schema.json: a formal statement AND a status, with evidence whose checker exit status depends on the finding. The book's status boxes are generated from these records and never typed by hand.",
+  "type": "object",
+  "required": ["id", "kind", "part", "title", "statement", "epistemic_status", "evidence", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^(W|I|C|P|M|OP)\\.[A-Za-z0-9._-]+$",
+           "description": "Part letter then a dotted slug. W=Words (Prologue), I=Instructions as functions, C=Cost and certificates, P=Permutations, M=Machines (particular ISAs), OP=open problem."},
+    "kind": {"enum": ["definition", "theorem", "computation", "exercise", "principle", "open-problem", "negative-control"]},
+    "part": {"type": "integer", "minimum": 0, "maximum": 5},
+    "title": {"type": "string"},
+    "statement": {"type": "string", "description": "Prose statement, as it appears in the book."},
+    "formal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["language", "statement"],
+      "properties": {
+        "language": {"enum": ["smt-lib", "cnf-generator", "python", "prose", "kernel-lean", "none"]},
+        "statement": {"type": "string"},
+        "fragment": {"type": "string", "description": "e.g. QF_BV, SAT, finite-enumeration"}
+      }
+    },
+    "epistemic_status": {"enum": ["proved", "computed", "conjectured", "open", "refuted", "stated"],
+      "description": "What THIS repository established. 'stated' = a definition or principle with nothing to check."},
+    "external_status": {"enum": ["proved", "computed-uncertified", "asserted", "open", "unknown", "refuted"],
+      "description": "What the literature or the ISA vendor holds. 'computed-uncertified' = a published exhaustive search with no artifact; 'asserted' = a bare claim in a spec."},
+    "scope": {"type": "string", "description": "The declared instruction subset, cost model, width, or other quantifier the claim is relative to. A minimality claim without this field is meaningless."},
+    "depends_on": {"type": "array", "items": {"type": "string"}},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["kind", "check_status"],
+        "properties": {
+          "kind": {"enum": ["unsat-certificate", "witness-replay", "front-door-verdict", "exhaustive-enumeration", "instance-pin", "computation", "claim-ref", "none"]},
+          "artifact": {"type": "string", "description": "Repo-relative path (file or directory)."},
+          "sha256": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                     "description": "Map of artifact filename (raw, uncompressed) to SHA-256."},
+          "checker_command": {"type": "string", "description": "Run from repo root. MUST exit nonzero when the finding does not hold. Set AXEYUM to an axeyum checkout with prebuilt target/release/examples for solver-backed checks."},
+          "negative_control": {"type": "string", "description": "A command that MUST exit nonzero, proving the checker can fail."},
+          "check_status": {"enum": ["checked", "replay-only", "not-checked"]},
+          "checked_on": {"type": "string", "format": "date"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "axeyum": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "crate": {"type": "string"}, "example": {"type": "string"}, "route": {"type": "string"},
+        "adr": {"type": "array", "items": {"type": "string"}},
+        "reconstruction": {"enum": ["TheoryReconstruction", "StructuralAttestation", "none"],
+          "description": "Whether axeyum can turn this into a kernel theorem with content (TheoryReconstruction) or only attest it (StructuralAttestation)."}
+      }
+    },
+    "book": {"type": "object", "additionalProperties": false,
+      "properties": {"chapter": {"type": "string"}, "label": {"type": "string"}}},
+    "sources": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "string"},
+    "provenance": {"type": "object", "required": ["date"], "additionalProperties": false,
+      "properties": {"date": {"type": "string"}, "by": {"type": "string"}, "origin": {"type": "string"}}}
+  }
+}

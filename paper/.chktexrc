@@ -1,0 +1,39 @@
+# chktex configuration for the paper template.
+# Loaded via `make lint` (chktex -l .chktexrc), in ADDITION to the global
+# chktexrc (whose WipeArg entries already strip \cite/\ref/\label arguments).
+# chktex ships with a full TeX Live; `make lint` skips if it is absent.
+#
+# We suppress the heuristic warnings that misfire on math-heavy papers and
+# keep the substantive ones (unmatched braces/$, \left/\right balance,
+# ellipsis, doubled words). Suppress via the CmdLine block below — this is
+# the reliable mechanism (WipeArg's colon syntax is easy to get wrong and
+# a malformed entry makes chktex error out).
+#
+# Suppressed warning numbers:
+#   1  Command terminated with space         (false + with "\ ")
+#   3  Enclose previous parentheses           (misfires in math)
+#   8  Wrong length of dashes                 (we use --- deliberately)
+#  11  Spacing around ellipsis                (siunitx/math false +)
+#  12  Interword spacing after a capitalized word ("arXiv." etc. — false +)
+#  18  Use `` '' not "                        (fires on quotes inside code listings)
+#  22  Comment displayed                      (noise)
+#  26  Space before punctuation               (fires on ".bbl" filenames etc.)
+#  30  Multiple spaces                         (aligned tables)
+#  36  Vertical rule / font-command nag
+#  46  Non-breaking-space heuristic misfire
+# `chktex -h` lists every warning number; tune to taste.
+
+CmdLine
+{
+    -n1
+    -n3
+    -n8
+    -n11
+    -n12
+    -n18
+    -n22
+    -n26
+    -n30
+    -n36
+    -n46
+}

@@ -1,0 +1,33 @@
+{
+  "id": "M.riscv.byteperm24",
+  "kind": "computation",
+  "part": 4,
+  "title": "All 24 byte permutations of a 32-bit word need at most 3 of {ror, grev, shfl, unshfl}",
+  "statement": "Reproduces Bitmanip draft Table 4.1 and adds what the spec omits: the exact per-permutation minima -- 6 permutations at length 1, 9 at 2, 8 at 3.",
+  "formal": {
+    "language": "python",
+    "statement": "BFS over composed bit-position permutations from the identity over 92 concrete instructions.",
+    "fragment": "finite-enumeration"
+  },
+  "scope": "XLEN=32; ror k=1..31, grev k=1..31, shfl/unshfl k=1..15 per the v0.93 draft pseudocode.",
+  "epistemic_status": "computed",
+  "external_status": "computed-uncertified",
+  "evidence": [
+    {
+      "kind": "exhaustive-enumeration",
+      "artifact": "artifacts/riscv/bitmanip-permutations-reproduction.json",
+      "checker_command": "python3 scripts/byte_perm_bfs.py",
+      "check_status": "checked",
+      "checked_on": "2026-08-27"
+    }
+  ],
+  "book": {
+    "chapter": "ch05-particular-machines",
+    "label": "comp:byteperm"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

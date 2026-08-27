@@ -1,0 +1,22 @@
+{
+  "id": "OP.hd.p1-p25",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Checkable minimality certificates for Hacker's Delight P1-P25 on a declared ISA",
+  "statement": "HieraSynth proves 24/25 cost-optimal at n=31-35 with no artifact; Souper cannot synthesize P18, P20-P25. Not one member has a checkable minimality certificate on any ISA. Effort estimate: weeks (P1-P9) to months.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "computed-uncertified",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

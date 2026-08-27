@@ -1,0 +1,74 @@
+%% ============================================================
+%% preamble/verse.tex — parallel-text verse (module: verse)
+%%
+%% Purpose      : facing original/translation verse in two synced
+%%                columns (70/30 by default):
+%%                  \begin{parallelverse}
+%%                    \begin{verse} original lines \end{verse}
+%%                    \switchcolumn
+%%                    \begin{verse} translation \end{verse}
+%%                    \stanzasync
+%%                    ... next stanza pair ...
+%%                  \end{parallelverse}
+%%                plus per-5 verse line numbers and hanging indents.
+%% Dependencies : paracol + verse (loaded here), colors.tex (bk-folio
+%%                for line-number ink). Loaded only when
+%%                \ifBookModuleVerse is true.
+%% Provenance   : iliad-brainrot / ovid-brainrot parallel-text setup
+%%                (docs/research/iliad-brainrot.md), incl. the
+%%                \setchapterheads markboth workaround.
+%%
+%% ENGINE NOTE  : this module is engine-safe. Greek/Latin language
+%%                support (polyglossia) exists ONLY under XeLaTeX —
+%%                book.yaml enforces engine: xelatex when
+%%                modules.verse is on (config-schema.md) — but the
+%%                guard below keeps the module compilable under
+%%                LuaLaTeX too, so flipping the toggle never produces
+%%                a mystery "polyglossia wants XeTeX" abort.
+%% ============================================================
+
+\RequirePackage{iftex}   % \ifxetex below; explicit — don't rely on callers
+\usepackage{paracol}
+\usepackage{verse}
+
+% Original text gets the wide column; translation reads narrower.
+\columnratio{0.70}
+
+% polyglossia (ancient Greek shaping, Latin hyphenation) is XeTeX-only
+% territory in this stack; under LuaLaTeX the module still typesets,
+% just without the extra language machinery.
+\ifxetex
+  \usepackage{polyglossia}
+  \setdefaultlanguage{english}
+  % Books add e.g.: \setotherlanguage[variant=ancient]{greek}
+  %                 \newfontfamily\greekfont{...}[Script=Greek]
+\fi
+
+% Verse pages must NOT flush to a common bottom edge — stanza glue is
+% meaningful. This overrides styling.tex's prose default (documented
+% policy: latex-pipeline.md §5).
+\raggedbottom
+
+% ----------------------------------------------------------------------
+% parallelverse — a paracol pair. \stanzasync ends a stanza pair and
+% forces both columns to realign before the next pair (a plain
+% \switchcolumn drifts once stanza lengths diverge).
+% ----------------------------------------------------------------------
+\newenvironment{parallelverse}
+  {\begin{paracol}{2}}
+  {\end{paracol}}
+\newcommand{\stanzasync}{\switchcolumn*}
+
+% Line numbers every 5 lines, in the margin ink used for folios; run-in
+% verse lines hang by 2em so numbered lookups don't misparse wraps.
+\poemlines{5}
+\verselinenumfont{\footnotesize\color{bk-folio}}
+\setlength{\vindent}{2em}
+
+% ----------------------------------------------------------------------
+% \setchapterheads{verso}{recto} — iliad/ovid workaround: paracol
+% swallows the \markboth that \chapter issues when a chapter starts
+% inside/near a column context, leaving stale running heads. Verse
+% chapters call this right after \chapter to set marks explicitly.
+% ----------------------------------------------------------------------
+\newcommand{\setchapterheads}[2]{\markboth{#1}{#2}}

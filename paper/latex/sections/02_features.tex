@@ -1,0 +1,22 @@
+\section{Method}
+\label{sec:method}
+
+\subsection{The stack}
+
+axeyum is a Rust automated-reasoning stack: a typed term IR, rewriting, query planning, solver backends, and a Lean-style proof kernel. Its default build has no C dependency; native solvers (Z3 as an oracle) sit behind feature flags. Two properties matter here. Every \emph{sat} result is replayed by evaluating the original terms against the lifted model, so a wrong model is caught at the boundary; and every \emph{unsat} carries evidence---a DRAT refutation from the proof-producing CDCL core, or a resolution proof in the Alethe format re-derived from the bit-blasted circuit---that an independent checker re-executes. A bare \emph{unsat} with nothing attached does not pass the evidence check. The stack has already produced new results in this shape: twenty-one Ramsey-type colouring numbers, two of which had no published value, each with a self-produced DRAT, an independent backward check, and witness replay.
+
+\subsection{Provenance tags}
+
+The obvious model of a 256-bit register is thirty-two bytes, and it is wrong for proving things about shuffles: equal bytes hide permutations. We model the register as thirty-two \emph{distinct} optional tags. An instruction is a function on tag vectors; replaying a sequence on tags establishes the complete permutation and every produced zero in one run, and a model that fails replay is rejected. Because tags are symbolic and the instructions permutation-preserving, no bit-vector arithmetic enters the encoding: each lane at each step is a one-hot choice among tags, each instruction's control a one-hot choice among its legal values, and the constraints are lane-by-lane semantic equalities. Minimality---\emph{no program of length $\le k$ realizes $\pi$}---is a pure propositional formula, and the refutation is DRAT.
+
+Two encodings are used. The \emph{unary} encoding (ADR-0566 in the axeyum record) allows each instruction to consume only the previous result and admits five families: \code{vpshufb} with permutation controls, \code{vpermd}, \code{vpermq}, same-source \code{vpalignr} with immediates 0--15, and identity/swap same-source \code{vperm2i128}. Restricting controls to permutations is complete for permutation targets in this language: a deterministic instruction that duplicates a tag or emits zero loses an input tag that no later unary instruction can recreate. The \emph{SSA} encoding (ADR-0585) lets every earlier value---the input and each result---serve as an operand, and admits fourteen families including two-source \code{vpalignr} and \code{vperm2i128}, eight unpacks, and \code{vpblendd}. Zero-producing controls are omitted by a normalization argument: if a zero reaches the output it cannot match a tag; otherwise replacing it by any input tag leaves every downstream selected byte unchanged.
+
+Cost is composed, not encoded ad hoc: a generic weighted-at-most constraint over the same formula (ADR-0583) with a named profile---\code{intel-haswell-dependent-latency-cycles}: \code{vpshufb}=1, \code{vpermd}=3, \code{vpermq}=3, \code{vpalignr}=1, \code{vperm2i128}=3, taken from Intel's documented register-form latencies. Intel scopes such latencies to dependency chains; so does the theorem.
+
+\subsection{Why the subset is declared, and constant-free}
+
+A minimality claim \enquote{over AVX2} quantifies over an undeclared set and cannot be checked. Each theorem here names its families and operand forms, and the scope is part of the statement. The subset is also constant-free in a specific sense: control operands are enumerated, not left as symbolic immediates in an exists-forall query. That is a design decision, not a resource limit. Every synthesis system that admits symbolic constants runs a CEGIS loop whose \emph{negative} result---no program exists---has no known certificate format; restricting to enumerable controls is precisely what makes the refutation a DRAT object.
+
+\subsection{Checking, and checking the checker}
+
+Every certificate is re-verified end to end by a script whose exit status depends on the finding: decompress, verify the raw SHA-256, regenerate the formula from the prebuilt encoder (byte-identical to the shipped CNF), run the file-backed backward DRAT checker, and then run a \emph{negative control}---truncate the proof and require rejection. Without the last step a checker that accepts everything would pass. It was that step that produced the finding of \cref{sec:vacuous}.

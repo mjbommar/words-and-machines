@@ -1,0 +1,70 @@
+%% ============================================================
+%% preamble/commands.tex — semantic inline macros + apparatus + algorithms
+%%
+%% Purpose      : the inline vocabulary sections may use, the keyword/JEL
+%%                apparatus macros (\Keywords, \JEL, \MSC), and the
+%%                algorithm environment loader (module: algorithms).
+%% Dependencies : etoolbox; code.tex owns \code when the code module is
+%%                on (this file supplies a \texttt fallback otherwise).
+%% Provenance   : \keyterm from the SSRN cluster; \Keywords/\JEL promoted
+%%                from datacenter/moratorium commands.tex to read the
+%%                generated apparatus macros.
+%% ============================================================
+
+\usepackage{xspace}   % for number-macros (\newcommand{\nX}{12{,}345\xspace})
+
+% --- Number macros (single source of truth) ---------------------------
+% The house convention (docs/guides/STYLE-PAPER.md): define every key
+% statistic ONCE here and cite the macro, so prose and captions never
+% drift. \xspace eats the right trailing space. The sample uses these to
+% demonstrate the pattern; replace them with your paper's real figures:
+\newcommand{\nEngines}{three\xspace}      % pdflatex, xelatex, lualatex
+\newcommand{\nProfiles}{four\xspace}      % libertinus, newtx, lmodern, plex
+\newcommand{\nVenues}{three\xspace}       % preprint, arxiv, ssrn
+% e.g. real statistics would look like:
+%   \newcommand{\nSamples}{12{,}345\xspace}
+%   \newcommand{\accuracy}{92.4\%\xspace}
+
+% --- Inline semantics -------------------------------------------------
+\newcommand{\term}[1]{\emph{#1}}               % first use of a technical term
+\newcommand{\keyterm}[1]{\textbf{\color{primary}#1}}  % defined term at its site
+\newcommand{\work}[1]{\emph{#1}}               % titles of works
+\newcommand{\foreignphrase}[1]{\emph{#1}}      % non-English phrase
+
+% Inline code — a robust \texttt wrapper (works in tables, captions, and
+% footnotes, unlike \lstinline). Escape specials the standard LaTeX way
+% inside it: \_ \# \% \{ \} and \textbackslash for a literal backslash.
+% Block code with highlighting is the codelisting environment (code.tex).
+\newcommand{\code}[1]{\texttt{#1}}
+
+% --- Apparatus (keywords / JEL / MSC) --------------------------------
+% Rendered on the abstract page by frontmatter/titleblock; each reads the
+% generated macro and prints only when the matching flag is set.
+\newcommand{\KeywordsLine}{%
+  \ifPaperHasKeywords
+    \noindent{\small\textbf{\color{pt-apparatus-label}Keywords:}\ \PaperKeywords\par}%
+  \fi}
+\newcommand{\JELLine}{%
+  \ifPaperHasJEL
+    \noindent{\small\textbf{\color{pt-apparatus-label}JEL classification:}\ \PaperJEL\par}%
+  \fi}
+\newcommand{\MSCLine}{%
+  \ifPaperHasMSC
+    \noindent{\small\textbf{\color{pt-apparatus-label}MSC:}\ \PaperMSC\par}%
+  \fi}
+
+% --- Algorithms (module: algorithms) ---------------------------------
+\ifPaperModuleAlgo
+  \usepackage{algorithm}
+  \usepackage{algpseudocodex}   % modern algorithmicx; falls back cleanly
+\fi
+
+% --- Block-quote attribution ------------------------------------------
+\newcommand{\attribution}[1]{%
+  \par\nopagebreak\smallskip
+  {\raggedleft\normalfont\color{text-muted}\textemdash\,#1\par}}
+
+% Block quotes sit a touch smaller than body copy (a common convention;
+% the size change also signals "quotation" in grayscale where no color
+% cue exists).
+\AtBeginEnvironment{quotation}{\small}

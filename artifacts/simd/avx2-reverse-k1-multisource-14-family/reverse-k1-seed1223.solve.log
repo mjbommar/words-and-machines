@@ -1,0 +1,102 @@
+c --- [ banner ] -------------------------------------------------------------
+c 
+c CaDiCaL SAT Solver
+c Copyright (c) 2016-2026
+c A. Biere, M. Fleury, N. Froleyks, K. Fazekas, F. Pollitt, T. Faller
+c JKU Linz, University of Freiburg, TU Wien
+c 
+c Version 3.0.1 c60730422e758ef1cebe7aeddf2dda31c996bf04
+c g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0 -Wall -Wextra -O3 -DNDEBUG
+c Wed Aug 26 01:07:37 EDT 2026 Linux server0 7.0.0-27-generic x86_64
+c 
+c --- [ proof tracing ] ------------------------------------------------------
+c 
+c opening file to write '/data0/axeyum/open-problems/simd-multisource/reverse-k1-seed1223.drat'
+c writing non-binary proof trace to '/data0/axeyum/open-problems/simd-multisource/reverse-k1-seed1223.drat'
+c 
+c --- [ parsing input ] ------------------------------------------------------
+c 
+c reading DIMACS file from '/data0/axeyum/open-problems/simd-multisource/reverse-k1.cnf'
+c opening file to read '/data0/axeyum/open-problems/simd-multisource/reverse-k1.cnf'
+c found 'p cnf 2697 97314' header
+c parsed 97314 clauses in 0.02 seconds process time
+c 
+c --- [ options ] ------------------------------------------------------------
+c 
+c   --binary=false                 (different from default 'true')
+c   --seed=1223                    (different from default '0')
+c 
+c --- [ solving ] ------------------------------------------------------------
+c 
+c time measured in process time since initialization
+c 
+c  seconds  reduction conflicts       size tier2      variables
+c         MB    restarts   redundant    glue  trail       remaining
+c          level     rate       size/glu tier1  irredundant
+c 
+c *  0.02  9  0 0   0  0    0    0 0.0 0 0 2 6  0% 38464 639 24%
+c l  0.03  9  0 0   0  0    0    0 0.0 1 0 2 6 100% 38464   0  0%
+c 0  0.03  9  0 0   0  0    0    0 0.0 1 0 2 6 100% 38464   0  0%
+c 
+c --- [ closing proof ] ------------------------------------------------------
+c 
+c DRAT proof file '/data0/axeyum/open-problems/simd-multisource/reverse-k1-seed1223.drat' closed
+c DRAT 4264 added clauses 6.59%
+c DRAT 60416 deleted clauses 93.41%
+c DRAT 1922088 bytes (1.83 MB)
+c 
+c --- [ result ] -------------------------------------------------------------
+c 
+s UNSATISFIABLE
+c 
+c --- [ run-time profiling ] -------------------------------------------------
+c 
+c process time taken by individual solving procedures
+c (percentage relative to process time for solving)
+c 
+c         0.02 3163.22% parse
+c         0.00   85.06% search
+c         0.00   84.93% lucky
+c         0.00    0.00% simplify
+c   =================================
+c         0.00    3.04% solve
+c 
+c last line shows process time for solving
+c (percentage relative to total process time)
+c 
+c --- [ statistics ] ---------------------------------------------------------
+c 
+c fixed:                      2697       100.00 %  of all variables
+c learned_lits:                  5       100.00 %  learned literals
+c minimized:                     0         0.00 %  learned literals
+c shrunken:                      0         0.00 %  learned literals
+c minishrunken:                  0         0.00 %  learned literals
+c propagations:               2058         2.63 M  per second
+c ticks:                      4542         2.21    propagation
+c 
+c seconds are measured in process time for solving
+c 
+c --- [ glue usage ] ---------------------------------------------------------
+c 
+c focused glue 2 used 0 clauses 0.000% accumulated 0.000% tier1
+c focused glue 3 used 0 clauses 0.000% accumulated 0.000%
+c focused glue 4 used 0 clauses 0.000% accumulated 0.000%
+c focused glue 5 used 0 clauses 0.000% accumulated 0.000%
+c focused glue 6 used 0 clauses 0.000% accumulated 0.000% tier2
+c 
+c stable glue 2 used 0 clauses 0.000% accumulated 0.000% tier1
+c stable glue 3 used 0 clauses 0.000% accumulated 0.000%
+c stable glue 4 used 0 clauses 0.000% accumulated 0.000%
+c stable glue 5 used 0 clauses 0.000% accumulated 0.000%
+c stable glue 6 used 0 clauses 0.000% accumulated 0.000% tier2
+c 
+c 
+c --- [ resources ] ----------------------------------------------------------
+c 
+c total process time since initialization:         0.03    seconds
+c total real time since initialization:            0.03    seconds
+c maximum resident set size of process:            8.98    MB
+c 
+c --- [ shutting down ] ------------------------------------------------------
+c 
+c exit 20

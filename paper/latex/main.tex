@@ -1,0 +1,66 @@
+%% ============================================================
+%% main.tex — single entry point for EVERY build variant.
+%%
+%% One file, all outputs: the Makefile injects build-mode flags via
+%% latexmk's -usepretex (e.g. -usepretex='\def\DraftMode{1}') with a
+%% distinct -jobname per variant, building out-of-tree into build/:
+%%
+%%   cd latex && latexmk -pdf -interaction=nonstopmode \
+%%     -output-directory=../build/latex main.tex
+%%
+%% All \input paths below are relative to latex/ (the build cwd).
+%%
+%% Build modes (set by the Makefile via -usepretex; read inside preamble
+%% modules and the title block, never in sections):
+%%   \DraftMode        line numbers + "DRAFT" banner   (make draft)
+%%   \AnonMode         strip author identity + PDF metadata (make anon)
+%%   \GrayscaleMode    accent ramp -> gray, B&W-safe    (make grayscale)
+%% ============================================================
+
+% Metadata FIRST — before \documentclass, because \PaperBaseSize and the
+% \ifPaper... flags feed the class options. Generated from paper.yaml;
+% never edited by hand.
+\IfFileExists{generated/metadata.tex}{%
+  \input{generated/metadata}%
+}{%
+  \errmessage{generated/metadata.tex is missing - run:
+    uv run scripts/generate_metadata.py}%
+}
+
+\ifPaperTwoColumn
+  \documentclass[\PaperBaseSize,\PaperPaperOption,twocolumn]{article}
+\else
+  \documentclass[\PaperBaseSize,\PaperPaperOption]{article}
+\fi
+
+\input{preamble/main}
+
+\begin{document}
+
+% Title block (title, authors, affiliations, date; abstract; keyword/
+% JEL apparatus). Reads only metadata macros + build-mode flags.
+\input{frontmatter/titleblock}
+
+% ---------------- Body ------------------------------------------------
+% Sections are plain \input; add or reorder here. Numbered NN_ prefix is
+% the house convention (docs/guides/STYLE-PAPER.md).
+\input{sections/01_introduction}
+\input{sections/02_features}
+\input{sections/03_figures_tables}
+\input{sections/04_discussion}
+
+% ---------------- Back matter -----------------------------------------
+% Disclosures & Limitations (funding, COI, data availability, AI use).
+% Printed for SSRN and preprint; venue macros inside decide the heading.
+\input{backmatter/disclosures}
+
+% ---------------- Appendix --------------------------------------------
+\appendix
+\input{sections/A_appendix}
+
+% ---------------- Bibliography ----------------------------------------
+% Renders via the citation system selected in paper.yaml (packages.tex):
+% natbib -> \bibliography; biblatex -> \printbibliography.
+\PrintBibliography
+
+\end{document}

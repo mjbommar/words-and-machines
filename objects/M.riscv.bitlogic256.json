@@ -1,0 +1,37 @@
+{
+  "id": "M.riscv.bitlogic256",
+  "kind": "computation",
+  "part": 4,
+  "title": "The RISC-V 256-function bit-logic table is correct and minimal (reproduced, uncertified)",
+  "statement": "For every three-input Boolean function, the minimum straight-line-program length over {and,or,xor,not} and over {and,or,xor,andn,orn,xnor,not} equals the value in riscv-crypto doc/supp/bitlogic.adoc: 512 of 512 entries, zero semantic errors. Base max 5, extended max 4. For SHA-2 Ch (0xD8) and Maj (0xE8) the minimum is 3 and 4 in BOTH sets: Zbkb buys zero instructions there.",
+  "formal": {
+    "language": "python",
+    "statement": "BFS over frozensets of held truth tables from {0xAA,0xCC,0xF0}; first level at which f appears is its minimum chain length.",
+    "fragment": "finite-enumeration"
+  },
+  "scope": "SLP length with sharing (Boolean chain), x0 hardwired so constants cost 0; Len column only -- the Dep column is NOT verified.",
+  "epistemic_status": "computed",
+  "external_status": "computed-uncertified",
+  "evidence": [
+    {
+      "kind": "exhaustive-enumeration",
+      "artifact": "artifacts/riscv/bitlogic256-reproduction.json",
+      "checker_command": "python3 scripts/bitlogic_bfs.py",
+      "check_status": "checked",
+      "checked_on": "2026-08-27",
+      "note": "Two independent uncertified exhaustive searches (the spec author's 2020 one, with no code, and this one) agree. That is still not a proof. The certified version is OP.riscv.bitlogic256-drat."
+    }
+  ],
+  "book": {
+    "chapter": "ch05-particular-machines",
+    "label": "comp:bitlogic"
+  },
+  "sources": [
+    "https://github.com/riscv/riscv-crypto/blob/main/doc/supp/bitlogic.adoc (two commits, both 2020-06-28)"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

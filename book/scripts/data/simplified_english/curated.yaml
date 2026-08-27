@@ -1,0 +1,380 @@
+# Simplified Book English (SBE) — curated policy
+#
+# The HUMAN half of the standard. `scripts/build_simplified_lexicon.py`
+# merges this file with corpus-derived word tiers to produce the artifact
+# `scripts/data/simplified_english/lexicon.json`, which
+# `scripts/check_simplified.py` reads. Edit this file, then rebuild:
+#
+#     uv run scripts/build_simplified_lexicon.py
+#
+# Grades:
+#   error  a book editor would strike every instance; no defensible use
+#          in trade nonfiction prose
+#   warn   usually the wrong word, occasionally right; the checker reports
+#          it and the author decides
+#   idea   a fair swap to consider during revision, wrong often enough that
+#          reporting it by default would be noise; shown only with
+#          `check_simplified.py --advisory`
+#
+# Grades are editorial judgement, seeded from the plainlanguage.gov list.
+# The build attaches two DESCRIPTIVE register statistics to each entry
+# (`register_lift`, `doc_spread`); they rank candidates for review and
+# decide nothing. Measured separation between the shipped `error` entries
+# and the rest is AUC 0.575 — barely better than a coin flip — which is
+# why an earlier `index:` field was removed from this file rather than
+# left to look load-bearing. Entries marked `source: judgment` carry no
+# measurement at all; argue with those first.
+#
+# Words already banned by docs/guides/STYLE.md (utilize, facilitate,
+# endeavor, ...) are dropped at build time so a single offence is not
+# reported twice. See the build report for the count.
+
+meta:
+  standard: Simplified Book English
+  abbrev: SBE
+  version: 1
+  based_on:
+    - "ASD-STE100 Simplified Technical English, Issue 9 — structure: writing
+       rules + controlled dictionary + a technical-name allowance"
+    - "Federal Plain Language Guidelines (2011) and the plainlanguage.gov
+       word-substitution list — both US government work, public domain"
+    - "ISO 24495-1:2023 Plain language, Part 1 — the four principles"
+    - "Wydick, Plain English for Lawyers — base verbs, surplus words"
+
+# Register evidence and revision advice are different axes. These terms are
+# strong components of bureaucratic/legal register, but the nine-book context
+# audit found that their technical uses were usually exact. They remain in the
+# comparison score while their substitutions move to advisory `idea` grade.
+marker_only:
+  - allocate
+  - commenced
+  - enumerate
+  - expiration
+  - implement
+  - notify
+  - promulgated
+  - requirement
+  - submit
+  - terminate
+  - transmit
+
+# ---------------------------------------------------------------------------
+# Words: don't say -> say
+# ---------------------------------------------------------------------------
+substitutions:
+
+  # -- error grade -----------------------------------------------------
+  # Only the here-/there- compounds and the pure legal formulas survive at
+  # error grade. Everything else was demoted after measurement: across nine
+  # shipped books the error grade produced nine findings and nine false
+  # positives -- quoted statutes, terms of art ("Payment in Lieu of Taxes"),
+  # and domain verbs a subject genuinely needs ("promulgated", in a chapter
+  # about the Federal Register). A grade that only fires on correct prose is
+  # a grade authors switch off.
+  - {from: promulgate,      to: "issue, publish",        grade: warn , source: plainlanguage.gov}
+  - {from: practicable,     to: "practical, workable",   grade: warn ,  source: plainlanguage.gov}
+  - {from: obligate,        to: "bind, commit",          grade: warn ,  source: plainlanguage.gov}
+  - {from: disseminate,     to: "send out, spread",      grade: warn ,  source: plainlanguage.gov}
+  - {from: thereof,         to: "its, their",            grade: error,  source: plainlanguage.gov}
+  - {from: notwithstanding, to: "despite, even so",      grade: warn ,  source: plainlanguage.gov}
+  - {from: expedite,        to: "hurry, speed up",       grade: warn ,  source: plainlanguage.gov}
+  - {from: expend,          to: spend,                   grade: warn ,  source: plainlanguage.gov}
+  - {from: expeditious,     to: "fast, quick",           grade: warn ,  source: plainlanguage.gov}
+  - {from: expeditiously,   to: "fast, quickly",         grade: warn , source: judgment}
+  - {from: remuneration,    to: "pay, payment",          grade: warn ,   source: plainlanguage.gov}
+  - {from: therein,         to: "there, in it",          grade: error, source: judgment}
+  - {from: thereto,         to: "to it, to that",        grade: error, source: judgment}
+  - {from: therefrom,       to: "from it",               grade: error, source: judgment}
+  - {from: thereunder,      to: "under it",              grade: error, source: judgment}
+  - {from: hereby,          to: "(omit)",                grade: error, source: judgment}
+  - {from: herein,          to: "here, in this book",    grade: error, source: judgment}
+  - {from: hereto,          to: "to this",               grade: error, source: judgment}
+  - {from: heretofore,      to: "until now, before now", grade: error, source: judgment}
+  - {from: hereinafter,     to: "from here on",          grade: error, source: judgment}
+  - {from: aforementioned,  to: "this, that, the",       grade: error, source: judgment}
+  - {from: aforesaid,       to: "this, that, the",       grade: error, source: judgment}
+  - {from: whatsoever,      to: "(omit), at all",        grade: warn,  source: judgment}
+  - {from: commence,        to: "begin, start",          grade: warn ,   source: plainlanguage.gov}
+  - {from: commenced,       to: "began, started",        grade: idea , source: judgment}
+  - {from: ascertain,       to: "find out, learn",       grade: warn , source: plainlanguage.gov}
+  # "enumerate" is a technical verb in mathematics and computing — the kind of
+  # word ASD-STE100 lets a domain keep. Keep the simpler alternative as an
+  # advisory idea rather than making every correct technical use a warning.
+  - {from: enumerate,       to: "count, list",           grade: idea,  source: plainlanguage.gov}
+  - {from: interpose,       to: "put in, object",        grade: warn , source: plainlanguage.gov}
+  - {from: promulgated,     to: "issued, published",     grade: idea , source: judgment}
+
+  # -- warn and idea grade ---------------------------------------------
+  # Ordered by register lift. The line between `warn` (reported) and
+  # `idea` (only with --advisory) is where the word stops being a marker
+  # of bureaucratic register and starts being a matter of taste.
+  - {from: submit,        to: "send, give, hand in",    grade: idea, source: plainlanguage.gov}
+  - {from: expiration,    to: "end",                    grade: idea, source: plainlanguage.gov}
+  - {from: terminate,     to: "end, stop",              grade: idea, source: plainlanguage.gov}
+  - {from: requirement,   to: "need, rule",             grade: idea, source: plainlanguage.gov}
+  - {from: notify,        to: "tell, let know",         grade: idea, source: plainlanguage.gov}
+  - {from: designate,     to: "name, choose, appoint",  grade: idea, source: plainlanguage.gov}
+  - {from: solicit,       to: "ask for",                grade: idea, source: plainlanguage.gov}
+  - {from: convene,       to: "meet, call together",    grade: idea, source: plainlanguage.gov}
+  - {from: preclude,      to: "prevent, rule out",      grade: idea, source: plainlanguage.gov}
+  - {from: implement,     to: "carry out, build, do",   grade: idea,  source: plainlanguage.gov}
+  - {from: allocate,      to: "divide, assign",         grade: idea,  source: plainlanguage.gov}
+  - {from: timely,        to: "prompt, on time",        grade: warn,  source: plainlanguage.gov}
+  - {from: transmit,      to: "send",                   grade: idea,  source: plainlanguage.gov}
+  - {from: equitable,     to: "fair",                   grade: idea,  source: plainlanguage.gov}
+  - {from: feasible,      to: "workable, possible",     grade: idea,  source: plainlanguage.gov}
+  - {from: regarding,     to: "about, on",              grade: idea,  source: plainlanguage.gov}
+  - {from: discontinue,   to: "stop, drop",             grade: idea,  source: plainlanguage.gov}
+  - {from: initiate,      to: "start, begin",           grade: idea,  source: plainlanguage.gov}
+  - {from: finalize,      to: "finish, settle",         grade: idea,  source: plainlanguage.gov}
+  - {from: liaison,       to: "contact, go-between",    grade: idea,  source: plainlanguage.gov}
+  - {from: relocate,      to: "move",                   grade: idea,  source: plainlanguage.gov}
+  - {from: proficiency,   to: "skill",                  grade: idea,  source: plainlanguage.gov}
+  - {from: subsequent,    to: "later, next",            grade: idea,  source: plainlanguage.gov}
+  - {from: methodology,   to: "method",                 grade: idea,  source: plainlanguage.gov}
+  - {from: constitutes,   to: "is, makes up",           grade: idea,  source: plainlanguage.gov}
+  - {from: utilization,   to: "use",                    grade: warn, source: plainlanguage.gov}
+  - {from: cognizant,     to: "aware",                  grade: idea, source: plainlanguage.gov}
+  - {from: promulgation,  to: "publication",            grade: idea, source: judgment}
+  - {from: prioritize,    to: "rank, put first",        grade: idea,  source: judgment}
+  - {from: sufficient,    to: "enough",                 grade: idea, source: plainlanguage.gov}
+  - {from: additional,    to: "more, other, added",     grade: idea, source: plainlanguage.gov}
+  - {from: attempt,       to: "try",                    grade: idea, source: plainlanguage.gov}
+  - {from: participate,   to: "take part, join",        grade: idea, source: plainlanguage.gov}
+  - {from: purchase,      to: "buy",                    grade: idea, source: plainlanguage.gov}
+  - {from: reside,        to: "live",                   grade: idea, source: plainlanguage.gov}
+  - {from: retain,        to: "keep",                   grade: idea, source: plainlanguage.gov}
+  - {from: assist,        to: "help",                   grade: idea, source: plainlanguage.gov}
+  - {from: obtain,        to: "get",                    grade: idea, source: plainlanguage.gov}
+  - {from: inquire,       to: "ask",                    grade: idea, source: plainlanguage.gov}
+  - {from: state-of-the-art, to: "the newest, the best", grade: warn, source: judgment}
+
+# ---------------------------------------------------------------------------
+# Phrases: don't say -> say. Matched on the flattened prose, case-insensitive,
+# word-boundary anchored. Keep them short; long patterns miss more than they
+# catch.
+# ---------------------------------------------------------------------------
+phrase_substitutions:
+
+  # -- error grade --------------------------------------------------------
+  - {from: pursuant to,            to: "under, following",     grade: error, source: plainlanguage.gov}
+  - {from: shall be deemed,        to: "counts as, is",        grade: error, source: judgment}
+  - {from: set forth in,           to: "in, listed in",        grade: error,  source: judgment}
+  # A strong bureaucratic marker in general prose, but also a necessary term
+  # in mathematics (differentiate/integrate "with respect to" a variable).
+  - {from: with respect to,        to: "about, for, on",       grade: warn,  source: plainlanguage.gov}
+  - {from: make a determination,   to: "decide",               grade: error,  source: judgment}
+  - {from: in accordance with,     to: "under, by, following", grade: error,  source: plainlanguage.gov}
+  # Also occurs inside established names such as Payment in Lieu of Taxes.
+  - {from: in lieu of,             to: "instead of",           grade: warn,  source: plainlanguage.gov}
+  - {from: give consideration to,  to: "consider",             grade: error,  source: judgment}
+  - {from: at this point in time,  to: "now",                  grade: error, source: plainlanguage.gov}
+  - {from: due to the fact that,   to: "because",              grade: error, source: plainlanguage.gov}
+  - {from: in the event that,      to: "if",                   grade: error, source: plainlanguage.gov}
+  - {from: until such time as,     to: "until",                grade: error, source: plainlanguage.gov}
+  - {from: for the reason that,    to: "because",              grade: error, source: judgment}
+  - {from: in spite of the fact that, to: "although",          grade: error, source: judgment}
+  - {from: it is incumbent upon,   to: "must",                 grade: error, source: plainlanguage.gov}
+  - {from: is of the opinion that, to: "thinks, argues",       grade: error, source: judgment}
+  - {from: during the course of,   to: "during",               grade: error, source: judgment}
+  - {from: in close proximity to,  to: "near",                 grade: error, source: plainlanguage.gov}
+  - {from: with a view to,         to: "to",                   grade: error, source: judgment}
+  - {from: in the amount of,       to: "for, of",              grade: error, source: plainlanguage.gov}
+  - {from: subsequent to,          to: "after",                grade: error,  source: plainlanguage.gov}
+  - {from: under the provisions of, to: "under",               grade: error, source: plainlanguage.gov}
+  - {from: with reference to,      to: "about",                grade: error, source: plainlanguage.gov}
+
+  # -- warn and idea grade -------------------------------------------------
+  - {from: for the purpose of,     to: "to, for",              grade: warn, source: plainlanguage.gov}
+  - {from: in excess of,           to: "more than, over",      grade: warn, source: plainlanguage.gov}
+  - {from: prior to,               to: "before",               grade: warn,  source: plainlanguage.gov}
+  - {from: in the absence of,      to: "without",              grade: warn,  source: judgment}
+  - {from: by virtue of,           to: "by, because of",       grade: warn,  source: judgment}
+  - {from: pertaining to,          to: "about, on",            grade: warn,  source: plainlanguage.gov}
+  - {from: with regard to,         to: "about, on",            grade: warn,  source: plainlanguage.gov}
+  - {from: in regard to,           to: "about, on",            grade: warn, source: plainlanguage.gov}
+  - {from: as to whether,          to: "whether",              grade: idea,  source: judgment}
+  - {from: take into account,      to: "consider, weigh",      grade: idea,  source: judgment}
+  - {from: in order to,            to: "to",                   grade: idea,  source: "Wydick; measured no more bureaucratic than general prose, but still three words for one"}
+  - {from: has the ability to,     to: "can",                  grade: idea, source: judgment}
+  - {from: is able to,             to: "can",                  grade: idea, source: judgment}
+  - {from: on a daily basis,       to: "daily, every day",     grade: idea, source: judgment}
+  - {from: on a regular basis,     to: "regularly, often",     grade: idea, source: judgment}
+  - {from: in the near future,     to: "soon",                 grade: idea, source: judgment}
+  - {from: a majority of,          to: "most",                 grade: idea, source: judgment}
+  - {from: the majority of,        to: "most",                 grade: idea, source: judgment}
+  - {from: a number of,            to: "some, several, many",  grade: idea, source: plainlanguage.gov}
+  - {from: with the exception of,  to: "except for",           grade: warn, source: plainlanguage.gov}
+  - {from: in conjunction with,    to: "with, alongside",      grade: idea, source: judgment}
+  - {from: at this time,           to: "now",                  grade: warn, source: plainlanguage.gov}
+  - {from: in terms of,            to: "(recast the sentence)", grade: idea, source: judgment}
+  - {from: the fact that,          to: "(recast the sentence)", grade: idea, source: Wydick}
+  - {from: and/or,                 to: "a or b, or both",      grade: warn, source: plainlanguage.gov}
+
+# ---------------------------------------------------------------------------
+# Always in the core lexicon, whatever the corpora say. Use sparingly: this
+# is for words a book about anything may need, not for one book's jargon
+# (that goes in book.yaml's `simplified_english.terms`).
+# ---------------------------------------------------------------------------
+always_core:
+  - o'clock
+  - ebook
+  - epub
+  - podcast
+  - dataset
+  - datasets
+  - offline
+  - online
+  - smartphone
+  - spreadsheet
+  - takeaway
+  - upfront
+  - workflow
+  - workflows
+
+# ---------------------------------------------------------------------------
+# Words a frequency list blesses and a book should not use unmarked.
+#
+# These are common enough in the reference corpora to land in `core` or
+# `open` -- `negro` reached the core tier on civil-rights educational
+# material and 19th-century fiction. Demoting them to `unlisted` does not
+# ban them: it means the first use has to be a deliberate act (a gloss,
+# a quotation, a \keyterm) rather than a default. That is the right
+# handling for a historical quotation and the wrong handling for careless
+# reuse, which is exactly the distinction the tiers exist to draw.
+#
+# Kept deliberately narrow: slurs and outdated ethnonyms and clinical terms,
+# not every word with an ugly history. Words with an ordinary modern sense
+# ("savage cuts", "a primitive tool") are not listed — friction there buys
+# nothing and teaches authors to ignore the tier.
+#
+# This is the editorial pass a derived word list cannot do for itself, and
+# the reason ASD-STE100 hand-curates its ~875 approved words.
+# ---------------------------------------------------------------------------
+never_core:
+  - negro
+  - negroes
+  - negress
+  - mulatto
+  - mulattos
+  - octoroon
+  - quadroon
+  - negroid
+  - mongoloid
+  - chinaman
+  - chinamen
+  - hottentot
+  - hottentots
+  - retarded
+  - midget
+  - midgets
+  - redskin
+  - redskins
+  - squaw
+  - squaws
+  - eskimo
+  - eskimos
+  - gypsy
+  - gypsies
+  - coolie
+  - coolies
+  - mohammedan
+  - mohammedans
+  - mahometan
+  - papist
+  - papists
+  - halfbreed
+  - half-breed
+  - imbecile
+  - imbeciles
+  - feebleminded
+  - feeble-minded
+  - deaf-mute
+
+# ---------------------------------------------------------------------------
+# Abbreviations everyone knows: no expansion needed on first use
+# (Federal Plain Language Guidelines, "If everyone knows an abbreviation,
+# use it without explanation"). Case-sensitive, as written.
+# ---------------------------------------------------------------------------
+abbreviation_exempt:
+  - AC
+  - AI
+  - AM
+  - ATM
+  - BBC
+  - CEO
+  - CFO
+  - CIA
+  - CD
+  - CO2
+  - COVID
+  - CPU
+  - DNA
+  - DVD
+  - EU
+  - FAQ
+  - FBI
+  - GB
+  - GDP
+  - GHz
+  - GPS
+  - GPU
+  - GW
+  - HIV
+  - HTML
+  - HTTP
+  - HTTPS
+  - IBM
+  - ID
+  - IQ
+  - IT
+  - JSON
+  - LED
+  - KB
+  - MB
+  - MHz
+  - MIT
+  - MW
+  - NASA
+  - NATO
+  - OK
+  - PC
+  - PDF
+  - PhD
+  - PIN
+  - PM
+  - RAM
+  - SMS
+  - TB
+  - TV
+  - UK
+  - UN
+  - URL
+  - US
+  - USA
+  - USB
+  - VHS
+  - kW
+  - kWh
+  - WWII
+  - XML
+
+# ---------------------------------------------------------------------------
+# Defaults for the checker. A book overrides any of these under
+# `simplified_english:` in book.yaml.
+# ---------------------------------------------------------------------------
+thresholds:
+  # Recurring terms outside the ordinary-corpus tiers are contextual review
+  # candidates. Severity when the first authorial use has no recognized
+  # explanation: warn | error | off.
+  unintroduced: warn
+  # Default triage starts with recurring vocabulary. `--advisory` restores
+  # single-use words as idea-grade findings; `--glossary` always includes all.
+  unintroduced_min_uses: 2
+  # How close to the first use the gloss must sit, in characters.
+  gloss_window: 400
+  # Abbreviations defined at first use; severity for ones that never are.
+  undefined_abbreviation: warn
+  # Report only the first N unintroduced terms per file, so one unusual
+  # chapter cannot bury the rest of the run.
+  max_findings_per_file: 40

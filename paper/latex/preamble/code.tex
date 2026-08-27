@@ -1,0 +1,56 @@
+%% ============================================================
+%% preamble/code.tex — listings environments (module: code)
+%%
+%% Purpose      : the code surface —
+%%                  codelisting  — \begin{codelisting}[language=Python,
+%%                                 caption={...}] ... \end{codelisting}
+%%                  \code{...}   — inline code (\lstinline-backed)
+%% Dependencies : listings (loaded here), colors.tex (code-* tokens),
+%%                fonts.tex (mono face). Loaded only when
+%%                \ifPaperModuleCode (paper.yaml modules.code).
+%% Note         : listings only — NO minted/pygments. minted needs
+%%                --shell-escape, which arXiv does not run; a pure-listings
+%%                paper uploads without a shell-escape failure.
+%% ============================================================
+
+\usepackage{listings}
+
+% The `#` fix (from vibe-coding): inside styles/hooks listings can see
+% `#` with parameter catcode and die "Illegal parameter number". Forcing
+% catcode 12 at listing init makes shell/Python comments safe everywhere.
+\makeatletter
+\lst@AddToHook{Init}{\catcode`\#=12\relax}
+\makeatother
+
+\lstdefinestyle{papercode}{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{code-keyword}\bfseries,
+  commentstyle=\color{code-comment}\itshape,
+  stringstyle=\color{code-string},
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  tabsize=4,
+  breaklines=true,
+  breakatwhitespace=true,
+  breakindent=1.5em,
+  postbreak=\mbox{{\color{code-comment}\footnotesize$\hookrightarrow$}\space},
+  frame=leftline,
+  framerule=1.5pt,
+  rulecolor=\color{code-frame},
+  backgroundcolor=\color{code-bg},
+  xleftmargin=12pt,
+  framexleftmargin=6pt,
+  aboveskip=0.9\baselineskip,
+  belowskip=0.9\baselineskip,
+  captionpos=b,
+  upquote=true,
+}
+
+\lstnewenvironment{codelisting}[1][]
+  {\lstset{style=papercode, #1}}
+  {}
+
+% NOTE: inline \code is defined in commands.tex as a robust \texttt wrapper
+% (works in tables, captions, and footnotes — where \lstinline is fragile).
+% Escape specials the standard way there (\_, \#, \%, \textbackslash).

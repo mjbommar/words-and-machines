@@ -1,0 +1,900 @@
+{
+  "name": "argumentation_schemes",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "Walton-style defeasible argumentation schemes — the recurring inference patterns of everyday, legal, and scientific reasoning — each with the critical questions that test its use.",
+  "categories": {
+    "source_based": [
+      {
+        "name": "argument from expert opinion",
+        "definition": "Source E is an expert in domain D, E asserts that A is true (or false) within D, therefore A may plausibly be taken as true.",
+        "critical_questions": [
+          "How credible is E as an expert source?",
+          "Is E an expert in the field that A actually falls in?",
+          "What did E assert, exactly, and does it entail A?",
+          "Is E personally reliable and free of conflicting interest?",
+          "Is A consistent with what other experts assert, and is it backed by evidence?"
+        ],
+        "example": "The bridge inspector, a licensed structural engineer, says the deck has lost load capacity; so it probably has.",
+        "caution": "Slides into the appeal-to-authority fallacy when the field is mismatched, the assertion is paraphrased loosely, or dissent is hidden."
+      },
+      {
+        "name": "argument from position to know",
+        "definition": "Source S is in a position to know about things in a certain domain and asserts that A is true in that domain, therefore A is plausibly true.",
+        "critical_questions": [
+          "Is S really in a position to know whether A holds?",
+          "Is S honest, and does S have a stake in the answer?",
+          "Did S actually assert A rather than something weaker?"
+        ],
+        "example": "The night shift supervisor was on the floor when the alarm sounded, and she says no one entered the vault."
+      },
+      {
+        "name": "argument from witness testimony",
+        "definition": "Witness W was in a position to observe event A, W testifies that A occurred, therefore A occurred.",
+        "critical_questions": [
+          "Was W in a position to observe the event, under what conditions?",
+          "Is W's testimony internally consistent and consistent with the known facts?",
+          "Does W have a bias, interest, or motive to shade the account?",
+          "How reliable is memory of this kind of event after this much time?"
+        ],
+        "example": "Two tellers testify that the man at the counter wore no mask.",
+        "caution": "Confidence in eyewitness testimony correlates weakly with accuracy; treat vividness as no evidence of reliability."
+      },
+      {
+        "name": "argument from corroborative testimony",
+        "definition": "Two or more independent sources assert A, therefore A is more plausible than either source alone would make it.",
+        "critical_questions": [
+          "Are the sources genuinely independent, or do they share an origin?",
+          "Could the agreement be explained by contagion, collusion, or a common rumor?",
+          "Do the accounts agree on the load-bearing detail or only the periphery?"
+        ],
+        "example": "Three vendors who never met each other describe the same defect in the same batch."
+      },
+      {
+        "name": "argument from expert consensus",
+        "definition": "The relevant expert community has converged on A through its own review procedures, therefore A is plausibly true.",
+        "critical_questions": [
+          "Is the convergence real, or is it manufactured by a single funder, journal, or school?",
+          "Was the consensus reached by independent replication or by deference?",
+          "How does the consensus handle its best-documented anomalies?"
+        ],
+        "example": "Every major statistical agency computes the series the same way, so the definition is not idiosyncratic.",
+        "aka": "argument from convergence of expert opinion"
+      },
+      {
+        "name": "argument from popular opinion",
+        "definition": "A is generally accepted as true, therefore there is a presumption in favor of A.",
+        "critical_questions": [
+          "Is A really generally accepted, or is that an impression from one's own circle?",
+          "Is there reason to think the many are in a position to know?",
+          "Is there specific evidence that outweighs the presumption?"
+        ],
+        "example": "Nearly every experienced sailor treats that channel as unsafe at low tide; that is at least a reason to check.",
+        "caution": "Legitimate only as a weak presumption; treated as proof it becomes the ad populum fallacy."
+      },
+      {
+        "name": "argument from popular practice",
+        "definition": "A course of action is what most people in a group actually do, therefore it is prudentially or normatively acceptable for a member of that group.",
+        "critical_questions": [
+          "Is the practice really widespread in the relevant group?",
+          "Does the practice reflect accumulated experience or mere convenience?",
+          "Are there known bad consequences the practice ignores?"
+        ],
+        "example": "Every yard in the trade double-checks the torque after a heat cycle, so we should too."
+      },
+      {
+        "name": "argument from common knowledge",
+        "definition": "A is common knowledge in the relevant community, therefore A may be asserted without further support.",
+        "critical_questions": [
+          "Is A actually common knowledge, or only assumed by the speaker?",
+          "Is the community whose knowledge is invoked the right one?",
+          "Has A been superseded since it became common?"
+        ],
+        "example": "Water boils lower on a mountain; no citation required."
+      },
+      {
+        "name": "argument from perception",
+        "definition": "An agent perceives that A is the case under normal conditions, therefore A is the case.",
+        "critical_questions": [
+          "Were the observing conditions normal — light, distance, attention, instrument calibration?",
+          "Is the perceptual claim a raw observation or an interpretation?",
+          "Is there a known illusion or artifact that produces this appearance?"
+        ],
+        "example": "The gauge reads zero pressure and the needle is not stuck; the line is empty."
+      },
+      {
+        "name": "argument from memory",
+        "definition": "An agent recalls that A occurred, therefore A occurred.",
+        "critical_questions": [
+          "How long ago, and how distinctive was the event?",
+          "Has the memory been rehearsed, suggested, or contaminated by later accounts?",
+          "Is there a contemporaneous record that agrees?"
+        ],
+        "example": "She remembers signing the form before the flood because she filed it that afternoon."
+      },
+      {
+        "name": "ethotic argument",
+        "definition": "An arguer's demonstrated character — honesty, practical wisdom, goodwill — is offered as a reason to accept what the arguer says.",
+        "critical_questions": [
+          "Is the character trait invoked relevant to the claim at hand?",
+          "Is the evidence of character actual conduct or self-presentation?",
+          "Does good character extend to competence in this domain?"
+        ],
+        "example": "He has reported his own errors twice before; when he says the number is wrong, it is worth a look.",
+        "aka": "argument from character to credibility"
+      },
+      {
+        "name": "argument from statement against interest",
+        "definition": "A source asserts something that damages the source's own position, therefore the assertion is more credible than an interested one.",
+        "critical_questions": [
+          "Does the statement really cut against the source's interest, all things considered?",
+          "Could the concession buy credibility for a larger claim?",
+          "Was the source aware the statement was damaging?"
+        ],
+        "example": "The company's own filing concedes the recall will cost a quarter of annual profit."
+      }
+    ],
+    "causal_and_explanatory": [
+      {
+        "name": "argument from cause to effect",
+        "definition": "Generally, if A occurs then B will occur; A has occurred (or will), therefore B may be expected.",
+        "critical_questions": [
+          "How strong is the causal generalization linking A to B?",
+          "Is the antecedent A actually established?",
+          "Are there interfering conditions in this case that would block B?"
+        ],
+        "example": "Cutting the subsidy raises the retail price; the subsidy was cut, so prices should rise."
+      },
+      {
+        "name": "argument from effect to cause",
+        "definition": "B has been observed; A is the kind of thing that produces B; therefore A occurred.",
+        "critical_questions": [
+          "Could B have been produced by something other than A?",
+          "How specific is B to A as a cause?",
+          "Is there independent evidence that A was present?"
+        ],
+        "example": "The scoring on the cylinder wall is what oil starvation does; the engine ran dry.",
+        "aka": "retroductive argument"
+      },
+      {
+        "name": "argument from correlation to causation",
+        "definition": "A and B are statistically associated, therefore A causes B.",
+        "critical_questions": [
+          "Is the correlation itself robust, or an artifact of sample or specification?",
+          "Could a third variable produce both A and B?",
+          "Could the causal direction run from B to A?",
+          "Is there a plausible mechanism and the right temporal order?"
+        ],
+        "example": "Districts that added tutoring saw scores rise faster, which is a reason — not yet a proof — that tutoring worked.",
+        "caution": "The single most-abused scheme in popular argument; without design or mechanism it is a hypothesis, not a finding."
+      },
+      {
+        "name": "argument from sign",
+        "definition": "A finding is taken as an indicator of a state of affairs, without any claim that the sign causes it.",
+        "critical_questions": [
+          "How reliably does this sign accompany the state of affairs?",
+          "How often does the sign appear without it?",
+          "Are there other signs pointing the other way?"
+        ],
+        "example": "Frost heave in the pavement is a sign the drainage under it has failed."
+      },
+      {
+        "name": "abductive argument",
+        "definition": "A body of facts is given; hypothesis H explains them better than the available alternatives; therefore H is plausibly true.",
+        "critical_questions": [
+          "How well does H account for all the facts, not just the salient ones?",
+          "What are the rival hypotheses, and were they seriously considered?",
+          "How much better is H than the runner-up, and on what criteria?",
+          "What further evidence would discriminate between H and its rivals?"
+        ],
+        "example": "Only a leak upstream explains the pressure drop, the wet insulation, and the timing together.",
+        "aka": "inference to the best explanation"
+      },
+      {
+        "name": "argument from a causal mechanism",
+        "definition": "A step-by-step process is identified by which A brings about B, therefore the causal claim is supported beyond mere association.",
+        "critical_questions": [
+          "Is each step of the proposed mechanism independently evidenced?",
+          "Does the mechanism operate at the scale and dose in question?",
+          "Could the mechanism be real but too weak to produce the observed effect?"
+        ],
+        "example": "The additive binds the catalyst site, which is why conversion falls off after the second pass."
+      },
+      {
+        "name": "argument to a common cause",
+        "definition": "Two correlated phenomena are explained by positing a single antecedent cause of both, rather than a link between them.",
+        "critical_questions": [
+          "Is the posited common cause independently observable?",
+          "Does it explain the timing and magnitude of both effects?",
+          "Would controlling for it make the association vanish?"
+        ],
+        "example": "Ice-cream sales and drownings both track summer heat."
+      },
+      {
+        "name": "argument from a counterfactual",
+        "definition": "But for A, B would not have occurred; therefore A was a cause of B.",
+        "critical_questions": [
+          "What is the comparison world, and is it specified precisely?",
+          "Would some other sufficient cause have produced B anyway (overdetermination)?",
+          "Is the counterfactual claim testable against any real comparison case?"
+        ],
+        "example": "Had the valve been replaced on schedule, the shutdown would not have happened.",
+        "caution": "Counterfactual claims are cheap to assert and hard to check; demand the comparison case."
+      },
+      {
+        "name": "argument from a necessary condition",
+        "definition": "B cannot occur without A; B occurred; therefore A was present (or: A is absent, therefore B cannot occur).",
+        "critical_questions": [
+          "Is A genuinely necessary, or only usual?",
+          "Is the necessity a matter of definition, of physical law, or of institutional rule?",
+          "Are there documented cases of B without A?"
+        ],
+        "example": "No quorum, no valid vote; the vote is void."
+      },
+      {
+        "name": "argument from a sufficient condition",
+        "definition": "A alone is enough to bring about B; A obtains; therefore B obtains.",
+        "critical_questions": [
+          "Is A sufficient by itself, or only in combination with background conditions?",
+          "Are the background conditions satisfied here?",
+          "Is there a defeater that suspends the sufficiency in this case?"
+        ],
+        "example": "A single missing signature voids the filing, and one is missing."
+      },
+      {
+        "name": "argument from intervention",
+        "definition": "Deliberately manipulating A changes B while everything else is held fixed, therefore A causes B.",
+        "critical_questions": [
+          "Was the intervention on A only, or did it move other variables?",
+          "Was assignment to the intervention independent of the outcome?",
+          "Does the manipulated version of A resemble the real-world version?"
+        ],
+        "example": "Randomly assigned reminder letters raised filing rates by four points."
+      },
+      {
+        "name": "argument from dose-response gradient",
+        "definition": "More of A is followed by more of B in an ordered way, therefore the association is more likely causal.",
+        "critical_questions": [
+          "Is the gradient monotone, or read into noisy categories?",
+          "Could confounding also be graded across the same levels?",
+          "Is a threshold or saturating effect being forced into a linear story?"
+        ],
+        "example": "Each additional hour of exposure raised failure rates step by step."
+      },
+      {
+        "name": "causal slippery slope argument",
+        "definition": "Taking the first step will set off a chain of causally linked consequences ending in an unacceptable outcome, therefore do not take the first step.",
+        "critical_questions": [
+          "Is each link in the chain independently plausible?",
+          "What is the cumulative probability of the whole chain?",
+          "Is there a stopping point or control that breaks the chain?"
+        ],
+        "example": "Waiving the review for one project makes the waiver routine, and then the review is dead.",
+        "caution": "Legitimate only when the intermediate links are argued; asserted as a chain it becomes the slippery-slope fallacy."
+      }
+    ],
+    "analogy_and_classification": [
+      {
+        "name": "argument from analogy",
+        "definition": "Case C1 is similar to case C2 in relevant respects; A is true in C1; therefore A is true in C2.",
+        "critical_questions": [
+          "Are the two cases similar in the respects that matter to the conclusion?",
+          "What are the relevant differences, and do they defeat the transfer?",
+          "Is there a third case similar to C1 in which A fails?"
+        ],
+        "example": "Licensing drivers improved road safety, so licensing operators should improve site safety."
+      },
+      {
+        "name": "argument from precedent",
+        "definition": "A prior case was decided a certain way; the present case falls within the same rule or rationale; therefore decide it the same way.",
+        "critical_questions": [
+          "Is the prior case actually governing, or merely persuasive?",
+          "Was the ruling on the point now at issue, or dictum?",
+          "Is there a material difference that distinguishes the present case?"
+        ],
+        "example": "We granted the extension on identical facts last quarter."
+      },
+      {
+        "name": "a fortiori argument",
+        "definition": "If the conclusion holds in a weaker case, then it holds all the more strongly in a stronger one.",
+        "critical_questions": [
+          "Do both cases lie on the same scale of the relevant property?",
+          "Is the present case really 'more so' on that scale?",
+          "Could the conclusion have a ceiling that the stronger case exceeds?"
+        ],
+        "example": "If a two-hour delay requires notice, a two-day delay certainly does.",
+        "aka": "argument from the stronger case"
+      },
+      {
+        "name": "argument from verbal classification",
+        "definition": "An item has a property that fits the classification term F, therefore the item can be classified as an F and treated accordingly.",
+        "critical_questions": [
+          "Does the item really have the defining property?",
+          "Is the classification term being used in its standard sense?",
+          "Does classifying it as F actually carry the consequence claimed?"
+        ],
+        "example": "The device stores and transmits health data, so it is a medical device under the rule."
+      },
+      {
+        "name": "argument from definition to verbal classification",
+        "definition": "A definition of F is offered, the item satisfies that definition, therefore the item is an F.",
+        "critical_questions": [
+          "Is the definition the accepted one in this context?",
+          "Was the definition chosen to produce the desired classification?",
+          "Does the item satisfy every clause of the definition?"
+        ],
+        "example": "A 'security' is an investment of money in a common enterprise with profits expected from others' efforts — and this is."
+      },
+      {
+        "name": "argument from vagueness of a verbal classification",
+        "definition": "A classification is too vague to apply reliably in this case, therefore the argument depending on it should not be accepted as it stands.",
+        "critical_questions": [
+          "Is the term vague in a way that matters to the case at hand?",
+          "Could a stipulated definition resolve the vagueness fairly?",
+          "Is the vagueness objection being used to evade a clear central case?"
+        ],
+        "example": "'Reasonable notice' has no fixed meaning here, so the breach claim cannot rest on it alone."
+      },
+      {
+        "name": "argument from arbitrariness of a verbal classification",
+        "definition": "The classification draws a line at a point no better justified than nearby alternatives, therefore the classification should not carry the weight placed on it.",
+        "critical_questions": [
+          "Is the line genuinely arbitrary, or defensible on administrability grounds?",
+          "Would any line do better, or is some line needed?",
+          "Does the case fall near the line or well inside it?"
+        ],
+        "example": "Why is the cutoff fifty employees rather than forty-nine?"
+      },
+      {
+        "name": "argument from example",
+        "definition": "One or more instances of a kind are cited to support a general claim about that kind.",
+        "critical_questions": [
+          "Is the example accurately described?",
+          "Is it typical of the class, or exceptional?",
+          "How many counter-instances are known?"
+        ],
+        "example": "Two of the three plants that adopted the process cut waste in half."
+      },
+      {
+        "name": "argument from a paradigm case",
+        "definition": "A clear central instance fixes the meaning or standard for a term, and the disputed case is measured against it.",
+        "critical_questions": [
+          "Is the case offered really paradigmatic for the community that uses the term?",
+          "Does the disputed case share the paradigm's essential features?",
+          "Has the paradigm shifted over time?"
+        ],
+        "example": "If this is not a conflict of interest, nothing is."
+      },
+      {
+        "name": "argument from composition",
+        "definition": "Every part of a whole has property P, therefore the whole has property P.",
+        "critical_questions": [
+          "Is P the kind of property that aggregates from parts to wholes?",
+          "Do interactions between the parts change the property?",
+          "Do all the parts really have P?"
+        ],
+        "example": "Each stage of the process is reversible, so the whole process is reversible.",
+        "caution": "Valid only for additive or structure-independent properties; otherwise the fallacy of composition."
+      },
+      {
+        "name": "argument from division",
+        "definition": "A whole has property P, therefore its parts have property P.",
+        "critical_questions": [
+          "Is P distributive over parts?",
+          "Is the part in question a typical part or a special one?",
+          "Does the whole have P only in virtue of arrangement?"
+        ],
+        "example": "The fleet averages nine years old, so this aircraft is about nine years old.",
+        "caution": "Fails for emergent or averaged properties."
+      },
+      {
+        "name": "argument from an established practice standard",
+        "definition": "The disputed conduct is classified by reference to what the recognized standard of the field requires.",
+        "critical_questions": [
+          "Is the standard the recognized one, and current?",
+          "Does the standard actually cover this conduct?",
+          "Is the standard itself defensible, or merely customary?"
+        ],
+        "example": "The inspection interval is set by the maintenance standard, and this interval was double it."
+      }
+    ],
+    "practical_and_value": [
+      {
+        "name": "practical reasoning",
+        "definition": "I have goal G; action A is a means to G; therefore I should do A.",
+        "critical_questions": [
+          "Are there other means to G, and is A the best of them?",
+          "Is G a legitimate goal, and is it my most important one here?",
+          "Is A actually possible for me to carry out?",
+          "What are A's side effects, and do they outweigh G?"
+        ],
+        "example": "We want the site open by March; only prefabrication gets us there; so prefabricate.",
+        "aka": "means-end reasoning"
+      },
+      {
+        "name": "value-based practical reasoning",
+        "definition": "Action A promotes a value V that the audience holds; therefore A should be done.",
+        "critical_questions": [
+          "Does the audience actually hold V, or is it being imputed?",
+          "Does A really promote V rather than merely symbolize it?",
+          "Which competing values does A set back?"
+        ],
+        "example": "Publishing the raw data serves transparency, which this institution says it values."
+      },
+      {
+        "name": "argument from positive consequences",
+        "definition": "If A is brought about, good consequences will follow; therefore A should be brought about.",
+        "critical_questions": [
+          "How likely are the good consequences?",
+          "Are they good by the audience's standards or only the speaker's?",
+          "What negative consequences accompany them?"
+        ],
+        "example": "Moving the deadline gives every team a full test cycle."
+      },
+      {
+        "name": "argument from negative consequences",
+        "definition": "If A is brought about, bad consequences will follow; therefore A should not be brought about.",
+        "critical_questions": [
+          "How likely and how severe are the bad consequences?",
+          "Can they be mitigated rather than avoided by dropping A?",
+          "Are the consequences of not doing A worse?"
+        ],
+        "example": "Cutting the maintenance window guarantees an unplanned outage later."
+      },
+      {
+        "name": "argument from threat",
+        "definition": "If you do not accept A or do B, I (or my side) will bring about something bad for you.",
+        "critical_questions": [
+          "Is the threatened consequence within the threatener's power?",
+          "Is the threat legitimate — a lawful sanction — or coercion?",
+          "Does the threat bear on the truth of A at all, or only on compliance?"
+        ],
+        "example": "Miss the filing date and the license lapses by operation of law.",
+        "caution": "Legitimate as a warning about real sanctions; illegitimate when offered as a reason to believe rather than to act."
+      },
+      {
+        "name": "argument from fear appeal",
+        "definition": "A frightening outcome is depicted, and a course of action is offered as the way to avoid it.",
+        "critical_questions": [
+          "Is the depicted outcome realistic in probability and magnitude?",
+          "Is the recommended action actually effective against it?",
+          "Is fear doing work that evidence should be doing?"
+        ],
+        "example": "Untreated, this corrodes to failure; replacing the section now avoids that."
+      },
+      {
+        "name": "argument from danger appeal",
+        "definition": "A course of action carries a specific hazard to the audience, therefore avoid it.",
+        "critical_questions": [
+          "Is the hazard documented for this situation?",
+          "Is the audience actually exposed to it?",
+          "Is the safer alternative genuinely safer overall?"
+        ],
+        "example": "The ledge ices over after dusk; take the lower path."
+      },
+      {
+        "name": "argument from need for help",
+        "definition": "Someone is in need, you are able to help at proportionate cost, therefore you should help.",
+        "critical_questions": [
+          "Is the need real and as described?",
+          "Are you actually in a position to help effectively?",
+          "Does helping impose costs that fall on others?"
+        ],
+        "example": "The clinic will close without a bridge grant, and the foundation has uncommitted funds."
+      },
+      {
+        "name": "argument from distress",
+        "definition": "The suffering of a person or group is presented as itself a reason to act.",
+        "critical_questions": [
+          "Is the distress accurately portrayed and representative?",
+          "Does the proposed action relieve it?",
+          "Is a single vivid case standing in for an unexamined general claim?"
+        ],
+        "example": "Families are sleeping in cars two blocks from the empty units.",
+        "caution": "Slides into the appeal to pity when the distress is real but disconnected from the remedy proposed."
+      },
+      {
+        "name": "argument from waste",
+        "definition": "Abandoning the course of action now would waste what has already been invested, therefore continue.",
+        "critical_questions": [
+          "Are the past costs recoverable by continuing, or already sunk?",
+          "Judged from today, is completion still worth its remaining cost?",
+          "Is the waste framing masking an escalation of commitment?"
+        ],
+        "example": "We are eighty percent through the migration; stopping strands the work.",
+        "aka": "sunk cost argument",
+        "caution": "Rational only when continuation has independent value or when partial work has salvage value."
+      },
+      {
+        "name": "argument from sacrifice",
+        "definition": "Someone has borne a real cost for a cause, therefore the cause deserves support or the sacrifice deserves honoring.",
+        "critical_questions": [
+          "Was the sacrifice made for the cause now invoked?",
+          "Does honoring it require this particular policy?",
+          "Is the sacrifice being used to foreclose criticism?"
+        ],
+        "example": "The unit gave up its bonus pool to keep the line running through the recession."
+      },
+      {
+        "name": "argument from alternatives",
+        "definition": "The options are A and B; B is unacceptable; therefore A.",
+        "critical_questions": [
+          "Is the list of options exhaustive?",
+          "Is B genuinely unacceptable, or merely unattractive?",
+          "Could a combination or a modified option beat both?"
+        ],
+        "example": "Either we shorten the scope or we slip the date; the date is contractual.",
+        "caution": "Collapses into the false dilemma when the option list is truncated."
+      },
+      {
+        "name": "argument from opportunity cost",
+        "definition": "The resources A consumes have a better alternative use, therefore A should not be undertaken.",
+        "critical_questions": [
+          "Is the alternative use actually available to these resources?",
+          "Is its return estimated on comparable terms?",
+          "Does A produce benefits the alternative cannot?"
+        ],
+        "example": "The same crew-hours would clear the entire backlog of safety work."
+      },
+      {
+        "name": "argument from precaution",
+        "definition": "The potential harm is severe and irreversible and the science is unsettled, therefore act to prevent it before proof arrives.",
+        "critical_questions": [
+          "Is the harm both plausible and irreversible?",
+          "Is the precaution itself free of comparable harms?",
+          "What evidence would end the uncertainty, and how fast can it be got?"
+        ],
+        "example": "Stop the discharge while the groundwater tests run.",
+        "caution": "Symmetric application matters: inaction has risks too, and precaution can be invoked on both sides."
+      },
+      {
+        "name": "argument from a value hierarchy",
+        "definition": "Two goods conflict; one is ranked above the other in a hierarchy the audience accepts; therefore prefer the higher.",
+        "critical_questions": [
+          "Is the ranking one the audience actually endorses?",
+          "Is the conflict genuine, or can both be served?",
+          "Is the ranking context-dependent in a way that reverses it here?"
+        ],
+        "example": "Safety outranks schedule in this organization's stated order of priorities."
+      }
+    ],
+    "rule_and_precedent": [
+      {
+        "name": "argument from an established rule",
+        "definition": "A rule requires that in circumstances C, action A be taken; C obtains; therefore A must be taken.",
+        "critical_questions": [
+          "Is the rule in force and applicable to this actor?",
+          "Do the present circumstances actually satisfy C?",
+          "Is there a recognized exception that applies?"
+        ],
+        "example": "Filings over the threshold require board approval, and this one is over."
+      },
+      {
+        "name": "argument from an exceptional case",
+        "definition": "The case falls under the rule's letter but within a recognized exception, therefore the rule's normal consequence does not follow.",
+        "critical_questions": [
+          "Is the exception recognized, or invented for the occasion?",
+          "Does this case fall within the exception's own conditions?",
+          "Would the exception swallow the rule if generalized?"
+        ],
+        "example": "Emergency repairs are exempt from the pre-approval requirement."
+      },
+      {
+        "name": "argument from plain meaning",
+        "definition": "The text's ordinary meaning settles the question, therefore no further interpretation is needed.",
+        "critical_questions": [
+          "Is the meaning plain to the relevant readership, or only to the speaker?",
+          "Is there a term of art that displaces ordinary usage?",
+          "Does the plain reading produce an absurd result?"
+        ],
+        "example": "'Any vehicle' includes bicycles unless the code defines otherwise."
+      },
+      {
+        "name": "argument from legislative purpose",
+        "definition": "The rule was adopted to achieve a purpose; the reading that serves that purpose should be preferred.",
+        "critical_questions": [
+          "Is the purpose evidenced in the text or record, or reconstructed?",
+          "Was there one purpose or a compromise among several?",
+          "Does the purposive reading stretch the text past what it can bear?"
+        ],
+        "example": "The notice period exists so tenants can find housing; a weekend-only notice defeats it.",
+        "aka": "purposive interpretation"
+      },
+      {
+        "name": "argument for a constitutive rule",
+        "definition": "An institutional fact holds because a rule constitutes it — the rule does not regulate a prior activity but creates it.",
+        "critical_questions": [
+          "Is the rule constitutive rather than merely regulative?",
+          "Were the rule's conditions actually satisfied in the required form?",
+          "Does the institution recognize the resulting status?"
+        ],
+        "example": "Signing in front of two witnesses is what makes it a will."
+      },
+      {
+        "name": "argument from consistency of application",
+        "definition": "Relevantly like cases have been treated a certain way, therefore this case must be treated the same absent a stated distinction.",
+        "critical_questions": [
+          "Are the comparison cases relevantly alike?",
+          "Was the prior treatment correct, or is it an error being propagated?",
+          "Has a general policy change been announced?"
+        ],
+        "example": "Three earlier applicants with the same gap got waivers."
+      },
+      {
+        "name": "argument from negative implication",
+        "definition": "A rule lists certain items, therefore items not listed are excluded.",
+        "critical_questions": [
+          "Is the list exhaustive or illustrative?",
+          "Was the omission deliberate or an oversight?",
+          "Does another provision cover the omitted item?"
+        ],
+        "example": "The statute exempts hospitals and schools; clinics are not on the list.",
+        "aka": "expressio unius est exclusio alterius"
+      },
+      {
+        "name": "argument from distinguishing a case",
+        "definition": "A cited precedent or analogy is set aside by identifying a difference material to its rationale.",
+        "critical_questions": [
+          "Is the difference material to the reason the prior case came out as it did?",
+          "Would the distinction, if accepted, leave a coherent rule?",
+          "Is the distinction ad hoc — drawn only to escape this precedent?"
+        ],
+        "example": "That ruling concerned a voluntary disclosure; this one was compelled."
+      },
+      {
+        "name": "argument from custom",
+        "definition": "A settled, long-observed practice in a trade or community has normative force in the absence of a written rule.",
+        "critical_questions": [
+          "Is the custom settled and generally observed, or occasional?",
+          "Do the parties belong to the community that observes it?",
+          "Does the custom conflict with a written rule or with fairness?"
+        ],
+        "example": "In this trade, unsigned change orders have always been honored at the quoted rate."
+      },
+      {
+        "name": "precedent slippery slope argument",
+        "definition": "Deciding this case a certain way would commit the decider, by consistency, to unacceptable decisions in later cases; therefore decide otherwise.",
+        "critical_questions": [
+          "Is the later case really covered by the same rationale?",
+          "Can a principled stopping line be stated in advance?",
+          "Is the feared later case actually unacceptable?"
+        ],
+        "example": "Grant this waiver and you cannot deny the next twenty on the same facts."
+      }
+    ],
+    "dialectical_and_burden": [
+      {
+        "name": "argument from commitment",
+        "definition": "The other party is committed to proposition A by earlier statements or role; A implies B; therefore they must accept B.",
+        "critical_questions": [
+          "Is the party really committed to A, and in the same sense?",
+          "Does A actually imply B?",
+          "Can the party retract A at acceptable cost?"
+        ],
+        "example": "You endorsed the same formula last year; it yields this number now."
+      },
+      {
+        "name": "argument from inconsistent commitment",
+        "definition": "The other party holds two commitments that cannot both stand, therefore at least one must be abandoned.",
+        "critical_questions": [
+          "Is the inconsistency real, or resolved by a distinction?",
+          "Are both commitments current?",
+          "Which commitment is the party more attached to, and does the argument's conclusion follow from dropping either?"
+        ],
+        "example": "You cannot both call the sample too small and cite its subgroup result."
+      },
+      {
+        "name": "reductio ad absurdum",
+        "definition": "Assume the opponent's thesis, derive from it a contradiction or a plainly unacceptable consequence, conclude the thesis is false.",
+        "critical_questions": [
+          "Does the derivation use only the opponent's premises plus agreed ones?",
+          "Is the derived consequence genuinely unacceptable to the opponent?",
+          "Which premise does the absurdity actually indict?"
+        ],
+        "example": "If every disputed vote must be recounted by hand, the certification deadline cannot be met at all."
+      },
+      {
+        "name": "argument from ignorance",
+        "definition": "A has not been shown to be true despite a search where evidence would have appeared, therefore A may be presumed false (or vice versa).",
+        "critical_questions": [
+          "Was the search thorough enough that evidence would have turned up?",
+          "Is this a domain with epistemic closure — a complete database, an exhaustive audit?",
+          "Where does the burden of proof lie?"
+        ],
+        "example": "The registry has no such license, and the registry is complete; there is no license.",
+        "aka": "argumentum ad ignorantiam",
+        "caution": "Legitimate only under a closed-world assumption; otherwise the appeal-to-ignorance fallacy."
+      },
+      {
+        "name": "argument from silence",
+        "definition": "A source that would have mentioned A does not mention it, therefore A probably did not occur.",
+        "critical_questions": [
+          "Would this source have had occasion and reason to mention A?",
+          "Is the source complete, or does it survive in fragments?",
+          "Are there conventions of omission in this genre of source?"
+        ],
+        "example": "The audited accounts list every transfer over ten thousand and show none that quarter.",
+        "aka": "ex silentio"
+      },
+      {
+        "name": "argument from burden of proof",
+        "definition": "The party asserting A bears the burden of establishing it; the burden has not been met; therefore A is not accepted.",
+        "critical_questions": [
+          "Which party properly bears the burden in this kind of dispute?",
+          "What standard of proof applies?",
+          "Has the burden shifted through a prima facie showing?"
+        ],
+        "example": "The claim of prior use was never documented, so it fails on the record."
+      },
+      {
+        "name": "argument from presumption",
+        "definition": "In the absence of sufficient evidence either way, a default position holds and the other side must displace it.",
+        "critical_questions": [
+          "Is the default the right one for this forum and question?",
+          "What is the standard for rebutting it?",
+          "Has enough been offered to shift the presumption?"
+        ],
+        "example": "The instrument is presumed valid unless a defect is shown."
+      },
+      {
+        "name": "argument from a dilemma",
+        "definition": "Two exhaustive alternatives each lead to the same conclusion, therefore the conclusion holds either way.",
+        "critical_questions": [
+          "Are the horns exhaustive?",
+          "Does each horn really yield the stated conclusion?",
+          "Can one grasp a horn — accept it with its consequences?"
+        ],
+        "example": "Either the log was altered or the clock was wrong; either way the timestamp cannot be relied on."
+      },
+      {
+        "name": "argument from universalizability",
+        "definition": "A judgment must hold for all relevantly similar cases including those where the arguer's own interests reverse, therefore test it by role reversal.",
+        "critical_questions": [
+          "Are the cases relevantly similar under a stated criterion?",
+          "Would the arguer accept the judgment with the roles reversed?",
+          "Is there a principled asymmetry between the positions?"
+        ],
+        "example": "Would you accept this evidentiary standard if it were applied to your own filing?",
+        "aka": "role-reversal argument"
+      },
+      {
+        "name": "argument from gradualism",
+        "definition": "Move the opponent from an accepted position to a contested one through a series of small, individually acceptable steps.",
+        "critical_questions": [
+          "Is each step really small enough to follow from the last?",
+          "Does the cumulative move preserve the meaning of the original concession?",
+          "Where, if anywhere, should the opponent have stopped?"
+        ],
+        "example": "You accept disclosure at ten thousand; why not nine; why not eight?",
+        "caution": "The engine behind sorites-style slopes; legitimate as a probe, abusive as a trap."
+      },
+      {
+        "name": "argument from concession",
+        "definition": "Grant a point the opponent values in order to isolate the real point of disagreement and show the conclusion still stands.",
+        "critical_questions": [
+          "Is the conceded point actually severable from the conclusion?",
+          "Does the concession cost more later than it buys now?",
+          "Is the remaining issue the one that decides the case?"
+        ],
+        "example": "Grant that the survey was well designed; it still cannot answer a question about causes."
+      }
+    ],
+    "attack_and_undercut": [
+      {
+        "name": "direct ad hominem",
+        "definition": "The arguer's character for honesty or judgment is attacked as a reason to discount their argument.",
+        "critical_questions": [
+          "Is the character claim documented?",
+          "Is character relevant here — is the claim testimonial rather than demonstrative?",
+          "Would the argument stand on its own evidence regardless of who made it?"
+        ],
+        "example": "He has twice been found to have falsified data, which bears on whether to take his unreplicated result on trust.",
+        "caution": "Legitimate only against source-based arguments; against a demonstration it is the abusive ad hominem fallacy."
+      },
+      {
+        "name": "circumstantial ad hominem",
+        "definition": "The arguer's situation — employment, funding, membership — is cited as grounds to discount the argument.",
+        "critical_questions": [
+          "Is the circumstance real and material to the claim?",
+          "Does the circumstance plausibly influence this particular judgment?",
+          "Is independent evidence for the claim available?"
+        ],
+        "example": "The study finding no risk was funded by the manufacturer, which is a reason to look hard at the methods."
+      },
+      {
+        "name": "bias ad hominem",
+        "definition": "An arguer is shown to have an interest that makes their testimony less credible than a disinterested source's.",
+        "critical_questions": [
+          "What is the interest, and which way would it push the testimony?",
+          "Is the arguer presenting themselves as impartial?",
+          "Is the testimony corroborated by an uninterested source?"
+        ],
+        "example": "She stands to receive the contract she is recommending."
+      },
+      {
+        "name": "tu quoque",
+        "definition": "The arguer is shown not to practice what they argue for, undermining their standing or exposing an inconsistent commitment.",
+        "critical_questions": [
+          "Does the inconsistency touch the claim's truth or only the arguer's standing?",
+          "Is the hypocrisy documented?",
+          "Could both the advice and the criticism of the adviser be correct?"
+        ],
+        "example": "The auditor's own filings are late.",
+        "caution": "Only ever attacks credibility, never the argument's merits."
+      },
+      {
+        "name": "poisoning the well",
+        "definition": "Adverse information about a source is introduced before the source speaks, so that anything said is discounted in advance.",
+        "critical_questions": [
+          "Is the adverse information true and relevant?",
+          "Is it being used to prevent the argument from being heard at all?",
+          "Would the audience evaluate the evidence differently without the preface?"
+        ],
+        "example": "Before the witness testifies, the jury hears that he has changed his story twice.",
+        "caution": "Sometimes a legitimate impeachment; abusive when preemptive and unrebuttable."
+      },
+      {
+        "name": "impeachment by prior inconsistent statement",
+        "definition": "A source's present assertion is undermined by showing they earlier asserted the opposite.",
+        "critical_questions": [
+          "Are the two statements really inconsistent, or context-dependent?",
+          "Has the source explained the change on the record?",
+          "Which statement was made closer to the events and under better conditions?"
+        ],
+        "example": "In the deposition he put the meeting in April; today he says March."
+      },
+      {
+        "name": "argument from motive",
+        "definition": "A party's motive to produce the claim is offered as a reason to suspect it.",
+        "critical_questions": [
+          "Is the motive established rather than surmised?",
+          "Do people with this motive typically produce false claims of this kind?",
+          "Does motive explain the specific evidence, or only its existence?"
+        ],
+        "example": "The complaint arrived the week after the termination.",
+        "caution": "Motive shows why someone might lie, never that they did."
+      },
+      {
+        "name": "rebuttal by counterexample",
+        "definition": "A universal or generic claim is defeated by exhibiting an instance that falls under it and fails it.",
+        "critical_questions": [
+          "Does the instance genuinely fall within the claim's scope?",
+          "Is the claim strictly universal or a defeasible generalization?",
+          "Is the counterexample real and correctly described?"
+        ],
+        "example": "'No open-source project sustains paid maintainers' — several do."
+      },
+      {
+        "name": "undercutting defeater",
+        "definition": "Rather than denying the conclusion or a premise, the attack severs the link — showing that in these conditions the premises fail to support the conclusion.",
+        "critical_questions": [
+          "What specific condition breaks the inference?",
+          "Is that condition present here?",
+          "Would the inference be restored if the condition were removed?"
+        ],
+        "example": "The color reading is no evidence here, because the object is lit by sodium lamps."
+      },
+      {
+        "name": "argument from an alternative explanation",
+        "definition": "An abductive argument is rebutted by presenting a rival hypothesis that accounts for the same evidence at least as well.",
+        "critical_questions": [
+          "Does the rival explain all the evidence, not just part?",
+          "Is the rival independently plausible?",
+          "What observation would separate the two?"
+        ],
+        "example": "The spike also follows from the reporting change made that month."
+      },
+      {
+        "name": "argument from expert disagreement",
+        "definition": "Qualified experts in the field disagree about A, therefore the appeal to any one of them cannot settle A.",
+        "critical_questions": [
+          "Is the disagreement among comparably qualified experts?",
+          "Is it about A itself or about a neighboring question?",
+          "Is one side's position marginal within the field?"
+        ],
+        "example": "Two national panels reached opposite recommendations from the same trials.",
+        "caution": "Manufactured disagreement is the standard way to create false balance; check the weight, not just the existence, of dissent."
+      }
+    ]
+  }
+}

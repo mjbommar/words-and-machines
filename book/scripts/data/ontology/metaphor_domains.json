@@ -1,0 +1,1437 @@
+{
+  "name": "metaphor_domains",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "The stock of source domains a writer can draw vehicles from and the abstract targets that attract them, each with the entailments it imports, plus the controls for choosing, extending, and retiring a domain and the rules governing what happens when two domains meet.",
+  "categories": {
+    "source_domains": [
+      {
+        "name": "journey and path",
+        "definition": "Purposeful movement along a route: departure, distance covered, obstacles, arrival.",
+        "entailments": [
+          "a destination exists and is known",
+          "progress is linear and measurable",
+          "delay is failure",
+          "there is a right road and wrong turnings",
+          "someone is leading"
+        ],
+        "example": "Three years in, the project had left the road it started on and was making its own track.",
+        "effect": "Converts any process into something with direction and a finish line, which readers find inherently reassuring.",
+        "caution": "Exhausted. This is the single most overused source domain in English nonfiction and the default an LLM reaches for first — journey, path, roadmap, milestone, next steps. Assume it is taken and pick another.",
+        "tags": ["default", "exhausted", "process"],
+        "see_also": "rhetorical_figures/metaphor_family"
+      },
+      {
+        "name": "war and combat",
+        "definition": "Organized violence between opposed sides: attack, defence, territory, casualties, victory.",
+        "entailments": [
+          "there are two sides and only two",
+          "one side must lose for the other to win",
+          "the other side is an enemy, not an interlocutor",
+          "escalation is rational",
+          "compromise is defeat"
+        ],
+        "example": "She defended the position for an hour, conceded no ground, and destroyed the objection.",
+        "effect": "Raises stakes and supplies drama at no cost, which is exactly why it is so easy to reach for.",
+        "caution": "Exhausted, and ideologically expensive: it imports zero-sum logic into subjects that are not zero-sum. Applied to argument it makes persuasion look like conquest and agreement look like surrender. Applied to illness it makes dying look like losing.",
+        "tags": ["default", "exhausted", "loaded"],
+        "see_also": "discourse_moves/framing_moves"
+      },
+      {
+        "name": "container and contents",
+        "definition": "A bounded volume with an inside, an outside, a rim, and a capacity.",
+        "entailments": [
+          "there is a boundary and it is sharp",
+          "things are either in or out",
+          "capacity is finite and can overflow",
+          "contents can be emptied and refilled",
+          "what is inside is hidden"
+        ],
+        "example": "The category leaked; by the third case it held nothing at all.",
+        "effect": "So basic that it works below notice — it is how English talks about minds, texts, groups, and states.",
+        "caution": "Mostly invisible rather than exhausted, but it smuggles in hard edges: any subject with fuzzy membership gets falsely bounded the moment you say in or outside.",
+        "tags": ["primary", "spatial"],
+        "see_also": [
+          "rhetorical_figures/metonymy_and_naming_family",
+          "rhetorical_figures/metaphor_family"
+        ]
+      },
+      {
+        "name": "machine and mechanism",
+        "definition": "A built assembly of parts that transmits force to do work: gears, levers, drive trains, tolerances, breakdowns.",
+        "entailments": [
+          "the whole decomposes into parts",
+          "parts are replaceable",
+          "failure is localized and repairable",
+          "someone designed it for a purpose",
+          "nothing in it wants anything"
+        ],
+        "example": "The committee ran with a lot of play in the linkage: you turned the handle and something moved, eventually, elsewhere.",
+        "effect": "Makes a system feel analysable and fixable, and gives you a large working vocabulary of parts and failures.",
+        "caution": "It denies agency. Everyone described mechanically stops being a person with reasons — useful when that is your claim, dishonest when it is not. Also invites the false promise that the fix is a part swap.",
+        "tags": ["systems", "agency-denying"]
+      },
+      {
+        "name": "body and organism",
+        "definition": "A living whole with organs, limbs, circulation, growth, and death.",
+        "entailments": [
+          "the parts are not separable without killing the whole",
+          "health and sickness are natural states",
+          "it grows and it dies on its own schedule",
+          "there is a head that governs",
+          "it has interests of its own"
+        ],
+        "example": "The department's nervous system was fine; it was the circulation that had stopped, and the extremities knew it first.",
+        "effect": "Grants a system unity and interests — the exact opposite of the machine's entailments, from the same slot.",
+        "caution": "The head-governs-limbs entailment is old political propaganda (the body politic); using the domain for an institution quietly argues that hierarchy is natural and dissent is illness.",
+        "tags": ["systems", "loaded"]
+      },
+      {
+        "name": "hydraulics and fluid",
+        "definition": "Liquid under pressure in a bounded system: flow, head, blockage, leak, reservoir, surge.",
+        "entailments": [
+          "volume is conserved — what is dammed here appears there",
+          "pressure builds when flow is blocked",
+          "the medium is uniform and interchangeable",
+          "gravity chooses the direction",
+          "leaks find the weakest point"
+        ],
+        "example": "Suppress the complaint at the top and it comes out of the joints — pressure has to go somewhere.",
+        "effect": "Excellent for anything where suppression displaces rather than removes: money, rumour, demand, emotion.",
+        "caution": "Conservation is a strong claim. The domain insists nothing is destroyed, only moved, and that is often false of the subject.",
+        "tags": ["systems", "process"]
+      },
+      {
+        "name": "weather and climate",
+        "definition": "Atmospheric conditions and their statistics: fronts, storms, drought, prevailing winds, the difference between a day and a decade.",
+        "entailments": [
+          "no one is responsible",
+          "it can be forecast but not controlled",
+          "conditions pass",
+          "there is a difference between an event and a trend",
+          "everyone in the region gets the same weather"
+        ],
+        "example": "The scandal was weather. The thing that had changed underneath it was climate, and nobody was reporting that.",
+        "effect": "The weather-versus-climate distinction is one of the few metaphors that carries a genuine analytic idea for free.",
+        "caution": "The no-one-is-responsible entailment is a gift to whoever caused the thing you are describing. Never apply it to a subject with an agent.",
+        "tags": ["natural", "agency-denying"]
+      },
+      {
+        "name": "seafaring and navigation",
+        "definition": "Moving a vessel over water without landmarks: bearings, dead reckoning, drift, soundings, harbours, crews.",
+        "entailments": [
+          "position must be inferred, not observed",
+          "there is drift you cannot feel",
+          "the medium is indifferent and dangerous",
+          "one person commands",
+          "you can be confidently, catastrophically off"
+        ],
+        "example": "They had been running on dead reckoning for two years — no fix, no sounding, just the log and a lot of confidence.",
+        "effect": "Best domain in English for describing decisions made under real uncertainty, because it distinguishes knowing where you are from believing it.",
+        "caution": "Adjacent to journey and prone to collapsing into it. If your nautical figure reduces to on course or off track, you are writing journey with a boat in it.",
+        "tags": ["uncertainty", "process"]
+      },
+      {
+        "name": "agriculture and cultivation",
+        "definition": "Growing crops on purpose: soil, seed, seasons, fallow, yield, harvest, the difference between what you do and what grows.",
+        "entailments": [
+          "results are delayed by a season you cannot shorten",
+          "conditions matter more than effort",
+          "you can prepare but not compel",
+          "land is depleted by use",
+          "some years fail through nobody's fault"
+        ],
+        "example": "The idea had been sown in a bad year and left in poor ground; when it finally came up it came up thin.",
+        "effect": "The only common domain that makes waiting an activity rather than an absence.",
+        "caution": "Slides into pious uplift — seeds of change, planting the seed, bearing fruit are all worn smooth. Use the unglamorous end of the vocabulary: fallow, tilth, blight, rotation, yield per acre.",
+        "tags": ["process", "slow"]
+      },
+      {
+        "name": "animal husbandry",
+        "definition": "Keeping and breeding livestock: herds, feed, culling, breeding lines, the pen and the gate.",
+        "entailments": [
+          "the animals are property",
+          "someone decides which ones continue",
+          "value is measured in yield",
+          "the herd matters, the individual does not",
+          "confinement is care"
+        ],
+        "example": "Every quarter the portfolio was culled the way a herd is culled — not for cruelty, for feed cost.",
+        "effect": "Brutal and clarifying when the subject really does treat people or projects as stock.",
+        "caution": "Deeply loaded. Applied to people it is dehumanizing, which may be your point, but it can never be neutral and must be visibly deliberate.",
+        "tags": ["loaded", "power"]
+      },
+      {
+        "name": "commerce and accounting",
+        "definition": "Recorded exchange: price, ledger, balance, audit, cost, profit, writing off.",
+        "entailments": [
+          "everything has a comparable value",
+          "the books must balance",
+          "there is a record",
+          "someone pays",
+          "value is what was paid, not what was got"
+        ],
+        "example": "He kept a ledger on the friendship without telling her it was double-entry.",
+        "effect": "Makes trade-offs visible and forces the question of who is bearing the cost.",
+        "caution": "Commensurability is the imported lie: the domain assumes any two things can be priced against each other. In moral subjects that assumption is the whole argument, not a figure of speech.",
+        "tags": ["quantitative", "loaded"]
+      },
+      {
+        "name": "debt and credit",
+        "definition": "Obligation across time: lending, interest, collateral, default, forgiveness.",
+        "entailments": [
+          "the obligation compounds if unpaid",
+          "there is a creditor with standing to collect",
+          "collateral can be seized",
+          "default has consequences beyond the debt",
+          "forgiveness is a gift, not a right"
+        ],
+        "example": "Every shortcut in the schema was borrowed at a rate nobody had asked about, and the interest came due in the migration.",
+        "effect": "The compounding entailment does real work — it explains why a small early concession costs disproportionately later.",
+        "caution": "Technical debt has worn the figure thin in software writing; outside it, the creditor entailment implies a party with a moral claim, which you may not want to concede.",
+        "tags": ["quantitative", "time"]
+      },
+      {
+        "name": "games and sport",
+        "definition": "Rule-governed contest with a score, a clock, officials, and an agreed end.",
+        "entailments": [
+          "the rules are fixed and known to both sides",
+          "the score is public",
+          "there is a whistle and it stops play",
+          "losing today does not end the league",
+          "someone is refereeing"
+        ],
+        "example": "They were playing the last four minutes with a two-goal lead and no idea the clock had been running down since March.",
+        "effect": "Softer than war — it keeps competition while allowing that both sides accept a common frame and will meet again.",
+        "caution": "Near-exhausted in business and political writing (level playing field, moving the goalposts, own goal). The good moves are in the specific sport's technical vocabulary, not in the generic one.",
+        "tags": ["competition", "near-exhausted"]
+      },
+      {
+        "name": "gambling and odds",
+        "definition": "Staking value on an uncertain outcome: bets, odds, the house, the bankroll, ruin.",
+        "entailments": [
+          "the outcome is genuinely uncertain",
+          "the size of the stake matters as much as the odds",
+          "the house has an edge",
+          "you can be right and still be wiped out",
+          "you can play again only if you are still solvent"
+        ],
+        "example": "The strategy was correct and still bankrupt: right odds, wrong bet size, one bad year.",
+        "effect": "The only common domain that separates being right from winning — invaluable for writing about decisions under risk.",
+        "caution": "Carries moral disapproval in general-audience prose; readers hear recklessness where you meant probability. Say it explicitly or accept the connotation.",
+        "tags": ["uncertainty", "quantitative"]
+      },
+      {
+        "name": "chess and stratagem",
+        "definition": "Perfect-information positional play: tempo, development, sacrifice, zugzwang, the endgame.",
+        "entailments": [
+          "both sides see the whole board",
+          "moves alternate",
+          "position matters more than material",
+          "some positions lose because it is your turn",
+          "the pieces do not have preferences"
+        ],
+        "example": "It was zugzwang: every available move made her position worse, and standing still was not on the list.",
+        "effect": "Supplies precise names for situations English otherwise needs a paragraph for.",
+        "caution": "Chess as generic cleverness (playing chess while they play checkers) is a cliché; the domain earns its place only when you use a specific term correctly. And perfect information is almost never true of the subject.",
+        "tags": ["competition", "technical"]
+      },
+      {
+        "name": "cooking and food",
+        "definition": "Turning raw material into a meal: heat, timing, seasoning, reduction, what a recipe does and does not specify.",
+        "entailments": [
+          "transformation is irreversible",
+          "timing and order matter more than quantity",
+          "the cook has judgement the recipe cannot state",
+          "you can taste as you go",
+          "it is for someone to eat"
+        ],
+        "example": "The report had been reduced too far — all the volume boiled off and nothing left but salt.",
+        "effect": "Domestic, concrete, and sensory; lowers register without lowering precision.",
+        "caution": "The recipe end of it (ingredients, a pinch of, secret sauce) is thoroughly used up. The process end — reduction, resting, curdling, emulsion — is not.",
+        "tags": ["domestic", "process"]
+      },
+      {
+        "name": "fermentation and ripening",
+        "definition": "Slow biological transformation you set up and then cannot hurry: culture, souring, maturation, spoilage.",
+        "entailments": [
+          "the change is happening whether you watch or not",
+          "the same process yields the delicacy and the rot",
+          "temperature and time are the only controls",
+          "there is a point past which it is gone",
+          "the culture came from somewhere else"
+        ],
+        "example": "The grievance had been left in a warm place for six years and had turned into something with its own culture.",
+        "effect": "Handles resentments, institutions, and reputations better than any other domain, because it makes the good and bad outcome the same process.",
+        "caution": "Little used, which is its value — but keep it accurate. Fermentation is not decay and readers who cook will notice.",
+        "tags": ["slow", "underused"]
+      },
+      {
+        "name": "building and architecture",
+        "definition": "Deliberate construction: foundations, load-bearing members, spans, façades, settling, collapse.",
+        "entailments": [
+          "there is a bottom that holds everything else",
+          "some parts carry load and some do not",
+          "the order of construction is fixed",
+          "it is designed before it is built",
+          "collapse propagates downward"
+        ],
+        "example": "Two of the three arguments were façade — pull them and nothing above them moves.",
+        "effect": "Load-bearing versus decorative is a genuine analytic distinction, and readers apply it correctly on sight.",
+        "caution": "A secondary LLM default — build a foundation, the cornerstone of, laying the groundwork are worn out. The domain still pays if you use structural specifics (cantilever, spandrel, shear, settling) instead of the foundation cluster.",
+        "tags": ["default", "near-exhausted", "structure"]
+      },
+      {
+        "name": "textiles and weaving",
+        "definition": "Making cloth from thread: warp and weft, tension, selvedge, unravelling, mending, pattern.",
+        "entailments": [
+          "the structure is made of many identical small elements",
+          "there is a fixed frame and a moving thread",
+          "the pattern is only visible at scale",
+          "one cut thread runs",
+          "a repair is always visible"
+        ],
+        "example": "Pull one funding line and the whole programme runs like a stocking.",
+        "effect": "The best domain for structures whose strength is distributed rather than concentrated — the opposite claim to building.",
+        "caution": "The high-literary end (the fabric of society, tapestry of, threads of the argument) is dead. Weaving technicalities are not.",
+        "tags": ["structure", "underused"]
+      },
+      {
+        "name": "disease and contagion",
+        "definition": "Illness that spreads: transmission, vectors, incubation, immunity, quarantine, the index case.",
+        "entailments": [
+          "it spreads by contact and multiplies",
+          "carriers may be asymptomatic",
+          "there is a period before symptoms",
+          "some hosts are immune",
+          "isolation works and is a cost"
+        ],
+        "example": "The practice had a two-year incubation: three teams had it before anyone showed symptoms.",
+        "effect": "Explains delayed, exponential, invisible propagation better than any mechanical vocabulary.",
+        "caution": "Applied to people or ideas it says they are pathology — a moral verdict smuggled in as description. Historically this domain has done real harm applied to groups; if you use it, use it on practices, not populations.",
+        "tags": ["loaded", "spread"]
+      },
+      {
+        "name": "immunity and defence",
+        "definition": "The body's discrimination between self and not-self: antibodies, memory, tolerance, autoimmunity, overreaction.",
+        "entailments": [
+          "the system learns from exposure",
+          "response can be disproportionate and do the damage itself",
+          "it must distinguish self from other and can get that wrong",
+          "protection is built, not given",
+          "a second exposure is different from the first"
+        ],
+        "example": "The institution's response was autoimmune: it identified its own reformers as the infection and cleared them.",
+        "effect": "Autoimmunity is a precise and underused figure for organizations that attack their own useful parts.",
+        "caution": "Requires the reader to know a little immunology; unpack the mechanism in the same sentence or the figure lands as vague biology.",
+        "tags": ["systems", "underused"]
+      },
+      {
+        "name": "surgery and dissection",
+        "definition": "Cutting into a living or dead body deliberately: incision, excision, margins, sutures, anaesthesia, the specimen.",
+        "entailments": [
+          "the cutting is intended to help",
+          "the patient cannot be consulted mid-operation",
+          "you must take a margin around the bad part",
+          "the wound is a cost of the cure",
+          "someone is holding the knife"
+        ],
+        "example": "The reorganization took clean margins — the whole team went, healthy tissue included, because nobody could tell where the thing stopped.",
+        "effect": "Insists that the harm is deliberate and someone chose it, which mechanical domains let writers avoid saying.",
+        "caution": "Surgical strike has contaminated the vocabulary with war connotations; and the domain is at high literalization risk in any text that also discusses actual medicine.",
+        "tags": ["power", "loaded"],
+        "see_also": "diction_and_register/figurative_diction_controls"
+      },
+      {
+        "name": "light and darkness",
+        "definition": "Illumination and its absence: shining, shadow, blindness, dawn, obscurity, being in the dark.",
+        "entailments": [
+          "seeing is knowing",
+          "light is good and dark is bad",
+          "the illuminator is the benefactor",
+          "what is hidden is hidden deliberately",
+          "revelation is instantaneous"
+        ],
+        "example": "shed light on, a beacon, the dark ages, dawn of a new era",
+        "effect": "Universally understood and therefore almost never noticed as figure.",
+        "caution": "Exhausted, and the primary LLM default for anything epistemic. It also carries a moral colour scheme with an ugly history. If you find yourself illuminating, shining a light, or bringing something out of the shadows, cut it and pick a domain with nouns in it.",
+        "tags": ["default", "exhausted", "loaded"]
+      },
+      {
+        "name": "temperature and heat",
+        "definition": "Thermal states and transfer: warming, cooling, insulation, flashpoint, thermal mass, freezing.",
+        "entailments": [
+          "intensity is a scale with two directions",
+          "heat spreads to whatever it touches",
+          "there are thresholds where the state changes",
+          "insulation is possible",
+          "cooling takes longer than heating"
+        ],
+        "example": "The dispute had thermal mass: it stayed hot for a week after everyone had stopped adding to it.",
+        "effect": "Maps intensity onto a scale readers feel bodily, and provides thresholds for free.",
+        "caution": "The plain end (heated debate, cold reception, warm welcome) is dead vocabulary. The physics end (thermal mass, latent heat, conduction versus radiation) still works.",
+        "tags": ["intensity", "near-exhausted"]
+      },
+      {
+        "name": "weight and gravity",
+        "definition": "Mass, load, and the pull downward: heaviness, burden, ballast, weightlessness, centre of gravity.",
+        "entailments": [
+          "importance is weight",
+          "carrying it costs the carrier",
+          "loads can be shared or shifted",
+          "some things sink and some float",
+          "there is a direction everything tends"
+        ],
+        "example": "The clause was ballast — dead weight, but the only reason the thing sat level.",
+        "effect": "Gives seriousness a physical measure and lets you say who is carrying it.",
+        "caution": "Gravitas and weighty are so idiomatic they are no longer figures. Ballast, centre of gravity, and load path are still live.",
+        "tags": ["intensity", "spatial"]
+      },
+      {
+        "name": "height and depth",
+        "definition": "The vertical axis: high and low, deep and shallow, rising, sinking, the surface and what is under it.",
+        "entailments": [
+          "up is more, better, and in control",
+          "depth is truth and surface is appearance",
+          "falling is involuntary",
+          "climbing costs effort",
+          "the view improves with elevation"
+        ],
+        "example": "high office, deep understanding, a shallow reading, falling behind",
+        "effect": "The orientational spine of English abstraction — most readers cannot state it and all of them obey it.",
+        "caution": "Nearly all of it is dead vocabulary rather than available figure, and the up-is-good entailment silently endorses hierarchy. Use it knowingly or you are being used by it.",
+        "tags": ["primary", "spatial", "loaded"],
+        "see_also": "rhetorical_figures/metaphor_family"
+      },
+      {
+        "name": "geology and strata",
+        "definition": "Rock in layers and under stress: sediment, bedrock, faults, folding, uplift, unconformity.",
+        "entailments": [
+          "the past is physically present underneath",
+          "layers record their own order",
+          "change is slow until it is not",
+          "stress accumulates along existing weaknesses",
+          "a gap in the record is itself evidence"
+        ],
+        "example": "The policy was an unconformity: two eras of thinking stacked with fifteen years of nothing in between.",
+        "effect": "Best available domain for accumulated institutional history, because it makes the past load-bearing rather than merely prior.",
+        "caution": "Bedrock and seismic shift are worn; the stratigraphic vocabulary (unconformity, angular contact, deposition rate) is not, but needs one clause of explanation.",
+        "tags": ["time", "underused"]
+      },
+      {
+        "name": "mining and extraction",
+        "definition": "Taking value out of the ground: seams, tailings, depletion, subsidence, the cost of going deeper.",
+        "entailments": [
+          "the resource is finite",
+          "the easy part is taken first",
+          "extraction leaves waste and a hole",
+          "someone else lives where the hole is",
+          "each additional unit costs more"
+        ],
+        "example": "They had worked the seam for six years and were now processing tailings and calling it a strategy.",
+        "effect": "Diminishing returns and externalized damage come free with the vocabulary.",
+        "caution": "Data mining has dulled the front of the domain. The back of it — overburden, tailings, subsidence — carries an accusation, so only use it where you mean one.",
+        "tags": ["loaded", "depletion"]
+      },
+      {
+        "name": "ecology and habitat",
+        "definition": "Populations interacting in a place: niches, food webs, keystone species, succession, carrying capacity, invasion.",
+        "entailments": [
+          "everything is connected to everything by some path",
+          "removing one element has effects two steps away",
+          "there is a limit the system settles to",
+          "some species hold the structure up out of proportion to their number",
+          "no one designed it"
+        ],
+        "example": "The archivist was a keystone species: nobody noticed until she left and four unrelated things stopped working.",
+        "effect": "Names indirect, second-order consequences that mechanical and military domains cannot see.",
+        "caution": "Ecosystem is now corporate filler and carries no image at all. Use the specific terms — niche, succession, trophic cascade — or use a different domain.",
+        "tags": ["systems", "near-exhausted"]
+      },
+      {
+        "name": "parasitism and symbiosis",
+        "definition": "Two organisms living on each other at different ratios of cost and benefit: host, parasite, commensal, mutualist.",
+        "entailments": [
+          "the relationship persists because it pays someone",
+          "the host may be unharmed, harmed, or helped",
+          "a good parasite does not kill the host",
+          "the arrangement can shift categories over time",
+          "neither party intends the arrangement"
+        ],
+        "example": "The consultancy started mutualist and drifted, over four contracts, to something the host was visibly funding.",
+        "effect": "Gives a graded vocabulary for relationships that pure exploitation and pure partnership both misdescribe.",
+        "caution": "Parasite applied to people is one of the oldest dehumanizing slurs; use the whole spectrum or none of it.",
+        "tags": ["relationship", "loaded"]
+      },
+      {
+        "name": "evolution and selection",
+        "definition": "Differential survival of variants under a selection pressure: variation, fitness, drift, adaptation, extinction.",
+        "entailments": [
+          "there is no designer and no goal",
+          "current form is a record of past pressure",
+          "adaptation is to a past environment, not the present one",
+          "most variants die",
+          "fit means fitting, not superior"
+        ],
+        "example": "The form was well adapted — to a regulatory environment that had stopped existing in 2011.",
+        "effect": "The adapted-to-a-vanished-environment figure explains institutional stupidity better than any account of intent.",
+        "caution": "Readers routinely hear progress and improvement in this domain, which is precisely what it denies. Survival of the fittest also drags social Darwinism in behind it.",
+        "tags": ["process", "loaded"]
+      },
+      {
+        "name": "genetics and inheritance",
+        "definition": "Transmission of traits down generations: heredity, mutation, expression, recessive traits, lineage.",
+        "entailments": [
+          "the trait was there before it appeared",
+          "some traits skip generations",
+          "copying introduces errors",
+          "environment decides what gets expressed",
+          "the origin is not the carrier's choice"
+        ],
+        "example": "The bad clause was recessive — inherited by every contract since 1998, expressed only when two of them met.",
+        "effect": "Explains dormant, transmitted properties that surface only in particular combinations.",
+        "caution": "In the DNA of is dead corporate filler. Applied to human groups the domain is radioactive; keep it on documents, institutions, and code.",
+        "tags": ["time", "loaded"]
+      },
+      {
+        "name": "hunting and trapping",
+        "definition": "Pursuing or ensnaring quarry: tracking, stalking, bait, the trap, the kill, the patient wait.",
+        "entailments": [
+          "the quarry does not consent and does not know",
+          "patience beats speed",
+          "the trap works because it is concealed",
+          "the hunter chooses the ground",
+          "there is a body at the end"
+        ],
+        "example": "He had not been arguing with her. He had been baiting a set, and it closed on the third question.",
+        "effect": "Carries intent, asymmetry, and concealment, which the war domain flattens into open confrontation.",
+        "caution": "Less exhausted than war but easily slides into it. Also makes the target a victim by construction — check that this is your claim.",
+        "tags": ["power", "underused"]
+      },
+      {
+        "name": "law and courtroom",
+        "definition": "Adversarial adjudication under rules: evidence, burden of proof, testimony, precedent, verdict, appeal.",
+        "entailments": [
+          "someone must decide and the decision binds",
+          "the burden sits on one party",
+          "there are rules about what counts as evidence",
+          "past decisions constrain this one",
+          "procedure can defeat substance"
+        ],
+        "example": "On the evidence in the record the claim fails, and the record is the only place we are allowed to look.",
+        "effect": "Makes standards of proof explicit and forces the question of who has to show what.",
+        "caution": "Imports adversarialism and a winner, so it distorts collaborative inquiry into a contest. Verdict and jury are also close to dead as figures.",
+        "tags": ["competition", "epistemic"],
+        "see_also": "stakes_and_stasis/burden_of_proof_postures"
+      },
+      {
+        "name": "theatre and performance",
+        "definition": "Staged pretence before an audience: script, role, backstage, blocking, cues, the fourth wall.",
+        "entailments": [
+          "there is an audience and the actors know it",
+          "the visible is prepared",
+          "there is a backstage where the real work happens",
+          "roles are separable from persons",
+          "the run ends"
+        ],
+        "example": "Everything the board did in public was blocking; the play had been settled in the corridor at nine.",
+        "effect": "Distinguishes front-stage from back-stage behaviour, which most political and organizational writing needs and rarely names.",
+        "caution": "Accuses the subject of insincerity by construction. Also worn at the edges — playing a role, behind the scenes, take centre stage.",
+        "tags": ["social", "near-exhausted"]
+      },
+      {
+        "name": "music and harmony",
+        "definition": "Organized sound in time: key, tempo, dissonance, resolution, counterpoint, the rest.",
+        "entailments": [
+          "elements sound simultaneously and affect each other",
+          "tension demands resolution",
+          "the same material can be restated transformed",
+          "silence is structural",
+          "time is divided and felt"
+        ],
+        "example": "The two clauses were in different keys; every time the contract quoted both, something ground.",
+        "effect": "The only domain that handles simultaneity well — several things sounding at once, together making a third thing.",
+        "caution": "Orchestrate and in harmony are dead. The technical vocabulary (counterpoint, suspension, modulation, syncopation) requires a musical reader or one clause of gloss.",
+        "tags": ["structure", "underused"]
+      },
+      {
+        "name": "painting and drawing",
+        "definition": "Making a picture on a surface: ground, underpainting, palette, perspective, foreground, pentimenti.",
+        "entailments": [
+          "someone chose the frame and the viewpoint",
+          "what is in the foreground was chosen to be",
+          "earlier versions show through",
+          "the picture is flat and pretends not to be",
+          "colour is relative to what is next to it"
+        ],
+        "example": "You can see the pentimenti in the second draft — the earlier argument still shows through the paint.",
+        "effect": "Foregrounds the writer's or actor's selection, which is often the real subject.",
+        "caution": "Paint a picture, broad brush, and the bigger canvas are exhausted. Studio technicalities are not.",
+        "tags": ["representation", "underused"]
+      },
+      {
+        "name": "photography and exposure",
+        "definition": "Fixing an image by controlled light: exposure, focus, depth of field, developing, the negative, the crop.",
+        "entailments": [
+          "the frame excludes more than it includes",
+          "sharpness in one plane costs sharpness in another",
+          "the image takes time to appear",
+          "over- and under-exposure both destroy information",
+          "the crop is an argument"
+        ],
+        "example": "The study had extraordinary depth of field: everything from 1890 to last year was equally in focus and equally flat.",
+        "effect": "Depth of field and crop are precise names for trade-offs in scope that abstract vocabulary fumbles.",
+        "caution": "Snapshot and focus on are dead; darkroom vocabulary is period-flavoured and may date a text.",
+        "tags": ["representation", "underused"]
+      },
+      {
+        "name": "cartography and mapping",
+        "definition": "Representing terrain to scale: projection, scale, legend, blank areas, the difference between map and territory.",
+        "entailments": [
+          "every projection distorts something",
+          "scale determines what can appear",
+          "the map is made for a purpose and a user",
+          "blank areas mean unsurveyed, not empty",
+          "the map is not the terrain"
+        ],
+        "example": "Their model was a Mercator: honest at the latitude they worked in and wildly wrong at the poles, where the customers were.",
+        "effect": "Distortion-by-projection is the most useful single idea available for talking about models and simplifications.",
+        "caution": "Roadmap belongs to the journey domain and drags it in behind it. Keep to projection, scale, survey, legend, and terra incognita.",
+        "tags": ["representation", "epistemic"]
+      },
+      {
+        "name": "plumbing and drainage",
+        "definition": "Fixed pipework moving water where it is wanted: mains, junctions, traps, backflow, capacity, the blocked run.",
+        "entailments": [
+          "the route is fixed and mostly hidden",
+          "capacity is fixed by the narrowest section",
+          "blockage upstream shows downstream",
+          "there are traps to stop what should not come back",
+          "failures appear far from their cause"
+        ],
+        "example": "Every request for a policy exemption ran through one desk, and that desk was the trap the whole building smelled of.",
+        "effect": "Superb for bureaucracy: the concrete, unglamorous, hidden-infrastructure register few writers use.",
+        "caution": "Comic connotation is always available and may swamp a serious point. Distinguish from hydraulics, which is about pressure; plumbing is about routing.",
+        "tags": ["infrastructure", "underused"]
+      },
+      {
+        "name": "electricity and wiring",
+        "definition": "Current in circuits: load, resistance, short circuits, earthing, fuses, the single point of failure.",
+        "entailments": [
+          "the circuit must be complete for anything to happen",
+          "resistance produces heat",
+          "a short bypasses everything the design intended",
+          "protection works by failing first",
+          "the whole run is only as good as one connection"
+        ],
+        "example": "The escalation path shorted: the complaint went from the front desk to the chief executive with none of the resistance the design assumed.",
+        "effect": "Short circuit and fuse are exact figures for procedures bypassed and safeguards designed to break.",
+        "caution": "Energy and spark are dead metaphor from this domain and no longer conduct anything. Stay with circuit-level specifics.",
+        "tags": ["infrastructure", "systems"]
+      },
+      {
+        "name": "computing and software",
+        "definition": "Programs and machines that run them: input and output, bugs, patches, legacy code, memory, latency, the stack.",
+        "entailments": [
+          "behaviour follows from rules that were written down",
+          "someone wrote it and it can be rewritten",
+          "old decisions persist as constraints",
+          "errors are reproducible",
+          "the system does exactly what it was told"
+        ],
+        "example": "The onboarding was legacy code: everyone patched around it, nobody owned it, and one comment from 2014 explained the whole thing.",
+        "effect": "The dominant technical folk-vocabulary of the moment, so readers decode it instantly.",
+        "caution": "Fastest-ageing domain in the book, and hardware, bandwidth, and reboot applied to people are worn out. It also implies the subject was designed and is deterministic, which for human institutions is usually false.",
+        "tags": ["contemporary", "near-exhausted"]
+      },
+      {
+        "name": "network and node",
+        "definition": "Connected points and their topology: hubs, edges, degree, bottlenecks, cascading failure, isolation.",
+        "entailments": [
+          "position matters more than size",
+          "a few nodes carry most of the traffic",
+          "failure propagates along connections",
+          "removing a hub is different from removing a leaf",
+          "distance is measured in hops, not miles"
+        ],
+        "example": "She had a degree of two and sat between the only two clusters that mattered, which made her the most powerful person in a building of four hundred.",
+        "effect": "Makes structural position — as distinct from rank or ability — visible and arguable.",
+        "caution": "Currently fashionable and an LLM favourite for anything social; hub, node, and connect the dots are already tired. Use it only when the topology claim is real and specific.",
+        "tags": ["contemporary", "near-exhausted", "systems"]
+      },
+      {
+        "name": "signal and noise",
+        "definition": "Information transmitted through a degrading channel: bandwidth, interference, compression, error correction, the receiver.",
+        "entailments": [
+          "the message and the medium are separable",
+          "some of what arrives was never sent",
+          "capacity is finite",
+          "redundancy buys reliability at a cost",
+          "the receiver must decode"
+        ],
+        "example": "The all-staff email had error correction built in — three paragraphs of redundancy so the one instruction would survive being skimmed.",
+        "effect": "Names the cost of redundancy and the fact of loss, which most communication writing assumes away.",
+        "caution": "Signal-to-noise is now generic praise and dispraise, drained of its technical content. Use the channel, capacity, and coding end.",
+        "tags": ["representation", "technical"]
+      },
+      {
+        "name": "chemistry and reaction",
+        "definition": "Substances combining and transforming: reagents, catalysts, solutions, precipitation, equilibrium, inertness.",
+        "entailments": [
+          "the products are not the reactants",
+          "a catalyst changes rate without being consumed",
+          "some pairs do nothing at all",
+          "conditions determine whether anything happens",
+          "systems settle to equilibrium"
+        ],
+        "example": "He was a catalyst in the strict sense: nothing happened without him, and he came out of every meeting unchanged.",
+        "effect": "Catalyst used precisely — unchanged by the reaction — is a sharper character note than any adjective.",
+        "caution": "Catalyst and chemistry as loose synonyms for cause and rapport are exhausted; the domain only pays if the technical sense is meant.",
+        "tags": ["process", "near-exhausted"]
+      },
+      {
+        "name": "astronomy and orbit",
+        "definition": "Bodies moving under gravity at scale: orbits, escape velocity, tides, eclipses, the light we see arriving late.",
+        "entailments": [
+          "influence acts at a distance without contact",
+          "the small body's path is set by the large one",
+          "cycles are exact and predictable",
+          "what you observe already happened",
+          "escape requires a threshold, not effort"
+        ],
+        "example": "Three departments were in his orbit and none of them had chosen to be; he simply had the mass.",
+        "effect": "Explains involuntary, contactless influence — the pull of a large actor on small ones who make no decision at all.",
+        "caution": "Stellar, meteoric, and orbit as vague proximity are dead. Escape velocity and light-lag are still live and still mean something.",
+        "tags": ["scale", "underused"]
+      },
+      {
+        "name": "force and momentum",
+        "definition": "Newtonian mechanics of moving bodies: inertia, friction, leverage, impulse, elastic and inelastic collision.",
+        "entailments": [
+          "things continue unless acted on",
+          "a small force at the right point moves a large mass",
+          "friction converts effort into heat and nothing else",
+          "collisions transfer, they do not destroy",
+          "acceleration requires continuous force"
+        ],
+        "example": "The committee had no friction to speak of and no engine either; it kept moving on 2019's push.",
+        "effect": "Leverage and inertia are analytically real and readers apply them correctly without instruction.",
+        "caution": "Momentum and leverage as management filler are among the most exhausted business figures in English. Only use the domain when the mechanics are literal enough to check.",
+        "tags": ["near-exhausted", "systems"]
+      },
+      {
+        "name": "animal behaviour",
+        "definition": "Non-human conduct as observed: territory, dominance, display, migration, pecking order, mobbing.",
+        "entailments": [
+          "the behaviour is instinctive, not reasoned",
+          "display is cheap and signals may be honest or not",
+          "hierarchies are settled by ritual as much as by fighting",
+          "territory is defended disproportionately",
+          "the group turns on the odd one"
+        ],
+        "example": "The whole exchange was display: two sets of antlers, no contact, and everyone knew the outcome before it started.",
+        "effect": "Strips reasons away and shows the pattern, which is often more accurate than the participants' account.",
+        "caution": "It denies the subject's rationality by construction, which is an accusation. Alpha and pecking order are also dead, and the alpha-wolf version is factually wrong.",
+        "tags": ["social", "loaded"]
+      },
+      {
+        "name": "kinship and family",
+        "definition": "Relations by blood and marriage: parents, siblings, inheritance, in-laws, the black sheep, obligation without choice.",
+        "entailments": [
+          "the relation is not chosen and cannot be dissolved",
+          "obligation runs regardless of merit",
+          "there is a generational order",
+          "resemblance is expected",
+          "conflict does not end the relation"
+        ],
+        "example": "The two agencies were siblings — same funding parent, same grudge, no possibility of not seeing each other at the budget.",
+        "effect": "Captures involuntary, permanent, non-meritocratic ties that contractual domains cannot describe.",
+        "caution": "We're a family applied to an employer is a well-known manipulation and readers now hear it as one. Sister organization and parent company are dead.",
+        "tags": ["social", "loaded"]
+      },
+      {
+        "name": "gestation and birth",
+        "definition": "Carrying and delivering new life: conception, term, labour, delivery, the period before anything is visible.",
+        "entailments": [
+          "there is a fixed period that cannot be shortened",
+          "the work is invisible until the end",
+          "delivery is painful and irreversible",
+          "someone carries the cost bodily",
+          "the thing then has its own existence"
+        ],
+        "example": "It had a fixed term and they kept trying to induce it in month four.",
+        "effect": "The you-cannot-hurry-it entailment is the point, and it is unavailable from any mechanical domain.",
+        "caution": "Brainchild, birth of an idea, and labour of love are exhausted, and the domain assigns creative work a gendered body that not every context should invoke.",
+        "tags": ["time", "loaded"]
+      },
+      {
+        "name": "apprenticeship and mastery",
+        "definition": "Learning a craft under someone who has it: the bench, the master's hand, the journeyman years, the test piece.",
+        "entailments": [
+          "the knowledge cannot be fully stated, only shown",
+          "time served is part of the qualification",
+          "the learner works on real material with real waste",
+          "the master's approval is the credential",
+          "the trade outlives both of them"
+        ],
+        "example": "Nobody had ever written the rule down. You learned it by having your first three drafts sent back without comment.",
+        "effect": "Handles tacit knowledge — the thing organizations lose when a person leaves and cannot document.",
+        "caution": "Guild vocabulary is period-flavoured and can read as nostalgic; it also implies a legitimate hierarchy the subject may not deserve.",
+        "tags": ["knowledge", "underused"]
+      },
+      {
+        "name": "religion and ritual",
+        "definition": "Sacred practice and its institutions: doctrine, heresy, orthodoxy, liturgy, schism, pilgrimage, the priesthood.",
+        "entailments": [
+          "some propositions are not open to evidence",
+          "there is an authority that defines error",
+          "repetition of form is itself the point",
+          "the community is defined by what it excludes",
+          "the sceptic is a heretic, not a colleague"
+        ],
+        "example": "The quarterly review was liturgy: same order, same responses, and nobody present believed the numbers meant what the form said they meant.",
+        "effect": "Names the difference between a practice that is done for its results and one that is done because it is done.",
+        "caution": "Almost always an accusation of irrationality, and offensive if the subject is an actual faith. Guru, evangelist, and true believer are dead.",
+        "tags": ["social", "loaded"]
+      },
+      {
+        "name": "magic and alchemy",
+        "definition": "Effects claimed without a stated mechanism: spells, transmutation, the philosopher's stone, the incantation, the adept.",
+        "entailments": [
+          "the mechanism is hidden or absent",
+          "the words themselves are the cause",
+          "there is an initiated few",
+          "belief is a precondition of the effect",
+          "the promise is transformation of base into precious"
+        ],
+        "example": "The pricing model was alchemy in the technical sense: a long procedure, a secret formula, and base metal at the end of it.",
+        "effect": "Precise accusation for anything that claims a transformation without disclosing a mechanism.",
+        "caution": "Silver bullet, magic wand, and secret sauce are dead; alchemy specifically also carried real experimental practice, so use it for pretension, not for early science.",
+        "tags": ["epistemic", "loaded"]
+      },
+      {
+        "name": "clothing and masks",
+        "definition": "What is worn: fit, tailoring, disguise, uniform, the seam, hand-me-downs, what a garment conceals or announces.",
+        "entailments": [
+          "it is put on and can be taken off",
+          "it is chosen for an audience",
+          "fit is a relation between the thing and the wearer",
+          "there is a body underneath",
+          "clothes are inherited and altered rather than made new"
+        ],
+        "example": "The new mission statement was a hand-me-down, taken in at the shoulders and still visibly cut for a bigger organization.",
+        "effect": "Handles adopted identities and borrowed formats without asserting deceit the way theatre does.",
+        "caution": "Cloaked, veiled, and wearing many hats are dead. Tailoring specifics — seam, dart, taking in, letting out — are not.",
+        "tags": ["social", "underused"]
+      },
+      {
+        "name": "tools and craft",
+        "definition": "Implements used skilfully on material: the right tool, the wrong tool, edge, calibration, wear, the workshop.",
+        "entailments": [
+          "the tool is fitted to a task and not to others",
+          "skill sits in the user, not the tool",
+          "tools dull and need maintenance",
+          "the material resists in its own way",
+          "there is a right sequence of operations"
+        ],
+        "example": "They had one very good chisel and were using it on everything, including the screws.",
+        "effect": "Concrete, humble, and full of nouns; it argues about fitness for purpose without claiming anyone is stupid.",
+        "caution": "Toolkit, sharpen, and hammer-and-nail are worn; the hammer-nail proverb in particular is a stock LLM figure. Name an actual tool instead.",
+        "tags": ["craft", "near-exhausted"]
+      },
+      {
+        "name": "roads and traffic",
+        "definition": "Vehicles sharing infrastructure: junctions, congestion, throughput, priority, merging, induced demand.",
+        "entailments": [
+          "capacity is a property of the junction, not the road",
+          "more capacity generates more traffic",
+          "everyone's small delay is someone else's queue",
+          "priority rules decide who waits",
+          "flow collapses suddenly, not gradually"
+        ],
+        "example": "Adding a second approvals officer produced exactly the induced demand a new lane produces, and the queue was back within a quarter.",
+        "effect": "Induced demand and junction capacity are counterintuitive, checkable, and largely absent from prose about organizations.",
+        "caution": "Distinct from journey — this domain is about many actors and throughput, not one traveller and a destination. If your figure has a single protagonist, it has drifted.",
+        "tags": ["infrastructure", "underused"]
+      },
+      {
+        "name": "bureaucracy and paperwork",
+        "definition": "Administration as a physical thing: forms, files, stamps, in-trays, sign-off, the case number, the archive.",
+        "entailments": [
+          "the record is the reality",
+          "nothing exists until it is filed",
+          "responsibility is divided until nobody holds it",
+          "there is a queue and a position in it",
+          "the exception requires its own form"
+        ],
+        "example": "The objection existed in the way things exist there: a number, a folder, and a date by which someone else would look at it.",
+        "effect": "Its flatness is the effect — the domain deadens whatever it touches, which is often exactly the argument.",
+        "caution": "Kafkaesque and red tape are dead. The domain also risks becoming the register of the prose itself; keep the sentences alive around it.",
+        "tags": ["institutional", "underused"]
+      },
+      {
+        "name": "archaeology and excavation",
+        "definition": "Recovering the past by digging: layers, finds, context, the trench, reconstruction from fragments, the site destroyed by its own excavation.",
+        "entailments": [
+          "meaning comes from context, not the object",
+          "digging destroys what it reads",
+          "absence of evidence is a stratum too",
+          "the reconstruction is an argument",
+          "only durable materials survive"
+        ],
+        "example": "Everything we know about the decision survives because someone printed it — the durable materials, not the important ones.",
+        "effect": "The survival-bias entailment is a genuine epistemological point that comes free with the imagery.",
+        "caution": "Unearth and dig deeper are dead; and the domain has a colonial history worth not evoking casually.",
+        "tags": ["epistemic", "underused"]
+      },
+      {
+        "name": "seasons and cycles",
+        "definition": "Recurrence on a fixed calendar: spring and winter, the growing season, the fallow months, the year that comes round again.",
+        "entailments": [
+          "this has happened before and will again",
+          "the phase is not permanent",
+          "there is a right time for each activity",
+          "no one chose the schedule",
+          "the cycle returns but not to the same place"
+        ],
+        "example": "It was the third winter of the same argument, and like the others it would thaw in budget season.",
+        "effect": "Consoles and de-dramatizes: it says a bad period is a phase in a cycle, not a trajectory.",
+        "caution": "That consolation is a claim, and often a false one — some declines do not come round again. Also thoroughly worn in the uplift register.",
+        "tags": ["time", "near-exhausted"]
+      },
+      {
+        "name": "exploration and discovery",
+        "definition": "Going where the maps stop: expeditions, uncharted ground, the first sighting, the base camp, the report home.",
+        "entailments": [
+          "the territory was there before anyone went",
+          "the explorer is the protagonist",
+          "unknown means unknown to us",
+          "arrival is the achievement",
+          "there is someone to report back to"
+        ],
+        "example": "uncharted territory, terra incognita, a voyage of discovery, pushing the boundaries",
+        "effect": "Flatters both writer and reader as pioneers, which is why it survives despite being empty.",
+        "caution": "A secondary LLM default, close kin to journey, and colonially loaded: unknown almost always means unknown to the writer, and the people already there disappear from the sentence. Prefer surveying, cartography, or archaeology, which keep the epistemics and drop the flag-planting.",
+        "tags": ["default", "exhausted", "loaded"]
+      },
+      {
+        "name": "frontier and colony",
+        "definition": "Settlement at the edge of a claimed territory: outposts, the metropole, the settler, extraction, the border that moves.",
+        "entailments": [
+          "the centre governs and the edge complies",
+          "the edge is where the rules are thin",
+          "value flows inward",
+          "the prior inhabitants are absent from the story",
+          "the border is provisional"
+        ],
+        "example": "The regional office was a colony in the exact sense: it sent revenue in, received policy out, and was never asked.",
+        "effect": "Names centre-periphery power relations with a bluntness that organizational vocabulary avoids.",
+        "caution": "Heavily loaded and for many readers not a figure at all but a history. New frontier and pioneering are also exhausted. Use only where the power relation is your actual subject.",
+        "tags": ["power", "loaded"]
+      },
+      {
+        "name": "chains and bondage",
+        "definition": "Physical restraint of a person: shackles, tethers, the leash, breaking free, the length of the chain.",
+        "entailments": [
+          "someone applied the restraint",
+          "the restrained party would leave if able",
+          "the restraint is visible and material",
+          "freedom is the absence of the restraint",
+          "there is an owner"
+        ],
+        "example": "shackled by regulation, breaking the chains, wage slavery, the golden handcuffs",
+        "effect": "Maximum moral intensity, instantly.",
+        "caution": "Applied to inconveniences it trivializes actual slavery and many readers will stop reading at that sentence. Golden handcuffs and shackled by are also dead. Reserve for literal or near-literal coercion.",
+        "tags": ["power", "loaded", "exhausted"]
+      }
+    ],
+    "target_domains": [
+      {
+        "name": "argument",
+        "definition": "Reasoning offered for a conclusion, conventionally understood through combat, building, and journey.",
+        "entailments": [
+          "positions can be held or lost",
+          "claims rest on other claims",
+          "reasoning goes somewhere"
+        ],
+        "example": "ARGUMENT IS WAR (attack, defend, demolish, indefensible); ARGUMENT IS A BUILDING (foundations, support, collapse); ARGUMENT IS A JOURNEY (follow the reasoning, arrive at a conclusion).",
+        "effect": "The war mapping is so deeply installed that most writers cannot describe disagreement without it.",
+        "caution": "The worn mapping is war, and it costs an argument its cooperativeness: with war vocabulary, conceding a point becomes losing ground rather than learning something. Cartography, chemistry, and navigation all map onto argument and none of them require an enemy.",
+        "see_also": "argument_arrangements/proof_strategies"
+      },
+      {
+        "name": "time",
+        "definition": "Duration and sequence, conventionally understood as motion through space, as a resource, and as a substance.",
+        "entailments": [
+          "it has direction",
+          "it can be spent, saved, and wasted",
+          "the future is ahead and the past behind"
+        ],
+        "example": "TIME IS MONEY (spend, waste, budget, cost an hour); TIME IS A MOVING OBJECT (the deadline is approaching); TIME IS A LANDSCAPE WE MOVE THROUGH (we're coming up on the anniversary).",
+        "effect": "Every English tense metaphor is already spatial, so any new figure lands on top of a mapping the reader is already running.",
+        "caution": "The worn mapping is money, and it makes every hour a transaction. Geology, fermentation, and seasons all map onto time and none of them price it.",
+        "tags": ["primary"]
+      },
+      {
+        "name": "ideas and theories",
+        "definition": "Mental content treated as objects, conventionally understood as buildings, plants, offspring, and food.",
+        "entailments": [
+          "ideas are discrete and countable",
+          "they can be exchanged and possessed",
+          "they develop over time"
+        ],
+        "example": "IDEAS ARE BUILDINGS (well-constructed, shaky premise); IDEAS ARE PLANTS (germinate, bear fruit); IDEAS ARE FOOD (half-baked, hard to swallow, food for thought).",
+        "effect": "Determines whether the reader treats an idea as something made, something grown, or something inherited.",
+        "caution": "The worn mappings are seeds and buildings, both used to uplift rather than to analyse. Ask which entailment you need — made-by-someone, grown-in-conditions, or inherited-from — and pick the domain that carries only that.",
+        "see_also": "rhetorical_figures/metaphor_family"
+      },
+      {
+        "name": "emotion",
+        "definition": "Felt states, conventionally understood as fluids under pressure, as temperature, and as forces acting on a person.",
+        "entailments": [
+          "it has intensity on a scale",
+          "it can be contained or released",
+          "it acts on the person from outside"
+        ],
+        "example": "ANGER IS HEAT (boiling, simmering, blew up); EMOTION IS A FLUID IN A CONTAINER (bottled up, overflowing, drained); FEELINGS ARE FORCES (swept away, crushed, shaken).",
+        "effect": "The container mapping quietly argues that suppression stores rather than resolves, which is a psychological theory, not a figure.",
+        "caution": "The worn mapping is heat, and it is fully dead — heated, simmering, boiling point read as vocabulary, not image. Weather, tides, and temperature-with-thermal-mass still work; hydraulics works but is committing you to a hydraulic theory of the mind."
+      },
+      {
+        "name": "institutions",
+        "definition": "Durable organizations, conventionally understood as bodies, machines, and buildings.",
+        "entailments": [
+          "it persists beyond its members",
+          "it has parts that relate somehow",
+          "it can be healthy, broken, or unsound"
+        ],
+        "example": "THE ORGANIZATION IS A BODY (head, arms, healthy, ailing); THE ORGANIZATION IS A MACHINE (well-oiled, cogs, broken down); THE ORGANIZATION IS A BUILDING (pillars, foundations, restructuring).",
+        "effect": "The choice among body, machine, and ecology decides in advance whether the people inside have agency, are replaceable, or are interdependent.",
+        "caution": "The worn mapping is machine, and it is not neutral: it makes staff into parts and every problem into maintenance. Plumbing, geology, ecology, and bureaucracy-as-paperwork all map onto institutions with different and more honest entailments.",
+        "see_also": "discourse_moves/framing_moves"
+      },
+      {
+        "name": "markets and economies",
+        "definition": "Aggregate exchange, conventionally understood as weather, as fluids, as organisms, and as machines.",
+        "entailments": [
+          "it aggregates actions nobody coordinated",
+          "it moves in ways individuals do not control",
+          "it has states that can be described"
+        ],
+        "example": "THE MARKET IS A NATURAL FORCE (headwinds, turbulence, storm); THE MARKET IS A FLUID (liquidity, flows, drying up); THE MARKET IS AN ORGANISM (appetite, confidence, recovery).",
+        "effect": "The natural-force mapping is the most consequential metaphor in public writing, because it removes agents from events that were caused by decisions.",
+        "caution": "The worn mapping is weather, and it launders responsibility. If people made choices, use a domain with people in it — games, gambling, courtroom, husbandry.",
+        "tags": ["loaded"]
+      },
+      {
+        "name": "the mind",
+        "definition": "Thought and memory, conventionally understood as a container, a machine, and most recently a computer.",
+        "entailments": [
+          "there is an inside where contents are kept",
+          "processing takes effort and time",
+          "it can be full, fast, or broken"
+        ],
+        "example": "THE MIND IS A CONTAINER (in mind, full of, empty-headed); THE MIND IS A MACHINE (grinding away, wheels turning); THE MIND IS A COMPUTER (processing, bandwidth, hardwired, memory).",
+        "effect": "Each era's dominant technology has supplied this mapping — hydraulics, then telephone exchanges, now computation — and each has been mistaken for a discovery.",
+        "caution": "The worn mapping is the computer, and it is dated already: hardwired, bandwidth, and processing are stale and empirically wrong. Ecology, weather, and archaeology map onto memory without claiming determinism."
+      },
+      {
+        "name": "communication",
+        "definition": "Getting meaning from one person to another, conventionally understood as sending objects along a conduit.",
+        "entailments": [
+          "meaning is a thing that can be put into words",
+          "the words carry it intact",
+          "the receiver takes it out"
+        ],
+        "example": "THE CONDUIT METAPHOR (get your point across, put it into words, the message came through, empty words).",
+        "effect": "So dominant that ordinary English has almost no non-conduit vocabulary for talking, which makes any alternative figure feel strained at first.",
+        "caution": "The worn mapping is the conduit, and it hides the reader's entire share of the work — meaning is not transmitted, it is reconstructed. Weaving, cooking, and negotiation all map onto communication and put the receiver back in.",
+        "tags": ["primary"]
+      },
+      {
+        "name": "morality",
+        "definition": "Right and wrong conduct, conventionally understood as cleanliness, straightness, height, light, and accounting.",
+        "entailments": [
+          "acts have moral direction",
+          "wrong is contaminating",
+          "obligations can be settled"
+        ],
+        "example": "MORALITY IS CLEANLINESS (dirty money, clean record, taint); MORALITY IS UPRIGHTNESS (upright, crooked, bent); MORALITY IS ACCOUNTING (owe, repay, deserve, settle a score).",
+        "effect": "The cleanliness mapping produces disgust, which is stronger and faster than argument and much harder to answer.",
+        "caution": "The worn mappings are light-and-dark and dirt. Both are exhausted and both carry harmful historical baggage; light-versus-dark for good-versus-evil should be treated as unavailable in serious prose.",
+        "tags": ["loaded"]
+      },
+      {
+        "name": "politics and power",
+        "definition": "Contest over collective decisions, conventionally understood as war, sport, theatre, and the market.",
+        "entailments": [
+          "there are sides",
+          "someone wins",
+          "the public is watching"
+        ],
+        "example": "POLITICS IS WAR (campaign, battleground, target seat, war room); POLITICS IS SPORT (the race, front-runner, own goal); POLITICS IS THEATRE (stagecraft, optics, playing to the gallery).",
+        "effect": "The sport mapping is what produces horse-race coverage — it makes who is winning legible and makes what is proposed invisible.",
+        "caution": "The worn mappings are war and horse race. Both crowd out consequences entirely. Plumbing, ecology, and kinship map onto politics and put the consequences back."
+      },
+      {
+        "name": "learning",
+        "definition": "Coming to know or be able, conventionally understood as journeys, construction, eating, and vision.",
+        "entailments": [
+          "there is a state before and after",
+          "effort produces gain",
+          "there is a sequence"
+        ],
+        "example": "LEARNING IS A JOURNEY (a long way to go, the next step, learning curve); LEARNING IS EATING (digest, devour a book, food for thought); UNDERSTANDING IS SEEING (I see, it's clear, opaque).",
+        "effect": "The seeing mapping makes understanding instantaneous and passive, which is why students believe they understand a lecture they could not reproduce.",
+        "caution": "The worn mapping is journey — learning curve, next step, learning path — and it is the default for an LLM asked about education. Apprenticeship, cultivation, and immunity all map onto learning with better entailments about time and repeated exposure."
+      },
+      {
+        "name": "health and illness",
+        "definition": "Bodily and mental condition, conventionally understood as war, as balance, and as machinery in need of repair.",
+        "entailments": [
+          "there is a normal state to return to",
+          "something is responsible for the departure",
+          "intervention is possible"
+        ],
+        "example": "ILLNESS IS AN ENEMY (fighting cancer, battling depression, beat it); THE BODY IS A MACHINE (worn out, spare parts, tune-up); HEALTH IS BALANCE (out of kilter, restore).",
+        "effect": "The war mapping is the most consequential metaphor in medicine, and it makes people who die into people who lost.",
+        "caution": "The worn mapping is war, and Sontag's objection to it still stands. Weather, seasons, and terrain map onto illness without assigning blame to the patient.",
+        "tags": ["loaded"]
+      },
+      {
+        "name": "the life course",
+        "definition": "A human life from birth to death, conventionally understood as a day, a year, a journey, and a play.",
+        "entailments": [
+          "it has stages in a fixed order",
+          "it has a shape you could see from outside",
+          "it ends"
+        ],
+        "example": "LIFE IS A JOURNEY (crossroads, dead end, at the end of the road); LIFE IS A DAY (the evening of his life); LIFE IS A PLAY (exits and entrances, final act).",
+        "effect": "The stage-ordering entailment is what makes some lives readable as failures — off schedule rather than merely different.",
+        "caution": "The worn mapping is journey, and it is the single most exhausted figure in the language. Seasons, geology, and weaving all map onto a life and none of them require a destination."
+      },
+      {
+        "name": "causation",
+        "definition": "One thing bringing about another, conventionally understood as physical force, as chains, and as flow.",
+        "entailments": [
+          "causes precede effects",
+          "the cause transfers something",
+          "the chain can be traced"
+        ],
+        "example": "CAUSES ARE FORCES (drove him to it, pressure, impact, knock-on); CAUSATION IS A CHAIN (link, chain reaction, the root cause).",
+        "effect": "The force mapping makes single causes feel adequate, which is why root cause survives in domains where nothing has one.",
+        "caution": "The worn mapping is the chain — linear, single-threaded, traceable. Ecology, epidemiology, and network topology map onto causation and permit many causes and feedback, which is usually what the evidence shows.",
+        "see_also": "argumentation_schemes/causal_and_explanatory"
+      },
+      {
+        "name": "risk and uncertainty",
+        "definition": "Not knowing what will happen, conventionally understood as gambling, weather, terrain, and disease.",
+        "entailments": [
+          "outcomes have likelihoods",
+          "exposure can be chosen or reduced",
+          "someone bears the consequence"
+        ],
+        "example": "RISK IS A GAMBLE (bet, odds, stakes, playing it safe); RISK IS EXPOSURE (exposed, hedged, sheltered); RISK IS A THREAT APPROACHING (looming, on the horizon).",
+        "effect": "Gambling makes risk chosen; weather makes it imposed. The domain you pick answers the responsibility question before you argue it.",
+        "caution": "The worn mapping is the threat on the horizon, which supplies dread without quantity. Navigation, insurance, and epidemiology map onto risk and keep magnitude and exposure distinguishable.",
+        "see_also": "stakes_and_stasis/epistemic_stakes"
+      },
+      {
+        "name": "identity and the self",
+        "definition": "Who a person is, conventionally understood as a container with a true inside, a journey of becoming, and a performance.",
+        "entailments": [
+          "there is a real self underneath",
+          "it can be found, lost, or betrayed",
+          "presentation and reality can diverge"
+        ],
+        "example": "THE SELF IS A CONTAINER (inner self, deep down, empty inside); IDENTITY IS A JOURNEY (finding yourself, becoming who you are); IDENTITY IS PERFORMANCE (playing a part, mask, authentic).",
+        "effect": "The container mapping installs an entire theory — that there is a true inner self distinct from behaviour — before any claim is made.",
+        "caution": "The worn mappings are the journey of self-discovery and the mask. Weaving, geology, and apprenticeship map onto identity as something accumulated rather than uncovered."
+      }
+    ],
+    "mapping_controls": [
+      {
+        "name": "domain assignment per chapter",
+        "definition": "Deciding before drafting which single source domain a chapter is allowed to draw figures from.",
+        "example": "Chapter 4 is plumbing: routing, capacity, backflow, traps. No weather, no war, no journeys.",
+        "effect": "Turns metaphor from an in-the-moment reflex into a structural decision, which is the only way to escape defaults reliably.",
+        "polarity": "virtue",
+        "caution": "Assign at the chapter level, not the paragraph level; per-paragraph assignment produces exactly the drift it was meant to prevent.",
+        "see_also": "diction_and_register/figurative_diction_controls"
+      },
+      {
+        "name": "domain rotation",
+        "definition": "Scheduling different source domains across a book so no two adjacent chapters draw from the same one.",
+        "example": "A rotation sheet: 1 cartography, 2 fermentation, 3 plumbing, 4 geology, 5 husbandry.",
+        "effect": "Gives each chapter its own texture and prevents the whole book collapsing into one register.",
+        "polarity": "virtue",
+        "caution": "Rotation for its own sake produces arbitrary figures; each chapter's domain should be the one whose entailments match that chapter's argument."
+      },
+      {
+        "name": "harvest the subject's working vocabulary",
+        "definition": "Collecting the actual technical nouns and verbs of the world the subject inhabits, before drafting, as a domain to draw from.",
+        "example": "Before writing about a shipping company, list forty terms a stevedore uses; draft only from that list.",
+        "effect": "Produces figures no other writer on the subject will have, because they came from the material rather than from the language.",
+        "polarity": "virtue",
+        "caution": "This is the research operation that supplies the vehicle; the choice to use the subject's own world is a separate decision made per figure.",
+        "see_also": "diction_and_register/figurative_diction_controls"
+      },
+      {
+        "name": "reader-side domain selection",
+        "definition": "Choosing the source domain from what the intended reader knows well rather than from what the writer knows well.",
+        "example": "For a readership of nurses, explain a legal doctrine through triage, not through chess.",
+        "effect": "The comparison does the explaining without a paragraph of setup, because the reader already has the structure.",
+        "polarity": "virtue",
+        "caution": "Requires a real audience model. Guessing wrong is worse than a plain statement, because the reader now has two things to work out.",
+        "see_also": "rhetorical_situations/audience_models"
+      },
+      {
+        "name": "far-domain search",
+        "definition": "Deliberately looking for a vehicle several fields away from the subject rather than in the nearest adjacent one.",
+        "example": "For a chapter on regulatory capture, look in mycology or in bell-founding before looking in law or politics.",
+        "effect": "Distance is what makes a mapping informative; a near-domain vehicle restates the subject in its own accent.",
+        "polarity": "virtue",
+        "caution": "Distance also raises the cost of unpacking. Past a certain remove you are writing a puzzle, and the reader will not solve it."
+      },
+      {
+        "name": "one-way mapping discipline",
+        "definition": "Keeping the inference running from source to target only, never letting the target's properties flow back into the vehicle.",
+        "example": "If the market is weather, the weather does not then get shareholders.",
+        "effect": "Preserves the asymmetry that makes a metaphor explanatory rather than merely decorative.",
+        "polarity": "virtue",
+        "caution": "Reversal usually shows up as a sentence in which the vehicle acquires an intention it cannot have."
+      },
+      {
+        "name": "feature-by-feature mapping",
+        "definition": "Enumerating which specific features of the source correspond to which features of the target, and marking the ones that do not transfer.",
+        "example": "The seam is the client list; the tailings are the accounts nobody will service; there is no equivalent here of the mine's owner.",
+        "effect": "Converts a suggestive image into an argument the reader can check and disagree with.",
+        "polarity": "virtue",
+        "caution": "The domain-level operation of listing correspondences, distinct from the paragraph architecture that presents them.",
+        "see_also": "paragraph_shapes/expository_shapes"
+      },
+      {
+        "name": "entailment audit",
+        "definition": "Listing everything the chosen domain implies and checking each implication against what you actually claim.",
+        "example": "War implies two sides, a winner, and no legitimate other view — do I assert all three about this disagreement?",
+        "effect": "Catches arguments smuggled in by imagery, which are the arguments a writer never notices making.",
+        "polarity": "virtue",
+        "caution": "Do it once per domain per chapter, not once per figure; the entailments come from the domain, not from the sentence."
+      },
+      {
+        "name": "entailment veto",
+        "definition": "Naming the one inference you do not want from an otherwise good domain, and either blocking it in the prose or changing domains.",
+        "example": "The organism figure is right about interdependence and wrong about the head governing, so say so and drop the head.",
+        "effect": "Lets you keep a productive domain without accepting its whole ideology.",
+        "polarity": "virtue",
+        "caution": "An unstated veto does not work. The reader inherits the entailment unless the text visibly refuses it."
+      },
+      {
+        "name": "baggage check",
+        "definition": "Testing a domain for its political and historical freight before adopting it.",
+        "example": "Contagion for ideas, husbandry for workers, and colony for a branch office all carry a verdict; check that you meant it.",
+        "effect": "Prevents the reader from filing the writer under a position the writer did not take.",
+        "polarity": "virtue",
+        "caution": "Loaded is not disqualifying. Loaded and unnoticed is."
+      },
+      {
+        "name": "noun-yield test",
+        "definition": "Preferring a source domain that supplies a long list of concrete, countable nouns and specific verbs.",
+        "example": "Plumbing yields trap, main, junction, backflow, head, run; excellence yields nothing.",
+        "effect": "A high-yield domain will still be paying out three paragraphs later, which is what sustaining a figure requires.",
+        "polarity": "virtue",
+        "caution": "This tests whether a domain can be extended, which is different from the rule that a vehicle must be more concrete than its tenor.",
+        "see_also": "diction_and_register/figurative_diction_controls"
+      },
+      {
+        "name": "verbs from the domain",
+        "definition": "Drawing the domain's verbs rather than only its nouns, so the figure works in the predicate instead of sitting in an appositive.",
+        "example": "Not the argument is like a mine but they worked the seam out and started processing tailings.",
+        "effect": "A figure carried by verbs is invisible as ornament and active as description.",
+        "polarity": "virtue",
+        "caution": "Noun-only figures read as labels, which is why so many stated metaphors feel bolted on.",
+        "see_also": "diction_and_register/verb_strength_moves"
+      },
+      {
+        "name": "specify the vehicle",
+        "definition": "Replacing a generic term from the domain with the exact one a practitioner would use.",
+        "example": "Not a tool but a jointer plane; not a bird but a jackdaw; not decay but wet rot.",
+        "effect": "Specificity is most of what separates a figure that sounds researched from one that sounds generated.",
+        "polarity": "virtue",
+        "caution": "Only specify what you can get right. A wrong technical term destroys more credibility than a generic one costs."
+      },
+      {
+        "name": "seed the domain early",
+        "definition": "Introducing the domain's vocabulary plainly and early so later figures can be compressed into a single word.",
+        "example": "Explain the trap in a plumbing run on page two; on page nine the desk that traps every exemption request needs no gloss.",
+        "effect": "Buys compression later — the payoff of a sustained domain is that the last figure costs three words.",
+        "polarity": "virtue",
+        "caution": "Seeding without payoff is just a digression about plumbing.",
+        "see_also": "openings_and_closings/false_endings_and_codas"
+      },
+      {
+        "name": "mark the mapping's limit",
+        "definition": "Stating in the text where the correspondence stops holding.",
+        "example": "The analogy fails at the point where mines run out and client lists do not.",
+        "effect": "Pre-empts the objection, and readers trust a writer who volunteers the limit more than one who is caught at it.",
+        "polarity": "virtue",
+        "caution": "Do it once, in one sentence. Hedging a figure at every step suffocates it.",
+        "see_also": "argumentation_schemes/analogy_and_classification"
+      },
+      {
+        "name": "mapping inversion",
+        "definition": "Deliberately reversing a conventional mapping so the reader's automatic inference is blocked.",
+        "example": "Treating time as the thing that spends us; treating the institution as the parasite and its staff as the host.",
+        "effect": "The reader's habit does the work — the inversion is felt as an argument because the default mapping was already running.",
+        "polarity": "virtue",
+        "caution": "Works once per text. A second inversion reads as a mannerism rather than a claim."
+      },
+      {
+        "name": "literalize the dead domain",
+        "definition": "Re-entering a domain whose figures have gone dead in the language and using its literal procedures and vocabulary again.",
+        "example": "Everyone says branch of government; going back to the tree — where branches grow, what makes them thicken, what happens under load — makes the word visible again.",
+        "effect": "Recovers a domain that seemed unavailable, because the deadness was in a few idioms rather than in the field itself.",
+        "polarity": "virtue",
+        "caution": "The domain-level move: reviving the whole source field rather than one worn phrase.",
+        "see_also": [
+          "diction_and_register/figurative_diction_controls",
+          "rhetorical_figures/metaphor_family"
+        ]
+      },
+      {
+        "name": "reverse-the-figure test",
+        "definition": "Swapping tenor and vehicle to check whether the comparison carries real information in one direction only.",
+        "example": "A building is like an argument is nonsense, which is the evidence that an argument is a building was doing work.",
+        "effect": "A quick diagnostic: figures that read equally well both ways are usually saying only that two things are both complicated.",
+        "polarity": "virtue",
+        "caution": "Diagnostic only — it tells you whether a mapping is asymmetric, not whether it is apt."
+      },
+      {
+        "name": "domain saturation check",
+        "definition": "Counting every word in a passage that comes from one source domain, including the dead ones nobody notices.",
+        "example": "A paragraph with grasp, position, defend, and undermine is running two domains at full volume with no live figure in it.",
+        "effect": "Reveals the domain a passage is actually in, which is often not the one the writer chose.",
+        "polarity": "virtue",
+        "caution": "Distinct from limiting live figures per page: this counts latent domain vocabulary, which a density budget passes over entirely.",
+        "see_also": "diction_and_register/figurative_diction_controls"
+      },
+      {
+        "name": "domain retirement",
+        "definition": "Dropping a source domain once it has delivered its argument, rather than carrying it to the end of the book.",
+        "example": "The geology figure did its work in chapter three; chapter seven refers back to it once and does not resume it.",
+        "effect": "Leaves the domain associated with the point it made instead of diluted across everything after.",
+        "polarity": "virtue",
+        "caution": "Retirement needs a last clean use. Domains that simply stop appearing read as forgotten rather than finished."
+      }
+    ],
+    "domain_mixing_rules": [
+      {
+        "name": "one domain per argument",
+        "definition": "Confining a single line of argument to a single source domain, on the principle that a second domain implies a second claim.",
+        "example": "If the case is that the agency is silting up, do not also say it is running out of ammunition.",
+        "effect": "Keeps images accumulating into one structure instead of cancelling one another.",
+        "polarity": "virtue",
+        "caution": "The unit is the argument, not the page; a chapter with three arguments may honestly carry three domains if they are partitioned."
+      },
+      {
+        "name": "domain quarantine",
+        "definition": "Partitioning distinct domains by section boundary so they never share a paragraph.",
+        "example": "The market section is hydraulic throughout; the staffing section is agricultural throughout; the section break is the wall.",
+        "effect": "Permits variety across a long text without permitting collision inside it.",
+        "polarity": "virtue",
+        "caution": "The wall has to be visible to the reader — a subhead or a white line, not merely a paragraph break."
+      },
+      {
+        "name": "marked domain handover",
+        "definition": "Explicitly retiring one domain and announcing the next when the argument requires a change of vehicle.",
+        "example": "The machine figure has taken us as far as it goes; from here the thing behaves like a catchment, not a mechanism.",
+        "effect": "Converts what would read as a mixed metaphor into a visible change of analytical frame.",
+        "polarity": "virtue",
+        "caution": "One handover per chapter at most. More than that and the prose is about its own metaphors."
+      },
+      {
+        "name": "domain register clash",
+        "definition": "Setting a low or homely source domain against a high or technical subject on purpose, for irony or deflation.",
+        "example": "The sovereign debt restructuring had the logic of a shared kitchen: everyone's dish, nobody's washing-up.",
+        "effect": "The gap between vehicle and subject carries the judgement, so the sentence never has to state it.",
+        "polarity": "virtue",
+        "caution": "It must be visibly chosen. An unmarked register drop reads as a writer who does not know the subject's dignity.",
+        "see_also": "diction_and_register/register_levels"
+      },
+      {
+        "name": "wrong-domain naming",
+        "definition": "Importing a domain precisely because the subject has no vocabulary of its own, and letting the misfit show.",
+        "example": "The team had no word for what it did to the schedule each quarter, so they called it the harvest, and the joke stuck because nothing else fitted.",
+        "effect": "Names a gap in the language rather than papering it over, and the strain of the fit is part of the information.",
+        "polarity": "neutral",
+        "caution": "Distinguishable from a wrong word only when the surrounding prose is visibly in control of its vocabulary.",
+        "see_also": [
+          "rhetorical_figures/metaphor_family",
+          "diction_and_register/figurative_diction_controls"
+        ]
+      },
+      {
+        "name": "adjacent-domain collision",
+        "definition": "Two source domains close enough to blur into each other rather than clash visibly, leaving the reader with a smeared image and no fault to point at.",
+        "example": "They navigated the terrain, kept the ship on the road, and reached the summit of the voyage.",
+        "effect": "Worse in practice than an obvious mixed metaphor, because nothing announces itself and the passage simply reads as vague.",
+        "polarity": "fault",
+        "caution": "Detect it by naming each figure's domain in the margin; adjacency shows up as three near-synonymous domains, not one.",
+        "see_also": [
+          "diction_and_register/figurative_diction_controls",
+          "rhetorical_figures/metaphor_family"
+        ]
+      },
+      {
+        "name": "clashing entailments",
+        "definition": "Two domains applied to one subject whose imported inferences contradict each other, so the passage argues two incompatible things below the surface.",
+        "example": "Calling the department a machine in one paragraph and an organism in the next: the first denies its staff agency, the second grants them interests, and the argument needs one answer.",
+        "effect": "Produces prose that feels reasonable sentence by sentence and cannot be summarized, because there is no single position in it.",
+        "polarity": "fault",
+        "caution": "The costliest mixing fault and the least visible — the images may never appear in the same sentence, so no mixed-metaphor check catches it."
+      },
+      {
+        "name": "dead-pair reanimation",
+        "definition": "Two dead metaphors from different domains placed close enough to wake each other, so both images return at once and neither is wanted.",
+        "example": "We need to unpack this thorny issue and see whether it holds water.",
+        "effect": "The reader assembles a picture, fails, and starts watching the writer instead of the argument.",
+        "polarity": "fault",
+        "caution": "Search for it by listing the buried domains of every idiom in a paragraph; each phrase is invisible alone, which is why the pairing is not caught in drafting.",
+        "see_also": "diction_and_register/figurative_diction_controls"
+      },
+      {
+        "name": "domain drift",
+        "definition": "A chapter that begins in one source domain and ends in another with no marked handover, usually by way of three or four unnoticed intermediate steps.",
+        "example": "Opens with soil and rotation, passes through irrigation, arrives at pipes and pressure, and closes on the plumbing of the institution.",
+        "effect": "The opening figure is retroactively wasted, and readers who remember it feel the chapter changed subject without saying so.",
+        "polarity": "fault",
+        "caution": "Diagnose by listing the domain of every figure in order; drift is a gradient, not a jump, and is invisible in any single revision pass."
+      },
+      {
+        "name": "metaphor pile-up",
+        "definition": "Three or more vehicles from different domains stacked in a paragraph, each fresh enough to demand imagining.",
+        "example": "The proposal was a lightning rod, a Trojan horse, and the thin end of a wedge that would come home to roost.",
+        "effect": "Each image cancels the last; the reader retains a sense of emphasis and no content whatever.",
+        "polarity": "fault",
+        "caution": "Almost always a symptom of a writer who could not choose, and the cure is choosing rather than pruning."
+      },
+      {
+        "name": "runaway vehicle",
+        "definition": "A figure developed so richly that the source domain becomes more interesting than the subject it was brought in to explain.",
+        "example": "Two hundred words on how a bell is cast, after which the reader wants to know about bells and has forgotten the licensing regime.",
+        "effect": "The reader's attention transfers permanently to the vehicle, and the argument has to restart cold.",
+        "polarity": "fault",
+        "caution": "Test by asking what the reader would repeat afterwards. If it is the vehicle, cut the vehicle by half."
+      },
+      {
+        "name": "domain exhaustion",
+        "definition": "A sustained domain kept running past the point where its terms still correspond, so the last figures are forced and the correspondences have to be argued for.",
+        "example": "The mine figure holds through seams and tailings, then needs the reader to accept that the pit ponies are middle management.",
+        "effect": "The forced term makes the whole sustained figure visible as machinery, and retroactively cheapens the correspondences that did work.",
+        "polarity": "fault",
+        "caution": "The failure mode specific to a domain carried across a whole chapter; the fix is retirement at the last term that fitted, not a better forced term.",
+        "see_also": "diction_and_register/figurative_diction_controls"
+      }
+    ]
+  }
+}

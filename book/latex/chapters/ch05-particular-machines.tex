@@ -1,0 +1,87 @@
+\chapter{Particular Machines}
+\label{ch:machines}
+
+Everything so far has been general. This chapter is about two machines: the AVX2 vector extension of x86, where the book's certified theorems live, and the RISC-V bit-manipulation extensions, where the book reproduces --- exactly --- the exhaustive searches on which a ratified instruction set was designed, and finds that not one of them was ever certified.
+
+\section{AVX2: reversing thirty-two bytes}
+\label{sec:avx2}
+
+The problem is the simplest one that is not trivial. Thirty-two bytes sit in a register; put them in the opposite order. Every SIMD programmer knows the answer --- reverse within each 128-bit half with \code{vpshufb}, then swap the halves with \code{vperm2i128} --- and every SIMD programmer believes it cannot be done in one. The compiler agrees: LLVM lowers this pattern in two operations. What nobody could say, before the objects below, is that the belief is a theorem, because nobody had written down the instruction set it quantifies over.
+
+\subsection{The unary five-family language}
+
+\begin{artifact}{M.avx2.reverse.len2.unary5}
+Over single-register sequences drawn from five families --- \code{vpshufb} with permutation controls, \code{vpermd}, \code{vpermq}, same-source \code{vpalignr} with immediates zero through fifteen, and the identity and swap forms of same-source \code{vperm2i128} --- no one-instruction sequence reverses thirty-two distinct tags, and \code{vpermd} followed by \code{vpshufb} does it in two. The one-step formula has 2,663 variables and 87,940 clauses, and is unsatisfiable.
+
+It is unsatisfiable by unit propagation alone. The certificate the solver produced --- 957,982 bytes --- is accepted by the checker, and would be accepted with half of it deleted, for the reason Chapter~\ref{ch:certificates} explains. The load-bearing evidence for this object is the formula and a propagation check, and the ledger says so.
+\ArtifactScope{M.avx2.reverse.len2.unary5}
+\end{artifact}
+
+The restriction to a unary language --- each instruction consumes only the previous result --- is a real restriction and it is declared. It excludes two-source instructions, and so it excludes the very sequence the compiler emits, which uses a two-source \code{vperm2i128}. The theorem is still true in its language; the next object removes the restriction.
+
+\subsection{Fourteen families, SSA operands}
+
+\begin{artifact}{M.avx2.reverse.len2.ssa14}
+Now let every earlier value remain available as an operand --- the input, and each instruction's result --- and admit fourteen families: the previous permutation instructions, two-source \code{vpalignr} with immediates zero through sixteen, two-source \code{vperm2i128}, the eight low and high unpacks at byte, word, doubleword and quadword width, and \code{vpblendd}. No one-instruction program reverses thirty-two tags; \code{vpshufb} followed by a two-source \code{vperm2i128} does it in two. The one-step formula has 2,697 variables and 97,314 clauses. It is \emph{not} refutable by propagation; the 1,922,088-byte proof is load-bearing, and the checker rejects it when two bytes are removed.
+
+This set exhausts the instruction families named in the research brief that produced it. It does not exhaust AVX2: memory operands, insert and extract, logical operations, register allocation, and scheduling are all outside it, and the object says so.
+\ArtifactScope{M.avx2.reverse.len2.ssa14}
+\end{artifact}
+
+\subsection{Cost under a named profile}
+
+Instruction count is not what a machine charges for. On Haswell the register forms of these instructions have documented dependent latencies of one cycle (\code{vpshufb}, \code{vpalignr}) or three (\code{vpermd}, \code{vpermq}, \code{vperm2i128}). Under that profile the two-instruction sequences above cost four, and the question becomes whether a three-instruction sequence of cheap shuffles could cost less.
+
+\begin{artifact}{M.avx2.reverse.cost4.haswell}
+Under the profile \code{vpshufb}=1, \code{vpermd}=3, \code{vpermq}=3, \code{vpalignr}=1, \code{vperm2i128}=3, no sequence in the unary five-family language reverses thirty-two tags at total cost three or less; \code{vpermd} then \code{vpshufb} does it at cost four. The cost bound is composed as a checked weighted-at-most constraint over the same formula --- 6,024 variables, 235,303 clauses --- and the solver refutes it in 1.35 seconds. The 12,554,825-byte proof is load-bearing; the checker rejects both a two-byte and a sixty-four-byte truncation. The profile is a serial dependency-chain proxy, which is what Intel says such latencies model; the theorem claims nothing about throughput.
+\ArtifactScope{M.avx2.reverse.cost4.haswell}
+\end{artifact}
+
+\begin{keyidea}[title={What these three theorems are, and are not}]
+They are the first machine-checkable per-instance minimality certificates for instruction sequences on a current ISA. They are not the first minimality \emph{claims} of that shape: Bansal and Aiken enumerated optimal three-instruction x86 peepholes in 2006, and Franchetti and Püschel proved stride-permutation sequences minimal on SSE2 in 2008 by matching a search's upper bound to Floyd's block-transfer lower bound in a human-readable argument. What is new is the artifact, and this book says exactly that.
+\end{keyidea}
+
+\section{RISC-V: the tables an instruction set was designed on}
+\label{sec:riscv}
+
+RISC-V's bit-manipulation and scalar-cryptography extensions were designed, in part, by exhaustive search. The searches survive as tables in the specification repositories. The code that produced them mostly does not.
+
+\subsection{Two hundred and fifty-six functions}
+
+The scalar-crypto repository carries a document that tabulates, for every one of the 256 three-input Boolean functions, the minimum RISC-V instruction count with and without the \code{andn}, \code{orn} and \code{xnor} instructions that the Zbkb extension adds --- and uses the table to answer a design question: \emph{would NOR and NAND help? Not really.} The document's only stated evidence is the phrase \emph{our exhaustive search}. There is no code, no data file, and no proof; the document has two commits, both on the same day in 2020.
+
+\begin{artifact}{M.riscv.bitlogic256}
+The table is correct on all 512 entries. A breadth-first search over sets of held truth tables --- complete, not heuristic, and re-implemented from scratch for this book --- reproduces every minimum: the base set needs at most five instructions and the extended set at most four. It also finds what the document does not say. For SHA-2's \code{Ch} and \code{Maj} functions --- the two the document uses to motivate the discussion --- the minimum is three and four \emph{in both instruction sets}. Zbkb's logic-with-negate group saves no instructions on either; the gain is depth only.
+
+Two independent uncertified exhaustive searches now agree. That is still not a proof, and the object's status is \emph{computed}, not \emph{proved}. The certified version is one of the open problems: 256 small DRAT refutations, under a gigabyte in total, fitting in an appendix.
+\ArtifactScope{M.riscv.bitlogic256}
+\end{artifact}
+
+\subsection{The lost table}
+
+The Bitmanip draft specification justifies its permutation instructions --- \code{ror}, \code{grev}, \code{shfl} --- with a table of how many bit permutations of a thirty-two-bit word are reachable with \(N\) of them, and with the claim that all twenty-four byte permutations are reachable in at most three. Both cite a brute-force enumeration at a URL that now returns 404. The task group that produced the table was dissolved on ratification; the instructions the table justified were dropped from the ratified extension.
+
+\begin{artifact}{M.riscv.byteperm24}
+All twenty-four byte permutations of a thirty-two-bit word are reachable with at most three instructions from \code{ror}, \code{grev}, \code{shfl} and \code{unshfl}, as the draft says. The per-permutation minima, which the draft does not give, are: six permutations at length one, nine at length two, eight at length three.
+\ArtifactScope{M.riscv.byteperm24}
+\end{artifact}
+
+\begin{artifact}{M.riscv.table22}
+The draft's cumulative reachability counts --- for rotate and generalized-reverse alone, \(1, 62, 864, 4640, 23312, 92192, 294992, 703744, 1012856, 1046224, 1048576\); with shuffle added, \(1, 85, 3030, 78659, 2002167\) through depth four --- are reproduced exactly. The numbers whose source is a dead link are now numbers with a script.
+\ArtifactScope{M.riscv.table22}
+\end{artifact}
+
+The reproduction rests on an observation that also explains why these problems belong to a solver rather than a table. A rotation by \(k\) sends bit address \(a\) to \(a - k \bmod 32\); a generalized reverse by \(k\) sends it to \(a \oplus k\); each shuffle immediate is one of sixteen distinct permutations of the five address bits. The whole problem is a five-bit word-level problem. On a sixty-four-bit word the reachable set at depth nine is about \(10^{13}\) permutations --- beyond any breadth-first search --- while the SAT instance stays at a few thousand variables. That asymmetry is the argument of this book in miniature.
+
+\begin{keyidea}[title={A specification that asserts a lower bound}]
+The same draft contains one sentence of a kind found nowhere else in any ISA document surveyed for this book: \emph{using only base-ISA instructions, at least 7 instructions are needed to pack a 5:6:5 RGB value.} That is a lower bound, asserted in a specification, with no proof, used to justify an instruction. It is either true --- in which case a refutation of every six-instruction program exists and could be attached --- or it is false, in which case a published rationale is wrong. Deciding which is a week's work and the highest-leverage open problem in this chapter.
+\end{keyidea}
+
+\section{Exercises}
+
+\begin{enumerate}
+\item Extend the unary five-family language with \code{vpshufd} and re-run the one-step refutation. Does the formula remain propagation-refutable?
+\item Choose one of the 256 functions with base-set minimum five and produce a DRAT refutation of every four-instruction chain. How large is it? Check it with two independent checkers.
+\item State the 5:6:5 packing problem precisely --- inputs, output, and the declared immediate pool for \code{andi} and the shifts --- and decide whether a six-instruction program exists.
+\item The Zicond extension's specification gives conditional select a length of three instructions and one temporary, and never claims minimality. Is three minimal?
+\end{enumerate}

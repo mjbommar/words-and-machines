@@ -1,0 +1,128 @@
+%% ============================================================
+%% preamble/boxes.tex — semantic callout family (module: boxes)
+%%
+%% Purpose      : the five authoring-contract callouts —
+%%                keyidea / example / warning / sidebar / definition —
+%%                as tcolorbox environments. Each takes ONE optional
+%%                keyval argument, e.g.:
+%%                  \begin{warning}[title={Check the gutter},importance=high]
+%%                Keys: any tcolorbox key, plus the template's
+%%                importance=low|medium|high (frame emphasis scaling).
+%% Dependencies : tcolorbox (packages.tex) + skins/breakable libraries
+%%                (loaded here), colors.tex (callout-* semantics),
+%%                fonts.tex (sans for titles). Loaded only when
+%%                \ifBookModuleBoxes is true (book.yaml modules.boxes).
+%% Provenance   : complexity-book's callout family, incl. the smart
+%%                page-breaking discipline (`lines before break=3`
+%%                keeps a box from leaving a 1-2 line stub before a
+%%                page break) — docs/research/complexity-book.md.
+%% ============================================================
+
+\tcbuselibrary{skins,breakable}
+
+% Icons for the math/logic callouts (module: boxes-math). fontawesome5
+% ships with TeX Live; icons differentiate the four boxes in BOTH the
+% color edition and grayscale POD (where the hues collapse). The EPUB
+% converter reproduces the icon from a class-based CSS ::before, so the
+% glyph survives conversion independently of the LaTeX title text.
+\usepackage{fontawesome5}
+\newcommand{\iconProofKit}{\faDraftingCompass}
+\newcommand{\iconTryIt}{\faPencilRuler}
+\newcommand{\iconGoingDeeper}{\faLayerGroup}
+\newcommand{\iconArchive}{\faScroll}
+
+% ----------------------------------------------------------------------
+% Shared skeleton. Design language: quiet full hairline + a heavier
+% LEFT rule carrying the semantic color; title as a small bold sans
+% line inside the tint, not a filled banner (banner fills go muddy on
+% POD grayscale). `enhanced jigsaw` is the skin that breaks cleanly.
+% ----------------------------------------------------------------------
+\tcbset{
+  bookcallout/.style={
+    enhanced jigsaw,
+    breakable,
+    lines before break=3,     % never orphan a 1-2 line box stub at a page break
+    boxrule=0.4pt,
+    leftrule=2.5pt,           % semantic color lives here (importance rescales it)
+    arc=1pt,                  % near-square: print-friendly, no halftone halos
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=0.9\baselineskip,
+    after skip=0.9\baselineskip,
+    fonttitle=\normalfont\sffamily\bfseries\small,
+    toptitle=5pt, bottomtitle=2pt,
+    titlerule=0pt,            % title sits in the tint, no separator bar
+  },
+  % importance= — how loudly the frame speaks. Scales rule weights
+  % (and, at high, the title weight) but never changes the hue, so a
+  % chapter full of callouts still reads as one family.
+  importance/.is choice,
+  importance/low/.style={leftrule=1pt, boxrule=0.3pt},
+  importance/medium/.style={leftrule=2.5pt, boxrule=0.4pt},
+  importance/high/.style={leftrule=5pt, boxrule=0.8pt,
+    fonttitle=\normalfont\sffamily\bfseries},
+}
+
+% Each environment: default title = its semantic name (override with
+% title={...}); colors bound to the callout-* semantic tokens so
+% \GrayscaleMode retheming happens upstream in colors.tex.
+\newtcolorbox{keyidea}[1][]{bookcallout,
+  title={Key Idea},
+  colframe=callout-keyidea-frame, colback=callout-keyidea-bg,
+  coltitle=callout-keyidea-frame, colbacktitle=callout-keyidea-bg,
+  #1}
+
+\newtcolorbox{example}[1][]{bookcallout,
+  title={Example},
+  colframe=callout-example-frame, colback=callout-example-bg,
+  coltitle=callout-example-frame, colbacktitle=callout-example-bg,
+  #1}
+
+\newtcolorbox{warning}[1][]{bookcallout,
+  title={Warning},
+  colframe=callout-warning-frame, colback=callout-warning-bg,
+  coltitle=callout-warning-frame, colbacktitle=callout-warning-bg,
+  #1}
+
+\newtcolorbox{sidebar}[1][]{bookcallout,
+  title={Aside},
+  colframe=callout-sidebar-frame, colback=callout-sidebar-bg,
+  coltitle=callout-sidebar-frame, colbacktitle=callout-sidebar-bg,
+  #1}
+
+\newtcolorbox{definition}[1][]{bookcallout,
+  title={Definition},
+  colframe=callout-definition-frame, colback=callout-definition-bg,
+  coltitle=callout-definition-frame, colbacktitle=callout-definition-bg,
+  #1}
+
+% ----------------------------------------------------------------------
+% Math/logic callouts (module: boxes-math). Distinct hues (colors.tex)
+% + a leading icon so a Proof Kit, a Try It, a Going Deeper aside, and a
+% From-the-Archive document are instantly told apart — in colour, and in
+% grayscale where the hues collapse but the icons remain. Default titles
+% carry the icon; to use a custom title, prepend the matching \icon...
+% macro, e.g. title={\iconProofKit\ Proof Kit: Cantor's Theorem}.
+% ----------------------------------------------------------------------
+\newtcolorbox{proofkit}[1][]{bookcallout,
+  title={\iconProofKit\hspace{0.5em}Proof Kit},
+  colframe=callout-proofkit-frame, colback=callout-proofkit-bg,
+  coltitle=callout-proofkit-frame, colbacktitle=callout-proofkit-bg,
+  #1}
+
+\newtcolorbox{tryit}[1][]{bookcallout,
+  title={\iconTryIt\hspace{0.5em}Try It},
+  colframe=callout-tryit-frame, colback=callout-tryit-bg,
+  coltitle=callout-tryit-frame, colbacktitle=callout-tryit-bg,
+  #1}
+
+\newtcolorbox{goingdeeper}[1][]{bookcallout,
+  title={\iconGoingDeeper\hspace{0.5em}Going Deeper},
+  colframe=callout-goingdeeper-frame, colback=callout-goingdeeper-bg,
+  coltitle=callout-goingdeeper-frame, colbacktitle=callout-goingdeeper-bg,
+  #1}
+
+\newtcolorbox{archive}[1][]{bookcallout,
+  title={\iconArchive\hspace{0.5em}From the Archive},
+  colframe=callout-archive-frame, colback=callout-archive-bg,
+  coltitle=callout-archive-frame, colbacktitle=callout-archive-bg,
+  #1}

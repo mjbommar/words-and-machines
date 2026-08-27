@@ -1,0 +1,66 @@
+\chapter{Prologue: Basic Properties of Words}
+\label{ch:words}
+
+Spivak opens his \emph{Calculus} with thirteen properties of the real numbers and then proves everything else from them, including the things you already believed. The first surprise of that book is on page nine, where the reader discovers that \(1 > 0\) is a theorem, and that proving it teaches something the assertion did not.
+
+This book opens the same way, with one difference. There are no axioms. A word of width \(n\) is not assumed; it is built.
+
+\section{The word of width \(n\)}
+\label{sec:word}
+
+\begin{definition}[title={Word \(n\)}]
+Let \(n \geq 1\). The \term{word of width \(n\)} is the ring \(\mathbf{Z}/2^n\mathbf{Z}\). Its elements are the natural numbers \(0, 1, \dots, 2^n - 1\); addition and multiplication are the ordinary operations reduced modulo \(2^n\). The \term{bit} \(i\) of a word \(x\), for \(0 \leq i < n\), is \((x \div 2^i) \bmod 2\). Bitwise \emph{and}, \emph{or}, and \emph{xor} are defined pointwise on bits; a left shift by \(k\) is multiplication by \(2^k\) reduced modulo \(2^n\); a logical right shift by \(k\) is division by \(2^k\) rounded toward zero.
+\end{definition}
+
+Everything a machine does to a register is a function on this ring, and every claim in this book about a machine is, in the end, a claim about functions on \(\mathbf{Z}/2^n\mathbf{Z}\). That is why the definition sits on the naturals and nowhere else: in the reasoning stack this book uses, the natural numbers are constructed inductively and carry \emph{zero} assumptions --- no axiom, no opaque constant, no quotient --- and the word inherits that.\footnote{The kernel's inventory prints the naturals as \code{AxNat}. The prefix means \emph{axeyum}, the name of the stack; it does not mean axiomatized. The one axiomatized carrier in that kernel is the legacy real field, at thirty assumptions, and nothing in this book reaches it.}
+
+\begin{artifact}{W.def.word}
+This is the first object in the ledger, and the first thing to notice about it is what the ledger says it is \emph{not}: nothing in the reasoning stack yet packages this definition as a reusable library. Each proof that mentions a word of width \(w\) rebuilds the type on the fly and discards it. Building the word prelude once, on the zero-axiom naturals, is the first open problem of this book (\obj{OP.kernel.word-prelude}), and every theorem in this chapter should be re-admitted as a kernel theorem when it lands.
+\ArtifactScope{W.def.word}
+\end{artifact}
+
+\section{The obvious things}
+\label{sec:totality}
+
+Division by zero is where the first proof lives. On the reals it is undefined. On a machine it cannot be undefined, because the divider circuit produces \emph{some} bits, and a specification that leaves them unspecified is a specification that two implementations may disagree about. The SMT-LIB standard, which is the lingua franca of the solvers this book uses, therefore makes every operator total by convention: unsigned division by zero yields the all-ones word, unsigned remainder by zero yields the dividend, and signed division by zero yields \(1\) for negative dividends and \(-1\) otherwise.
+
+Those are conventions. In this book they are theorems, and the distinction matters. A solver that folds \emph{division by a constant zero} to a fixed answer as a rewrite rule has, at some point in the history of the stack this book uses, shipped a wrong \emph{unsat} --- because the fuzzer that was supposed to catch it only ever generated variable divisors and structurally could not produce the degenerate case. A convention enforced by a rewrite is a convention enforced by whoever remembered to write the rewrite. A convention that is a theorem is checked every time.
+
+\begin{artifact}{W.thm.udiv0}
+For every word \(x\) of width eight, \(x \div_u 0 = 2^8 - 1\). The proof is a refutation: assert that some \(x\) violates the equation, ask the solver, and receive \emph{unsat}. The negated statement is the file \code{bvudiv-by-zero-is-allones.smt2} in the artifacts directory.
+\ArtifactScope{W.thm.udiv0}
+\end{artifact}
+
+\begin{artifact}{W.thm.urem0}
+For every word \(x\) of width eight, \(x \bmod_u 0 = x\).
+\ArtifactScope{W.thm.urem0}
+\end{artifact}
+
+\begin{artifact}{W.thm.sdiv0}
+For every word \(x\) of width eight, \(x \div_s 0\) is \(1\) when \(x\) is negative and \(2^8 - 1\) --- that is, \(-1\) --- otherwise.
+\ArtifactScope{W.thm.sdiv0}
+\end{artifact}
+
+\begin{keyidea}[title={A checker that cannot fail}]
+A reader who has been told that all three objects above are \emph{proved} should ask what the checker would have printed had they been false. This ledger answers with a fourth object: a deliberately wrong convention, \emph{unsigned division by zero yields zero}, whose negation the same solver must find \emph{satisfiable}. It does. That row exists so that a checker which says \emph{unsat} to everything is caught, and it is the first instance of a rule this book applies to every object it contains: no checker is trusted until it has been seen to fail.
+\end{keyidea}
+
+\begin{artifact}{W.ctl.udiv0-wrong}
+The negative control. Its status in the ledger is \emph{refuted}, which is what it must be.
+\ArtifactScope{W.ctl.udiv0-wrong}
+\end{artifact}
+
+\section{What the verdict carries}
+\label{sec:verdict}
+
+The three theorems above are proved, in the ledger's vocabulary, by a \term{front-door verdict}: the solver decides the negated sentence and prints \emph{unsat}. Inside, the solver checks its own answer --- on a formula this small by exhaustive evaluation against the original terms, on larger ones by a resolution proof it re-derives from the bit-blasted circuit --- but the command-line tool used here does not export that certificate. So the evidence row says exactly that: the verdict reproduces, the negative control fires, and the exported-certificate form is an exercise.
+
+This is the honest shape of the Prologue. The theorems are true and checked; they are not yet \emph{kernel} theorems, and the ledger will not call them so until they are.
+
+\section{Exercises}
+
+\begin{enumerate}
+\item Write the SMT-LIB sentence for \(x \bmod_s 0 = x\) at width eight and decide it. Add it to the ledger with a negative control.
+\item Every theorem in this chapter is at width eight. State \obj{W.thm.udiv0} for all widths at once. What would its proof need that the front door cannot supply?
+\item Show that for width \(n\), the number of words is \(2^n\) and the number of functions from words to words is \(2^{n 2^n}\). For \(n = 8\) this exceeds the number of atoms in the observable universe by a margin worth computing; the Prologue's theorems are nevertheless decided in milliseconds. Explain why the size of the function space is the wrong measure of difficulty.
+\end{enumerate}

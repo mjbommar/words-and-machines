@@ -1,0 +1,146 @@
+# ============================================================
+# book.yaml — single source of truth for this book.
+# Every title/author/ISBN in LaTeX, EPUB, covers, and KDP docs
+# derives from this file. See docs/architecture/config-schema.md.
+#
+# Values containing TODO fail `make generated` (and every build)
+# until filled in. The shipped sample values are intentionally
+# placeholders; run scripts/init_book.py to personalize.
+# ============================================================
+
+book:
+  title: "Words and Machines"
+  subtitle: "Instruction Sets from First Principles, with Proofs You Can Check"
+  author: "Michael J. Bommarito II"
+  author_short: "Bommarito"          # running heads; defaults to author
+  publisher: "Bommarito Press"
+  imprint: ""
+  year: 2026
+  edition_statement: "First Edition"
+  copyright_holder: ""            # defaults to author
+  description: >-
+    A from-first-principles treatment of instruction set architectures in the
+    manner of Spivak's Calculus: a tiny axiom base, every claim proved, and the
+    exercises carrying the subject. Every definition, theorem, computation, and
+    open problem in the book is an object in a ledger with a real artifact -- a
+    CNF, a DRAT refutation, a witness, an exhaustive-search transcript -- and a
+    checker whose exit status depends on the finding. The worked machines are
+    AVX2 and RISC-V; the reasoning stack is axeyum.
+  language: en-US
+
+identifiers:
+  # Samples with valid ISBN-13 checksums so the template builds; `make
+  # release` (--strict) rejects this sample block until replaced.
+  isbn_print: "979-8-0000000-0-7"
+  isbn_epub: "979-8-0000000-1-4"
+  isbn_hardcover: ""
+  lccn: ""
+
+classification:
+  bisac: ["COM051000", "COM011000", "MAT000000"]
+  keywords: ["instruction set architecture", "SAT solving", "proof certificates", "SIMD", "RISC-V", "superoptimization", "formal verification"]
+  audience: "academic"               # trade | academic | young-readers
+
+formats:
+  print: true
+  epub: true
+  hardcover: false
+
+trim:
+  preset: "7x10"                   # 6x9 | 7x10 | 5.5x8.5 | 5x8 | 8.5x11
+                                  # 8.5x11 (textbooks/workbooks): use
+                                  # base_size 12; KDP large-trim pricing
+  paper: "white"                  # white | cream | standard-color |
+                                  # premium-color (sets KDP spine width)
+  bleed: 0.125
+
+typography:
+  font_profile: "libertinus"      # libertinus | garamond | plex
+  engine: "lualatex"              # lualatex | xelatex
+  base_size: 11                   # 10 | 11 | 12
+
+citations:
+  style: "authoryear"             # authoryear | superscript
+  bibliography_title: "Sources"
+
+style:
+  # Genre style profile layered over docs/guides/STYLE.md. See
+  # docs/guides/styles/README.md. Options ship in docs/guides/styles/:
+  #   narrative-nonfiction | practical-guide | technical-handson |
+  #   young-readers. Leave empty for base STYLE.md behavior.
+  profile: "technical-handson"
+
+  # Set true when the title is also the name of the book's subject — a place,
+  # a person, a ship — so running prose cannot avoid saying it and \BookTitle
+  # in a sentence would be wrong the moment the book is retitled. Drops the
+  # title (never the author) from check_style.py's ADR 0002 literal-metadata
+  # check. Leave false for any book whose title is not its subject's name.
+  title_is_subject: false
+
+simplified_english:
+  # Simplified Book English — the controlled-vocabulary layer (advisory).
+  # Guide: docs/guides/SIMPLIFIED-ENGLISH.md. Report: `make simplified`.
+  # Every key is optional; delete the block to take the defaults.
+  enabled: true
+  # Terms this book admits. Introduce each one in the prose anyway — the
+  # entry says "this is our word", not "no explanation needed". `not:`
+  # lists spellings that must never appear, so one concept keeps one name.
+  # These samples belong to the template's own sample chapters; delete them
+  # when you write your own.
+  terms:
+    - term: "callout"
+    - term: "keyidea"          # the callout environment, named in ch02
+    - term: "preflight"
+    - {term: "EPUB", not: ["ePub", "epub3"]}
+  # Abbreviations this book may use bare, beyond the ones everybody knows.
+  abbreviations: ["ADR", "ISBN", "YAML", "PDF", "TOC", "KDP", "DPI", "TAC"]
+  # Proper names whose official spelling is all capitals. Keep these separate
+  # from abbreviations because there is no full form to introduce.
+  names: []
+  # Substitutions this book has decided are correct for its subject —
+  # a computability book keeps "enumerate", a calculus book keeps
+  # "with respect to". Takes phrases as well as words.
+  ignore: []
+  # Extra words to treat as core, and extra words to ban outright.
+  allow: []
+  deny: []
+  # Optional report tuning. The default warns on recurring unintroduced
+  # terms; `--advisory` also shows single-use terms as ideas.
+  thresholds:
+    unintroduced_min_uses: 2
+
+modules:
+  code: true
+  verse: false                    # parallel-text verse (requires xelatex)
+  boxes: true
+
+editions:
+  full:
+    default: true
+    chapters: [ch01, ch02, ch03, ch04, ch05, ch06]
+  # essential:
+  #   title_suffix: "Essential Edition"
+  #   isbn_print: ""
+  #   isbn_epub: ""
+  #   chapters: [ch01, ch03]
+
+publishing:
+  platforms: ["kdp"]              # kdp | lulu-paperback | lulu-hardcover
+  kindle_drm: false               # effectively permanent per title; since
+                                  # 2026-01-20 buyers can download the
+                                  # EPUB/PDF of DRM-free Kindle books
+  # KDP's AI questionnaire, per content type. "generated" = an AI tool
+  # created it (even with substantial edits after) -> must disclose;
+  # "assisted" = you created it, AI edited/refined/checked -> no
+  # disclosure required. See docs/publishing/KDP-TEMPLATE.md section 6.
+  ai_disclosure:
+    text: generated               # none | assisted | generated
+    images: none                  # none | assisted | generated
+    translations: none            # none | assisted | generated
+    detail: "AI-drafted from author outlines; every chapter reviewed, fact-checked, and revised by the author."
+    statement: >-
+      Portions of this book were drafted and edited with the assistance of
+      AI tools. All facts, citations, and final language were reviewed and
+      verified by the author.
+  price_usd_print: null
+  price_usd_ebook: null

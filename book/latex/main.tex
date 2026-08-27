@@ -1,0 +1,73 @@
+%% ============================================================
+%% main.tex — single entry point for EVERY interior variant
+%%
+%% One file, all outputs (ADR 0006): the Makefile injects build-mode
+%% flags via latexmk's -usepretex (e.g. -usepretex='\def\BleedMode{1}')
+%% with a distinct -jobname per variant, building out-of-tree:
+%%
+%%   cd latex && latexmk -lualatex -interaction=nonstopmode \
+%%     -output-directory=../build/latex main.tex
+%%
+%% All \input paths below are relative to latex/ (the build cwd);
+%% only the OUTPUT goes to build/.
+%%
+%% Modes (read inside preamble modules, never in chapters):
+%%   \BleedMode      trim+bleed paper for POD wrap      (geometry.tex)
+%%   \EbookMode      screen margins, colored links      (geometry/styling/hyperref-last)
+%%   \GrayscaleMode  accent scale collapses to gray     (colors.tex)
+%%   \DraftMode      DRAFT header banner                (styling.tex)
+%% ============================================================
+
+% Metadata FIRST — before \documentclass, because \BookBaseSize feeds
+% the class options. Generated from book.yaml; never edited by hand.
+\IfFileExists{generated/metadata.tex}{%
+  \input{generated/metadata}%
+}{%
+  \errmessage{generated/metadata.tex is missing - run:
+    uv run scripts/generate_metadata.py}%
+}
+
+\documentclass[\BookBaseSize,twoside,openright]{book}
+
+\input{preamble/main}
+
+\begin{document}
+
+% ---------------- Front matter (roman folios) -------------------------
+\frontmatter
+\pagestyle{frontmatterstyle}
+
+\input{frontmatter/halftitle}
+\input{frontmatter/titlepage}
+\input{frontmatter/copyright}
+\input{frontmatter/dedication}
+\input{frontmatter/epigraph}
+
+\cleardoublepage
+% The ToC heading is \chapter*, which never bookmarks itself.
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents
+
+% ---------------- Main matter (arabic folios) -------------------------
+\mainmatter
+\pagestyle{mainmatterstyle}
+
+% Ordered chapter list for the selected edition (ADR 0011), generated
+% by scripts/generate_metadata.py --edition NAME.
+\input{generated/edition}
+
+% ---------------- Back matter ------------------------------------------
+\backmatter
+\pagestyle{backmatterstyle}
+
+\input{backmatter/acknowledgments}
+\input{backmatter/about-author}
+
+\cleardoublepage
+% Renders via the citation preset selected in book.yaml (packages.tex):
+% authoryear -> standard list; superscript -> two-column footnotesize.
+\BookPrintBibliography
+
+\input{backmatter/colophon}
+
+\end{document}

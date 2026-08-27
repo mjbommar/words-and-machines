@@ -1,0 +1,66 @@
+%% ============================================================
+%% preamble/commands.tex — semantic inline macros
+%%
+%% Purpose      : implements the authoring contract's inline
+%%                vocabulary (docs/architecture/authoring-contract.md).
+%%                These are SEMANTIC hooks: print styling lives here,
+%%                and the EPUB converter maps each macro to a class
+%%                (\term -> <i class="term">, etc.). Chapters may use
+%%                these macros and nothing else.
+%% Dependencies : etoolbox; code.tex (which owns \code when the code
+%%                module is on — hence this file loads after it).
+%% Provenance   : the-last-book's PARSE CONTRACT macro table
+%%                (docs/research/the-last-book.md).
+%% ============================================================
+
+% \term — first use of a technical term (italic; converter: i.term).
+\newcommand{\term}[1]{\emph{#1}}
+
+% \work — titles of books/films/periodicals (italic; converter: i.work).
+% Distinct from \emph so the EPUB can class them differently and an
+% index pass can find every cited work.
+\newcommand{\work}[1]{\emph{#1}}
+
+% \person — personal names. Print styling is deliberately plain by
+% default; books that want Bringhurst-style small-caps introductions
+% swap the definition here (never in chapters). Converter: span.person.
+\newcommand{\person}[1]{#1}
+
+% \keyterm — a defined term at its definition site (bold; converter:
+% dfn.keyterm). Pairs with an explanation in the surrounding prose.
+\newcommand{\keyterm}[1]{\textbf{#1}}
+
+% \foreignphrase — non-English phrases (italic; converter: i.foreign,
+% which also earns a lang attribute during EPUB conversion).
+\newcommand{\foreignphrase}[1]{\emph{#1}}
+
+% \figalt — accessibility alternative text for the enclosing figure.
+% No-op in print (alt text is an EPUB concern); the converter uses it
+% as the image's alt attribute. \figalt{} (empty) marks the image
+% decorative (alt="" role="presentation"). Without \figalt the
+% converter falls back to the caption text; a figure with neither is
+% an epub-check violation. Keep it under ~140 characters (KDP).
+\newcommand{\figalt}[1]{}
+
+% \code — inline code. The code module (preamble/code.tex) defines the
+% robust \lstinline-backed version; this fallback keeps the macro
+% available (simple \texttt) in books with modules.code: false so
+% prose mentioning \code{make pdf} still compiles.
+\ifBookModuleCode\else
+  \newcommand{\code}[1]{\texttt{#1}}
+\fi
+
+% ----------------------------------------------------------------------
+% Block-quote support: \attribution closes a quotation with a
+% right-aligned em-dash credit line, e.g.
+%   \begin{quotation} ... \attribution{Robert Bringhurst} \end{quotation}
+% The \nopagebreak keeps a credit from stranding on the next page.
+% ----------------------------------------------------------------------
+\newcommand{\attribution}[1]{%
+  \par\nopagebreak\smallskip
+  {\raggedleft\normalfont\color{bk-attribution}\textemdash\,#1\par}}
+
+% Block quotes sit a touch smaller than body copy (trade convention);
+% the size change also signals "quotation" in grayscale POD where no
+% color cue exists.
+\AtBeginEnvironment{quotation}{\small}

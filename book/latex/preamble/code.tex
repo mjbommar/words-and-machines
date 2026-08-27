@@ -1,0 +1,106 @@
+%% ============================================================
+%% preamble/code.tex — listings environments (module: code)
+%%
+%% Purpose      : the authoring-contract code surface:
+%%                  codelisting  — \begin{codelisting}[language=Python,
+%%                                 caption={...}] ... \end{codelisting}
+%%                  promptcode   — verbatim human->model prompt
+%%                  outputcode   — verbatim program/model output
+%%                  \code{...}   — inline code (\lstinline-backed here;
+%%                                 commands.tex supplies a \texttt
+%%                                 version when this module is off)
+%% Dependencies : listings (loaded here), colors.tex (code-* tokens),
+%%                fonts.tex (mono face). Loaded only when
+%%                \ifBookModuleCode is true (book.yaml modules.code).
+%% Provenance   : vibe-coding-for-lawyers' code stack, including the
+%%                hard-won \lst@AddToHook catcode fix for `#` inside
+%%                listings (docs/research/vibe-coding-for-lawyers.md);
+%%                prompt/output variants from the same book's AI
+%%                dialogue rendering; 72-char guidance from the RFC
+%%                book's CODE-STYLE rules.
+%% ============================================================
+
+\usepackage{listings}
+
+% THE `#` FIX (vibe-coding). Inside styles/hooks listings can see `#`
+% with its parameter catcode and die with "Illegal parameter number".
+% Forcing catcode 12 (other) at listing init makes Python/bash
+% comments and shebangs safe everywhere, including inside tcolorbox.
+\makeatletter
+\lst@AddToHook{Init}{\catcode`\#=12\relax}
+\makeatother
+
+% ----------------------------------------------------------------------
+% Base style — print-safe by construction:
+%   * breaklines with a visible hooked-arrow continuation marker, so
+%     a wrapped line can never be misread as two statements;
+%   * columns=fullflexible + keepspaces: natural mono spacing without
+%     the ragged inter-letter gaps of aligned columns;
+%   * WIDTH GUIDANCE: 72 characters is the classic source ceiling, but
+%     the 6x9 measure at \small mono fits ~60; keep lines nearer 60 to
+%     avoid wraps entirely (wrapped lines are safe, just less pretty).
+% ----------------------------------------------------------------------
+\lstdefinestyle{bookcode}{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{code-keyword}\bfseries,
+  commentstyle=\color{code-comment}\itshape,
+  stringstyle=\color{code-string},
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  tabsize=4,
+  breaklines=true,
+  breakatwhitespace=true,
+  breakindent=1.5em,
+  postbreak=\mbox{{\color{code-comment}\footnotesize$\hookrightarrow$}\space},
+  frame=leftline,
+  framerule=1.5pt,
+  rulecolor=\color{code-frame},
+  backgroundcolor=\color{code-bg},
+  xleftmargin=12pt,
+  framexleftmargin=6pt,
+  aboveskip=0.9\baselineskip,
+  belowskip=0.9\baselineskip,
+  captionpos=b,
+  upquote=true,               % straight quotes in code, not curly
+}
+
+% Captions under listings: quiet, muted, like figure captions.
+\makeatletter
+\def\lst@makecaption#1#2{% mirror LaTeX's \@makecaption, muted color
+  \vskip\abovecaptionskip
+  {\small\color{bk-caption}#1: #2\par}%
+  \vskip\belowcaptionskip}
+\makeatother
+
+% --- codelisting: the one general-purpose listing environment. -------
+% Accepts all listings keys; authoring contract blesses language= and
+% caption= (label= also works if a book chooses to number listings).
+\lstnewenvironment{codelisting}[1][]
+  {\lstset{style=bookcode, #1}}
+  {}
+
+% --- promptcode: what a human typed at an AI (or shell) prompt. -------
+% Accent-tinted, no language highlighting — prompts are prose, and
+% keyword-coloring English words looks like a bug in print.
+\lstnewenvironment{promptcode}[1][]
+  {\lstset{style=bookcode, language={},
+           backgroundcolor=\color{prompt-bg},
+           rulecolor=\color{prompt-frame}, #1}}
+  {}
+
+% --- outputcode: what came back. Neutral tint, thinner rule, ---------
+% slightly smaller: output is evidence, not text to study.
+\lstnewenvironment{outputcode}[1][]
+  {\lstset{style=bookcode, language={},
+           basicstyle=\ttfamily\footnotesize,
+           backgroundcolor=\color{output-bg},
+           rulecolor=\color{output-frame},
+           framerule=0.8pt, #1}}
+  {}
+
+% --- \code — inline code span. ----------------------------------------
+% \lstinline-backed so `#`, `_`, `$` etc. need no escaping in chapters:
+% \code{dict['key']} just works. Fragile in moving arguments
+% (footnotes, captions) — the style checker flags that usage.
+\newcommand{\code}{\lstinline[basicstyle=\ttfamily]}

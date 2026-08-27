@@ -1,0 +1,596 @@
+{
+  "name": "arc_shapes",
+  "level": "macro",
+  "entry_type": "record",
+  "description": "Book- and chapter-scale shapes for the reader's line of feeling or belief: story arcs (valence = fortune or emotion) and epistemic arcs (valence = certainty, -1 doubt to +1 conviction). Optional 'curve' is [[position 0-1, valence -1..1], ...].",
+  "categories": {
+    "vonnegut_shapes": [
+      {
+        "name": "man in hole",
+        "definition": "A protagonist in decent shape falls into trouble and climbs out of it, ending higher than where they began.",
+        "curve": [[0.0, 0.3], [0.15, 0.35], [0.35, -0.6], [0.6, -0.55], [0.85, 0.35], [1.0, 0.7]],
+        "effect": "Gives the reader the pleasure of recovery; the ending reads as earned rather than given.",
+        "aka": "fall and rise",
+        "caution": "The most-used commercial shape there is; if the hole costs the protagonist nothing, the climb reads as a formality.",
+        "tags": ["fiction", "memoir", "comedy"]
+      },
+      {
+        "name": "boy meets girl",
+        "definition": "An ordinary person finds something wonderful, loses it, and gets it back.",
+        "curve": [[0.0, 0.1], [0.15, 0.75], [0.45, -0.5], [0.7, -0.35], [1.0, 0.9]],
+        "effect": "The loss in the middle converts a want into a need, so the recovery lands harder than the discovery.",
+        "register": "fiction; the backbone of romance and of most acquisition plots",
+        "tags": ["romance", "fiction"]
+      },
+      {
+        "name": "from bad to worse",
+        "definition": "A protagonist who starts badly off is driven steadily further down with no reprieve.",
+        "curve": [[0.0, -0.3], [0.3, -0.5], [0.6, -0.7], [0.85, -0.85], [1.0, -0.95]],
+        "aka": "the Kafka shape",
+        "effect": "Produces dread rather than suspense: the question is not whether but how far.",
+        "caution": "Without variation in the rate of descent the line goes numb; readers stop registering a drop they have already priced in.",
+        "tags": ["fiction", "tragedy", "absurdist"]
+      },
+      {
+        "name": "which way is up",
+        "definition": "The line refuses to resolve because the audience is never reliably told whether what happens is good news or bad.",
+        "curve": [[0.0, 0.0], [0.25, 0.08], [0.5, -0.06], [0.75, 0.06], [1.0, 0.0]],
+        "aka": "the Hamlet shape",
+        "effect": "Trades catharsis for verisimilitude — Vonnegut's point being that this is the shape of actual life.",
+        "caution": "Requires a compensating engine (voice, ideas, texture); ambiguity alone will not hold a reader for 300 pages.",
+        "tags": ["literary", "fiction"]
+      },
+      {
+        "name": "creation story",
+        "definition": "Fortune rises in discrete gifts from nothing to plenty, each step a bestowal rather than an achievement.",
+        "curve": [[0.0, -0.9], [0.2, -0.5], [0.4, -0.2], [0.6, 0.1], [0.8, 0.4], [1.0, 0.7]],
+        "effect": "Reads as cosmology or institutional history rather than drama, because nothing is contested.",
+        "register": "myth, origin stories, company and field histories"
+      },
+      {
+        "name": "old testament",
+        "definition": "A stepwise ascent to a height followed by a single catastrophic fall.",
+        "curve": [[0.0, -0.4], [0.25, 0.0], [0.5, 0.35], [0.7, 0.6], [0.8, 0.55], [1.0, -0.95]],
+        "effect": "The accumulated gifts become the measure of the loss; the higher the ladder, the deeper the drop.",
+        "tags": ["myth", "tragedy"]
+      },
+      {
+        "name": "new testament",
+        "definition": "Stepwise ascent, catastrophic fall, then a final rise that goes off the top of the scale.",
+        "curve": [[0.0, -0.4], [0.3, 0.1], [0.55, 0.5], [0.7, -0.9], [0.9, 0.2], [1.0, 1.0]],
+        "effect": "The transcendent close reframes the catastrophe as necessary, which is why the shape carries religious and redemptive material.",
+        "caution": "The off-scale ending is the hardest beat in fiction to earn; unearned it reads as authorial rescue."
+      },
+      {
+        "name": "cinderella",
+        "definition": "Stepwise rise, sudden collapse at the moment of greatest happiness, then a rise past the earlier peak.",
+        "curve": [[0.0, -0.7], [0.2, -0.4], [0.45, 0.3], [0.6, 0.7], [0.7, -0.8], [0.85, 0.2], [1.0, 1.0]],
+        "effect": "Vonnegut's claim was that this is the most popular shape ever devised, and the audience data since has not embarrassed him.",
+        "aka": "rise-fall-rise",
+        "tags": ["fairy tale", "commercial fiction", "underdog"]
+      }
+    ],
+    "rise_and_fall_families": [
+      {
+        "name": "rags to riches",
+        "definition": "A monotonic rise in fortune from deprivation to fulfilment.",
+        "curve": [[0.0, -0.8], [0.3, -0.35], [0.6, 0.2], [0.85, 0.6], [1.0, 0.9]],
+        "effect": "Satisfies aspiration directly; the risk is that a line with no descent has no suspense.",
+        "caution": "Needs local setbacks inside the rise or it reads as a résumé."
+      },
+      {
+        "name": "riches to rags",
+        "definition": "A monotonic fall from fortune to ruin.",
+        "curve": [[0.0, 0.85], [0.3, 0.4], [0.6, -0.2], [0.85, -0.6], [1.0, -0.9]],
+        "aka": "tragedy (in the emotional-arc sense)",
+        "effect": "Reads as inevitability; the reader watches for the cause rather than the outcome."
+      },
+      {
+        "name": "icarus",
+        "definition": "A rise to a peak followed by a fall caused by the rise itself.",
+        "curve": [[0.0, -0.1], [0.25, 0.35], [0.5, 0.85], [0.75, 0.1], [1.0, -0.85]],
+        "effect": "Makes the ascent and the descent the same act, which is what separates it from mere misfortune.",
+        "tags": ["hubris", "tragedy", "business narrative"]
+      },
+      {
+        "name": "oedipus",
+        "definition": "A fall, a recovery, and a second deeper fall.",
+        "curve": [[0.0, 0.1], [0.2, -0.6], [0.45, 0.3], [0.7, 0.1], [0.85, -0.6], [1.0, -0.95]],
+        "effect": "The middle recovery is what makes the second fall unbearable: the reader was allowed to hope.",
+        "tags": ["tragedy", "fiction"]
+      },
+      {
+        "name": "fortune's wheel",
+        "definition": "Rise and fall presented as the impersonal turning of fortune rather than as consequence of character.",
+        "curve": [[0.0, -0.5], [0.25, 0.3], [0.5, 0.9], [0.75, 0.2], [1.0, -0.6]],
+        "aka": "rota fortunae",
+        "register": "medieval and early modern narrative; still live in journalism about markets and dynasties",
+        "caution": "Because the turn is impersonal, agency drains out of the story; use it for panorama, not for a single protagonist."
+      },
+      {
+        "name": "de casibus fall",
+        "definition": "The fall of an eminent person from prosperity to misery, told as an admonitory case.",
+        "curve": [[0.0, 0.8], [0.35, 0.6], [0.55, 0.2], [0.8, -0.5], [1.0, -0.9]],
+        "aka": "the fall of princes",
+        "register": "moralized biography, corporate post-mortems, downfall reporting"
+      },
+      {
+        "name": "fall from grace",
+        "definition": "A descent measured in moral standing rather than material fortune.",
+        "curve": [[0.0, 0.7], [0.3, 0.5], [0.55, -0.1], [0.8, -0.5], [1.0, -0.8]],
+        "effect": "The reader's judgement, not the character's circumstances, supplies the downward pressure."
+      },
+      {
+        "name": "reversal of fortune",
+        "definition": "A shape organized around one hinge at which the line crosses zero and the situation inverts.",
+        "curve": [[0.0, 0.6], [0.35, 0.5], [0.5, 0.0], [0.65, -0.5], [1.0, -0.7]],
+        "effect": "Concentrates all structural weight on a single scene, which must therefore be the best scene in the book."
+      },
+      {
+        "name": "comic mythos",
+        "definition": "Frye's spring shape: an obstructing order is overturned and a new society forms around the young protagonists.",
+        "curve": [[0.0, 0.0], [0.25, -0.4], [0.5, -0.6], [0.75, 0.2], [1.0, 0.85]],
+        "register": "comedy from Menander to the romantic comedy; also the shape of most reform arguments",
+        "tags": ["frye", "comedy"]
+      },
+      {
+        "name": "romantic mythos",
+        "definition": "Frye's summer shape: the quest — perilous journey, crucial struggle, exaltation of the hero.",
+        "curve": [[0.0, 0.2], [0.3, -0.2], [0.6, -0.5], [0.8, 0.4], [1.0, 0.9]],
+        "tags": ["frye", "quest"]
+      },
+      {
+        "name": "tragic mythos",
+        "definition": "Frye's autumn shape: the hero is isolated from society and falls.",
+        "curve": [[0.0, 0.7], [0.3, 0.4], [0.55, -0.1], [0.8, -0.6], [1.0, -0.9]],
+        "tags": ["frye", "tragedy"]
+      },
+      {
+        "name": "ironic mythos",
+        "definition": "Frye's winter shape: bondage, frustration and absurdity, with a protagonist weaker than the reader.",
+        "curve": [[0.0, -0.2], [0.3, -0.4], [0.55, -0.3], [0.8, -0.6], [1.0, -0.5]],
+        "effect": "Denies the reader both triumph and catharsis; the pleasure on offer is recognition.",
+        "tags": ["frye", "satire", "absurdist"]
+      },
+      {
+        "name": "circular return",
+        "definition": "The line ends at the condition it started from, with only the reader's understanding changed.",
+        "curve": [[0.0, 0.0], [0.25, 0.5], [0.5, -0.4], [0.75, 0.3], [1.0, 0.0]],
+        "effect": "Converts plot into pattern: the meaning is in what the repetition now looks like.",
+        "caution": "If nothing but position returns, the book reads as a wasted trip; something in the reader must be different."
+      },
+      {
+        "name": "double reversal",
+        "definition": "A complex plot with two hinges, so the outcome inverts and then inverts again.",
+        "curve": [[0.0, -0.3], [0.25, -0.5], [0.45, 0.6], [0.65, 0.4], [0.85, -0.5], [1.0, 0.3]],
+        "effect": "The standard comic engine: two characters' fortunes trade places, then trade back on new terms.",
+        "caution": "Three or more reversals and the reader stops investing in any of them."
+      }
+    ],
+    "epistemic_arcs": [
+      {
+        "name": "delayed thesis",
+        "definition": "The claim is withheld until late, so the reader travels the evidence before being told what it means.",
+        "curve": [[0.0, -0.4], [0.25, -0.2], [0.5, 0.1], [0.75, 0.4], [1.0, 0.9]],
+        "effect": "Disarms a hostile reader, who cannot start refuting a thesis that has not yet been stated.",
+        "register": "essay, op-ed for resistant audiences, literary nonfiction",
+        "caution": "Requires a strong non-thesis engine early — narrative, anomaly, or voice — or the reader leaves before the payoff.",
+        "tags": ["argument", "nonfiction"]
+      },
+      {
+        "name": "deductive descent",
+        "definition": "The thesis is stated first and certainty is spent unpacking its consequences downward into cases.",
+        "curve": [[0.0, 0.8], [0.3, 0.85], [0.6, 0.9], [1.0, 0.95]],
+        "effect": "Maximum clarity, minimum suspense; the reader always knows where they are.",
+        "register": "technical writing, legal memoranda, executive prose"
+      },
+      {
+        "name": "inductive ascent",
+        "definition": "Particulars accumulate until a generalization becomes the only reasonable summary of them.",
+        "curve": [[0.0, -0.2], [0.25, 0.1], [0.5, 0.35], [0.75, 0.6], [1.0, 0.85]],
+        "caution": "Certainty must rise strictly less fast than the evidence warrants; overclaiming at 0.5 costs the reader at 1.0."
+      },
+      {
+        "name": "reductio ad absurdum",
+        "definition": "The opposing claim is granted and followed until it produces a contradiction or an intolerable consequence.",
+        "curve": [[0.0, -0.6], [0.25, -0.7], [0.5, -0.4], [0.75, 0.3], [1.0, 0.9]],
+        "effect": "The reader does the refuting; the writer only supplies the road.",
+        "caution": "Fails outright if the opponent can accept the 'absurd' consequence, so test the terminus before building the road."
+      },
+      {
+        "name": "converging proof",
+        "definition": "Several independent lines of evidence, each individually weak, are run to the same conclusion.",
+        "curve": [[0.0, -0.3], [0.2, 0.1], [0.4, 0.3], [0.6, 0.5], [0.8, 0.7], [1.0, 0.95]],
+        "effect": "Certainty rises multiplicatively rather than additively because the failure modes are uncorrelated.",
+        "caution": "Only works if the lines really are independent; say so explicitly, because readers assume they are not."
+      },
+      {
+        "name": "socratic elenchus",
+        "definition": "The interlocutor's confident answer is dismantled by questioning until the confidence is gone.",
+        "curve": [[0.0, 0.8], [0.25, 0.5], [0.5, 0.0], [0.75, -0.5], [1.0, -0.8]],
+        "effect": "Ends lower than it began: the deliverable is refutation of a false belief, not a new one.",
+        "tags": ["dialectic", "philosophy"]
+      },
+      {
+        "name": "aporetic arc",
+        "definition": "Every candidate answer is tried and found wanting, and the piece closes in acknowledged impasse.",
+        "curve": [[0.0, 0.2], [0.25, -0.2], [0.5, 0.1], [0.7, -0.3], [1.0, -0.6]],
+        "effect": "Makes the difficulty of the question the finding, which is honest and rarely publishable in business contexts.",
+        "caution": "Distinguish an earned aporia from a failure to do the work; show the eliminations."
+      },
+      {
+        "name": "paradigm shift",
+        "definition": "Settled consensus is disturbed by an anomaly, drifts into crisis, and is replaced by a new framework.",
+        "curve": [[0.0, 0.8], [0.2, 0.6], [0.4, 0.0], [0.6, -0.6], [0.8, 0.2], [1.0, 0.85]],
+        "aka": "Kuhnian arc",
+        "register": "intellectual history, science writing, industry-disruption argument",
+        "caution": "Overused as a flattering frame for ordinary incremental results."
+      },
+      {
+        "name": "methodic doubt",
+        "definition": "Beliefs are suspended deliberately and to the maximum, then rebuilt from whatever survives.",
+        "curve": [[0.0, 0.5], [0.2, -0.2], [0.4, -0.9], [0.6, -0.4], [0.8, 0.3], [1.0, 0.8]],
+        "aka": "Cartesian doubt",
+        "effect": "The destruction phase buys credibility for the reconstruction phase."
+      },
+      {
+        "name": "dialectical spiral",
+        "definition": "A position and its opposition are each pressed until a third position supersedes both, then the cycle repeats at a higher level.",
+        "curve": [[0.0, 0.4], [0.2, -0.3], [0.4, 0.6], [0.6, -0.2], [0.8, 0.7], [1.0, 0.9]],
+        "effect": "Every synthesis is provisional, which lets a long argument keep moving without recanting."
+      },
+      {
+        "name": "abductive arc",
+        "definition": "A surprising fact is presented, candidate explanations are ranked, and the best one is adopted provisionally.",
+        "curve": [[0.0, -0.5], [0.25, -0.2], [0.5, 0.2], [0.75, 0.5], [1.0, 0.7]],
+        "aka": "inference to the best explanation",
+        "caution": "Ends short of certainty by design; a curve that terminates at 1.0 has smuggled in a deduction."
+      },
+      {
+        "name": "conjecture and refutation",
+        "definition": "A bold hypothesis is stated, exposed to the hardest available test, and either survives or is discarded for the next conjecture.",
+        "curve": [[0.0, 0.3], [0.25, 0.6], [0.45, -0.4], [0.65, 0.5], [0.85, -0.3], [1.0, 0.6]],
+        "aka": "Popperian arc",
+        "effect": "Certainty is always corrigible; the credibility comes from the severity of the tests, not the strength of the claim."
+      },
+      {
+        "name": "consilience",
+        "definition": "Inductions from unrelated domains jump together on one explanation, and the coincidence is itself the argument.",
+        "curve": [[0.0, -0.1], [0.3, 0.2], [0.55, 0.4], [0.8, 0.75], [1.0, 0.95]],
+        "register": "science synthesis, big-history nonfiction",
+        "caution": "The jump has to be genuine; separate fields agreeing because they share a source is not consilience."
+      },
+      {
+        "name": "genealogical critique",
+        "definition": "A concept taken as natural is traced to its contingent origins, and the tracing erodes its authority.",
+        "curve": [[0.0, 0.7], [0.25, 0.4], [0.5, -0.1], [0.75, -0.5], [1.0, -0.7]],
+        "effect": "Destabilizes without refuting: the claim was never shown false, only shown made.",
+        "tags": ["critique", "philosophy", "history"]
+      },
+      {
+        "name": "hermeneutics of suspicion",
+        "definition": "The surface account is treated as a disguise and read for the interest it conceals.",
+        "curve": [[0.0, 0.3], [0.25, -0.3], [0.5, -0.5], [0.75, 0.1], [1.0, 0.6]],
+        "effect": "Confidence returns at the end but attaches to the unmasked motive rather than the stated one.",
+        "caution": "Unfalsifiable if applied uniformly; specify what evidence would show the surface account was simply true."
+      },
+      {
+        "name": "hermeneutic circle",
+        "definition": "Understanding oscillates between part and whole, each pass revising the other, until the readings stabilize.",
+        "curve": [[0.0, -0.3], [0.2, 0.2], [0.4, -0.1], [0.6, 0.4], [0.8, 0.2], [1.0, 0.7]],
+        "effect": "Models interpretive work honestly — the wobble in the curve is the argument's method showing."
+      },
+      {
+        "name": "via negativa",
+        "definition": "The subject is approached by eliminating what it is not, the residue standing in for a definition that cannot be given directly.",
+        "curve": [[0.0, -0.6], [0.25, -0.3], [0.5, 0.0], [0.75, 0.3], [1.0, 0.5]],
+        "register": "theology, definition essays, writing about things resistant to definition",
+        "caution": "The eliminations must be exhaustive enough that the residue is small; otherwise the close is a shrug."
+      }
+    ],
+    "tension_curves": [
+      {
+        "name": "try-fail cycle",
+        "definition": "The protagonist attempts a solution, fails in a way that worsens the position, and attempts again.",
+        "see_also": "scene_patterns/scene_shapes",
+        "curve": [[0.0, -0.1], [0.2, -0.4], [0.35, -0.2], [0.5, -0.6], [0.7, -0.3], [0.85, -0.8], [1.0, 0.5]],
+        "effect": "Sawtooth descent: each partial recovery makes the next drop measurable.",
+        "caution": "Three cycles is the conventional ceiling; a fourth failure teaches the reader the protagonist cannot win."
+      },
+      {
+        "name": "no-and escalation",
+        "definition": "Each attempt is answered 'no, and something worse happens', so failure compounds rather than merely repeating.",
+        "aka": "yes-but / no-and",
+        "effect": "Distinguishes escalation from repetition; the 'and' is what raises the line's slope.",
+        "tags": ["scene", "fiction"]
+      },
+      {
+        "name": "scene-sequel rhythm",
+        "definition": "Alternation of goal-conflict-disaster scenes with reaction-dilemma-decision sequels.",
+        "curve": [[0.0, 0.0], [0.15, -0.6], [0.3, -0.2], [0.45, -0.7], [0.6, -0.3], [0.8, -0.8], [1.0, 0.4]],
+        "effect": "The sequels give the reader somewhere to put the last disaster before the next arrives.",
+        "caution": "Skipping sequels for pace produces action the reader cannot feel; skipping scenes produces a book of reactions.",
+        "aka": "Swain's scene and sequel"
+      },
+      {
+        "name": "ticking clock",
+        "definition": "A stated deadline converts every subsequent event into a cost against remaining time.",
+        "curve": [[0.0, -0.1], [0.25, -0.3], [0.5, -0.45], [0.75, -0.7], [0.9, -0.9], [1.0, 0.4]],
+        "effect": "Raises baseline tension without adding incident, which is why it rescues sagging middles.",
+        "caution": "The clock must be visible and honestly kept; a deadline that slips silently retires the device for the rest of the book."
+      },
+      {
+        "name": "escalating stakes",
+        "definition": "The magnitude of what can be lost is raised in steps, each step retroactively shrinking the last.",
+        "curve": [[0.0, -0.1], [0.25, -0.3], [0.5, -0.5], [0.75, -0.75], [1.0, -0.95]],
+        "caution": "Escalation to planetary stakes usually lowers tension, because the reader can no longer picture the loss."
+      },
+      {
+        "name": "tension and release",
+        "definition": "Deliberate alternation of pressure and relief, so the reader's capacity to feel pressure is renewed.",
+        "curve": [[0.0, -0.2], [0.15, -0.7], [0.3, 0.1], [0.45, -0.8], [0.6, 0.0], [0.8, -0.9], [1.0, 0.3]],
+        "effect": "Unrelieved tension flattens into noise; the release is what makes the next rise measurable."
+      },
+      {
+        "name": "suspense curve",
+        "definition": "The audience is given information the characters lack, and the tension is the wait for the collision.",
+        "curve": [[0.0, 0.0], [0.15, -0.5], [0.4, -0.6], [0.65, -0.75], [0.85, -0.9], [1.0, 0.2]],
+        "aka": "the bomb under the table",
+        "effect": "Hitchcock's distinction: telling the reader early buys minutes of dread instead of a second of shock."
+      },
+      {
+        "name": "surprise reversal",
+        "definition": "Information is withheld and released at the turn, spending the tension in one spike.",
+        "curve": [[0.0, 0.1], [0.3, 0.2], [0.6, 0.15], [0.75, -0.9], [1.0, -0.3]],
+        "caution": "Pays once and only if the reader can reread the setup and find it fair."
+      },
+      {
+        "name": "double climax",
+        "definition": "Two peaks — usually the external problem and the internal one — resolved in sequence rather than together.",
+        "curve": [[0.0, -0.2], [0.35, -0.6], [0.55, -0.95], [0.65, 0.3], [0.8, -0.8], [1.0, 0.7]],
+        "caution": "The second peak must be the one the book is actually about, or the ending reads as an appendix."
+      },
+      {
+        "name": "anticlimax",
+        "definition": "Built tension is released into something deliberately smaller than promised.",
+        "curve": [[0.0, -0.2], [0.4, -0.7], [0.7, -0.9], [0.85, -0.1], [1.0, 0.0]],
+        "effect": "Used knowingly it is a statement about the world; used accidentally it is the commonest structural failure there is."
+      },
+      {
+        "name": "false resolution",
+        "definition": "The problem appears solved with substantial text remaining, so the reader's relief becomes a source of dread.",
+        "curve": [[0.0, -0.3], [0.3, -0.7], [0.5, 0.5], [0.6, 0.4], [0.75, -0.85], [1.0, 0.3]],
+        "aka": "false victory",
+        "caution": "Needs enough remaining page count to be visible as a trick, or it reads as a botched ending."
+      },
+      {
+        "name": "cliffhanger chain",
+        "definition": "Each unit ends on an unresolved turn that is answered only after the next unit has opened its own.",
+        "curve": [[0.0, -0.3], [0.2, -0.8], [0.3, -0.4], [0.5, -0.85], [0.6, -0.4], [0.8, -0.9], [1.0, 0.2]],
+        "register": "serial fiction, thrillers, episodic television",
+        "caution": "Answers deferred too long stop being promises and start being debts the reader writes off."
+      },
+      {
+        "name": "slow burn",
+        "definition": "Tension is raised so gradually that no single increment is visible, and the reader notices only the accumulated pressure.",
+        "curve": [[0.0, 0.1], [0.25, -0.05], [0.5, -0.25], [0.7, -0.5], [0.85, -0.75], [1.0, -0.95]],
+        "effect": "Produces unease rather than excitement; the payoff is the reader's realization of how far the line has moved.",
+        "caution": "Requires compensating pleasures at every page, because nothing is happening quickly enough to carry the reader alone."
+      }
+    ],
+    "emotional_trajectories": [
+      {
+        "name": "positive change arc",
+        "definition": "The protagonist holds a lie about themselves or the world, is pressured by the truth, and ends by embracing it.",
+        "curve": [[0.0, -0.3], [0.25, -0.1], [0.5, -0.5], [0.7, -0.8], [0.85, 0.2], [1.0, 0.8]],
+        "effect": "The standard change arc: internal movement supplies meaning while external plot supplies motion.",
+        "tags": ["character", "fiction"]
+      },
+      {
+        "name": "flat arc",
+        "definition": "The protagonist already holds the truth and does not change; the world around them changes instead.",
+        "curve": [[0.0, 0.4], [0.25, 0.3], [0.5, -0.3], [0.75, 0.1], [1.0, 0.7]],
+        "effect": "Puts the burden of transformation on the supporting cast, which is why it suits series and mentors.",
+        "caution": "A flat protagonist with a flat world is not an arc, it is a report."
+      },
+      {
+        "name": "disillusionment arc",
+        "definition": "The protagonist believes a comforting lie, learns the truth, and the truth is worse.",
+        "curve": [[0.0, 0.5], [0.3, 0.3], [0.55, -0.2], [0.8, -0.6], [1.0, -0.7]],
+        "effect": "Ends in clear sight and lost comfort; the gain is knowledge, the cost is everything else.",
+        "tags": ["literary", "coming-of-age"]
+      },
+      {
+        "name": "fall arc",
+        "definition": "The protagonist clings to the lie, rejects the truth on offer, and is destroyed by the choice.",
+        "curve": [[0.0, 0.2], [0.3, 0.0], [0.55, -0.3], [0.8, -0.7], [1.0, -0.95]],
+        "caution": "The truth must be genuinely available and genuinely refused, or the fall is misfortune rather than tragedy."
+      },
+      {
+        "name": "corruption arc",
+        "definition": "The protagonist starts with the truth, is offered the lie, and takes it.",
+        "curve": [[0.0, 0.6], [0.25, 0.4], [0.5, 0.1], [0.7, -0.3], [0.85, -0.6], [1.0, -0.9]],
+        "effect": "The reader's complicity is the engine: each step is individually defensible.",
+        "tags": ["antihero", "tragedy"]
+      },
+      {
+        "name": "redemption arc",
+        "definition": "A character who has done real harm pays a real cost and earns a changed standing.",
+        "curve": [[0.0, -0.8], [0.25, -0.6], [0.5, -0.2], [0.7, -0.5], [0.9, 0.3], [1.0, 0.7]],
+        "caution": "Redemption granted without cost is the cheapest move in fiction; price it in what the character cannot get back."
+      },
+      {
+        "name": "descent into madness",
+        "definition": "Perception degrades progressively until the narrated world and the actual world separate.",
+        "curve": [[0.0, 0.2], [0.2, -0.1], [0.45, -0.4], [0.65, -0.6], [0.85, -0.85], [1.0, -0.95]],
+        "effect": "Runs on narration rather than event: the prose has to decay with the mind.",
+        "tags": ["unreliable narration", "gothic"]
+      },
+      {
+        "name": "innocence to experience",
+        "definition": "A protected worldview is broken by contact with the world and reassembled with the damage included.",
+        "curve": [[0.0, 0.6], [0.25, 0.4], [0.5, -0.4], [0.7, -0.6], [0.9, 0.0], [1.0, 0.35]],
+        "register": "coming-of-age fiction and memoir",
+        "aka": "loss of innocence"
+      },
+      {
+        "name": "kubler-ross grief curve",
+        "definition": "Denial, anger, bargaining, depression, acceptance as a staged emotional trajectory.",
+        "curve": [[0.0, -0.2], [0.2, -0.5], [0.4, -0.4], [0.6, -0.85], [0.85, -0.3], [1.0, 0.1]],
+        "caution": "Descriptively contested as psychology and clichéd as structure; useful mainly when a character resists the stages.",
+        "tags": ["memoir", "grief"]
+      },
+      {
+        "name": "cathartic release",
+        "definition": "Accumulated pity and fear are discharged at a single point, leaving the reader spent rather than happy.",
+        "curve": [[0.0, -0.2], [0.35, -0.6], [0.6, -0.9], [0.75, -0.95], [0.9, 0.1], [1.0, 0.3]],
+        "effect": "The release is emotional, not situational: nothing needs to improve for catharsis to occur."
+      },
+      {
+        "name": "bittersweet resolution",
+        "definition": "The external want is achieved and the internal one lost, or the reverse, so the close carries both signs at once.",
+        "curve": [[0.0, 0.0], [0.3, -0.4], [0.6, -0.7], [0.85, 0.4], [1.0, 0.15]],
+        "effect": "The most durable ending shape in literary fiction because it refuses to round the number."
+      },
+      {
+        "name": "eucatastrophe",
+        "definition": "A sudden joyous turn arriving after the situation has become genuinely hopeless.",
+        "curve": [[0.0, -0.2], [0.35, -0.6], [0.65, -0.9], [0.8, -0.95], [0.9, 0.5], [1.0, 0.95]],
+        "aka": "Tolkien's consolation",
+        "caution": "Only legitimate if the hopelessness was played straight; hedged despair produces a turn nobody needed."
+      },
+      {
+        "name": "revenge arc",
+        "definition": "Injury, pursuit, and the achievement of retribution, usually at a cost that exceeds the satisfaction.",
+        "curve": [[0.0, 0.3], [0.12, -0.9], [0.35, -0.5], [0.6, -0.3], [0.85, 0.2], [1.0, -0.4]],
+        "effect": "The closing dip is what makes it an arc rather than a schedule of violence."
+      },
+      {
+        "name": "bathos",
+        "definition": "An abrupt fall from the elevated to the trivial, whether as comic deflation or as failure of control.",
+        "curve": [[0.0, 0.2], [0.4, 0.7], [0.65, 0.9], [0.75, -0.4], [1.0, -0.2]],
+        "effect": "Intentional bathos punctures pretension; unintentional bathos destroys the sentence that preceded it.",
+        "register": "comedy, satire; a hazard in earnest passages"
+      }
+    ],
+    "hybrid_shapes": [
+      {
+        "name": "detective arc",
+        "definition": "Certainty rises as the investigation closes while the moral situation darkens, so the two curves run in opposite directions.",
+        "curve": [[0.0, -0.6], [0.25, -0.3], [0.5, 0.1], [0.75, 0.5], [1.0, 0.85]],
+        "effect": "The reader gets epistemic satisfaction and emotional cost from the same ending.",
+        "tags": ["mystery", "hybrid"]
+      },
+      {
+        "name": "conversion narrative",
+        "definition": "Prior life, crisis, turning, and new life told so that certainty and fortune rise together at the turn.",
+        "curve": [[0.0, -0.2], [0.25, -0.5], [0.45, -0.9], [0.6, 0.4], [0.8, 0.7], [1.0, 0.9]],
+        "register": "spiritual autobiography, recovery memoir, ideological memoir",
+        "caution": "The pre-conversion self must be rendered fairly or the turn persuades nobody who has not already turned."
+      },
+      {
+        "name": "deconversion narrative",
+        "definition": "The mirror of conversion: a held certainty erodes under pressure and the narrator leaves the framework that supplied it.",
+        "curve": [[0.0, 0.8], [0.25, 0.5], [0.45, -0.1], [0.65, -0.7], [0.85, -0.3], [1.0, 0.2]],
+        "effect": "Ends with modest recovered footing rather than a new certainty, which is what distinguishes it from a conversion in reverse."
+      },
+      {
+        "name": "restitution narrative",
+        "definition": "Frank's illness shape: I was healthy, I am sick, I will be healthy again.",
+        "curve": [[0.0, 0.6], [0.25, -0.5], [0.5, -0.7], [0.75, -0.1], [1.0, 0.6]],
+        "register": "illness and injury writing; also the default shape of institutional crisis communication",
+        "caution": "The culturally preferred shape, which is why it gets imposed on experiences that do not fit it."
+      },
+      {
+        "name": "chaos narrative",
+        "definition": "Frank's anti-shape: events accumulate without sequence or hope, told as 'and then, and then'.",
+        "curve": [[0.0, -0.4], [0.2, -0.7], [0.4, -0.5], [0.6, -0.85], [0.8, -0.6], [1.0, -0.8]],
+        "effect": "Hard to read by design; the formlessness is the testimony.",
+        "caution": "Nearly unpublishable at length — most writers frame a chaos section inside a shaped whole."
+      },
+      {
+        "name": "quest illness narrative",
+        "definition": "Frank's third shape: the affliction is accepted and treated as a journey that yields something the well self could not have.",
+        "curve": [[0.0, 0.3], [0.2, -0.7], [0.45, -0.4], [0.7, 0.1], [0.9, 0.4], [1.0, 0.6]],
+        "caution": "Slides easily into redemptive cliché; the boon has to be specific and unwelcome."
+      },
+      {
+        "name": "expose arc",
+        "definition": "A concealed wrong is uncovered piece by piece, so certainty climbs while the reader's estimate of the world falls.",
+        "curve": [[0.0, -0.3], [0.25, 0.0], [0.5, 0.35], [0.75, 0.6], [1.0, 0.9]],
+        "register": "investigative journalism and long-form nonfiction",
+        "caution": "The documentary standard rises with the curve; the last third must be the most heavily sourced."
+      },
+      {
+        "name": "case study arc",
+        "definition": "Situation, intervention, outcome, and generalization, with the particular carrying the weight of the claim.",
+        "curve": [[0.0, -0.4], [0.3, -0.5], [0.55, 0.1], [0.8, 0.5], [1.0, 0.75]],
+        "register": "business writing, teaching cases, clinical and policy writing",
+        "caution": "One case supports an existence claim, not a frequency claim; state which you are making."
+      },
+      {
+        "name": "transformation narrative",
+        "definition": "Explicit before-and-after built around a single hinge, with the before state rendered in enough detail to make the after measurable.",
+        "curve": [[0.0, -0.7], [0.25, -0.6], [0.45, -0.2], [0.6, 0.3], [0.8, 0.6], [1.0, 0.85]],
+        "register": "memoir, marketing, testimony",
+        "caution": "The most heavily commercialized shape in nonfiction; readers arrive pre-armed against it."
+      },
+      {
+        "name": "cautionary tale",
+        "definition": "A fall narrated so that the reader can locate the avoidable decision that caused it.",
+        "curve": [[0.0, 0.4], [0.2, 0.6], [0.45, 0.3], [0.7, -0.4], [1.0, -0.9]],
+        "effect": "Doubles as argument: the descent is a proof that the decision was wrong.",
+        "caution": "Hindsight makes the wrong turn obvious; if it was obvious then, the subject is a fool and the tale teaches nothing."
+      },
+      {
+        "name": "exemplum",
+        "definition": "A short narrative deployed inside an argument as an instance of the rule being urged.",
+        "curve": [[0.0, 0.1], [0.3, -0.4], [0.6, -0.6], [0.85, 0.3], [1.0, 0.7]],
+        "register": "sermons, moral essays, keynote speeches",
+        "caution": "The story must fit the rule it is asked to carry; a memorable exemplum that fits loosely rewrites the argument in the reader's memory."
+      },
+      {
+        "name": "underdog arc",
+        "definition": "A protagonist with visibly inferior resources closes the gap through cost rather than luck.",
+        "curve": [[0.0, -0.6], [0.2, -0.75], [0.45, -0.4], [0.65, -0.6], [0.85, 0.2], [1.0, 0.8]],
+        "caution": "The disadvantage must remain real at the climax; a protagonist who becomes the favourite has left the shape."
+      },
+      {
+        "name": "counterpoint arc",
+        "definition": "Two lines run in opposition, one rising as the other falls, and cross somewhere in the middle.",
+        "curve": [[0.0, 0.6], [0.25, 0.3], [0.5, 0.0], [0.75, -0.4], [1.0, -0.8]],
+        "effect": "The crossing point is the book's thesis in dramatic form; place it deliberately.",
+        "tags": ["dual protagonist", "multi-strand"]
+      },
+      {
+        "name": "convergent strands",
+        "definition": "Separately launched lines are drawn together so that they collide at a single late scene.",
+        "curve": [[0.0, -0.1], [0.25, -0.3], [0.5, -0.5], [0.75, -0.8], [0.9, -0.9], [1.0, 0.4]],
+        "effect": "Tension comes from the reader seeing the convergence before the characters do.",
+        "caution": "Every strand must earn its own pages; readers skim the one they like least and the convergence lands short."
+      },
+      {
+        "name": "parallel arcs",
+        "definition": "Two or more lines with the same shape run side by side, inviting comparison rather than collision.",
+        "curve": [[0.0, -0.2], [0.25, -0.5], [0.5, -0.7], [0.75, 0.0], [1.0, 0.6]],
+        "effect": "The variation between the strands carries the argument; identical strands waste the structure.",
+        "register": "braided nonfiction, dual-timeline novels"
+      },
+      {
+        "name": "nested arc",
+        "definition": "A complete inner arc is embedded inside an outer one, so the inner resolution changes the meaning of the outer.",
+        "curve": [[0.0, 0.1], [0.2, -0.3], [0.4, -0.7], [0.55, 0.4], [0.75, -0.5], [1.0, 0.6]],
+        "aka": "story within a story",
+        "caution": "The inner arc must matter to the outer frame; decorative nesting stalls the book at its centre."
+      },
+      {
+        "name": "mice quotient nesting",
+        "definition": "Milieu, inquiry, character and event threads are opened and closed in reverse order, like nested brackets.",
+        "effect": "Gives a structural test for endings: a thread closed out of order leaves the reader with an unaccountable feeling of incompleteness.",
+        "aka": "MICE quotient",
+        "register": "short fiction especially, where mis-nesting is most audible",
+        "tags": ["fiction", "structure"]
+      }
+    ]
+  }
+}

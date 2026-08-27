@@ -1,0 +1,26 @@
+{
+  "id": "I.prin.equivalence-vs-minimality",
+  "kind": "principle",
+  "part": 1,
+  "title": "Correctness is a for-all; minimality is a non-existence",
+  "statement": "Equivalence of two programs is a universal statement discharged once per rewrite. Minimality is the non-existence of any shorter program in a declared space -- and non-existence is exactly what a refutation proof is for. Twenty years of verified compilation certify the first; nothing certifies the second.",
+  "formal": {
+    "language": "prose",
+    "statement": "equiv: forall s, p1 s = p2 s.  minimal: not exists q in S, cost q < cost p and forall s, q s = p s."
+  },
+  "epistemic_status": "stated",
+  "evidence": [],
+  "book": {
+    "chapter": "ch02-instructions-as-functions",
+    "label": "prin:equiv-vs-min"
+  },
+  "sources": [
+    "research/surveys/09-venue-and-reviewer-map.md",
+    "research/surveys/08-compiler-certification-gap.md"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

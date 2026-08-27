@@ -1,0 +1,52 @@
+{
+  "id": "M.avx2.reverse.len2.ssa14",
+  "kind": "theorem",
+  "part": 4,
+  "title": "Byte reversal has minimum length 2 in the fourteen-family SSA AVX2 language",
+  "statement": "Allowing every earlier value as an operand (SSA live values) and fourteen instruction families -- vpshufb, vpermd, vpermq, two-source vpalignr imm 0..16, two-source vperm2i128, eight low/high unpacks at byte/word/dword/qword, and vpblendd -- no one-instruction program reverses 32 tags; vpshufb; vperm2i128 does it in two. This exhausts the instruction set named in the original research brief.",
+  "formal": {
+    "language": "cnf-generator",
+    "statement": "encode_multisource_avx2_sequence(target=reversed, steps=1) is UNSAT; steps=2 SAT with replayed model.",
+    "fragment": "SAT"
+  },
+  "scope": "EXACT fourteen-family constant-control SSA language; excludes memory, insert/extract, logic, register allocation, scheduling.",
+  "epistemic_status": "proved",
+  "external_status": "computed-uncertified",
+  "depends_on": [
+    "P.def.lane-tags"
+  ],
+  "evidence": [
+    {
+      "kind": "unsat-certificate",
+      "artifact": "artifacts/simd/avx2-reverse-k1-multisource-14-family",
+      "sha256": {
+        "one-step.cnf": "f2ffe389abc617fdfdfbe47254d07587e67795059ab286155dd72ffaa7e592b9",
+        "reverse-k1-seed1223.drat": "7c319a5b269207b89c43ccb5982053e060dc12fb3b0bd61b3e27c7dba38181bf"
+      },
+      "checker_command": "scripts/check_object.sh artifacts/simd/avx2-reverse-k1-multisource-14-family synthesize_multisource_avx2 reverse 1 120",
+      "check_status": "checked",
+      "checked_on": "2026-08-27",
+      "note": "2,697 vars / 97,314 clauses; CaDiCaL seed 1223; 1,922,088-byte DRAT accepted; 2-byte truncation REJECTED (verified here). Not UP-refutable: load-bearing."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-search",
+    "example": "synthesize_multisource_avx2",
+    "adr": [
+      "ADR-0585"
+    ],
+    "reconstruction": "StructuralAttestation"
+  },
+  "book": {
+    "chapter": "ch05-particular-machines",
+    "label": "thm:avx2-len2-ssa14"
+  },
+  "sources": [
+    "Franchetti & Puschel, CC 2008 -- the antecedent: stride permutations proved minimal on SSE2/Cell by a human-readable Floyd argument"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

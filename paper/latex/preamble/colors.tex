@@ -1,0 +1,109 @@
+%% ============================================================
+%% preamble/colors.tex — layered color system (mirrors book-template
+%% ADR 0005, simplified for the single-column working-paper context).
+%%
+%% Purpose      : every color the paper may use, in layers:
+%%                  1. PRIMITIVES  gray + one accent ramp (Tailwind steps)
+%%                  2. SEMANTICS   purpose-named tokens (text-muted, link…)
+%%                  3. COMPONENTS  per-element bindings (pt-section-rule…)
+%% Dependencies : xcolor (packages.tex). Sections NEVER name colors.
+%% Provenance   : the SSRN cluster's "minimal professional palette"
+%%                (slate-blue primary + amber accent), promoted to the
+%%                book-template's primitive/semantic/component discipline.
+%%
+%% RETHEME = edit the primitive hex values. \GrayscaleMode collapses the
+%% accent ramp onto grays AT THE PRIMITIVE LAYER, so a B&W print stays
+%% legible with no per-component overrides. Define \GrayscaleMode in
+%% pretex to get a grayscale build.
+%% ============================================================
+
+% ----------------------------------------------------------------------
+% Layer 1 — PRIMITIVES
+% ----------------------------------------------------------------------
+\definecolor{gray-50}{HTML}{FAFAFA}
+\definecolor{gray-100}{HTML}{F5F5F5}
+\definecolor{gray-200}{HTML}{E5E5E5}
+\definecolor{gray-300}{HTML}{D4D4D4}
+\definecolor{gray-400}{HTML}{A3A3A3}
+\definecolor{gray-500}{HTML}{737373}
+\definecolor{gray-600}{HTML}{525252}
+\definecolor{gray-700}{HTML}{404040}
+\definecolor{gray-800}{HTML}{262626}
+\definecolor{gray-900}{HTML}{171717}
+\definecolor{gray-950}{HTML}{0A0A0A}
+
+% Slate-blue accent (the SSRN-cluster primary), as a perceptual ramp.
+\definecolor{accent-50}{HTML}{EFF3F8}
+\definecolor{accent-100}{HTML}{D6E0EC}
+\definecolor{accent-200}{HTML}{ADC1D9}
+\definecolor{accent-300}{HTML}{7C9BBF}
+\definecolor{accent-400}{HTML}{4E73A0}
+\definecolor{accent-500}{HTML}{2F587F}   % ~ the datacenter/moratorium primary
+\definecolor{accent-600}{HTML}{264964}
+\definecolor{accent-700}{HTML}{1E3A5F}
+\definecolor{accent-800}{HTML}{162A44}
+\definecolor{accent-900}{HTML}{0F1E31}
+\definecolor{accent-950}{HTML}{0A1521}
+
+% One warm secondary (amber), for a single "highlight" accent.
+\definecolor{amber-50}{HTML}{FFFBEB}
+\definecolor{amber-600}{HTML}{E67C00}   % ~ the SSRN-cluster accent
+\definecolor{amber-800}{HTML}{92400E}
+
+% \GrayscaleMode: collapse accent + amber onto grays at the primitive
+% layer so every downstream token is print-safe in one place.
+\ifdefined\GrayscaleMode
+  \colorlet{accent-50}{gray-100}\colorlet{accent-100}{gray-200}
+  \colorlet{accent-200}{gray-300}\colorlet{accent-300}{gray-400}
+  \colorlet{accent-400}{gray-500}\colorlet{accent-500}{gray-600}
+  \colorlet{accent-600}{gray-700}\colorlet{accent-700}{gray-700}
+  \colorlet{accent-800}{gray-800}\colorlet{accent-900}{gray-900}
+  \colorlet{accent-950}{gray-950}
+  \colorlet{amber-50}{gray-100}\colorlet{amber-600}{gray-600}
+  \colorlet{amber-800}{gray-800}
+\fi
+
+% ----------------------------------------------------------------------
+% Layer 2 — SEMANTIC TOKENS (reference primitives only)
+% ----------------------------------------------------------------------
+\colorlet{text-primary}{gray-950}
+\colorlet{text-muted}{gray-600}     % affiliations, captions, notes
+\colorlet{primary}{accent-700}      % headings, rules
+\colorlet{link}{accent-600}         % internal links
+\colorlet{url}{accent-600}          % external URLs
+\colorlet{cite}{accent-600}         % citation links
+\colorlet{rule}{gray-300}
+\colorlet{rule-strong}{accent-700}
+\colorlet{highlight}{amber-600}     % the single warm accent
+\colorlet{draft-mark}{amber-800}
+
+% Callout family (boxes module). Purpose-named backgrounds/frames.
+\colorlet{callout-keyresult-frame}{accent-600}
+\colorlet{callout-keyresult-bg}{accent-50}
+\colorlet{callout-caution-frame}{amber-800}
+\colorlet{callout-caution-bg}{amber-50}
+\colorlet{callout-note-frame}{gray-400}
+\colorlet{callout-note-bg}{gray-50}
+\colorlet{callout-data-frame}{accent-400}
+\colorlet{callout-data-bg}{gray-50}
+
+% Code module surfaces.
+\colorlet{code-bg}{gray-50}
+\colorlet{code-frame}{gray-300}
+\colorlet{code-keyword}{accent-700}
+\colorlet{code-string}{accent-900}
+\colorlet{code-comment}{gray-500}
+
+% ----------------------------------------------------------------------
+% Layer 3 — COMPONENT BINDINGS (reference semantics only)
+% ----------------------------------------------------------------------
+\colorlet{pt-title}{text-primary}
+\colorlet{pt-subtitle}{primary}
+\colorlet{pt-section}{primary}
+\colorlet{pt-section-rule}{rule}
+\colorlet{pt-running-head}{text-muted}
+\colorlet{pt-folio}{text-muted}
+\colorlet{pt-caption}{text-muted}
+\colorlet{pt-abstract-label}{primary}
+\colorlet{pt-apparatus-label}{primary}   % Keywords:/JEL: labels
+\colorlet{pt-draft}{draft-mark}

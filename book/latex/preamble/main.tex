@@ -1,0 +1,59 @@
+%% ============================================================
+%% preamble/main.tex — module loader (ADR 0005: modular preamble)
+%%
+%% Purpose      : loads every preamble module in a fixed,
+%%                dependency-ordered sequence. main.tex inputs this
+%%                file once, immediately after \documentclass.
+%% Dependencies : latex/generated/metadata.tex must already be input
+%%                (all modules read \Book... macros and \ifBook...
+%%                conditionals defined there).
+%% Provenance   : load order matured across the portfolio; see ADR
+%%                0005 and docs/research/history-through-rfc-book.md
+%%                (the modular split that replaced ai-law-finance's
+%%                744-line monolith, which chapters had pasted copies
+%%                of and drifted).
+%%
+%% LOAD ORDER (fixed — do not reorder):
+%%   1. packages       core packages, biblatex + citation presets
+%%   2. fonts          engine check, font-profile dispatch, microtype
+%%   3. colors         primitives -> semantic tokens -> components
+%%   4. geometry       trim/bleed/ebook page setup (reads colors: no)
+%%   5. styling        chapter heads, running heads, penalties
+%%   6. boxes          tcolorbox callout family        (module: boxes)
+%%   7. code           listings environments           (module: code)
+%%   8. verse          paracol parallel text           (module: verse)
+%%   9. commands       semantic inline macros (authoring contract)
+%%  10. hyperref-last  hyperref + bookmark — ALWAYS LAST
+%%
+%% Rationale for the order:
+%%   * fonts before styling: styling uses \bklabelcaps/\bkscshape.
+%%   * colors before styling/boxes/code: they bind component colors.
+%%   * boxes before code: code reuses no box internals today, but the
+%%     documented order keeps future prompt/response boxes stable.
+%%   * code before commands: commands.tex only defines \code when the
+%%     code module has not already provided the \lstinline version.
+%%   * hyperref last: the standard footgun (it patches \ref, floats,
+%%     footnotes); only its own setup may follow it.
+%% ============================================================
+
+\input{preamble/packages}
+\input{preamble/fonts}
+\input{preamble/colors}
+\input{preamble/geometry}
+\input{preamble/styling}
+
+% Optional modules — toggled in book.yaml (modules:), surfaced as
+% \newif conditionals by scripts/generate_metadata.py.
+\ifBookModuleBoxes
+  \input{preamble/boxes}
+\fi
+\ifBookModuleCode
+  \input{preamble/code}
+\fi
+\ifBookModuleVerse
+  \input{preamble/verse}
+\fi
+
+\input{preamble/objects}
+\input{preamble/commands}
+\input{preamble/hyperref-last}

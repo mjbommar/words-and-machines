@@ -1,0 +1,1093 @@
+{
+  "name": "pov_and_narration",
+  "level": "micro",
+  "entry_type": "record",
+  "description": "Who tells it and from how far away: point-of-view types, the psychic-distance ladder, tense strategy, speech and thought representation, narrator reliability, voice textures, nonfiction narration modes, and temporal manipulation.",
+  "categories": {
+    "point_of_view_types": [
+      {
+        "name": "first-person protagonist",
+        "definition": "The central character narrates their own story in the first person, limited to what that character knows, saw, and understood.",
+        "example": "I signed the statement on a Tuesday and spent the next nine years explaining why.",
+        "effect": "Maximum intimacy and maximum limitation; every fact arrives already colored by the teller's interest in it.",
+        "register": "fiction and memoir",
+        "caution": "The narrator cannot report their own face, and cannot know what happened in rooms they were not in without a stated source."
+      },
+      {
+        "name": "first-person witness",
+        "definition": "A minor or peripheral character narrates someone else's story from the edge of it.",
+        "example": "I only worked the front desk, but I signed for every envelope that came into that building, and I remember which ones he opened himself.",
+        "effect": "Preserves the protagonist's mystery while keeping the intimacy of a human teller; the narrator's limited access is the plot's engine.",
+        "aka": ["peripheral first person", "'I' as witness"],
+        "caution": "The witness needs a reason to be present at every crucial scene, or the seams show."
+      },
+      {
+        "name": "first-person retrospective",
+        "definition": "A first-person narrator telling events from a later vantage, so the narrating self knows more than the experiencing self.",
+        "example": "I thought the meeting was routine. It is worth saying now that I had been told twice, in writing, that it was not.",
+        "effect": "Creates a running double perspective — innocence in the scene, judgment in the telling — and licenses foreshadowing.",
+        "aka": ["narrating-I vs experiencing-I"],
+        "caution": "Decide how much the narrating self reveals early; unearned hindsight kills suspense."
+      },
+      {
+        "name": "first-person immediate",
+        "definition": "First-person narration with no retrospective gap, the teller apparently reporting as events occur.",
+        "example": "I am standing in the file room with the lights off and someone is coming down the hall.",
+        "effect": "Urgency and total uncertainty about outcome; the narrator cannot know how it ends.",
+        "register": "contemporary fiction, present tense",
+        "caution": "Sustained over a novel it strains plausibility — nobody narrates while running."
+      },
+      {
+        "name": "first-person plural",
+        "definition": "A 'we' narrator speaking for a group, town, generation, or institution.",
+        "example": "We had all seen the letter before the meeting, and none of us said so at the meeting.",
+        "effect": "Renders collective knowledge, complicity, and gossip; individual identity dissolves into consensus.",
+        "register": "literary fiction; also the 'we' of some cultural criticism",
+        "caution": "The reader will eventually ask who 'we' excludes — answer it deliberately."
+      },
+      {
+        "name": "second person",
+        "definition": "Narration addressed to 'you', where 'you' is the story's protagonist.",
+        "example": "You take the stairs because the elevator has a camera in it, and you tell yourself that is not why.",
+        "effect": "Implicates the reader in the character's choices; produces intimacy and unease at once.",
+        "register": "literary fiction, some essay",
+        "caution": "Sustains for a story more easily than a novel; readers resist being told what they did."
+      },
+      {
+        "name": "second-person as disguised first",
+        "definition": "Second-person narration in which 'you' is transparently the narrator addressing their own past self.",
+        "example": "You were twenty-six and you believed that a paper trail would protect you.",
+        "effect": "Gives self-accusation a form; distance and confession in the same pronoun.",
+        "register": "memoir and autobiographical fiction"
+      },
+      {
+        "name": "third-person limited",
+        "definition": "Third-person narration restricted to the perceptions, knowledge, and interiority of a single character.",
+        "example": "She read the second paragraph twice. Nothing in it explained the date, and she could not think of anyone she could ask.",
+        "effect": "Combines the intimacy of first person with the flexibility of third; the default mode of modern commercial and literary fiction.",
+        "caution": "Every sensation reported must be available to the viewpoint character."
+      },
+      {
+        "name": "close third person",
+        "definition": "Third-person limited pushed to minimal distance, the narration taking on the viewpoint character's diction, judgments, and rhythms.",
+        "example": "The meeting was, in her professional opinion, a complete waste of a Thursday, and she had brought nothing to write on.",
+        "effect": "The character's voice colors the narration without quotation marks; the natural home of free indirect discourse.",
+        "aka": ["deep third", "intimate third"],
+        "caution": "The narrator's vocabulary must stay inside the character's; a word she would not know breaks the spell."
+      },
+      {
+        "name": "rotating third-person limited",
+        "definition": "Third-person limited that changes viewpoint character at chapter or section breaks, one per unit.",
+        "example": "Chapter four belongs to the examiner; chapter five reopens the same afternoon from the deputy's desk.",
+        "effect": "Lets the reader hold knowledge no single character holds, producing dramatic irony without an omniscient narrator.",
+        "aka": ["multiple selective omniscience"],
+        "caution": "Establish the rotation early and keep the units clean; unsignaled switches read as head-hopping."
+      },
+      {
+        "name": "third-person objective",
+        "definition": "Third-person narration reporting only observable action and speech, with no access to any character's interiority.",
+        "example": "He put the folder on the desk, sat down, and did not open it. Twice he looked at the door.",
+        "effect": "Forces the reader to infer inner life from behavior; produces a cold, evidentiary surface.",
+        "aka": ["dramatic mode", "camera eye"],
+        "caution": "Sustained over long stretches it can leave readers unattached; pair it with high-stakes action."
+      },
+      {
+        "name": "third-person omniscient",
+        "definition": "A narrator with unrestricted access to any character's mind and to facts no character knows.",
+        "example": "Neither of them knew that the third copy had been filed in the wrong year, and would stay there until a clerk retired.",
+        "effect": "Allows scope, irony, and information the characters lack; the voice can address time spans and populations.",
+        "register": "classic and contemporary literary fiction, popular history",
+        "caution": "Omniscience is a voice, not a license; without a consistent narrating personality it reads as sloppy limited third."
+      },
+      {
+        "name": "editorial omniscience",
+        "definition": "Omniscient narration in which the narrator openly comments, generalizes, and passes judgment on the story.",
+        "example": "It is worth pausing here to note how ordinary this all looked to the people doing it.",
+        "effect": "Establishes the narrator as a thinking presence with a moral position; the reader is being talked to, not just told.",
+        "register": "nineteenth-century novel, narrative nonfiction, long-form journalism",
+        "caution": "The intrusions must be worth the interruption; unearned generalization reads as lecturing."
+      },
+      {
+        "name": "neutral omniscience",
+        "definition": "Omniscient narration without editorial comment: the narrator moves freely among minds and facts but does not judge.",
+        "example": "The examiner believed the reclassification was deliberate. The deputy believed it was an accounting error. Both filed reports that week.",
+        "effect": "Breadth without a visible narrator; the reader draws the conclusions.",
+        "caution": "Neutrality is itself a stance — juxtaposition can judge more sharply than commentary."
+      },
+      {
+        "name": "selective omniscience",
+        "definition": "Omniscient narration that chooses to enter only one mind, holding the others closed while retaining the power to open them.",
+        "example": "What the deputy thought that afternoon is not on record and will not be guessed at here; the examiner's notebook survives.",
+        "effect": "The withheld access becomes meaningful — the narrator's restraint is a technique, not a limitation.",
+        "register": "literary fiction and narrative nonfiction"
+      },
+      {
+        "name": "peripheral third person",
+        "definition": "Third-person limited attached to an observer rather than the protagonist.",
+        "example": "The clerk watched them come out of the conference room one at a time and could not read a single face.",
+        "effect": "Keeps the protagonist opaque while retaining a human filter; the third-person cousin of the witness narrator."
+      },
+      {
+        "name": "epistolary point of view",
+        "definition": "The story is told through documents — letters, emails, depositions, reports — each with its own writer and audience.",
+        "example": "Memorandum, March 14. Per your request, attached is the schedule you have now asked for three times.",
+        "effect": "Every document has an agenda, so unreliability is built into the form; readers assemble the truth from what nobody says outright.",
+        "register": "fiction and documentary nonfiction",
+        "caution": "Each document must be plausible as a document, including its tedium; the plot has to survive that."
+      },
+      {
+        "name": "frame narrator",
+        "definition": "A narrator who introduces and closes another narrator's story, standing between the reader and the inner tale.",
+        "example": "I would not have believed any of it if the examiner had not shown me the notebook, which is how this account begins.",
+        "effect": "Vouches for or distances the inner story, and lets the frame comment on the telling.",
+        "caution": "Readers forget the frame if it does not return; plant a reminder near the middle."
+      },
+      {
+        "name": "nested narration",
+        "definition": "A story containing a narrator who contains another narrator, two or more levels deep.",
+        "example": "The deputy told me what the clerk had told him about the night the files were moved, and I am giving both versions here.",
+        "effect": "Each level attenuates reliability; the reader is made aware of transmission as a process.",
+        "aka": ["embedded narrative"],
+        "caution": "Two levels are manageable; three need explicit signposting."
+      },
+      {
+        "name": "head-hopping",
+        "definition": "Unsignaled shifts of viewpoint between characters within a single scene.",
+        "polarity": "fault",
+        "example": "Faulty: 'She wondered whether he suspected. He did, and was surprised she had to ask.' — two minds in two sentences with no break.",
+        "effect": "Named as a failure mode: the reader loses the anchor and stops investing in any single consciousness.",
+        "caution": "Distinguish from true omniscience, which has a governing narrator's voice; head-hopping has none."
+      },
+      {
+        "name": "point-of-view break",
+        "definition": "A deliberate, marked shift of viewpoint at a section or chapter boundary.",
+        "example": "A line of white space, then: 'Across the square, the deputy was writing the same afternoon down differently.'",
+        "effect": "Resets the reader's alignment cleanly and can reveal how wrong the previous viewpoint was.",
+        "register": "all narrative"
+      },
+      {
+        "name": "reflector character",
+        "definition": "A viewpoint character used chiefly as a lens on others, whose own arc is secondary to what they let the reader see.",
+        "example": "The junior auditor is in every scene because she is the only person both sides still talk to.",
+        "effect": "Solves access problems: the reflector goes where the story needs a witness.",
+        "aka": ["central intelligence"],
+        "caution": "A reflector with no stake of their own eventually bores the reader."
+      }
+    ],
+    "psychic_distance_ladder": [
+      {
+        "name": "psychic distance level 1 — long shot",
+        "definition": "The greatest narrative distance: the narrator reports from outside, in the register of history or setting, with no access to any mind.",
+        "example": "It was the spring of 1978, and a man in a gray coat was crossing the courthouse square.",
+        "effect": "Establishes time, place, and scale before any consciousness is entered; the standard opening altitude.",
+        "aka": ["Gardner level 1"],
+        "caution": "Held too long, the reader has nobody to stand with."
+      },
+      {
+        "name": "psychic distance level 2 — named subject",
+        "definition": "The narrator names the character and reports general facts about him from outside, in the narrator's diction.",
+        "example": "Raymond Teale had never much cared for county buildings.",
+        "effect": "Introduces a person as a subject of description; still the narrator's language, not his.",
+        "aka": ["Gardner level 2"]
+      },
+      {
+        "name": "psychic distance level 3 — inner report",
+        "definition": "The narrator reports the character's inner state plainly, in ordinary prose, from just outside him.",
+        "example": "Ray hated the courthouse.",
+        "effect": "First access to interiority; efficient, unfiltered, and still narrated rather than felt.",
+        "aka": ["Gardner level 3"]
+      },
+      {
+        "name": "psychic distance level 4 — the character's idiom",
+        "definition": "The narration takes on the character's own vocabulary and judgment while remaining in third person and past tense.",
+        "example": "God, that smell — floor wax and old paper and forty years of other people's bad news.",
+        "effect": "The reader is inside the character's evaluation of the world; the operating range of free indirect discourse.",
+        "aka": ["Gardner level 4"],
+        "caution": "Any word the character would not use snaps the reader out."
+      },
+      {
+        "name": "psychic distance level 5 — inside the sensorium",
+        "definition": "The closest distance: fragmentary, associative, the raw texture of perception before it has been organized into sentences.",
+        "example": "Wax. Paper. Somebody crying two doors down. Keep walking, keep walking.",
+        "effect": "Total immersion; syntax itself becomes the character's mental state.",
+        "aka": ["Gardner level 5"],
+        "caution": "Unreadable at length; used in bursts at moments of maximum pressure."
+      },
+      {
+        "name": "distance modulation",
+        "definition": "Deliberately moving up and down the ladder within a scene rather than fixing one altitude.",
+        "example": "Open at level 2 to place him, drop to 4 as the meeting turns, close the section back at 1 with the square emptying.",
+        "effect": "Controls intimacy like a camera controls focal length; the primary tool for pacing emotional intensity."
+      },
+      {
+        "name": "zoom-in transition",
+        "definition": "A move from greater to lesser distance across consecutive sentences.",
+        "example": "The building had been condemned twice. Ray had signed one of the notices. He could not remember which.",
+        "effect": "Draws the reader from context into consciousness; the standard way to begin a scene.",
+        "caution": "Skipping levels — 1 straight to 5 — reads as a lurch unless the jolt is the point."
+      },
+      {
+        "name": "zoom-out transition",
+        "definition": "A move from lesser to greater distance, usually to end a scene or pass time.",
+        "example": "He could not remember which. Outside, the square filled and emptied twice before he came back down the steps.",
+        "effect": "Releases the reader from the character and hands time back to the narrator.",
+        "register": "all narrative"
+      },
+      {
+        "name": "distance whiplash",
+        "definition": "An abrupt, unmotivated jump between distances that disorients rather than moves the reader.",
+        "polarity": "fault",
+        "example": "Faulty: a paragraph of raw sensory fragments followed without break by 'The county had been settled in 1841 by Scottish sheep farmers.'",
+        "effect": "Named as a failure mode: the reader experiences a change of narrator rather than a change of focus.",
+        "caution": "Fix by adding an intermediate sentence at the level between, or by breaking the section."
+      }
+    ],
+    "tense_strategies": [
+      {
+        "name": "past-tense narration",
+        "definition": "Narration in the simple past, the default English storytelling tense.",
+        "example": "She opened the binder and found the March pages missing.",
+        "effect": "Invisible; readers stop registering it, which leaves attention for everything else.",
+        "register": "all narrative"
+      },
+      {
+        "name": "present-tense narration",
+        "definition": "Sustained narration in the simple present, as if events unfold at the moment of reading.",
+        "example": "She opens the binder. The March pages are gone.",
+        "effect": "Immediacy and restricted foreknowledge; the narrator cannot easily comment from the future.",
+        "register": "contemporary fiction, memoir, some reportage",
+        "caution": "Loses its charge over long stretches, and makes ordinary flashback machinery awkward."
+      },
+      {
+        "name": "historical present",
+        "definition": "Present-tense narration of events known to be past, used for vividness within an otherwise past-tense account.",
+        "example": "It is the middle of March, and the deputy is standing in a records room with a box he cannot explain.",
+        "effect": "Pulls a past scene into the foreground; standard in oral storytelling and popular history.",
+        "register": "nonfiction, anecdote",
+        "caution": "Switching in and out of it repeatedly makes chronology hard to hold."
+      },
+      {
+        "name": "future-tense narration",
+        "definition": "Narration cast in the future, projecting events that have not occurred.",
+        "example": "You will find the binder in the second drawer, and you will decide not to mention it.",
+        "effect": "Prophetic or instructional; strongly marked and inherently unstable.",
+        "register": "experimental fiction, speculative essay",
+        "caution": "Rarely sustainable past a few pages; use for framing sections."
+      },
+      {
+        "name": "future-in-past",
+        "definition": "Use of 'would' to narrate what was still to come from the vantage of a past moment.",
+        "example": "It would be four years before anyone opened the box again.",
+        "effect": "Compresses time and signals hindsight; the workhorse of retrospective narration.",
+        "caution": "Each use spends a little suspense; count them."
+      },
+      {
+        "name": "past perfect for flashback",
+        "definition": "Use of 'had' plus past participle to mark events prior to the narrative's main past timeline.",
+        "example": "She had asked for the schedule twice that winter, and both times had been sent a summary.",
+        "effect": "Locates events unambiguously before the main action.",
+        "caution": "Heavy in quantity; readers tire of a page of 'had'."
+      },
+      {
+        "name": "past-perfect fade",
+        "definition": "Entering a flashback with two or three past-perfect verbs, then shifting to simple past for the body of it, and back to past perfect on the way out.",
+        "pattern": "had + participle (×2) → simple past (body) → had + participle (exit)",
+        "example": "She had driven out there once before. The road was gravel for the last mile, and the gate was open. She had not gone in.",
+        "effect": "Gets the reader into the earlier time and then out of the grammatical weight of it.",
+        "register": "standard technique in all past-tense narrative"
+      },
+      {
+        "name": "habitual past with 'would'",
+        "definition": "Narration of repeated past action using 'would' plus base verb.",
+        "example": "Every Friday he would carry the week's filings down to the annex and leave them on the cart.",
+        "effect": "Renders routine rather than event; establishes a life before the story disturbs it.",
+        "caution": "'Would' also means future-in-past; keep the two uses separated by context."
+      },
+      {
+        "name": "habitual past with 'used to'",
+        "definition": "Past habitual marked by 'used to', which additionally implies the habit has ended.",
+        "example": "The annex used to keep everything for seven years.",
+        "effect": "States the routine and its discontinuation in one clause; inherently elegiac."
+      },
+      {
+        "name": "gnomic present",
+        "definition": "Present tense used for general truths and standing conditions inside a past-tense narrative.",
+        "example": "She filed it in the wrong year, which is how most records are lost.",
+        "effect": "Steps briefly out of the story to assert something that remains true; the essayist's move inside narrative.",
+        "register": "narrative nonfiction and editorially omniscient fiction",
+        "caution": "Every gnomic sentence is a claim; it must survive being read as one."
+      },
+      {
+        "name": "present-tense frame with past narrative",
+        "definition": "A present-tense frame — the narrator now, at a desk, in a room — surrounding a past-tense account.",
+        "example": "The notebook is in front of me as I write this. In 1978 it was in a coat pocket, and the coat was in a courthouse.",
+        "effect": "Separates the act of telling from the events told, and lets the narrator's present state matter.",
+        "register": "memoir, literary nonfiction"
+      },
+      {
+        "name": "tense shift as scene break",
+        "definition": "Using a change of tense, rather than white space or a header, to mark a shift between timelines.",
+        "example": "Past tense carries 1978; every section set in the present-day investigation runs in present tense.",
+        "effect": "Orients the reader instantly and without furniture, once the convention is established.",
+        "caution": "Establish it in the first two occurrences or readers will read the change as an error."
+      },
+      {
+        "name": "present perfect for continuing relevance",
+        "definition": "Use of 'has/have' plus participle to mark past events whose consequences persist at the time of narration.",
+        "example": "No one has ever explained the March entries.",
+        "effect": "Connects past to narrative present; the natural tense of unresolved matters.",
+        "register": "nonfiction and retrospective narration"
+      },
+      {
+        "name": "progressive for duration",
+        "definition": "Use of the progressive aspect to hold an action open across other events.",
+        "example": "While the committee was still arguing about the agenda, the boxes were going out the loading dock.",
+        "effect": "Establishes simultaneity and makes one action the background of another."
+      },
+      {
+        "name": "conditional narration",
+        "definition": "Narration in conditional or subjunctive mood, describing what would have happened or might have.",
+        "example": "Had anyone matched the two dates that spring, the whole thing would have ended in a week.",
+        "effect": "Narrates the road not taken; produces regret, irony, or suspense without inventing events.",
+        "caution": "Counterfactuals in nonfiction need evidence for their premises, not just their plausibility."
+      },
+      {
+        "name": "mixed-tense braid",
+        "definition": "Two or more timelines carried simultaneously in different tenses across alternating sections.",
+        "example": "Present tense for the week of the hearing, past tense for the decade that produced it, alternating by chapter.",
+        "effect": "Lets the reader hold cause and consequence at once; the standard shape of investigative narrative nonfiction.",
+        "caution": "Needs a rigid, visible rule; readers will not tolerate ambiguity about which timeline they are in."
+      }
+    ],
+    "speech_and_thought_representation": [
+      {
+        "name": "direct speech",
+        "definition": "A character's words reproduced verbatim in quotation marks with a reporting clause.",
+        "pattern": "\"[Utterance],\" said [speaker].",
+        "example": "\"I signed what they put in front of me,\" she said.",
+        "effect": "Maximum fidelity and dramatic presence; the reader hears the character rather than the narrator.",
+        "register": "all narrative"
+      },
+      {
+        "name": "free direct speech",
+        "definition": "Quoted speech with the reporting clause, the quotation marks, or both removed.",
+        "example": "I signed what they put in front of me. What else was there to do.",
+        "effect": "Removes the narrator from between reader and speaker; the page becomes voice.",
+        "register": "literary fiction",
+        "caution": "Without tags, keep speakers distinguishable by diction, or readers will lose the thread."
+      },
+      {
+        "name": "indirect speech",
+        "definition": "A character's words reported in the narrator's grammar, with tense and deixis shifted.",
+        "pattern": "[Speaker] said that [shifted clause]",
+        "example": "She said that she had signed whatever they put in front of her.",
+        "effect": "Compresses speech and subordinates it to narration; useful for moving through talk quickly.",
+        "caution": "Loses the speaker's idiom entirely, which is sometimes the whole point of the line."
+      },
+      {
+        "name": "free indirect speech",
+        "definition": "Speech reported without a reporting clause but with the narrator's third-person and past-tense grammar, retaining the speaker's idiom.",
+        "example": "She had signed what they put in front of her. What else was anybody supposed to do.",
+        "effect": "Blends the narrator's voice with the character's so the two cannot be cleanly separated.",
+        "aka": ["free indirect discourse (speech)", "erlebte Rede"]
+      },
+      {
+        "name": "narrative report of a speech act",
+        "definition": "Narration that names the kind of speech act performed without giving its words.",
+        "example": "She explained the March entries twice and then refused to explain them again.",
+        "effect": "Maximum compression; keeps the narrator in charge of pace and summary.",
+        "aka": ["NRSA"],
+        "caution": "A whole scene reported this way tells rather than shows; use it to skip what does not need hearing."
+      },
+      {
+        "name": "summarized dialogue",
+        "definition": "A stretch of conversation compressed into narration, sometimes with one quoted line preserved for texture.",
+        "example": "They went through it for an hour — the dates, the signatures, whose initials were on the cover — and got nowhere. \"Then somebody's lying,\" she said, and they started again.",
+        "effect": "Skips procedural talk while keeping one line at full volume.",
+        "register": "narrative nonfiction and fiction"
+      },
+      {
+        "name": "direct thought",
+        "definition": "A character's thought reproduced verbatim with a reporting clause, sometimes in italics or quotation marks.",
+        "pattern": "[Thought], [she] thought.",
+        "example": "This is the last time I sign anything, she thought.",
+        "effect": "Presents the thought as a formed sentence in the character's head; explicit but slightly artificial.",
+        "caution": "People rarely think in complete sentences; overuse makes characters sound like they are dictating."
+      },
+      {
+        "name": "free direct thought",
+        "definition": "Quoted thought with tags and typographic marks removed, running inside the narration.",
+        "example": "She closed the binder. Last time. The last time I sign anything.",
+        "effect": "The reader falls into the character's mind without a signal; the boundary of narration dissolves.",
+        "register": "literary fiction"
+      },
+      {
+        "name": "indirect thought",
+        "definition": "A thought reported in the narrator's grammar with an explicit mental-verb clause.",
+        "example": "She thought that she would never sign anything again.",
+        "effect": "Keeps a clear narrator between reader and mind; useful for cool, distanced interiority.",
+        "caution": "The filter verbs ('she thought', 'she felt', 'she realized') accumulate; cutting them is the single most common close-third revision."
+      },
+      {
+        "name": "free indirect thought",
+        "definition": "Thought rendered in the narrator's tense and person but the character's idiom, without a mental-verb tag.",
+        "example": "She closed the binder. Never again — not a form, not a card, not a birthday cheque.",
+        "effect": "The purest form of free indirect discourse; interiority with no visible seam.",
+        "aka": ["narrated monologue", "FIT"],
+        "caution": "Requires stable close third; from a distant narrator it reads as an unattributed opinion."
+      },
+      {
+        "name": "free indirect discourse",
+        "definition": "The general technique in which a character's speech or thought is rendered in the narrator's third person and past tense while keeping the character's diction, judgments, and deictic anchors.",
+        "example": "Distant: 'She was annoyed by the delay.' Free indirect: 'Another hour of this. They would keep her here until the parking ran out, and then they would be sorry.'",
+        "effect": "Lets narration carry a character's perspective without quotation, which is why it can be ironic, sympathetic, and unreliable at once.",
+        "register": "the central technique of the modern novel",
+        "caution": "It is also the standard device of unreliability; readers may take the character's judgment as the book's unless the frame corrects it."
+      },
+      {
+        "name": "psycho-narration",
+        "definition": "The narrator's own account of a character's consciousness, in the narrator's language, including material the character could not articulate.",
+        "example": "She would not have called it fear, and did not have a word for the thing that made her check the parking lot twice.",
+        "effect": "Reaches parts of a mind the character cannot report; the narrator's advantage over first person.",
+        "aka": ["Cohn's psycho-narration"],
+        "register": "literary fiction and psychological nonfiction"
+      },
+      {
+        "name": "interior monologue",
+        "definition": "Sustained rendering of a character's thought as continuous first-person present-tense language.",
+        "example": "Second drawer. Not there. Second drawer of the other cabinet, then, and if it is not there either I say nothing at all.",
+        "effect": "Puts the reader in the flow of thinking rather than its summary.",
+        "aka": ["quoted monologue"],
+        "caution": "Requires a reason to be this close; without pressure it reads as inventory."
+      },
+      {
+        "name": "stream of consciousness",
+        "definition": "Narration imitating the associative, non-sequential movement of a mind, often with disrupted syntax and no filtering.",
+        "example": "Wax and paper and the woman crying two doors down and Ray at the top of the stairs with the folder that was not his folder and the light going.",
+        "effect": "Renders mental process rather than mental content; syntax carries the state.",
+        "register": "modernist and literary fiction",
+        "caution": "Distinguish from interior monologue: this one abandons the sentence, not just the tag."
+      },
+      {
+        "name": "soliloquy",
+        "definition": "A character speaking at length, alone or effectively alone, articulating thought as speech.",
+        "example": "Alone in the file room, he said it out loud twice, as though hearing it would make it a decision.",
+        "effect": "Externalizes interiority; borrowed from drama and useful when a character needs to be heard, not read.",
+        "caution": "In prose it needs a plausible occasion for speaking aloud."
+      },
+      {
+        "name": "unattributed dialogue",
+        "definition": "An exchange run without speech tags, speakers distinguished by alternation and voice alone.",
+        "example": "\"You signed it.\" \"I signed a lot of things.\" \"You signed this one twice.\"",
+        "effect": "Accelerates an exchange to its bare rhythm; the reader hears rather than watches.",
+        "caution": "Limit to short exchanges between two clearly distinct speakers, and re-anchor before the reader can lose count."
+      },
+      {
+        "name": "action beat as attribution",
+        "definition": "Replacing a speech tag with a line of the speaker's physical action in the same paragraph.",
+        "pattern": "\"[Line].\" [Speaker's action.]",
+        "example": "\"That is not my signature.\" She put the page down and did not pick it up again.",
+        "effect": "Attributes, paces, and characterizes at once, without 'said' repetition.",
+        "caution": "Every line beated becomes choreography; alternate with bare 'said'."
+      },
+      {
+        "name": "slipped quotation",
+        "definition": "A short quoted phrase embedded inside a narrated sentence, the rest of the utterance reported.",
+        "example": "He said the entries were \"an internal matter\" and that he had said so already.",
+        "effect": "Preserves the telling phrase while summarizing the rest; standard practice in journalism.",
+        "register": "nonfiction and reportage",
+        "caution": "The quoted fragment must be exact; the temptation to smooth it is the temptation to misquote."
+      },
+      {
+        "name": "reported speech at second hand",
+        "definition": "Speech reported by one character as having been said by another, two removes from the reader.",
+        "example": "The deputy told me the clerk had said the boxes were moved on a Sunday.",
+        "effect": "Builds in doubt: every layer is a place the account could have changed.",
+        "register": "mystery, investigative nonfiction"
+      },
+      {
+        "name": "dialect rendering",
+        "definition": "Representation of a speaker's regional or social variety through word choice, grammar, and rhythm.",
+        "example": "\"They never did tell us the plant was closing, and we'd been asking since the spring.\"",
+        "effect": "Places a speaker socially and geographically with no narratorial comment.",
+        "caution": "Do it through syntax and idiom, not respelling; phonetic 'eye dialect' patronizes the speaker and slows the reader."
+      },
+      {
+        "name": "thought in italics",
+        "definition": "Typographic convention marking direct thought without tags.",
+        "example": "She looked at the second signature. *Not mine.*",
+        "effect": "Signals interiority unmistakably at a glance.",
+        "caution": "A crutch in close third, where free indirect thought does the same work without the typography; also lost in some ebook conversions."
+      },
+      {
+        "name": "narrative report of a thought act",
+        "definition": "Narration naming that a character thought, decided, or realized something, without rendering the thought.",
+        "example": "She spent the drive home deciding what she was going to do about it.",
+        "effect": "Skims over interiority to keep pace; the thought's content is withheld or deferred.",
+        "aka": ["NRTA"],
+        "caution": "Deferring a decision this way is a promise; pay it off or the reader feels cheated."
+      }
+    ],
+    "narrator_reliability_types": [
+      {
+        "name": "reliable narrator",
+        "definition": "A narrator whose reports, readings, and evaluations the text gives the reader no reason to discount.",
+        "example": "The examiner's account of the meeting matches the minutes, the deputy's letter, and everything the narrative later confirms.",
+        "effect": "Lets the reader spend attention on the story rather than on the telling.",
+        "caution": "Reliability is a construction, not a default; it is established by corroboration inside the text."
+      },
+      {
+        "name": "unreliable narrator",
+        "definition": "A narrator whose account the reader has cause to correct, whether through deception, limitation, or self-deception.",
+        "example": "He tells us he barely knew the deputy, then describes the man's handwriting, his coffee order, and the shape of his signature.",
+        "effect": "Creates a second story between the lines; the reader becomes an investigator of the narration itself.",
+        "caution": "The text must supply the correcting evidence, or unreliability is indistinguishable from an authorial mistake."
+      },
+      {
+        "name": "misreporting",
+        "definition": "Unreliability along the axis of facts: the narrator states events wrongly.",
+        "example": "He says the meeting was on a Thursday; two documents in the same chapter date it to Monday.",
+        "effect": "The most detectable unreliability, because it can be contradicted by evidence in the text.",
+        "aka": ["Phelan: misreporting"]
+      },
+      {
+        "name": "misreading",
+        "definition": "Unreliability along the axis of interpretation: the narrator reports accurately but understands wrongly.",
+        "example": "He reports that she left the room without a word and concludes she agreed.",
+        "effect": "The reader sees past the narrator using the narrator's own data; produces dramatic irony.",
+        "aka": ["Phelan: misinterpreting"]
+      },
+      {
+        "name": "misevaluating",
+        "definition": "Unreliability along the axis of ethics or value: the narrator's judgment of what happened is one the text repudiates.",
+        "example": "He calls the reclassification 'housekeeping' and expects the reader to agree that nobody was harmed.",
+        "effect": "Puts the reader's moral sense in tension with the narrating voice.",
+        "aka": ["Phelan: misregarding"]
+      },
+      {
+        "name": "underreporting",
+        "definition": "Unreliability by omission: the narrator knows more than they say.",
+        "example": "The account of that March covers eleven pages and never mentions where he was on the fourteenth.",
+        "effect": "Creates suspicion from absence; readers notice a shape-shaped hole.",
+        "aka": ["Phelan: underreporting"],
+        "caution": "The omission must be conspicuous, or it reads as the author forgetting."
+      },
+      {
+        "name": "underreading",
+        "definition": "Unreliability by insufficient interpretation: the narrator perceives correctly but does not draw the inference the reader draws.",
+        "example": "The child narrator records that the adults stopped talking whenever she came into the kitchen, and thinks it is about her birthday.",
+        "effect": "The engine of naive narration; poignancy comes from the gap.",
+        "aka": ["Phelan: underreading"]
+      },
+      {
+        "name": "underregarding",
+        "definition": "Unreliability by insufficient ethical response: the narrator judges in the right direction but far too weakly.",
+        "example": "He describes the town's collapse and calls it, twice, 'unfortunate'.",
+        "effect": "Characterizes the narrator's moral scale without any explicit condemnation.",
+        "aka": ["Phelan: underregarding"]
+      },
+      {
+        "name": "bonding unreliability",
+        "definition": "Unreliability that draws the reader closer to the narrator — the gap between their views is one the reader forgives or shares.",
+        "example": "Her self-deprecation about the audit is plainly excessive, and it makes the reader like her more.",
+        "effect": "Intimacy through the flaw; the reader is on the narrator's side against the narrator's own account.",
+        "aka": ["Phelan: bonding unreliability"]
+      },
+      {
+        "name": "estranging unreliability",
+        "definition": "Unreliability that pushes the reader away, widening the distance between reader and narrator.",
+        "example": "His explanation of why the clerk deserved to be fired is coherent, detailed, and appalling.",
+        "effect": "The reader watches the narrator from outside and begins reading against him.",
+        "aka": ["Phelan: estranging unreliability"]
+      },
+      {
+        "name": "naive narrator",
+        "definition": "A narrator whose limited experience or understanding prevents them from grasping what they accurately report.",
+        "example": "A new clerk describes the missing March pages as a filing problem someone will get around to.",
+        "effect": "The reader supplies the meaning; every innocent sentence carries a second reading.",
+        "caution": "The narrator must remain plausibly limited — sudden insight breaks the whole arrangement."
+      },
+      {
+        "name": "self-deceived narrator",
+        "definition": "A narrator who has an interest in not knowing what they know, and whose account is shaped by that interest.",
+        "example": "He describes the folder as one he never opened, in a paragraph that reports what page three said.",
+        "effect": "Unreliability without lying; the contradictions are between sentences, not against the world.",
+        "register": "literary fiction and memoir"
+      },
+      {
+        "name": "deceptive narrator",
+        "definition": "A narrator who knowingly lies to the reader.",
+        "example": "The account of the night the boxes moved is complete, confident, and later shown to be an invention.",
+        "effect": "Turns the reading experience retroactively into a puzzle; the reveal recasts everything.",
+        "caution": "The text must have played fair — the evidence for the lie has to be present before the reveal."
+      },
+      {
+        "name": "fallible narrator",
+        "definition": "A narrator who is honest and mistaken: limited access, faulty memory, ordinary error, no intent to mislead.",
+        "example": "She remembers the drive as taking an hour; the toll receipt in the same chapter says twenty minutes.",
+        "effect": "Realism rather than trickery; memoirs are fallible by nature.",
+        "register": "memoir and first-person fiction"
+      },
+      {
+        "name": "partial-knowledge narrator",
+        "definition": "A narrator whose account is limited by structural lack of access rather than by any personal failing.",
+        "example": "The clerk can report everything that crossed her desk and nothing that was discussed upstairs.",
+        "effect": "Reliability inside a boundary; the boundary itself becomes a plot constraint.",
+        "caution": "Establish the boundary early or readers will read the gaps as evasion."
+      },
+      {
+        "name": "self-justifying narrator",
+        "definition": "A narrator whose telling is organized as a defense, addressed implicitly or explicitly to a judge.",
+        "example": "Everything in the account is arranged around the sentence 'anyone would have done the same', which the account never states.",
+        "effect": "Every detail selected becomes evidence of the selection; the reader reads for what the defense omits.",
+        "register": "first-person fiction, confessional memoir"
+      },
+      {
+        "name": "corroborating detail",
+        "definition": "A technique rather than a narrator type: planting independently verifiable details so the reader can measure the narrator against them.",
+        "example": "The narrator's dates are checkable against a chapter epigraph drawn from the docket.",
+        "effect": "Gives the reader an instrument; without one, unreliability is unrecoverable.",
+        "caution": "Plant at least two before the reveal, or the twist will read as arbitrary."
+      }
+    ],
+    "narrative_voice_textures": [
+      {
+        "name": "plain style",
+        "definition": "A voice built from short common words, transparent syntax, and few figures, aiming at unnoticeable clarity.",
+        "example": "The plant closed in March. Twelve hundred people worked there. Most of them heard about it on the radio.",
+        "effect": "Reads as honest and unmediated; puts the material forward and the writer behind it.",
+        "register": "reportage, testimony, minimalist fiction",
+        "caution": "Plainness is a rhetorical position, not the absence of one — it claims a truthfulness it must earn."
+      },
+      {
+        "name": "ornate style",
+        "definition": "A voice of long periodic sentences, Latinate diction, and elaborated figures.",
+        "example": "It was the peculiar genius of the arrangement that no participant in it could be shown, on any single day, to have done anything whatever.",
+        "effect": "Signals intellectual formality and confidence; makes complexity feel governed.",
+        "register": "essay, literary criticism, historical narrative",
+        "caution": "Ornate prose that is not thinking hard reads as bluster."
+      },
+      {
+        "name": "ironic voice",
+        "definition": "A narration whose stated evaluations differ predictably from the ones the text endorses.",
+        "example": "The board handled the matter with the seriousness that four separate lunches can convey.",
+        "effect": "Lets the writer criticize without asserting, and flatters readers who catch it.",
+        "caution": "Sustained irony leaves nowhere to stand when the material turns genuinely grave."
+      },
+      {
+        "name": "deadpan",
+        "definition": "Flat, unmodulated delivery of material that would ordinarily be inflected.",
+        "example": "The building had been condemned twice and was, at the time of the hearing, hosting the hearing.",
+        "effect": "The absence of comment is the comment; the reader supplies the outrage or the laugh.",
+        "register": "comic and reportorial prose alike"
+      },
+      {
+        "name": "elegiac voice",
+        "definition": "A voice organized around loss, tending toward the past habitual, the long cadence, and the naming of vanished particulars.",
+        "example": "There had been a diner across from the gate, and a shift-change so regular the traffic light was timed to it.",
+        "effect": "Mourns without stating grief; the accumulation of detail does the work.",
+        "caution": "Nostalgia is the failure mode — specificity is what separates elegy from sentiment."
+      },
+      {
+        "name": "urgent voice",
+        "definition": "Short sentences, present tense or clipped past, minimal subordination, high verb density.",
+        "example": "She takes the stairs. Two flights. The door at the bottom is chained.",
+        "effect": "Compresses reading time toward event time; readers speed up because the syntax lets them.",
+        "caution": "Uniform urgency reads as monotony; it needs a slow passage to press against."
+      },
+      {
+        "name": "clinical voice",
+        "definition": "Precise, unemotional narration using technical or procedural vocabulary about emotionally charged material.",
+        "example": "The reclassification moved eleven million dollars from a restricted line to an unrestricted one. Nothing else about the account changed.",
+        "effect": "Restraint amplifies: the reader supplies the feeling the prose refuses.",
+        "register": "literary fiction, investigative nonfiction"
+      },
+      {
+        "name": "vernacular voice",
+        "definition": "Narration in a regional or social idiom, with its syntax, idioms, and rhythms carried into the narration itself.",
+        "example": "Nobody around here ever called it a bank failure. They called it the year the Hendricks boys got quiet.",
+        "effect": "Locates the telling in a community; the narrator becomes a member rather than an observer.",
+        "caution": "Must be sustained consistently; a vernacular that lapses reads as condescension."
+      },
+      {
+        "name": "confiding voice",
+        "definition": "A narrator who addresses the reader as a trusted intimate, admitting uncertainty and sharing asides.",
+        "example": "I should say here that I liked him, which is probably why it took me two years to check anything he told me.",
+        "effect": "Builds trust through admitted fallibility; the reader is a confidant rather than an audience.",
+        "register": "memoir, essay, narrative journalism"
+      },
+      {
+        "name": "oracular voice",
+        "definition": "Elevated, declarative narration that pronounces rather than argues, often in the present tense and with parallel constructions.",
+        "example": "Institutions do not fall. They are hollowed, and then one day someone leans on them.",
+        "effect": "Confers authority; readers feel addressed from above the story.",
+        "caution": "Every oracular sentence is an unsupported claim wearing a robe; ration them."
+      },
+      {
+        "name": "hard-boiled voice",
+        "definition": "First-person narration in clipped declaratives, concrete nouns, and understated wit, withholding emotion.",
+        "example": "The office had two chairs and one of them was for people who were leaving.",
+        "effect": "Characterizes the narrator through what he declines to say; the style is the psychology.",
+        "register": "crime fiction and its descendants",
+        "caution": "Now heavily codified; a single wrong flourish tips it into pastiche."
+      },
+      {
+        "name": "lyrical voice",
+        "definition": "Narration foregrounding sound, image, and cadence, with attention to rhythm at the phrase level.",
+        "example": "The river came up through the floorboards the way light does, slowly and then all at once and then everywhere.",
+        "effect": "Slows reading and makes the prose itself an object of attention.",
+        "caution": "Lyricism competes with information; use where the reader needs to feel rather than follow."
+      },
+      {
+        "name": "comic hyperbolic voice",
+        "definition": "Narration that escalates its terms past proportion for comic effect.",
+        "example": "The agenda ran to nine items, of which four were the same item and one was lunch.",
+        "effect": "The exaggeration signals the narrator's exasperation without stating it.",
+        "caution": "Hyperbole spends credibility; a narrator who exaggerates about small things will not be believed about large ones."
+      },
+      {
+        "name": "bureaucratic pastiche",
+        "definition": "Narration adopting institutional language — passive constructions, nominalizations, procedural euphemism — as a satirical or characterizing device.",
+        "example": "A determination was made that further escalation would not be productive at that time.",
+        "effect": "Reproduces the machine's own voice, which condemns it more efficiently than commentary.",
+        "caution": "It is deliberately bad prose; keep the passages short and clearly framed."
+      },
+      {
+        "name": "incantatory voice",
+        "definition": "Narration built on repetition, parallelism, and accumulating rhythm.",
+        "example": "They asked in March. They asked in June. They asked in writing, and in person, and through a lawyer, and in March again.",
+        "effect": "Produces the pressure of ritual; repetition converts a list into an accusation.",
+        "caution": "Powerful and quickly exhausted; one passage per chapter at most."
+      },
+      {
+        "name": "aphoristic voice",
+        "definition": "Narration that periodically compresses its argument into a short, balanced, generalizable sentence.",
+        "example": "Money never disappears. It only changes the name of the line it sits on.",
+        "effect": "Gives the reader portable formulations; strongly associated with authority.",
+        "caution": "Aphorism sounds true whether or not it is; each one should be defensible as a claim."
+      },
+      {
+        "name": "reticent voice",
+        "definition": "A narrator who visibly declines to say things — refusing interpretation, skipping over the obvious climax, stating less than is known.",
+        "example": "What happened in the parking lot afterward is not something I am going to set down here.",
+        "effect": "The withholding characterizes the narrator and charges the omitted material.",
+        "caution": "Readers tolerate one or two refusals; more and they suspect the writer of having nothing to withhold."
+      }
+    ],
+    "nonfiction_narration_modes": [
+      {
+        "name": "we-of-shared-discovery",
+        "definition": "A first-person plural that enlists the reader as co-investigator, moving through evidence together with the writer.",
+        "example": "If we line the two statements up by date, we find that one of them describes a reserve the other has already spent.",
+        "effect": "Converts exposition into shared reasoning; conclusions feel derived rather than delivered.",
+        "register": "popular science, analytical nonfiction",
+        "caution": "The false 'we' — assuming agreement the reader has not given — is the mode's characteristic dishonesty."
+      },
+      {
+        "name": "direct address",
+        "definition": "The writer speaks to the reader as 'you', naming their likely reaction, question, or objection.",
+        "example": "You are going to want to know why nobody simply asked. So did I.",
+        "effect": "Anticipates and disarms resistance; keeps the reader present in an argument.",
+        "register": "essay, columns, instructional writing",
+        "caution": "Telling readers what they think is a bet; when it misses, they disengage."
+      },
+      {
+        "name": "authorial intrusion",
+        "definition": "The writer steps out of the material to comment on it, on the process, or on themselves.",
+        "example": "I have read this paragraph of the minutes perhaps forty times and I still cannot make it mean anything else.",
+        "effect": "Reveals the human doing the work, which can raise or lower credibility depending on how it is used.",
+        "register": "narrative nonfiction, essay",
+        "caution": "Each intrusion must add something the reader could not supply; otherwise it is throat-clearing."
+      },
+      {
+        "name": "reconstructed scene",
+        "definition": "A dramatized scene built from documents, interviews, and record, narrated with fictional technique but no invented fact.",
+        "example": "At 9:40 the deputy carried the box down to the annex — the log records the time, and two people remember the box.",
+        "effect": "Gives nonfiction the immediacy of narrative while keeping every element sourced.",
+        "register": "literary journalism, narrative history",
+        "caution": "Every detail needs a source, and the sourcing convention should be stated somewhere the reader can find it."
+      },
+      {
+        "name": "immersion reportage",
+        "definition": "First-person narration by a writer who has entered the world being described and reports from inside it.",
+        "example": "I spent four months on the second floor of that annex, and by the end the clerks had stopped explaining things to me.",
+        "effect": "The writer's access and change become part of the evidence.",
+        "register": "long-form journalism",
+        "caution": "The reporter's experience can crowd out the subject's; keep asking whose story this is."
+      },
+      {
+        "name": "fly-on-the-wall reportage",
+        "definition": "Third-person narration of observed events with the reporter's presence suppressed.",
+        "example": "The three of them sat in the conference room for forty minutes without opening the folder on the table.",
+        "effect": "Gives observed material the authority of unmediated fact.",
+        "caution": "The suppression is a choice; if the reporter's presence changed the scene, hiding it is a distortion."
+      },
+      {
+        "name": "expository first person",
+        "definition": "A functional 'I' used to state method, position, and limits without narrating the writer's experience.",
+        "example": "I use 'reclassification' throughout in the narrow sense the examiners used, not the accounting one.",
+        "effect": "Makes the writer's choices visible and auditable without making them the subject.",
+        "register": "academic and analytical nonfiction"
+      },
+      {
+        "name": "provisional essayistic I",
+        "definition": "A first person that thinks in public, advancing and revising positions as the essay proceeds.",
+        "example": "I want to say the failure was structural. But I have just written three pages of names, and structures do not sign things.",
+        "effect": "Enacts inquiry rather than reporting its conclusion; the essay's founding move.",
+        "register": "essay",
+        "caution": "The revision must be real; staged reconsideration is transparent."
+      },
+      {
+        "name": "case-study narration",
+        "definition": "A single instance narrated in detail as an instrument for a general claim.",
+        "example": "One county, one bank, one filing cabinet: what happened here happened, with different names, in eleven other places that year.",
+        "effect": "Grounds abstraction in a followable story while explicitly marking its representative status.",
+        "caution": "State the basis for representativeness, or the case becomes an anecdote pretending to be evidence."
+      },
+      {
+        "name": "second-person instructional",
+        "definition": "Procedural narration addressed to the reader as the actor.",
+        "example": "You start with the index, not the documents, because the index tells you what was removed.",
+        "effect": "Puts the reader in the role of practitioner; the clearest mode for method.",
+        "register": "how-to, technical, practical nonfiction"
+      },
+      {
+        "name": "imperative mode",
+        "definition": "Direct commands with the subject suppressed.",
+        "example": "Pull the index first. Photograph every page before anyone joins you.",
+        "effect": "Fastest possible instruction; each sentence is an action.",
+        "caution": "Unbroken imperatives read as hectoring; alternate with explanation of why."
+      },
+      {
+        "name": "thought experiment",
+        "definition": "Narration of a hypothetical scenario invited on the reader's own terms.",
+        "example": "Suppose you are the only person in the building who has seen both statements, and suppose the person you report to signed one of them.",
+        "effect": "Lets a reader test a principle without committing to a factual claim.",
+        "register": "philosophical and analytical writing",
+        "caution": "Mark clearly where the hypothetical ends; readers carry invented details into the factual passages."
+      },
+      {
+        "name": "omniscient historian",
+        "definition": "Third-person narration of past events with access to outcomes, motives, and multiple vantages, grounded in the record.",
+        "example": "Neither man knew that the schedule they were arguing about had already been filed under the following year.",
+        "effect": "The historian's version of omniscience: hindsight and archive standing in for access to minds.",
+        "caution": "Attributing interior states requires a source; 'he felt' needs a diary or an interview behind it."
+      },
+      {
+        "name": "quote-weaving",
+        "definition": "Building narration around interview or document quotations, the writer's sentences supplying frame and connective logic.",
+        "example": "She calls it \"a paperwork thing.\" The examiner's report uses the word \"concealment\" nine times.",
+        "effect": "Lets sources speak while the writer's arrangement carries the argument.",
+        "caution": "Arrangement is argument; juxtaposing two quotations makes a claim you are responsible for."
+      },
+      {
+        "name": "method disclosure",
+        "definition": "Narration that shows the seams — how the material was obtained, what was refused, what remains unknown.",
+        "example": "The bank declined to comment. Two former directors spoke on condition that their departments not be named.",
+        "effect": "Credibility through visible limits; readers trust an account that maps its own edges.",
+        "register": "journalism, academic writing",
+        "caution": "Method that becomes the story is a common failure of investigative narrative."
+      },
+      {
+        "name": "retrospective self-correction",
+        "definition": "The writer revisits and revises something asserted earlier in the same work.",
+        "example": "Earlier I called this an accounting error. Having now read the March correspondence, I would not use that phrase.",
+        "effect": "Models intellectual honesty and lets the reader watch a conclusion form.",
+        "caution": "Only works if the earlier claim was made in good faith; retroactive staging is detectable."
+      },
+      {
+        "name": "institutional voice",
+        "definition": "An impersonal, unattributed 'we' or agentless third person speaking for an organization or publication.",
+        "example": "This newspaper has sought the schedule for eleven months.",
+        "effect": "Confers institutional rather than personal authority.",
+        "register": "editorials, reports, corporate communication",
+        "caution": "It also diffuses responsibility; readers increasingly hear the diffusion."
+      },
+      {
+        "name": "composite scene",
+        "definition": "A scene assembled from several real occasions and presented as one.",
+        "example": "A typical Friday at the annex, drawn from three visits and presented as one afternoon.",
+        "effect": "Achieves narrative economy at the cost of literal accuracy.",
+        "register": "some magazine journalism; increasingly disfavored",
+        "caution": "Never present a composite as a specific occasion without disclosing it; in most nonfiction contracts this is simply not permitted."
+      },
+      {
+        "name": "data narration",
+        "definition": "Narration that walks the reader through a quantity's behavior over time as if it were a character with a trajectory.",
+        "example": "The reserve line holds flat for six years, jumps in a single March, and then never appears again.",
+        "effect": "Gives numbers a shape and a story arc without a chart.",
+        "caution": "Anthropomorphized data can smuggle in causal claims the numbers do not support."
+      }
+    ],
+    "temporal_manipulation": [
+      {
+        "name": "analepsis",
+        "definition": "Narration of an event earlier than the point the main narrative has reached.",
+        "example": "Before the hearing there had been a Sunday in March that nobody had thought worth mentioning.",
+        "effect": "Supplies cause after consequence, so the reader learns why with the stakes already established.",
+        "aka": ["flashback"],
+        "caution": "Every flashback stops forward motion; it must return the reader with something they now need."
+      },
+      {
+        "name": "external analepsis",
+        "definition": "A flashback to a time before the main narrative's starting point.",
+        "example": "The annex had been built in 1932 for exactly this purpose, which is a story of its own.",
+        "effect": "Supplies deep background without extending the main timeline.",
+        "caution": "External analepses read as digression unless they are tied explicitly to the present question."
+      },
+      {
+        "name": "internal analepsis",
+        "definition": "A flashback to a moment inside the main narrative's span that was skipped or withheld.",
+        "example": "We can now return to the Thursday the box was signed out, which this account passed over the first time.",
+        "effect": "Fills a gap the reader has already noticed; the standard mechanism of a reveal.",
+        "register": "mystery and investigative narrative"
+      },
+      {
+        "name": "prolepsis",
+        "definition": "Narratological sense (Genette): narration of an event later than the point the main narrative has reached.",
+        "see_also": ["rhetorical_figures/argumentation_figures", "narrative_structures/experimental_forms", "scene_patterns/scene_transitions"],
+        "example": "The clerk who filed it would testify about that afternoon four years later, and would not be believed.",
+        "effect": "Trades suspense of outcome for suspense of process; the reader now watches how rather than whether.",
+        "aka": ["flash-forward"],
+        "caution": "Each prolepsis spends the outcome; keep an accounting of what the reader already knows."
+      },
+      {
+        "name": "narratorial foreshadowing",
+        "definition": "A retrospective narrator's brief signal of a future consequence without narrating the future scene.",
+        "example": "I would remember the exact wording of that sentence for a long time.",
+        "effect": "Raises tension cheaply and marks a detail as load-bearing.",
+        "caution": "The most abused device in first-person retrospective narration; two per chapter is already many."
+      },
+      {
+        "name": "summary",
+        "definition": "Duration sense (Genette): narration in which story time exceeds discourse time — years or weeks compressed into sentences. Distinct from the RST summary relation, which is a restatement move.",
+        "see_also": "discourse_moves/coherence_relations",
+        "example": "For the next three years the file moved between two offices and nobody read it.",
+        "effect": "Covers ground; controls how much of a life the reader has to sit through.",
+        "aka": ["Genette: summary"],
+        "caution": "Sustained summary flattens; readers need scene to attach to."
+      },
+      {
+        "name": "scene",
+        "definition": "Narration in which discourse time approximates story time — dialogue and action rendered moment by moment.",
+        "example": "\"Where is the schedule?\" \"With the auditors.\" \"Which auditors?\" He did not answer.",
+        "effect": "The reader experiences events rather than being told about them; the default unit of dramatic writing.",
+        "aka": ["Genette: scene"]
+      },
+      {
+        "name": "descriptive pause",
+        "definition": "Narration in which story time stops while discourse continues — description, background, or commentary.",
+        "example": "The annex was two rooms and a corridor, lit by one window at the far end, with cabinets to the ceiling.",
+        "effect": "Holds the story still to let the reader see; also a way to build dread before an event resumes.",
+        "aka": ["Genette: pause"],
+        "caution": "Pauses placed at moments of high tension read as authorial teasing."
+      },
+      {
+        "name": "stretch",
+        "definition": "Narration in which discourse time exceeds story time — a few seconds rendered across many sentences.",
+        "example": "The drawer came open four inches. She could see the top of a folder, the corner of a second one behind it, and then the drawer stopped.",
+        "effect": "Slow motion; the expansion signals that these seconds matter.",
+        "aka": ["Genette: stretch", "slow motion"],
+        "caution": "Only for genuine turning points; elsewhere it reads as padding."
+      },
+      {
+        "name": "temporal ellipsis",
+        "definition": "An unnarrated gap: story time passes with no discourse at all.",
+        "pattern": "[Scene] // [white space] // [scene, later]",
+        "example": "White space, and then: 'By the time the report was public, both of them had left the state.'",
+        "effect": "Skips what does not need telling, and can conceal something the reader will demand later.",
+        "aka": ["Genette: ellipsis"],
+        "caution": "A concealing ellipsis is a promise; readers will notice a gap around the crucial event."
+      },
+      {
+        "name": "singulative narration",
+        "definition": "Telling once what happened once — the default frequency.",
+        "example": "On the fourteenth she drove to the annex and signed the box out.",
+        "effect": "Marks an occasion as particular rather than typical.",
+        "aka": ["Genette: singulative"]
+      },
+      {
+        "name": "iterative narration",
+        "definition": "Telling once what happened repeatedly.",
+        "example": "Every Friday she signed a box out, and every Monday she signed it back.",
+        "effect": "Establishes routine efficiently, so that a single deviation from it can carry enormous weight.",
+        "aka": ["Genette: iterative"],
+        "caution": "Iterative passages have no tension of their own; keep them short and use them to set up a break."
+      },
+      {
+        "name": "repeating narration",
+        "definition": "Telling more than once what happened once, often from different vantages or in different words.",
+        "example": "The afternoon is narrated three times: as the deputy remembers it, as the log records it, and as the hearing reconstructed it.",
+        "effect": "Makes the act of telling visible and turns discrepancy into the subject.",
+        "aka": ["Genette: repetitive"],
+        "caution": "Each retelling must add or contradict; identical repetition merely costs pages."
+      },
+      {
+        "name": "anachrony",
+        "definition": "Any discrepancy between the order of events and the order of their narration.",
+        "example": "The book opens with the hearing, moves back nine years, and reaches the hearing again in its last chapter.",
+        "effect": "Lets the writer sequence for meaning rather than chronology.",
+        "caution": "Every anachrony taxes the reader's timeline-building; give them anchors."
+      },
+      {
+        "name": "achrony",
+        "definition": "Narration of events whose position in the timeline is never established.",
+        "example": "An undated memo appears between chapters, and the book never says when it was written.",
+        "effect": "Produces unease and, in mystery, a piece the reader cannot yet place.",
+        "caution": "Unresolved achrony reads as an oversight unless the text signals that the date is unavailable."
+      },
+      {
+        "name": "reverse chronology",
+        "definition": "Narration proceeding backward, each section preceding the one before it.",
+        "example": "The last chapter is the first signature; the first chapter is the bankruptcy.",
+        "effect": "Replaces 'what happens' with 'how did this become inevitable'; every scene is read as cause.",
+        "register": "experimental fiction and some nonfiction",
+        "caution": "Demands very clear signposting; readers lose the sequence quickly."
+      },
+      {
+        "name": "braided timelines",
+        "definition": "Two or more chronologies alternated by section, converging or commenting on each other.",
+        "example": "Odd chapters follow the 1978 audit; even chapters follow the 2003 lawsuit that reopened it.",
+        "effect": "Puts cause and consequence in dialogue and lets each strand solve the other's exposition problem.",
+        "caution": "The strands must progress at comparable rates or readers will start skipping one."
+      },
+      {
+        "name": "simultaneity",
+        "definition": "Narration marking that two lines of action occupy the same time.",
+        "pattern": "Meanwhile / At the same hour / While [clause]",
+        "example": "While the committee argued about the agenda, two floors down the boxes were going out to a truck.",
+        "effect": "Creates dramatic irony and lets the reader hold more than any character can.",
+        "caution": "'Meanwhile' is the crudest available signal; a time stamp or a repeated detail usually works better."
+      },
+      {
+        "name": "time stamp",
+        "definition": "An explicit date, time, or dateline marking a section's position in the chronology.",
+        "pattern": "[Place], [date] —",
+        "example": "March 14, 9:40 a.m. The deputy signs the log.",
+        "effect": "Removes all navigational ambiguity, which is why complex nonfiction chronologies rely on it.",
+        "register": "journalism, thriller, procedural"
+      },
+      {
+        "name": "montage compression",
+        "definition": "A rapid series of brief images or fragments standing in for an extended period.",
+        "example": "Two more audits. A new letterhead. The annex window boarded from the inside. Nobody in the building who remembered March.",
+        "effect": "Passes time while keeping sensory texture, where summary would go abstract.",
+        "caution": "Fragments must be concrete; abstract montage is just a list of nouns."
+      },
+      {
+        "name": "memory trigger",
+        "definition": "A present-moment sensory detail that motivates a shift into an earlier time.",
+        "example": "The smell of floor wax in the stairwell, and it was 1978 again.",
+        "effect": "Naturalizes a flashback so the reader experiences it as association rather than authorial arrangement.",
+        "caution": "The most conventionalized transition in narrative prose; vary the mechanism across a book."
+      },
+      {
+        "name": "narrative present as pivot",
+        "definition": "A recurring 'now' — a scene, a room, a moment — that the narrative repeatedly returns to between excursions in time.",
+        "example": "Every chapter returns to the hearing room and the unopened box on the table before departing again.",
+        "effect": "Gives an anachronic structure a fixed point, so the reader always knows where home is.",
+        "register": "narrative nonfiction and literary fiction"
+      }
+    ]
+  }
+}

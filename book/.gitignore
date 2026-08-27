@@ -1,0 +1,39 @@
+# Build output — everything lands in build/
+build/
+
+# Generated LaTeX inputs (from book.yaml; never hand-edited — ADR 0002)
+latex/generated/*
+!latex/generated/.gitkeep
+
+# LaTeX aux (belt and suspenders; builds are out-of-tree)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# TeX package cache (hacking/vibe house pattern)
+.texlive-cache/
+
+# EPUB staging
+epub/fonts/*.otf
+epub/fonts/*.ttf
+
+# OS noise
+.DS_Store

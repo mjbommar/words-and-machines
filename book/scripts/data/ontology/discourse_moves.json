@@ -1,0 +1,1397 @@
+{
+  "name": "discourse_moves",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "The coherence and signposting machinery of connected prose: RST-style relations between spans, signposting and metadiscourse moves, transition families and thematic-progression links, framing choices, and moves that manage the reader — each with the cue words and phrases that typically realize it.",
+  "categories": {
+    "coherence_relations": [
+      {
+        "name": "elaboration",
+        "definition": "A satellite span adds detail about the nucleus — a part, an attribute, an instance, or a further specification of the same situation.",
+        "effect": "Deepens without changing subject; the default relation in expository prose.",
+        "cues": ["specifically", "in particular", "that is", "indeed", "moreover"]
+      },
+      {
+        "name": "instantiation",
+        "definition": "The satellite gives one or more cases of the general situation described in the nucleus.",
+        "effect": "Grounds a generalization in something a reader can picture or check.",
+        "cues": ["for example", "for instance", "such as", "consider", "take the case of"]
+      },
+      {
+        "name": "specification",
+        "aka": "level of detail",
+        "definition": "The satellite describes the same event or entity as the nucleus at a finer grain, without adding a new event.",
+        "effect": "Zooms in; the reader understands it as the same thing seen closer.",
+        "cues": ["more precisely", "in detail", "at closer range", "in concrete terms"]
+      },
+      {
+        "name": "restatement",
+        "definition": "The satellite re-expresses the nucleus in different words at roughly the same level of generality.",
+        "effect": "Second chance at a difficult sentence; also a rhythm device.",
+        "cues": ["in other words", "put differently", "that is to say", "or rather"]
+      },
+      {
+        "name": "equivalence",
+        "definition": "Two spans describe the same situation from different perspectives, neither subordinate to the other.",
+        "effect": "Holds two descriptions in parallel so the reader can see they refer to one thing.",
+        "cues": ["equally", "in the same way", "which is to say", "correspondingly"]
+      },
+      {
+        "name": "summary",
+        "definition": "Coherence-relation sense (RST): a short satellite restates a longer nucleus in compressed form. Distinct from the narratological summary, which is a ratio of story time to discourse time.",
+        "see_also": "pov_and_narration/temporal_manipulation",
+        "effect": "Gives the reader something portable after a dense stretch.",
+        "cues": ["in short", "in sum", "to summarize", "briefly", "all told"]
+      },
+      {
+        "name": "interpretation",
+        "definition": "The satellite places the nucleus in a framework not otherwise implied by it, saying what it amounts to.",
+        "effect": "Converts a fact into a meaning; the writer's reading becomes visible as a reading.",
+        "cues": ["what this means is", "read another way", "understood as", "in effect"]
+      },
+      {
+        "name": "evaluation",
+        "definition": "The satellite assesses the nucleus — good or bad, adequate or not, important or trivial.",
+        "effect": "Supplies the writer's judgment explicitly rather than smuggling it into description.",
+        "cues": ["unfortunately", "usefully", "damningly", "the trouble is", "worse"]
+      },
+      {
+        "name": "background",
+        "definition": "The satellite supplies information the reader needs in order to make sense of the nucleus, without which the nucleus is opaque.",
+        "effect": "Prevents comprehension failure at the cost of momentum.",
+        "cues": ["by way of background", "at the time", "historically", "it should be recalled that"]
+      },
+      {
+        "name": "circumstance",
+        "definition": "The satellite sets the temporal, spatial, or situational frame within which the nucleus is to be interpreted.",
+        "effect": "Anchors an event; often carried by a fronted adverbial.",
+        "cues": ["when", "while", "during", "in the course of", "against this backdrop"]
+      },
+      {
+        "name": "preparation",
+        "definition": "A satellite that precedes the nucleus and readies the reader for it without stating its content.",
+        "effect": "Creates a small expectation the nucleus then fills.",
+        "cues": ["consider the following", "here is the problem", "one more thing", "what follows is"]
+      },
+      {
+        "name": "motivation",
+        "definition": "The satellite increases the reader's desire to perform the action described in the nucleus.",
+        "effect": "The persuasive half of instruction: not why it works but why bother.",
+        "cues": ["because it will", "so that you can", "it is worth it because", "the payoff is"]
+      },
+      {
+        "name": "enablement",
+        "definition": "The satellite increases the reader's ability to perform the action in the nucleus.",
+        "effect": "Supplies the means rather than the reason; standard in procedural writing.",
+        "cues": ["you will need", "the tool for this is", "to do this", "using"]
+      },
+      {
+        "name": "solutionhood",
+        "definition": "The nucleus presents a solution to a problem, need, or question stated in the satellite.",
+        "effect": "The organizing relation of problem-solution prose.",
+        "cues": ["the answer is", "one way out", "the remedy", "this solves"]
+      },
+      {
+        "name": "evidence",
+        "definition": "The satellite increases the reader's belief in the nucleus by supplying observation or data.",
+        "effect": "Distinct from justify: it supports the claim, not the writer's right to make it.",
+        "cues": ["the data show", "surveys find", "in trials", "the record indicates"]
+      },
+      {
+        "name": "justify",
+        "definition": "The satellite increases the reader's acceptance of the writer's right to present the nucleus at all.",
+        "effect": "Defends the act of asserting rather than the assertion itself.",
+        "cues": ["I say this because", "having spent ten years", "the reason for raising this"]
+      },
+      {
+        "name": "concession",
+        "definition": "The satellite grants something apparently incompatible with the nucleus, which the nucleus nonetheless survives.",
+        "effect": "Signals fair dealing and pre-empts the reader's counterexample.",
+        "cues": ["although", "even though", "granted", "admittedly", "to be sure", "while it is true that"]
+      },
+      {
+        "name": "antithesis",
+        "definition": "Coherence-relation sense (RST): the satellite states a position the writer rejects, so that the nucleus is preferred by contrast. Distinct from the figure, which is a matter of parallel grammatical form.",
+        "see_also": "rhetorical_figures/balance_and_antithesis_figures",
+        "effect": "Sharper than concession: the satellite is not granted, it is set up to be refused.",
+        "cues": ["not X but Y", "far from", "rather than", "instead of"]
+      },
+      {
+        "name": "contrast",
+        "definition": "Two spans of equal status differ on one or more dimensions while being alike in others.",
+        "effect": "Multi-nuclear; neither side subordinates the other.",
+        "cues": ["by contrast", "whereas", "on the other hand", "conversely", "meanwhile"]
+      },
+      {
+        "name": "similarity",
+        "definition": "Two spans of equal status are presented as alike in a specified respect.",
+        "effect": "Invites the reader to carry a judgment from one case to the other.",
+        "cues": ["likewise", "similarly", "in the same vein", "just as", "equally"]
+      },
+      {
+        "name": "comparison",
+        "definition": "Two spans are set against a common measure so that the reader can rank them.",
+        "effect": "Produces a scale rather than a mere difference.",
+        "cues": ["more than", "less than", "compared with", "relative to", "by comparison"]
+      },
+      {
+        "name": "volitional cause",
+        "definition": "The satellite gives the reason an agent chose to bring about the nucleus.",
+        "effect": "Attributes intention; the reader reads the event as a decision.",
+        "cues": ["because", "since", "on the grounds that", "for that reason"]
+      },
+      {
+        "name": "volitional result",
+        "definition": "The nucleus is an action an agent took, and the satellite is the outcome that action was meant to produce.",
+        "effect": "Closes the loop on intention.",
+        "cues": ["so that", "with the result that", "and so", "accordingly"]
+      },
+      {
+        "name": "non-volitional cause",
+        "definition": "The satellite gives a cause of the nucleus in which no agent's intention is involved.",
+        "effect": "Renders the event as mechanism rather than choice — a consequential framing decision.",
+        "cues": ["owing to", "as a result of", "because of", "thanks to"]
+      },
+      {
+        "name": "non-volitional result",
+        "definition": "The satellite is an unintended consequence of the situation in the nucleus.",
+        "effect": "The shape of side effects, blowback, and unanticipated harm.",
+        "cues": ["consequently", "as a result", "which meant that", "leaving"]
+      },
+      {
+        "name": "purpose",
+        "definition": "The satellite states the end for which the action in the nucleus is undertaken.",
+        "effect": "Answers 'what for', which readers ask before 'how'.",
+        "cues": ["in order to", "so as to", "with a view to", "for the purpose of"]
+      },
+      {
+        "name": "means",
+        "definition": "The satellite names the method by which the nucleus is accomplished.",
+        "effect": "Answers 'how', and often carries the technical content.",
+        "cues": ["by", "through", "via", "by means of", "using"]
+      },
+      {
+        "name": "manner",
+        "definition": "The satellite characterizes the way in which the situation in the nucleus occurs.",
+        "effect": "Adds quality without adding an event.",
+        "cues": ["as if", "in the manner of", "the way that", "quietly, without"]
+      },
+      {
+        "name": "condition",
+        "definition": "The nucleus obtains only if the situation in the satellite obtains.",
+        "effect": "Fences a claim; the honest way to make a large statement.",
+        "cues": ["if", "provided that", "as long as", "assuming", "on condition that"]
+      },
+      {
+        "name": "otherwise",
+        "aka": "negative condition",
+        "definition": "The nucleus obtains only if the satellite does not; states the alternative branch.",
+        "effect": "Supplies the fork the reader was about to ask about.",
+        "cues": ["otherwise", "failing that", "if not", "or else"]
+      },
+      {
+        "name": "unless",
+        "definition": "The satellite names the single circumstance that would defeat the nucleus.",
+        "effect": "Marks a defeasible claim and names its defeater.",
+        "cues": ["unless", "except where", "barring", "short of"]
+      },
+      {
+        "name": "unconditional",
+        "definition": "The satellite names a circumstance that would ordinarily be expected to affect the nucleus, and denies that it does.",
+        "effect": "Strengthens a claim by pre-emptively surviving the obvious objection.",
+        "cues": ["regardless of", "whether or not", "in any case", "no matter how"]
+      },
+      {
+        "name": "disjunction",
+        "definition": "Two or more spans present alternatives of equal status.",
+        "effect": "Lays out the option space before narrowing it.",
+        "cues": ["or", "either… or", "alternatively", "another possibility"]
+      },
+      {
+        "name": "substitution",
+        "definition": "One span is presented in place of another that is denied or set aside.",
+        "effect": "Corrects course inside a sentence: not this, that.",
+        "cues": ["instead", "rather", "in place of", "as opposed to"]
+      },
+      {
+        "name": "exception",
+        "definition": "The satellite removes a case from the scope of the nucleus.",
+        "effect": "Preserves a generalization by carving out what would break it.",
+        "cues": ["except", "apart from", "save for", "with the exception of", "aside from"]
+      },
+      {
+        "name": "conjunction",
+        "aka": "joint",
+        "definition": "Spans of equal status combine to describe a situation neither describes alone.",
+        "effect": "Flat addition; the least directive of the relations.",
+        "cues": ["and", "also", "in addition", "as well as", "further"]
+      },
+      {
+        "name": "list",
+        "definition": "Parallel spans of equal status presented as members of a set, often numbered.",
+        "effect": "Signals completeness and lets the reader track progress through it.",
+        "cues": ["first", "second", "third", "finally", "next"]
+      },
+      {
+        "name": "sequence",
+        "aka": "asynchronous relation",
+        "definition": "Spans describe events in temporal succession, one after the other.",
+        "effect": "The backbone of narrative and procedure.",
+        "cues": ["then", "afterwards", "subsequently", "before", "by the time"]
+      },
+      {
+        "name": "synchrony",
+        "definition": "Spans describe events overlapping in time.",
+        "effect": "Creates simultaneity, and with it, dramatic irony.",
+        "cues": ["meanwhile", "at the same time", "while", "as", "all the while"]
+      },
+      {
+        "name": "result",
+        "definition": "The satellite states what the nucleus brought about, with the causal direction running forward from nucleus to satellite.",
+        "effect": "Reads as consequence rather than explanation.",
+        "cues": ["therefore", "hence", "thus", "so", "which led to"]
+      },
+      {
+        "name": "attribution",
+        "definition": "One span reports the source of the content of another — who said, thought, or found it.",
+        "effect": "Separates the claim from the writer's own commitment to it.",
+        "cues": ["according to", "she argues that", "the report states", "as X puts it"]
+      },
+      {
+        "name": "topic shift",
+        "definition": "An abrupt move to a new subject with the seam marked so it does not read as incoherence.",
+        "effect": "Legitimate change of subject; unmarked, it reads as a lost thread.",
+        "cues": ["turning now to", "a separate question", "on another front", "as for"]
+      },
+      {
+        "name": "question-answer pair",
+        "definition": "One span poses a question that the following span answers, both belonging to the writer.",
+        "effect": "Dramatizes inquiry and controls the order in which the reader wants things.",
+        "cues": ["why?", "the answer is", "what follows from this?", "how so?"]
+      }
+    ],
+    "signposting_moves": [
+      {
+        "name": "forecast the structure",
+        "definition": "Tell the reader in advance how the piece or section is organized and in what order it will proceed.",
+        "effect": "Makes long-form navigable; sets an expectation that must then be honored.",
+        "cues": ["this chapter proceeds in three parts", "I begin with", "what follows is organized as"]
+      },
+      {
+        "name": "state the aim",
+        "definition": "Say explicitly what the piece is trying to establish or do.",
+        "effect": "Lets a reader decide early whether to keep reading, and on what terms to judge it.",
+        "cues": ["my aim here is", "the goal of this section", "I want to show that"]
+      },
+      {
+        "name": "announce the topic",
+        "definition": "Name the subject of the upcoming stretch without yet advancing a claim about it.",
+        "effect": "Orientation only; cheap and clear.",
+        "cues": ["this section concerns", "the subject here is", "we come now to"]
+      },
+      {
+        "name": "preview the section",
+        "definition": "Summarize what the coming section will establish before establishing it.",
+        "effect": "Trades suspense for comprehension; correct in reference and technical writing.",
+        "cues": ["in what follows I show", "the argument of this section is", "briefly, the case is"]
+      },
+      {
+        "name": "number the parts",
+        "definition": "Attach explicit ordinals to the components of an argument or list.",
+        "effect": "Gives the reader a count to hold and a sense of progress.",
+        "cues": ["first", "second", "third", "there are four reasons", "finally"]
+      },
+      {
+        "name": "label the current step",
+        "definition": "Name where in the announced structure the reader currently is.",
+        "effect": "Reorients a reader who joined late or put the book down.",
+        "cues": ["this is the second of the three", "so much for the history", "at this stage"]
+      },
+      {
+        "name": "mark the halfway point",
+        "definition": "Note that the argument has reached a structural midpoint or pivot in its plan.",
+        "effect": "Renews attention by showing the shape of what remains.",
+        "cues": ["that completes the first half", "the rest of the chapter", "from here on"]
+      },
+      {
+        "name": "recall an earlier point",
+        "definition": "Bring a previously established point back into view before building on it.",
+        "effect": "Removes the need for the reader to hold everything in memory.",
+        "cues": ["recall that", "as noted above", "we saw earlier that", "remember the case of"]
+      },
+      {
+        "name": "summarize so far",
+        "definition": "Compress everything established up to this point into a short restatement.",
+        "effect": "Consolidation before a turn; standard at section joints.",
+        "cues": ["so far", "to this point", "what we have established is", "in sum"]
+      },
+      {
+        "name": "mark a digression",
+        "definition": "Flag that the next stretch departs from the main line.",
+        "effect": "Buys permission for necessary background without the reader losing the thread.",
+        "cues": ["a brief digression", "an aside", "parenthetically", "before going on, a word about"]
+      },
+      {
+        "name": "close a digression",
+        "definition": "Explicitly end a departure and re-enter the main argument.",
+        "effect": "Without it, the reader cannot tell that the detour has finished.",
+        "cues": ["with that out of the way", "to return", "back to the main point", "so much for that"]
+      },
+      {
+        "name": "mark the turn",
+        "definition": "Announce that the argument now changes direction.",
+        "effect": "Prevents a reversal from reading as inconsistency.",
+        "cues": ["here is where it turns", "but now", "the picture changes when", "so much for the case in favor"]
+      },
+      {
+        "name": "signal the main claim",
+        "definition": "Mark a sentence as the load-bearing assertion of the piece or section.",
+        "effect": "Ensures the skimming reader does not miss the thesis.",
+        "cues": ["the central claim is", "if you take one thing from this", "the point is this"]
+      },
+      {
+        "name": "signal a subordinate point",
+        "definition": "Mark material as secondary so the reader weights it correctly.",
+        "effect": "Protects the hierarchy of an argument from being flattened.",
+        "cues": ["a minor point", "incidentally", "less importantly", "for completeness"]
+      },
+      {
+        "name": "signal the counterargument",
+        "definition": "Announce that the opposing case is about to be stated in its own voice.",
+        "effect": "Stops the reader from mistaking the opponent's view for the writer's.",
+        "cues": ["the case against runs as follows", "critics argue", "on the other view"]
+      },
+      {
+        "name": "signal that an objection is coming",
+        "definition": "Warn that the writer knows the obvious complaint and will reach it shortly.",
+        "effect": "Buys patience from a reader who would otherwise object now.",
+        "cues": ["I return to this objection below", "more on that shortly", "hold that thought"]
+      },
+      {
+        "name": "signal the conclusion",
+        "definition": "Mark that the inferential work is finished and the result follows.",
+        "effect": "Tells the reader when to stop gathering and start judging.",
+        "cues": ["therefore", "it follows that", "the upshot", "which brings us to"]
+      },
+      {
+        "name": "signal an example",
+        "definition": "Mark that what follows is an illustration rather than new evidence.",
+        "effect": "Prevents an example from being mistaken for proof.",
+        "cues": ["for example", "to take one case", "by way of illustration", "consider"]
+      },
+      {
+        "name": "signal a change of scale",
+        "definition": "Announce a move between levels of abstraction or magnitude.",
+        "effect": "Prevents the whiplash of an unmarked zoom.",
+        "cues": ["step back", "at the national level", "zoom in", "in the aggregate", "at the level of the individual"]
+      },
+      {
+        "name": "signal a change of time frame",
+        "definition": "Mark a jump backward or forward in the period under discussion.",
+        "effect": "Keeps chronology legible in a non-chronological treatment.",
+        "cues": ["a decade earlier", "by the following spring", "in the modern period", "today"]
+      },
+      {
+        "name": "cross-reference forward",
+        "definition": "Point the reader to material treated later.",
+        "effect": "Defers without dropping; the promise must be kept.",
+        "cues": ["as chapter five argues", "see below", "we return to this", "more on this in"]
+      },
+      {
+        "name": "cross-reference backward",
+        "definition": "Point the reader to material already treated.",
+        "effect": "Reuses established ground instead of restating it.",
+        "cues": ["as discussed in", "see above", "per the earlier definition", "already noted"]
+      },
+      {
+        "name": "point to a figure or table",
+        "definition": "Direct the reader to a display and say what to look at in it.",
+        "effect": "A figure without a reading instruction is usually skipped.",
+        "cues": ["figure 3 shows", "see table 2", "note the gap in the second column"]
+      },
+      {
+        "name": "point to an appendix",
+        "definition": "Move technical material out of the main line and tell the reader where it went.",
+        "effect": "Keeps the argument readable while remaining auditable.",
+        "cues": ["the derivation is in appendix B", "full data are supplied in", "details are given in"]
+      },
+      {
+        "name": "name the section",
+        "definition": "Use an explicit title, heading, or in-text name for a stretch of argument.",
+        "effect": "Gives the reader a handle for later reference.",
+        "cues": ["call this the enforcement problem", "under the heading of", "what I will call"]
+      },
+      {
+        "name": "restate the question",
+        "definition": "Repeat the governing question at a distance from where it was posed.",
+        "effect": "Re-anchors a long argument to what it is for.",
+        "cues": ["the question, again, is", "recall what we are asking", "back to the original question"]
+      },
+      {
+        "name": "flag the takeaway",
+        "definition": "Mark a sentence as the thing to remember from a section.",
+        "effect": "Serves the skimmer and the note-taker.",
+        "cues": ["the takeaway", "if nothing else", "remember this much", "the short version"]
+      },
+      {
+        "name": "flag the payoff",
+        "definition": "Announce that a setup laid earlier is about to be redeemed.",
+        "effect": "Rewards the reader for having carried material forward.",
+        "cues": ["this is why the definition mattered", "here is where it pays off", "now the earlier case returns"]
+      },
+      {
+        "name": "mark the scope boundary",
+        "definition": "State the limits of what the current discussion covers.",
+        "effect": "Blocks objections that are actually outside the terms of the piece.",
+        "cues": ["within this jurisdiction", "for present purposes", "limiting ourselves to", "in this narrow sense"]
+      },
+      {
+        "name": "announce the method",
+        "definition": "State how the evidence was gathered or the analysis performed before presenting results.",
+        "effect": "Allows the reader to discount appropriately before being persuaded.",
+        "cues": ["I read every filing between", "the sample was drawn from", "using the following procedure"]
+      },
+      {
+        "name": "announce the order of treatment",
+        "definition": "State the principle by which items will be sequenced — chronological, by importance, by category.",
+        "effect": "Removes the reader's suspicion that the order is arbitrary.",
+        "cues": ["in order of magnitude", "chronologically", "starting with the weakest case", "from least to most"]
+      },
+      {
+        "name": "signal parallel structure",
+        "definition": "Announce that several items will be treated the same way on the same dimensions.",
+        "effect": "Lets the reader predict the shape and compare across cases.",
+        "cues": ["for each of these I ask", "in every case", "the same three questions"]
+      },
+      {
+        "name": "open a list",
+        "definition": "Announce that an enumeration is beginning and, ideally, how long it is.",
+        "effect": "The count is a promise of an ending; readers relax when they have one.",
+        "cues": ["there are three", "the following", "consider four cases", "the list runs"]
+      },
+      {
+        "name": "close a list",
+        "definition": "Mark the last item as the last.",
+        "effect": "Prevents the reader from waiting for a fourth item that never comes.",
+        "cues": ["finally", "last", "and that is the whole of it", "the third and final"]
+      },
+      {
+        "name": "signal contrast with the previous point",
+        "definition": "Mark the incoming material as standing against what just preceded it.",
+        "effect": "The commonest transition in argument; effective in moderation.",
+        "cues": ["but", "yet", "however", "against this", "on the other hand"]
+      },
+      {
+        "name": "announce an aside",
+        "definition": "Introduce a remark the writer wants on record but outside the argument's load path.",
+        "effect": "Permits personality and stray observation without structural cost.",
+        "cues": ["it is worth noting in passing", "one might add", "a footnote to this"]
+      },
+      {
+        "name": "return to the main thread",
+        "definition": "Resume a line of argument suspended some distance back, naming it.",
+        "effect": "Redeems a suspended thread that would otherwise read as abandoned.",
+        "cues": ["to pick up the earlier thread", "returning to the auditor", "as promised"]
+      }
+    ],
+    "metadiscourse_moves": [
+      {
+        "name": "hedge a claim",
+        "definition": "Reduce the writer's commitment to a proposition through modality or approximation.",
+        "effect": "Makes the claim survivable; the field's default posture for anything not settled.",
+        "caution": "Stacked hedges read as evasion and are a recognized AI tell.",
+        "cues": ["may", "might", "appears to", "arguably", "suggests", "in some cases", "roughly"]
+      },
+      {
+        "name": "boost a claim",
+        "definition": "Raise the writer's commitment above the neutral assertion, closing off dialogic alternatives.",
+        "effect": "Signals confidence and reduces the reader's sense that the matter is open.",
+        "caution": "Boosting an underevidenced claim is the fastest way to lose an expert reader.",
+        "cues": ["clearly", "of course", "certainly", "undoubtedly", "in fact", "demonstrably"]
+      },
+      {
+        "name": "attribute to a source",
+        "aka": "evidential",
+        "definition": "Locate the origin of the content in someone other than the writer.",
+        "effect": "Distributes responsibility for the claim and makes it checkable.",
+        "cues": ["according to", "X reports", "as documented in", "the minutes record"]
+      },
+      {
+        "name": "gloss a term",
+        "aka": "code gloss",
+        "definition": "Restate a technical or unfamiliar expression immediately in accessible words.",
+        "effect": "Lets the writer keep the precision of jargon without losing the lay reader.",
+        "cues": ["that is", "in other words", "i.e.", "what this means is", "— roughly, —"]
+      },
+      {
+        "name": "restate in plain words",
+        "definition": "Follow a dense or formal formulation with a deliberately plain paraphrase.",
+        "effect": "A second entry point into a hard sentence.",
+        "cues": ["put plainly", "in everyday terms", "less formally", "to say the same thing simply"]
+      },
+      {
+        "name": "gloss with an example",
+        "definition": "Clarify a term or claim by supplying a case rather than a definition.",
+        "effect": "Ostensive definition; often faster than the analytic kind.",
+        "cues": ["as when", "think of", "the classic case being", "e.g."]
+      },
+      {
+        "name": "mark surprise",
+        "definition": "An attitude marker signaling that a finding is contrary to expectation.",
+        "effect": "Tells the reader which findings are news.",
+        "cues": ["strikingly", "surprisingly", "remarkably", "against expectation", "oddly"]
+      },
+      {
+        "name": "mark importance",
+        "definition": "An attitude marker singling out material as significant.",
+        "effect": "Directs the reader's weighting.",
+        "cues": ["crucially", "importantly", "above all", "what matters here", "decisively"]
+      },
+      {
+        "name": "mark agreement",
+        "definition": "Signal alignment with a cited position or a reader's likely view.",
+        "effect": "Builds solidarity cheaply; also sets up a coming disagreement.",
+        "cues": ["rightly", "correctly", "as X well argues", "I agree that"]
+      },
+      {
+        "name": "mark regret or dismay",
+        "definition": "An attitude marker registering the writer's discomfort with what is being reported.",
+        "effect": "Colors a fact without arguing about it.",
+        "cues": ["unfortunately", "sadly", "disappointingly", "one wishes"]
+      },
+      {
+        "name": "self-mention as investigator",
+        "definition": "Foreground the writer as the person who gathered the material.",
+        "effect": "Grounds evidence in a person who can be asked about it.",
+        "cues": ["I read", "I asked", "when I visited", "my own count"]
+      },
+      {
+        "name": "self-mention as guide",
+        "definition": "Use first person for the discourse acts of the text itself rather than for its content.",
+        "effect": "Names the writer's structural choices as choices.",
+        "cues": ["I argue", "let me set that aside", "I turn now to", "I have been assuming"]
+      },
+      {
+        "name": "inclusive we",
+        "definition": "Use a first-person plural that folds the reader into the writer's reasoning.",
+        "effect": "Makes the argument feel jointly performed rather than delivered.",
+        "caution": "Slides easily into a false consensus the reader has not agreed to.",
+        "cues": ["we can see", "as we noted", "our problem is", "let us suppose"]
+      },
+      {
+        "name": "direct address to the reader",
+        "definition": "Speak to the reader as 'you'.",
+        "effect": "Breaks the fourth wall of exposition; raises immediacy and obligation.",
+        "cues": ["you will have noticed", "if you have ever", "your own case", "you may object"]
+      },
+      {
+        "name": "ask the reader a question",
+        "definition": "Pose a question meant to be entertained by the reader rather than answered by the text.",
+        "effect": "Recruits the reader into the inquiry.",
+        "caution": "A string of unanswered rhetorical questions reads as padding.",
+        "cues": ["how many of us", "what would you do", "is that really so?", "why should it?"]
+      },
+      {
+        "name": "issue a directive",
+        "definition": "Instruct the reader to perform a cognitive or physical act.",
+        "effect": "The strongest engagement marker; forces participation.",
+        "cues": ["note that", "consider", "compare", "imagine", "suppose", "look again at"]
+      },
+      {
+        "name": "appeal to shared knowledge",
+        "definition": "Present a proposition as already known to the reader and the field.",
+        "effect": "Saves argument, and quietly constructs the community it appeals to.",
+        "caution": "The reader who does not in fact know it is now excluded.",
+        "cues": ["as is well known", "of course", "familiarly", "everyone accepts that"]
+      },
+      {
+        "name": "acknowledge a limitation",
+        "definition": "State what the evidence, method, or argument cannot deliver.",
+        "effect": "Pre-empts the sharpest reader's first objection and makes the rest more credible.",
+        "cues": ["this cannot show", "the design does not permit", "we could not measure", "a limitation of this"]
+      },
+      {
+        "name": "attribute uncertainty to the field",
+        "definition": "Locate doubt in the state of knowledge rather than in the writer's confidence.",
+        "effect": "Distinguishes 'nobody knows' from 'I am not sure', which readers otherwise conflate.",
+        "cues": ["the literature is divided", "no one has established", "the evidence remains thin", "an open question"]
+      },
+      {
+        "name": "concede a point",
+        "definition": "Grant an opposing claim outright before continuing.",
+        "effect": "Purchases credibility for the disagreement that follows.",
+        "cues": ["granted", "admittedly", "to be sure", "it is true that", "fair enough"]
+      },
+      {
+        "name": "signal personal stance",
+        "definition": "Mark an assessment as the writer's own rather than as established fact.",
+        "effect": "Keeps opinion visible as opinion.",
+        "cues": ["in my view", "I find", "to my mind", "I am inclined to think"]
+      },
+      {
+        "name": "withhold stance",
+        "definition": "Report without evaluation, often through impersonal or agentless construction.",
+        "effect": "Neutral register; also a way of hiding a judgment inside description.",
+        "cues": ["it was decided", "the finding was", "there exists", "it has been argued"]
+      },
+      {
+        "name": "background the agent",
+        "definition": "Use passive or nominalized construction to remove the actor from the sentence.",
+        "effect": "Focuses on process — and, used badly, conceals responsibility.",
+        "caution": "The characteristic move of institutional evasion; use knowingly.",
+        "cues": ["mistakes were made", "it was determined", "funding was withdrawn"]
+      },
+      {
+        "name": "foreground the agent",
+        "definition": "Restore a named actor to the subject position of a sentence.",
+        "effect": "Restores accountability and usually shortens the sentence.",
+        "cues": ["the board voted", "she signed", "the agency withdrew"]
+      },
+      {
+        "name": "establish the territory",
+        "aka": "CARS move 1",
+        "definition": "Open by asserting the centrality, size, or activity of the research or subject area.",
+        "effect": "Tells the reader the subject is worth their time before making any claim about it.",
+        "cues": ["a growing body of work", "long recognized as", "much attention has been paid to"]
+      },
+      {
+        "name": "indicate a gap",
+        "aka": "CARS move 2",
+        "definition": "Identify what prior work has not done, or has done wrongly.",
+        "effect": "Creates the space the piece will occupy; without it the piece has no reason to exist.",
+        "cues": ["yet little is known about", "no study has examined", "this account overlooks"]
+      },
+      {
+        "name": "occupy the gap",
+        "aka": "CARS move 3",
+        "definition": "State what this piece does to fill the gap just identified.",
+        "effect": "Converts a criticism of the field into the writer's mandate.",
+        "cues": ["this chapter takes up", "here I supply", "the present account addresses"]
+      },
+      {
+        "name": "preview findings",
+        "definition": "State the principal results up front rather than making the reader wait for them.",
+        "effect": "Standard in scientific and executive writing; hostile to suspense, friendly to use.",
+        "cues": ["I find that", "the main result is", "in brief, the answer is"]
+      },
+      {
+        "name": "announce novelty",
+        "definition": "Claim that the material is new, unreported, or first.",
+        "effect": "Raises the stakes of the reading and invites checking.",
+        "caution": "Easy to overclaim; a single prior instance sinks it.",
+        "cues": ["for the first time", "previously unreported", "no earlier account", "newly obtained"]
+      },
+      {
+        "name": "claim significance",
+        "definition": "Argue that a result matters beyond its immediate case.",
+        "effect": "Answers the 'so what', which readers ask before believing.",
+        "cues": ["the implications extend to", "this matters because", "the consequence for practice"]
+      },
+      {
+        "name": "state a boundary condition",
+        "definition": "Specify the circumstances under which a claim holds.",
+        "effect": "Converts a vulnerable universal into a defensible restricted claim.",
+        "cues": ["holds only where", "under conditions of", "for firms above", "in high-trust settings"]
+      },
+      {
+        "name": "quantify a generalization",
+        "definition": "Replace an unquantified claim with an explicit proportion, count, or frequency.",
+        "effect": "Removes the slipperiness of 'many' and 'often'; the reader can now disagree precisely.",
+        "cues": ["in eleven of fourteen", "about a third", "twice in a decade", "in most, though not all"]
+      },
+      {
+        "name": "mark evidential strength",
+        "definition": "Say how good the supporting evidence is, separately from what it shows.",
+        "effect": "Lets the reader weight claims differently within a single argument.",
+        "cues": ["on a single case", "consistently replicated", "anecdotal but suggestive", "the strongest evidence is"]
+      },
+      {
+        "name": "mark a hypothetical",
+        "definition": "Flag material as supposed rather than asserted.",
+        "effect": "Permits reasoning about cases without asserting they occurred.",
+        "cues": ["suppose", "imagine that", "for the sake of argument", "were it the case that"]
+      },
+      {
+        "name": "mark a definition as stipulative",
+        "definition": "State that a term is being fixed for present purposes rather than reported from usage.",
+        "effect": "Blocks the objection that the word means something else elsewhere.",
+        "cues": ["I use X to mean", "for present purposes", "call this", "in the sense stipulated here"]
+      },
+      {
+        "name": "flag a technical sense",
+        "definition": "Warn that an ordinary-looking word is being used in a specialist sense.",
+        "effect": "Prevents the reader's everyday meaning from silently corrupting the argument.",
+        "cues": ["in the technical sense", "as economists use the word", "not in the colloquial sense"]
+      },
+      {
+        "name": "signal ironic distance",
+        "definition": "Mark a word or phrase as belonging to someone else's vocabulary, not the writer's.",
+        "effect": "Criticizes a term without pausing to argue about it.",
+        "caution": "Scare quotes at density read as sneering.",
+        "cues": ["so-called", "\"reform\"", "what they call", "in the parlance"]
+      },
+      {
+        "name": "signal reported speech",
+        "definition": "Mark words as another party's utterance, direct or indirect.",
+        "effect": "Keeps the boundary between voices legible.",
+        "cues": ["she said", "in his words", "the memo reads", "quote"]
+      },
+      {
+        "name": "distance from a source",
+        "definition": "Report a claim while withholding endorsement of it.",
+        "effect": "Permits repeating contested material without owning it.",
+        "cues": ["allegedly", "is said to have", "reportedly", "claims to", "purportedly"]
+      },
+      {
+        "name": "endorse a source",
+        "definition": "Report a claim and explicitly signal agreement with or confidence in it.",
+        "effect": "The writer's credibility becomes collateral for the source's.",
+        "cues": ["as X convincingly shows", "the definitive account", "correctly notes", "rightly insists"]
+      },
+      {
+        "name": "endophoric reference",
+        "definition": "Point to another part of the same text — a section, figure, note, or earlier phrase.",
+        "effect": "Turns a linear text into something navigable.",
+        "cues": ["see section 3", "the table above", "as the epigraph has it", "note 14"]
+      },
+      {
+        "name": "attribute to common opinion",
+        "definition": "Ascribe a view to an unnamed general public or professional consensus.",
+        "effect": "Sets up a target that can be argued against without naming an opponent.",
+        "caution": "Unsourced consensus claims are a favorite of lazy argument and are easily challenged.",
+        "cues": ["it is widely believed", "the conventional wisdom", "most people assume", "the standard view"]
+      },
+      {
+        "name": "date a claim",
+        "definition": "Attach an explicit time index to an assertion whose truth is time-dependent.",
+        "effect": "Keeps a book honest as the world moves on.",
+        "cues": ["as of 2024", "at the time of writing", "when this went to press", "currently"]
+      },
+      {
+        "name": "localize a claim",
+        "definition": "Attach an explicit jurisdiction, region, or population to a claim that would otherwise read as universal.",
+        "effect": "Prevents a parochial finding from being read as a law of nature.",
+        "cues": ["in England and Wales", "among the surveyed firms", "in this sector", "US practice differs"]
+      }
+    ],
+    "transition_families": [
+      {
+        "name": "additive transitions",
+        "definition": "Connectives that add material of the same kind and status to what preceded.",
+        "effect": "Flat accumulation; the reader expects more of the same.",
+        "cues": ["and", "also", "moreover", "furthermore", "in addition", "besides"]
+      },
+      {
+        "name": "adversative transitions",
+        "definition": "Connectives that set the incoming material against what preceded.",
+        "effect": "Signals that the direction of the argument is about to change.",
+        "cues": ["but", "however", "yet", "nevertheless", "still", "on the contrary"]
+      },
+      {
+        "name": "concessive transitions",
+        "definition": "Connectives that grant a point while signaling that it will not decide the matter.",
+        "effect": "Sets up a pivot; the reader waits for the 'but'.",
+        "cues": ["although", "even so", "granted", "admittedly", "while", "for all that"]
+      },
+      {
+        "name": "causal transitions",
+        "definition": "Connectives that present what follows as the reason for what preceded.",
+        "effect": "Points backward along the causal chain.",
+        "cues": ["because", "since", "for", "owing to", "on account of"]
+      },
+      {
+        "name": "consequential transitions",
+        "definition": "Connectives that present what follows as the result of what preceded.",
+        "effect": "Points forward along the causal chain.",
+        "cues": ["therefore", "thus", "hence", "so", "consequently", "as a result", "accordingly"]
+      },
+      {
+        "name": "conditional transitions",
+        "definition": "Connectives that make what follows depend on a stated circumstance.",
+        "effect": "Fences the claim inside a hypothesis.",
+        "cues": ["if", "provided that", "in that case", "assuming", "should it be that"]
+      },
+      {
+        "name": "exceptive transitions",
+        "definition": "Connectives that remove a case from a stated generalization.",
+        "effect": "Protects a rule by naming its carve-out.",
+        "cues": ["except", "apart from", "save for", "other than", "with the exception of"]
+      },
+      {
+        "name": "illustrative transitions",
+        "definition": "Connectives that mark what follows as an instance of what preceded.",
+        "effect": "Tells the reader to read the next span as a case, not new evidence.",
+        "cues": ["for example", "for instance", "to illustrate", "say", "as in"]
+      },
+      {
+        "name": "comparative transitions",
+        "definition": "Connectives that place the incoming material alongside the preceding on a shared measure.",
+        "effect": "Invites the reader to rank rather than merely to note.",
+        "cues": ["likewise", "similarly", "by comparison", "in the same way", "correspondingly"]
+      },
+      {
+        "name": "temporal transitions",
+        "definition": "Connectives that locate what follows in time relative to what preceded.",
+        "effect": "The narrative spine; also the commonest way to fake causation.",
+        "cues": ["then", "later", "meanwhile", "afterwards", "by the time", "at last"]
+      },
+      {
+        "name": "enumerative transitions",
+        "definition": "Connectives that mark position within a counted series.",
+        "effect": "Gives the reader a place in a sequence and a promise of its end.",
+        "cues": ["first", "second", "next", "finally", "lastly", "to begin with"]
+      },
+      {
+        "name": "spatial transitions",
+        "definition": "Connectives that organize material by position in space.",
+        "effect": "The backbone of description and of any argument organized by geography.",
+        "cues": ["above", "beyond", "to the left", "further inland", "nearby", "opposite"]
+      },
+      {
+        "name": "summative transitions",
+        "definition": "Connectives that mark a compressed restatement of what preceded.",
+        "effect": "Signals that no new material is coming, only consolidation.",
+        "cues": ["in short", "in sum", "to sum up", "all in all", "on the whole"]
+      },
+      {
+        "name": "conclusive transitions",
+        "definition": "Connectives that mark the end of the argument and the arrival of its verdict.",
+        "effect": "Distinct from summative: the reader is told to judge, not to review.",
+        "cues": ["in conclusion", "finally, then", "the upshot is", "what it comes to is"]
+      },
+      {
+        "name": "resumptive transitions",
+        "definition": "Connectives that pick up a thread suspended earlier.",
+        "effect": "Repairs the reader's sense of a promise outstanding.",
+        "cues": ["to return", "as promised", "back to", "picking up where we left off"]
+      },
+      {
+        "name": "clarifying transitions",
+        "definition": "Connectives that mark a restatement intended to remove ambiguity.",
+        "effect": "Signals that the previous formulation was insufficient, not that new content follows.",
+        "cues": ["that is", "in other words", "to be clear", "more exactly", "i.e."]
+      },
+      {
+        "name": "reformulative transitions",
+        "definition": "Connectives that recast the preceding material in a different frame or vocabulary.",
+        "effect": "Offers a second angle rather than a plainer version of the same one.",
+        "cues": ["put another way", "seen differently", "recast as", "or, if you prefer"]
+      },
+      {
+        "name": "corrective transitions",
+        "definition": "Connectives that withdraw or amend what was just said.",
+        "effect": "Enacts the writer thinking; used well, a mark of honesty.",
+        "cues": ["or rather", "better", "more accurately", "strictly speaking", "no — "]
+      },
+      {
+        "name": "intensifying transitions",
+        "definition": "Connectives that add a stronger instance of the same point.",
+        "effect": "Escalates rather than merely adds.",
+        "cues": ["indeed", "more than that", "worse still", "even", "and not only that"]
+      },
+      {
+        "name": "diminishing transitions",
+        "definition": "Connectives that reduce the weight of the incoming material relative to what preceded.",
+        "effect": "Keeps a minor point from reading as a major one.",
+        "cues": ["at least", "if only", "in a small way", "at any rate", "for what it is worth"]
+      },
+      {
+        "name": "limiting transitions",
+        "definition": "Connectives that restrict the scope of a claim just made.",
+        "effect": "Retreats to defensible ground without abandoning the point.",
+        "cues": ["at least in", "so far as", "up to a point", "in this respect", "within limits"]
+      },
+      {
+        "name": "emphatic transitions",
+        "definition": "Connectives that mark the incoming material as the one to attend to.",
+        "effect": "Directs attention; loses force with repetition.",
+        "cues": ["above all", "most importantly", "chiefly", "not least", "in particular"]
+      },
+      {
+        "name": "alternative transitions",
+        "definition": "Connectives that offer another option of equal standing.",
+        "effect": "Opens the option space rather than narrowing it.",
+        "cues": ["alternatively", "or", "another possibility", "failing that", "on another reading"]
+      },
+      {
+        "name": "purposive transitions",
+        "definition": "Connectives that mark what follows as the end toward which the preceding was a means.",
+        "effect": "Answers 'what for'.",
+        "cues": ["in order to", "so that", "with a view to", "to that end"]
+      },
+      {
+        "name": "evidential transitions",
+        "definition": "Connectives that mark the incoming material as support for the preceding claim.",
+        "effect": "Tells the reader to read the next span as proof rather than elaboration.",
+        "cues": ["after all", "as evidenced by", "witness", "the proof being", "consider the record"]
+      },
+      {
+        "name": "digressive transitions",
+        "definition": "Connectives that mark a step away from the main line.",
+        "effect": "Licenses a detour; must be paired with a resumptive.",
+        "cues": ["incidentally", "by the way", "parenthetically", "a side note", "in passing"]
+      },
+      {
+        "name": "topic-shifting transitions",
+        "definition": "Connectives that move to a new subject without claiming a relation to the old one.",
+        "effect": "Honest about discontinuity, which is better than faking a link.",
+        "cues": ["turning to", "as for", "on another matter", "a different question", "now"]
+      },
+      {
+        "name": "appositive transitions",
+        "definition": "Connectives that introduce a renaming or expansion of the immediately preceding element.",
+        "effect": "Compresses a definition into the flow of a sentence.",
+        "cues": ["namely", "that is to say", "specifically", "or, as it is known,"]
+      },
+      {
+        "name": "asyndetic juxtaposition",
+        "definition": "Placement of spans side by side with no connective, leaving the relation for the reader to infer.",
+        "effect": "Fastest and most trusting transition; also the one that risks incoherence.",
+        "caution": "Only works when the relation is genuinely obvious from content.",
+        "cues": ["(no connective)", "colon", "semicolon", "paragraph break"]
+      },
+      {
+        "name": "lexical repetition link",
+        "definition": "Cohesion achieved by repeating a key noun or phrase from the previous sentence.",
+        "effect": "The plainest cohesive tie in English prose and the least noticed.",
+        "cues": ["the same noun repeated", "an exact term carried forward"]
+      },
+      {
+        "name": "pronominal link",
+        "definition": "Cohesion achieved by a pronoun pointing back to an antecedent in the previous span.",
+        "effect": "Economical; fails badly when more than one antecedent is available.",
+        "cues": ["it", "they", "this", "these", "such"]
+      },
+      {
+        "name": "demonstrative summary link",
+        "definition": "A demonstrative plus a summarizing noun that packages the previous span into a subject.",
+        "effect": "Lets a whole paragraph become the grammatical subject of the next sentence.",
+        "cues": ["this pattern", "these failures", "that assumption", "such an arrangement"]
+      },
+      {
+        "name": "given-new link",
+        "definition": "Beginning a sentence with information already in play and ending it with what is new.",
+        "effect": "The information-flow principle behind most sentences that feel easy to read.",
+        "cues": ["old subject, new predicate", "topic first, stress last"]
+      },
+      {
+        "name": "constant-theme progression",
+        "definition": "Successive sentences keep the same theme and vary what is said about it.",
+        "effect": "Holds a subject steady; the natural shape of a portrait or a definition.",
+        "cues": ["repeated subject across sentences", "he… he… he"]
+      },
+      {
+        "name": "linear theme progression",
+        "definition": "The rheme of one sentence becomes the theme of the next, chaining forward.",
+        "effect": "Feels like reasoning in motion; each sentence hands the reader to the next.",
+        "cues": ["…led to X. X in turn…", "new item promoted to subject"]
+      },
+      {
+        "name": "derived-theme progression",
+        "definition": "Successive themes are different sub-parts of a single overarching topic named earlier.",
+        "effect": "The shape of survey and classification passages.",
+        "cues": ["the first of these", "another component", "a third element"]
+      },
+      {
+        "name": "split-rheme progression",
+        "definition": "A sentence introduces two or more elements, and following sentences take each in turn.",
+        "effect": "Announces a branch and then walks it; strong for two-part comparisons.",
+        "cues": ["two problems arose. The first… The second…"]
+      }
+    ],
+    "framing_moves": [
+      {
+        "name": "frame as a problem",
+        "definition": "Present the subject as a difficulty requiring resolution.",
+        "effect": "Creates demand for the writer's remaining pages.",
+        "cues": ["the difficulty is", "what has gone wrong", "the failure of", "we cannot currently"]
+      },
+      {
+        "name": "frame as a puzzle",
+        "definition": "Present the subject as an anomaly that current understanding cannot explain.",
+        "effect": "Recruits curiosity rather than alarm; better for readers resistant to advocacy.",
+        "cues": ["oddly", "which should not happen", "no one has explained why", "the puzzle is"]
+      },
+      {
+        "name": "frame as a story",
+        "definition": "Present the subject through a sequence of events involving particular people.",
+        "effect": "Converts an issue into something with characters and consequences.",
+        "cues": ["it began when", "by the end of that year", "she had been there since"]
+      },
+      {
+        "name": "frame as a choice",
+        "definition": "Present the subject as a decision facing an identified party.",
+        "effect": "Makes the reader an evaluator of options rather than a recipient of information.",
+        "cues": ["the board must decide", "two paths", "the question before us is whether"]
+      },
+      {
+        "name": "frame as a trade-off",
+        "definition": "Present the subject as an exchange in which gains on one dimension cost something on another.",
+        "effect": "Blocks the fantasy of a costless answer.",
+        "cues": ["at the price of", "you can have either", "the cost of that speed", "no free"]
+      },
+      {
+        "name": "frame as a threshold question",
+        "definition": "Argue that one prior question must be settled before anything else can be discussed.",
+        "effect": "Controls the order of debate, which often decides it.",
+        "cues": ["before any of that", "the antecedent question", "we cannot ask X until"]
+      },
+      {
+        "name": "frame against the conventional view",
+        "definition": "Define the position by what it contradicts in received opinion.",
+        "effect": "Borrows the energy of the familiar view to launch the unfamiliar one.",
+        "caution": "Requires that the conventional view actually be conventional.",
+        "cues": ["contrary to the usual account", "the standard story has it that", "not, as is often said"]
+      },
+      {
+        "name": "zoom out",
+        "definition": "Enlarge the frame so the case at hand becomes an instance of a wider pattern.",
+        "effect": "Raises stakes and generality in one move.",
+        "cues": ["this is not an isolated", "seen at national scale", "the wider pattern", "step back"]
+      },
+      {
+        "name": "zoom in",
+        "definition": "Narrow the frame from a general phenomenon to a single case examined closely.",
+        "effect": "Makes an abstraction cost something to a nameable person.",
+        "cues": ["take one clinic", "at ground level", "in a single file", "consider one week"]
+      },
+      {
+        "name": "reframe the question",
+        "definition": "Accept that a question is being asked but argue it is the wrong one, and substitute another.",
+        "effect": "Wins by changing the ground rather than by answering.",
+        "cues": ["the real question is", "asked that way, it has no answer", "better to ask"]
+      },
+      {
+        "name": "reject the frame",
+        "definition": "Refuse the terms in which an issue has been posed, without offering a substitute question yet.",
+        "effect": "Clears imported assumptions before building.",
+        "cues": ["the framing itself is the problem", "both options presuppose", "I decline the choice"]
+      },
+      {
+        "name": "name the phenomenon",
+        "definition": "Give an unnamed but recurring pattern an explicit name.",
+        "effect": "Naming makes a pattern discussable and countable; it is the writer's most durable contribution.",
+        "cues": ["call it", "there is no word for this, so", "what I am describing is"]
+      },
+      {
+        "name": "adopt the opponent's frame",
+        "definition": "Argue the case entirely within the terms the other side prefers.",
+        "effect": "A win on hostile ground is harder to dismiss than a win on your own.",
+        "cues": ["even on their own terms", "granting their premises", "by their own measure"]
+      },
+      {
+        "name": "metaphorical framing",
+        "definition": "Structure understanding of the subject through a systematic metaphor carried across the passage.",
+        "effect": "Metaphors bring entailments with them; the frame does argument silently.",
+        "caution": "Audit what the metaphor implies — it will be read even where it was not meant.",
+        "cues": ["war on", "the machinery of", "an ecosystem of", "the architecture of"]
+      },
+      {
+        "name": "analogical framing",
+        "definition": "Present the subject as relevantly like a case the reader already has settled views about.",
+        "effect": "Imports a whole judgment rather than a single implication.",
+        "cues": ["this is the seatbelt argument", "like the tobacco settlements", "the same as"]
+      },
+      {
+        "name": "historical framing",
+        "definition": "Situate the subject in a lineage of earlier episodes.",
+        "effect": "Makes a current event legible as recurrence rather than novelty.",
+        "cues": ["this has happened before", "the 1890s version", "a long tradition of"]
+      },
+      {
+        "name": "counterfactual framing",
+        "definition": "Establish significance by describing what would have happened otherwise.",
+        "effect": "Isolates the contribution of the factor under discussion.",
+        "cues": ["had they not", "in the absence of", "but for", "the world in which"]
+      },
+      {
+        "name": "quantitative framing",
+        "definition": "Introduce the subject through its magnitude — counts, rates, comparisons of scale.",
+        "effect": "Establishes proportion before anecdote distorts it.",
+        "caution": "The chosen denominator does most of the persuading; state it.",
+        "cues": ["one in nine", "four times the", "a $2bn", "more than the entire"]
+      },
+      {
+        "name": "gain framing",
+        "definition": "Present a course of action in terms of what will be gained by taking it.",
+        "effect": "Encourages risk-averse choice; the standard framing for adoption.",
+        "cues": ["you stand to gain", "saves", "improves", "recovers"]
+      },
+      {
+        "name": "loss framing",
+        "definition": "Present the same course of action in terms of what will be lost by not taking it.",
+        "effect": "Empirically more motivating, and more likely to be resented once noticed.",
+        "cues": ["you will lose", "forgone", "the cost of doing nothing", "at risk"]
+      },
+      {
+        "name": "stakes framing",
+        "definition": "Foreground who bears the consequences and how large they are.",
+        "effect": "Answers 'why now' and 'why me'.",
+        "cues": ["what is at stake", "the people who pay for this", "if this fails"]
+      },
+      {
+        "name": "moral framing",
+        "definition": "Present the subject in terms of duty, harm, fairness, or desert.",
+        "effect": "Shifts the argument from efficiency to obligation, changing what counts as a good answer.",
+        "cues": ["ought", "owed", "unfair", "no one should have to", "a duty to"]
+      },
+      {
+        "name": "procedural framing",
+        "definition": "Present the subject in terms of whether the right process was followed.",
+        "effect": "Available even when the substantive question is contested; the lawyer's frame.",
+        "cues": ["without notice", "the process by which", "who was consulted", "under what authority"]
+      },
+      {
+        "name": "boundary framing",
+        "definition": "Define the subject by stating clearly what it is not.",
+        "effect": "Prevents the argument from being answered as if it were a different argument.",
+        "cues": ["this is not a claim about", "nothing here concerns", "set aside the question of"]
+      },
+      {
+        "name": "typology framing",
+        "definition": "Introduce the subject as a set of distinguishable kinds rather than a single thing.",
+        "effect": "Converts a stalemate about the whole into tractable questions about parts.",
+        "cues": ["there are three kinds", "not one phenomenon but", "we should distinguish"]
+      },
+      {
+        "name": "institutional framing",
+        "definition": "Present events as the products of organizations, incentives, and rules rather than individual choice.",
+        "effect": "Redirects blame and remedy from persons to structures.",
+        "cues": ["the incentives faced by", "any occupant of that office", "the rules made this likely"]
+      },
+      {
+        "name": "personal-witness framing",
+        "definition": "Present the subject through the writer's own presence at or involvement in it.",
+        "effect": "Trades the authority of detachment for the authority of having been there.",
+        "cues": ["I was in the room", "what I saw", "in the eleven years I", "my own file"]
+      },
+      {
+        "name": "temporal framing",
+        "definition": "Fix the subject by a before-and-after boundary that makes change the point.",
+        "effect": "Establishes that something happened, which most arguments assume and few show.",
+        "cues": ["before 2016", "since the amendment", "in the years after", "the turning point was"]
+      },
+      {
+        "name": "systems framing",
+        "definition": "Present the subject as a set of interacting parts with feedback, delays, and emergent behavior.",
+        "effect": "Explains outcomes nobody chose; resists single-cause and single-culprit readings.",
+        "cues": ["feedback", "downstream", "the loop", "each part is responding to"]
+      },
+      {
+        "name": "risk framing",
+        "definition": "Present the subject in terms of probability and magnitude of adverse outcomes.",
+        "effect": "Makes uncertainty explicit rather than resolving it by rhetoric.",
+        "cues": ["a one-in-forty chance", "tail risk", "the expected cost", "low probability, high"]
+      }
+    ],
+    "reader_management_moves": [
+      {
+        "name": "anticipate an objection",
+        "definition": "Raise the reader's likely counterargument before the reader does, and address it.",
+        "effect": "Converts a private resistance into a handled one.",
+        "cues": ["you may object that", "the obvious response is", "one might reasonably ask", "but surely"]
+      },
+      {
+        "name": "preempt a misreading",
+        "definition": "Name a wrong interpretation the sentence invites and rule it out.",
+        "effect": "Cheaper than correcting the misreading later, and it shows the writer has anticipated it.",
+        "cues": ["this is not to say", "I do not mean", "none of this implies", "lest this be read as"]
+      },
+      {
+        "name": "define a term",
+        "definition": "Supply the meaning of a term the argument will rest on, before resting on it.",
+        "effect": "Prevents a dispute about substance from becoming a dispute about words.",
+        "cues": ["by X I mean", "a Y is", "the term refers to", "defined as"]
+      },
+      {
+        "name": "calibrate confidence",
+        "definition": "State the degree of confidence in a claim explicitly, ideally in comparative or numerical terms.",
+        "effect": "More informative than hedging: the reader learns how much to update.",
+        "cues": ["I am fairly sure", "about even odds", "the weakest claim in this chapter", "confident, but"]
+      },
+      {
+        "name": "state what is not covered",
+        "definition": "Tell the reader which adjacent questions the piece deliberately leaves alone.",
+        "effect": "Prevents the reader from waiting for a treatment that will never arrive.",
+        "cues": ["I say nothing about", "outside the scope", "another book could be written on", "not addressed here"]
+      },
+      {
+        "name": "promise a later payoff",
+        "definition": "Ask the reader to accept or carry something now on the assurance it will pay off later.",
+        "effect": "Buys patience for material that is dull in isolation.",
+        "caution": "A promise not kept is the failure readers remember.",
+        "cues": ["bear with me", "this will matter in chapter six", "keep this in mind", "I will come back to"]
+      },
+      {
+        "name": "deliver on a promise",
+        "definition": "Explicitly redeem an earlier commitment, marking it as the thing that was promised.",
+        "effect": "Rewards the reader's trust and makes the structure feel designed.",
+        "cues": ["as promised", "here is the payoff", "this is why I asked you to remember"]
+      },
+      {
+        "name": "warn of difficulty",
+        "definition": "Tell the reader that the next stretch is hard, and why it is worth it.",
+        "effect": "Readers tolerate difficulty they were warned about far better than difficulty they were not.",
+        "cues": ["the next few pages are technical", "this is the hardest idea in the book", "slow going, but"]
+      },
+      {
+        "name": "offer an off-ramp",
+        "definition": "Tell the reader they may skip a section without losing the argument.",
+        "effect": "Keeps a general reader moving while serving the specialist.",
+        "cues": ["readers uninterested in the derivation can skip to", "the rest of this section is optional"]
+      },
+      {
+        "name": "offer a shortcut summary",
+        "definition": "Provide a compressed version of a long treatment for readers who will not read all of it.",
+        "effect": "Serves the skimmer without diluting the full account.",
+        "cues": ["in one sentence", "the short version", "if you read nothing else"]
+      },
+      {
+        "name": "check comprehension",
+        "definition": "Pause to test whether the reader is still following, usually by restating the state of play as a question.",
+        "effect": "Catches the reader who has lost the thread before they abandon the text.",
+        "cues": ["is that clear so far?", "if this seems obscure", "the point to have grasped is"]
+      },
+      {
+        "name": "restate for the skimmer",
+        "definition": "Repeat the essential claim in a form that survives being read out of context.",
+        "effect": "Long-form is read discontinuously; the claim must be recoverable at several points.",
+        "cues": ["again:", "to say it once more", "the claim, restated"]
+      },
+      {
+        "name": "acknowledge resistance",
+        "definition": "Name the reader's likely emotional or ideological reluctance rather than only their intellectual objection.",
+        "effect": "Defuses the reaction that would otherwise block the argument regardless of its merits.",
+        "cues": ["this will be unwelcome", "I know how this sounds", "if you have worked in this field, you may bristle"]
+      },
+      {
+        "name": "validate the reader's intuition",
+        "definition": "Confirm that the reader's instinct was right before refining or complicating it.",
+        "effect": "Costs nothing and buys attention for the complication.",
+        "cues": ["your instinct is right", "the intuition is sound", "you are not wrong to think"]
+      },
+      {
+        "name": "correct a misconception",
+        "definition": "State a widely held belief, show it is false, and supply the correct account.",
+        "effect": "Clears interference; a reader holding the wrong model cannot absorb the right one.",
+        "caution": "Repeating the false claim prominently can reinforce it; lead with the correction.",
+        "cues": ["it is often said that", "in fact", "this is a myth", "the truth is duller"]
+      },
+      {
+        "name": "lower the temperature",
+        "definition": "Deliberately de-escalate the emotional register of a contested subject.",
+        "effect": "Makes it possible for a reader on the other side to keep reading.",
+        "cues": ["reasonable people disagree", "setting the rhetoric aside", "nobody here is a villain"]
+      },
+      {
+        "name": "raise urgency",
+        "definition": "Attach a deadline, a rising cost, or a closing window to the argument.",
+        "effect": "Moves a reader from agreement to action.",
+        "caution": "Manufactured urgency, once detected, discredits everything around it.",
+        "cues": ["the window closes in", "every month of delay costs", "by the time the review reports"]
+      },
+      {
+        "name": "give permission to disagree",
+        "definition": "Explicitly allow that the reader may reject the conclusion while accepting the analysis.",
+        "effect": "Separates the reader's evaluation of the evidence from their loyalty to a position.",
+        "cues": ["you may weigh these differently", "reach your own verdict", "the facts are the facts either way"]
+      },
+      {
+        "name": "invite the reader to test the claim",
+        "definition": "Supply a check the reader can run themselves.",
+        "effect": "Converts assertion into something falsifiable in the reader's own hands.",
+        "cues": ["try it", "look up your own", "count them yourself", "the data are public"]
+      },
+      {
+        "name": "supply a mnemonic",
+        "definition": "Give a compact device — an acronym, a rule of thumb, a rhyme — for retaining a structure.",
+        "effect": "Improves retention of material the reader must carry across chapters.",
+        "cues": ["remember it as", "the three Cs", "a useful rule of thumb"]
+      },
+      {
+        "name": "supply a worked example",
+        "definition": "Run the whole procedure or argument once on a concrete case, showing every step.",
+        "effect": "For procedures, one worked case teaches more than three paragraphs of description.",
+        "cues": ["take an actual case", "step by step", "suppose the figure is 400", "working it through"]
+      },
+      {
+        "name": "supply a lay analogy",
+        "definition": "Offer a non-specialist comparison for a technical mechanism, and mark where it breaks down.",
+        "effect": "Lets the general reader hold the shape of the idea without the machinery.",
+        "cues": ["think of it like", "roughly the same as", "the analogy fails where"]
+      },
+      {
+        "name": "flag jargon",
+        "definition": "Mark a term as specialist vocabulary the reader is not expected to know.",
+        "effect": "Reassures the reader that incomprehension is expected, not a failing.",
+        "cues": ["the term of art is", "practitioners call this", "an unlovely word, but the standard one"]
+      },
+      {
+        "name": "translate jargon",
+        "definition": "Replace or accompany a technical term with its ordinary-language equivalent throughout.",
+        "effect": "Keeps a specialist argument readable outside the specialty.",
+        "cues": ["what lawyers call X — really just", "in plain terms", "the everyday word for this is"]
+      },
+      {
+        "name": "manage expectations about evidence",
+        "definition": "Tell the reader in advance what kind and quality of evidence is available on the question.",
+        "effect": "Stops the reader expecting a randomized trial where only case records exist.",
+        "cues": ["no controlled study exists", "the best available evidence is", "we are working from"]
+      },
+      {
+        "name": "disclose an interest",
+        "definition": "State the writer's material or institutional stake in the subject.",
+        "effect": "Costs less to volunteer than to have discovered.",
+        "cues": ["I consulted for", "in the interest of disclosure", "my former employer"]
+      },
+      {
+        "name": "credit prior work",
+        "definition": "Attribute an idea or finding to whoever established it first.",
+        "effect": "Ethical baseline; also situates the writer as a participant rather than an outsider.",
+        "cues": ["the observation is X's", "first noticed by", "I follow", "building on"]
+      },
+      {
+        "name": "name the audience",
+        "definition": "State who the writing is for.",
+        "effect": "Lets the right reader lean in and the wrong reader leave without resentment.",
+        "cues": ["this book is for", "if you run a", "written with practitioners in mind"]
+      },
+      {
+        "name": "signal the difficulty has passed",
+        "definition": "Tell the reader the hard stretch is over.",
+        "effect": "Releases held attention; the reader who was struggling can re-engage.",
+        "cues": ["the worst is behind us", "no more equations", "from here it is plain sailing"]
+      },
+      {
+        "name": "pace the reader",
+        "definition": "Insert a deliberate slack passage after a dense one — an anecdote, a short section, a change of register.",
+        "effect": "Sustained density loses readers regardless of quality.",
+        "cues": ["a lighter note", "before going on", "a short chapter for a reason"]
+      },
+      {
+        "name": "pre-commit to a standard of proof",
+        "definition": "State in advance what evidence would settle the question, before showing what is available.",
+        "effect": "Prevents the writer from moving the goalposts and shows the reader they will not be.",
+        "cues": ["I would accept the opposite if", "what would change my mind is", "the test I set myself"]
+      },
+      {
+        "name": "concede the strongest counterevidence",
+        "definition": "Present the single most damaging fact against the argument rather than leaving it to a critic.",
+        "effect": "Enormous credibility gain; also removes the critic's best opening move.",
+        "cues": ["the hardest case for my argument is", "the one finding I cannot explain", "against all this"]
+      },
+      {
+        "name": "solicit trust through candor",
+        "definition": "Volunteer a failure, error, or change of mind of the writer's own.",
+        "effect": "Admitted error is the cheapest credibility available and the least imitable.",
+        "cues": ["I got this wrong in", "I no longer think", "my first draft argued the opposite"]
+      },
+      {
+        "name": "explain the omission",
+        "definition": "Say why an obvious topic, case, or source has been left out.",
+        "effect": "Distinguishes a decision from an oversight, which the reader cannot otherwise tell apart.",
+        "cues": ["I leave X aside because", "the obvious case is missing because", "it is not here for a reason"]
+      }
+    ]
+  }
+}

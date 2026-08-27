@@ -1,0 +1,18 @@
+% title-banner.tikz — a subtle full-width title-page hero banner.
+% Demo asset for typography.title_background: set it to "title-banner" in
+% paper.yaml and rebuild (make figures) to place this behind the title on
+% page 1. Deliberately light (accent-50 wash + a thin accent rule) so the
+% title stays legible; collapses to gray under \GrayscaleMode with the
+% palette. Sized to US-letter width; a soft band ~2.4in tall at the top.
+\begin{tikzpicture}
+  % A letter-wide, ~2.4in tall soft band.
+  \fill[accent-50] (0,0) rectangle (8.5in,2.4in);
+  % A faint geometric motif (nested rules), quiet enough not to fight text.
+  \foreach \i in {0,...,7}{
+    \draw[accent-100, line width=0.4pt]
+      (0, {0.3in*\i}) -- (8.5in, {0.3in*\i});
+  }
+  \fill[accent-100, opacity=0.5] (0,0) rectangle (8.5in,0.9in);
+  % A crisp accent rule along the bottom edge of the band.
+  \draw[accent-500, line width=1.2pt] (0,0) -- (8.5in,0);
+\end{tikzpicture}

@@ -1,0 +1,1592 @@
+{
+  "name": "humor_and_wit",
+  "level": "meso",
+  "entry_type": "record",
+  "description": "The working machinery of comedy in prose: joke structures, comic timing, comic personae, the incongruity engines that generate laughs, the comic use of wit figures, producible comic registers, the techniques of satire, and the failure modes that kill a joke.",
+  "categories": {
+    "comic_structures": [
+      {
+        "name": "setup-misdirection-punchline",
+        "definition": "A joke in three moves: a setup that installs one reading, a middle that keeps that reading plausible while quietly assembling a second, and a punch that forces the switch.",
+        "example": "I want to go peacefully in my sleep, like my grandfather. Not screaming, like the passengers in his car.",
+        "effect": "The reader holds two readings for an instant and the second wins; the laugh is the cost of the switch.",
+        "register": "fiction and nonfiction",
+        "caution": "If the setup lets the second reading show early, there is no switch left to pay for and the line reads as merely odd.",
+        "aka": ["setup and punch", "two-script joke"],
+        "tags": ["structure", "misdirection"],
+        "see_also": ["tones_and_moods/comic_registers", "paragraph_shapes/narrative_shapes"]
+      },
+      {
+        "name": "rule of three",
+        "definition": "Two items establish a pattern and the third breaks it, the minimum run that lets a reader learn a rule and then be caught believing it.",
+        "example": "He packed a shirt, a razor, and a reason not to come back.",
+        "effect": "The first two items are the tuition; the third is the joke, and it arrives already funded.",
+        "register": "fiction and nonfiction",
+        "caution": "A third item that merely continues the pattern spends the setup and buys nothing.",
+        "aka": ["the triple", "comic triple"],
+        "tags": ["structure", "pattern-break"],
+        "see_also": ["rhetorical_figures/balance_and_antithesis_figures", "sound_and_rhythm/prose_cadence"]
+      },
+      {
+        "name": "comic escalation",
+        "definition": "A gag repeated with each instance larger, costlier, or more committed than the last, so the humor comes from the slope rather than from any single beat.",
+        "example": "First he apologized to the waiter. Then to the table. By the time he was apologizing to the restaurant's landlord, the food was cold.",
+        "effect": "The reader starts predicting the next rung and laughs at being right, then at being outrun.",
+        "register": "fiction and comic nonfiction",
+        "caution": "Escalation needs a ceiling picked in advance; without one it runs past belief and stops being funny two rungs before you notice.",
+        "tags": ["structure", "repetition"],
+        "see_also": ["scene_patterns/scene_shapes", "paragraph_shapes/narrative_shapes"]
+      },
+      {
+        "name": "topper",
+        "definition": "A second punch placed immediately after the first that tops it by raising the same idea one degree, so the reader laughs again before recovering from laughing.",
+        "example": "\"He's not qualified.\" \"He's not licensed.\" \"He's not, strictly, a doctor.\"",
+        "effect": "Doubles the return on one setup and signals that the writer had more where that came from.",
+        "register": "comic writing",
+        "caution": "A topper must top; a second line at equal strength reads as the writer failing to choose.",
+        "aka": ["capper"],
+        "tags": ["structure", "escalation"]
+      },
+      {
+        "name": "comic callback",
+        "definition": "A phrase from an earlier joke returned later in compressed form, so the reader supplies the original context and gets the whole joke from a fragment.",
+        "example": "Three chapters after the incident with the ladder, the estimate arrives: 'Labour, materials, ladder.'",
+        "effect": "Rewards attention and makes the piece feel designed rather than accumulated; the reader laughs partly at their own memory.",
+        "register": "fiction and nonfiction",
+        "caution": "Callbacks only pay if the original landed; calling back to a line nobody laughed at advertises the miss.",
+        "aka": ["callback"],
+        "tags": ["structure", "repetition"],
+        "see_also": ["sound_and_rhythm/rhythm_moves", "interaction_moves/dialogue_beats", "openings_and_closings/essay_closers"]
+      },
+      {
+        "name": "running gag",
+        "definition": "One joke returned at intervals across a whole work, each return shortened and varied so the reader recognizes it faster than the last time.",
+        "example": "The neighbour's leaf blower starts on page nine, page forty, and — for one line, during the funeral — page two hundred.",
+        "effect": "Builds a private vocabulary between writer and reader; late instances need almost no words to fire.",
+        "register": "fiction and comic nonfiction",
+        "caution": "A gag that returns unchanged is repetition, not a running gag; each appearance must cost fewer words or raise the stakes.",
+        "tags": ["structure", "repetition"],
+        "see_also": ["tones_and_moods/comic_registers", "interaction_moves/dialogue_beats", "scene_patterns/scene_shapes"]
+      },
+      {
+        "name": "brick joke",
+        "definition": "A setup planted early and abandoned, then paid off so much later that the reader has stopped expecting it.",
+        "example": "In chapter two someone throws a brick over a wall. In chapter nineteen a man in an unrelated town is hit by a brick.",
+        "effect": "The laugh is doubled by the reader's realization that the writer waited that long on purpose.",
+        "register": "fiction and long-form nonfiction",
+        "caution": "Too long a gap and the payoff reads as a random event; the plant needs to be odd enough to lodge without being flagged.",
+        "aka": ["long-fuse callback"],
+        "tags": ["structure", "delayed payoff"],
+        "see_also": ["scene_patterns/scene_functions", "narrative_structures/plot_points_and_turns"]
+      },
+      {
+        "name": "literalization of a figure",
+        "definition": "A dead metaphor or idiom is taken at its word and the consequences are followed as though the literal sense were the intended one.",
+        "example": "They told him to think outside the box, so he had the box removed, and now nobody knows where anything is filed.",
+        "effect": "Reactivates a phrase the reader had stopped hearing, and makes ordinary language look briefly absurd.",
+        "register": "fiction and comic nonfiction",
+        "caution": "Only works on phrases genuinely dead; literalizing a live figure just reads as a misreading.",
+        "tags": ["structure", "wordplay"],
+        "see_also": ["diction_and_register/figurative_diction_controls", "rhetorical_figures/metaphor_family"]
+      },
+      {
+        "name": "comic list",
+        "definition": "A list whose members all belong to one category except one, which belongs to another and is placed last.",
+        "example": "Bring a sleeping bag, a torch, two days of water, and someone you would not mind burying.",
+        "effect": "The first items train the reader to skim; the last one catches them mid-skim.",
+        "register": "fiction and nonfiction",
+        "caution": "Put the odd item anywhere but last and the list closes on its own flattest member.",
+        "aka": ["odd-item list"],
+        "tags": ["structure", "list"],
+        "see_also": ["paragraph_shapes/descriptive_shapes", "syntactic_constructions/sentence_architectures"]
+      },
+      {
+        "name": "catalogue joke",
+        "definition": "A list whose humor comes from sheer accumulation — the joke is that it keeps going long after the point has been made.",
+        "example": "The form asked for my name, my former names, my mother's former names, my landlord's opinion of me, and a photograph taken within the last nine days.",
+        "effect": "Length itself becomes the punchline; the reader laughs at the writer's refusal to stop.",
+        "register": "comic writing",
+        "caution": "Needs at least one genuinely funny member late in the run, or the reader quits before the length becomes the point.",
+        "tags": ["structure", "list"],
+        "see_also": ["rhetorical_figures/amplification_and_addition_figures", "paragraph_shapes/descriptive_shapes"]
+      },
+      {
+        "name": "comic reversal",
+        "definition": "The situation's terms are exchanged — servant instructs master, patient diagnoses doctor, victim comforts assailant — and everyone behaves as though the arrangement were normal.",
+        "example": "The burglar sat down and explained, patiently, that the window locks were the homeowner's own fault.",
+        "effect": "Exposes the ordinary hierarchy by showing how little the behaviour has to change when it flips.",
+        "register": "fiction and satire",
+        "caution": "The reversal must be played straight; a character who notices the absurdity does the reader's laughing for them.",
+        "tags": ["structure", "inversion"],
+        "see_also": ["interaction_moves/status_transactions", "arc_shapes/rise_and_fall_families"]
+      },
+      {
+        "name": "comic bathos",
+        "definition": "A structure that builds elevation across a passage and drops it in the final term, so the fall from register is the payoff rather than an accident.",
+        "example": "He had crossed two oceans, buried a brother, learned a second language, and come home to find the parking permit had expired.",
+        "effect": "The height of the build sets the depth of the drop; the reader is punished for having been moved.",
+        "register": "fiction and comic nonfiction",
+        "caution": "Deflating something the reader genuinely cares about buys a laugh at the cost of the caring.",
+        "aka": ["comic anticlimax"],
+        "tags": ["structure", "deflation"],
+        "see_also": ["arc_shapes/emotional_trajectories", "paragraph_shapes/narrative_shapes", "rhetorical_figures/amplification_and_addition_figures"]
+      },
+      {
+        "name": "shaggy-dog story",
+        "definition": "A long, meticulously detailed narrative whose ending deliberately fails to justify the length, making the reader's investment the joke.",
+        "example": "Forty minutes of the dog's provenance, the newspaper advertisement, the train to Aberdeen — and the man at the door says the dog isn't that shaggy.",
+        "effect": "Converts patience into complicity; the laugh is retrospective and partly at oneself.",
+        "register": "comic writing, oral tradition",
+        "caution": "Only survives if the journey is independently good; a boring middle makes the anticlimax feel like a broken joke rather than a designed one.",
+        "tags": ["structure", "anticlimax"],
+        "see_also": ["narrative_structures/tragedy_comedy_satire", "tones_and_moods/comic_registers"]
+      },
+      {
+        "name": "comic false analogy",
+        "definition": "An analogy that does not hold, developed with the seriousness of one that does, until the mismatch between the rigour and the fit becomes the joke.",
+        "example": "A committee is like a lifeboat: everyone rows, nobody steers, and the first person to mention rationing is eaten.",
+        "effect": "Gets a real point across on the way past — the comparison is wrong in a direction that is true.",
+        "register": "comic nonfiction, satire",
+        "caution": "In argumentative prose readers may take the analogy as load-bearing; do not rest a claim on a joke.",
+        "tags": ["structure", "analogy"],
+        "see_also": ["argumentation_schemes/dialectical_and_burden", "paragraph_shapes/expository_shapes"]
+      },
+      {
+        "name": "logical pratfall",
+        "definition": "A passage of impeccable reasoning that arrives, by valid steps, at an idiotic destination, the fall being intellectual rather than physical.",
+        "example": "Since the meeting exists to decide whether the meeting is necessary, cancelling it would leave the question permanently open.",
+        "effect": "Flatters the reader, who sees the wrong turn the prose walked straight past.",
+        "register": "satire, comic nonfiction",
+        "caution": "The reasoning has to be genuinely valid step to step; a visible cheat turns the joke into an error.",
+        "aka": ["pratfall of logic"],
+        "tags": ["structure", "reasoning"],
+        "see_also": ["fallacies_eristic/relevance_fallacies", "arc_shapes/epistemic_arcs"]
+      },
+      {
+        "name": "misplaced precision",
+        "definition": "An exact figure applied to something nobody measures, the specificity doing the comic work that a vague word could not.",
+        "example": "She gave the marriage eleven more months, and had a date in mind.",
+        "effect": "Reads as authority misapplied; the reader supplies the whole character from one decimal place.",
+        "register": "fiction and nonfiction",
+        "caution": "Sits badly in prose that also reports real figures — readers may take the joke number as data.",
+        "aka": ["comic specificity"],
+        "tags": ["structure", "detail"],
+        "see_also": ["diction_and_register/precision_moves", "evidence_types/statistics_presentation_modes"]
+      },
+      {
+        "name": "comic non sequitur",
+        "definition": "A reply or continuation with no retrievable connection to what preceded it, delivered with the confidence of an answer.",
+        "example": "\"Do you love me?\" \"I've never trusted a man who owns a canoe.\"",
+        "effect": "Denies the reader the connection they were reaching for, and the reaching is the laugh.",
+        "register": "fiction, absurdist comedy",
+        "caution": "Needs a straight frame around it; in prose that is already unmoored, one more disconnection registers as noise.",
+        "tags": ["structure", "absurdism"]
+      },
+      {
+        "name": "double take",
+        "definition": "A reaction split into two beats — an ordinary response first, then, one beat later, the response the fact deserved.",
+        "example": "He nodded, signed the form, handed it back, and said: sorry, how many bodies?",
+        "effect": "Stages the reader's own delayed comprehension inside a character, and makes the odd fact land twice.",
+        "register": "fiction, screen comedy",
+        "caution": "One per scene; a character who double-takes habitually reads as slow rather than surprised.",
+        "tags": ["structure", "reaction"],
+        "see_also": "interaction_moves/emotional_expressions"
+      },
+      {
+        "name": "joke tag",
+        "definition": "A short line added after the punchline that comments on it from a half-step outside, extending the laugh without restating the joke.",
+        "example": "\"...and that is how I lost the deposit.\" Pause. \"They kept the sofa too.\"",
+        "effect": "Gives the reader somewhere to land, and lets a scene exit on comic rather than administrative business.",
+        "register": "comic writing",
+        "caution": "A tag that explains the punch is not a tag; it is the joke being explained.",
+        "aka": ["tag line"],
+        "tags": ["structure", "closing"]
+      },
+      {
+        "name": "act-out",
+        "definition": "In comic prose and stand-up, abandoning report for impersonation — the writer stops describing what someone said and performs it, in their words and rhythm.",
+        "example": "The airline calls it a service recovery event. What it is, is a man in a lanyard saying 'so what I'm hearing is' until you agree to leave.",
+        "effect": "Replaces the flat summary with a voice the reader can hear, which is where the specificity and the joke both live.",
+        "register": "comic nonfiction, stand-up",
+        "caution": "Distinct from the television act-out (the pre-break beat); do not sustain the impersonation past the point where the reader forgets who is narrating.",
+        "tags": ["structure", "voice"],
+        "see_also": ["pov_and_narration/speech_and_thought_representation", "narrative_structures/television_forms"]
+      }
+    ],
+    "comic_timing": [
+      {
+        "name": "funny word last",
+        "definition": "The funniest word in the sentence takes the terminal slot, because English puts its intonational peak at the end of the clause and comedy needs the peak and the surprise in the same place.",
+        "example": "Not: He fell into the fountain in front of the mayor. But: In front of the mayor, he fell into the fountain.",
+        "effect": "The laugh arrives with the full stop instead of trailing behind it; nothing follows the punch word to absorb it.",
+        "register": "fiction and nonfiction",
+        "caution": "Any trailing qualifier, attribution, or adverbial after the punch word steals the beat the joke needed.",
+        "aka": ["punch word last", "end on the funny word"],
+        "tags": ["timing", "placement"],
+        "see_also": ["syntactic_constructions/sentence_architectures", "sound_and_rhythm/prose_cadence"]
+      },
+      {
+        "name": "comic beat",
+        "definition": "A deliberate unit of silence inserted before a payoff — in prose, a comma, a dash, a period fragment, or a paragraph break — long enough for the reader to commit to the wrong reading.",
+        "example": "He said he had never been happier. Then he corrected himself.",
+        "effect": "Gives the misdirection time to set, so the reversal has something to reverse.",
+        "register": "fiction and nonfiction",
+        "caution": "Beats are expensive on the page; three in a paragraph and the prose reads as coy rather than timed.",
+        "aka": ["the beat", "a beat"],
+        "tags": ["timing", "pause"],
+        "see_also": ["sound_and_rhythm/rhythm_moves", "sound_and_rhythm/pause_and_punctuation_rhythm"]
+      },
+      {
+        "name": "beat before the reply",
+        "definition": "In an exchange, a held pause between the provocation and the answer, filled with a small physical action or nothing at all, so the reply lands as considered rather than reflexive.",
+        "example": "\"Would you say you're difficult to work with?\" She finished her coffee. \"Ask them.\"",
+        "effect": "Converts a line into a decision; the reader hears the character choosing to say it.",
+        "register": "fiction, dialogue",
+        "caution": "The pause must be filled with something the reader can see or the exchange reads as a formatting gap.",
+        "tags": ["timing", "dialogue"],
+        "see_also": ["interaction_moves/dialogue_beats", "paragraph_shapes/narrative_shapes"]
+      },
+      {
+        "name": "deadpan hold",
+        "definition": "Refusing to modulate — no exclamation, no comment, no adverb — across material that invites all three, so the flatness itself becomes the joke.",
+        "example": "The fire was contained by four in the afternoon. My mother rang at five to ask whether I had eaten.",
+        "effect": "Puts the reader in charge of the reaction, which is funnier than being told what the reaction should be.",
+        "register": "fiction and nonfiction",
+        "caution": "Deadpan and dullness look identical on the page unless the material underneath is genuinely charged.",
+        "tags": ["timing", "delivery"],
+        "see_also": ["pov_and_narration/narrative_voice_textures", "tones_and_moods/comic_registers"]
+      },
+      {
+        "name": "rhythm of the triple",
+        "definition": "The prosodic side of the rule of three: two short members of matched length and one longer or shorter third, so the ear hears the pattern break before the mind does.",
+        "example": "Cheap, fast, and eventually the subject of a public inquiry.",
+        "effect": "The metrical mismatch cues the reader that the third item is the joke a syllable before the sense arrives.",
+        "register": "fiction and nonfiction",
+        "caution": "Three members of identical length flatten into a plain list; the break must be audible.",
+        "tags": ["timing", "rhythm"],
+        "see_also": ["sound_and_rhythm/prose_cadence", "rhetorical_figures/balance_and_antithesis_figures"]
+      },
+      {
+        "name": "snap-back",
+        "definition": "A reply that arrives with no pause at all, cutting into the previous line's final syllable, so speed carries the joke instead of delay.",
+        "example": "\"I'd never lie to you.\" \"You're doing it now.\"",
+        "effect": "The absence of thinking time reads as certainty, which is funnier than wit that shows its working.",
+        "register": "fiction, dialogue",
+        "caution": "Every character snapping back turns an exchange into a duel and the reader stops believing anyone listens.",
+        "tags": ["timing", "dialogue"],
+        "see_also": "interaction_moves/dialogue_beats"
+      },
+      {
+        "name": "slow-burn gag",
+        "definition": "A comic premise introduced without comment and left to accumulate absurdity by increments too small to be individually noticeable.",
+        "example": "One extra chair appears in the office each week. Nobody in the piece ever mentions the chairs.",
+        "effect": "The reader notices the joke on their own schedule and feels they found it, which is a different and stickier laugh.",
+        "register": "fiction and comic nonfiction",
+        "caution": "Needs at least one moment where the accumulation is made visible, or a proportion of readers finish without seeing it.",
+        "tags": ["timing", "accumulation"],
+        "see_also": ["arc_shapes/tension_curves", "tones_and_moods/pacing_feels"]
+      },
+      {
+        "name": "comic interruption",
+        "definition": "Cutting a line off before its own end, so the unfinished half is funnier than the finished one would have been.",
+        "example": "\"In my professional opinion the structure is entirely — \" The structure fell down.",
+        "effect": "The reader completes the sentence and the completion is contradicted in the same breath.",
+        "register": "fiction, comic nonfiction",
+        "caution": "Interruption only works where the reader can finish the line; cut a sentence they cannot complete and you have deleted the joke.",
+        "tags": ["timing", "interruption"],
+        "see_also": ["paragraph_shapes/narrative_shapes", "interaction_moves/status_transactions"]
+      },
+      {
+        "name": "comic delay",
+        "definition": "Holding the punch one beat past the slot the reader has prepared for it, so the arrival is slightly late and lands on an unguarded reader.",
+        "example": "He apologized. He apologized again. On the third try he got as far as 'sorry that you' before she left.",
+        "effect": "Defeats the anticipation the setup created without abandoning it.",
+        "register": "fiction and nonfiction",
+        "caution": "One beat late is timing; two is the reader losing the thread and rereading the setup.",
+        "tags": ["timing", "delay"],
+        "see_also": ["sound_and_rhythm/rhythm_moves", "syntactic_constructions/sentence_architectures"]
+      },
+      {
+        "name": "line break before the punchline",
+        "definition": "Putting the payoff in its own paragraph, so the white space does the work a pause does aloud.",
+        "example": "They agreed that the arrangement had been good for everyone. [paragraph break] The dog disagreed.",
+        "effect": "The reader's eye travels the gap and arrives already braced, which is the printed form of a held beat.",
+        "register": "comic writing",
+        "caution": "The move is conspicuous; used every page it turns the prose into a series of announced jokes.",
+        "tags": ["timing", "layout"],
+        "see_also": ["sound_and_rhythm/pause_and_punctuation_rhythm", "paragraph_shapes/narrative_shapes"]
+      },
+      {
+        "name": "tight setup",
+        "definition": "Cutting every word in the setup that is not required to install the wrong reading, on the principle that the reader's attention is finite and the punch needs all of it.",
+        "example": "Not: My uncle, who worked for years at a firm in Leeds, once told me that he had never in his life taken a holiday. But: My uncle never took a holiday.",
+        "effect": "The joke arrives before attention decays; a lean setup also hides the shape of what is coming.",
+        "register": "comic writing",
+        "caution": "Over-trimming strips the specificity that made the premise worth setting up at all.",
+        "tags": ["timing", "economy"],
+        "see_also": "syntactic_constructions/sentence_length_moves"
+      },
+      {
+        "name": "room after the punchline",
+        "definition": "Leaving the sentences immediately after a joke deliberately quiet — plain report, short, unfunny — so the laugh has somewhere to spend itself.",
+        "example": "…and the ladder went into the pond. Nobody moved for a while. It was, in fairness, a warm day.",
+        "effect": "Prevents the next line from being read over the laugh and lost.",
+        "register": "comic writing",
+        "caution": "Quiet is not the same as dead; the following lines still have to advance something.",
+        "tags": ["timing", "aftermath"]
+      },
+      {
+        "name": "late swerve",
+        "definition": "Reversing the sentence's direction in its last few words rather than at a clause boundary, so the reader has already committed to the trajectory.",
+        "example": "She had loved him for eleven years, which had been more than enough.",
+        "effect": "Maximizes the distance the reader has travelled in the wrong direction before the correction.",
+        "register": "fiction and nonfiction",
+        "caution": "The swerve must fit the grammar; a reversal that also breaks the sentence reads as a mistake.",
+        "tags": ["timing", "reversal"],
+        "see_also": ["sound_and_rhythm/rhythm_moves", "rhetorical_figures/wordplay_and_word_form_figures"]
+      },
+      {
+        "name": "delayed reaction",
+        "definition": "A character responds correctly to a shocking fact several beats after it lands, having processed everything else first.",
+        "example": "He put the kettle on, found two mugs, checked the milk, and said: whose car is in the pool?",
+        "effect": "The mismatch between the size of the fact and the order of the response supplies the joke without a joke being made.",
+        "register": "fiction",
+        "caution": "Works once per character; a person who always reacts late is written as a device.",
+        "tags": ["timing", "reaction"],
+        "see_also": "scene_patterns/scene_endings"
+      },
+      {
+        "name": "exit on the punchline",
+        "definition": "Ending the scene or section on the joke and cutting immediately, refusing the aftermath the reader expects.",
+        "example": "\"Then we agree the audit was a success.\" The lights went out. End of chapter.",
+        "effect": "The laugh carries across the white space into the next section, which is the cheapest momentum available.",
+        "register": "fiction and comic nonfiction",
+        "caution": "Only if the scene had already done its work; cutting on a laugh that leaves business unfinished reads as an evasion.",
+        "tags": ["timing", "scene exit"],
+        "see_also": ["scene_patterns/scene_endings", "openings_and_closings/chapter_closings"]
+      }
+    ],
+    "comic_personae": [
+      {
+        "name": "double act",
+        "definition": "Two figures split the comic labour: one holds the ordinary frame and one violates it, and the humor is generated by the friction between them rather than by either alone.",
+        "example": "One says the flat is fine. The other is already photographing the ceiling for the insurance claim.",
+        "effect": "Lets the reader occupy the sane position while enjoying the mad one, which is more comfortable than being asked to be mad alone.",
+        "register": "fiction, comic nonfiction",
+        "caution": "If both figures are funny in the same way there is no frame left to violate.",
+        "aka": ["comic duo"],
+        "tags": ["persona", "pairing"],
+        "see_also": "character_and_persona/foil_and_ensemble_roles"
+      },
+      {
+        "name": "straight man",
+        "definition": "The half of a double act who supplies the reality the joke deviates from, whose comic work is asking the sensible question and taking the answer seriously.",
+        "example": "\"Why is there a horse in the office?\" \"Because you said no dogs.\"",
+        "effect": "Makes the absurd measurable; without the straight line the reader has no baseline to feel the deviation against.",
+        "register": "fiction, dialogue",
+        "caution": "The straight man must genuinely want an answer; visible weariness turns them into a second comic and collapses the pair.",
+        "aka": ["the feed", "stooge"],
+        "tags": ["persona", "pairing"],
+        "see_also": ["character_and_persona/stock_characters", "tones_and_moods/comic_registers"]
+      },
+      {
+        "name": "licensed fool",
+        "definition": "A figure whose low status buys permission to say the true thing nobody else may say, so the truth arrives disguised as nonsense.",
+        "example": "The intern, delivering coffee: \"Is anyone going to mention that the numbers are made up?\" Everyone laughed.",
+        "effect": "Delivers the piece's most serious content in its least defended moment.",
+        "register": "fiction, satire",
+        "caution": "The licence has to be established before it is spent; a nobody who suddenly speaks truth reads as the author intruding.",
+        "aka": ["wise fool", "the fool"],
+        "tags": ["persona", "truth-telling"],
+        "see_also": ["character_and_persona/stock_characters", "rhetorical_situations/author_personae"]
+      },
+      {
+        "name": "miles gloriosus",
+        "definition": "The comic boaster whose claims outrun the evidence, played so that the reader always knows the true measure and the boaster never does.",
+        "example": "\"I've handled bigger accounts than this.\" He had. One. In 1998. It was his mother's.",
+        "effect": "The reader's superior knowledge is the engine; every claim is a fresh gap to fall through.",
+        "register": "fiction, satire",
+        "caution": "Deflate the boast too often and the figure becomes a punching bag rather than a character.",
+        "aka": ["braggart soldier", "unreliable boaster", "alazon"],
+        "tags": ["persona", "superiority"],
+        "see_also": ["character_and_persona/stock_characters", "rhetorical_situations/author_personae"]
+      },
+      {
+        "name": "comic naif",
+        "definition": "A narrator or character who reports accurately and understands nothing, so the reader assembles the meaning the reporter missed.",
+        "example": "They were very kind at the bank. They explained everything twice and took the house.",
+        "effect": "Produces sustained irony with no ironic language anywhere on the page; the reader does all the judging.",
+        "register": "fiction, satire",
+        "caution": "The naif's observations must stay accurate; the moment they are wrong about facts rather than meaning, the device leaks.",
+        "aka": ["the innocent", "ingénu"],
+        "tags": ["persona", "irony"],
+        "see_also": ["pov_and_narration/narrator_reliability_types", "rhetorical_figures/irony_family"]
+      },
+      {
+        "name": "misanthrope",
+        "definition": "A comic figure whose standing objection to the world is stated with such precision that the reader agrees before remembering they were meant to disapprove.",
+        "example": "\"I don't dislike people. I dislike the specific eleven of them who use this kitchen.\"",
+        "effect": "Licenses complaint as entertainment and gives the piece a fixed point to measure everyone else's cheer against.",
+        "register": "fiction, comic nonfiction",
+        "caution": "The grievance must be funny in its specificity; generalized contempt is just an unpleasant narrator.",
+        "aka": ["comic curmudgeon", "the grouch"],
+        "tags": ["persona", "complaint"],
+        "see_also": ["character_and_persona/authorial_personae", "rhetorical_situations/author_personae"]
+      },
+      {
+        "name": "schlemiel",
+        "definition": "The comic unfortunate whose disasters follow from his own character rather than from luck, so the reader can both pity and blame him.",
+        "example": "He arrived early to make a good impression, and spent forty minutes in the wrong building making it.",
+        "effect": "Combines sympathy and superiority in the same beat, which is the most durable comic mixture available.",
+        "register": "fiction, comic memoir",
+        "caution": "If the misfortunes are external the figure becomes a victim and the comedy turns cruel.",
+        "tags": ["persona", "misfortune"],
+        "see_also": "character_and_persona/stock_characters"
+      },
+      {
+        "name": "self-deprecating comic",
+        "definition": "A voice that names its own deficiency before the reader can, converting a possible objection into a shared joke and buying licence for the criticism that follows.",
+        "example": "I have no standing to complain about anyone's finances. I once paid rent, twice, to the same landlord, in the same month.",
+        "effect": "Disarms resistance; a reader who has laughed at the writer will accept more from them.",
+        "register": "comic nonfiction, essay",
+        "caution": "Sustained self-deprecation reads as fishing, and eventually the reader agrees with the low estimate.",
+        "tags": ["persona", "ethos"],
+        "see_also": ["tones_and_moods/comic_registers", "diction_and_register/self_mention_and_stance", "character_and_persona/authorial_personae"]
+      },
+      {
+        "name": "deadpan narrator",
+        "definition": "A narrating voice that declines to register the strangeness of what it reports, holding a uniform temperature across the ordinary and the outrageous alike.",
+        "example": "The neighbours kept a horse in the second bedroom. It was well behaved. The landlord was not told.",
+        "effect": "The reader supplies all the reaction, and reactions readers supply themselves are stronger than reactions they are handed.",
+        "register": "fiction and nonfiction",
+        "caution": "The flatness must be a choice the material contradicts; over dull material it is indistinguishable from flat writing.",
+        "tags": ["persona", "narration"],
+        "see_also": ["pov_and_narration/narrative_voice_textures", "tones_and_moods/comic_registers"]
+      },
+      {
+        "name": "bomolochos",
+        "definition": "The buffoon of classical comic typology, whose function is to increase the festivity — the figure who exists to generate laughs rather than to advance anything.",
+        "example": "He has no stake in the negotiation. He is there to mispronounce the client's name and offer everyone crisps.",
+        "effect": "Supplies energy and release in scenes whose real business is tense, without spending plot to do it.",
+        "register": "fiction, comic drama",
+        "caution": "A buffoon with nothing at stake stops the scene the moment the reader notices they cannot be affected by the outcome.",
+        "aka": ["buffoon"],
+        "tags": ["persona", "classical typology"],
+        "see_also": "character_and_persona/stock_characters"
+      },
+      {
+        "name": "agroikos",
+        "definition": "The comic churl or killjoy — the figure who refuses the festivity, whose flat literalism supplies the resistance the other comic types push against.",
+        "example": "\"It's a party.\" \"It's a Tuesday.\"",
+        "effect": "Gives comedy something rigid to break against; a scene of pure play has no shape.",
+        "register": "fiction, comic drama",
+        "caution": "The churl must be beatable; an unmovable killjoy simply ends the comedy.",
+        "aka": ["the churl", "killjoy"],
+        "tags": ["persona", "classical typology"],
+        "see_also": "character_and_persona/stock_characters"
+      },
+      {
+        "name": "whiteface and auguste",
+        "definition": "The circus form of the double act: an elegant, competent figure and a chaotic incompetent one, with authority always assigned to the one who is about to be humiliated.",
+        "example": "The consultant in the good coat explains the process. The one carrying the equipment has already dropped it.",
+        "effect": "Gives the reader an instantly legible hierarchy to watch collapse.",
+        "register": "fiction, comic writing",
+        "caution": "A period-specific frame; carried into realist prose it can read as costume rather than character.",
+        "tags": ["persona", "pairing"],
+        "see_also": "character_and_persona/foil_and_ensemble_roles"
+      },
+      {
+        "name": "the wit",
+        "definition": "A character or voice licensed to be funnier than everyone around them, whose formulations are noticed as formulations inside the world of the piece.",
+        "example": "They repeated her line about the treasurer at three separate tables that evening, and got it wrong twice.",
+        "effect": "Concentrates the best lines where they are motivated, instead of distributing them evenly and flattening every voice.",
+        "register": "fiction, comedy of manners",
+        "caution": "The wit must pay a cost for the gift, or the reader begins to resent the character on the other characters' behalf.",
+        "tags": ["persona", "verbal comedy"],
+        "see_also": "character_and_persona/voice_and_speech_traits"
+      },
+      {
+        "name": "the butt",
+        "definition": "The figure the joke is aimed at, whose selection determines the ethics of the humor: whether the laugh runs uphill at the powerful or downhill at the exposed.",
+        "example": "The same anecdote about the failed inspection is one joke if the butt is the inspector's employer and another if it is the cleaner.",
+        "effect": "Sets the reader's alignment for everything that follows; readers remember whose side a book's jokes were on.",
+        "register": "fiction and nonfiction",
+        "caution": "Every joke has a butt whether or not the writer chose one; the unchosen butt is usually whoever has least power in the scene.",
+        "tags": ["persona", "ethics"],
+        "see_also": "themes_and_questions/moral_dilemmas"
+      },
+      {
+        "name": "the pedant",
+        "definition": "A comic figure whose accuracy is total and whose judgement is absent, correcting the trivial detail of a statement whose substance is catastrophic.",
+        "example": "\"The building is on fire.\" \"Technically the contents are on fire.\"",
+        "effect": "Dramatizes a real intellectual vice in a form the reader can enjoy rather than merely deplore.",
+        "register": "fiction, satire",
+        "caution": "Adjacent to the writer's own habits; a pedant written with too much sympathy stops being funny and becomes a manifesto.",
+        "tags": ["persona", "vice"],
+        "see_also": "character_and_persona/stock_characters"
+      }
+    ],
+    "incongruity_engines": [
+      {
+        "name": "incongruity resolution",
+        "definition": "The base mechanism of most humor: an incongruity is perceived and then resolved by a rule that makes it fit, and the laugh occurs at the resolution rather than at the incongruity.",
+        "example": "\"Why did the sailor bring rope to the interview?\" The absurdity is the setup; the retrievable reason is where the laugh sits.",
+        "effect": "Explains why unresolvable weirdness is not funny and why a joke stops working once the resolution is obvious.",
+        "register": "theory, applies to all comic writing",
+        "caution": "A theory, not a template; naming the mechanism does not generate the specific incongruity.",
+        "aka": ["incongruity-resolution theory"],
+        "tags": ["theory", "mechanism"]
+      },
+      {
+        "name": "benign violation",
+        "definition": "McGraw and Warren's condition: something violates how the world ought to be while simultaneously seeming harmless, and humor lives only in the overlap of the two.",
+        "example": "A eulogy that lists the deceased's parking fines is funny at a distance of years and not at a distance of days.",
+        "effect": "Gives a usable dial — increase the violation for edge, increase the benignity (distance, fiction, low stakes) for safety.",
+        "register": "theory, applies to all comic writing",
+        "caution": "Benignity is audience-relative; the same line is a joke to one reader and an injury to another, and the writer does not get a vote.",
+        "aka": ["benign violation theory"],
+        "tags": ["theory", "mechanism"],
+        "see_also": "rhetorical_situations/audience_models"
+      },
+      {
+        "name": "script opposition",
+        "definition": "Raskin's condition for a verbal joke: the text is compatible with two scripts that are opposed along a basic axis — real and unreal, expected and unexpected, decent and indecent — and the punch forces the switch between them.",
+        "example": "\"Is the doctor at home?\" whispered the patient. \"No,\" whispered the doctor's young wife. \"Come right in.\"",
+        "effect": "Tells the writer what to build: not a funny sentence but a passage that two readings can survive until the last word.",
+        "register": "theory, comic writing",
+        "caution": "Both scripts must be genuinely available in the text; a second reading the reader cannot reconstruct is not a joke but a private one.",
+        "aka": ["semantic script theory", "SSTH"],
+        "tags": ["theory", "linguistics"]
+      },
+      {
+        "name": "frame shift",
+        "definition": "The reader's semantic frame is reorganized at the punch — not merely a new fact added, but everything already read reassigned to a different situation.",
+        "example": "He read the letter twice, then a third time, and finally understood that it was addressed to his father, who had been dead for nine years.",
+        "effect": "The reader has to rebuild the passage retroactively, and the rebuild is the pleasure.",
+        "register": "fiction and nonfiction",
+        "caution": "The first frame must have been fully constructed; a reader who was never committed has nothing to shift.",
+        "aka": ["frame-shifting"],
+        "tags": ["theory", "cognition"],
+        "see_also": "discourse_moves/framing_moves"
+      },
+      {
+        "name": "superiority engine",
+        "definition": "Humor generated by the reader's position above the figure in the text — knowing more, being less deceived, having further to fall — the Hobbesian 'sudden glory'.",
+        "example": "Every sentence in which a confident man explains a system to the person who designed it.",
+        "effect": "Reliable and fast; also the engine most likely to age badly, since the reader's superiority has a target.",
+        "register": "satire, fiction",
+        "caution": "Check who is below; superiority humor aimed downward is the mechanism behind most jokes a writer later regrets.",
+        "aka": ["superiority theory"],
+        "tags": ["theory", "mechanism"],
+        "see_also": "rhetorical_figures/irony_family"
+      },
+      {
+        "name": "relief engine",
+        "definition": "Humor as the discharge of accumulated pressure: tension is built by the material and released by a joke that gives it somewhere legitimate to go.",
+        "example": "Six pages of a hospital corridor, and then the vending machine takes the money.",
+        "effect": "The laugh is proportional to the pressure preceding it, so relief humor requires an investment in unfunny material first.",
+        "register": "fiction, comic nonfiction",
+        "caution": "Releasing pressure you still need is the most common way a comic instinct damages a serious scene.",
+        "aka": ["relief theory"],
+        "tags": ["theory", "mechanism"],
+        "see_also": ["arc_shapes/tension_curves", "scene_patterns/scene_functions"]
+      },
+      {
+        "name": "appropriate incongruity",
+        "definition": "Oring's engine: an analogy that is manifestly inappropriate and, along one unexpected dimension, exactly right, so the reader cannot dismiss it.",
+        "example": "A committee agenda is a menu in a restaurant with no kitchen.",
+        "effect": "The reader rejects the comparison and accepts it in the same instant, which is where the laugh sits.",
+        "register": "comic nonfiction, satire",
+        "caution": "If the fit is only inappropriate the line is nonsense; if it is only apt it is just a good metaphor.",
+        "aka": ["apt-inapt analogy"],
+        "tags": ["theory", "analogy"],
+        "see_also": "rhetorical_figures/metaphor_family"
+      },
+      {
+        "name": "comic register clash",
+        "definition": "Two vocabularies that belong to different worlds are made to share a sentence, and neither is allowed to apologize for the other.",
+        "example": "The board resolved, in accordance with its fiduciary duty, to lose its collective mind.",
+        "effect": "The mismatch is audible before it is understood; readers laugh at the seam.",
+        "register": "comic nonfiction, satire",
+        "caution": "The device is loud and tires quickly; two per page and the prose sounds like it is doing an accent.",
+        "tags": ["engine", "diction"],
+        "see_also": ["diction_and_register/register_levels", "diction_and_register/etymological_layers"]
+      },
+      {
+        "name": "scale clash",
+        "definition": "A response, apparatus, or vocabulary is applied at an order of magnitude the occasion does not warrant, in either direction.",
+        "example": "They formed a subcommittee about the biscuits. Also: he mentioned, in passing, that the plant had exploded.",
+        "effect": "Reveals the actual proportions of a world by getting them audibly wrong.",
+        "register": "fiction and nonfiction",
+        "caution": "Only funny where the reader has a firm sense of the correct scale; establish the norm first.",
+        "aka": ["disproportion"],
+        "tags": ["engine", "proportion"],
+        "see_also": "stakes_and_stasis/personal_stakes"
+      },
+      {
+        "name": "category error played straight",
+        "definition": "A thing is treated as a member of the wrong category throughout, with every consequence of that membership honoured and none of them remarked on.",
+        "example": "The department's cat has a payroll number, an annual review, and a documented performance concern.",
+        "effect": "Turns a single wrong assumption into a self-generating supply of jokes, each of which the reader can predict and still enjoy.",
+        "register": "satire, absurdist comedy",
+        "caution": "Consistency is the whole device; one wink from the narrator ends it.",
+        "tags": ["engine", "absurdism"]
+      },
+      {
+        "name": "absurd premise pursued logically",
+        "definition": "An impossible or ridiculous premise is granted at the outset and everything after it is derived with complete rigour.",
+        "example": "Granted that the office is haunted, the question is whether the ghost counts as a workplace hazard or as a member of staff.",
+        "effect": "The seriousness of the reasoning keeps the reader inside the premise long enough for it to accumulate consequences.",
+        "register": "satire, comic nonfiction",
+        "caution": "Adding new absurdities mid-piece resets the reader's investment; grant one premise and pay for everything else.",
+        "aka": ["reductio played straight"],
+        "tags": ["engine", "absurdism"],
+        "see_also": ["arc_shapes/epistemic_arcs", "rhetorical_figures/argumentation_figures"]
+      },
+      {
+        "name": "breach of decorum",
+        "definition": "The classical fit between subject and style is broken on purpose — grand machinery applied to a trivial subject, or flat vocabulary applied to a grave one.",
+        "example": "An eight-hundred-word account of a lost sock in the cadence of a naval dispatch.",
+        "effect": "The style itself becomes the joke, so the humor survives even when the subject is thin.",
+        "register": "satire, comic nonfiction",
+        "caution": "The reader must recognize the borrowed style; a parody of a register nobody knows reads as bad writing.",
+        "aka": ["bathos of subject", "style-subject mismatch"],
+        "tags": ["engine", "decorum"],
+        "see_also": ["rhetorical_situations/constraint_types", "rhetorical_figures/irony_family"]
+      },
+      {
+        "name": "comic anachronism",
+        "definition": "A word, object, or attitude from the wrong period is set inside an otherwise consistent world and left entirely unexplained.",
+        "example": "Cromwell's people will circle back on this after the weekend.",
+        "effect": "Collapses the distance the reader was maintaining between then and now, usually to make a point about now.",
+        "register": "satire, historical comedy",
+        "caution": "One per scene at most; sustained anachronism stops being a joke and becomes the setting.",
+        "tags": ["engine", "period"],
+        "see_also": "rhetorical_figures/vices_and_decorum_figures"
+      },
+      {
+        "name": "taxonomy joke",
+        "definition": "A classification is proposed with the apparatus of real taxonomy — stated principle, exhaustive divisions, edge cases — for a domain that does not support one.",
+        "example": "There are four kinds of colleague, divided by what they do with a shared kitchen, and the fourth kind has no name because nobody survives describing it.",
+        "effect": "The form promises rigour and the content supplies none, and the reader enjoys the gap while still absorbing the observation.",
+        "register": "comic nonfiction, essay",
+        "caution": "The divisions still have to be recognizably true, or the piece is a form with nothing in it.",
+        "tags": ["engine", "classification"],
+        "see_also": ["paragraph_shapes/expository_shapes", "rhetorical_figures/definition_and_division_figures"]
+      },
+      {
+        "name": "defeated expectancy",
+        "definition": "A pattern established at any level — syntactic, prosodic, thematic — is broken at the point where the reader's prediction is strongest.",
+        "example": "Three parallel clauses in the same shape, and a fourth that is two words long and about something else.",
+        "effect": "Locates the laugh precisely: the strongest prediction makes the biggest break.",
+        "register": "fiction and nonfiction",
+        "caution": "The pattern must be established long enough to be predicted; two members is rarely sufficient.",
+        "tags": ["engine", "pattern"],
+        "see_also": ["sound_and_rhythm/prose_cadence", "syntactic_constructions/sentence_architectures"]
+      },
+      {
+        "name": "comic defamiliarization",
+        "definition": "A familiar practice is described from outside its own vocabulary, in plain physical terms, so that its ordinary absurdity becomes visible.",
+        "example": "Twice a year we agree to say a different number when asked the time.",
+        "effect": "The reader recognizes something they do and cannot immediately defend, which is a laugh with an argument inside it.",
+        "register": "satire, comic nonfiction",
+        "caution": "Overdone it reads as a pose of naivety, and the reader tires of being shown that everything is strange.",
+        "tags": ["engine", "estrangement"],
+        "see_also": "rhetorical_figures/description_figures"
+      }
+    ],
+    "wit_figures": [
+      {
+        "name": "paraprosdokian punchline",
+        "definition": "The comic use of the figure: the sentence's final phrase retroactively reassigns everything before it, which makes it the default vehicle for a one-line joke.",
+        "example": "I've had a perfectly wonderful evening, but this wasn't it.",
+        "effect": "Delivers setup and punch inside a single grammatical unit, so no beat is lost to a sentence boundary.",
+        "register": "comic writing",
+        "caution": "Highly recognizable; three on a page and the reader starts waiting for the turn instead of falling for it.",
+        "aka": ["paraprosdokian"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/wordplay_and_word_form_figures"
+      },
+      {
+        "name": "comic syllepsis",
+        "definition": "The comic use of the figure: one verb governs a literal and a figurative object at once, and the reader's mind briefly tries to make both fit the same sense.",
+        "example": "She lowered her standards and her rent at the same time.",
+        "effect": "Compresses a whole comparison into one word, which reads as economy rather than as a joke being made.",
+        "register": "fiction and nonfiction",
+        "caution": "The two senses must be equally available; if one dominates, the line reads as a slip.",
+        "aka": ["syllepsis", "zeugma"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/omission_and_brevity_figures", "syntactic_constructions/ellipsis_and_compression"]
+      },
+      {
+        "name": "punning payoff",
+        "definition": "The comic use of the figure: a homophone or double sense placed in the punch slot, where the reader's search for the intended meaning is the joke.",
+        "example": "The bakery closed. It kneaded the money.",
+        "effect": "Draws attention to the writer's presence, which is either the pleasure or the problem depending on the piece.",
+        "register": "comic writing, informal",
+        "caution": "Puns are the most conspicuous form of wit and the least forgiven when weak; one weak pun costs the credit of three good jokes.",
+        "aka": ["paronomasia", "pun"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/wordplay_and_word_form_figures"
+      },
+      {
+        "name": "comic hyperbole",
+        "definition": "The comic use of the figure: overstatement pitched far enough past belief that the reader is invited to discount it, and told by how much through the precision of the terms.",
+        "example": "The meeting lasted, by my count, four presidencies.",
+        "effect": "Conveys an evaluation faster than any accurate description could, and flags the evaluation as an evaluation.",
+        "register": "comic writing, informal",
+        "caution": "In factual prose a hyperbole near a real figure will be read as a claim; keep them apart.",
+        "aka": ["hyperbole"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/irony_family", "diction_and_register/figurative_diction_controls", "tones_and_moods/comic_registers"]
+      },
+      {
+        "name": "comic litotes",
+        "definition": "The comic use of the figure: understatement pitched so far below the facts that the gap becomes the joke, with the reader instructed to correct upward without limit.",
+        "example": "The fire had made the kitchen less usable than before.",
+        "effect": "Signals composure the situation does not warrant, which is the printed form of deadpan.",
+        "register": "fiction and nonfiction",
+        "caution": "Requires the reader to already know the size of the thing being understated; without that, it just reads as mild.",
+        "aka": ["litotes", "meiosis"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/irony_family", "diction_and_register/boosters"]
+      },
+      {
+        "name": "antiphrastic epithet",
+        "definition": "The comic use of the figure: a single word applied in its opposite sense and never corrected, so the label carries the judgement.",
+        "example": "Our beloved procurement portal has been unavailable since March.",
+        "effect": "Puts an evaluation into a noun phrase, where it takes no argumentative space and cannot be rebutted.",
+        "register": "satire, comic nonfiction",
+        "caution": "Depends entirely on the reader sharing the judgement; where they do not, the word reads straight.",
+        "aka": ["antiphrasis"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/irony_family", "diction_and_register/attitude_markers"]
+      },
+      {
+        "name": "mock-heroic elevation",
+        "definition": "The comic use of the figure: epic machinery — invocation, catalogue, extended simile — applied to a subject that cannot bear it, with the apparatus never broken.",
+        "example": "Sing, muse, of the man who reversed the van, and of the bollard that met him.",
+        "effect": "The gap between the vehicle and the occasion supplies continuous humor without any joke being stated.",
+        "register": "satire, comic nonfiction",
+        "caution": "Sustaining it is expensive; most attempts run out of epic apparatus in a paragraph and finish as ordinary prose.",
+        "aka": ["mock-heroic", "mock epic"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/irony_family", "narrative_structures/tragedy_comedy_satire"]
+      },
+      {
+        "name": "travesty deflation",
+        "definition": "The comic use of the figure: the dignified subject is kept and the register is dropped, so the grand thing is narrated in the vocabulary of the small.",
+        "example": "Then Achilles, who had been in a mood since roughly page four, refused to come to work.",
+        "effect": "Reduces the subject's protective distance and puts the reader on level terms with it.",
+        "register": "satire, comic writing",
+        "caution": "Reads as vandalism if the reader's attachment to the subject is stronger than their appetite for the joke.",
+        "aka": ["travesty"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/irony_family"
+      },
+      {
+        "name": "epigrammatic turn",
+        "definition": "The comic use of the figure: a compact statement whose second half inverts or paradoxically qualifies the first, so the whole thought fits in one breath.",
+        "example": "I can resist everything except temptation.",
+        "effect": "Reads as wisdom and functions as a joke, which lets a comic line survive being quoted out of context.",
+        "register": "essay, comedy of manners",
+        "caution": "A page of epigrams reads as a page of performance; the form has no capacity for uncertainty.",
+        "aka": ["epigram"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/argumentation_figures"
+      },
+      {
+        "name": "chiastic quip",
+        "definition": "The comic use of the figure: the same terms are returned in reversed order, and the reversal is made to assert something the original order denied.",
+        "example": "He did not write to be read; he was read for not writing.",
+        "effect": "The symmetry reads as proof, which is why the form is funniest when the claim is plainly false.",
+        "register": "essay, comic writing",
+        "caution": "The most overused wit figure in nonfiction; readers now hear the shape and discount the content.",
+        "aka": ["chiasmus", "antimetabole"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/balance_and_antithesis_figures"
+      },
+      {
+        "name": "asteismus retort",
+        "definition": "The comic use of the figure: a reply that takes the previous speaker's word and returns it in a different sense, politely.",
+        "example": "\"I hope I'm not interrupting.\" \"Hope is good.\"",
+        "effect": "Wins the exchange without raising the temperature, which reads as competence rather than aggression.",
+        "register": "fiction, dialogue",
+        "caution": "Needs the previous speaker's exact word; approximate retorts land as ordinary disagreement.",
+        "aka": ["asteismus"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/wordplay_and_word_form_figures", "interaction_moves/dialogue_beats"]
+      },
+      {
+        "name": "charientismus deflection",
+        "definition": "The comic use of the figure: a hostile remark is answered with a joke rather than a defence, so the hostility is acknowledged and refused in one move.",
+        "example": "\"Nobody here rates your work.\" \"Then we finally agree about something.\"",
+        "effect": "Transfers the awkwardness back to the attacker without escalating, and shows a character's composure economically.",
+        "register": "fiction, dialogue",
+        "caution": "Deflecting a serious charge with a joke can read as evasion; the reader keeps score.",
+        "aka": ["charientismus"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/wordplay_and_word_form_figures", "interaction_moves/status_transactions"]
+      },
+      {
+        "name": "malapropism gag",
+        "definition": "The comic use of the figure: a wrong word close in sound to the right one, chosen so that the wrong sense is also, accidentally, apt.",
+        "example": "He described himself as a self-defecating man, and on the evidence he was right.",
+        "effect": "Characterizes and jokes at once; the reader learns the speaker's reach exceeds their vocabulary.",
+        "register": "fiction, comic writing",
+        "caution": "Random near-misses are not funny; the substituted word has to mean something in the context.",
+        "aka": ["malapropism", "acyrologia"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["diction_and_register/diction_faults", "rhetorical_figures/vices_and_decorum_figures"]
+      },
+      {
+        "name": "wellerism twist",
+        "definition": "The comic use of the figure: a proverb or platitude is completed by an attribution and a situation that make its blandness monstrous.",
+        "example": "\"Everything in moderation,\" as the man said, sawing through the second leg.",
+        "effect": "Lets a cliché be quoted and destroyed in the same sentence.",
+        "register": "comic writing, folk idiom",
+        "caution": "Depends on the proverb being genuinely familiar; an invented platitude has nothing to subvert.",
+        "aka": ["wellerism"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/wordplay_and_word_form_figures"
+      },
+      {
+        "name": "fourth-wall aside",
+        "definition": "The comic use of the figure: the narration briefly acknowledges the reader or its own constructedness, converting a limitation of the text into a joke about the text.",
+        "example": "There were four more speeches. You are being spared them, at some cost to accuracy.",
+        "effect": "Buys goodwill by admitting what the reader already suspects, and can be used to skip material honestly.",
+        "register": "comic nonfiction, metafiction",
+        "caution": "Each use spends some of the reader's immersion; in a piece that also wants to move them, spend sparingly.",
+        "aka": ["breaking the fourth wall"],
+        "tags": ["figure", "comic use"],
+        "see_also": ["rhetorical_figures/question_and_address_figures", "discourse_moves/reader_management_moves"]
+      },
+      {
+        "name": "mock encomium",
+        "definition": "The comic use of the figure: sustained formal praise of something worthless, the form's dignity kept intact so that the reader supplies the verdict.",
+        "example": "In defence of the queue: it is the only institution in this country that treats everybody identically badly.",
+        "effect": "Argues by praising, which forces the reader to construct the criticism themselves and therefore to believe it.",
+        "register": "satire, essay",
+        "caution": "Some readers will take it straight, and the praise is what they will quote.",
+        "aka": ["paradoxical encomium"],
+        "tags": ["figure", "comic use"],
+        "see_also": "rhetorical_figures/irony_family"
+      }
+    ],
+    "comic_registers": [
+      {
+        "name": "dry wit",
+        "definition": "A register produced by holding the vocabulary and syntax at their most neutral while the content does something outrageous, so the humor is carried entirely by the mismatch.",
+        "example": "The negotiation concluded at four. By five the building had a new owner and I had a cardboard box.",
+        "effect": "Reads as intelligence rather than as joking, which lets serious material stay serious around it.",
+        "register": "fiction and nonfiction",
+        "caution": "Invisible to some readers; a whole book in dry wit will be described by someone as humourless.",
+        "tags": ["register", "understated"],
+        "see_also": ["tones_and_moods/comic_registers", "pov_and_narration/narrative_voice_textures"]
+      },
+      {
+        "name": "whimsy",
+        "definition": "A register produced by arbitrary invention treated matter-of-factly at small scale — details that follow no rule but are reported as though they did.",
+        "example": "The library's cat had a shelfmark. Nobody remembered assigning it.",
+        "effect": "Signals a world where the writer is playing and no harm is coming, which is a specific and restful pleasure.",
+        "register": "fiction, light essay",
+        "caution": "Whimsy with nothing at stake is the fastest route to twee; anchor it to something the reader can lose.",
+        "tags": ["register", "invention"],
+        "see_also": "tones_and_moods/comic_registers"
+      },
+      {
+        "name": "absurdism",
+        "definition": "A register produced by denying causal or moral sense at the level of the world rather than the sentence, and then reporting that world in ordinary declarative prose.",
+        "example": "The tribunal has been sitting for nine years. The charge has not yet been read. Attendance is compulsory.",
+        "effect": "Produces unease and laughter at the same time, because the reader can find no position from which the situation is fixable.",
+        "register": "fiction, satire",
+        "caution": "Requires flat, precise sentences; absurd content in absurd prose reads as noise.",
+        "tags": ["register", "worldbuilding"],
+        "see_also": ["tones_and_moods/comic_registers", "themes_and_questions/philosophical_questions"]
+      },
+      {
+        "name": "gallows humor",
+        "definition": "A register produced from inside a genuinely bad situation by the people it is happening to, its licence coming from the speaker's own exposure.",
+        "example": "\"At least we'll be able to see the whole thing from up here.\"",
+        "effect": "Demonstrates the speaker's endurance without any statement about endurance being made.",
+        "register": "fiction and nonfiction",
+        "caution": "The licence is not transferable; the same line from an observer outside the danger is contempt.",
+        "tags": ["register", "dark"],
+        "see_also": "tones_and_moods/comic_registers"
+      },
+      {
+        "name": "cringe comedy",
+        "definition": "A register produced by holding the reader inside a social failure past the point of comfort and refusing to cut away.",
+        "example": "He finished the toast. Then he added a second paragraph. The bride's mother examined the tablecloth.",
+        "effect": "The reader's own embarrassment becomes the material, which makes it unusually vivid and unusually easy to overdose on.",
+        "register": "fiction, comic memoir",
+        "caution": "Needs an exit; sustained without relief it converts to distress and readers leave.",
+        "tags": ["register", "discomfort"],
+        "see_also": ["tones_and_moods/comic_registers", "scene_patterns/scene_shapes"]
+      },
+      {
+        "name": "camp",
+        "definition": "A register produced by taking the artificial, the excessive, and the failed seriously on their own terms, so that sincerity and irony are held simultaneously rather than alternately.",
+        "example": "The wallpaper was a crime and she had chosen it deliberately, twice.",
+        "effect": "Lets a writer love something and know it is ridiculous without either position cancelling the other.",
+        "register": "fiction, essay",
+        "caution": "Camp performed contemptuously is just mockery; the affection has to be real for the register to exist.",
+        "tags": ["register", "artifice"],
+        "see_also": "tones_and_moods/comic_registers"
+      },
+      {
+        "name": "snark",
+        "definition": "A register produced by a running current of dismissive evaluation carried in adjectives and asides rather than in stated arguments.",
+        "example": "The report — all ninety brave pages of it — concludes that more research is needed.",
+        "effect": "Fast, cheap, and immediately legible; establishes a position without spending a paragraph defending it.",
+        "register": "informal, comic nonfiction",
+        "caution": "Costs credibility at a steady rate; sustained snark tells the reader you had no argument, only a tone.",
+        "tags": ["register", "dismissive"],
+        "see_also": ["tones_and_moods/comic_registers", "diction_and_register/attitude_markers"]
+      },
+      {
+        "name": "screwball comedy",
+        "definition": "A register produced by tempo: overlapping speech, no dead beats, characters who are equally quick and equally wrong, with plot advanced through argument rather than around it.",
+        "example": "\"You can't be serious.\" \"I'm always serious.\" \"That's the least true thing you've said today.\" \"The day's young.\"",
+        "effect": "Substitutes pace for jokes; the reader laughs at the velocity rather than at any individual line.",
+        "register": "fiction, dialogue",
+        "caution": "Requires two matched combatants; one quick character and one slow one produces bullying, not screwball.",
+        "tags": ["register", "tempo"],
+        "see_also": ["tones_and_moods/comic_registers", "interaction_moves/dialogue_beats"]
+      },
+      {
+        "name": "farce",
+        "definition": "A register produced by mechanical plot logic: escalating misunderstanding, mistaken identity, and physical constraint, with characters whose reasoning is sound and whose information is wrong.",
+        "example": "He hides the auditor in the cupboard, which is where the second auditor is already waiting.",
+        "effect": "The reader is given full information and the pleasure of watching everyone operate without it.",
+        "register": "fiction, comic drama",
+        "caution": "Farce is a machine and needs its parts placed early; improvised complications read as authorial panic.",
+        "tags": ["register", "plot"],
+        "see_also": ["tones_and_moods/comic_registers", "narrative_structures/tragedy_comedy_satire"]
+      },
+      {
+        "name": "slapstick",
+        "definition": "A register produced by the body's collision with the physical world, rendered in prose through short verbs and precise sequence rather than adjectives.",
+        "example": "He stepped back, met the mop, sat in the bucket, and stayed there.",
+        "effect": "Reads fast and needs no cultural knowledge, which makes it the most portable comic register.",
+        "register": "fiction, comic writing",
+        "caution": "On the page slapstick lives or dies on verb choice and beat count; any explanation of the physics kills it.",
+        "tags": ["register", "physical"],
+        "see_also": ["tones_and_moods/comic_registers", "syntactic_constructions/sentence_length_moves"]
+      },
+      {
+        "name": "comedy of manners",
+        "definition": "A register produced by a codified social system whose rules the reader learns, so that every breach — a wrong form of address, a visit at the wrong hour — is legible as a joke.",
+        "example": "She called him by his first name in front of the committee, and the committee never recovered.",
+        "effect": "Turns tiny actions into large events, which lets a comic scene carry real consequence.",
+        "register": "fiction, essay",
+        "caution": "The code must be taught before it is broken; a reader who does not know the rule sees nothing happen.",
+        "tags": ["register", "social"],
+        "see_also": ["tones_and_moods/comic_registers", "narrative_structures/tragedy_comedy_satire"]
+      },
+      {
+        "name": "horatian mode",
+        "definition": "A satirical register produced by placing the satirist inside the folly being described — urbane, amused, implicated — so the correction reads as an invitation.",
+        "example": "We have all sat through this meeting. Some of us called it.",
+        "effect": "Keeps the reader from getting defensive, which is the only condition under which satire changes anyone's mind.",
+        "register": "essay, comic nonfiction",
+        "caution": "Its tolerance can read as complicity when the subject is genuinely serious.",
+        "aka": ["horatian satire"],
+        "tags": ["register", "satire"],
+        "see_also": ["rhetorical_figures/irony_family", "narrative_structures/tragedy_comedy_satire"]
+      },
+      {
+        "name": "juvenalian mode",
+        "definition": "A satirical register produced by moral distance and formal elevation — the satirist stands outside and above, and the vocabulary of contempt is deployed in the syntax of judgement.",
+        "example": "They will be remembered, if at all, as the men who costed the collapse and approved it under budget.",
+        "effect": "Supplies force where amusement would be inadequate to the subject.",
+        "register": "essay, polemic",
+        "caution": "Requires the reader to already share the moral premise; without it the register reads as unearned superiority.",
+        "aka": ["juvenalian satire"],
+        "tags": ["register", "satire"],
+        "see_also": ["rhetorical_figures/irony_family", "narrative_structures/tragedy_comedy_satire"]
+      },
+      {
+        "name": "menippean mode",
+        "definition": "A satirical register that attacks mental attitudes rather than persons, produced by piling up jargons, digressions, catalogues and pedantries until the intellectual world itself looks absurd.",
+        "example": "Chapter nine is a bibliography of works that do not exist, annotated at length by a scholar who does.",
+        "effect": "Targets systems of thought that no individual villain can stand for.",
+        "register": "satire, experimental nonfiction",
+        "caution": "Its own methods are the ones it mocks; readers can lose the joke inside the apparatus.",
+        "aka": ["menippean satire", "anatomy"],
+        "tags": ["register", "satire"],
+        "see_also": "narrative_structures/tragedy_comedy_satire"
+      },
+      {
+        "name": "irreverence",
+        "definition": "A register produced by consistently describing sanctified things in the vocabulary of the ordinary, refusing the special diction their status normally commands.",
+        "example": "The founding document is a rental agreement with a preamble.",
+        "effect": "Removes the protective register around a subject so that it can be argued with.",
+        "register": "essay, comic nonfiction",
+        "caution": "Effective once per subject; a voice irreverent about everything has no leverage left for anything.",
+        "tags": ["register", "deflation"],
+        "see_also": "tones_and_moods/comic_registers"
+      }
+    ],
+    "humor_faults": [
+      {
+        "name": "joke explained",
+        "definition": "The sentence after the punchline restates the mechanism of the joke, telling the reader what they had just worked out for themselves.",
+        "example": "…and the ladder went into the pond. Which was funny, because he had spent the whole morning insisting he knew what he was doing.",
+        "effect": "Retracts the reader's participation; the laugh they were having is replaced by a lesson.",
+        "polarity": "fault",
+        "caution": "Usually a symptom of not trusting the setup; fix the setup rather than adding the gloss.",
+        "tags": ["fault", "overwriting"]
+      },
+      {
+        "name": "buried punchline",
+        "definition": "The punch word is followed by attribution, qualification, or an adverbial, so the sentence continues past its own payoff.",
+        "example": "\"…and that is when the horse got into the office,\" he said, laughing, as they walked back towards the car park.",
+        "effect": "The laugh has to travel over the trailing material and rarely survives the trip.",
+        "polarity": "fault",
+        "caution": "The commonest single defect in comic prose; the fix is almost always to move the punch word to the terminal slot.",
+        "tags": ["fault", "placement"],
+        "see_also": ["syntactic_constructions/sentence_architectures", "sound_and_rhythm/prose_cadence"]
+      },
+      {
+        "name": "punching down",
+        "definition": "The joke's butt is a figure with less power than the writer and the reader, so the humor's engine is the reader's security rather than any incongruity.",
+        "example": "A running gag at the expense of a cleaner's English in a book written by and for people who employ cleaners.",
+        "effect": "Splits the readership: those above the target laugh, those beside it close the book, and the writer sees only the first group.",
+        "polarity": "fault",
+        "caution": "Ask who in the scene could not answer back; if the joke depends on their inability, the humor is doing something else.",
+        "tags": ["fault", "ethics"],
+        "see_also": "themes_and_questions/moral_dilemmas"
+      },
+      {
+        "name": "misaimed target",
+        "definition": "The joke lands on a different figure from the one the writer intended, usually because the intended target is offstage and someone present absorbs the hit.",
+        "example": "A passage meant to satirize a policy that reads as contempt for the people the policy failed.",
+        "effect": "The reader draws a conclusion about the writer's sympathies that the writer never inspected.",
+        "polarity": "fault",
+        "caution": "Name the butt explicitly during revision; if you cannot name it, the reader will and you will not like the answer.",
+        "tags": ["fault", "ethics"]
+      },
+      {
+        "name": "comic tic",
+        "definition": "One comic move — a bracketed aside, a deadpan one-word paragraph, a signature construction — repeated so often that the reader can predict it by position.",
+        "example": "Every third paragraph closing on a two-word fragment. Every time.",
+        "effect": "Predicted humor is not humor; the reader begins skipping to the next paragraph's opening.",
+        "polarity": "fault",
+        "caution": "The writer is the last to notice; count the instances mechanically rather than by feel.",
+        "tags": ["fault", "repetition"],
+        "see_also": "diction_and_register/diction_faults"
+      },
+      {
+        "name": "joke saturation",
+        "definition": "Comic density so high that no line is allowed to be ordinary, leaving nothing for the jokes to be measured against.",
+        "example": "A page on which every sentence has a swerve, an aside, or a punch word.",
+        "effect": "Laughs stop compounding and start cancelling; readers report a funny book as exhausting.",
+        "polarity": "fault",
+        "caution": "Comedy needs unfunny material as ballast; if a paragraph has nothing to lose, its jokes cost the reader nothing to enjoy.",
+        "tags": ["fault", "density"]
+      },
+      {
+        "name": "whimsy without stakes",
+        "definition": "Invention with no consequence attached — talking objects, arbitrary rules, charming coincidence — in a story where nothing can be lost.",
+        "example": "The magical bakery where everything works out, described at length, twice.",
+        "effect": "The reader disengages because there is nothing to attend to; charm without jeopardy reads as decoration.",
+        "polarity": "fault",
+        "caution": "The commonest failure of light comic fiction; attach one real loss and the same whimsy starts working.",
+        "tags": ["fault", "stakes"],
+        "see_also": "stakes_and_stasis/personal_stakes"
+      },
+      {
+        "name": "telegraphed punchline",
+        "definition": "The setup discloses the second reading before the punch arrives, usually through a needless detail planted so visibly that the reader files it.",
+        "example": "Mentioning, in the setup, that the cupboard was the one the auditor was hiding in.",
+        "effect": "The reader arrives at the punchline before the sentence does and reads the rest as confirmation.",
+        "polarity": "fault",
+        "caution": "Setups should be checkable in hindsight, not readable in advance; if the plant is doing work, disguise it as ordinary scene furniture.",
+        "tags": ["fault", "setup"]
+      },
+      {
+        "name": "unearned tonal break",
+        "definition": "A comic register is dropped into a passage that has not been prepared for it, so the shift registers as the writer losing the thread rather than as contrast.",
+        "example": "A wisecrack in the third sentence of a death scene, in a book with no other jokes in that register.",
+        "effect": "The reader stops believing the seriousness that preceded it, retroactively.",
+        "polarity": "fault",
+        "caution": "Tonal range must be established early; a book that has been funny throughout can be funny at a funeral, and a solemn one cannot.",
+        "tags": ["fault", "register"],
+        "see_also": "tones_and_moods/comic_registers"
+      },
+      {
+        "name": "scene-stopping quip",
+        "definition": "A joke good enough that the scene has to pause and acknowledge it, so the comic line costs more momentum than it returns.",
+        "example": "The best line in the chapter, delivered mid-argument, after which nobody can plausibly continue arguing.",
+        "effect": "The reader enjoys the line and loses the scene.",
+        "polarity": "fault",
+        "caution": "Cut the joke or move it to a scene exit; the hardest revision in comic writing is deleting the funniest sentence.",
+        "tags": ["fault", "pacing"],
+        "see_also": "scene_patterns/pacing_moves"
+      },
+      {
+        "name": "author laughing first",
+        "definition": "The prose signals that a line was funny — through a character's laughter, an italic, an exclamation, or a narrator's aside — instead of letting it be funny.",
+        "example": "\"…and the horse got into the office!\" She grinned. It really was quite funny.",
+        "effect": "Transfers the judgement from the reader to the page, and readers refuse the transfer.",
+        "polarity": "fault",
+        "caution": "Search for reaction verbs near your jokes; most can be cut with no loss.",
+        "tags": ["fault", "signalling"],
+        "see_also": "character_and_persona/voice_and_speech_traits"
+      },
+      {
+        "name": "unescalated repeat",
+        "definition": "A gag returns in the same form and at the same strength, without shortening, variation, or a raise, so repetition does the work escalation should.",
+        "example": "The leaf blower is mentioned four times in the same eleven words.",
+        "effect": "The reader reads it as an editing failure rather than as a running gag.",
+        "polarity": "fault",
+        "caution": "Each return must cost fewer words or raise the stakes; if neither, cut the return.",
+        "tags": ["fault", "repetition"]
+      },
+      {
+        "name": "perishable topical gag",
+        "definition": "A joke resting entirely on a reference whose currency will expire before the book does, with no fallback meaning for a reader who misses it.",
+        "example": "A punchline that requires knowing which minister resigned in the month of writing.",
+        "effect": "Works for one season of readers and reads as a blank space for every reader after that.",
+        "polarity": "fault",
+        "caution": "In books, prefer topical references that still parse as a general type once the specific instance is forgotten.",
+        "tags": ["fault", "reference"],
+        "see_also": "rhetorical_situations/occasion_types"
+      },
+      {
+        "name": "pun pile-up",
+        "definition": "Several puns in close succession, so that the reader's attention shifts from the subject to the writer's ingenuity and stays there.",
+        "example": "Three bakery puns in one paragraph, none of which is about the bakery.",
+        "effect": "Converts the piece into a performance the reader is now grading rather than enjoying.",
+        "polarity": "fault",
+        "caution": "One pun per page is a working ceiling for most prose; puns do not amortize.",
+        "tags": ["fault", "wordplay"],
+        "see_also": "rhetorical_figures/wordplay_and_word_form_figures"
+      },
+      {
+        "name": "zaniness without a joke",
+        "definition": "Oddity substituted for comic structure — random objects, arbitrary quirks, escalating strangeness — with no incongruity that resolves.",
+        "example": "The narrator's uncle keeps eels in the piano. Nothing follows from this.",
+        "effect": "The reader registers effort and no payoff, and stops crediting the next strange detail.",
+        "polarity": "fault",
+        "caution": "Test each oddity by asking what it makes possible; if the answer is nothing, it is decoration.",
+        "tags": ["fault", "absurdism"]
+      },
+      {
+        "name": "overlong setup",
+        "definition": "Setup material extended well past what the misdirection requires, so the reader's attention is spent before the punch arrives.",
+        "example": "Two paragraphs of the uncle's biography before the one-line joke about his holidays.",
+        "effect": "The punch is measured against the investment and found insufficient, however good it is.",
+        "polarity": "fault",
+        "caution": "The exception is the shaggy-dog story, where the disproportion is the joke and must be signalled as deliberate.",
+        "tags": ["fault", "economy"]
+      },
+      {
+        "name": "redundant topper",
+        "definition": "A second punch that restates the first at equal strength instead of raising it, so the reader gets the same joke twice.",
+        "example": "\"He's not licensed.\" \"He doesn't have a licence.\"",
+        "effect": "Reads as the writer failing to choose between two drafts of one line.",
+        "polarity": "fault",
+        "caution": "If both lines are good, the weaker one still has to go; toppers only work upward.",
+        "tags": ["fault", "structure"]
+      },
+      {
+        "name": "reflexive sarcasm",
+        "definition": "Sarcasm used as the default relation to every subject, so that no proposition in the piece is ever stated in its own voice.",
+        "example": "A chapter in which every institution is named with an ironic epithet and none is described.",
+        "effect": "The reader cannot locate the writer's actual position and stops looking for it.",
+        "polarity": "fault",
+        "caution": "Sarcasm is a spike, not a baseline; the tell is that removing it leaves no claim behind.",
+        "tags": ["fault", "irony"],
+        "see_also": ["rhetorical_figures/irony_family", "tones_and_moods/comic_registers"]
+      },
+      {
+        "name": "unsharable in-joke",
+        "definition": "A joke whose second reading is available only to the writer or a small circle, left in the text on the strength of how funny it was to them.",
+        "example": "A character named after a colleague, with the joke residing entirely in the resemblance.",
+        "effect": "Outside readers see a flat sentence and infer, correctly, that something is happening they are not part of.",
+        "polarity": "fault",
+        "caution": "The most reliable test is whether the line still works when read by someone who knows nobody involved.",
+        "tags": ["fault", "audience"],
+        "see_also": "diction_and_register/register_levels"
+      },
+      {
+        "name": "escalation past credibility",
+        "definition": "A comic escalation continued past the point where the world can still contain it, so the reader stops believing the scene and therefore stops caring about the joke.",
+        "example": "The apology gag continued until the character apologizes to the United Nations.",
+        "effect": "The prior rungs are retroactively cheapened, because the reader now knows nothing was constrained.",
+        "polarity": "fault",
+        "caution": "Choose the top rung before writing the first; the funniest instance is usually the last one that could actually happen.",
+        "tags": ["fault", "escalation"]
+      },
+      {
+        "name": "smug aside",
+        "definition": "A parenthetical whose comic content is the writer's demonstrated superiority to the material rather than anything in the material.",
+        "example": "(One assumes they were pleased with themselves. One assumes a great deal, on this evidence.)",
+        "effect": "Invites the reader into a club whose only membership requirement is agreeing with the writer, and readers who notice the invitation decline it.",
+        "polarity": "fault",
+        "caution": "Test by deleting the aside: if nothing is lost but the writer's presence, it was smugness.",
+        "tags": ["fault", "persona"],
+        "see_also": "diction_and_register/self_mention_and_stance"
+      },
+      {
+        "name": "uniform wit",
+        "definition": "Every character is funny in the same register and at the same rate, so the humor comes from the author rather than from anyone in the book.",
+        "example": "The detective, the coroner, and the nine-year-old all deliver the same shape of dry one-liner.",
+        "effect": "Dialogue stops characterizing; the reader hears one voice performing several parts.",
+        "polarity": "fault",
+        "caution": "Assign comic modes deliberately — who is witty, who is unintentionally funny, who is not funny at all — and hold the assignment.",
+        "tags": ["fault", "voice"],
+        "see_also": "character_and_persona/voice_and_speech_traits"
+      }
+    ],
+    "satire_techniques": [
+      {
+        "name": "lampoon",
+        "definition": "A short, frankly hostile satiric attack on a named individual, in which the target is the point and the wit is the weapon rather than the subject.",
+        "example": "Four hundred words on a minister's speech that quotes only his subordinate clauses, in order.",
+        "effect": "Concentrates contempt into a form that circulates; the audience's pleasure is in the accuracy of the hit rather than in any general observation.",
+        "register": "polemic, columns, verse satire",
+        "caution": "A lampoon lives entirely on its target's standing — attack someone the reader has no stake in and the piece is merely unkind; attack someone with less power and it is the punching-down fault under a classical name.",
+        "aka": ["pasquinade", "squib"],
+        "tags": ["satire", "attack"],
+        "see_also": ["rhetorical_figures/irony_family", "rhetorical_figures/emotional_appeal_figures"]
+      },
+      {
+        "name": "verbal caricature",
+        "definition": "Selecting the two or three features of a person that are already characteristic and enlarging only those, leaving everything else at scale — the graphic caricaturist's method carried out in prose.",
+        "example": "He arrived with the folder, the second folder, and the expression of a man who had been promised a third.",
+        "effect": "Produces a likeness the reader recognizes faster than a fair description would achieve, because exaggeration of the distinguishing feature is how recognition works.",
+        "register": "profile writing, comic fiction, political sketch",
+        "caution": "Caricature that enlarges a feature the subject did not have is not caricature but invention, and the reader who knows the subject stops trusting the writer's other portraits.",
+        "tags": ["satire", "portraiture"],
+        "see_also": ["rhetorical_figures/description_figures", "character_and_persona/physical_and_manner_tells"]
+      },
+      {
+        "name": "the sustained ironic persona",
+        "definition": "Adopting a speaker who sincerely holds the position being attacked, and arguing that position with complete internal consistency to its monstrous conclusion, without ever stepping outside the mask — Swift's Modest Proposer as the type.",
+        "example": "A costing paper on the disposal of surplus applicants, written throughout in the vocabulary of value for money, which never once notices what it is proposing.",
+        "effect": "The reader supplies the outrage the text withholds, and the outrage is stronger for being their own; the argument's monstrousness is demonstrated rather than asserted.",
+        "register": "essay, formal prose satire",
+        "caution": "The mask must not slip and the logic must not cheat — the persona has to be smarter than the reader expects. It is also the technique most vulnerable to being read straight.",
+        "aka": ["the modest proposal move", "the impersonated advocate"],
+        "tags": ["satire", "persona", "irony"],
+        "see_also": ["rhetorical_figures/irony_family", "humor_and_wit/comic_registers"]
+      },
+      {
+        "name": "form parody",
+        "definition": "Imitating the structural conventions of a genre or document type — the shape, the sections, the apparatus — while filling them with incongruous content.",
+        "example": "A break-up written as a service incident report, complete with root cause, impact window and remediation owner.",
+        "effect": "The form carries the joke: every heading the reader already knows arrives with the wrong thing under it.",
+        "register": "comic essay, sketch, humor writing",
+        "caution": "Requires that readers know the form well enough to hear the deviations; a parody of an obscure genre is an exercise the reader watches from outside.",
+        "tags": ["satire", "parody", "form"],
+        "see_also": ["rhetorical_figures/irony_family", "genre_conventions/convention_moves"]
+      },
+      {
+        "name": "style parody",
+        "definition": "Imitating an individual writer's or institution's manner — sentence rhythm, favourite constructions, characteristic diction — rather than the shape of the form they write in.",
+        "example": "A paragraph about buying milk in which every noun arrives with two adjectives and every sentence ends on a colon and a list.",
+        "effect": "Makes a style audible as a style, which is something no amount of description of it achieves.",
+        "register": "literary parody, criticism, comic writing",
+        "caution": "Style parody without a target beyond the style itself is a stunt; the technique earns its place when the manner turns out to be doing something the writer wants noticed.",
+        "tags": ["satire", "parody", "voice"],
+        "see_also": ["rhetorical_figures/irony_family", "diction_and_register/register_levels"]
+      },
+      {
+        "name": "tic extraction",
+        "definition": "Isolating the small repeated markers of a target's style — a filler phrase, a preferred hedge, a habitual qualification — and raising their density until the manner becomes visible.",
+        "example": "Every sentence beginning 'To be fair', including the one that is not fair to anybody.",
+        "effect": "The reader who had absorbed the tic unconsciously now cannot unhear it, in the parody or in the original.",
+        "register": "parody, criticism, political sketch",
+        "caution": "Density is the whole craft: too low and the reader misses it, too high and the piece becomes a list of one joke. Three or four instances across a page is usually the range.",
+        "tags": ["satire", "parody", "diction"],
+        "see_also": ["diction_and_register/hedges", "character_and_persona/voice_and_speech_traits"]
+      },
+      {
+        "name": "deadpan documentation",
+        "definition": "Reporting an absurd state of affairs in the flattest available register — dates, procedures, quantities — with no signal that anything is wrong.",
+        "example": "The committee met eleven times to determine which committee should determine the meeting schedule, and reported in April.",
+        "effect": "The gap between the neutrality of the reporting and the absurdity of the content is where the reader's laugh forms; nothing has been claimed, so nothing can be denied.",
+        "register": "comic nonfiction, institutional satire, reportage with a comic edge",
+        "caution": "The facts must be accurate and checkable, or the piece is inventing what it purports to document; the technique's authority is entirely borrowed from the register it imitates.",
+        "tags": ["satire", "deadpan"],
+        "see_also": ["humor_and_wit/comic_registers", "pov_and_narration/narrative_voice_textures"]
+      },
+      {
+        "name": "mock-institutional voice",
+        "definition": "Writing in the collective, agentless, euphemism-bearing register of an institution — the passive constructions, the nominalizations, the unnamed decider — so that the register itself is the object of attack.",
+        "example": "Concerns were raised. A process was initiated. The individual is no longer with the organisation.",
+        "effect": "Demonstrates what the register is for: every construction that removes an agent is shown removing one, in a case where the reader wants the agent named.",
+        "register": "institutional satire, comic essay",
+        "caution": "Sustaining it past a page becomes as tiring as the real thing; the strongest version alternates with one plain sentence that says who did it.",
+        "tags": ["satire", "voice", "institutional"],
+        "see_also": ["pov_and_narration/narrative_voice_textures", "syntactic_constructions/focus_constructions"]
+      },
+      {
+        "name": "the editorial-note gag",
+        "definition": "Staging the apparatus of editing inside the text — a bracketed sic, a correction that makes it worse, an editor's footnote quarrelling with the author — so the machinery of publication becomes part of the joke.",
+        "example": "The chairman's statement is reproduced in full, with one bracketed note: [sic — the figure was in the previous paragraph].",
+        "effect": "Lets the writer comment without leaving the deadpan surface, because the comment is coming from a different, ostensibly neutral, office.",
+        "register": "comic nonfiction, satirical journalism, footnoted fiction",
+        "caution": "One bracketed intervention is a scalpel; three is a running gag, and after that the notes are simply the writer talking with extra punctuation.",
+        "aka": ["the bracketed sic", "the corrective footnote gag"],
+        "tags": ["satire", "apparatus"],
+        "see_also": ["dialogue_mechanics/typography_of_speech", "openings_and_closings/framing_devices"]
+      },
+      {
+        "name": "pseudo-scholarship apparatus",
+        "definition": "Fabricated scholarly machinery — footnotes to non-existent authorities, a bibliography of invented editions, a translator's preface — deployed so that the pretension of learning is the target.",
+        "example": "A three-page argument about the correct plural of a bureaucratic acronym, with nine footnotes and a note on the manuscript tradition.",
+        "effect": "Attacks the intellectual manner rather than any proposition, which is the characteristic operation of Menippean satire.",
+        "register": "learned comic writing, academic satire",
+        "caution": "Fake citations that could be mistaken for real ones outside the satire's frame are a real hazard once a passage is quoted alone; make the apparatus visibly impossible rather than merely unverifiable.",
+        "tags": ["satire", "apparatus", "menippean"],
+        "see_also": ["humor_and_wit/comic_registers", "narrative_structures/experimental_forms"]
+      },
+      {
+        "name": "target-vehicle separation",
+        "definition": "The structural distinction between what a satire is ostensibly about — the vehicle, the island, the animals, the memo — and what it is actually attacking.",
+        "example": "A dispute over the height of a hedge that is conducted entirely in the vocabulary of national sovereignty.",
+        "effect": "Gives the satirist deniability, protects against libel and censorship, and lets the reader arrive at the real target with the pleasure of having decoded it.",
+        "register": "allegorical and political satire",
+        "caution": "The separation must be crossable: too tight and the piece is a coded pamphlet, too loose and readers enjoy the vehicle and never find the target — which is the standard failure of satirical fiction.",
+        "tags": ["satire", "structure"],
+        "see_also": ["rhetorical_figures/metaphor_family", "themes_and_questions/recurring_motifs"]
+      },
+      {
+        "name": "diminution",
+        "definition": "Shrinking the target — its scale, its dignity, its vocabulary — so that its pretensions become visible against its actual size, as Swift's Lilliput does to court politics.",
+        "example": "The strategy review described throughout in the units of a school committee: the wall chart, the second wall chart, the vote on the wall charts.",
+        "effect": "Removes the elevation that made the target's self-description plausible, without contradicting a single fact about it.",
+        "register": "political and institutional satire",
+        "caution": "Diminution applied to something genuinely small is only bullying; the engine requires a gap between the target's claimed and actual stature.",
+        "aka": ["belittlement", "the lilliput move"],
+        "tags": ["satire", "engine"],
+        "see_also": ["rhetorical_figures/irony_family", "humor_and_wit/incongruity_engines"]
+      },
+      {
+        "name": "magnification",
+        "definition": "The paired opposite engine: enlarging the target until features invisible at ordinary scale become gross — Brobdingnag's pores, the small meanness rendered at monument size.",
+        "example": "The expenses claim for four pounds sixty rendered with the ceremony of a treaty signing, over two pages.",
+        "effect": "Forces attention onto what the target's own scale conceals, and lets the reader judge a detail they would otherwise have passed.",
+        "register": "political and moral satire",
+        "caution": "Magnification and diminution work as a system — a satire that only ever enlarges reads as hysteria, one that only shrinks as sneering. The alternation is what makes the judgement look proportionate.",
+        "aka": ["the brobdingnag move"],
+        "tags": ["satire", "engine"],
+        "see_also": ["rhetorical_figures/amplification_and_addition_figures", "humor_and_wit/incongruity_engines"]
+      },
+      {
+        "name": "satiric reductio",
+        "definition": "Granting the target's premise entirely and following it, without cheating, to the conclusion the target will not own.",
+        "example": "If the criterion really is cost per outcome, the paper concludes, the department should be closed and the money posted to households, and it works out the postage.",
+        "effect": "Leaves the target with only two exits — abandon the premise or accept the conclusion — and either is a win the reader watches happen.",
+        "register": "argumentative satire, comic essay",
+        "caution": "Every step must be one the target would actually take; a smuggled extra premise turns the piece into a straw man wearing a satirist's mask, and opponents will find the join.",
+        "tags": ["satire", "argument"],
+        "see_also": ["interaction_moves/argumentative_exchange_moves", "arc_shapes/epistemic_arcs"]
+      },
+      {
+        "name": "the satiric catalogue",
+        "definition": "A long enumeration whose items are individually plausible and collectively an indictment — the Menippean pile-up of jargons, procedures, products or qualifications.",
+        "example": "The nine mandatory trainings, listed in full, with their durations, immediately after the sentence about the vacancy freeze.",
+        "effect": "The verdict emerges from the length and the arrangement; the writer never states it and never has to.",
+        "register": "institutional and menippean satire",
+        "caution": "The list must be real or exactly plausible, and it must end one item before the reader's patience does; a catalogue kept going for its own sake becomes the tedium it was describing.",
+        "tags": ["satire", "enumeration", "menippean"],
+        "see_also": ["humor_and_wit/comic_structures", "rhetorical_figures/amplification_and_addition_figures"]
+      },
+      {
+        "name": "literalized euphemism",
+        "definition": "Taking an institution's own softening term and staging what it literally describes, so the euphemism has to bear its referent in the reader's presence.",
+        "example": "A short scene in which the workforce is, precisely and physically, right-sized.",
+        "effect": "Restores the meaning the vocabulary was designed to suppress, using nothing but the vocabulary itself.",
+        "register": "political and corporate satire",
+        "caution": "Distinct from the joke-shaped literalization of a figure: here the point is not the incongruity but the exposure, and the piece fails if the reader laughs and forgets the term.",
+        "tags": ["satire", "diction"],
+        "see_also": ["humor_and_wit/comic_structures", "rhetorical_figures/metonymy_and_naming_family"]
+      },
+      {
+        "name": "the ingénu narrator",
+        "definition": "A guileless observer — traveller, child, foreigner, newcomer — who reports a society's arrangements accurately because they do not know which parts are supposed to be invisible.",
+        "example": "The new starter's account of why the two systems cannot see each other, which nobody has been able to say aloud for nine years.",
+        "effect": "Licenses the naive question the reader has also been holding, and makes familiar arrangements strange without the writer appearing to editorialize.",
+        "register": "satirical fiction, comic essay, first-week reportage",
+        "caution": "The naif must be consistently naive — a narrator who understands too much on one page and too little on the next is a device the reader can see being operated.",
+        "aka": ["the naive observer", "the traveller's report"],
+        "tags": ["satire", "persona"],
+        "see_also": ["humor_and_wit/comic_personae", "pov_and_narration/narrator_reliability_types"]
+      },
+      {
+        "name": "the pseudonymous persona letter",
+        "definition": "Satire published in the voice and under the name of an invented correspondent with a stated position in the world — a draper, a widow, a concerned ratepayer — sustained across pieces.",
+        "example": "Four letters from a man who describes himself as the only person in the county who has read the entire tender document.",
+        "effect": "The invented standing does work the writer's own could not: an ordinary voice can say things a byline cannot, and the accumulation makes the persona quotable.",
+        "register": "periodical satire, columns, epistolary comic writing",
+        "caution": "In a media environment that circulates single paragraphs, a well-built persona will be quoted as a real person; the frame has to be recoverable from any extract that can travel.",
+        "tags": ["satire", "persona"],
+        "see_also": ["character_and_persona/authorial_personae", "rhetorical_situations/author_personae"]
+      },
+      {
+        "name": "the mock document",
+        "definition": "A complete counterfeit of a real document type — minutes, a risk register, a terms-of-service page — presented without narrative frame and left to be read as the thing it imitates.",
+        "example": "The full text of a fire-safety policy for a building whose only exit is described, in clause nine, as decorative.",
+        "effect": "Delivers the satire in the reader's own encounter with the document, with no narrator standing between them and it.",
+        "register": "print and online satire, comic anthologies",
+        "caution": "The most detachable satiric form and therefore the most often mistaken for genuine; internal impossibility, not a disclaimer at the bottom, is what protects it.",
+        "tags": ["satire", "form"],
+        "see_also": ["narrative_structures/experimental_forms", "genre_conventions/convention_moves"]
+      },
+      {
+        "name": "the satiric definition",
+        "definition": "A dictionary entry whose gloss states the word's operative rather than its official meaning, in the deadpan syntax of lexicography.",
+        "example": "Consultation, n. The interval between a decision and its announcement.",
+        "effect": "Compresses an entire critique into one sentence with a form that dares the reader to disagree with a dictionary.",
+        "register": "aphoristic satire, glossaries, comic reference writing",
+        "caution": "The form is addictive and its returns fall fast; a glossary of forty is a pamphlet of four good ones and thirty-six that show the writer enjoying himself.",
+        "aka": ["the devil's-dictionary entry"],
+        "tags": ["satire", "aphorism"],
+        "see_also": ["rhetorical_figures/definition_and_division_figures", "humor_and_wit/wit_figures"]
+      },
+      {
+        "name": "quotation as indictment",
+        "definition": "Reproducing the target's own words at length, exactly, with no commentary, in a context that makes them answer for themselves — Kraus's method.",
+        "example": "The full paragraph from the annual report, printed under the date of the closure it does not mention.",
+        "effect": "The reader convicts the target, and the writer has asserted nothing that can be disputed; the only editorial act was the choice to reprint.",
+        "register": "political satire, criticism, media commentary",
+        "caution": "Selection is still an argument: a quotation cut before the qualifying clause is contextomy, and the technique's whole authority depends on the extract being fair.",
+        "tags": ["satire", "quotation"],
+        "see_also": ["fallacies_eristic/ambiguity_fallacies", "evidence_types/documentary_and_physical_evidence"]
+      },
+      {
+        "name": "silent juxtaposition",
+        "definition": "Placing two true items side by side — a statement and a date, a policy and a photograph, two sentences from the same speech — and adding nothing.",
+        "example": "The pay award, and beneath it the transcript of the hardship-fund debate from the same afternoon.",
+        "effect": "The inference happens in the white space between the items, where the reader owns it and the writer cannot be accused of having made it.",
+        "register": "satirical journalism, documentary satire",
+        "caution": "Only one inference may be available; if the pairing supports a second reading, the reader draws it and the writer has no way to intervene.",
+        "tags": ["satire", "arrangement"],
+        "see_also": ["scene_patterns/scene_transitions", "discourse_moves/transition_families"]
+      },
+      {
+        "name": "catch-22 construction",
+        "definition": "Building a rule set whose clauses are individually reasonable and jointly inescapable, so that the absurdity is produced by the system rather than asserted about it.",
+        "example": "Appeals must be lodged by a representative, and representatives may only be appointed by someone whose appeal has been heard.",
+        "effect": "Demonstrates institutional irrationality as a structure the reader can trace, which no amount of description of it achieves.",
+        "register": "institutional satire, comic fiction",
+        "caution": "The loop must close cleanly in two or three clauses; a reader who has to be walked through five steps has stopped finding it funny and started finding it explained.",
+        "aka": ["the closed loop rule"],
+        "tags": ["satire", "structure", "institutional"],
+        "see_also": ["humor_and_wit/incongruity_engines", "narrative_structures/experimental_forms"]
+      },
+      {
+        "name": "beast fable",
+        "definition": "Assigning the target's roles to animals whose conventional attributes carry the judgement, so a political argument can be conducted in a form nobody can be sued over.",
+        "example": "The negotiation between the herd and the granary, in which the granary is represented by the mice who live in it.",
+        "effect": "The species does the characterization instantly and the reader's attention goes to the structure of the situation rather than to the personalities.",
+        "register": "allegorical satire, verse fable, children's satire",
+        "caution": "Animal attributes are cultural and stale; a fable that relies on the fox being cunning has spent its only idea in the cast list.",
+        "tags": ["satire", "allegory"],
+        "see_also": ["rhetorical_figures/metaphor_family", "narrative_structures/world_traditions"]
+      },
+      {
+        "name": "carnivalesque inversion",
+        "definition": "Turning the hierarchy upside down for the duration of the piece — the porter runs the board, the ledger is read out at the feast — so that the order's arbitrariness shows in its absence.",
+        "example": "A day in which the complaints are heard by the people who wrote the complaints procedure, in their own waiting room.",
+        "effect": "Makes the arrangement visible as an arrangement, which is what a hierarchy's ordinary operation prevents.",
+        "register": "comic fiction, festival and folk satire, institutional comedy",
+        "caution": "Inversion is licensed play and its politics are ambiguous — the world rights itself at the end, and a satire that stops there has staged a holiday rather than an argument.",
+        "tags": ["satire", "inversion", "bakhtin"],
+        "see_also": ["narrative_structures/tragedy_comedy_satire", "interaction_moves/status_transactions"]
+      },
+      {
+        "name": "the satiric grotesque",
+        "definition": "Rendering the target through bodily excess, distortion and hybridity — the swollen, the leaking, the part-machine — so that disgust does work argument cannot.",
+        "example": "The board described as a single organism with nine mouths and one digestive tract.",
+        "effect": "Produces a physical revulsion that attaches to the target and survives the reader's forgetting the argument attached to it.",
+        "register": "juvenalian satire, comic fiction",
+        "caution": "Grotesque imagery drawn from real bodies — size, illness, disability — stops being satire and becomes the thing it borrows from; the distortion has to be of the target's conduct, not of a body type.",
+        "tags": ["satire", "imagery", "juvenalian"],
+        "see_also": ["metaphor_domains/source_domains", "rhetorical_figures/description_figures"]
+      },
+      {
+        "name": "roman à clef targeting",
+        "definition": "Fictionalizing real people and events closely enough that informed readers can key the characters to their originals, while the fiction remains formally deniable.",
+        "example": "A novel set in an unnamed ministry whose four principals correspond, in order of appearance, to a well-documented set of resignations.",
+        "effect": "Buys the freedom of fiction — interiority, invented scenes, a shaped ending — while keeping the charge of a documented case.",
+        "register": "satirical novel, institutional fiction",
+        "caution": "Deniability is thinner than writers assume, both legally and morally: an invented scene attributed to a recognizable person is an allegation with a novel around it.",
+        "tags": ["satire", "fiction", "keying"],
+        "see_also": ["narrative_structures/novel_forms", "genre_conventions/convention_moves"]
+      },
+      {
+        "name": "the satiric mask drop",
+        "definition": "One sincere beat, placed late, where the persona is set down and the writer says plainly what the whole performance has been for.",
+        "example": "After nine pages of the costing paper, four sentences in the writer's own voice about the family in paragraph three.",
+        "effect": "Converts accumulated comic energy into moral weight, and tells the reader retrospectively how to have read the mask.",
+        "register": "essay satire, long-form comic nonfiction",
+        "caution": "Once, briefly, and at the end. A mask taken off and put back on twice teaches the reader that neither face is the writer's, and a drop that lasts a page is the sermon the satire existed to avoid.",
+        "tags": ["satire", "persona", "turn"],
+        "see_also": ["openings_and_closings/essay_closers", "rhetorical_figures/irony_family"]
+      },
+      {
+        "name": "poe's law collapse",
+        "definition": "The failure state in which a satire is indistinguishable from a sincere statement of the position it attacks, so that some readers take it straight and circulate it as support.",
+        "example": "The costing paper is quoted approvingly in a trade newsletter, with the author's name and without the frame.",
+        "effect": "The satire is absorbed as advocacy; every share among the misreading audience does the target's work with the satirist's prose.",
+        "polarity": "fault",
+        "register": "any satire that circulates in extract",
+        "caution": "The defence is internal, not paratextual: one impossibility, one unignorable excess, one detail that no sincere version of the document could contain. A disclaimer travels less far than the extract does.",
+        "aka": ["indistinguishable satire"],
+        "tags": ["satire", "fault", "reception"],
+        "see_also": ["rhetorical_figures/irony_family", "genre_conventions/genre_promises"]
+      },
+      {
+        "name": "clapter",
+        "definition": "Satire calibrated to produce agreement rather than laughter — the audience applauds the sentiment because it is theirs, and the joke does no work beyond identifying the side.",
+        "example": "A paragraph whose entire mechanism is naming the correct villain, at length, to readers who already dislike him.",
+        "effect": "Feels successful in the room and on the page, and changes nothing; the satire has become a membership ritual with punctuation.",
+        "polarity": "fault",
+        "register": "political comedy, opinion columns",
+        "caution": "Diagnose by asking what the piece would cost a reader who agrees with it. If the answer is nothing — no discomfort, no implicated party on their own side — it is applause, not satire.",
+        "tags": ["satire", "fault", "audience"],
+        "see_also": ["humor_and_wit/humor_faults", "rhetorical_situations/audience_models"]
+      },
+      {
+        "name": "mask slippage",
+        "definition": "The unintended failure of an ironic persona: the satirist's own judgement leaks into the impersonated voice through an adjective, an aside or a sentence rhythm the persona would not use.",
+        "example": "The costing paper, in its fourth section, calls a proposal callous — a word the Proposer could not have reached for.",
+        "effect": "Breaks the reader's trust in the construction; from that point they read for the seams rather than for the argument.",
+        "polarity": "fault",
+        "register": "any sustained ironic persona",
+        "caution": "Distinct from the deliberate mask drop, which is placed and owned. Detect it by reading the persona's prose for evaluative words the persona has no reason to possess.",
+        "tags": ["satire", "fault", "persona"],
+        "see_also": ["pov_and_narration/narrator_reliability_types", "diction_and_register/attitude_markers"]
+      },
+      {
+        "name": "recuperated satire",
+        "definition": "The failure in which the target adopts the satire — quoting it in its own materials, licensing the parody, hiring the satirist — so that the attack becomes evidence of the target's good humour.",
+        "example": "The mock policy appears, framed, in the reception area of the department it was written about.",
+        "effect": "Converts criticism into a demonstration that the institution can absorb criticism, which is a stronger defence than any rebuttal.",
+        "polarity": "fault",
+        "register": "institutional and corporate satire",
+        "caution": "Recuperability is a property of the piece: satire aimed at manner and style is easily adopted, satire aimed at a specific act with a date and a name is not.",
+        "aka": ["co-opted satire"],
+        "tags": ["satire", "fault", "reception"],
+        "see_also": ["genre_conventions/subversion_moves", "interaction_moves/power_moves"]
+      },
+      {
+        "name": "strawman lampoon",
+        "definition": "Satirizing a position nobody actually holds, by building the persona out of the writer's opponents' worst-case caricature rather than out of their published words.",
+        "example": "A parody memo whose premise is one the department has explicitly rejected in writing, twice.",
+        "effect": "Delights readers who already agree and hands the target a free refutation, which is usually the only quotation from the exchange that survives.",
+        "polarity": "fault",
+        "register": "political and cultural satire",
+        "caution": "Build the persona out of real quotations before exaggerating; the logical defect belongs to the fallacies file, but the reputational cost lands entirely on the satirist.",
+        "tags": ["satire", "fault", "target"],
+        "see_also": ["fallacies_eristic/relevance_fallacies", "interaction_moves/argumentative_exchange_moves"]
+      }
+    ]
+  }
+}

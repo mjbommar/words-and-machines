@@ -1,0 +1,37 @@
+{
+  "id": "W.ctl.udiv0-wrong",
+  "kind": "negative-control",
+  "part": 0,
+  "title": "Negative control: the wrong division convention is refutable",
+  "statement": "The claim \"bvudiv x 0 = 0 for all x\" is FALSE; the front door must return sat (a counterexample). This row exists so that a checker which always says unsat is caught.",
+  "formal": {
+    "language": "smt-lib",
+    "statement": "(not (forall ((x (_ BitVec 8))) (= (bvudiv x #x00) #x00)))",
+    "fragment": "QF_BV"
+  },
+  "scope": "width 8",
+  "epistemic_status": "refuted",
+  "external_status": "refuted",
+  "evidence": [
+    {
+      "kind": "front-door-verdict",
+      "artifact": "artifacts/words/NEGATIVE-CONTROL-bvudiv-by-zero-wrong-convention.smt2",
+      "checker_command": "scripts/check_smt.sh artifacts/words/NEGATIVE-CONTROL-bvudiv-by-zero-wrong-convention.smt2 sat",
+      "negative_control": "scripts/check_smt.sh artifacts/words/NEGATIVE-CONTROL-bvudiv-by-zero-wrong-convention.smt2 unsat",
+      "check_status": "checked",
+      "checked_on": "2026-08-27"
+    }
+  ],
+  "axeyum": {
+    "example": "smtcomp_cli"
+  },
+  "book": {
+    "chapter": "ch01-prologue-words",
+    "label": "ctl:udiv0"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

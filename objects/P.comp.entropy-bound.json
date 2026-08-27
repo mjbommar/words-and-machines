@@ -1,0 +1,36 @@
+{
+  "id": "P.comp.entropy-bound",
+  "kind": "computation",
+  "part": 3,
+  "title": "The entropy bound does not obstruct 32-byte shuffles",
+  "statement": "log2(32!) is about 117.7 bits, and a single vpshufb control mask carries 32*4 = 128 bits. So an information-theoretic argument cannot give a length-2 lower bound for byte reversal; the bound in M.avx2.reverse.* is a lane-structure fact, which is why it needed a solver.",
+  "formal": {
+    "language": "python",
+    "statement": "math.log2(math.factorial(32)) < 128",
+    "fragment": "finite-enumeration"
+  },
+  "scope": "n = 32 lanes",
+  "epistemic_status": "computed",
+  "external_status": "proved",
+  "evidence": [
+    {
+      "kind": "computation",
+      "checker_command": "python3 -c \"import math,sys; b=math.log2(math.factorial(32)); print(f'log2(32!)={b:.3f}'); sys.exit(0 if b<128 else 1)\"",
+      "negative_control": "python3 -c \"import math,sys; b=math.log2(math.factorial(32)); sys.exit(0 if b<117 else 1)\"",
+      "check_status": "checked",
+      "checked_on": "2026-08-27"
+    }
+  ],
+  "book": {
+    "chapter": "ch04-permutations",
+    "label": "comp:entropy"
+  },
+  "sources": [
+    "research/surveys/05-simd-permutation-lowering.md"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

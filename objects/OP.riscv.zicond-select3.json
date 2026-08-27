@@ -1,0 +1,22 @@
+{
+  "id": "OP.riscv.zicond-select3",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Is 3 the minimum for Zicond conditional select?",
+  "statement": "The spec's Length column says 3 with one temporary and never claims minimality; the Zicond-vs-cmov argument turns on it. Effort estimate: weeks.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "asserted",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

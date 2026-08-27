@@ -1,0 +1,22 @@
+{
+  "id": "OP.unison.certify",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Certify one Unison schedule with DRCP",
+  "statement": "Unison reports 81% of functions \"proven optimal\" (17.7% slower on silicon); emits MiniZinc; Pumpkin emits DRCP with a Rocq-verified checker and has never been pointed at a compiler. Effort estimate: months.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "computed-uncertified",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

@@ -1,0 +1,152 @@
+# ============================================================
+# paper.yaml — single source of truth for this paper.
+# Every title/author/keyword/metadata value in the LaTeX, the arXiv
+# bundle, and the SSRN dossier derives from this file.
+# See docs/architecture/config-schema.md.
+#
+# Values containing TODO/FIXME/XXX or [bracketed placeholders] fail
+# `make generated` (and every build) until filled in. The shipped
+# sample values are intentionally placeholders; run
+# scripts/init_paper.py to personalize.
+# ============================================================
+
+paper:
+  title: "Nobody Has to Trust the Superoptimizer"
+  # Optional subtitle. SSRN advises against "framework"-style subtitles
+  # (their content rules); keep it evidence/finding forward.
+  subtitle: "Machine-Checkable Minimality Certificates for Instruction Sequences"
+  # Short title for running heads / PDF; defaults to title.
+  short_title: "Certified Minimality"
+  date: ""                         # empty -> \today at build time (see note)
+  # note: SSRN dates the paper "written" as it appears on the page. If
+  # you pin a date here, rebuilds stay stable; if empty, rebuild the
+  # same day you upload so the title-page date matches SSRN's metadata.
+
+# Authors. affiliation/email/orcid are optional per author. The first
+# author with corresponding: true (or the first author) is the
+# corresponding author.
+authors:
+  - name: "Michael J. Bommarito II"
+    affiliation: "Independent"
+    email: "michael.bommarito@gmail.com"
+    corresponding: true
+
+abstract: >-
+  Superoptimizers increasingly claim not just improvement but optimality: that
+  no shorter or cheaper instruction sequence exists. Such claims rest entirely
+  on trusting the search implementation and its solver, and no current tool
+  exports evidence a third party can check. We present axeyum, a reasoning
+  stack in which search is untrusted and checking is small and independent.
+  Instruction-selection queries are encoded so that lanes are symbolic
+  provenance tags rather than bit-vectors, making minimality a pure SAT
+  question; refutations of shorter sequences therefore emit DRAT natively and
+  are checked by an independent backward checker. Every satisfying sequence is
+  replayed against the original semantics. As a worked instance we establish
+  that 32-byte reversal has exact minimum length two in a declared AVX2 subset
+  and minimum cost four under a published latency profile, shipping the
+  refutations as certificates of one to thirteen megabytes -- and we report
+  that one of them is vacuous, accepted by the checker with half its content
+  deleted, because its formula is refutable by unit propagation. SAT solvers
+  have required proof logs for a decade; we argue compiler optimality claims
+  should too.
+
+# Discoverability. keywords: free text (SSRN + PDF metadata). jel: econ/
+# law working-paper JEL codes (rendered only when venue.ssrn or when
+# non-empty). msc: optional math subject classes.
+classification:
+  keywords: ["superoptimization", "proof certificates", "DRAT", "SIMD", "instruction set architecture", "SAT", "certifying algorithms"]
+  jel: ["C88", "O33"]             # leave [] to omit the JEL block
+  msc: []                         # optional; e.g. ["68N15"]
+  # arXiv primary/cross-list categories — used by the SUBMISSION doc,
+  # not printed on the page.
+  arxiv_primary: "cs.DL"
+  arxiv_cross: ["cs.SE"]
+
+venue:
+  # target: preprint | arxiv | ssrn
+  #   preprint — clean generic title block (builds anywhere)
+  #   arxiv    — + alt-text lint, 00README.json, `make arxiv`, license line
+  #   ssrn     — + JEL block, Disclosures back-matter, `make ssrn` dossier,
+  #              "Draft — Comments Welcome" line
+  target: "preprint"
+  # Working-paper series line printed under the authors (optional).
+  series: ""                      # e.g. "Example Institute Working Paper 2026-03"
+  # arXiv license (venue.target: arxiv). One of:
+  #   cc-by-4.0 | cc-by-sa-4.0 | cc-by-nc-sa-4.0 | cc-by-nc-nd-4.0 |
+  #   arxiv-nonexclusive | cc0
+  license: "cc-by-4.0"
+  # SSRN-only extras, echoed into SSRN-METADATA.md (make ssrn). All optional.
+  ssrn:
+    # Prior working subtitle you changed (SSRN's 2026-06-15 rules disfavor
+    # "framework"-style subtitles); the dossier notes it's reversible.
+    prior_subtitle: ""
+    # Related SSRN papers to link on the submission (e.g. a companion dataset).
+    related: []                   # - {title: "...", abstract_id: "6242898", note: "..."}
+    # Suggested SSRN networks / eJournals for discoverability.
+    networks: []                  # - "Land Use Law eJournal"
+
+typography:
+  # engine: pdflatex | xelatex | lualatex
+  #   pdflatex — arXiv-safest (named in the FAQ); default.
+  #   xelatex  — also arXiv-safe; needed for system OpenType fonts.
+  #   lualatex — NOT named in arXiv's FAQ; fine for SSRN PDF-only, riskier
+  #              for arXiv source upload. Use with font_profile plex only.
+  engine: "pdflatex"
+  # font_profile: libertinus | newtx | lmodern | plex
+  #   libertinus — distinctive house serif; pdflatex pkg + fontspec both.
+  #   newtx      — Times-like (law/econ working papers).
+  #   lmodern    — Computer Modern look; maximally arXiv-safe.
+  #   plex       — IBM Plex (OpenType only; requires xelatex/lualatex).
+  font_profile: "libertinus"
+  base_size: 11                   # 10 | 11 | 12
+  paper_size: "letter"            # letter | a4  (A4 for European/journal)
+  # linespacing: single | onehalf | double  (law reviews use double)
+  linespacing: "single"
+  twocolumn: false                # true for a two-column preprint
+  # Optional full-width title-page background/banner image (a hero). Path is
+  # relative to latex/figures/; empty = none. Placed behind the title on
+  # page 1 only, via eso-pic. Use a subtle, light image so the title stays
+  # legible; it collapses to gray under \GrayscaleMode. A demo asset ships
+  # at figures/title-banner.pdf (build it with: make figures).
+  title_background: ""            # e.g. "title-banner"  (drops the .pdf)
+
+citations:
+  # system: natbib | biblatex
+  #   natbib   — arXiv-robust (version-agnostic .bbl); default.
+  #   biblatex — SSRN authoryear house block / numeric; needs a
+  #              version-matched .bbl for arXiv (make arxiv checks this).
+  system: "natbib"
+  # style depends on system:
+  #   natbib   -> numeric | authoryear   (maps to plainnat behavior)
+  #   biblatex -> numeric | authoryear
+  style: "numeric"
+  bibliography_title: "References"
+  sort: true                      # numeric: compress+sort citations
+
+modules:
+  # The shipped SAMPLE demonstrates all four modules. The boxes/code/
+  # algorithms demos are \ifPaperModule-guarded, so turning those off
+  # degrades the demo gracefully. The sample TABLES use siunitx `S`
+  # columns, so keep siunitx on until you replace the sample content
+  # (or run scripts/init_paper.py --fresh for a clean slate).
+  boxes: true                     # tcolorbox callouts (keyresult, caution, ...)
+  code: true                      # listings environments
+  algorithms: true                # algorithm/algpseudocodex
+  siunitx: true                   # \num, \si, and S (decimal-aligned) table columns
+
+# AI-assistance disclosure. Printed as a first-page footnote on the
+# corresponding author (portfolio-wide house text) and, for venue.ssrn,
+# echoed in the Disclosures section and the SSRN dossier. SSRN's
+# 2026-06-15 guidelines REQUIRE disclosure when AI was used.
+disclosure:
+  ai_used: true
+  # (Single-author papers: change "authors are" to "author is".)
+  ai_statement: >-
+    Portions of this work were prepared with assistance from large
+    language models. The authors are solely responsible for all content,
+    including any errors or omissions.
+  funding: "none to declare"
+  competing_interests: "none to declare"
+  data_availability: >-
+    Replication data and code are available in the paper's repository
+    (replace this line with your archive URL or DOI).

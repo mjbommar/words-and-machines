@@ -1,0 +1,59 @@
+{
+  "id": "M.avx2.reverse.len2.unary5",
+  "kind": "theorem",
+  "part": 4,
+  "title": "Global 32-byte reversal has minimum length 2 in the unary five-family AVX2 language",
+  "statement": "Over single-register sequences drawn from permutation-control vpshufb, vpermd, vpermq, same-source vpalignr (imm 0..15) and identity/swap same-source vperm2i128, no one-instruction sequence reverses 32 distinct byte tags, and vpermd; vpshufb does it in two. The one-step formula is UNSAT -- and it is UNSAT by unit propagation alone, so the shipped DRAT is not load-bearing (see C.thm.vacuous-certificate).",
+  "formal": {
+    "language": "cnf-generator",
+    "statement": "axeyum_search::simd_synthesis::encode_unary_avx2_sequence(target=reversed, steps=1) is UNSAT; steps=2 is SAT with a replayed model.",
+    "fragment": "SAT"
+  },
+  "scope": "EXACT: unary single-register language {vpshufb (permutation controls), vpermd, vpermq, same-source vpalignr imm 0..15, same-source vperm2i128 identity/swap}; 32 distinct tags; no memory, no zeroing, no multi-source. NOT a claim about all of AVX2.",
+  "epistemic_status": "proved",
+  "external_status": "computed-uncertified",
+  "depends_on": [
+    "P.def.lane-tags"
+  ],
+  "evidence": [
+    {
+      "kind": "unsat-certificate",
+      "artifact": "artifacts/simd/avx2-reverse-k1-unary-five-family",
+      "sha256": {
+        "one-step.cnf": "7da5e2668087334e73d7415e89fadee2e977d2e2937d6b263d2d4ad456cc88ec",
+        "one-step.drat": "8dadb5a8ba97a21144fb327df5528598baf679a4e184b0d95421b17770345757"
+      },
+      "checker_command": "scripts/check_object.sh artifacts/simd/avx2-reverse-k1-unary-five-family synthesize_unary_avx2 reverse 1 120 --vacuous-formula",
+      "negative_control": "sh -c \"printf '' > /tmp/isa-empty.drat && $AXEYUM/target/release/examples/synthesize_unary_avx2 reverse 1 60 --check-drat /tmp/isa-empty.drat\"",
+      "check_status": "checked",
+      "checked_on": "2026-08-27",
+      "note": "CNF regenerated from the prebuilt binary is byte-identical to the shipped one (SHA-256 7da5e266...). The checker accepts the shipped 957,982-byte CaDiCaL DRAT and correctly rejects an empty or junk proof -- but it ALSO accepts the proof with its first half deleted, because the formula is UP-refutable. The load-bearing certificate is therefore the CNF plus scripts/up_refutes.py, and the record says so."
+    },
+    {
+      "kind": "witness-replay",
+      "check_status": "replay-only",
+      "note": "Two-step model (vpermd dword reversal; vpshufb within-dword reversal) lifts and replays to the reversed tags (ADR-0566). Not re-run here."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-search",
+    "example": "synthesize_unary_avx2",
+    "adr": [
+      "ADR-0566"
+    ],
+    "reconstruction": "StructuralAttestation"
+  },
+  "book": {
+    "chapter": "ch05-particular-machines",
+    "label": "thm:avx2-len2-unary5"
+  },
+  "sources": [
+    "research/axeyum/adr/adr-0566-*.md",
+    "LLVM already lowers 32-byte reversal in two operations (X86ISelLowering.cpp); no published minimality claim"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

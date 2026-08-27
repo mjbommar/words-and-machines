@@ -1,0 +1,18 @@
+\section{Artifact}
+\label{app:artifact}
+
+Every number in this paper is an object in the companion repository's ledger, with a SHA-256-pinned artifact and a checker command whose exit status depends on the finding, plus a negative control that must fail. \code{make check-run} executes all of them; on 2026-08-27 it reported 34 objects, 0 problems, every negative control fired.
+
+\begin{itemize}
+\item \textbf{Certificates.} Three CNF/DRAT pairs (gzipped; raw SHA-256 recorded), the solver logs with seeds, and the checker scripts.
+\item \textbf{Vacuity test.} \code{scripts/up\_refutes.py}: exit 0 iff the formula conflicts under unit propagation.
+\item \textbf{RISC-V reproductions.} \code{scripts/bitlogic\_bfs.py} (1.5\,s) and \code{scripts/byte\_perm\_bfs.py} (65\,s), with the source document and JSON reports.
+\item \textbf{Prologue theorems.} The SMT-LIB files for the totality conventions and Warren's popcount, decided by axeyum's front door, with a negative control that must return \emph{sat}.
+\end{itemize}
+
+Re-verifying the certificates requires an axeyum checkout with its prebuilt examples (\code{synthesize\_unary\_avx2}, \code{synthesize\_weighted\_unary\_avx2}, \code{synthesize\_multisource\_avx2}, \code{smtcomp\_cli}); these take no build lock and run in seconds. Everything else is pure Python.
+
+\section{Reviewer objections we anticipate}
+\label{app:objections}
+
+\emph{The subset is cherry-picked.} It is declared, which is the point; and the length-one check can be run over the entire documented AVX2 shuffle repertoire by finite enumeration, converting the headline from subset-relative to ISA-absolute. That experiment is queued. \emph{Reversal at length two is trivial.} The upper bound is folklore; the lower bound had no statement anyone could check, and the production compiler's lowering is an undocumented heuristic with no paper. \emph{The cost model is made up.} It is Intel's documented latencies, shipped as data, scoped as Intel scopes it; a three-profile sweep is the right next experiment. \emph{Why not CaDiCaL + drat-trim?} The proofs \emph{are} CaDiCaL's; the checker is one of several that should agree, and three-way agreement (drat-trim, cake\_lpr, axeyum) is the thesis, not a threat to it. \emph{2,697 variables is not impressive.} Correct. The contribution is the artifact and the vacuity finding, not the instance.

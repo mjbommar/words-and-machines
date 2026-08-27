@@ -1,0 +1,1202 @@
+{
+  "name": "sound_and_rhythm",
+  "level": "micro",
+  "entry_type": "record",
+  "description": "The sonic layer of prose: sound devices, metrical vocabulary for hearing rhythm, prose cadence and clausulae, sentence-length contours, rhythmic and punctuation-driven pacing moves, paragraph rhythm, and the rhythm faults that give a draft away.",
+  "categories": {
+    "sound_devices": [
+      {
+        "name": "alliteration",
+        "definition": "Repetition of the same initial consonant sound across nearby stressed syllables.",
+        "example": "The fair breeze blew, the white foam flew, the furrow followed free. (Coleridge)",
+        "effect": "Binds separate words into one perceptual unit and marks the phrase as deliberately made, so the ear treats it as quotable.",
+        "caution": "More than two linked pairs in a sentence reads as greeting-card copy; heavy alliteration on abstractions is a reliable purple-prose signal."
+      },
+      {
+        "name": "alliterative binomial",
+        "definition": "A fixed or improvised two-word pair joined by a conjunction whose members alliterate.",
+        "example": "safe and sound; part and parcel; rack and ruin",
+        "effect": "Gives a phrase the finality of an idiom, which is why legal and proverbial language is full of them.",
+        "caution": "The stock pairs are cliches; coin your own or leave them out."
+      },
+      {
+        "name": "consonance",
+        "definition": "Repetition of consonant sounds in nearby words regardless of position, most often on final consonants.",
+        "example": "A stroke of luck struck the black rock.",
+        "effect": "Knits a passage together below the level of conscious notice; less showy than alliteration because the echo is not at the word's front door."
+      },
+      {
+        "name": "assonance",
+        "definition": "Repetition of vowel sounds in nearby stressed syllables without matching consonants.",
+        "example": "And all the air a solemn stillness holds. (Gray)",
+        "effect": "Sustains a single tone color across a clause; long repeated vowels also slow the reading rate.",
+        "caution": "Repeated vowels plus repeated final consonants stops being assonance and becomes accidental rhyme."
+      },
+      {
+        "name": "sibilance",
+        "definition": "A concentration of /s/, /z/, /sh/ and /zh/ sounds.",
+        "example": "The sea slid past the ship's side, silent, ceaseless.",
+        "effect": "Produces hush, hiss, seduction, or menace depending on context; the softest way to lower a passage's volume.",
+        "caution": "Read aloud: dense sibilance turns into a snake-hiss or a lisp in audiobook narration."
+      },
+      {
+        "name": "plosive attack",
+        "definition": "Clustering of stop consonants /p b t d k g/ in stressed positions.",
+        "example": "He kicked the crate back against the dock.",
+        "effect": "Percussive, hard-edged, physical; the sound of impact and of decisions being made."
+      },
+      {
+        "name": "fricative texture",
+        "definition": "Clustering of continuous friction sounds /f v th s sh h/.",
+        "example": "A soft wash of surf over shale.",
+        "effect": "Breathy and unbroken; suits weather, cloth, water, and any process that has no discrete events."
+      },
+      {
+        "name": "liquid consonance",
+        "definition": "Clustering of /l/ and /r/, the consonants that flow without stopping the airstream.",
+        "example": "The long lull of the river below the mill.",
+        "effect": "The most reliable ingredient of euphony; makes a line pourable rather than percussive."
+      },
+      {
+        "name": "nasal resonance",
+        "definition": "Clustering of /m/, /n/ and /ng/.",
+        "example": "A hum in the morning, coming and coming on.",
+        "effect": "Hums rather than strikes; a nasal-heavy final word makes a sentence end warm instead of sharp."
+      },
+      {
+        "name": "velar harshness",
+        "definition": "Concentration of back-of-the-mouth consonants /k/, /g/, and the guttural cluster.",
+        "example": "The cracked cog caught, kicked, and quit.",
+        "effect": "Grating and effortful; the standard sound of machinery, choking, and disgust."
+      },
+      {
+        "name": "euphony",
+        "definition": "Sound arrangement chosen for ease and pleasantness: open vowels, liquids and nasals, few consonant clusters.",
+        "example": "The evening air was warm along the water.",
+        "effect": "Lowers reading effort, which readers experience as elegance and as the writer's authority.",
+        "caution": "Uninterrupted euphony over a page becomes soporific; harshness is what makes smoothness legible."
+      },
+      {
+        "name": "cacophony",
+        "definition": "Sound arrangement chosen for harshness: consonant clusters, stops, abrupt shifts between vowel qualities.",
+        "example": "Grit crackled, the axle jerked, the truck bucked its cargo flat.",
+        "effect": "Enacts difficulty, violence, or disorder in the mouth of the reader, not just in the report."
+      },
+      {
+        "name": "onomatopoeia",
+        "definition": "A word whose sound imitates the noise it names.",
+        "example": "buzz, hiss, clang, thud, splash",
+        "effect": "Collapses the distance between naming and hearing; the fastest sensory shortcut in the language.",
+        "caution": "Comic-book onomatopoeia in narrative prose (kaboom, thwack) reads as juvenile unless the register is already playful."
+      },
+      {
+        "name": "phonetic mimesis",
+        "definition": "Sound patterning across a whole clause so that the movement of the mouth enacts the sense, without any single word being imitative.",
+        "example": "The moan of doves in immemorial elms, and murmuring of innumerable bees. (Tennyson)",
+        "effect": "The strongest sound effect available in prose, because it works at the length of a breath rather than a word.",
+        "caution": "Only convincing when the sense is already there; sound cannot rescue a sentence that says nothing."
+      },
+      {
+        "name": "phonestheme",
+        "definition": "A sub-morphemic sound cluster that carries meaning across an unrelated family of words.",
+        "example": "gl- for light (glare, gleam, glint); sn- for the nose (sneer, snout, sniff); -ump for dull mass (lump, clump, stump)",
+        "effect": "Lets a coinage or an unusual word feel already understood; useful in naming and in invented terminology."
+      },
+      {
+        "name": "sound symbolism",
+        "definition": "Systematic association between phonetic features and semantic scale, chiefly magnitude: high front vowels for small, low back vowels for large.",
+        "example": "teeny, itsy, slim versus huge, vast, broad",
+        "effect": "Gives word choice a second channel of meaning; a small thing named with a back vowel feels off even when the denotation is exact."
+      },
+      {
+        "name": "bouba/kiki effect",
+        "definition": "The near-universal mapping of round, sonorant sounds to rounded shapes and sharp, plosive sounds to angular ones (Kohler).",
+        "example": "A product called Balumo reads as soft; one called Kritek reads as hard.",
+        "effect": "Practical for naming characters, companies, and coinages: the sound sets expectations before the definition arrives."
+      },
+      {
+        "name": "ideophone",
+        "definition": "A vivid word that depicts a sensory scene as a whole — manner, texture, or movement — rather than naming a sound.",
+        "example": "zigzag, higgledy-piggledy, helter-skelter, plod",
+        "effect": "Carries manner and attitude in one token, doing the work of an adverb without the adverb."
+      },
+      {
+        "name": "ablaut reduplication",
+        "definition": "Doubling a word with a fixed vowel change, in English almost always in the order i-a-o.",
+        "example": "tick-tock, flip-flop, zigzag, mishmash",
+        "effect": "Sounds inevitable to a native ear; violating the vowel order (tock-tick) sounds broken, which is itself usable for comic effect."
+      },
+      {
+        "name": "rhyming reduplication",
+        "definition": "Doubling a word with a change of the initial consonant only.",
+        "example": "helter-skelter, hocus-pocus, razzle-dazzle",
+        "effect": "Reads as dismissive or festive; almost never neutral, so it colors whatever it labels.",
+        "caution": "Dismissive by default — it will trivialize a subject you meant to take seriously."
+      },
+      {
+        "name": "internal rhyme",
+        "definition": "Rhyme between words inside the same sentence or clause rather than at line ends.",
+        "example": "The pressure of the measure told.",
+        "effect": "Marks a phrase for memory; standard in slogans, headlines, and aphorism.",
+        "caution": "In neutral expository prose, unplanned internal rhyme reads as an accident and stops the reader."
+      },
+      {
+        "name": "slant rhyme",
+        "definition": "Near rhyme in which consonants match but vowels do not, or the stress falls differently (also half rhyme, pararhyme).",
+        "example": "grained / groaned; hall / hell",
+        "effect": "Gives the binding force of rhyme without its chiming closure; useful when full rhyme would be too neat."
+      },
+      {
+        "name": "eye rhyme",
+        "definition": "Words that look as if they rhyme but do not sound alike.",
+        "example": "love / move; cough / bough",
+        "effect": "A purely visual echo; matters in prose only as a trap for writers who compose with the eye and never test aloud."
+      },
+      {
+        "name": "homoioteleuton",
+        "definition": "Repetition of the same ending syllable or suffix across nearby words or phrase-ends.",
+        "example": "the deployment of the equipment for the containment of the incident",
+        "effect": "In verse and deliberate rhetoric it chimes; in prose it is usually the audible symptom of nominalization.",
+        "caution": "A run of -tion or -ment or -ly endings is the single most common unnoticed rhythm fault in expository writing."
+      },
+      {
+        "name": "polyptoton",
+        "definition": "Repetition of a root word in different grammatical forms, which chimes at the level of sound as well as sense.",
+        "example": "With eager feeding food doth choke the feeder. (Shakespeare)",
+        "effect": "Repeats without the flatness of repeating a word verbatim; makes a conceptual link audible."
+      },
+      {
+        "name": "parechesis",
+        "definition": "Repetition of similar sound sequences across adjacent words without full rhyme or alliteration.",
+        "example": "a bland brand of blame",
+        "effect": "Produces a tight, worked surface; heavy in aphorism and in advertising copy.",
+        "caution": "Sustained parechesis calls attention to the writer rather than the subject."
+      },
+      {
+        "name": "paromoiosis",
+        "definition": "Parallel clauses whose sounds correspond position by position, not merely their grammar.",
+        "example": "He came in silence; he went in shame.",
+        "effect": "Makes two clauses feel like two halves of one object; the sonic counterpart of isocolon."
+      },
+      {
+        "name": "vowel gradation",
+        "definition": "Deliberate movement through vowel quality across a phrase, typically front-to-back to darken or back-to-front to brighten.",
+        "example": "It began as a gleam, became a glow, and settled to a dull dark hum.",
+        "effect": "Changes the emotional temperature of a sentence without changing a single content word."
+      },
+      {
+        "name": "vowel quantity",
+        "definition": "Exploiting long versus short vowels to control reading speed.",
+        "example": "Short: he cut it, quick, and hid it. Long: the road wound slowly toward the loaming shore.",
+        "effect": "Long vowels lengthen the syllable and slow the line; short vowels clip it. The most direct sonic control over pace."
+      },
+      {
+        "name": "consonant cluster density",
+        "definition": "The number of adjacent consonants the mouth must negotiate per syllable.",
+        "example": "strengths, twelfths, glimpsed",
+        "effect": "Dense clusters cost articulation time and effort, so a cluster-heavy sentence feels laborious even when it is short."
+      },
+      {
+        "name": "monosyllabic texture",
+        "definition": "A run of one-syllable words, usually of Anglo-Saxon origin.",
+        "example": "that these dead shall not have died in vain (Lincoln)",
+        "effect": "Plain, weighted, and hard to argue with; each word gets its own beat, so the line lands like a series of blows."
+      },
+      {
+        "name": "polysyllabic texture",
+        "definition": "A run of long, usually Latinate words.",
+        "example": "the institutionalization of administrative discretion",
+        "effect": "Creates distance, formality, and abstraction; a few unstressed syllables between beats speed the line up while making it harder to feel."
+      },
+      {
+        "name": "hiatus",
+        "definition": "Collision of a vowel at the end of one word with a vowel at the start of the next, forcing a glottal break.",
+        "polarity": "fault",
+        "example": "the idea of a united area",
+        "effect": "Introduces an unplanned stumble; usually a fault, occasionally useful to slow a reader deliberately.",
+        "caution": "Most audible in read-aloud and audiobook work; fix by reordering or inserting a consonant-initial word."
+      },
+      {
+        "name": "elision",
+        "definition": "Dropping a sound or syllable so the phrase fits the intended rhythm.",
+        "example": "over becomes o'er; it is becomes it's; the contraction that keeps a clause at four beats",
+        "effect": "Contractions are the main modern form: they shorten the line, lower the register, and speed the pulse."
+      },
+      {
+        "name": "mis-juncture",
+        "definition": "Word-boundary ambiguity where the run of sounds can be resegmented into different words.",
+        "polarity": "fault",
+        "example": "a nice cream / an ice cream; the stuffy nose / the stuff he knows",
+        "effect": "Comic or confusing; a genuine hazard in text meant to be heard rather than read."
+      },
+      {
+        "name": "cacemphaton",
+        "definition": "An accidental obscene or absurd sound sequence produced by innocent adjacent words.",
+        "polarity": "fault",
+        "example": "a fine tuna sandwich read aloud too quickly",
+        "effect": "Nothing but a hazard; the reason for the read-aloud pass.",
+        "caution": "Detectable only by ear — spellcheck and prose linters cannot see it."
+      }
+    ],
+    "meter_basics": [
+      {
+        "name": "foot",
+        "definition": "The basic unit of metrical analysis: one stressed syllable plus its attendant unstressed syllables.",
+        "example": "de-LIGHT is one foot; DE-li-cate is one foot.",
+        "effect": "Gives a portable vocabulary for describing prose rhythm precisely instead of calling it choppy or flowing."
+      },
+      {
+        "name": "scansion",
+        "definition": "Marking a passage's stressed and unstressed syllables to see its rhythm.",
+        "example": "x / x / x / — we HOLD these TRUTHS to BE",
+        "effect": "The diagnostic move behind every cadence judgment; scan the last six syllables of a paragraph before you decide it is weak."
+      },
+      {
+        "name": "iamb",
+        "definition": "An unstressed syllable followed by a stressed one (x /).",
+        "example": "the WORD, a-GAIN, be-LIEVE",
+        "effect": "The default rhythm of English phrasing; iambic runs feel neutral and forward-leaning, which is why they disappear into prose."
+      },
+      {
+        "name": "trochee",
+        "definition": "A stressed syllable followed by an unstressed one (/ x).",
+        "example": "GAR-den, TA-ble, NEV-er",
+        "effect": "Falling and emphatic at the start of a clause; a trochaic opening word is the cheapest way to put weight on a sentence's first beat."
+      },
+      {
+        "name": "spondee",
+        "definition": "Two consecutive stressed syllables (/ /).",
+        "example": "HEART-BREAK, DEAD WEIGHT, WHITE HOT",
+        "effect": "Slows and thickens the line; a spondee at a sentence's end is the heaviest available close."
+      },
+      {
+        "name": "pyrrhic",
+        "definition": "Two consecutive unstressed syllables (x x).",
+        "example": "in the, of a, on the",
+        "effect": "Rhythmic filler that speeds a passage but adds no weight; a sentence ending in a pyrrhic dribbles away."
+      },
+      {
+        "name": "anapest",
+        "definition": "Two unstressed syllables followed by a stressed one (x x /).",
+        "example": "in-ter-VENE, un-der-STOOD, on the ROAD",
+        "effect": "Galloping and comic in verse; in prose it produces a rising lift into a stressed close."
+      },
+      {
+        "name": "dactyl",
+        "definition": "A stressed syllable followed by two unstressed ones (/ x x).",
+        "example": "MER-ri-ly, HAP-pi-ness, TEN-der-ly",
+        "effect": "Falling and dying away; the standard ingredient of a soft, receding sentence ending."
+      },
+      {
+        "name": "amphibrach",
+        "definition": "An unstressed, a stressed, and an unstressed syllable (x / x).",
+        "example": "re-MEM-ber, e-LEC-tion",
+        "effect": "Self-contained and rounded; a favorite closing shape in medieval prose cadence."
+      },
+      {
+        "name": "cretic",
+        "definition": "A stressed, an unstressed, and a stressed syllable (/ x /), also amphimacer.",
+        "example": "COUNT them OUT; HALF a LOAF",
+        "effect": "The workhorse of classical prose clausulae — it closes firmly without thudding."
+      },
+      {
+        "name": "molossus",
+        "definition": "Three consecutive stressed syllables (/ / /).",
+        "example": "COLD HARD CASH; FULL STOP NOW",
+        "effect": "Maximum weight and maximum slowness; effective once per chapter, ridiculous twice per page."
+      },
+      {
+        "name": "choriamb",
+        "definition": "A stressed, two unstressed, and a stressed syllable (/ x x /).",
+        "example": "OVER the HILL; PICK it up FAST",
+        "effect": "A bracketed unit with stresses at both edges; makes a phrase feel like a closed container."
+      },
+      {
+        "name": "accentual-syllabic meter",
+        "definition": "The English metrical system, which counts both stresses and total syllables per line.",
+        "example": "Iambic pentameter: five iambs, ten syllables.",
+        "effect": "The frame against which English readers hear all rhythm, including prose rhythm they never consciously scan."
+      },
+      {
+        "name": "accentual meter",
+        "definition": "Meter that counts stresses only and lets unstressed syllables float.",
+        "example": "Old English alliterative verse: four stresses a line, two of them alliterating.",
+        "effect": "The closest metrical model to actual English speech, and therefore to well-tuned prose."
+      },
+      {
+        "name": "stress timing",
+        "definition": "The tendency of English to space stressed syllables at roughly equal intervals, compressing the unstressed syllables between them.",
+        "example": "'DOGS chase CATS' and 'the DOGS have been chasing the CATS' both carry two beats and take about the same time to say; the extra syllables are squeezed into the gaps.",
+        "effect": "Explains why syllable count is a poor proxy for pace and stress count is a good one."
+      },
+      {
+        "name": "ictus",
+        "definition": "The beat — the stressed position in a foot, where the reader's pulse lands.",
+        "example": "In we shall FIGHT on the BEACH-es, the ictus falls on FIGHT and BEACH.",
+        "effect": "Content words should sit on the ictus; when function words take the beats, the sentence sounds mushy."
+      },
+      {
+        "name": "promotion and demotion",
+        "definition": "The way a normally unstressed syllable gains stress, or a stressed one loses it, to satisfy the surrounding rhythm.",
+        "example": "In the reading of the will, of takes a beat it would not have in isolation.",
+        "effect": "Why scansion is contextual, and why a word's dictionary stress is not the last word on how a sentence sounds."
+      },
+      {
+        "name": "metrical substitution",
+        "definition": "Replacing the expected foot with a different one to break monotony, most often a trochee in the first position.",
+        "example": "NEVER in the field of human conflict — a trochee opening an otherwise iambic run.",
+        "effect": "The main way to keep a regular rhythm from turning mechanical; the prose equivalent is a stressed opening word after a run of iambic starts."
+      },
+      {
+        "name": "catalexis",
+        "definition": "Dropping the final unstressed syllable of a metrical line so it ends on a stress.",
+        "example": "TY-ger TY-ger BURN-ing BRIGHT — the last foot is a trochee minus its tail.",
+        "effect": "Produces a clipped, decisive ending; the metrical name for what prose writers do when they cut a trailing word."
+      },
+      {
+        "name": "anacrusis",
+        "definition": "One or more unstressed syllables before the first full foot — a run-up into the beat.",
+        "example": "And THEN the whole thing STOPPED.",
+        "effect": "A short ramp that delays the first stress; too much anacrusis makes a sentence take a long time to start meaning anything."
+      },
+      {
+        "name": "caesura",
+        "definition": "A strong sense pause inside a line or clause, usually marked by punctuation.",
+        "example": "To err is human; || to forgive, divine. (Pope)",
+        "effect": "Divides a long unit into two hearable halves and gives the reader somewhere to breathe mid-sentence."
+      },
+      {
+        "name": "enjambment",
+        "definition": "Running a syntactic unit past the end of the metrical or visual unit so the break falls mid-phrase.",
+        "example": "Milton: 'Of Man's first disobedience, and the fruit / Of that forbidden tree, whose mortal taste / Brought death into the world' — each line ends mid-phrase and the sense runs on.",
+        "effect": "In prose the analogues are the page turn, the section break, and the chapter end used to strand a clause and pull the reader across."
+      }
+    ],
+    "verse_forms_that_teach_prose": [
+      {
+        "name": "blank verse",
+        "definition": "Unrhymed iambic pentameter.",
+        "example": "Of Man's first disobedience, and the fruit... (Milton)",
+        "effect": "The English default for elevated speech; prose that drifts into it acquires unearned grandeur, which is why accidental pentameter is a fault worth hunting."
+      },
+      {
+        "name": "heroic couplet",
+        "definition": "Rhymed iambic pentameter in pairs, usually end-stopped.",
+        "example": "True wit is Nature to advantage dressed, / What oft was thought, but ne'er so well expressed. (Pope)",
+        "effect": "The model for the balanced, antithetical aphorism; teaches how a two-part sentence can close with a click."
+      },
+      {
+        "name": "ballad meter",
+        "definition": "Alternating four-stress and three-stress lines, rhyming on the short ones.",
+        "example": "Amazing grace, how sweet the sound / that saved a wretch like me.",
+        "effect": "The most memorable rhythm in English; its 4-3 alternation is the ancestor of the long-sentence, short-sentence prose pattern."
+      },
+      {
+        "name": "alliterative accentual verse",
+        "definition": "The Old and Middle English line: four stresses, a strong medial pause, and alliteration binding the halves.",
+        "example": "In a somer seson, whan softe was the sonne (Langland)",
+        "effect": "Shows alliteration used structurally rather than decoratively — as the joint between halves, not as ornament sprinkled on top."
+      },
+      {
+        "name": "sprung rhythm",
+        "definition": "Hopkins's system: feet counted by stress alone, with any number of unstressed syllables allowed to crowd between beats.",
+        "example": "The world is charged with the grandeur of God.",
+        "effect": "A license for stress-dense prose; useful when you want a clause to feel compressed and overloaded rather than metrical."
+      },
+      {
+        "name": "free verse cadence",
+        "definition": "Unmetered verse whose rhythm comes from phrase length, breath, and line placement rather than a repeating foot.",
+        "example": "Whitman's catalogues; Williams's short-lined images.",
+        "effect": "The closest verse practice to prose rhythm, and the best training in tuning by phrase rather than by syllable."
+      },
+      {
+        "name": "Whitmanic long line",
+        "definition": "A long, syntactically parallel line built from repeated openings and accumulating clauses.",
+        "example": "I celebrate myself, and sing myself, / And what I assume you shall assume...",
+        "effect": "Teaches how anaphora plus accumulation can carry a very long unit without losing the reader."
+      },
+      {
+        "name": "Hebrew parallelism",
+        "definition": "The verse principle of the Psalms and the King James Bible: paired cola that restate, extend, or oppose one another rather than rhyming.",
+        "example": "The heavens declare the glory of God; and the firmament sheweth his handywork. (KJV)",
+        "effect": "The deep source of English liturgical cadence and of the balanced two-part sentence; rhythm carried entirely by sense-parallelism."
+      },
+      {
+        "name": "biblical colon",
+        "definition": "The short breath-unit of KJV prose — typically five to twelve syllables, and-linked to its neighbors.",
+        "example": "And God said, Let there be light: and there was light. (KJV)",
+        "effect": "A model for coordinate, uninflected narration where every clause carries equal weight."
+      },
+      {
+        "name": "haiku compression",
+        "definition": "A short-form discipline of image plus turn within a fixed small budget of syllables.",
+        "example": "An old pond / a frog jumps in / the sound of water. (Basho, trans.)",
+        "effect": "Trains the habit of cutting to the two images that matter and letting the juxtaposition do the argument."
+      },
+      {
+        "name": "prose poem",
+        "definition": "A composition printed as prose that uses verse's density of sound, image, and cadence without lineation.",
+        "example": "Baudelaire's Petits poemes en prose; Rimbaud's Illuminations.",
+        "effect": "The proof case that rhythm in prose is a designed, not incidental, property.",
+        "caution": "Its permissions do not transfer wholesale — a chapter of exposition written at prose-poem density exhausts readers."
+      }
+    ],
+    "prose_cadence": [
+      {
+        "name": "clausula",
+        "aka": ["cretic-trochee close"],
+        "definition": "The metrical shape of the last few syllables of a prose sentence or colon, treated by ancient rhetoricians as the point where rhythm is heard most.",
+        "example": "Cicero's favored close was the cretic plus trochee (/ x / | / x): esse videatur; in English, WHAT it might COST us.",
+        "effect": "Readers register a sentence's rhythm chiefly at its end; the clausula is therefore the highest-leverage place to tune.",
+        "caution": "A signature clausula repeated sentence after sentence turns prose into chant.",
+        "see_also": "syntactic_constructions/sentence_architectures"
+      },
+      {
+        "name": "cursus planus",
+        "definition": "Medieval Latin cadence with the shape stressed, two unstressed, stressed, unstressed (/ x x / x).",
+        "example": "GLO-ri-a NOM-i-nis; ENGlish: SETtled the ARgument",
+        "effect": "The plainest and most common of the four cursus forms: firm without being final, good for mid-paragraph sentences."
+      },
+      {
+        "name": "cursus tardus",
+        "definition": "Cadence ending stressed, two unstressed, stressed, two unstressed (/ x x / x x) — a slow, trailing close.",
+        "example": "GLO-ri-a MAR-ty-rum; English: CARried it QUIetly",
+        "effect": "Retards the ending and softens it; use where you want the paragraph to settle rather than snap shut."
+      },
+      {
+        "name": "cursus velox",
+        "definition": "Cadence with the shape stressed, two unstressed, two unstressed, stressed, unstressed (/ x x x x / x) — the swift close.",
+        "example": "GLO-ri-a se-cu-LO-rum; English: CARried the deciSION for us",
+        "effect": "Puts a run of light syllables between two stresses so the ending arrives fast and lands lightly."
+      },
+      {
+        "name": "cursus trispondaicus",
+        "definition": "The fourth medieval cadence, stressed, unstressed, two unstressed, stressed, unstressed (/ x x x / x).",
+        "example": "GLO-ri-fi-CA-mus te; English: FOLlowed inevitably",
+        "effect": "A longer run-up to the final stress; the most Latinate-sounding of the four in English."
+      },
+      {
+        "name": "double cretic close",
+        "definition": "Two cretics in succession (/ x / / x /).",
+        "example": "COUNT them OUT, ONE by ONE",
+        "effect": "Balanced and hammering; suited to a summary sentence that must sound like a verdict."
+      },
+      {
+        "name": "ditrochee close",
+        "definition": "Two trochees ending a period (/ x / x), also dichoreus.",
+        "example": "PAtience, PAtience; NOthing FOLlowed",
+        "effect": "A falling, rocking close; the Roman critics thought it too sweet, and it can still sound self-satisfied.",
+        "caution": "Ancient objection stands: overused, the ditrochee makes prose sound smug."
+      },
+      {
+        "name": "masculine ending",
+        "definition": "A sentence that ends on a stressed syllable, most emphatically a stressed monosyllable.",
+        "example": "It cost him the farm.",
+        "effect": "The hardest available stop; nothing follows the beat, so the silence after the period is part of the effect.",
+        "caution": "Every sentence ending on a hard monosyllable becomes a drumroll of finality that flattens the ones that matter."
+      },
+      {
+        "name": "feminine ending",
+        "definition": "A sentence that ends on one or more unstressed syllables after the final stress.",
+        "example": "It cost him the property.",
+        "effect": "Softer and more conversational; the trailing syllables let the reader move on rather than stop."
+      },
+      {
+        "name": "dying fall",
+        "definition": "A closing cadence of falling feet — dactyls or trochees — so the sentence recedes rather than lands.",
+        "example": "That strain again! It had a dying fall. (Shakespeare)",
+        "effect": "Melancholy, resignation, or gentleness; the standard close for an elegiac paragraph."
+      },
+      {
+        "name": "rising close",
+        "definition": "A closing cadence of rising feet — iambs or anapests — climbing into the final stress.",
+        "example": "and no one ever came back at all",
+        "effect": "Builds momentum into the last word, so a rising close feels like arrival rather than stop."
+      },
+      {
+        "name": "terminal monosyllable landing",
+        "definition": "Ending a sentence on a short, concrete, one-syllable Anglo-Saxon word.",
+        "example": "and then the money was gone",
+        "effect": "Maximum thud; makes any assertion sound like a fact settled long ago.",
+        "caution": "The most imitable of all cadence tricks and therefore the fastest to become a tic."
+      },
+      {
+        "name": "prepositional tail",
+        "definition": "A sentence that trails off into a stack of prepositional phrases after its real ending.",
+        "example": "The committee rejected the plan in a meeting on Thursday in the annex of the building on Third Street.",
+        "effect": "Dissipates the close; the reader's attention runs out before the syntax does.",
+        "caution": "The commonest weak ending in institutional prose. Cut back to the last stressed content word."
+      },
+      {
+        "name": "participial tail",
+        "definition": "A close that ends in an -ing phrase hanging off the main clause.",
+        "example": "She signed the form, hoping it would be enough, wondering if anyone would read it.",
+        "effect": "Softens and prolongs; legitimate for a receding close, deadly when every third sentence does it.",
+        "caution": "A signature of drafting on autopilot — check the density of sentence-final -ing before revision ends."
+      },
+      {
+        "name": "stress clash",
+        "definition": "Two stressed syllables colliding where the rhythm wants a gap.",
+        "polarity": "fault",
+        "example": "the STARK CONtrast SHOWED CLEAR SIGNS",
+        "effect": "Slows and roughens; occasionally useful for emphasis, usually just awkward.",
+        "caution": "Fix by inserting a light word or reordering, not by cutting content."
+      },
+      {
+        "name": "stress lapse",
+        "definition": "Three or more unstressed syllables in a row, leaving the line without a beat.",
+        "polarity": "fault",
+        "example": "in a manner of a similar sort",
+        "effect": "Rhythmic vacuum; the sentence goes flabby and the reader's attention drops.",
+        "caution": "Usually a symptom of prepositional padding — the cure is deletion."
+      },
+      {
+        "name": "isocolon rhythm",
+        "definition": "Successive clauses of equal or near-equal syllable length.",
+        "example": "I came, I saw, I conquered.",
+        "effect": "Symmetry the ear can verify; makes a formulation sound tested rather than improvised.",
+        "caution": "Beyond three members, exact equality starts to sound like liturgy."
+      },
+      {
+        "name": "tricolon crescendo",
+        "definition": "Three parallel members of increasing length (also ascending tricolon or the law of increasing members).",
+        "example": "government of the people, by the people, for the people (Lincoln)",
+        "effect": "The most reliable escalating cadence in English; the growth in length is what makes the third member feel like a conclusion.",
+        "caution": "Its reliability is the problem — a chapter with a tricolon at every section end reads as machine-tuned."
+      },
+      {
+        "name": "periodic close",
+        "definition": "The resolution point of a periodic sentence, where the delayed main clause finally arrives.",
+        "example": "If the reports were true, and if the dates could be trusted, and if anyone had bothered to read them, the audit would have failed.",
+        "effect": "All the suspended tension discharges at once; the strongest available cadence for a paragraph's final sentence.",
+        "caution": "Requires the reader to hold everything in memory — one per page is generous."
+      },
+      {
+        "name": "biblical cadence",
+        "definition": "Coordinate clauses of similar length linked by and, each carrying equal rhythmic weight.",
+        "example": "And the evening and the morning were the first day. (KJV)",
+        "effect": "Levels hierarchy: every event gets the same beat, which reads as either sacred or numb depending on the material.",
+        "caution": "Instantly recognizable as pastiche when the subject matter is mundane."
+      },
+      {
+        "name": "loose cadence",
+        "definition": "The rhythm of a sentence that reaches its main point early and then adds modifiers, each addition a small settling motion.",
+        "example": "He shut the door, quietly, with the flat of his hand, as if the house were asleep.",
+        "effect": "Conversational and unspooling; the default rhythm of modern narrative prose."
+      },
+      {
+        "name": "suspended cadence",
+        "definition": "A rhythm that withholds the beat the reader is waiting for by delaying the verb or the object.",
+        "example": "The letter, which had crossed two oceans and outlived its sender, arrived.",
+        "effect": "Creates tension in the body, not just the mind; the reader is physically waiting to exhale."
+      },
+      {
+        "name": "read-aloud test",
+        "definition": "The practice of speaking a passage at reading pace to locate cadence faults that the eye cannot detect.",
+        "example": "Wherever you have to reread a clause to breathe correctly, the rhythm is wrong.",
+        "effect": "The only reliable diagnostic for stress clash, hiatus, accidental meter, and trailing closes.",
+        "caution": "Subvocalized reading is not the same test — the faults hide until the air moves."
+      }
+    ],
+    "sentence_length_contours": [
+      {
+        "name": "crescendo contour",
+        "definition": "Successive sentences that grow longer through a paragraph.",
+        "example": "He stopped. He listened at the door for a while. He listened until the sound resolved into two voices, one of them his own name.",
+        "effect": "Widens the reader's frame as the paragraph proceeds; good for a scene opening out or an argument accumulating conditions."
+      },
+      {
+        "name": "diminuendo contour",
+        "definition": "Successive sentences that shorten toward the end of a paragraph.",
+        "example": "A long inventory of everything the audit found, then a shorter sentence, then: None of it mattered.",
+        "effect": "Narrows to a point; the standard shape for a paragraph that ends in judgment."
+      },
+      {
+        "name": "sawtooth contour",
+        "definition": "Alternating long and short sentences at a steady beat.",
+        "example": "Long. Short. Long. Short.",
+        "effect": "High measured variance with a predictable pattern; energetic on a page, mechanical over three.",
+        "caution": "Regular alternation is still regularity — vary the amplitude, not just the direction."
+      },
+      {
+        "name": "plateau contour",
+        "definition": "A run of sentences all near the same length.",
+        "example": "Six consecutive 18-to-22-word sentences.",
+        "effect": "Steadies and calms; legitimate for procedural explanation where the reader wants uniform footing.",
+        "caution": "The single most common quantitative signature of machine-drafted prose. Low variance across a whole chapter reads as flat regardless of content quality."
+      },
+      {
+        "name": "spike contour",
+        "definition": "One sentence far longer or shorter than everything around it.",
+        "example": "A paragraph of medium sentences interrupted by a five-word one.",
+        "effect": "The spike takes the emphasis by contrast alone, without any lexical intensifier."
+      },
+      {
+        "name": "ramp and drop",
+        "definition": "A steady lengthening followed by an abrupt short sentence.",
+        "example": "Three sentences that build to forty words, then: It failed.",
+        "effect": "The workhorse paragraph shape in narrative nonfiction; the drop converts accumulated detail into a verdict."
+      },
+      {
+        "name": "hourglass contour",
+        "definition": "Long, then short, then long.",
+        "example": "Setup at length, a short pivot sentence, then an expanded consequence.",
+        "effect": "The short middle sentence works as a hinge the reader can feel; useful when a paragraph turns."
+      },
+      {
+        "name": "staircase ascent",
+        "definition": "Sentences increasing in length by discrete steps rather than smoothly.",
+        "example": "8 words, then 8, then 15, then 15, then 30.",
+        "effect": "Reads as deliberate gathering — each new plateau feels like a decision to go further."
+      },
+      {
+        "name": "terraced descent",
+        "definition": "Sentence length dropping in steps with pauses at each level.",
+        "example": "30, 30, 14, 14, 5.",
+        "effect": "Controlled deceleration; less abrupt than ramp-and-drop and better for endings that must feel considered rather than sudden."
+      },
+      {
+        "name": "pendulum contour",
+        "definition": "Length swinging around a mean with increasing or decreasing amplitude.",
+        "example": "12, 20, 8, 28, 5, 34.",
+        "effect": "The most natural-sounding contour because it mimics speech under rising emotion; widening amplitude reads as escalation."
+      },
+      {
+        "name": "short-burst cluster",
+        "definition": "Three to six very short sentences grouped together inside longer surroundings.",
+        "example": "The lights went out. Someone swore. A door slammed. Then nothing.",
+        "effect": "Compresses time and raises the pulse; the standard prose device for action and panic.",
+        "caution": "Past about six, the reader stops feeling urgency and starts noticing the technique."
+      },
+      {
+        "name": "long-tail paragraph",
+        "definition": "A paragraph whose final sentence is markedly the longest.",
+        "example": "Short observations, then a closing sentence that runs the length of the paragraph's argument.",
+        "effect": "Ends in expansion rather than closure; useful when the point is that the implications keep going."
+      },
+      {
+        "name": "isometric monotony",
+        "definition": "Near-identical sentence lengths sustained across paragraphs, with variance measured in a word or two.",
+        "polarity": "fault",
+        "example": "A chapter whose sentences all fall between 17 and 23 words.",
+        "effect": "None intended — the reader disengages without being able to say why.",
+        "caution": "Explicit AI tell. Low burstiness is what prose_metrics.py measures; fix by writing one deliberately very short and one deliberately very long sentence per paragraph."
+      },
+      {
+        "name": "burstiness target",
+        "definition": "A working range for the variance in sentence length within a passage, expressed as a standard deviation or a max/min ratio.",
+        "example": "A ratio of at least 5:1 between the longest and shortest sentence in any given paragraph.",
+        "effect": "Turns rhythm into a checkable property rather than a taste judgment.",
+        "caution": "A target, not a rule — hitting it by inserting decorative fragments is worse than missing it."
+      }
+    ],
+    "rhythm_moves": [
+      {
+        "name": "hammer sentence",
+        "definition": "A very short sentence placed immediately after a long one, taking its emphasis entirely from the contrast.",
+        "example": "For eleven months the committee gathered testimony, commissioned three independent reviews, and drafted a report no one outside the building would ever read. Then the funding stopped.",
+        "effect": "Converts accumulated exposition into consequence; the reader hears a verdict without being told one is coming.",
+        "caution": "The best-known rhythm move in English nonfiction and therefore the most parodied. One per section."
+      },
+      {
+        "name": "running start",
+        "definition": "Opening with a subordinate clause or adverbial so the sentence has a ramp before its main stress.",
+        "example": "Because no one had checked the dates, the whole schedule was wrong.",
+        "effect": "Delays the first beat and sets a condition before the claim; used sparingly it varies the attack of a paragraph.",
+        "caution": "Three consecutive sentences opening on a subordinate clause is a rhythm rut a linter can catch."
+      },
+      {
+        "name": "delayed verb",
+        "definition": "Holding the main verb back behind intervening material so the sentence stays syntactically unfinished.",
+        "example": "The auditor, who had spent a decade on cases like this one and had learned to distrust round numbers, refused.",
+        "effect": "Keeps the reader's breath held; the verb, when it arrives, takes disproportionate stress."
+      },
+      {
+        "name": "cumulative build",
+        "definition": "Stating the main clause first and then adding free modifiers, each one specifying further.",
+        "example": "He walked out, coat open, keys in his fist, not looking back at the house.",
+        "effect": "Feels like perception unfolding in real time; the rhythm of a mind noticing rather than a report summarizing."
+      },
+      {
+        "name": "staccato run",
+        "definition": "A sequence of short, end-stopped sentences of similar length.",
+        "example": "He counted. He wrote it down. He counted again.",
+        "effect": "Clipped and pressurized; slows narrative time while speeding reading time.",
+        "caution": "Sustained past a paragraph it reads as hardboiled pastiche."
+      },
+      {
+        "name": "breath-length phrasing",
+        "definition": "Building sentences out of units of roughly seven to twelve syllables — the span a reader can say in one comfortable breath.",
+        "example": "He set down the glass, || wiped the ring it left, || and waited.",
+        "effect": "Makes prose speakable, which is the underlying reason well-phrased writing feels easy."
+      },
+      {
+        "name": "triadic rhythm",
+        "definition": "Grouping items, clauses, or sentences in threes.",
+        "example": "Cold, tired, and out of arguments.",
+        "effect": "Three is the smallest number that establishes a pattern and completes it in the same gesture.",
+        "caution": "Universal enough to be invisible until it isn't; count your triads per chapter, because drafting LLMs produce them at several times human rates."
+      },
+      {
+        "name": "drumbeat close",
+        "definition": "Ending a sentence with consecutive stressed monosyllables.",
+        "example": "It was not close. It was not fair. It was not new.",
+        "effect": "Turns the close into percussion; each word lands separately."
+      },
+      {
+        "name": "syncopation",
+        "definition": "Placing a stress where the established rhythm did not expect one, usually by inverting a foot or fronting a word.",
+        "example": "After a run of iambic openings: Gone, all of it, in a week.",
+        "effect": "The rhythmic equivalent of a raised eyebrow; keeps a regular passage from becoming metrical."
+      },
+      {
+        "name": "pause before the punch",
+        "definition": "Inserting a comma, dash, or parenthesis immediately before the payoff word.",
+        "example": "The audit found exactly one irregularity — his.",
+        "effect": "The silence does the emphasis; no intensifier can match a well-placed delay."
+      },
+      {
+        "name": "em-dash swerve",
+        "definition": "Breaking the sentence's direction mid-course with a dash and a countermovement.",
+        "example": "The plan was sound, well funded, endorsed by everyone who mattered — and abandoned within the year.",
+        "effect": "Enacts a change of mind in the sentence's own shape.",
+        "caution": "Dash density is a measured AI tell; two per page is plenty, and a dash used where a comma would do wastes the move."
+      },
+      {
+        "name": "fragment burst",
+        "definition": "A short run of verbless or subjectless fragments.",
+        "example": "No warning. No paperwork. Just the locks changed.",
+        "effect": "Strips syntax to nouns and images; fastest way to raise urgency without exclamation.",
+        "caution": "Fragments only read as deliberate against a background of complete sentences."
+      },
+      {
+        "name": "asyndetic acceleration",
+        "definition": "Removing conjunctions from a series so the items run together.",
+        "example": "He packed, paid, left.",
+        "effect": "Speeds the line and implies the list could continue; the standard rhythm of haste."
+      },
+      {
+        "name": "polysyndetic drag",
+        "definition": "Adding a conjunction before every item in a series.",
+        "example": "and the dust and the heat and the flies and the waiting",
+        "effect": "Slows the line and makes each item weigh the same; the rhythm of endurance and accumulation."
+      },
+      {
+        "name": "list escalation",
+        "definition": "Ordering a series so each member is longer or heavier than the last.",
+        "example": "for a day, for a season, for the rest of a working life",
+        "effect": "The list itself becomes an argument about scale; reversing the order deflates deliberately."
+      },
+      {
+        "name": "appositive beat",
+        "definition": "Dropping a renaming phrase between commas so the sentence takes an extra rhythmic step.",
+        "example": "The clerk, a man who had signed nine thousand of these, signed it.",
+        "effect": "Adds information without adding a sentence, and creates a mid-line pause the reader can breathe in."
+      },
+      {
+        "name": "absolute-phrase coda",
+        "definition": "Ending a sentence with an absolute construction — a noun plus participle detached from the main clause.",
+        "example": "He stood in the doorway, hat in hand, the rain still coming down behind him.",
+        "effect": "A rhythmic tail that widens the frame after the action is complete; camera pulling back."
+      },
+      {
+        "name": "refrain",
+        "definition": "Repeating a phrase at intervals so its recurrence becomes part of the rhythm of a section.",
+        "example": "A chapter that returns three times to: The file was still open.",
+        "effect": "Creates structure the reader feels without being told; each return means more than the last."
+      },
+      {
+        "name": "anaphoric pulse",
+        "definition": "Repeating the same opening words across successive sentences or clauses to set a beat.",
+        "example": "We shall fight on the beaches, we shall fight on the landing grounds... (Churchill)",
+        "effect": "The most propulsive rhythmic device in oratory; the repetition becomes a metronome the content rides on.",
+        "caution": "Written prose tolerates far less of it than speech does — three members, then break the pattern."
+      },
+      {
+        "name": "epistrophic close",
+        "definition": "Repeating the same word or phrase at the end of successive units.",
+        "example": "of the people, by the people, for the people (Lincoln)",
+        "effect": "Puts the beat at the point of maximum stress; more emphatic and less breathless than anaphora."
+      },
+      {
+        "name": "the turn",
+        "definition": "A rhythmic pivot at a single hinge word — but, still, except, and yet — that reverses the direction of a passage.",
+        "example": "Everything about the proposal was defensible. Except the timing.",
+        "effect": "The prose analogue of the sonnet's volta; the reader feels the argument change gear."
+      },
+      {
+        "name": "question beat",
+        "definition": "Interrupting a run of declaratives with a short interrogative.",
+        "example": "Three paragraphs of evidence, then: So who signed it?",
+        "effect": "Changes the intonation contour and re-engages a reader who has settled into passive reception.",
+        "caution": "A rhetorical question that the next sentence immediately answers is a stock filler move; make the question do real work."
+      },
+      {
+        "name": "callback beat",
+        "definition": "Reprising an earlier phrase in shortened form at a rhythmically prominent position.",
+        "example": "A chapter that opened on a full description of the locked room closing on: The room, still locked.",
+        "effect": "Gives a section audible closure and rewards the attentive reader with recognition."
+      },
+      {
+        "name": "rhythmic reversal",
+        "definition": "Inverting an established length pattern — short-short-long where the reader expects long-long-short.",
+        "example": "After a page of ramp-and-drop paragraphs, one that starts short and ends in a forty-word sentence.",
+        "effect": "Prevents the reader's ear from predicting the page; the cure for a well-tuned but exhausted contour."
+      },
+      {
+        "name": "the swell",
+        "definition": "Building rhythm across several sentences toward a paragraph's loudest point rather than within one sentence.",
+        "example": "Successive sentences adding a clause each until the last runs three clauses long.",
+        "effect": "Paragraph-scale crescendo; carries emotional escalation without any adverb of intensity."
+      },
+      {
+        "name": "the drop",
+        "definition": "Cutting immediately from a passage's rhythmic peak to something short, flat, and factual.",
+        "example": "After the swell: The meeting adjourned at four.",
+        "effect": "Deflation used as punctuation; the flatness after a peak is what makes the peak audible in retrospect."
+      }
+    ],
+    "pause_and_punctuation_rhythm": [
+      {
+        "name": "breath comma",
+        "definition": "A comma placed for phrasing rather than grammar, marking where a speaker would pause.",
+        "example": "And then, nothing.",
+        "effect": "Buys a beat of silence; the cheapest rhythmic control in punctuation.",
+        "caution": "House styles that comma strictly by rule will strip these; know which battle you are in."
+      },
+      {
+        "name": "comma splice for speed",
+        "definition": "Joining independent clauses with commas alone so they run without full stops.",
+        "example": "He ran, he fell, he got up, he kept going.",
+        "effect": "Speeds and links; the clauses read as one continuous event rather than four.",
+        "caution": "Only legible as deliberate in a text whose punctuation is otherwise correct — and copy editors will fix it unless you flag it."
+      },
+      {
+        "name": "comma excision",
+        "definition": "Deleting optional commas so a clause runs unbroken.",
+        "example": "Before: In the morning, after the rain, they left. After: In the morning after the rain they left.",
+        "effect": "Removes the reader's rest stops and raises the pace without changing a word."
+      },
+      {
+        "name": "serial comma beat",
+        "definition": "Using (or omitting) the comma before the final conjunction in a list, which changes the rhythm of the last item.",
+        "example": "red, white, and blue vs. red, white and blue",
+        "effect": "With the serial comma the last item stands alone; without it the last two pair up. A rhythmic choice as much as a clarity one."
+      },
+      {
+        "name": "comma cascade",
+        "definition": "A long asyndetic series of comma-separated elements.",
+        "example": "the ledgers, the invoices, the shipping manifests, the two phones, the safe",
+        "effect": "Accumulation without hierarchy; the reader feels quantity rather than counting it."
+      },
+      {
+        "name": "semicolon hinge",
+        "definition": "A semicolon balancing two independent clauses of comparable weight.",
+        "example": "The rule was clear; the practice was not.",
+        "effect": "A pause longer than a comma and lighter than a period, holding two halves in one gesture.",
+        "caution": "Semicolons raise register. In a colloquial voice they read as a lapse into essay mode."
+      },
+      {
+        "name": "colon as gate",
+        "definition": "A colon announcing that what follows delivers what the first clause promised.",
+        "example": "There was only one problem: nobody had the key.",
+        "effect": "Creates anticipation and then satisfies it in the same sentence; the strongest single-sentence setup-payoff device."
+      },
+      {
+        "name": "dash interruption",
+        "definition": "A single em dash cutting into the sentence to insert a contrary or unexpected element.",
+        "example": "He signed everything they put in front of him — including the receipt for his own dismissal.",
+        "effect": "Reads as an interruption of thought rather than a planned clause, which lends spontaneity.",
+        "caution": "Em-dash frequency is one of the most reliable quantitative AI tells; audit density before release."
+      },
+      {
+        "name": "paired dashes",
+        "definition": "Two dashes bracketing an aside that stays at full volume.",
+        "example": "The deadline — everyone knew this — had never been real.",
+        "effect": "Inserts commentary without lowering it to a whisper the way parentheses do."
+      },
+      {
+        "name": "parenthetical drop",
+        "definition": "Enclosing material in parentheses so it reads at lower volume.",
+        "example": "The vote passed (barely).",
+        "effect": "Creates two levels of loudness in one sentence; the aside sounds like an aside.",
+        "caution": "Long parentheses defeat the purpose — anything the reader must hold for more than a clause should be its own sentence."
+      },
+      {
+        "name": "terminal dash",
+        "definition": "A dash at the end of a sentence marking a cut-off rather than a completion.",
+        "example": "If anyone had bothered to ask —",
+        "effect": "Sound of interruption; standard in dialogue for being cut off, distinct from the ellipsis's fade."
+      },
+      {
+        "name": "ellipsis trail",
+        "definition": "Three points marking a fade rather than a stop.",
+        "example": "He said he would call...",
+        "effect": "Trails the voice off; suggests continuation the writer declines to supply.",
+        "caution": "Reads as coy or lazy in expository prose; almost always better replaced by a full stop or a real clause."
+      },
+      {
+        "name": "full-stop drumbeat",
+        "definition": "Consecutive short sentences ending in periods where commas or conjunctions would be idiomatic.",
+        "example": "It was late. He was tired. He signed.",
+        "effect": "Every period is a rest; the paragraph acquires a percussive pulse."
+      },
+      {
+        "name": "period fragment",
+        "definition": "Punctuating a phrase as a sentence to give it a full stop's worth of pause.",
+        "example": "All of it. Gone.",
+        "effect": "Isolates a phrase at the strongest available level of emphasis.",
+        "caution": "Loses force in proportion to frequency; the second one on a page costs the first one half its value."
+      },
+      {
+        "name": "question mark beat",
+        "definition": "A question's rising intonation used to change the melodic contour of a run of statements.",
+        "example": "The numbers were checked twice. Were they?",
+        "effect": "Introduces doubt as sound before introducing it as content."
+      },
+      {
+        "name": "exclamation spike",
+        "definition": "An exclamation point marking maximum volume.",
+        "example": "Get out!",
+        "effect": "Instantly raises the register; in dialogue it is speech, in narration it is the author shouting.",
+        "caution": "Outside dialogue, exclamation points in adult nonfiction read as amateur. Fitzgerald's line about laughing at your own joke applies."
+      },
+      {
+        "name": "paragraph break as rest",
+        "definition": "The white space between paragraphs functioning as a pause longer than any punctuation mark.",
+        "example": "A one-line paragraph surrounded by white space above and below.",
+        "effect": "The longest silence available without a section break; where you put it determines what the reader dwells on."
+      },
+      {
+        "name": "section break",
+        "definition": "A blank line or ornament between passages, functioning as a movement break.",
+        "example": "A dinkus or extra vertical space between scenes.",
+        "effect": "Signals a jump in time, place, or voice; the reader resets expectations across it."
+      },
+      {
+        "name": "italic stress accent",
+        "definition": "Italicizing a word to force stress onto a syllable the neutral reading would not stress.",
+        "example": "I never said he took the money.",
+        "effect": "Overrides the default intonation contour; the only way to specify spoken emphasis in print.",
+        "caution": "If the sentence needs italics to be understood, the word order is usually wrong. Rewrite before you italicize."
+      },
+      {
+        "name": "over-punctuation choppiness",
+        "definition": "Commas and dashes inserted at every available grammatical seam.",
+        "polarity": "fault",
+        "example": "The report, however, which had, by then, been revised, twice, was, finally, released.",
+        "effect": "The sentence stumbles; the reader gets no run of more than three words.",
+        "caution": "Usually a symptom of an overloaded sentence — split it rather than repunctuating it."
+      },
+      {
+        "name": "colon versus dash",
+        "definition": "The choice between a colon (formal, promissory, expected) and a dash (informal, abrupt, surprising) for the same setup-payoff structure.",
+        "example": "One thing was missing: the signature. / One thing was missing — the signature.",
+        "effect": "Identical syntax, different register and different speed. The colon says here it comes; the dash says here it is."
+      }
+    ],
+    "paragraph_rhythm": [
+      {
+        "name": "downbeat opening",
+        "definition": "Beginning a paragraph with a short declarative that carries its main stress on the first content word.",
+        "example": "Money changed everything.",
+        "effect": "Marks the top of the paragraph as a beat; makes skim-reading the first sentences a coherent experience."
+      },
+      {
+        "name": "one-sentence paragraph",
+        "definition": "A paragraph consisting of a single sentence, usually short, set off by white space on both sides.",
+        "example": "Nobody objected.",
+        "effect": "Maximum isolation and therefore maximum emphasis at paragraph scale.",
+        "caution": "In tabloid and blog registers it becomes the default and stops meaning anything; ration it."
+      },
+      {
+        "name": "paragraph-final stress",
+        "definition": "Placing the paragraph's most important element in its last sentence, and that sentence's payload in its last words.",
+        "example": "Ending on: and the money had already moved.",
+        "effect": "Aligns the two positions readers remember best — the end of the paragraph and the end of the sentence."
+      },
+      {
+        "name": "tapering paragraph",
+        "definition": "A paragraph whose sentences shorten steadily toward the close.",
+        "example": "38 words, 24, 12, 4.",
+        "effect": "Deceleration into a landing; the standard shape for a paragraph that ends in judgment or resignation."
+      },
+      {
+        "name": "building paragraph",
+        "definition": "A paragraph whose sentences lengthen toward the close.",
+        "example": "5 words, 12, 24, 41.",
+        "effect": "Opens out rather than closing down; suits a paragraph whose implications widen."
+      },
+      {
+        "name": "alternating density",
+        "definition": "Following a syntactically dense paragraph with an airy one, and vice versa.",
+        "example": "A paragraph of subordinated argument followed by three plain declaratives.",
+        "effect": "Gives the reader recovery time; sustained density without relief is why difficult books get abandoned."
+      },
+      {
+        "name": "drop line",
+        "definition": "A very short paragraph placed immediately after a long one.",
+        "example": "A 200-word paragraph, then: It was already too late.",
+        "effect": "Paragraph-scale version of the hammer sentence; the white space above it does the work."
+      },
+      {
+        "name": "paragraph length contour",
+        "definition": "The shape traced by consecutive paragraph lengths across a section.",
+        "example": "Long, long, short, long, very short at the section end.",
+        "effect": "The rhythm readers perceive before they read a word, because they see the page first.",
+        "caution": "Uniform paragraph blocks are visible as monotony from arm's length; check the page as a picture."
+      },
+      {
+        "name": "coda paragraph",
+        "definition": "A short closing paragraph that adds no new information but resolves the section's rhythm.",
+        "example": "A single sentence restating the stake in plain monosyllables after an argued section.",
+        "effect": "Gives the reader a landing; without one, a section ends where the argument stops rather than where the reader can rest.",
+        "caution": "A coda that summarizes rather than resolves is filler — cut it."
+      },
+      {
+        "name": "hook and turn",
+        "definition": "A paragraph that opens with its most arresting sentence and pivots at a mid-paragraph hinge.",
+        "example": "An opening claim, three sentences of support, then: Except that none of it held up.",
+        "effect": "Keeps the paragraph from being a flat block of support by putting a rhythmic event in its middle."
+      },
+      {
+        "name": "anaphoric paragraph openings",
+        "definition": "Successive paragraphs beginning with the same word or construction.",
+        "example": "Three paragraphs in a row opening on: Consider...",
+        "effect": "Deliberately used, it structures a section as a series of parallel cases.",
+        "caution": "Accidentally used, it is a rut. The commonest unnoticed forms are consecutive paragraphs opening on But, This, or a participial phrase."
+      },
+      {
+        "name": "white-space rhythm",
+        "definition": "The visual pattern of text and gaps on the spread, considered as a rhythmic property of the page.",
+        "example": "A spread with one short paragraph, two long ones, and a section break.",
+        "effect": "Readers form an impression of difficulty from the page image before reading; managing it is part of managing pace."
+      },
+      {
+        "name": "block monotony",
+        "definition": "Page after page of paragraphs of near-identical length and internal shape.",
+        "polarity": "fault",
+        "example": "Every paragraph four to five sentences, every sentence of similar length.",
+        "effect": "Fatigue with no identifiable cause.",
+        "caution": "Quantitatively detectable and a known signature of unedited machine drafting; the fix is structural, not lexical."
+      },
+      {
+        "name": "breath-unit paragraph",
+        "definition": "Sizing a paragraph to the span of attention a reader can spend before wanting a break — in practice, roughly a screen or a third of a page.",
+        "example": "Paragraphs of 60 to 120 words in trade nonfiction.",
+        "effect": "Matches paragraph length to the reader's endurance rather than to the writer's train of thought."
+      },
+      {
+        "name": "section rhythm",
+        "definition": "Variation in the lengths of the sections or scenes that make up a chapter.",
+        "example": "A 1,400-word section, a 300-word one, then an 900-word one.",
+        "effect": "The highest level at which pace is felt; a chapter of equal-length sections reads as programmatic even when each section is good."
+      }
+    ],
+    "rhythm_faults": [
+      {
+        "name": "accidental meter",
+        "definition": "Prose that falls into a regular metrical pattern, most often iambic pentameter, without intending to.",
+        "polarity": "fault",
+        "example": "The morning light was falling on the stair.",
+        "effect": "Lends unearned solemnity and makes the reader hear verse where prose was meant.",
+        "caution": "Common in writers who read poetry; scan any sentence that sounds unusually good."
+      },
+      {
+        "name": "jingle",
+        "definition": "Unintended rhyme between nearby words in prose.",
+        "polarity": "fault",
+        "example": "The reduction in production caused frustration in the nation.",
+        "effect": "Trivializes; the reader hears doggerel and stops attending to the content.",
+        "caution": "Watch -tion, -ing, and -ly endings in particular; they rhyme by default."
+      },
+      {
+        "name": "sing-song",
+        "definition": "Regular alternation of stress and equal-length units sustained long enough for the reader to predict the pattern.",
+        "polarity": "fault",
+        "example": "A paragraph of clauses all in trochaic fours.",
+        "effect": "Reads as nursery rhyme regardless of subject.",
+        "caution": "The cure is substitution: break one unit's length or invert one foot."
+      },
+      {
+        "name": "tongue-twister",
+        "definition": "A sequence whose articulation is physically difficult because of repeated similar-but-different consonants.",
+        "polarity": "fault",
+        "example": "the sixth statistic's specific significance",
+        "effect": "The reader trips, rereads, and loses the thread.",
+        "caution": "Invisible on the page and obvious aloud — a read-aloud pass catch."
+      },
+      {
+        "name": "echo",
+        "definition": "The same distinctive word or sound reappearing within a few lines without intent.",
+        "polarity": "fault",
+        "example": "The report reported that reporting had improved.",
+        "effect": "Reads as carelessness; the ear flags the repetition before the eye does.",
+        "caution": "Distinguish from deliberate polyptoton — the test is whether the repetition means anything."
+      },
+      {
+        "name": "alliterative overload",
+        "definition": "Alliteration sustained past the point where it can pass as accident.",
+        "polarity": "fault",
+        "example": "a bitter, brittle, brooding, backward-looking bureaucracy",
+        "effect": "The prose calls attention to its own cleverness and loses the subject.",
+        "caution": "Two alliterating stresses read as craft; four read as parody."
+      },
+      {
+        "name": "stress clash pile-up",
+        "definition": "Several adjacent monosyllabic stresses in sequence, none of them intended for emphasis.",
+        "polarity": "fault",
+        "example": "Ten large black steel drums stood stacked back near that far wall.",
+        "effect": "Every word demands a beat, so none gets one; the sentence sounds like a list read aloud by a machine."
+      },
+      {
+        "name": "triad addiction",
+        "definition": "Reflexive resort to three-part structures for every list, clause set, and section.",
+        "polarity": "fault",
+        "example": "Every paragraph ending on three parallel items of increasing length.",
+        "effect": "The pattern becomes the only thing the reader hears.",
+        "caution": "Measurable: count tricolons per thousand words. Machine-drafted prose runs several times the rate of edited human prose, which makes this a first-pass de-slop target."
+      },
+      {
+        "name": "dash dependence",
+        "definition": "Using the em dash wherever a comma, colon, period, or parenthesis would serve.",
+        "polarity": "fault",
+        "example": "Three dashes in a single paragraph, none marking a genuine swerve.",
+        "effect": "Every interruption stops feeling like an interruption; the sentence's shape flattens.",
+        "caution": "Quantitatively tracked as an AI tell. Replace two-thirds of them and see which the sentence actually misses."
+      },
+      {
+        "name": "fragment addiction",
+        "definition": "Sentence fragments used so often that they become the default rhythm.",
+        "polarity": "fault",
+        "example": "Not because it worked. Because it was cheap. Because no one asked.",
+        "effect": "Urgency inflation; the reader habituates and the fragments read as mannerism.",
+        "caution": "Fragments derive their force entirely from contrast with complete syntax."
+      },
+      {
+        "name": "metronomic clause length",
+        "definition": "Clauses within sentences all landing at the same length, even when sentence lengths vary.",
+        "polarity": "fault",
+        "example": "Every sentence a pair of eight-word clauses joined by a comma.",
+        "effect": "Variance measured at the sentence level looks fine while the prose still sounds mechanical.",
+        "caution": "Sentence-length variance alone will not catch this; scan clause boundaries too."
+      },
+      {
+        "name": "trailing-off close",
+        "definition": "A sentence or paragraph that ends on unstressed, low-content material after its real point has passed.",
+        "polarity": "fault",
+        "example": "...which is something that should be taken into consideration going forward.",
+        "effect": "Discards the strongest position in the sentence.",
+        "caution": "The commonest fixable cadence fault in draft prose. Find the last content word that matters and end there."
+      },
+      {
+        "name": "rhythmic tic",
+        "definition": "An unconscious signature cadence — a favored clause shape, opener, or close — repeated across a whole manuscript.",
+        "polarity": "fault",
+        "example": "Every third sentence built as short clause, comma, long clause, comma, three-word tag.",
+        "effect": "Invisible to the writer, unmistakable to a reader who finishes the book.",
+        "caution": "Only detectable by measurement or a fresh reader; it is what a construction-variety report is for."
+      }
+    ]
+  }
+}

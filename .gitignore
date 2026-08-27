@@ -1,0 +1,14 @@
+# build products
+build/
+book/build/
+paper/build/
+book/latex/generated/
+paper/latex/generated/
+*.aux *.log *.out *.toc *.bbl *.blg *.fls *.fdb_latexmk *.synctex.gz *.run.xml *.bcf
+# python
+__pycache__/
+*.pyc
+.venv/
+# scratch
+/tmp/
+*.uncompressed

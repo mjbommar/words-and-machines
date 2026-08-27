@@ -1,0 +1,6 @@
+step,pdflatex,xelatex,lualatex
+parse,1.1,1.9,2.3
+fonts,0.6,3.8,4.5
+typeset,3.2,4.1,4.9
+bibtex,0.8,0.8,0.8
+second_pass,2.9,3.7,4.2

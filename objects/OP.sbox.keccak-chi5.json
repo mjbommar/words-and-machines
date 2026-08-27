@@ -1,0 +1,22 @@
+{
+  "id": "OP.sbox.keccak-chi5",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Keccak chi5 bit-gate complexity: 12 or 13?",
+  "statement": "Zhang-Huang 2023 publish the interval [12,13] and state that prior optimality results may be incorrect. A DRAT-certified answer would be the first for any S-box. Effort estimate: weeks.",
+  "formal": {
+    "language": "prose",
+    "statement": "see statement"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "evidence": [],
+  "sources": [
+    "research/surveys/ -- see the per-domain reports for citations and encoding estimates"
+  ],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "isa-calculus bootstrap (Claude Code session with axeyum)",
+    "origin": "see research/"
+  }
+}

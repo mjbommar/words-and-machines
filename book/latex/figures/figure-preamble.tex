@@ -1,0 +1,45 @@
+%% ============================================================
+%% figure-preamble.tex — shared preamble for standalone TikZ/pgfplots
+%% figure sources under latex/figures/src/*.tikz (module: figures).
+%%
+%% scripts/build_figures.py wraps each source in a standalone document
+%% that inputs this file, so every diagram renders with the book's
+%% fonts and palette — and responds to \GrayscaleMode exactly as the
+%% interior does (define it before this file to get a B&W variant).
+%% ============================================================
+
+\usepackage{fontspec}
+% Match the book's serif so figure labels look native. Tries the three
+% shipped font profiles in turn (libertinus / garamond / plex), then
+% falls back to the standalone default. A figure-heavy book can pin its
+% own face here.
+\IfFontExistsTF{Libertinus Serif}{\setmainfont{Libertinus Serif}}{%
+  \IfFontExistsTF{EB Garamond}{\setmainfont{EB Garamond}}{%
+    \IfFontExistsTF{IBM Plex Serif}{\setmainfont{IBM Plex Serif}}{}}}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{
+  arrows.meta, positioning, calc, fit, backgrounds,
+  decorations.pathreplacing, decorations.pathmorphing,
+  shapes.geometric, shapes.misc, patterns, matrix, chains
+}
+
+% The book's semantic palette (accent/gray + math-logic hues), so figure
+% colours match the callouts and collapse under \GrayscaleMode with them.
+\input{\FigurePreambleDir preamble/colors.tex}
+
+% Convenience compatibility layer: the common Tailwind-style step names
+% many diagram authors reach for, mapped onto the book palette so a
+% figure written with slate-/blue-/amber-500 renders in-house and stays
+% grayscale-safe. New figures may use the book tokens directly instead.
+\colorlet{slate-200}{gray-200}\colorlet{slate-300}{gray-300}
+\colorlet{slate-400}{gray-400}\colorlet{slate-500}{gray-500}
+\colorlet{slate-600}{gray-600}\colorlet{slate-700}{gray-700}
+\colorlet{blue-50}{ml-blue-50}\colorlet{blue-600}{ml-blue-700}
+\colorlet{blue-700}{ml-blue-700}\colorlet{blue-900}{ml-blue-700}
+\colorlet{green-600}{ml-teal-700}\colorlet{red-500}{callout-warning-frame}
+\colorlet{amber-500}{ml-amber-800}\colorlet{amber-600}{ml-amber-800}
+\colorlet{amber-800}{ml-amber-800}\colorlet{bg-history}{ml-amber-50}

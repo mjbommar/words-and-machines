@@ -1,0 +1,1471 @@
+{
+  "name": "syntactic_constructions",
+  "level": "micro",
+  "entry_type": "record",
+  "description": "Clause- and sentence-level machinery of English prose: absolutes, participial and appositive modifiers, sentence architectures, coordination and subordination, focus and information-packaging constructions, ellipsis, interruption, modifier placement, and length moves.",
+  "categories": {
+    "absolute_constructions": [
+      {
+        "name": "nominative absolute",
+        "definition": "A noun phrase plus a participle (or other predicative complement) attached to a main clause without a conjunction or a relative pronoun, grammatically independent of it but semantically bound to it.",
+        "pattern": "[Noun phrase] [participle], [main clause]",
+        "example": "Her hands still shaking, she signed the settlement where the lawyer pointed.",
+        "effect": "Layers a second, simultaneous fact onto the main action without demoting it to a full subordinate clause; adds texture at low grammatical cost.",
+        "register": "neutral to literary; common in fiction, narrative nonfiction, and formal exposition, rare in speech",
+        "caution": "Two or three per page reads as craft; two per paragraph reads as a tic.",
+        "aka": ["absolute phrase", "absolute construction"]
+      },
+      {
+        "name": "present-participial absolute",
+        "definition": "A nominative absolute whose participle is the -ing form, giving the attached circumstance ongoing or simultaneous aspect.",
+        "pattern": "[Noun phrase] [-ing participle], [main clause]",
+        "example": "The generators humming behind the tent, the surgeons worked past midnight.",
+        "effect": "Holds a background process in view for the duration of the main clause.",
+        "register": "neutral to literary"
+      },
+      {
+        "name": "past-participial absolute",
+        "definition": "A nominative absolute whose participle is the -ed/-en form, so the attached circumstance is completed before or at the moment of the main clause.",
+        "pattern": "[Noun phrase] [-ed participle], [main clause]",
+        "example": "The contracts signed, the lawyers went to lunch.",
+        "effect": "Compresses a whole prior event into a phrase, producing brisk sequence without 'after' or 'once'.",
+        "register": "neutral to formal",
+        "caution": "Overuse produces a clipped, faintly military cadence."
+      },
+      {
+        "name": "verbless absolute",
+        "definition": "An absolute with no participle at all — a noun phrase followed by a bare predicative noun or adjective, the copula understood.",
+        "pattern": "[Noun phrase] [predicative NP/AdjP], [main clause]",
+        "example": "His face a mask, he read the verdict aloud.",
+        "effect": "Maximum compression: an image is asserted without a verb to slow it.",
+        "register": "literary",
+        "caution": "Reads as mannered in plain expository prose.",
+        "aka": ["nominal absolute", "absolute with 'being' deleted"]
+      },
+      {
+        "name": "adjectival absolute",
+        "definition": "An absolute whose predicate is an adjective phrase, often extended by a prepositional complement.",
+        "pattern": "[Noun phrase] [adjective phrase], [main clause]",
+        "example": "The road slick with rain, we took the long way around the ridge.",
+        "effect": "Supplies the condition under which the main clause happens, in the form of an image rather than a because-clause."
+      },
+      {
+        "name": "prepositional absolute",
+        "definition": "An absolute whose predicate is a prepositional phrase locating or situating the noun.",
+        "pattern": "[Noun phrase] [prepositional phrase], [main clause]",
+        "example": "The children already at the table, we sat down without ceremony.",
+        "effect": "Sets a spatial or temporal stage cheaply, before the main clause claims attention."
+      },
+      {
+        "name": "with-absolute",
+        "definition": "An absolute introduced by the preposition 'with' (or occasionally 'without'), which licenses the construction in registers where the bare absolute would sound stiff.",
+        "pattern": "With [noun phrase] [participle/adjective/PP], [main clause]",
+        "example": "With the roof gone, the rain came straight down onto the ledgers.",
+        "effect": "Softens the absolute toward ordinary speech; makes the attached circumstance feel causal or enabling.",
+        "register": "neutral; the everyday English realization of the absolute",
+        "aka": ["augmented absolute", "with-clause"]
+      },
+      {
+        "name": "without-absolute",
+        "definition": "The negative augmented absolute: 'without' plus a noun phrase and predicate, asserting the absence of the attached circumstance.",
+        "pattern": "Without [noun phrase] [participle/PP], [main clause]",
+        "example": "Without a single lamp burning in the street, the town looked abandoned.",
+        "effect": "States a missing condition as vividly as a present one — negation with an image attached."
+      },
+      {
+        "name": "what-with absolute",
+        "definition": "A colloquial causal absolute headed by 'what with', typically listing two or more contributing circumstances.",
+        "pattern": "What with [NP] and [NP], [main clause]",
+        "example": "What with the strike and the snow, nothing left the depot for nine days.",
+        "effect": "Gives a folksy, spoken causality — a shrug where 'because' would be an argument.",
+        "register": "informal; useful for voice in first-person narration and columns"
+      },
+      {
+        "name": "there-being absolute",
+        "definition": "An absolute built on existential 'there' plus 'being', usually stating that some condition does or does not obtain.",
+        "pattern": "There being [NP], [main clause]",
+        "example": "There being no objection, the chair moved to the next item.",
+        "effect": "Formal, procedural compression of a whole enabling condition.",
+        "register": "formal, legal, parliamentary",
+        "caution": "Anywhere but institutional prose it sounds like a minute-taker wrote it."
+      },
+      {
+        "name": "fronted absolute",
+        "definition": "An absolute placed before the main clause, so the attached circumstance is read as the frame for what follows.",
+        "pattern": "[Absolute], [main clause]",
+        "example": "The tide already turning, the crew hauled the last crate up the beach.",
+        "effect": "Sets conditions first; the main clause lands inside a scene that is already running.",
+        "register": "neutral to literary"
+      },
+      {
+        "name": "trailing absolute",
+        "definition": "An absolute placed after the main clause, adding a detail that the clause has just made relevant.",
+        "pattern": "[Main clause], [absolute]",
+        "example": "She stepped out of the courtroom, her coat over one arm, the reporters already moving.",
+        "effect": "Extends the sentence past its grammatical completion, the way the eye keeps taking in detail after the event.",
+        "register": "literary; a signature of the cumulative style"
+      },
+      {
+        "name": "medial absolute",
+        "definition": "An absolute wedged between the subject and predicate of the main clause, held off by commas.",
+        "pattern": "[Subject], [absolute], [predicate]",
+        "example": "The witness, his hands flat on the rail, said nothing for a long moment.",
+        "effect": "Delays the verb and so enacts the pause it describes.",
+        "caution": "Heavy medial insertions strand the reader between subject and verb; keep them short."
+      },
+      {
+        "name": "stacked absolutes",
+        "definition": "Two or more absolutes in series attached to a single main clause.",
+        "pattern": "[Main clause], [absolute], [absolute], [absolute]",
+        "example": "He waited at the gate, his ticket folded twice, his bag between his feet, the platform emptying behind him.",
+        "effect": "Builds an accumulating still life; the base clause stops while detail keeps arriving.",
+        "caution": "Past three, the sentence stops feeling observed and starts feeling inventoried."
+      },
+      {
+        "name": "absolute with pronoun subject",
+        "definition": "An absolute whose noun phrase is a personal pronoun, which in English keeps subjective case ('he', not 'him') in careful prose.",
+        "pattern": "[Pronoun] [participle], [main clause]",
+        "example": "She having already refused twice, the committee stopped asking.",
+        "effect": "Marks the absolute as consciously formal; the case choice is itself a register signal.",
+        "register": "formal to archaic",
+        "caution": "'Him having refused' is common in speech and will read as an error in print."
+      },
+      {
+        "name": "ablative absolute",
+        "definition": "The Latin construction — a noun and participle in the ablative case, syntactically detached from the main clause — from which the English absolute descends; the ancestor of most absolute patterns in formal English.",
+        "example": "Latin 'signo dato, naves solverunt' becomes, in the closest English, 'The signal given, the ships cast off.'",
+        "effect": "Compresses a subordinate event into two or three words, leaving the main clause unencumbered — the reason translators reach for it and the reason English absolutes still feel Latinate.",
+        "register": "the English descendants range from formal to literary; the calque itself is a translator's move",
+        "renderings": [
+          "nominative absolute: 'The signal given, the ships cast off.'",
+          "past-participial absolute: 'The orders received, the legion broke camp.'",
+          "with-absolute: 'With the signal given, the ships cast off.'",
+          "temporal clause: 'When the signal had been given, the ships cast off.'",
+          "causal clause: 'Because the signal had been given, the ships cast off.'",
+          "concessive clause: 'Although the signal had been given, the ships stayed.'",
+          "conditional clause: 'If the signal is given, the ships cast off.'",
+          "prepositional phrase: 'At the signal, the ships cast off.'",
+          "coordinated clause: 'The signal was given and the ships cast off.'",
+          "perfect participial phrase: 'Having received the signal, the crews cast off.'"
+        ],
+        "caution": "A translated absolute keeps Latin's word order and can leave the English participle dangling; check that the absolute's noun is not mistaken for the main clause's subject."
+      },
+      {
+        "name": "genitive absolute",
+        "definition": "The Greek counterpart of the ablative absolute: a noun and participle in the genitive, detached from the main clause; it reaches English chiefly through biblical and classical translation.",
+        "example": "'These things having been said, he went out' preserves the Greek shape; idiomatic English prefers 'When he had said this, he went out.'",
+        "effect": "In translation it produces the archaic, scriptural cadence readers associate with the King James register.",
+        "register": "translation English; archaic or deliberately liturgical",
+        "renderings": [
+          "perfect participial phrase: 'Having said these things, he went out.'",
+          "nominative absolute: 'These things said, he went out.'",
+          "temporal clause: 'When he had said these things, he went out.'",
+          "sequential coordination: 'He said these things and went out.'",
+          "prepositional phrase: 'After that, he went out.'"
+        ],
+        "caution": "Word-for-word rendering yields the 'and it came to pass' texture — powerful once, wearying twice."
+      },
+      {
+        "name": "accusative absolute",
+        "definition": "A minor classical absolute (Greek, with impersonal participles; occasional in late Latin) in the accusative case, typically expressing a granted or permitted circumstance.",
+        "example": "The impersonal 'it being permitted' preserves its shape: 'It being permitted, the delegation entered.'",
+        "effect": "Reads as an official concession or granted condition rather than an observed one.",
+        "register": "formal, legalistic",
+        "renderings": [
+          "impersonal absolute: 'It being permitted, they entered.'",
+          "there-being absolute: 'There being no impediment, they entered.'",
+          "concessive clause: 'Since it was permitted, they entered.'",
+          "prepositional phrase: 'With permission, they entered.'"
+        ]
+      },
+      {
+        "name": "dangling absolute",
+        "definition": "An absolute whose implied subject is left so vague that readers attach it to the main clause's subject and produce a false reading.",
+        "polarity": "fault",
+        "example": "Faulty: 'Driving north, the mileage improved.' Repaired: 'Driving north, we watched the mileage improve.'",
+        "effect": "Named here as the failure mode of the pattern: the absolute's whole advantage is that it carries its own subject, and the error is to omit it.",
+        "caution": "Test every absolute by asking whose action it names; if the answer is the main clause's subject, it wants a participial phrase instead."
+      }
+    ],
+    "participial_and_appositive": [
+      {
+        "name": "fronted participial phrase",
+        "definition": "A participial phrase placed before the main clause and modifying its subject.",
+        "pattern": "[-ing/-ed participle phrase], [subject] [predicate]",
+        "example": "Turning the envelope over twice, she still did not open it.",
+        "effect": "Delays the subject and creates a moment of held attention before the clause resolves.",
+        "caution": "Its subject must be the main clause's subject, or it dangles."
+      },
+      {
+        "name": "medial participial phrase",
+        "definition": "A participial phrase set between subject and verb, interrupting the clause it modifies.",
+        "pattern": "[Subject], [participial phrase], [predicate]",
+        "example": "The pilot, checking the gauge a second time, said nothing to the passengers.",
+        "effect": "Slows the sentence exactly where the subject is under scrutiny."
+      },
+      {
+        "name": "trailing participial phrase",
+        "definition": "A participial phrase attached after the main clause, extending it rightward.",
+        "pattern": "[Main clause], [participial phrase]",
+        "example": "He walked the length of the platform, counting the doors as he went.",
+        "effect": "Keeps the sentence moving past its grammatical end; the engine of right-branching, cumulative prose.",
+        "register": "neutral to literary"
+      },
+      {
+        "name": "perfect participial phrase",
+        "definition": "A participial phrase headed by 'having' plus a past participle, marking its action as completed before the main clause.",
+        "pattern": "Having [past participle] ..., [main clause]",
+        "example": "Having read the file twice, she asked for the pages that were missing.",
+        "effect": "Establishes prior action without a 'after' clause and without the past perfect's heaviness.",
+        "caution": "Two in a row builds an audit-report rhythm."
+      },
+      {
+        "name": "passive participial phrase",
+        "definition": "A phrase headed by a past participle with passive sense, modifying a noun that undergoes the action.",
+        "pattern": "[Past participle phrase], [noun] [predicate]",
+        "example": "Stripped of its bark, the trunk showed the beetle tracks underneath.",
+        "effect": "Puts the affected thing forward and leaves the agent unnamed."
+      },
+      {
+        "name": "reduced relative clause",
+        "definition": "A relative clause with its relative pronoun and copula removed, leaving a bare participial or prepositional modifier after the noun.",
+        "pattern": "[Noun] [participle/PP] [rest of clause]",
+        "example": "The man standing by the door had been there since noon.",
+        "effect": "Trims four words without losing the modification; the cheapest available compression in English.",
+        "caution": "Reduced relatives create garden paths ('the horse raced past the barn fell'); read the sentence cold before keeping one."
+      },
+      {
+        "name": "dangling participle",
+        "definition": "A participial phrase whose implied subject differs from the subject of the clause it attaches to.",
+        "polarity": "fault",
+        "example": "Faulty: 'Walking into the hearing, the microphone was already live.' Repaired: 'Walking into the hearing, she found the microphone already live.'",
+        "effect": "Produces an unintended and often comic attachment; the standard reason editors distrust fronted participles.",
+        "caution": "The fix is almost never to delete the phrase — it is to give the main clause the right subject."
+      },
+      {
+        "name": "squinting modifier",
+        "definition": "A modifier placed between two elements it could plausibly modify, so the sentence supports two readings.",
+        "polarity": "fault",
+        "example": "Ambiguous: 'Reading the memo quickly angered him.' Repaired: 'Reading the memo made him angry at once.'",
+        "effect": "Named as a failure mode of medial placement; the cure is to move the modifier to an unambiguous slot.",
+        "aka": ["two-way modifier"]
+      },
+      {
+        "name": "close appositive",
+        "definition": "A restrictive noun phrase set immediately beside another with no commas, narrowing rather than describing.",
+        "pattern": "[Noun] [identifying noun]",
+        "example": "My brother Tom never learned to swim.",
+        "effect": "Identifies which one; the absence of commas carries the restriction.",
+        "caution": "Comma placement is meaning: 'my brother, Tom,' implies there is only one brother."
+      },
+      {
+        "name": "loose appositive",
+        "definition": "A non-restrictive noun phrase set off by commas, dashes, or parentheses, renaming the noun and adding information.",
+        "pattern": "[Noun], [renaming noun phrase], [rest of clause]",
+        "example": "The auditor, a woman who had spent nine years on bank failures, asked for the ledgers first.",
+        "effect": "Delivers characterization or credential without a separate clause or a 'who was'."
+      },
+      {
+        "name": "fronted appositive",
+        "definition": "An appositive placed before the noun it renames, so the description arrives before the identity.",
+        "pattern": "[Appositive noun phrase], [noun] [predicate]",
+        "example": "A courthouse reporter for thirty years, Hallett had never seen a jury sequestered twice.",
+        "effect": "Withholds the name a beat, giving the description independent weight.",
+        "register": "journalistic and biographical prose",
+        "caution": "A newsroom staple; overuse marks the profile-piece register."
+      },
+      {
+        "name": "appositive series",
+        "definition": "Three or more appositives in sequence renaming one noun.",
+        "pattern": "[Noun] — [appositive], [appositive], [appositive]",
+        "example": "He had one asset left: the house, a leaking roof, a mortgage, an argument waiting to happen.",
+        "effect": "Accumulates perspectives on a single thing, each recasting the last."
+      },
+      {
+        "name": "sentence appositive",
+        "definition": "A noun phrase in apposition not to a single noun but to the whole preceding clause, naming what the clause amounts to.",
+        "pattern": "[Main clause], [noun phrase summing it up]",
+        "example": "The plant ran three shifts through the whole recession, a fact the town repeated to itself for years.",
+        "effect": "Lets the writer name the significance of an event without shifting into a 'which was' clause.",
+        "aka": ["base-clause appositive"]
+      },
+      {
+        "name": "resumptive modifier",
+        "definition": "A modifier that repeats a key word just used, then extends it with new material.",
+        "pattern": "[Clause ending in X], X [that/which ...]",
+        "example": "They were left with a choice, a choice that neither side could afford to name out loud.",
+        "effect": "Marks the word as load-bearing and buys a second run at it; the natural cure for a clause that ended too soon.",
+        "register": "neutral to literary; effective in argument as well as narrative",
+        "caution": "Reads as padding if the extension adds nothing the first mention lacked."
+      },
+      {
+        "name": "summative modifier",
+        "definition": "A modifier that sums up the preceding clause in a fresh noun and then elaborates on that noun.",
+        "pattern": "[Main clause], [summarizing noun] [that/which ...]",
+        "example": "Deposits fell for six straight quarters, a decline the board attributed to weather.",
+        "effect": "Names the pattern the clause described, converting event into concept, then comments on it.",
+        "register": "especially useful in expository and argumentative prose"
+      },
+      {
+        "name": "free modifier",
+        "definition": "Any modifier (participial, absolute, appositive, adjectival) attached loosely to a base clause and movable within it — the building unit of Christensen's cumulative sentence.",
+        "pattern": "[Base clause] + [free modifier] + [free modifier]",
+        "example": "She read the file straight through, page after page, marking nothing, her coffee going cold beside her.",
+        "effect": "Adds levels of specificity below the base clause; the sentence deepens rather than lengthening sideways.",
+        "aka": ["Christensen free modifier"]
+      },
+      {
+        "name": "trailing adjective phrase",
+        "definition": "An adjective or adjective pair moved out of prenominal position to the end of the clause.",
+        "pattern": "[Main clause], [adjective] and [adjective]",
+        "example": "He came in from the yard, wet and unapologetic.",
+        "effect": "Gives the adjectives stress they would never get before the noun.",
+        "register": "literary"
+      },
+      {
+        "name": "fronted adjective phrase",
+        "definition": "An adjective phrase placed before the subject it modifies.",
+        "pattern": "[Adjective phrase], [subject] [predicate]",
+        "example": "Tired and three hours late, the delegation asked for coffee before anything else.",
+        "effect": "Establishes state before action, and varies openers away from the subject slot."
+      },
+      {
+        "name": "postpositive adjective",
+        "definition": "An adjective placed after the noun it modifies, a survival of French and legal word order.",
+        "pattern": "[Noun] [adjective]",
+        "example": "It was the only course available, and everyone in the room knew it.",
+        "effect": "Formal, slightly ceremonial; also the only option with some indefinite pronouns ('something useful').",
+        "register": "formal, legal, or deliberately archaic"
+      },
+      {
+        "name": "epexegetical apposition",
+        "definition": "Apposition introduced by an explanatory marker — 'that is', 'namely', 'in other words' — restating the head in clearer or narrower terms.",
+        "pattern": "[Noun phrase], that is, [restatement]",
+        "example": "The bank failed for the usual reason, namely that it had lent short-term money on long-term promises.",
+        "effect": "Buys a plain-language gloss without a new sentence; the workhorse of technical exposition.",
+        "register": "expository and academic",
+        "caution": "Three in a page make the prose feel like it is correcting itself."
+      },
+      {
+        "name": "delayed appositive with dash",
+        "definition": "An appositive held to the end of the sentence and introduced by a dash, so the renaming lands as a punchline.",
+        "pattern": "[Main clause] — [appositive]",
+        "example": "Only one line in the budget had grown every year for a decade — interest.",
+        "effect": "Converts apposition into revelation by exploiting end-focus.",
+        "caution": "Loses force fast when repeated; one per section."
+      },
+      {
+        "name": "gerund phrase as subject",
+        "definition": "An -ing clause occupying the subject slot of a sentence.",
+        "pattern": "[-ing phrase] [verb] [complement]",
+        "example": "Getting the ledgers out of the building took two days and a court order.",
+        "effect": "Nominalizes an action so it can be talked about as a thing.",
+        "caution": "Heavy gerund subjects push the verb far right; consider extraposition instead."
+      },
+      {
+        "name": "purpose infinitive phrase",
+        "definition": "An infinitive clause functioning as an adjunct of purpose, fronted or trailing.",
+        "pattern": "To [verb] ..., [main clause]",
+        "example": "To keep the account open, she moved money in on the last day of every month.",
+        "effect": "States the motive before the act, which is how motive is usually discovered in narrative."
+      },
+      {
+        "name": "noun phrase in apposition to a pronoun",
+        "definition": "An appositive attached to a pronoun rather than a full noun phrase, usually to unpack it.",
+        "pattern": "[Pronoun], [noun phrase], [predicate]",
+        "example": "They, the three who had signed the letter, were not invited back.",
+        "effect": "Adds specification to a pronoun that would otherwise be unrecoverable.",
+        "register": "formal; in fiction it reads as deliberate emphasis"
+      }
+    ],
+    "sentence_architectures": [
+      {
+        "name": "simple sentence",
+        "definition": "A sentence containing one independent clause and no subordinate clause, however long its phrases.",
+        "example": "The river took the bridge in under an hour.",
+        "effect": "Delivers one proposition with no hierarchy; used in series it reads as flat, declarative certainty."
+      },
+      {
+        "name": "compound sentence",
+        "definition": "Two or more independent clauses joined by a coordinating conjunction, semicolon, or colon.",
+        "pattern": "[Independent clause], and [independent clause]",
+        "example": "The alarm sounded at four, and nobody in the building moved.",
+        "effect": "Puts two facts on the same grammatical level, which implies they carry equal weight."
+      },
+      {
+        "name": "complex sentence",
+        "definition": "One independent clause plus at least one subordinate clause.",
+        "pattern": "[Subordinate clause], [independent clause]",
+        "example": "Although the alarm sounded at four, nobody in the building moved.",
+        "effect": "Ranks the propositions: the subordinate clause becomes background and the main clause becomes the point."
+      },
+      {
+        "name": "compound-complex sentence",
+        "definition": "Two or more independent clauses with at least one subordinate clause attached.",
+        "example": "The alarm sounded at four, and because nobody had run the drill in a year, the floor emptied in the wrong direction.",
+        "effect": "Carries argument and background in one span; the standard load-bearing sentence of expository prose.",
+        "caution": "Beyond about forty words it needs a short sentence after it."
+      },
+      {
+        "name": "periodic sentence",
+        "definition": "A sentence that withholds its main clause — or the completion of it — until the end, so the sense is suspended until the final words.",
+        "pattern": "[Subordinate/modifying material], [subordinate material], [main clause]",
+        "example": "Because the ledgers were incomplete, because two auditors had already resigned, and because the deadline was a week out, the board did the one thing nobody had proposed: nothing.",
+        "effect": "Builds pressure and lands emphasis at the close; the reader must hold everything until the release.",
+        "register": "formal, oratorical, literary",
+        "caution": "Two in succession exhaust the reader's short-term memory; alternate with loose sentences.",
+        "aka": ["suspended sentence", "cyclic sentence"]
+      },
+      {
+        "name": "loose sentence",
+        "definition": "A sentence that completes its main clause early and then adds modifying material, so it could grammatically stop at several points.",
+        "pattern": "[Main clause] + [modifier] + [modifier]",
+        "example": "She left the hearing early, without a statement, without her lawyer, without looking at the row where the family sat.",
+        "effect": "Feels natural and speech-like; meaning arrives immediately and detail accumulates after.",
+        "register": "neutral; the default shape of modern English prose",
+        "aka": ["running sentence"]
+      },
+      {
+        "name": "cumulative sentence",
+        "definition": "Christensen's refinement of the loose sentence: a short base clause followed by free modifiers at descending levels of generality, each adding texture to what precedes it.",
+        "pattern": "[Base clause], [level-2 modifier], [level-3 modifier], ...",
+        "example": "The engine caught, coughing twice, settling into a rhythm that shook the whole frame, the mirror trembling with it.",
+        "effect": "Renders perception in the order it happens: the fact first, then the noticing.",
+        "register": "literary and narrative nonfiction",
+        "caution": "The modifiers must descend in generality; a flat list is just a list."
+      },
+      {
+        "name": "balanced sentence",
+        "definition": "A sentence whose parts are of equal grammatical structure and roughly equal length, set against or beside each other.",
+        "pattern": "[Clause A], [structurally parallel clause B]",
+        "example": "The first audit found nothing; the second found everything the first had walked past.",
+        "effect": "Produces the sense of a considered judgment; symmetry reads as authority.",
+        "register": "formal, aphoristic",
+        "caution": "Balanced sentences sound wise even when they are not; test whether the symmetry is doing argument or decoration."
+      },
+      {
+        "name": "left-branching sentence",
+        "definition": "A sentence that piles modifying material before the subject and verb.",
+        "pattern": "[Modifiers] [subject] [verb] [object]",
+        "example": "After two winters of hearings, after the third set of consultants, after the money ran out, the council voted.",
+        "effect": "Front-loads context and delays action; formal, weighty, and effortful to read in quantity.",
+        "caution": "English is natively right-branching; sustained left-branching reads as translationese."
+      },
+      {
+        "name": "right-branching sentence",
+        "definition": "A sentence that states subject and verb first and appends modifying material afterward.",
+        "pattern": "[Subject] [verb] [object] + [modifier] + [modifier]",
+        "example": "The council voted, after two winters of hearings, with three members absent and no money left in the fund.",
+        "effect": "Easiest shape for a reader to process; the sentence is comprehensible from the first few words.",
+        "register": "the unmarked English default"
+      },
+      {
+        "name": "mid-branching sentence",
+        "definition": "A sentence with modifying material embedded between subject and verb, so the predicate is held off in the middle.",
+        "pattern": "[Subject] [embedded material] [verb] [object]",
+        "example": "The council, having spent two winters on hearings and most of the fund on consultants, voted.",
+        "effect": "Creates suspension inside the clause; used sparingly it produces a formal, judicial poise.",
+        "caution": "Deep center-embedding ('the rat the cat the dog chased killed ate') is the one shape human parsers genuinely fail on.",
+        "aka": ["center-embedded sentence", "convoluted sentence"]
+      },
+      {
+        "name": "freight-train sentence",
+        "definition": "A long chain of independent clauses coupled by coordinating conjunctions, with no subordination and no hierarchy.",
+        "pattern": "[Clause] and [clause] and [clause] and [clause]",
+        "example": "The rain started and the field flooded and the trucks bogged down and the whole harvest sat there turning black.",
+        "effect": "Everything on one level, one thing after another; produces momentum and a sense of events outrunning judgment.",
+        "register": "narrative, vernacular, biblical",
+        "caution": "A signature move — powerful once per chapter, exhausting per page."
+      },
+      {
+        "name": "suspensive sentence",
+        "definition": "A sentence whose completion is deferred by an interruption after the subject or after an auxiliary, so the reader waits for the resolving element.",
+        "pattern": "[Subject] — [long interruption] — [predicate]",
+        "example": "The commissioner — a man who had survived four administrations, two indictments, and one televised apology — declined to comment.",
+        "effect": "Holds the sentence open; whatever finally lands takes the accumulated pressure.",
+        "register": "literary and journalistic"
+      },
+      {
+        "name": "segregating style",
+        "definition": "A sentence style built from short, mostly simple sentences with minimal coordination or subordination.",
+        "example": "The plant closed in March. Nobody had warned the town. The parking lot stayed full for a week anyway.",
+        "effect": "Reads as flat, controlled, and slightly withholding; the reader supplies the connective logic the syntax refuses.",
+        "register": "hard-boiled fiction, minimalist reportage",
+        "caution": "Sustained too long it flattens emphasis: everything shouts, so nothing does."
+      },
+      {
+        "name": "serial-predicate sentence",
+        "definition": "One subject governing a chain of verbs with no repeated subject and often no conjunction until the last.",
+        "pattern": "[Subject] [verb], [verb], [verb], and [verb]",
+        "example": "The wind rose, shifted, dropped, and came back stronger from the other side of the valley.",
+        "effect": "Compresses a sequence into one continuous motion; the subject stays fixed while events run through it."
+      },
+      {
+        "name": "base clause with free modifiers",
+        "definition": "The structural frame of cumulative prose: a grammatically complete main clause plus attachable modifiers that can be added, moved, or cut without breaking it.",
+        "pattern": "[Base clause] ( + [free modifier] )*",
+        "effect": "Gives the writer a revision handle — the base clause carries the meaning, the modifiers carry the texture, and they can be tuned independently.",
+        "example": "He waited (base clause), hat in hand (absolute), saying nothing (participial), a man who had already been told no twice (appositive)."
+      },
+      {
+        "name": "end-weight",
+        "definition": "The principle that long and structurally heavy constituents belong at the end of the clause, short ones at the front.",
+        "pattern": "[Short subject] [verb] [long complement]",
+        "example": "Heavy: 'That the fund had been empty since March was obvious.' End-weighted: 'It was obvious that the fund had been empty since March.'",
+        "effect": "Keeps the reader from holding a long subject in memory before the verb arrives; the main reason extraposition and passives exist.",
+        "register": "applies across all registers"
+      },
+      {
+        "name": "end-focus",
+        "definition": "The principle that new or emphatic information belongs at the end of the clause, where English puts its intonational peak.",
+        "example": "Given a paragraph about the auditor: 'The ledgers were finally handed over by the auditor' is wrong-focused; 'The auditor finally handed over the ledgers' is right.",
+        "effect": "Governs which of two grammatical orders is the right one; most 'flat' sentences are end-focus failures rather than word-choice failures.",
+        "aka": ["principle of end focus"]
+      },
+      {
+        "name": "front-loaded sentence",
+        "definition": "A sentence with a long, complex subject before a short predicate.",
+        "pattern": "[Long subject phrase] [short predicate]",
+        "example": "Everyone who had signed the original petition, plus two who claimed they had, showed up.",
+        "effect": "Builds anticipation for a small verb, which can land as a joke or as anticlimax.",
+        "caution": "Usually a symptom of an unextraposed clause; check whether 'it' should take the subject slot."
+      },
+      {
+        "name": "topic-comment sentence",
+        "definition": "A sentence that names its topic first as a separate constituent, then predicates something about it.",
+        "pattern": "As for [topic], [comment clause]",
+        "example": "As for the missing deposits, no one has offered even an implausible explanation.",
+        "effect": "Signals a shift of subject matter explicitly, which helps readers navigate long expositions.",
+        "register": "neutral; common in analytical writing"
+      },
+      {
+        "name": "loose-periodic hybrid",
+        "definition": "A sentence that suspends its main clause once, resolves it, and then continues with trailing modifiers.",
+        "pattern": "[Modifier], [main clause], [modifier], [modifier]",
+        "example": "After nine days of testimony, the jury asked one question, a question about the dates, which nobody in the room had expected.",
+        "effect": "Combines the pressure of the periodic opening with the ease of a loose close; the most common shape in accomplished long-sentence prose."
+      }
+    ],
+    "coordination_and_subordination": [
+      {
+        "name": "parataxis",
+        "definition": "The placing of clauses side by side with no explicit marker of their logical relation.",
+        "pattern": "[Clause]. [Clause]. [Clause].",
+        "example": "The letter came on Tuesday. She read it once. She did not go to work that week.",
+        "effect": "Refuses to rank or explain; the reader infers cause, and inference feels like discovery.",
+        "register": "narrative, vernacular, minimalist",
+        "caution": "In argument, parataxis can look like an argument that has not been made."
+      },
+      {
+        "name": "hypotaxis",
+        "definition": "The subordination of clauses to one another with explicit markers, producing a hierarchy of main and dependent material.",
+        "pattern": "[Main clause] because [subordinate clause] although [subordinate clause]",
+        "example": "She did not go to work that week because the letter had said, in a sentence she reread until she knew it, that the appeal was over.",
+        "effect": "States the logical relations rather than implying them; the natural mode of analysis and argument.",
+        "register": "formal, expository",
+        "caution": "Stacked hypotaxis buries the main clause; keep the load-bearing claim in the main slot."
+      },
+      {
+        "name": "asyndetic coordination",
+        "definition": "Coordination with the conjunctions omitted between the coordinated elements.",
+        "pattern": "[A], [B], [C]",
+        "example": "They took the files, the drives, the phones off every desk on the floor.",
+        "effect": "Speeds the series and implies it could continue; the list feels partial rather than closed.",
+        "register": "neutral to literary",
+        "aka": ["asyndeton"]
+      },
+      {
+        "name": "polysyndetic coordination",
+        "definition": "Coordination with a conjunction between every element, including where one would normally be omitted.",
+        "pattern": "[A] and [B] and [C] and [D]",
+        "example": "They took the files and the drives and the phones and the sticky notes off the monitors.",
+        "effect": "Slows the series and weights each item equally; produces either childlike accumulation or biblical gravity.",
+        "register": "narrative, vernacular, scriptural",
+        "aka": ["polysyndeton"]
+      },
+      {
+        "name": "syndetic coordination",
+        "definition": "Ordinary coordination with a single conjunction before the final element of a series.",
+        "pattern": "[A], [B], and [C]",
+        "example": "The report named the bank, the auditor, and the two directors who had signed.",
+        "effect": "The unmarked baseline; its neutrality is what makes asyndeton and polysyndeton audible."
+      },
+      {
+        "name": "correlative coordination",
+        "definition": "Coordination using a paired marker — both…and, either…or, neither…nor, not only…but also — that announces the second element in advance.",
+        "pattern": "not only [A] but also [B]",
+        "example": "The fund lost not only the quarter's gains but also the reserve it had been holding since the merger.",
+        "effect": "Sets up an expectation and then satisfies it; useful for escalation.",
+        "caution": "The elements after each marker must be grammatically parallel, or the sentence audibly limps."
+      },
+      {
+        "name": "comparative correlative",
+        "definition": "The paired-comparative construction 'the more X, the more Y', expressing covariation in two dependent clauses.",
+        "pattern": "The [comparative] [clause], the [comparative] [clause]",
+        "example": "The longer the hearing ran, the fewer questions anyone asked.",
+        "effect": "Compresses a whole causal relationship into one shape; aphoristic by default.",
+        "caution": "Its aphoristic ring makes weak generalizations sound proven."
+      },
+      {
+        "name": "fronted adverbial clause",
+        "definition": "A subordinate adverbial clause placed before the main clause.",
+        "pattern": "[When/Because/Although clause], [main clause]",
+        "example": "Because the vote had already been counted, the objection changed nothing.",
+        "effect": "Frames the main clause with its condition; the reader reads the main clause already knowing how to take it."
+      },
+      {
+        "name": "trailing adverbial clause",
+        "definition": "A subordinate adverbial clause placed after the main clause.",
+        "pattern": "[Main clause] [when/because/although clause]",
+        "example": "The objection changed nothing, because the vote had already been counted.",
+        "effect": "Gives the main clause the front position and the subordinate one the end-focus slot; often the better default in argument."
+      },
+      {
+        "name": "concessive clause",
+        "definition": "A subordinate clause conceding something that might be expected to block the main clause: although, though, even though, while, granted that.",
+        "pattern": "Although [concession], [main clause]",
+        "example": "Although the numbers were public the whole time, no one had put two of them side by side.",
+        "effect": "Anticipates and absorbs an objection inside the sentence; the syntactic form of intellectual honesty.",
+        "register": "argumentative and academic"
+      },
+      {
+        "name": "conditional clause",
+        "definition": "A subordinate clause stating a condition on which the main clause depends: if, unless, provided that, as long as.",
+        "pattern": "If [condition], [consequence]",
+        "example": "If the reserve was already spent in March, the March statement was false.",
+        "effect": "Puts the reader inside a hypothetical, which is how arguments test claims without asserting them."
+      },
+      {
+        "name": "inverted conditional",
+        "definition": "A conditional with 'if' deleted and the auxiliary raised before the subject.",
+        "pattern": "Had/Were/Should [subject] [verb], [main clause]",
+        "example": "Had she asked for the ledgers a month earlier, the auditor would still have had them.",
+        "effect": "Compresses and formalizes; the raised auxiliary carries a literary or legal weight that 'if' does not.",
+        "register": "formal, literary",
+        "caution": "In casual registers it reads as costume."
+      },
+      {
+        "name": "causal clause",
+        "definition": "A subordinate clause giving the reason for the main clause: because, since, as, in that, seeing that.",
+        "example": "The town kept the plant on its letterhead for a decade, since nothing else had ever been printed there.",
+        "effect": "States causation explicitly, which is either honest or presumptuous depending on the evidence behind it.",
+        "caution": "'Since' and 'as' are ambiguous between causal and temporal readings; prefer 'because' when the logic matters."
+      },
+      {
+        "name": "temporal clause",
+        "definition": "A subordinate clause locating the main clause in time: when, while, before, after, until, as soon as, once.",
+        "example": "By the time the auditors arrived, the server room had been emptied and repainted.",
+        "effect": "Sequences events without a separate sentence, and lets the writer skip over intervening time."
+      },
+      {
+        "name": "purpose clause",
+        "definition": "A subordinate clause stating the intended result of the main clause: so that, in order that, lest.",
+        "pattern": "[Main clause] so that [purpose]",
+        "example": "They filed the amendment on a Friday so that the story would break over a weekend.",
+        "effect": "Attributes intention, which raises the evidentiary bar the sentence must clear."
+      },
+      {
+        "name": "result clause",
+        "definition": "A subordinate clause stating an actual consequence, typically correlated with 'so' or 'such' in the main clause.",
+        "pattern": "so [adjective] that [result]",
+        "example": "The room was so cold that the stenographer typed in gloves.",
+        "effect": "Makes a degree concrete by naming what it caused — the standard cure for an unearned intensifier."
+      },
+      {
+        "name": "comparative clause",
+        "definition": "A subordinate clause completing a comparison: than, as…as, the same…as.",
+        "example": "The second audit cost more than the shortfall it was hired to explain.",
+        "effect": "Puts two magnitudes in one frame; a comparison is often the shortest available argument.",
+        "caution": "Comparative clauses invite deletion errors — check that both terms are actually stated."
+      },
+      {
+        "name": "restrictive relative clause",
+        "definition": "A relative clause that narrows the reference of its head noun, written without commas.",
+        "pattern": "[Noun] that/who [clause]",
+        "example": "The directors who had signed the March statement resigned within a week.",
+        "effect": "Identifies which members of a set are meant; deleting it changes the sentence's claim.",
+        "caution": "Commas around it silently convert the claim from 'some' to 'all'."
+      },
+      {
+        "name": "non-restrictive relative clause",
+        "definition": "A relative clause that adds information about an already-identified head, set off by commas.",
+        "pattern": "[Noun], which/who [clause],",
+        "example": "The March statement, which the directors had all signed, was withdrawn in April.",
+        "effect": "Slips a second predication into the sentence at low cost.",
+        "caution": "It is parenthetical: the sentence must still work if it is cut."
+      },
+      {
+        "name": "sentential relative clause",
+        "definition": "A 'which' clause whose antecedent is the entire preceding clause rather than any noun in it.",
+        "pattern": "[Main clause], which [comment on the whole clause]",
+        "example": "The board met twice in one week, which had not happened since the merger.",
+        "effect": "Comments on an event as a whole; the conversational cousin of the summative modifier.",
+        "caution": "Ambiguity risk — if a noun could be the antecedent, use a summative noun instead."
+      },
+      {
+        "name": "free relative clause",
+        "definition": "A relative clause with no separate head noun, the wh-word carrying both the head and the relative function.",
+        "pattern": "What [clause] [verb] [complement]",
+        "example": "What the ledgers showed was a bank that had been insolvent for two years.",
+        "effect": "Packages an entire proposition as a noun phrase; the raw material of the pseudo-cleft.",
+        "aka": ["nominal relative clause", "headless relative"]
+      },
+      {
+        "name": "that-clause complement",
+        "definition": "A finite subordinate clause functioning as the subject, object, or complement of the main verb.",
+        "pattern": "[Subject] [verb] that [clause]",
+        "example": "The examiner concluded that the reserve had never existed in the form reported.",
+        "effect": "Marks the proposition as reported or attributed rather than asserted directly — the basic syntax of citation."
+      },
+      {
+        "name": "stacked subordination",
+        "definition": "Successive subordinate clauses each embedded in the previous one.",
+        "pattern": "[Main] that [sub] which [sub] because [sub]",
+        "example": "They cited a rule that referred to a schedule that had been repealed by a statute nobody had reprinted.",
+        "effect": "Enacts bureaucratic depth; used deliberately it is comedy, used accidentally it is opacity.",
+        "caution": "Three levels is the practical ceiling in prose meant to be read once."
+      },
+      {
+        "name": "upside-down subordination",
+        "definition": "Placing the sentence's most important content in a subordinate clause and something trivial in the main clause.",
+        "example": "Weak: 'It was in 2011 that the fund, which lost every dollar of the reserve, was audited.' Repaired: 'The 2011 audit found that the fund had lost every dollar of the reserve.'",
+        "effect": "Named as a diagnostic: the syntax is telling the reader the wrong thing matters.",
+        "caution": "Test each long sentence by reading only its main clause; if that sentence is not the point, restructure."
+      },
+      {
+        "name": "comma splice",
+        "definition": "Two independent clauses joined by a comma alone, used deliberately for pace or closeness.",
+        "pattern": "[Independent clause], [independent clause]",
+        "example": "She did not argue, she signed.",
+        "effect": "Binds two clauses more tightly than a period and more casually than a semicolon.",
+        "register": "literary and voiced prose only",
+        "caution": "One deliberate splice per chapter reads as style; two per page reads as an error the copy editor missed."
+      },
+      {
+        "name": "semicolon coordination",
+        "definition": "Joining independent clauses with a semicolon, leaving the logical relation unstated but the connection asserted.",
+        "pattern": "[Independent clause]; [independent clause]",
+        "example": "The first audit found nothing; the second was not conducted by the same firm.",
+        "effect": "Implies relevance without naming the relation — the reader supplies 'and yet' or 'because'.",
+        "register": "formal to neutral"
+      },
+      {
+        "name": "colon as logical connector",
+        "definition": "A colon joining a clause to what follows as its explanation, expansion, or instance.",
+        "pattern": "[Independent clause]: [explanation or list]",
+        "example": "The answer was in the footnote: the reserve had been reclassified in March.",
+        "effect": "Promises a payoff and delivers it in the same sentence; the most efficient reveal punctuation has.",
+        "caution": "The material before the colon should be a complete clause in formal prose."
+      },
+      {
+        "name": "conjunctive adverb linkage",
+        "definition": "Linking independent clauses or sentences with an adverbial connector — however, therefore, moreover, nevertheless — rather than a conjunction.",
+        "pattern": "[Clause]; however, [clause]",
+        "example": "The bank met every ratio it reported; the ratios, however, were computed on the wrong denominator.",
+        "effect": "Names the logical relation while keeping the clauses grammatically independent.",
+        "caution": "Sentence-initial 'however' plus comma is the most overused connective in expository prose; move it inside the clause or use 'but'."
+      },
+      {
+        "name": "sentence-initial conjunction",
+        "definition": "Beginning a sentence with 'and', 'but', 'or', or 'so', coordinating across the period.",
+        "pattern": "[Sentence]. But [sentence].",
+        "example": "The board had the memo in October. But nobody moved on it until the following spring.",
+        "effect": "Splits a compound sentence into two beats while keeping the coordination audible; adds speech rhythm.",
+        "register": "neutral to informal; standard in contemporary nonfiction",
+        "caution": "The prohibition against it is a schoolroom myth, but the effect dulls with repetition."
+      },
+      {
+        "name": "conjunction reduction",
+        "definition": "Coordination in which a shared element — usually the subject or auxiliary — is stated once and understood in the following conjuncts.",
+        "pattern": "[Subject] [verb A] and [verb B]",
+        "example": "The examiner opened the file, read for ten minutes, and asked for the previous year's.",
+        "effect": "Keeps the subject in focus while the verbs accumulate; the ordinary alternative to repeating a noun."
+      }
+    ],
+    "focus_constructions": [
+      {
+        "name": "it-cleft",
+        "definition": "A construction splitting one clause into two, with dummy 'it' plus a copula highlighting one element and the remainder relegated to a relative-like clause.",
+        "pattern": "It was [focused element] that/who [rest of clause]",
+        "example": "It was the March statement, not the audit, that finally forced the resignations.",
+        "effect": "Puts contrastive stress on the focused element in writing, where intonation is unavailable.",
+        "register": "neutral; heavily used in argument and courtroom prose",
+        "caution": "Clefting an element nobody was contesting makes the prose sound argumentative for no reason."
+      },
+      {
+        "name": "wh-cleft",
+        "definition": "A cleft whose first half is a free relative and whose second half is the focused element, joined by 'is' or 'was'.",
+        "pattern": "What [clause] is [focused element]",
+        "example": "What the ledgers showed was a reserve that had been counted twice.",
+        "effect": "Delays the news to the end of the sentence, where it takes the natural stress; useful for controlled reveals.",
+        "aka": ["pseudo-cleft"],
+        "caution": "Common padding in speech-derived prose ('what I would say is that…'); keep it when the delay earns something."
+      },
+      {
+        "name": "reversed wh-cleft",
+        "definition": "A pseudo-cleft with the order inverted, the focused element first and the free relative last.",
+        "pattern": "[Focused element] is what [clause]",
+        "example": "A reserve counted twice is what the ledgers showed.",
+        "effect": "Puts the news first and the frame after; more emphatic and more conversational than the standard order.",
+        "aka": ["inverted pseudo-cleft"]
+      },
+      {
+        "name": "all-cleft",
+        "definition": "A cleft whose free relative is headed by 'all', restricting the claim to exactly one thing.",
+        "pattern": "All [clause] is [focused element]",
+        "example": "All the committee ever asked for was a list of the accounts.",
+        "effect": "Adds the sense of 'and nothing more' — minimization, complaint, or modesty depending on context."
+      },
+      {
+        "name": "th-cleft",
+        "definition": "A cleft whose first half is a definite noun phrase — 'the thing that', 'the reason why', 'the one who' — rather than a bare wh-word.",
+        "pattern": "The [noun] that [clause] is [focused element]",
+        "example": "The thing that finally moved the regulator was a single page of dates.",
+        "effect": "Names the category of the focused item as it announces it, which lets the writer characterize before revealing."
+      },
+      {
+        "name": "inferential cleft",
+        "definition": "A cleft of the form 'it is (not) that…', used to correct or refine an inference the reader might draw.",
+        "pattern": "It's not that [clause]; it's that [clause]",
+        "example": "It is not that the directors ignored the memo; it is that nobody could say who had received it.",
+        "effect": "Rejects a likely misreading and substitutes a precise one — a compact concede-and-refine move.",
+        "register": "argumentative and conversational"
+      },
+      {
+        "name": "if-because cleft",
+        "definition": "A two-part construction pairing a conditional frame with a causal focus: 'If X, it's because Y.'",
+        "pattern": "If [situation], it is because [reason]",
+        "example": "If the town still argues about the closure, it is because nobody was ever told the reason for it.",
+        "effect": "Asserts an explanation while presupposing the situation, which makes the explanation harder to challenge.",
+        "caution": "The presupposition is doing rhetorical work; be sure it is one the reader has granted."
+      },
+      {
+        "name": "existential there",
+        "definition": "A construction using non-referential 'there' as grammatical subject so the logical subject can follow the verb.",
+        "pattern": "There [be] [logical subject] [locative/modifier]",
+        "example": "There were two versions of the March statement in the file.",
+        "effect": "Introduces new entities into the discourse in the end-focus slot, where new information belongs.",
+        "caution": "The standard vice of flat prose is existential 'there' used where a real subject and verb were available."
+      },
+      {
+        "name": "presentational construction",
+        "definition": "A construction that brings a new participant onstage, typically with 'there' plus a verb of appearance or motion rather than 'be'.",
+        "pattern": "There [verb of appearance] [new participant]",
+        "example": "There came, near the end of the second day, a question nobody on the panel had prepared for.",
+        "effect": "Stages an entrance; the delay before the noun functions as a drumroll.",
+        "register": "literary"
+      },
+      {
+        "name": "extraposition",
+        "definition": "Moving a heavy clausal subject to the end of the sentence and filling the subject slot with anticipatory 'it'.",
+        "pattern": "It [be/verb] [predicate] that/to [clausal subject]",
+        "example": "It was obvious by then that the reserve had never been segregated.",
+        "effect": "Satisfies end-weight, keeping the reader from parsing a long subject before the verb.",
+        "aka": ["anticipatory it"],
+        "caution": "Extraposition plus a passive predicate ('it was decided that') erases the agent; check whether that is intended."
+      },
+      {
+        "name": "fronting",
+        "definition": "Moving a non-subject constituent — object, complement, adverbial — to the front of the clause without inversion.",
+        "pattern": "[Fronted element], [subject] [verb]",
+        "example": "The ledgers she handed over. The correspondence she did not.",
+        "effect": "Links the sentence to the preceding topic and puts the remainder in focus; the cheapest cohesion device in English.",
+        "aka": ["topicalization", "preposing"],
+        "caution": "Fronting a constituent the reader has no prior interest in produces mannerism, not emphasis."
+      },
+      {
+        "name": "left dislocation",
+        "definition": "Announcing a topic as a detached noun phrase and then resuming it inside the clause with a pronoun.",
+        "pattern": "[Topic NP], [pronoun] [predicate]",
+        "example": "The two directors who signed, they were gone before the report was printed.",
+        "effect": "Speech-like topic-setting; gives the reader the subject before the sentence has to carry it.",
+        "register": "informal, voiced narration, dialogue"
+      },
+      {
+        "name": "right dislocation",
+        "definition": "Using a pronoun in the clause and appending its referent as a detached noun phrase at the end.",
+        "pattern": "[Pronoun] [predicate], [referent NP]",
+        "example": "He never once returned a call, the man who had signed every one of those statements.",
+        "effect": "Afterthought clarification with an edge of contempt or affection depending on the noun phrase.",
+        "register": "informal, voiced"
+      },
+      {
+        "name": "negative inversion",
+        "definition": "Subject–auxiliary inversion triggered by a fronted negative or restrictive adverbial: never, rarely, not once, only then, under no circumstances.",
+        "pattern": "Never/Only then [auxiliary] [subject] [verb]",
+        "example": "Not once in nine days did anyone ask where the money had gone.",
+        "effect": "Formal, emphatic, and slightly theatrical; the fronted negative takes maximum stress.",
+        "register": "formal, oratorical",
+        "caution": "Two on a page and the prose starts declaiming."
+      },
+      {
+        "name": "locative inversion",
+        "definition": "Fronting a locative or directional phrase and inverting subject and verb, so the subject arrives last.",
+        "pattern": "[Locative PP] [verb] [subject]",
+        "example": "Behind the last row of filing cabinets sat the boxes the examiner had been asking for.",
+        "effect": "Moves the camera and then reveals what is there; end-focus applied to physical discovery.",
+        "register": "narrative and descriptive prose",
+        "caution": "Works only with intransitive verbs of position or motion; forcing it elsewhere sounds wrong."
+      },
+      {
+        "name": "directional inversion",
+        "definition": "Inversion after a short directional adverb, with the verb before the subject.",
+        "pattern": "[Adverb] [verb] [subject]",
+        "example": "Down came the ceiling tiles, one corner of the room at a time.",
+        "effect": "Kinetic, slightly archaic; foregrounds the motion over the mover.",
+        "register": "literary, folk-narrative"
+      },
+      {
+        "name": "so-inversion",
+        "definition": "Inversion after a fronted 'so' or 'such' plus a degree expression, with the result clause following.",
+        "pattern": "So [adjective] [be] [subject] that [result]",
+        "example": "So thin was the file that the clerk asked twice whether it was the whole record.",
+        "effect": "Elevated intensification; the degree lands before the thing it describes.",
+        "register": "formal, literary",
+        "caution": "Firmly marked as 'writerly' — one per chapter at most."
+      },
+      {
+        "name": "agentless passive",
+        "definition": "A passive clause with no by-phrase, so the affected entity takes the subject slot and the agent goes unnamed.",
+        "pattern": "[Affected entity] [be] [past participle]",
+        "example": "The March statement was withdrawn without explanation.",
+        "effect": "Focuses on the event and its object; legitimately used when the agent is unknown, irrelevant, or obvious.",
+        "caution": "Also the standard syntax of evasion — check whether the missing agent is missing because you do not know it or because naming it would be inconvenient."
+      },
+      {
+        "name": "passive with by-phrase",
+        "definition": "A full passive that keeps the agent but moves it to the end of the clause.",
+        "pattern": "[Affected entity] [be] [past participle] by [agent]",
+        "example": "The reserve had been reclassified by the same officer who signed the audit letter.",
+        "effect": "Reorders for cohesion and end-focus: known thing first, newsworthy agent last.",
+        "register": "neutral; the legitimate answer to blanket anti-passive advice"
+      },
+      {
+        "name": "heavy NP shift",
+        "definition": "Moving a long object noun phrase past a shorter constituent to the end of the clause.",
+        "pattern": "[Verb] [short constituent] [long object NP]",
+        "example": "She handed to the clerk every page the examiner had asked for and several he had not.",
+        "effect": "Restores end-weight when the object is longer than what follows it.",
+        "caution": "With a short object it sounds broken; the shift needs the weight to justify it."
+      },
+      {
+        "name": "particle shift",
+        "definition": "The alternation in phrasal verbs between 'verb particle object' and 'verb object particle'.",
+        "pattern": "[Verb] [object] [particle]  /  [verb] [particle] [object]",
+        "example": "'She turned the offer down' foregrounds the offer; 'she turned down the offer' foregrounds the refusal.",
+        "effect": "A free choice that tunes emphasis and rhythm; with a pronoun object, only the first order is grammatical."
+      },
+      {
+        "name": "dative alternation",
+        "definition": "The choice between a double-object construction and a prepositional dative.",
+        "pattern": "[Verb] [recipient] [theme]  /  [verb] [theme] to [recipient]",
+        "example": "'He gave the committee his notes' ends on the notes; 'he gave his notes to the committee' ends on the committee.",
+        "effect": "Decides which of two arguments takes end-focus; usually a cohesion decision, not a stylistic one."
+      },
+      {
+        "name": "subject-to-subject raising",
+        "definition": "A construction where the subject of an embedded clause surfaces as the subject of the main verb ('seem', 'appear', 'happen', 'turn out').",
+        "pattern": "[Subject] seems/appears to [verb]",
+        "example": "The reserve appears to have been spent in two transactions.",
+        "effect": "Hedges an assertion while keeping the entity in the subject slot; the workhorse hedge of careful nonfiction.",
+        "caution": "Stacked raising verbs ('seems to tend to appear to') is pure evasion."
+      },
+      {
+        "name": "tough-movement",
+        "definition": "A construction in which the object of an embedded infinitive becomes the subject of an adjective like 'hard', 'easy', 'impossible'.",
+        "pattern": "[Object] is [adjective] to [verb]",
+        "example": "That paragraph is easy to misread and hard to defend.",
+        "effect": "Puts the thing being judged in the subject slot rather than the judging.",
+        "aka": ["tough construction"]
+      },
+      {
+        "name": "emphatic do",
+        "definition": "Insertion of the auxiliary 'do' in an affirmative declarative to contradict, insist, or concede.",
+        "pattern": "[Subject] does/did [base verb]",
+        "example": "The board did meet in October; what it did not do was write anything down.",
+        "effect": "The written substitute for contrastive stress; concedes a point before qualifying it.",
+        "caution": "Only works against a contrary expectation; without one it reads as filler."
+      },
+      {
+        "name": "cataphoric opening",
+        "definition": "Opening with a pronoun or pro-form whose referent is withheld until later in the sentence or passage.",
+        "pattern": "[Pronoun] [predicate] ... [referent]",
+        "example": "It arrived in a plain envelope, unsigned, and it ended three careers: the memo.",
+        "effect": "Creates a small suspense by making the reader wait to learn what is being discussed.",
+        "caution": "Sustained cataphora is annoying rather than intriguing; resolve it inside a sentence or two."
+      },
+      {
+        "name": "object fronting for contrast",
+        "definition": "Fronting an object specifically to set it against a parallel element in an adjacent clause.",
+        "pattern": "[Object A] [subject] [verb]; [object B] [subject] [verb]",
+        "example": "The salaries the trustees would discuss; the fees they would not.",
+        "effect": "Makes contrast structural rather than lexical — no 'but' required.",
+        "register": "formal, literary"
+      }
+    ],
+    "ellipsis_and_compression": [
+      {
+        "name": "gapping",
+        "definition": "Omission of the repeated verb (and sometimes more) from the second of two coordinated clauses.",
+        "pattern": "[Subject A] [verb] [object A]; [subject B], [object B]",
+        "example": "Sarah ordered the fish; Marcus, the lamb.",
+        "effect": "Compresses parallel information and makes the contrast audible; the comma does the verb's work.",
+        "register": "formal to literary",
+        "caution": "Requires strict parallelism; if the structures differ, the gap cannot be recovered."
+      },
+      {
+        "name": "stripping",
+        "definition": "Reduction of the second conjunct to a single remnant, usually with 'too', 'either', or 'not'.",
+        "pattern": "[Clause], and [remnant] too",
+        "example": "The auditor resigned, and the deputy too.",
+        "effect": "Maximum compression of a repeated predicate; keeps the sentence moving.",
+        "aka": ["bare argument ellipsis"]
+      },
+      {
+        "name": "sluicing",
+        "definition": "Ellipsis of everything after a wh-word in an embedded or standalone question.",
+        "pattern": "[Clause], but [wh-word]?",
+        "example": "Someone had already pulled the file, but nobody would say who.",
+        "effect": "Leaves the question open in the fewest possible words; the syntax of an unanswered question."
+      },
+      {
+        "name": "VP-ellipsis",
+        "definition": "Omission of a verb phrase after an auxiliary that survives.",
+        "pattern": "[Subject] [auxiliary], and [subject] [auxiliary] not",
+        "example": "She could have called the regulator that week. She didn't.",
+        "effect": "The most common English ellipsis; keeps a contrast sharp by removing everything the reader already has."
+      },
+      {
+        "name": "pseudogapping",
+        "definition": "Ellipsis of the verb but not its object in the second clause, leaving a stranded remnant after the auxiliary.",
+        "pattern": "[Subject] will [verb] [object A], but [subject] won't [object B]",
+        "example": "She will testify about the transfers, but she won't about the memo.",
+        "effect": "A colloquial halfway house between gapping and VP-ellipsis; sounds spoken.",
+        "register": "informal"
+      },
+      {
+        "name": "comparative deletion",
+        "definition": "Omission of the repeated material in the second term of a comparison.",
+        "pattern": "[Clause] more than [reduced clause]",
+        "example": "The hearing produced more paper than answers.",
+        "effect": "Keeps comparisons tight.",
+        "caution": "Deleting too much creates the classic ambiguous comparative ('she trusts the auditor more than the board')."
+      },
+      {
+        "name": "verbless clause",
+        "definition": "A subordinate clause with the verb (usually a form of 'be') omitted.",
+        "pattern": "[Conjunction] [complement], [main clause]",
+        "example": "Though unable to name a single source, the reporter would not retract.",
+        "effect": "Formal compression; keeps the subordinate material from competing with the main clause.",
+        "register": "formal, literary"
+      },
+      {
+        "name": "nominal sentence",
+        "definition": "A standalone sentence with no verb at all, consisting of a noun phrase or phrases.",
+        "pattern": "[Noun phrase].",
+        "example": "Nine days of testimony. One question at the end of it.",
+        "effect": "Presents an image or fact as a fixed state, outside time; strongly marked.",
+        "register": "literary, journalistic openings",
+        "caution": "A stylistic signature; more than one or two per chapter and the prose starts posing."
+      },
+      {
+        "name": "syntactic zeugma",
+        "definition": "One verb (or preposition) governing two or more complements it fits differently, often one literal and one figurative.",
+        "pattern": "[Verb] [literal object] and [figurative object]",
+        "example": "He left the building, the payroll, and any claim to a pension in the same afternoon.",
+        "effect": "Compression plus wit; the yoking itself supplies the comment.",
+        "caution": "Reads as a joke whether or not you intended one — check the tone of the surrounding passage.",
+        "aka": ["syllepsis"]
+      },
+      {
+        "name": "subject ellipsis",
+        "definition": "Omission of the subject pronoun at the start of a clause, as in diaries, notes, and clipped narration.",
+        "pattern": "[Verb phrase] ...",
+        "example": "Called the office twice. Left no message either time.",
+        "effect": "Produces a private, note-to-self texture and speeds narration.",
+        "register": "informal, epistolary, diary, hard-boiled first person",
+        "aka": ["diary drop"]
+      },
+      {
+        "name": "determiner omission",
+        "definition": "Dropping articles and other determiners for telegraphic compression.",
+        "pattern": "[Bare noun] [verb] [bare noun]",
+        "example": "Bank closed Friday. Depositors notified Monday.",
+        "effect": "Headline or cable texture; urgency at the cost of nuance.",
+        "register": "headlines, notes, dispatches",
+        "caution": "Extended past a line or two it becomes a costume rather than a style."
+      },
+      {
+        "name": "right-node raising",
+        "definition": "Coordination in which two clauses share a final constituent, stated once at the end.",
+        "pattern": "[Subject A] [verb A], and [subject B] [verb B], [shared object]",
+        "example": "She drafted, and he signed, the letter that ended the inquiry.",
+        "effect": "Holds the shared element to the last position where it takes double stress.",
+        "register": "formal",
+        "caution": "The interrupting commas are essential; without them the sentence collapses."
+      },
+      {
+        "name": "fragment answer",
+        "definition": "A reply consisting only of the constituent that answers the question, the rest of the clause elided.",
+        "pattern": "— [Question]? — [Constituent].",
+        "example": "Who authorized it? Nobody anyone could name.",
+        "effect": "Natural dialogue rhythm; full-sentence answers in fiction sound like depositions.",
+        "register": "dialogue and voiced narration"
+      },
+      {
+        "name": "null-complement anaphora",
+        "definition": "Omission of an entire understood complement after verbs like 'refuse', 'agree', 'try', 'find out'.",
+        "pattern": "[Subject] [verb].",
+        "example": "The committee asked him to name the officer. He refused.",
+        "effect": "Keeps the focus on the act rather than restating its content."
+      },
+      {
+        "name": "that-deletion",
+        "definition": "Omission of the complementizer 'that' before a finite complement clause.",
+        "pattern": "[Subject] [verb] [clause]",
+        "example": "She knew the file was incomplete before she opened it.",
+        "effect": "Lightens the sentence and speeds it; the default in speech and in most modern nonfiction.",
+        "caution": "Keep 'that' when the following words could be misparsed as the verb's object ('she knew the file was' vs 'she knew the file')."
+      },
+      {
+        "name": "zero relative",
+        "definition": "A restrictive relative clause with the relative pronoun omitted, possible when the pronoun is the object.",
+        "pattern": "[Noun] [subject] [verb]",
+        "example": "The page she wanted had been removed from the binder.",
+        "effect": "Removes two syllables of scaffolding and tightens the noun phrase.",
+        "aka": ["contact clause"],
+        "caution": "Impossible when the relative would be the subject: 'the page was missing' cannot become 'the page missing' without changing the structure."
+      },
+      {
+        "name": "conversational deletion",
+        "definition": "Omission of sentence-initial function words — subjects, auxiliaries, articles — as they routinely drop in speech.",
+        "pattern": "[Reduced clause]?",
+        "example": "Seen the March file? Not since Tuesday.",
+        "effect": "Renders spoken register on the page without phonetic spelling.",
+        "register": "dialogue, informal narration"
+      }
+    ],
+    "interruption_and_parenthesis": [
+      {
+        "name": "parenthesis",
+        "definition": "Insertion of a grammatically independent element into a sentence, marked by round brackets.",
+        "pattern": "[Clause] ([inserted material]) [clause continues]",
+        "example": "The reserve (a number that appeared in only one document) was carried forward for three years.",
+        "effect": "Signals subordinate status typographically: the reader knows this can be skipped.",
+        "register": "expository and academic",
+        "caution": "Brackets whisper; anything you want the reader to hear should not be in them."
+      },
+      {
+        "name": "parenthetical dash pair",
+        "definition": "Insertion set off by a pair of em dashes rather than commas or brackets.",
+        "pattern": "[Clause] — [inserted material] — [clause continues]",
+        "example": "The examiner — who had asked for the ledgers twice in writing — went to the regulator instead.",
+        "effect": "Louder than brackets, more abrupt than commas; the insertion keeps full emphasis.",
+        "caution": "More than one dash pair per paragraph and the prose develops a stammer."
+      },
+      {
+        "name": "comma parenthesis",
+        "definition": "The quietest insertion: parenthetical material set off with commas.",
+        "pattern": "[Clause], [inserted material], [clause continues]",
+        "example": "The March statement, as everyone later agreed, should never have been signed.",
+        "effect": "Integrates the aside into the sentence's flow instead of interrupting it.",
+        "caution": "Fails when the insertion is long enough that the reader loses the main clause."
+      },
+      {
+        "name": "comment clause",
+        "definition": "A short parenthetical clause expressing the speaker's stance toward the proposition: I think, you know, it seems, one imagines.",
+        "pattern": "[Clause], [comment clause], [clause continues]",
+        "example": "The reclassification was, I think, the only decision anyone made deliberately.",
+        "effect": "Adds a human speaking presence and hedges the claim at once.",
+        "register": "conversational to essayistic",
+        "caution": "In argument these read as hedging; count them before a revision pass."
+      },
+      {
+        "name": "disjunct insertion",
+        "definition": "Insertion of a sentence adverbial commenting on the truth or manner of the whole statement: frankly, admittedly, oddly enough.",
+        "pattern": "[Subject], [disjunct], [predicate]",
+        "example": "The board, admittedly, had never been given the underlying schedule.",
+        "effect": "Marks the writer's attitude to the claim without a separate sentence.",
+        "register": "essayistic"
+      },
+      {
+        "name": "authorial aside",
+        "definition": "A parenthetical remark in which the writer steps briefly outside the narrative or argument to address the reader directly.",
+        "example": "The fund had by then been audited four times (four — I counted them in the docket) with no adverse finding.",
+        "effect": "Establishes a companionable narrator; makes the writing feel like thinking rather than reporting.",
+        "register": "essay, narrative nonfiction, voiced first person",
+        "caution": "Each aside costs momentum; spend them on something the reader could not have supplied."
+      },
+      {
+        "name": "split dialogue tag",
+        "definition": "A speech tag inserted mid-utterance, breaking the quoted line in two.",
+        "pattern": "\"[First part],\" said [speaker], \"[second part].\"",
+        "example": "\"I signed it,\" she said, \"the way I signed everything that year.\"",
+        "effect": "Places a beat exactly where the speaker would pause; controls dialogue rhythm without stage directions.",
+        "caution": "Split at a natural breath, not mid-phrase, or the line reads as artificially interrupted."
+      },
+      {
+        "name": "trailing dash afterthought",
+        "definition": "A single dash near the end of the sentence introducing a late addition or qualification.",
+        "pattern": "[Main clause] — [afterthought]",
+        "example": "Nobody could find the original — or wanted to.",
+        "effect": "Mimics the mind adding something it had held back; often the sentence's sharpest content.",
+        "caution": "Because it always lands hard, a weak afterthought is very visibly weak."
+      },
+      {
+        "name": "self-correction",
+        "definition": "Mid-sentence repair, replacing a word or phrase just used: 'or rather', 'or, more precisely'.",
+        "pattern": "[Clause] — or rather, [revised clause]",
+        "example": "The board approved the transfer — or rather, no one at the table objected to it.",
+        "effect": "Enacts precision as a live process; the correction persuades more than the corrected version alone would.",
+        "register": "essayistic, argumentative",
+        "caution": "Real repairs only; performed hesitation is transparent."
+      },
+      {
+        "name": "anacoluthon",
+        "definition": "A sentence that abandons one grammatical construction partway and continues in another.",
+        "pattern": "[Begun construction] — [different construction completes the sentence]",
+        "example": "The people who signed those statements, the fact is not one of them has explained why.",
+        "effect": "Renders a mind overtaken by its own material; in dialogue and voiced narration it reads as authentic disruption.",
+        "register": "literary, dialogue",
+        "caution": "Indistinguishable from an editing error unless the surrounding prose is visibly controlled."
+      },
+      {
+        "name": "aposiopesis",
+        "definition": "Construction sense: a clause abandoned before its grammar completes, marked by a dash and left without its predicate. The figure names the gesture; this names the sentence pattern.",
+        "see_also": "rhetorical_figures/omission_and_brevity_figures",
+        "pattern": "[Partial clause] —",
+        "example": "If they had told anyone in the town what the numbers actually meant—",
+        "effect": "The unsaid completion carries more than a stated one; used for menace, grief, or refusal.",
+        "caution": "One per scene; a page of broken-off sentences reads as coyness."
+      },
+      {
+        "name": "vocative insertion",
+        "definition": "A direct address to a person inserted into a clause and set off by commas.",
+        "pattern": "[Clause], [vocative], [clause continues]",
+        "example": "You will find, reader, that the dates do not line up.",
+        "effect": "Turns statement into address; in nonfiction the vocative 'reader' is a strong period marker.",
+        "register": "dialogue; in nonfiction, deliberately old-fashioned"
+      },
+      {
+        "name": "tag question",
+        "definition": "A short interrogative appended to a declarative, seeking or performing agreement.",
+        "pattern": "[Declarative], [auxiliary] [pronoun]?",
+        "example": "They had every reason to check that number, didn't they.",
+        "effect": "Pulls the reader into complicity, or renders a speaker fishing for confirmation.",
+        "register": "dialogue, informal narration",
+        "caution": "In nonfiction it can read as bullying the reader into assent."
+      },
+      {
+        "name": "interpolated question",
+        "definition": "A question inserted into the middle of an otherwise declarative passage, in the writer's or a character's voice.",
+        "example": "The deposits fell every quarter — who reads a quarterly statement four times running? — and nobody flagged it.",
+        "effect": "Breaks exposition with a beat of live thought and licenses the answer that follows."
+      },
+      {
+        "name": "nested parenthesis",
+        "definition": "A parenthetical element contained within another parenthetical element.",
+        "pattern": "[Clause] ([aside [inner aside]]) [clause continues]",
+        "example": "The letter (which arrived, as everything that year arrived (late), in a state courier envelope) was never entered in the log.",
+        "effect": "Enacts digression and, in comic or pedantic voices, is the joke.",
+        "caution": "Two levels is already a stunt; three is unreadable."
+      }
+    ],
+    "modifier_placement": [
+      {
+        "name": "fronted adverbial",
+        "definition": "An adverbial phrase placed before the subject, setting time, place, or condition for the clause.",
+        "pattern": "[Adverbial], [subject] [verb]",
+        "example": "By the third week of hearings, the gallery had thinned to reporters and relatives.",
+        "effect": "Orients the reader before the action; the main way prose changes scene inside a paragraph.",
+        "caution": "A string of paragraphs opening this way flattens into a chronicle."
+      },
+      {
+        "name": "medial adverbial",
+        "definition": "An adverbial placed between subject and verb or inside the verb phrase.",
+        "pattern": "[Subject] [adverbial] [verb]",
+        "example": "The regulator, by then, had two versions of the same statement.",
+        "effect": "Slows the clause at the point of insertion and gives the adverbial a light stress."
+      },
+      {
+        "name": "end-placed adverbial",
+        "definition": "An adverbial in final position, taking the sentence's end-focus.",
+        "pattern": "[Subject] [verb] [object] [adverbial]",
+        "example": "She filed the complaint on the last day the statute allowed.",
+        "effect": "Puts the circumstance in the emphatic slot; the right choice when the circumstance is the news."
+      },
+      {
+        "name": "split infinitive",
+        "definition": "An adverb placed between 'to' and the verb.",
+        "pattern": "to [adverb] [verb]",
+        "example": "The rule allowed the trustees to quietly reclassify anything held under a year.",
+        "effect": "Often the only placement that puts the adverb where its scope actually falls.",
+        "register": "standard in all modern registers",
+        "caution": "The prohibition is a nineteenth-century invention, but some readers still flinch; avoid splitting with a long phrase."
+      },
+      {
+        "name": "adverb between auxiliary and verb",
+        "definition": "Placement of an adverb after the first auxiliary, the natural English position for many adverbs.",
+        "pattern": "[Subject] [auxiliary] [adverb] [verb]",
+        "example": "The transfer had already been approved twice before anyone read the schedule.",
+        "effect": "The unmarked position; moving the adverb elsewhere is what creates emphasis."
+      },
+      {
+        "name": "only-placement",
+        "definition": "The positioning of focusing adverbs — only, even, just, also — immediately before the constituent they restrict.",
+        "example": "'He only signed two statements' and 'he signed only two statements' assert different things; the second is what is usually meant.",
+        "effect": "Placement is meaning, not fussiness; a misplaced 'only' misstates the claim.",
+        "caution": "In careful nonfiction, place focusing adverbs adjacent to their target even when speech would not."
+      },
+      {
+        "name": "misplaced modifier",
+        "definition": "A modifier positioned so that it attaches to the wrong element.",
+        "polarity": "fault",
+        "example": "Faulty: 'She read the memo about the missing reserve in her car.' Repaired: 'In her car, she read the memo about the missing reserve.'",
+        "effect": "Named as a diagnostic: readers attach modifiers to the nearest plausible host, whatever the writer intended.",
+        "caution": "Prepositional-phrase pileups at the end of a clause are the usual site."
+      },
+      {
+        "name": "stacked prenominal modifiers",
+        "definition": "Several modifiers accumulated before a noun.",
+        "pattern": "[Mod] [mod] [mod] [noun]",
+        "example": "A three-page unsigned internal audit memo turned up in the file.",
+        "effect": "Compresses information into the noun phrase; standard in technical and bureaucratic writing.",
+        "caution": "Past three modifiers, readers cannot tell which modify the noun and which modify each other; unpack into a relative clause."
+      },
+      {
+        "name": "prepositional-phrase chain",
+        "definition": "A sequence of prepositional phrases attached one after another at the end of a clause.",
+        "pattern": "[Clause] [PP] [PP] [PP]",
+        "example": "The box was found in a closet on the second floor of an annex behind the courthouse.",
+        "effect": "Reads as a narrowing zoom when intended; as bureaucratic sludge when not.",
+        "caution": "Three or more attached to one verb is the most common cause of unreadable expository sentences."
+      },
+      {
+        "name": "postposed modifier",
+        "definition": "A modifier moved from before the noun to after it, usually to relieve a heavy noun phrase.",
+        "pattern": "[Noun] [modifier phrase]",
+        "example": "The pages missing from the binder were the ones dated in March.",
+        "effect": "Gets the head noun to the reader sooner, then modifies."
+      },
+      {
+        "name": "sentence adverb",
+        "definition": "An adverb modifying the whole clause rather than any element in it: obviously, arguably, mercifully.",
+        "pattern": "[Sentence adverb], [clause]",
+        "example": "Arguably, the reclassification was legal on the day it was made.",
+        "effect": "Encodes the writer's stance in one word; the cheapest available hedge or booster.",
+        "caution": "'Obviously', 'clearly', and 'of course' most often mark claims the writer has not supported."
+      },
+      {
+        "name": "adverbial of degree placement",
+        "definition": "The position of degree adverbs — quite, rather, almost, barely — relative to what they scale.",
+        "example": "'The number was almost right' and 'almost the number was right' are not both available; degree adverbs sit tight against their target.",
+        "effect": "Governs whether the scaling applies to a word, a phrase, or the whole assertion.",
+        "caution": "Degree adverbs stacked on a strong verb usually weaken it; cut before repositioning."
+      }
+    ],
+    "sentence_length_moves": [
+      {
+        "name": "one-word sentence",
+        "definition": "A sentence consisting of a single word, usually after a long one.",
+        "pattern": "[Long sentence]. [Word].",
+        "example": "The bank spent nine months preparing a defense, hired three firms, and rehearsed the testimony twice. Nothing.",
+        "effect": "Maximum stress on one word; the syntactic equivalent of a full stop in speech.",
+        "caution": "Its power is entirely contrast; used twice on a page it is worth nothing.",
+        "see_also": "sound_and_rhythm/rhythm_moves"
+      },
+      {
+        "name": "telegraphic sentence",
+        "definition": "A very short sentence, typically under six words, stripped of modifiers.",
+        "example": "The money was gone.",
+        "effect": "Reads as fact rather than interpretation; lands hardest after a sentence that has been building.",
+        "register": "narrative and journalistic"
+      },
+      {
+        "name": "minor sentence",
+        "definition": "A grammatically incomplete unit punctuated as a sentence — no finite verb, or no subject.",
+        "pattern": "[Phrase].",
+        "example": "Two boxes of paper. Nine days of testimony. One question at the end.",
+        "effect": "Isolates an element for stress and mimics the way attention actually lands on things.",
+        "register": "literary, journalistic, advertising",
+        "caution": "The single most overused device in contemporary nonfiction; keep a count per chapter.",
+        "aka": ["sentence fragment"]
+      },
+      {
+        "name": "long-breath sentence",
+        "definition": "A sentence extending across many clauses without breaking, usually held together by coordination or accumulating modifiers.",
+        "example": "They kept the plant on the letterhead and the sign on the road and the picture in the annual report, long after the last shift had gone and the parking lot had cracked and the town had stopped saying the name out loud.",
+        "effect": "Enacts duration or accumulation; the reader feels the length as time.",
+        "register": "literary",
+        "caution": "One per chapter, and it must be readable aloud in a single arc."
+      },
+      {
+        "name": "labyrinthine sentence",
+        "definition": "A long sentence complicated by embedding and qualification rather than by coordination.",
+        "example": "The memo, which had been drafted by a deputy who reported to the officer whose signature appeared, though nobody could establish when, on the March statement, was never logged.",
+        "effect": "Renders complexity, bureaucracy, or an overloaded mind; the difficulty is the content.",
+        "caution": "Only works when the surrounding prose is clean enough that the difficulty reads as deliberate."
+      },
+      {
+        "name": "short after long",
+        "definition": "Placing a very short sentence directly after a long one.",
+        "pattern": "[40-word sentence]. [4-word sentence].",
+        "example": "For three years the committee requested the underlying schedules, first informally, then in writing, then through counsel, and each time received a summary instead. Nobody escalated.",
+        "effect": "The standard rhythm move of English prose: build, then land.",
+        "register": "all registers"
+      },
+      {
+        "name": "long after short",
+        "definition": "Placing an expansive sentence directly after a clipped one, opening the field back up.",
+        "pattern": "[Short sentence]. [Long sentence].",
+        "example": "The vote was unanimous. It was also, as the minutes would eventually show, taken without the schedule that three members had asked for twice and one had asked for in writing.",
+        "effect": "Releases the pressure a short sentence creates; the reader exhales into the long one."
+      },
+      {
+        "name": "sentence-length alternation",
+        "definition": "Deliberate variation of sentence length across a passage rather than a uniform average.",
+        "example": "A paragraph of 8, 31, 12, 6, and 44 words reads as written; five sentences of 20 words each reads as generated.",
+        "effect": "Variance — not average length — is what makes prose sound like a person; low variance is the most reliable machine tell.",
+        "register": "all registers",
+        "aka": ["burstiness"]
+      },
+      {
+        "name": "run-on for effect",
+        "definition": "A deliberately fused sentence, clauses running together without the punctuation that would separate them.",
+        "example": "She read it again and then again and then she put it in the drawer and went out and did not come back until the building had emptied.",
+        "effect": "Renders panic, momentum, or a mind refusing to stop; the missing punctuation is the content.",
+        "register": "literary, voiced first person",
+        "caution": "Requires visibly controlled punctuation elsewhere or it reads as carelessness."
+      },
+      {
+        "name": "single-sentence paragraph",
+        "definition": "A paragraph consisting of one sentence, set off by white space.",
+        "example": "None of it was illegal.",
+        "effect": "Borrows emphasis from layout rather than syntax; the eye stops before the mind does.",
+        "register": "journalism, narrative nonfiction",
+        "caution": "Overused in web-native prose to the point of parody; reserve for genuine turns."
+      },
+      {
+        "name": "staccato series",
+        "definition": "Three or more short sentences in a row, each self-contained.",
+        "example": "The auditor called. The line was busy. She drove over. The office was dark.",
+        "effect": "Speeds narration and withholds interpretation; each fact lands separately.",
+        "caution": "Sustained past four or five, it flattens into a list of events."
+      },
+      {
+        "name": "expanding series",
+        "definition": "Successive sentences of increasing length across a passage.",
+        "example": "It started small. Two accounts, then five, then a whole class of them. By the end of the year it covered every deposit the branch had taken in since the merger, and no one had written a memo about any of it.",
+        "effect": "Enacts growth or escalation in the shape of the prose itself.",
+        "caution": "Works only when the content escalates too; otherwise it is a pattern the reader notices and resents."
+      },
+      {
+        "name": "contracting series",
+        "definition": "Successive sentences of decreasing length, narrowing toward a close.",
+        "example": "They had the documents, the dates, the signatures, and two people willing to testify about all of it. They had a year. They had nothing.",
+        "effect": "Produces a sense of closing in; the standard shape for the end of a section.",
+        "caution": "The last sentence carries everything, so it must be worth the shape."
+      }
+    ]
+  }
+}

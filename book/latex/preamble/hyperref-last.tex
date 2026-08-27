@@ -1,0 +1,51 @@
+%% ============================================================
+%% preamble/hyperref-last.tex — hyperref + bookmark (ALWAYS LAST)
+%%
+%% Purpose      : loads hyperref (and bookmark, which supersedes
+%%                hyperref's own outline writer) and sets PDF metadata
+%%                from the book macros. Print builds force black
+%%                links; \EbookMode gets the semantic link colors.
+%% Dependencies : every other module (hyperref patches cross-refs,
+%%                floats, footnotes — hence the "last" contract,
+%%                ADR 0005), colors.tex (link/url tokens),
+%%                generated/metadata.tex.
+%% Provenance   : standard footgun avoidance; per-mode link colors from
+%%                ADR 0006's ebook/print split.
+%% ============================================================
+
+\usepackage{hyperref}
+\usepackage{bookmark}   % single-pass, more capable PDF outline
+
+% colorlinks=true in BOTH branches: colored TEXT, never the hideous
+% link boxes (which some POD preflights also reject). Print builds
+% simply color every link black — invisible on paper, still clickable
+% in the PDF proof.
+\ifdefined\EbookMode
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=link,
+    citecolor=link,
+    urlcolor=url,
+  }
+\else
+  \hypersetup{
+    colorlinks=true,
+    allcolors=black,
+  }
+\fi
+
+% PDF metadata — from book.yaml via the metadata macros only (ADR 0002).
+\ifBookHasSubtitle
+  \hypersetup{pdftitle={\BookTitle: \BookSubtitle}}
+\else
+  \hypersetup{pdftitle={\BookTitle}}
+\fi
+\hypersetup{
+  pdfauthor={\BookAuthor},
+  pdfsubject={\BookDescription},
+  pdflang={\BookLanguage},
+  pdfcreator={book-template (LaTeX)},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=0,
+}

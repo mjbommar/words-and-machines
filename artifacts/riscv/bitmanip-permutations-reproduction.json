@@ -1,0 +1,224 @@
+{
+  "objects": [
+    "M.riscv.byteperm24",
+    "M.riscv.table22"
+  ],
+  "byte_perm_max_len": 3,
+  "byte_perm_len_histogram": {
+    "0": 1,
+    "1": 6,
+    "2": 9,
+    "3": 8,
+    "4": 0
+  },
+  "byte_perm_minima": {
+    "ABCD": {
+      "len": 0,
+      "seq": []
+    },
+    "ABDC": {
+      "len": 3,
+      "seq": [
+        "ROR(8)",
+        "SHFL(8)",
+        "ROR(24)"
+      ]
+    },
+    "ACBD": {
+      "len": 1,
+      "seq": [
+        "SHFL(8)"
+      ]
+    },
+    "ACDB": {
+      "len": 3,
+      "seq": [
+        "ROR(16)",
+        "SHFL(8)",
+        "ROR(8)"
+      ]
+    },
+    "ADBC": {
+      "len": 3,
+      "seq": [
+        "ROR(8)",
+        "GREV(24)",
+        "SHFL(8)"
+      ]
+    },
+    "ADCB": {
+      "len": 2,
+      "seq": [
+        "ROR(8)",
+        "GREV(24)"
+      ]
+    },
+    "BACD": {
+      "len": 3,
+      "seq": [
+        "ROR(24)",
+        "SHFL(8)",
+        "ROR(8)"
+      ]
+    },
+    "BADC": {
+      "len": 1,
+      "seq": [
+        "GREV(8)"
+      ]
+    },
+    "BCAD": {
+      "len": 3,
+      "seq": [
+        "ROR(8)",
+        "GREV(8)",
+        "SHFL(8)"
+      ]
+    },
+    "BCDA": {
+      "len": 1,
+      "seq": [
+        "ROR(24)"
+      ]
+    },
+    "BDAC": {
+      "len": 2,
+      "seq": [
+        "ROR(16)",
+        "SHFL(8)"
+      ]
+    },
+    "BDCA": {
+      "len": 2,
+      "seq": [
+        "SHFL(8)",
+        "ROR(24)"
+      ]
+    },
+    "CABD": {
+      "len": 3,
+      "seq": [
+        "ROR(16)",
+        "SHFL(8)",
+        "ROR(24)"
+      ]
+    },
+    "CADB": {
+      "len": 2,
+      "seq": [
+        "GREV(8)",
+        "SHFL(8)"
+      ]
+    },
+    "CBAD": {
+      "len": 2,
+      "seq": [
+        "ROR(8)",
+        "GREV(8)"
+      ]
+    },
+    "CBDA": {
+      "len": 2,
+      "seq": [
+        "ROR(24)",
+        "SHFL(8)"
+      ]
+    },
+    "CDAB": {
+      "len": 1,
+      "seq": [
+        "ROR(16)"
+      ]
+    },
+    "CDBA": {
+      "len": 3,
+      "seq": [
+        "ROR(8)",
+        "SHFL(8)",
+        "ROR(8)"
+      ]
+    },
+    "DABC": {
+      "len": 1,
+      "seq": [
+        "ROR(8)"
+      ]
+    },
+    "DACB": {
+      "len": 2,
+      "seq": [
+        "ROR(8)",
+        "SHFL(8)"
+      ]
+    },
+    "DBAC": {
+      "len": 2,
+      "seq": [
+        "SHFL(8)",
+        "ROR(8)"
+      ]
+    },
+    "DBCA": {
+      "len": 2,
+      "seq": [
+        "GREV(24)",
+        "SHFL(8)"
+      ]
+    },
+    "DCAB": {
+      "len": 3,
+      "seq": [
+        "ROR(24)",
+        "SHFL(8)",
+        "ROR(24)"
+      ]
+    },
+    "DCBA": {
+      "len": 1,
+      "seq": [
+        "GREV(24)"
+      ]
+    }
+  },
+  "table22_rot_grev": [
+    1,
+    62,
+    864,
+    4640,
+    23312,
+    92192,
+    294992,
+    703744,
+    1012856,
+    1046224,
+    1048576
+  ],
+  "table22_rot_grev_spec": [
+    1,
+    62,
+    864,
+    4640,
+    23312,
+    92192,
+    294992,
+    703744,
+    1012856,
+    1046224,
+    1048576
+  ],
+  "table22_rot_grev_shfl_to4": [
+    1,
+    85,
+    3030,
+    78659,
+    2002167
+  ],
+  "table22_rot_grev_shfl_spec_to4": [
+    1,
+    85,
+    3030,
+    78659,
+    2002167
+  ],
+  "verdict": "REPRODUCED"
+}

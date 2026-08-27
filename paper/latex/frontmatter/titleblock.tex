@@ -1,0 +1,75 @@
+%% ============================================================
+%% frontmatter/titleblock.tex — title, authors, date, abstract, apparatus
+%%
+%% Purpose      : the paper's opening — a custom centered title block
+%%                (title, optional subtitle, author block from the
+%%                generated \PaperAuthorBlock, optional series line, date),
+%%                then the abstract with the keyword/JEL/MSC apparatus.
+%%                \AnonMode strips author identity for double-blind copies.
+%% Dependencies : generated/metadata.tex (\PaperTitle, \PaperAuthorBlock,
+%%                \KeywordsLine …), colors.tex, commands.tex.
+%% Provenance   : the SSRN-cluster abstract-with-keywords/JEL page and
+%%                the us-data-center-opposition working-paper title block.
+%% ============================================================
+
+\thispagestyle{plain}%
+
+% Optional hero: a full-width background image behind the title on page 1
+% only (typography.title_background). Anchored to the top so the title sits
+% over it; keep the asset light so text stays legible. eso-pic's BG* layer
+% draws behind the text and prints under \GrayscaleMode like everything else.
+\ifPaperHasTitleBackground
+  \AddToShipoutPictureBG*{%
+    \AtPageUpperLeft{%
+      \raisebox{-\height}{\includegraphics[width=\paperwidth]{\PaperTitleBackground}}}}
+\fi
+
+\begin{center}
+  {\LARGE\sffamily\bfseries\color{pt-title}\PaperTitle\par}
+  \ifPaperHasSubtitle
+    \vspace{0.5em}
+    {\large\sffamily\color{pt-subtitle}\PaperSubtitle\par}
+  \fi
+  \vspace{1.2em}
+
+  % Author identity, or a blind placeholder.
+  \ifdefined\AnonMode
+    {\large Anonymous Author(s)\par}
+    \vspace{0.3em}{\small\color{text-muted}Submission under double-blind review\par}
+  \else
+    \PaperAuthorBlock
+  \fi
+
+  \ifPaperHasSeries
+    \vspace{0.6em}{\small\color{text-muted}\PaperSeries\par}
+  \fi
+
+  \vspace{0.8em}
+  {\color{text-muted}\PaperDate\par}
+  \ifPaperVenueSSRN
+    \vspace{0.2em}{\small\color{pt-draft}Working paper — draft; comments welcome\par}
+  \fi
+\end{center}
+
+\vspace{0.6em}
+
+% -------- Abstract + apparatus ---------------------------------------
+\begin{abstract}
+\noindent\PaperAbstract
+\end{abstract}
+
+\vspace{0.3em}
+{\setlength{\parskip}{0.35em}\par
+  \KeywordsLine
+  \JELLine
+  \MSCLine
+  % arXiv distributes under a chosen license; state it on the page so the
+  % PDF is self-describing (the arXiv form records it authoritatively).
+  \ifPaperVenueArxiv
+    \noindent{\small\textbf{\color{pt-apparatus-label}License:}\ \PaperLicense\par}%
+  \fi
+}
+
+\vspace{0.5em}
+\hrule height 0.4pt
+\vspace{1.0em}
