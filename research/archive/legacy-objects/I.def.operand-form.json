@@ -1,0 +1,23 @@
+{
+  "id": "I.def.operand-form",
+  "kind": "definition",
+  "part": 1,
+  "title": "Operand form",
+  "statement": "An operand form declares every explicit and implicit input, output, immediate, memory access, and side effect of an instruction instance. An opcode name alone does not determine the candidate language of an equivalence or minimality claim.",
+  "formal": {
+    "language": "prose",
+    "statement": "OperandForm := explicit_reads × explicit_writes × implicit_reads × implicit_writes × immediates × memory_effects"
+  },
+  "epistemic_status": "stated",
+  "depends_on": ["I.def.instruction"],
+  "evidence": [],
+  "book": {
+    "chapter": "ch03-instructions-operands",
+    "label": "def:operand-form"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

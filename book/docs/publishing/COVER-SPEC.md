@@ -64,7 +64,7 @@ make pdf                     # interior must be built (and FINAL) first
 make cover-vars              # scripts/update_cover_vars.py
    ├─ reads page count via pdfinfo on the print PDF
    ├─ computes spine width for the platform/binding
-   │    (KDP white/cream formulas, Lulu /444 formula,
+   │    (KDP white/cream/groundwood/color formulas, Lulu /444 formula,
    │     Lulu hardcover lookup table — all in the script)
    └─► latex/generated/cover-vars.tex
         (trim, bleed, spine, total wrap dimensions)

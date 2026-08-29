@@ -1,0 +1,24 @@
+{
+  "id": "I.def.instruction",
+  "kind": "definition",
+  "part": 1,
+  "title": "Instruction instance and semantics",
+  "statement": "An instruction instance consists of an operation and a legal operand form. Its semantics is a total relation from an input state to either a normal output state or a named trapped outcome. A deterministic, non-trapping slice may be represented by a function only after those restrictions are declared.",
+  "formal": {
+    "language": "prose",
+    "statement": "sem : InstructionInstance -> State w -> Outcome (State w)"
+  },
+  "epistemic_status": "stated",
+  "depends_on": ["I.def.machine-state"],
+  "evidence": [],
+  "book": {
+    "chapter": "ch03-instructions-operands",
+    "label": "def:instruction"
+  },
+  "notes": "This definition deliberately avoids pretending that every real ISA instruction is a total state-to-state function without an outcome type.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

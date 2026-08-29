@@ -1,0 +1,25 @@
+% Complete observed-function layers for the tiny A0 x+2 example.
+\begin{tikzpicture}[font=\small,
+  layer/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.0cm,minimum height=.72cm,align=center},
+  bad/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=1.35cm,minimum height=.62cm,align=center},
+  good/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=2.2cm,minimum height=.72cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[layer] (l0) at (-4,1.8) {cost 0};
+  \node[bad] (x) at (-4,.55) {$x$};
+  \draw[arr] (l0)--(x);
+  \node[layer] (l1) at (0,1.8) {cost 1};
+  \node[bad] (f1) at (-2.4,.55) {$x$};
+  \node[bad] (f2) at (-.8,.55) {$1$};
+  \node[bad] (f3) at (.8,.55) {$2x$};
+  \node[bad] (f4) at (2.4,.55) {$x+1$};
+  \node[bad] (f5) at (4,.55) {$2$};
+  \foreach \n in {f1,f2,f3,f4,f5} {\draw[arr] (l1)--(\n);}
+  \node[layer] (l2) at (0,-1.15) {cost 2};
+  \node[good] (goal) at (0,-2.3) {$x+2$ witness};
+  \draw[arr,ml-teal-700] (l2)--(goal);
+  \node[font=\scriptsize,text=ml-amber-800] at (0,-.2)
+    {all cheaper observed functions rejected};
+\end{tikzpicture}

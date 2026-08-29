@@ -1,0 +1,8 @@
+{
+  "id": "A0.prin.explicit-effects", "kind": "principle", "part": 1,
+  "title": "All architectural effects are explicit",
+  "statement": "A semantic rule must expose every architectural read, write, program-counter change, and exceptional outcome used by its instruction form.",
+  "epistemic_status": "stated", "depends_on": ["A0.def.instruction"], "evidence": [],
+  "book": {"chapter": "ch03-instructions-operands", "label": "prin:explicit-effects", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

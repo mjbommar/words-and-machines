@@ -6,6 +6,15 @@ humans/agents and a **lint source**: `scripts/check_style.py` parses the fenced
 change what the linter enforces. Companions: [STYLE-AI-TELLS.md](STYLE-AI-TELLS.md)
 (what not to write), [STYLE-CRAFT.md](STYLE-CRAFT.md) (positive craft).
 
+For *Instruction Sets, Programs, and Proofs*, [VOICE.md](VOICE.md), [CRAFT.md](CRAFT.md), and
+[PLAIN-ENGLISH.md](PLAIN-ENGLISH.md) are the book-specific authority. This file
+continues to govern mechanics and the machine-readable lint lists.
+
+Plain language need not produce flat language. In this book, wonder comes
+from the reach of an exact result. Show the object, establish the claim, and
+then allow one brief sentence of wider consequence. See VOICE.md section 7;
+never use elevated language to replace evidence.
+
 ---
 
 ## 1. The core principle: the read-aloud test

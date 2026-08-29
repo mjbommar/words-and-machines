@@ -10,7 +10,8 @@ for latex/cover/cover.tex.
 
 Spine formulas:
   KDP paperback     white/standard-color: pages * 0.002252
-                    cream: pages * 0.0025    premium-color: pages * 0.002347
+                    cream: pages * 0.0025     groundwood: pages * 0.00235
+                    premium-color: pages * 0.002347
   Lulu paperback    pages / 444 + 0.06
   Lulu hardcover    lookup table (case wrap), bleed 0.875" (0.75" board wrap + 0.125")
 Sources: KDP paperback cover spec (kdp.amazon.com G201953020, verified
@@ -34,14 +35,11 @@ import sys
 from pathlib import Path
 
 import yaml
+from trim_catalog import TRIM_PRESETS
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "latex" / "generated" / "cover-vars.tex"
 DEFAULT_PDF = ROOT / "build" / "latex" / "book-print.pdf"
-
-TRIM_PRESETS = {"6x9": (6.0, 9.0), "7x10": (7.0, 10.0),
-                "5.5x8.5": (5.5, 8.5), "5x8": (5.0, 8.0),
-                "8.5x11": (8.5, 11.0)}
 
 # (min_pages, max_pages, spine_inches) — Lulu hardcover case wrap
 LULU_HARDCOVER_SPINE = [
@@ -61,6 +59,7 @@ HARDCOVER_BLEED = 0.875  # 0.75" board wrap + 0.125" bleed
 KDP_SPINE_PER_PAGE = {
     "white": 0.002252,
     "cream": 0.0025,
+    "groundwood": 0.00235,
     "standard-color": 0.002252,  # printed on the white stock
     "premium-color": 0.002347,
 }

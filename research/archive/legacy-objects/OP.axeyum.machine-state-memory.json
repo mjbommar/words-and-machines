@@ -1,0 +1,21 @@
+{
+  "id": "OP.axeyum.machine-state-memory",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Reusable architectural state and memory in Axeyum",
+  "statement": "Implement reusable finite register files, byte-addressed memory, state observations, normal and trapped outcomes, and load/store laws on Axeyum's word foundation. The implementation must distinguish book definitions from solver encodings and support positive and negative controls.",
+  "formal": {
+    "language": "none",
+    "statement": "I.def.machine-state + I.def.memory + I.def.observation"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "depends_on": ["OP.kernel.word-prelude", "I.def.machine-state", "I.def.memory", "I.def.observation"],
+  "evidence": [],
+  "notes": "The 2026-08-27 Axeyum audit found a planned Memory Model Library in docs/sibling-projects.md but no current reusable ISA state or memory implementation.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "live ../axeyum code and documentation audit"
+  }
+}

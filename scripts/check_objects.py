@@ -3,14 +3,15 @@
 
     scripts/check_objects.py            # schema + semantic rules only
     scripts/check_objects.py --run      # also execute checker_command and negative_control
-    scripts/check_objects.py --run --only M.avx2
+    scripts/check_objects.py --run --only A0
 
 Semantic rules (enforced, not just structure -- mirrors axeyum's validate-facts.py):
   * a `proved`/`computed` object must carry at least one evidence row with check_status=checked
   * an `open`/`conjectured` object must carry NO checked evidence of the claim itself
   * every `theorem`/`computation` needs `scope` (a minimality claim without its subset is meaningless)
   * every evidence row with an artifact must point at a path that exists
-  * with --run: checker_command must exit 0; negative_control (if present) must exit NONZERO
+  * checked evidence must name semantic inputs, a checker, and a negative control
+  * with --run: checker_command must exit 0 and negative_control must exit NONZERO
 Exit status: 0 only if everything passes.
 """
 from __future__ import annotations
@@ -38,7 +39,7 @@ def validate_schema(rec, schema):
     if "id" in rec and not re.match(props["id"]["pattern"], rec["id"]):
         errs.append(f"bad id {rec['id']!r}")
     for ev in rec.get("evidence", []):
-        for k in ("kind", "check_status"):
+        for k in ("kind", "trust_class", "check_status"):
             if k not in ev: errs.append(f"evidence missing '{k}'")
         evp = props["evidence"]["items"]["properties"]
         for k in ev:
@@ -55,13 +56,20 @@ def semantic(rec):
         errs.append(f"{st} object with no checked evidence")
     if st in ("open", "conjectured") and any(e["kind"] not in ("claim-ref", "none") for e in checked):
         errs.append(f"{st} object carries checked evidence of the claim")
-    if rec["kind"] in ("theorem", "computation") and not rec.get("scope"):
-        errs.append("theorem/computation without 'scope'")
+    if rec["kind"] in ("theorem", "refinement", "computation") and not rec.get("scope"):
+        errs.append("claim without 'scope'")
     for e in ev:
         a = e.get("artifact")
         if a and not (ROOT / a).exists(): errs.append(f"artifact missing: {a}")
-        if e["check_status"] == "checked" and not e.get("checker_command") and e["kind"] not in ("claim-ref",):
-            errs.append("checked evidence without checker_command")
+        if e["check_status"] == "checked" and e["kind"] != "claim-ref":
+            if not e.get("checker_command"):
+                errs.append("checked evidence without checker_command")
+            if not e.get("negative_control"):
+                errs.append("checked evidence without negative_control")
+            if not e.get("expected_failure"):
+                errs.append("checked evidence without expected_failure")
+            if not e.get("semantic_inputs"):
+                errs.append("checked evidence without semantic_inputs")
     return errs
 
 def run(cmd):
@@ -72,10 +80,22 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--run", action="store_true"); ap.add_argument("--only", default="")
     a = ap.parse_args()
     schema = load_schema(); bad = 0; n = 0
-    for p in sorted(OBJ.glob("*.json")):
-        rec = json.loads(p.read_text()); n += 1
+    paths = sorted(OBJ.glob("*.json"))
+    records = [(p, json.loads(p.read_text())) for p in paths]
+    ids = {rec["id"] for _, rec in records}
+    chapter_dir = ROOT / "book" / "latex" / "chapters"
+    for p, rec in records:
+        n += 1
         if a.only and not rec["id"].startswith(a.only): continue
         errs = validate_schema(rec, schema) + semantic(rec)
+        if p.stem != rec["id"]:
+            errs.append(f"filename {p.name!r} does not match id {rec['id']!r}")
+        for dep in rec.get("depends_on", []):
+            if dep not in ids:
+                errs.append(f"missing dependency {dep!r}")
+        chapter = rec.get("book", {}).get("chapter")
+        if chapter and not list(chapter_dir.glob(f"{chapter}.tex")):
+            errs.append(f"book chapter binding does not exist: {chapter}")
         if a.run:
             for e in rec.get("evidence", []):
                 if e.get("checker_command"):

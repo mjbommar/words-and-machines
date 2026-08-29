@@ -1,0 +1,14 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-400, rounded corners=2pt, fill=white, minimum width=3.4cm, minimum height=.9cm, align=center},
+  arr/.style={-{Stealth[length=2.2mm]}, thick, draw=accent-700}
+]
+  \node[box] (valid) at (0,1.3) {Valid object};
+  \node[box,draw=ml-amber-800,fill=ml-amber-50] (mutant) at (0,-1.3) {One named mutation};
+  \node[box] (check1) at (5,1.3) {Same checker};
+  \node[box] (check2) at (5,-1.3) {Same checker};
+  \node[box,draw=ml-teal-700,fill=ml-teal-50] (accept) at (10,1.3) {Accept};
+  \node[box,draw=ml-amber-800,fill=ml-amber-50] (reject) at (10,-1.3) {Reject with expected class};
+  \draw[arr] (valid)--(check1); \draw[arr] (check1)--(accept);
+  \draw[arr] (mutant)--(check2); \draw[arr] (check2)--(reject);
+  \draw[dashed,draw=gray-500] (valid)--node[left,align=right]{controlled\\change}(mutant);
+\end{tikzpicture}

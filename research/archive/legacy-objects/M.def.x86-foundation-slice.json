@@ -1,0 +1,24 @@
+{
+  "id": "M.def.x86-foundation-slice",
+  "kind": "definition",
+  "part": 2,
+  "title": "Foundational x86-64 slice",
+  "statement": "The book's foundational x86-64 slice is a version-pinned, 64-bit user-mode subset with named general-purpose registers, instruction pointer, selected condition flags, ordinary loads and stores, integer arithmetic and logic, comparisons, branches, calls, and precisely declared fault assumptions. Vector extensions enter only when named.",
+  "formal": {
+    "language": "prose",
+    "statement": "Exact instruction instances and source version to be pinned before the chapter's claims are promoted."
+  },
+  "epistemic_status": "stated",
+  "scope": "Planned user-mode x86-64 teaching slice; exact manual version and instruction list not yet pinned",
+  "evidence": [],
+  "book": {
+    "chapter": "ch06-encoding-decoding",
+    "label": "def:x86-slice"
+  },
+  "notes": "Definition worklist, not a claim that Axeyum currently implements x86-64 semantics. AVX2 is outside this base slice.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

@@ -1,16 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/mjbommar/words-and-machines/objects/schema/object.schema.json",
-  "title": "Book object",
-  "description": "One record per object the book refers to: a definition, theorem, computation, exercise, principle, or open problem. Modelled on axeyum's artifacts/ontology/fact.schema.json: a formal statement AND a status, with evidence whose checker exit status depends on the finding. The book's status boxes are generated from these records and never typed by hand.",
+  "$id": "https://github.com/mjbommar/instruction-sets-programs-and-proofs/objects/schema/object.schema.json",
+  "title": "Instruction-set book object",
+  "description": "One active definition, claim, control, or implementation obligation in the A0, RV64, x86-64, cross-machine, or evidence dependency graph.",
   "type": "object",
   "required": ["id", "kind", "part", "title", "statement", "epistemic_status", "evidence", "provenance"],
   "additionalProperties": false,
   "properties": {
-    "id": {"type": "string", "pattern": "^(W|I|C|P|M|OP)\\.[A-Za-z0-9._-]+$",
-           "description": "Part letter then a dotted slug. W=Words (Prologue), I=Instructions as functions, C=Cost and certificates, P=Permutations, M=Machines (particular ISAs), OP=open problem."},
-    "kind": {"enum": ["definition", "theorem", "computation", "exercise", "principle", "open-problem", "negative-control"]},
-    "part": {"type": "integer", "minimum": 0, "maximum": 5},
+    "id": {"type": "string", "pattern": "^(A0|RV64|X64|REL|EVID|OP)\\.[A-Za-z0-9._-]+$",
+           "description": "Semantic domain plus dotted slug. A0=abstract ISA; RV64 and X64=source-pinned real slices; REL=equivalence/refinement; EVID=evidence contracts; OP=unimplemented obligation."},
+    "kind": {"enum": ["definition", "theorem", "refinement", "computation", "exercise", "principle", "obligation", "negative-control"]},
+    "part": {"type": "integer", "minimum": 1, "maximum": 4},
     "title": {"type": "string"},
     "statement": {"type": "string", "description": "Prose statement, as it appears in the book."},
     "formal": {
@@ -32,14 +32,17 @@
       "type": "array",
       "items": {
         "type": "object", "additionalProperties": false,
-        "required": ["kind", "check_status"],
+        "required": ["kind", "trust_class", "check_status"],
         "properties": {
-          "kind": {"enum": ["unsat-certificate", "witness-replay", "front-door-verdict", "exhaustive-enumeration", "instance-pin", "computation", "claim-ref", "none"]},
+          "kind": {"enum": ["semantic-package", "trace-replay", "decoder-agreement", "refinement-check", "solver-model", "solver-verdict", "unsat-certificate", "exhaustive-enumeration", "kernel-term", "claim-ref", "none"]},
+          "trust_class": {"enum": ["definition", "trace", "computation", "verdict", "certificate", "kernel", "none"]},
+          "semantic_inputs": {"type": "array", "items": {"type": "string"}, "description": "Versioned semantic packages or manifests consumed by the checker."},
           "artifact": {"type": "string", "description": "Repo-relative path (file or directory)."},
           "sha256": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
                      "description": "Map of artifact filename (raw, uncompressed) to SHA-256."},
           "checker_command": {"type": "string", "description": "Run from repo root. MUST exit nonzero when the finding does not hold. Set AXEYUM to an axeyum checkout with prebuilt target/release/examples for solver-backed checks."},
           "negative_control": {"type": "string", "description": "A command that MUST exit nonzero, proving the checker can fail."},
+          "expected_failure": {"type": "string", "description": "The semantic or artifact failure class expected from the negative control."},
           "check_status": {"enum": ["checked", "replay-only", "not-checked"]},
           "checked_on": {"type": "string", "format": "date"},
           "note": {"type": "string"}
@@ -56,7 +59,7 @@
       }
     },
     "book": {"type": "object", "additionalProperties": false,
-      "properties": {"chapter": {"type": "string"}, "label": {"type": "string"}}},
+      "properties": {"chapter": {"type": "string"}, "label": {"type": "string"}, "role": {"enum": ["definition", "reader-proof", "machine-proof", "boundary", "exercise"]}}},
     "sources": {"type": "array", "items": {"type": "string"}},
     "notes": {"type": "string"},
     "provenance": {"type": "object", "required": ["date"], "additionalProperties": false,

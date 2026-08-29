@@ -1,0 +1,13 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-500,fill=gray-100,rounded corners=2pt,minimum width=2.5cm,minimum height=.8cm,align=center},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=accent-700}
+]
+  \node[box] (w) at (0,0) {replayed witness};
+  \node[box] (s) at (3.4,0) {simplify one field};
+  \node[box] (p) at (6.8,0) {check premise};
+  \node[box] (r) at (10.2,0) {replay both};
+  \node[box,fill=accent-50,draw=accent-700] (f) at (13.6,0) {same failure?};
+  \foreach \x/\y in {w/s,s/p,p/r,r/f} \draw[arr] (\x)--(\y);
+  \draw[arr] (f.north) to[bend left=24] node[above]{keep change}(s.north);
+  \draw[-{Stealth[length=2mm]},dashed,draw=ml-amber-800] (f.south)--++(0,-1) node[below]{discard change};
+\end{tikzpicture}

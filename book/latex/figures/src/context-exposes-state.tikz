@@ -1,0 +1,22 @@
+% A suffix makes locally hidden carry state visible.
+\begin{tikzpicture}[font=\small,
+  prog/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.35cm,minimum height=.72cm,align=center},
+  state/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.72cm,align=center},
+  target/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=2cm,minimum height=.72cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[prog] (p) at (-4,1) {movi \(r_0,0\)};
+  \node[state] (ps) at (-1.3,1) {\(r_0=0,C=1\)};
+  \node[prog] (q) at (-4,-1) {xor \(r_0,r_0,r_0\)};
+  \node[state] (qs) at (-1.3,-1) {\(r_0=0,C=0\)};
+  \node[prog] (b1) at (1.5,1) {branch.hs};
+  \node[prog] (b0) at (1.5,-1) {branch.hs};
+  \node[target] (taken) at (4.25,1) {taken target};
+  \node[target] (next) at (4.25,-1) {fallthrough};
+  \draw[arr] (p) -- (ps); \draw[arr] (ps) -- (b1); \draw[arr] (b1) -- (taken);
+  \draw[arr] (q) -- (qs); \draw[arr] (qs) -- (b0); \draw[arr] (b0) -- (next);
+  \draw[dashed,gray-500] (-2.5,1.55) -- (-2.5,-1.55);
+  \node[font=\scriptsize,text=gray-600] at (-2.5,1.85) {locally equal under \(r_0\)-only observation};
+\end{tikzpicture}

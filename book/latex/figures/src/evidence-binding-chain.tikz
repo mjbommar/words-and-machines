@@ -1,0 +1,17 @@
+\begin{tikzpicture}[
+  node distance=5mm,
+  box/.style={draw=gray-400, rounded corners=2pt, fill=white, minimum width=2.35cm, minimum height=1.0cm, align=center},
+  arr/.style={-{Stealth[length=2.2mm]}, thick, draw=accent-700}
+]
+  \node[box] (claim) {Claim};
+  \node[box,right=of claim] (sem) {Semantics\\and scope};
+  \node[box,right=of sem] (formula) {Formula};
+  \node[box,right=of formula] (artifact) {Solver\\artifact};
+  \node[box,right=of artifact] (checker) {Checker};
+  \node[box,right=of checker,draw=ml-teal-700,fill=ml-teal-50] (report) {Evidence\\report};
+  \foreach \a/\b in {claim/sem,sem/formula,formula/artifact,artifact/checker,checker/report}
+    \draw[arr] (\a)--(\b);
+  \node[draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,minimum width=15.7cm,minimum height=.65cm,align=center]
+    (manifest) at ($(formula.south)!0.5!(artifact.south)+(0,-1.05)$) {Manifest binds names, versions, commands, digests, and expected outcomes};
+  \foreach \x in {claim,sem,formula,artifact,checker,report} \draw[dashed,draw=gray-500] (\x.south)--(\x.south |- manifest.north);
+\end{tikzpicture}

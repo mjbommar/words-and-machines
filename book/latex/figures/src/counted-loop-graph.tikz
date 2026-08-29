@@ -1,0 +1,18 @@
+% Architecture-neutral counted-loop control-flow graph.
+\begin{tikzpicture}[font=\small,
+  test/.style={draw=ml-amber-800,fill=ml-amber-50,diamond,aspect=2.1,
+    minimum width=2.35cm,minimum height=1cm,align=center},
+  action/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.5cm,minimum height=.8cm,align=center},
+  done/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=2.1cm,minimum height=.8cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[action] (entry) at (-4.2,0) {entry with \(n\)};
+  \node[test] (test) at (-1.1,0) {\(n=0\)?};
+  \node[action] (body) at (2.1,0) {replace \(n\) by \(n-1\)};
+  \node[done] (exit) at (-1.1,-2.2) {exit with \(n=0\)};
+  \draw[arr] (entry) -- (test);
+  \draw[arr] (test) -- node[above,font=\scriptsize]{no} (body);
+  \draw[arr] (test) -- node[left,font=\scriptsize]{yes} (exit);
+  \draw[arr] (body) to[bend left=35] node[above,font=\scriptsize]{back edge} (test);
+\end{tikzpicture}

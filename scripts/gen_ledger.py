@@ -17,8 +17,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OBJ = ROOT / "objects"
-PARTS = {0: "Prologue -- Words", 1: "Part I -- Instructions as functions", 2: "Part II -- Cost and certificates",
-         3: "Part III -- Permutations", 4: "Part IV -- Particular machines", 5: "Open problems"}
+PARTS = {
+    1: "Part I -- Constructing an instruction set",
+    2: "Part II -- Reading x86-64 and RISC-V",
+    3: "Part III -- Proving claims about programs",
+    4: "Part IV -- Synthesis and boundary",
+}
 
 def tex_escape(s: str) -> str:
     return (s.replace("\\", "\\textbackslash{}").replace("&", "\\&").replace("%", "\\%")
@@ -45,12 +49,12 @@ def main():
     from collections import Counter
     c = Counter(r["epistemic_status"] for r in recs); ck = Counter(e["check_status"] for r in recs for e in r["evidence"])
     lines += [f"- Objects: **{len(recs)}** -- " + ", ".join(f"`{k}` {v}" for k, v in sorted(c.items())),
-              f"- Evidence rows: **{sum(ck.values())}** -- " + ", ".join(f"`{k}` {v}" for k, v in sorted(ck.items())), ""]
+              f"- Evidence rows: **{sum(ck.values())}** -- " + (", ".join(f"`{k}` {v}" for k, v in sorted(ck.items())) or "none"), ""]
     for part in sorted(set(r["part"] for r in recs)):
         lines += [f"## {PARTS.get(part, part)}", "", "| ID | Kind | Title | Status | External | Scope | Evidence |", "|---|---|---|---|---|---|---|"]
         for r in recs:
             if r["part"] != part: continue
-            ev = "<br>".join(f"`{e['kind']}`: {e['check_status']}" for e in r["evidence"]) or "--"
+            ev = "<br>".join(f"`{e['kind']}` / `{e['trust_class']}`: {e['check_status']}" for e in r["evidence"]) or "--"
             lines.append(f"| [`{r['id']}`]({r['id']}.json) | {r['kind']} | {r['title']} | `{r['epistemic_status']}` | `{r.get('external_status','--')}` | {r.get('scope','--')} | {ev} |")
         lines.append("")
     (OBJ / "LEDGER.md").write_text("\n".join(lines))
@@ -60,7 +64,7 @@ def main():
            "\\makeatletter"]
     for r in recs:
         k = key(r["id"])
-        ev = "; ".join(f"{e['kind']} ({e['check_status']})" for e in r["evidence"]) or "no evidence recorded"
+        ev = "; ".join(f"{e['kind']} / {e['trust_class']} ({e['check_status']})" for e in r["evidence"]) or "no evidence recorded"
         tex += [f"\\@namedef{{objstatus@{k}}}{{{tex_escape(r['epistemic_status'])}}}",
                 f"\\@namedef{{objscope@{k}}}{{{tex_escape(r.get('scope','') or '--')}}}",
                 f"\\@namedef{{objevidence@{k}}}{{{tex_escape(ev)}}}",

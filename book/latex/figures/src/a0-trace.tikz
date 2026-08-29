@@ -1,0 +1,25 @@
+% A bounded A0 trace with distinct terminal outcomes.
+\begin{tikzpicture}[
+  state/.style={draw=accent-700, fill=accent-50, rounded corners=2pt,
+    minimum width=1.35cm, minimum height=0.72cm,
+    align=center, font=\small},
+  outcome/.style={draw=ml-amber-800, fill=ml-amber-50, rounded corners=2pt,
+    minimum width=1.65cm, minimum height=0.72cm,
+    align=center, font=\small},
+  arr/.style={->, >=stealth, line width=0.75pt, gray-600}]
+  \node[state] (s0) at (-4.5,0) {\(S_0\)};
+  \node[state] (s1) at (-2.25,0) {\(S_1\)};
+  \node[state] (s2) at (0,0) {\(S_2\)};
+  \node[state] (s3) at (2.25,0) {\(S_3\)};
+  \node[outcome] (halt) at (4.7,1.25) {halt};
+  \node[outcome] (trap) at (4.7,0) {trap};
+  \node[outcome] (bound) at (4.7,-1.25) {bound reached};
+  \draw[arr] (s0) -- node[above,font=\scriptsize]{step 1} (s1);
+  \draw[arr] (s1) -- node[above,font=\scriptsize]{step 2} (s2);
+  \draw[arr] (s2) -- node[above,font=\scriptsize]{step 3} (s3);
+  \draw[arr] (s3) -- (halt);
+  \draw[arr] (s3) -- (trap);
+  \draw[arr] (s3) -- (bound);
+  \node[font=\scriptsize,align=center,text=gray-600] at (0,-1.35)
+    {each adjacent pair must satisfy the same A0 step relation};
+\end{tikzpicture}

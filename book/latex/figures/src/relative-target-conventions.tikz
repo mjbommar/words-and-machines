@@ -1,0 +1,28 @@
+% Relative branch bases and displacements in the three teaching machines.
+\begin{tikzpicture}[font=\small,
+  addr/.style={draw=gray-600,fill=gray-100,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.72cm,align=center},
+  target/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.72cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[font=\scriptsize,anchor=east] at (-4.2,2) {A0};
+  \node[addr] (a0p) at (-2.7,2) {branch at \(p\)};
+  \node[addr] (a0b) at (.2,2) {base \(p+4\)};
+  \node[target] (a0t) at (3.35,2) {target \(p+4+4d\)};
+  \draw[arr] (a0p) -- node[above,font=\scriptsize]{length 4} (a0b);
+  \draw[arr] (a0b) -- node[above,font=\scriptsize]{scaled \(4d\)} (a0t);
+
+  \node[font=\scriptsize,anchor=east] at (-4.2,.5) {RV64I};
+  \node[addr] (rvp) at (-2.7,.5) {branch at \(p\)};
+  \node[addr] (rvb) at (.2,.5) {base \(p\)};
+  \node[target] (rvt) at (3.35,.5) {target \(p+o\)};
+  \draw[arr] (rvp) -- (rvb);
+  \draw[arr] (rvb) -- node[above,font=\scriptsize]{decoded offset \(o\)} (rvt);
+
+  \node[font=\scriptsize,anchor=east] at (-4.2,-1) {x86-64};
+  \node[addr] (x86p) at (-2.7,-1) {jump at \(p\)};
+  \node[addr] (x86b) at (.2,-1) {base \(p+L\)};
+  \node[target] (x86t) at (3.35,-1) {target \(p+L+d\)};
+  \draw[arr] (x86p) -- node[above,font=\scriptsize]{decoded length \(L\)} (x86b);
+  \draw[arr] (x86b) -- node[above,font=\scriptsize]{displacement \(d\)} (x86t);
+\end{tikzpicture}

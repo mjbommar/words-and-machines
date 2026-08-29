@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.instruction", "kind": "definition", "part": 1,
+  "title": "A0 decoded instruction",
+  "statement": "An A0 decoded instruction is an opcode and well-formed operands with declared read sets, write sets, normal next-state behavior, and trap behavior.",
+  "formal": {"language": "prose", "statement": "Instruction = opcode x operands x read_set x write_set x transition"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.operand", "A0.def.state"], "evidence": [],
+  "book": {"chapter": "ch03-instructions-operands", "label": "def:a0-instruction", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

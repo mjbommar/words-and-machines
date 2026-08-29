@@ -1,0 +1,22 @@
+% One byte sequence, several interpretations supplied by the instruction.
+\begin{tikzpicture}[font=\small,
+  byte/.style={draw=accent-700,fill=accent-50,minimum width=1.15cm,
+    minimum height=.75cm,align=center},
+  reading/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=3.1cm,minimum height=.8cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[byte] (b0) at (-2.1,0) {\texttt{ff}};
+  \node[byte] (b1) at (-.7,0) {\texttt{80}};
+  \node[byte] (b2) at (.7,0) {\texttt{00}};
+  \node[byte] (b3) at (2.1,0) {\texttt{00}};
+  \node[font=\scriptsize,text=gray-600] at (-2.1,.72) {low address};
+  \node[font=\scriptsize,text=gray-600] at (2.1,.72) {high address};
+  \node[reading] (u8) at (-4.1,-2.0) {8-bit load\\value \texttt{ff}};
+  \node[reading] (u16) at (0,-2.0) {16-bit little-endian load\\value \texttt{80ff}};
+  \node[reading] (u32) at (4.1,-2.0) {32-bit little-endian load\\value \texttt{000080ff}};
+  \draw[arr] (b0.south) -- (u8.north);
+  \draw[arr] (b0.south) -- (u16.north west);
+  \draw[arr] (b1.south) -- (u16.north east);
+  \draw[arr] (b0.south) -- (u32.north west);
+  \draw[arr] (b3.south) -- (u32.north east);
+\end{tikzpicture}

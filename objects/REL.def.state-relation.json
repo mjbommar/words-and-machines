@@ -1,0 +1,9 @@
+{
+  "id": "REL.def.state-relation", "kind": "definition", "part": 3,
+  "title": "Cross-machine state relation",
+  "statement": "A cross-machine state relation declares corresponding inputs, outputs, memory, control locations, outcomes, scratch state, and ignored state across A0, RV64, and x86-64.",
+  "formal": {"language": "prose", "statement": "R_A0_RV64, R_A0_X64 : State x State -> Bool"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.state", "RV64.def.state", "X64.def.state"], "evidence": [],
+  "book": {"chapter": "ch12-cross-isa", "label": "def:state-relation", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

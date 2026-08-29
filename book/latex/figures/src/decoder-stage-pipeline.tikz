@@ -1,0 +1,19 @@
+% Staged decoder with explicit rejection points.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.88cm,align=center},
+  gate/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.88cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (fetch) at (-5,0) {address, mode,\\available bytes};
+  \node[gate] (length) at (-2.5,0) {classify form\\and length};
+  \node[box] (fields) at (0,0) {extract fields\\and operands};
+  \node[gate] (legal) at (2.5,0) {legality and\\feature checks};
+  \node[box] (result) at (5,0) {decoded instance\\or named rejection};
+  \draw[arr] (fetch)--(length);
+  \draw[arr] (length)--(fields);
+  \draw[arr] (fields)--(legal);
+  \draw[arr] (legal)--(result);
+  \node[font=\scriptsize,text=gray-600,align=center] at (0,-1.15)
+    {The execution rule begins only after this pipeline returns a legal instance.};
+\end{tikzpicture}

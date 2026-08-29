@@ -1,0 +1,14 @@
+\begin{tikzpicture}[
+  word/.style={draw=gray-500,fill=gray-100,minimum width=1.55cm,minimum height=.85cm,align=center},
+  arr/.style={-{Stealth[length=2.2mm]},thick,draw=accent-700}
+]
+  \node[word] (w0) at (0,0) {$L(M,a)$};
+  \node[word] (w1) at (1.7,0) {$L(M,a+8)$};
+  \node[word] (w2) at (3.4,0) {$\cdots$};
+  \node[word] (w3) at (5.1,0) {$L(M,a+8(n-1))$};
+  \draw[decorate,decoration={brace,mirror,amplitude=5pt},draw=gray-600]
+    (w0.south west)+(0,-.12)--node[below=7pt]{readable region of $n$ words}(w3.south east)+(0,-.12);
+  \node[draw=accent-700,fill=accent-50,rounded corners=2pt,minimum width=2.2cm,minimum height=1cm,align=center] (fold) at (8.0,0) {XOR fold};
+  \node[draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,minimum width=2.2cm,minimum height=1cm,align=center] (out) at (11.5,0) {result word};
+  \draw[arr] (w3.east)--(fold.west); \draw[arr] (fold)--(out);
+\end{tikzpicture}

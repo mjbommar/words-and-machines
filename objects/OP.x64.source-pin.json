@@ -1,0 +1,8 @@
+{
+  "id": "OP.x64.source-pin", "kind": "obligation", "part": 2,
+  "title": "Pin the x86-64 source and exact slice",
+  "statement": "Read and archive the authoritative x86-64 source revision, list every selected form and exclusion, and bind that manifest to the x86-64 definitions.",
+  "epistemic_status": "open", "depends_on": ["X64.def.slice"], "evidence": [],
+  "book": {"chapter": "ch06-encoding-decoding", "label": "op:x64-source-pin", "role": "boundary"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
+}

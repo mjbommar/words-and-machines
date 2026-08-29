@@ -1,0 +1,23 @@
+% Witness upper bounds and rejected cheaper strata meet at the optimum.
+\begin{tikzpicture}[font=\small,
+  tick/.style={draw=gray-500,fill=gray-100,minimum width=1.2cm,minimum height=.65cm,align=center},
+  reject/.style={draw=ml-amber-800,fill=ml-amber-50,minimum width=1.2cm,minimum height=.65cm,align=center},
+  win/.style={draw=ml-teal-700,fill=ml-teal-50,minimum width=1.2cm,minimum height=.65cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[reject] (c0) at (-3.6,0) {cost 0};
+  \node[reject] (c1) at (-2.0,0) {cost 1};
+  \node[win] (c2) at (-.4,0) {cost 2};
+  \node[tick] (c3) at (1.2,0) {cost 3};
+  \node[tick] (c4) at (2.8,0) {cost 4};
+  \draw[arr] (-4.4,-.7)--(3.7,-.7) node[right,font=\scriptsize]{cost};
+  \draw[arr,ml-teal-700] (3.05,1.55) -- node[above,font=\scriptsize,align=center]
+    {better witnesses lower the upper bound} (-.4,.55);
+  \draw[arr,ml-amber-800] (-3.6,-1.55) -- node[below,font=\scriptsize,align=center]
+    {complete rejection raises the lower bound} (-.4,-.55);
+  \node[font=\scriptsize,align=center,text=ml-teal-700] at (-.4,1.45)
+    {verified witness};
+  \node[font=\scriptsize,align=center,text=ml-amber-800] at (-2.8,-1.35)
+    {no working candidate};
+  \node[font=\scriptsize,align=center,text=gray-600] at (2.05,1.25)
+    {initial known witness};
+\end{tikzpicture}

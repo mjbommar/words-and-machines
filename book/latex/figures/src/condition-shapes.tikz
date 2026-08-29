@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=gray-600,rounded corners=2pt,minimum width=2.4cm,minimum height=.75cm,align=center},
+  arr/.style={->,>=stealth,gray-600,thick}]
+  \node[box,fill=accent-50] (aop) at (0,2) {A0 arithmetic};
+  \node[box,fill=ml-amber-50] (af) at (3.3,2) {\(Z,N,C,V\)};
+  \node[box,fill=ml-teal-50] (ab) at (6.6,2) {later branch};
+  \draw[arr] (aop) -- (af);
+  \draw[arr] (af) -- (ab);
+  \node[anchor=east,font=\scriptsize] at (-1.45,2) {A0};
+
+  \node[box,fill=accent-50] (rop) at (0,.5) {RV64 compare};
+  \node[box,fill=ml-blue-50] (rr) at (3.3,.5) {0 or 1 in register};
+  \node[box,fill=ml-teal-50] (rb) at (6.6,.5) {later branch or use};
+  \draw[arr] (rop) -- (rr);
+  \draw[arr] (rr) -- (rb);
+  \node[anchor=east,font=\scriptsize] at (-1.45,.5) {RV64I};
+
+  \node[box,fill=accent-50] (xop) at (0,-1) {x86 arithmetic};
+  \node[box,fill=ml-amber-50] (xf) at (3.3,-1) {selected RFLAGS bits};
+  \node[box,fill=ml-teal-50] (xb) at (6.6,-1) {later Jcc or CMOVcc};
+  \draw[arr] (xop) -- (xf);
+  \draw[arr] (xf) -- (xb);
+  \node[anchor=east,font=\scriptsize] at (-1.45,-1) {x86-64};
+\end{tikzpicture}

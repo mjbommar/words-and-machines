@@ -1,0 +1,16 @@
+% Shared case split for the three absolute-value routines.
+\begin{tikzpicture}[font=\small,
+  state/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,minimum width=2.3cm,minimum height=.75cm,align=center},
+  test/.style={draw=ml-amber-800,fill=ml-amber-50,diamond,aspect=2.1,minimum width=2.3cm,align=center},
+  result/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,minimum width=2.3cm,minimum height=.75cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[state] (entry) at (-4,0) {related entries\\common \(x\)};
+  \node[test] (test) at (-1,0) {\(\langle x\rangle_s\geq0\)?};
+  \node[state] (keep) at (2,1.25) {keep \(x\)};
+  \node[state] (neg) at (2,-1.25) {compute \(-x\)};
+  \node[result] (done) at (5,0) {related exits\\result \(|x|\)};
+  \draw[arr] (entry)--(test);
+  \draw[arr] (test)--node[above,font=\scriptsize]{yes}(keep);
+  \draw[arr] (test)--node[below,font=\scriptsize]{no}(neg);
+  \draw[arr] (keep)--(done); \draw[arr] (neg)--(done);
+\end{tikzpicture}

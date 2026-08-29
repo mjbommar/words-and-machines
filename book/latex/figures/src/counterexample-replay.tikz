@@ -1,0 +1,21 @@
+% Solver model returns to executable semantics before becoming evidence.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.05cm,minimum height=.78cm,align=center},
+  check/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=2.05cm,minimum height=.78cm,align=center},
+  bad/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.05cm,minimum height=.78cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (neg) at (-4.5,0) {negated claim};
+  \node[box] (solver) at (-2,0) {solver model};
+  \node[check] (decode) at (.5,0) {decode initial state};
+  \node[check] (replay) at (3,0) {replay \(P\) and \(Q\)};
+  \node[bad] (diff) at (5.5,0) {visible mismatch};
+  \draw[arr] (neg) -- (solver);
+  \draw[arr] (solver) -- (decode);
+  \draw[arr] (decode) -- (replay);
+  \draw[arr] (replay) -- (diff);
+  \node[font=\scriptsize,text=gray-600,align=center] at (1.75,-1)
+    {reject if the decoded state violates the premise\\or replay does not reproduce the mismatch};
+\end{tikzpicture}

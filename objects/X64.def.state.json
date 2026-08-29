@@ -1,0 +1,9 @@
+{
+  "id": "X64.def.state", "kind": "definition", "part": 2,
+  "title": "x86-64 slice state",
+  "statement": "The x86-64 slice state exposes selected general-purpose registers, RIP, declared RFLAGS bits, byte memory, and declared exceptional outcomes.",
+  "formal": {"language": "prose", "statement": "X64State = selected GPRs x RIP x selected RFLAGS x Memory x Outcome"},
+  "epistemic_status": "stated", "depends_on": ["X64.def.slice"], "evidence": [],
+  "book": {"chapter": "ch02-state", "label": "def:x64-state", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

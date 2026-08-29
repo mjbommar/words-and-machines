@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.trace", "kind": "definition", "part": 1,
+  "title": "A0 execution trace",
+  "statement": "An A0 trace is a finite sequence of states linked by the A0 step relation and classified by halt, trap, bound exhaustion, or continued execution.",
+  "formal": {"language": "prose", "statement": "Trace(S0,n) = S0,...,Sk with each adjacent pair satisfying step_A0 and k <= n"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.program", "A0.def.step"], "evidence": [],
+  "book": {"chapter": "ch05-programs-control", "label": "def:a0-trace", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

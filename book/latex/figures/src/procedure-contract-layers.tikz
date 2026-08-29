@@ -1,0 +1,17 @@
+% The layers needed to justify an ABI-level procedure claim.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.55cm,minimum height=.88cm,align=center},
+  check/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.55cm,minimum height=.88cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (entry) at (-4.7,0) {entry relation\\inputs and ownership};
+  \node[check] (body) at (-1.55,0) {body invariant\\safe steps};
+  \node[check] (calls) at (1.55,0) {call checkpoints\\nested contracts};
+  \node[box] (exit) at (4.7,0) {exit relation\\result and return};
+  \draw[arr] (entry) -- (body);
+  \draw[arr] (body) -- (calls);
+  \draw[arr] (calls) -- (exit);
+  \node[font=\scriptsize,text=gray-600,align=center] at (0,-1.15)
+    {An endpoint comparison is sound only when the execution between the endpoints is justified.};
+\end{tikzpicture}

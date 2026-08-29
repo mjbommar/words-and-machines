@@ -1,0 +1,12 @@
+\begin{tikzpicture}[
+  gate/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,minimum width=2.4cm,minimum height=1cm,align=center},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=accent-700},
+  refuse/.style={-{Stealth[length=2mm]},dashed,draw=ml-amber-800}
+]
+  \node[gate] (s) at (0,0) {state};
+  \node[gate] (t) at (3.4,0) {step};
+  \node[gate] (o) at (6.8,0) {observation};
+  \node[gate] (e) at (10.2,0) {evidence};
+  \draw[arr] (s)--(t); \draw[arr] (t)--(o); \draw[arr] (o)--(e);
+  \foreach \x in {s,t,o} \draw[refuse] (\x.south)--++(0,-1) node[below]{refuse};
+\end{tikzpicture}

@@ -5,69 +5,66 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **34** -- `computed` 5, `open` 16, `proved` 7, `refuted` 1, `stated` 5
-- Evidence rows: **14** -- `checked` 13, `replay-only` 1
+- Objects: **41** -- `open` 13, `stated` 28
+- Evidence rows: **0** -- none
 
-## Prologue -- Words
-
-| ID | Kind | Title | Status | External | Scope | Evidence |
-|---|---|---|---|---|---|---|
-| [`W.ctl.udiv0-wrong`](W.ctl.udiv0-wrong.json) | negative-control | Negative control: the wrong division convention is refutable | `refuted` | `refuted` | width 8 | `front-door-verdict`: checked |
-| [`W.def.word`](W.def.word.json) | definition | The word of width n | `stated` | `proved` | -- | -- |
-| [`W.thm.sdiv0`](W.thm.sdiv0.json) | theorem | Totality convention: sdiv0 | `proved` | `proved` | width 8; the SMT-LIB 2.6 semantics of the operator | `front-door-verdict`: checked |
-| [`W.thm.udiv0`](W.thm.udiv0.json) | theorem | Totality convention: udiv0 | `proved` | `proved` | width 8; the SMT-LIB 2.6 semantics of the operator | `front-door-verdict`: checked |
-| [`W.thm.urem0`](W.thm.urem0.json) | theorem | Totality convention: urem0 | `proved` | `proved` | width 8; the SMT-LIB 2.6 semantics of the operator | `front-door-verdict`: checked |
-
-## Part I -- Instructions as functions
+## Part I -- Constructing an instruction set
 
 | ID | Kind | Title | Status | External | Scope | Evidence |
 |---|---|---|---|---|---|---|
-| [`I.prin.equivalence-vs-minimality`](I.prin.equivalence-vs-minimality.json) | principle | Correctness is a for-all; minimality is a non-existence | `stated` | `--` | -- | -- |
-| [`I.thm.popcount32`](I.thm.popcount32.json) | theorem | Hacker's Delight popcount (Fig. 5-2) computes the bit count | `proved` | `proved` | width 32, fixed | `front-door-verdict`: checked |
+| [`A0.def.byte`](A0.def.byte.json) | definition | A0 byte split and join | `stated` | `--` | -- | -- |
+| [`A0.def.decode`](A0.def.decode.json) | definition | A0 decoder | `stated` | `--` | -- | -- |
+| [`A0.def.instruction`](A0.def.instruction.json) | definition | A0 decoded instruction | `stated` | `--` | -- | -- |
+| [`A0.def.memory`](A0.def.memory.json) | definition | A0 byte-addressed memory | `stated` | `--` | -- | -- |
+| [`A0.def.observation`](A0.def.observation.json) | definition | Observation of A0 state | `stated` | `--` | -- | -- |
+| [`A0.def.operand`](A0.def.operand.json) | definition | A0 operand forms | `stated` | `--` | -- | -- |
+| [`A0.def.program`](A0.def.program.json) | definition | A0 program | `stated` | `--` | -- | -- |
+| [`A0.def.state`](A0.def.state.json) | definition | A0 architectural state | `stated` | `--` | -- | -- |
+| [`A0.def.step`](A0.def.step.json) | definition | A0 single-step relation | `stated` | `--` | -- | -- |
+| [`A0.def.trace`](A0.def.trace.json) | definition | A0 execution trace | `stated` | `--` | -- | -- |
+| [`A0.def.word`](A0.def.word.json) | definition | A0 fixed-width word | `stated` | `--` | -- | -- |
+| [`A0.prin.explicit-effects`](A0.prin.explicit-effects.json) | principle | All architectural effects are explicit | `stated` | `--` | -- | -- |
+| [`OP.a0.run`](OP.a0.run.json) | obligation | Implement A0 trace execution | `open` | `--` | -- | -- |
+| [`OP.a0.state-memory`](OP.a0.state-memory.json) | obligation | Implement A0 state and memory | `open` | `--` | -- | -- |
+| [`OP.a0.step`](OP.a0.step.json) | obligation | Implement the A0 decoder and step relation | `open` | `--` | -- | -- |
+| [`OP.a0.word-package`](OP.a0.word-package.json) | obligation | Implement the reusable A0 word package | `open` | `--` | -- | -- |
 
-## Part II -- Cost and certificates
-
-| ID | Kind | Title | Status | External | Scope | Evidence |
-|---|---|---|---|---|---|---|
-| [`C.prin.asymmetry`](C.prin.asymmetry.json) | principle | The asymmetry | `stated` | `--` | -- | -- |
-| [`C.prin.three-hatches`](C.prin.three-hatches.json) | principle | The three shapes where the negative direction is also cheap | `stated` | `--` | -- | -- |
-| [`C.thm.vacuous-certificate`](C.thm.vacuous-certificate.json) | theorem | A certificate over a propagation-refutable formula carries no information | `computed` | `proved` | DIMACS CNF; backward DRAT checking | `computation`: checked |
-
-## Part III -- Permutations
-
-| ID | Kind | Title | Status | External | Scope | Evidence |
-|---|---|---|---|---|---|---|
-| [`P.comp.entropy-bound`](P.comp.entropy-bound.json) | computation | The entropy bound does not obstruct 32-byte shuffles | `computed` | `proved` | n = 32 lanes | `computation`: checked |
-| [`P.def.lane-tags`](P.def.lane-tags.json) | definition | Provenance tags | `stated` | `--` | -- | -- |
-
-## Part IV -- Particular machines
-
-| ID | Kind | Title | Status | External | Scope | Evidence |
-|---|---|---|---|---|---|---|
-| [`M.avx2.reverse.cost4.haswell`](M.avx2.reverse.cost4.haswell.json) | theorem | Under the Haswell dependent-latency profile, byte reversal has minimum cost 4 | `proved` | `open` | Same language as M.avx2.reverse.len2.unary5; profile intel-haswell-dependent-latency-cycles; NOT throughput, port pressure, or whole-machine cost. | `unsat-certificate`: checked |
-| [`M.avx2.reverse.len2.ssa14`](M.avx2.reverse.len2.ssa14.json) | theorem | Byte reversal has minimum length 2 in the fourteen-family SSA AVX2 language | `proved` | `computed-uncertified` | EXACT fourteen-family constant-control SSA language; excludes memory, insert/extract, logic, register allocation, scheduling. | `unsat-certificate`: checked |
-| [`M.avx2.reverse.len2.unary5`](M.avx2.reverse.len2.unary5.json) | theorem | Global 32-byte reversal has minimum length 2 in the unary five-family AVX2 language | `proved` | `computed-uncertified` | EXACT: unary single-register language {vpshufb (permutation controls), vpermd, vpermq, same-source vpalignr imm 0..15, same-source vperm2i128 identity/swap}; 32 distinct tags; no memory, no zeroing, no multi-source. NOT a claim about all of AVX2. | `unsat-certificate`: checked<br>`witness-replay`: replay-only |
-| [`M.riscv.bitlogic256`](M.riscv.bitlogic256.json) | computation | The RISC-V 256-function bit-logic table is correct and minimal (reproduced, uncertified) | `computed` | `computed-uncertified` | SLP length with sharing (Boolean chain), x0 hardwired so constants cost 0; Len column only -- the Dep column is NOT verified. | `exhaustive-enumeration`: checked |
-| [`M.riscv.byteperm24`](M.riscv.byteperm24.json) | computation | All 24 byte permutations of a 32-bit word need at most 3 of {ror, grev, shfl, unshfl} | `computed` | `computed-uncertified` | XLEN=32; ror k=1..31, grev k=1..31, shfl/unshfl k=1..15 per the v0.93 draft pseudocode. | `exhaustive-enumeration`: checked |
-| [`M.riscv.table22`](M.riscv.table22.json) | computation | Bitmanip Table 2.2 recovered: the lost permutation-reachability counts | `computed` | `computed-uncertified` | XLEN=32; depth 10 for ROT+GREV, depth 4 for ROT+GREV+SHFL | `exhaustive-enumeration`: checked |
-
-## Open problems
+## Part II -- Reading x86-64 and RISC-V
 
 | ID | Kind | Title | Status | External | Scope | Evidence |
 |---|---|---|---|---|---|---|
-| [`OP.aes.mixcolumns-lb`](OP.aes.mixcolumns-lb.json) | open-problem | A nontrivial lower bound on AES MixColumns XOR count | `open` | `open` | -- | -- |
-| [`OP.avx2.perfectshuffle-certify`](OP.avx2.perfectshuffle-certify.json) | open-problem | Certify or refute LLVM's shipped AArch64PerfectShuffle table | `open` | `computed-uncertified` | -- | -- |
-| [`OP.avx2.transpose4x4`](OP.avx2.transpose4x4.json) | open-problem | Is _MM_TRANSPOSE4_PS (8 instructions) minimal? | `open` | `open` | -- | -- |
-| [`OP.bilinear.rf2p6`](OP.bilinear.rf2p6.json) | open-problem | R_F2(P_6) = 16 or 17 | `open` | `open` | -- | -- |
-| [`OP.format.closure-transcript`](OP.format.closure-transcript.json) | open-problem | A certificate format for universal reachability claims | `open` | `open` | -- | -- |
-| [`OP.format.cost-model-artifact`](OP.format.cost-model-artifact.json) | open-problem | Ship the cost model as a checkable artifact | `open` | `open` | -- | -- |
-| [`OP.gpu.lop3-npn222`](OP.gpu.lop3-npn222.json) | open-problem | Minimum LOP3.LUT count for all 222 4-input NPN classes | `open` | `open` | -- | -- |
-| [`OP.hd.p1-p25`](OP.hd.p1-p25.json) | open-problem | Checkable minimality certificates for Hacker's Delight P1-P25 on a declared ISA | `open` | `computed-uncertified` | -- | -- |
-| [`OP.kernel.word-prelude`](OP.kernel.word-prelude.json) | open-problem | A zero-axiom word prelude in the axeyum kernel, and reflection for minimality | `open` | `open` | -- | -- |
-| [`OP.riscv.bitlogic256-drat`](OP.riscv.bitlogic256-drat.json) | open-problem | Certify the 256-function table with DRAT | `open` | `asserted` | -- | -- |
-| [`OP.riscv.rgb565-lb7`](OP.riscv.rgb565-lb7.json) | open-problem | "At least 7 instructions are needed to pack a 5:6:5 RGB value" -- prove or refute | `open` | `asserted` | -- | -- |
-| [`OP.riscv.zbb-table`](OP.riscv.zbb-table.json) | open-problem | Certified minimum RV32I sequence length for every Zbb/Zbkb/Zbs instruction | `open` | `open` | -- | -- |
-| [`OP.riscv.zicond-select3`](OP.riscv.zicond-select3.json) | open-problem | Is 3 the minimum for Zicond conditional select? | `open` | `asserted` | -- | -- |
-| [`OP.sbox.keccak-chi5`](OP.sbox.keccak-chi5.json) | open-problem | Keccak chi5 bit-gate complexity: 12 or 13? | `open` | `open` | -- | -- |
-| [`OP.unison.certify`](OP.unison.certify.json) | open-problem | Certify one Unison schedule with DRCP | `open` | `computed-uncertified` | -- | -- |
-| [`OP.wasm.i8x16-to-x64`](OP.wasm.i8x16-to-x64.json) | open-problem | Minimal x64 lowerings for v8's canonical WASM i8x16.shuffle set | `open` | `open` | -- | -- |
+| [`OP.rv64.decoder-step`](OP.rv64.decoder-step.json) | obligation | Implement and independently test the RV64 decoder and step adapter | `open` | `--` | -- | -- |
+| [`OP.rv64.source-pin`](OP.rv64.source-pin.json) | obligation | Pin the RV64 source and exact slice | `open` | `--` | -- | -- |
+| [`OP.x64.decoder-step`](OP.x64.decoder-step.json) | obligation | Implement and independently test the x86-64 decoder and step adapter | `open` | `--` | -- | -- |
+| [`OP.x64.source-pin`](OP.x64.source-pin.json) | obligation | Pin the x86-64 source and exact slice | `open` | `--` | -- | -- |
+| [`RV64.def.decode`](RV64.def.decode.json) | definition | RV64 slice decoder contract | `stated` | `--` | -- | -- |
+| [`RV64.def.slice`](RV64.def.slice.json) | definition | Source-pinned RV64 teaching slice | `stated` | `--` | -- | -- |
+| [`RV64.def.state`](RV64.def.state.json) | definition | RV64 slice state | `stated` | `--` | -- | -- |
+| [`RV64.def.step`](RV64.def.step.json) | definition | RV64 slice step contract | `stated` | `--` | -- | -- |
+| [`X64.def.decode`](X64.def.decode.json) | definition | x86-64 slice decoder contract | `stated` | `--` | -- | -- |
+| [`X64.def.slice`](X64.def.slice.json) | definition | Source-pinned x86-64 teaching slice | `stated` | `--` | -- | -- |
+| [`X64.def.state`](X64.def.state.json) | definition | x86-64 slice state | `stated` | `--` | -- | -- |
+| [`X64.def.step`](X64.def.step.json) | definition | x86-64 slice step contract | `stated` | `--` | -- | -- |
+
+## Part III -- Proving claims about programs
+
+| ID | Kind | Title | Status | External | Scope | Evidence |
+|---|---|---|---|---|---|---|
+| [`EVID.def.manifest`](EVID.def.manifest.json) | definition | Evidence manifest | `stated` | `--` | -- | -- |
+| [`EVID.def.trust-class`](EVID.def.trust-class.json) | definition | Evidence trust classes | `stated` | `--` | -- | -- |
+| [`EVID.prin.negative-control`](EVID.prin.negative-control.json) | principle | Every checked route has a firing negative control | `stated` | `--` | -- | -- |
+| [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Implement the evidence manifest checker | `open` | `--` | -- | -- |
+| [`OP.rel.a0-equivalence`](OP.rel.a0-equivalence.json) | obligation | Implement A0 equivalence and counterexample replay | `open` | `--` | -- | -- |
+| [`OP.rel.cross-isa`](OP.rel.cross-isa.json) | obligation | Implement cross-ISA refinement | `open` | `--` | -- | -- |
+| [`OP.rel.scalar-minimality`](OP.rel.scalar-minimality.json) | obligation | Build the scalar minimality route | `open` | `--` | -- | -- |
+| [`REL.def.candidate-language`](REL.def.candidate-language.json) | definition | Bounded candidate program language | `stated` | `--` | -- | -- |
+| [`REL.def.cost`](REL.def.cost.json) | definition | Declared program cost | `stated` | `--` | -- | -- |
+| [`REL.def.equivalence`](REL.def.equivalence.json) | definition | Program equivalence under an observation | `stated` | `--` | -- | -- |
+| [`REL.def.refinement`](REL.def.refinement.json) | definition | Program refinement | `stated` | `--` | -- | -- |
+| [`REL.def.state-relation`](REL.def.state-relation.json) | definition | Cross-machine state relation | `stated` | `--` | -- | -- |
+
+## Part IV -- Synthesis and boundary
+
+| ID | Kind | Title | Status | External | Scope | Evidence |
+|---|---|---|---|---|---|---|
+| [`OP.case.scalar-three-machines`](OP.case.scalar-three-machines.json) | obligation | Select and verify one scalar routine on three machines | `open` | `--` | -- | -- |

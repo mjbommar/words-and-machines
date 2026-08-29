@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.observation", "kind": "definition", "part": 1,
+  "title": "Observation of A0 state",
+  "statement": "An observation is a declared function from complete A0 states to the values and outcomes a program claim compares.",
+  "formal": {"language": "prose", "statement": "observe : State(w) -> Observable"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.state"], "evidence": [],
+  "book": {"chapter": "ch02-state", "label": "def:a0-observation", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

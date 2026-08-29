@@ -1,0 +1,196 @@
+\chapter{Superseded AVX-led Introduction}
+\label{ch:introduction}
+
+Thirty-two bytes sit in one machine register. Give them names from left to
+right:
+
+\[
+a_0,a_1,\ldots,a_{30},a_{31}.
+\]
+
+We want the order reversed. The last byte must come first, the first must come
+last, and every byte between them must cross to its matching place. One vector
+instruction can reverse the bytes inside each sixteen-byte half. A second can
+exchange the two halves. In the restricted single-register language studied
+later, two instructions do the job.
+
+There is a small pleasure in watching thirty-two separate positions fall into
+order after two machine steps. But the program leaves a more difficult
+question behind. Two instructions are enough. Are two necessary?
+
+The difference between those sentences is the subject of this book. The
+first points to something we can hold: a sequence of instructions. The second
+reaches over every cheaper sequence we might have written and says that none
+works. A tiny program has opened a universal question.
+
+A compiler cannot settle it merely by emitting two instructions. Its rules
+may have found them without ruling out one. Tests cannot settle it either.
+They can expose a bad reversal, but even a great many passing inputs leave
+other inputs untouched. Inspection becomes least dependable where vector
+instructions become most powerful. A single instruction can select, blend,
+shift, and reorder more data than its printed name suggests.
+
+We need a way to turn \emph{no cheaper program works} into an object a reader
+can examine. Before we build that object, we must say exactly what the claim
+means.
+
+\section{What shortest means}
+\label{sec:intro-shortest}
+
+An instruction takes a machine state and returns another machine state. In a
+small problem, that state may be one register. A program applies one
+instruction after another. It is therefore a composition of functions: the
+output of one function becomes the input of the next.
+
+This description comes before the traditional RISC/CISC division. Those names
+gather several design tendencies, but they do not supply the semantics of an
+instruction. We will instead name each feature that changes a proof. Are the
+operands explicit? May an instruction read memory? Does it change flags or
+return several results? Which encodings belong to the program language? A
+RISC-V instruction and an x86-64 instruction can then be
+compared as exact state transformations, not as mascots for two camps.
+
+Take four tagged bytes \(a,b,c,d\). A reversal must return \(d,c,b,a\). The
+tags make the motion visible, but this row is only an example. Two programs
+are \keyterm{equivalent} when they return the same result for every input
+allowed by the problem. One matching row can suggest equivalence. It cannot
+establish it.
+
+The word \emph{shortest} needs another choice. Which programs are allowed to
+compete? May an instruction read memory? May it use a second source register?
+Are all immediate constants available? Does every instruction cost one, or
+do we measure latency on a named processor? The \keyterm{program language}
+sets the allowed instructions and operand forms. The \keyterm{cost model}
+says how their costs are compared. Together they determine the
+\keyterm{scope} of the claim.
+
+Scope is part of the proposition. A two-instruction sequence may be shortest
+among one-source register operations and lose when a memory lookup joins the
+language. It may minimize instruction count and lose under a latency model.
+Nothing paradoxical has happened. We asked a different question.
+
+Once the scope is fixed, the claim that no cheaper program works is called
+\keyterm{minimality}. It splits into two bounds. A program of cost \(k\) is a
+witness that the best cost is at most \(k\). To show that the best cost is at
+least \(k\), we must rule out every equivalent
+program of lower cost. The witness descends from above. The lower bound rises
+from below. When they meet, the optimum is pinned to one number.
+
+This meeting is simple to draw and hard to earn. Finding a good program and
+showing that no better one exists are different mathematical acts.
+
+\section{Search and the missing receipt}
+\label{sec:intro-history}
+
+Programmers have pursued the smallest machine programs for decades. In 1987,
+Henry Massalin described a superoptimizer, a system that searched an
+instruction set for the shortest program computing a given function
+\autocite{massalin1987}. Sorav Bansal and Alex Aiken later used brute-force
+search to generate large collections of peephole rewrites automatically
+\autocite{bansalaiken2006}. This kind of search is called
+\keyterm{superoptimization}. Recent systems still press against the same
+boundary. HieraSynth divides the search space without discarding candidates;
+when an exhaustive run finishes, it supports an optimality claim within its
+stated cost model \autocite{lubodik2025}.
+
+The history matters here for one reason. Searching for short programs is not
+new, and neither is the desire to know that a search has reached the bottom.
+What changes from system to system is the warrant. A fast search may find a
+remarkable program without supplying a lower bound. An exhaustive search can
+support a lower bound only for the language its encoding actually covers. A
+complete search can still optimize a cost model that poorly matches the
+machine we care about.
+
+A further gap often remains after a correct search finishes. The search may
+leave no compact object for an independent program to check. A log saying
+\emph{no candidate found} asks us to trust the searcher, its pruning rules,
+and its implementation. Running the search again may be worthwhile. It is not
+the same as checking a receipt from the search.
+
+This distinction contains a beautiful asymmetry. One short sequence can show
+that a program exists. Nonexistence must somehow account for an entire space
+of alternatives. The proof of absence may be much larger than the witness,
+but if it has the right form, a simpler program can still check it.
+
+The aim of this book is narrower than inventing optimization and more exact
+than reporting successful searches. For each machine claim, we want to know
+what bytes carry its evidence, what program checks those bytes, how that
+program behaves when the evidence is wrong, and where the claim stops.
+
+\section{The unit of belief}
+\label{sec:intro-object}
+
+An \keyterm{artifact} is the stored evidence for a claim. It may be an
+instruction sequence, a formula, a refutation, or the output of a finite
+enumeration. A \keyterm{checker} reads that evidence and gives a result that
+depends on whether the evidence supports the stated claim. Alter the witness
+or truncate the proof, and the checker must object.
+
+That requirement also needs evidence. A \keyterm{negative control} is a
+deliberately false claim or damaged artifact sent through the same route. The
+control should fail. If it passes, success on the original object carries
+little force. A checker that agrees with everything is agreeable company and
+poor evidence.
+
+This book binds the pieces in an \keyterm{object}. An object records the
+claim, its scope, its evidence category, its artifact, and the expected
+success and failure conditions. The \keyterm{ledger} lists those objects.
+Chapters take status and scope from it, so a sentence cannot quietly turn a
+result about bytes into a statement about every width.
+
+Return once more to the reversal. Its two-instruction sequence is the
+artifact for the upper bound. A checker can replay the sequence under the
+defined instruction functions. The lower bound needs another artifact, one
+that rules out every one-instruction program in the stated language. A false
+one-instruction claim or damaged proof tests whether that route can lose. The
+artifact, checker, scope, object, ledger entry, and control are not six pieces
+of bureaucracy. They are six answers to the question, \emph{Why should I
+believe this particular sentence?}
+
+The ledger does not teach the reason. Every load-bearing theorem therefore
+has two proofs with different work to do. A reader proof exposes the idea in
+a small case, invariant, contradiction, or replay. Its machine counterpart
+checks the full claim in its named scope. One gives understanding without full
+coverage. The other can give coverage without understanding. We need both.
+
+Not every useful result is a theorem. A finite search may produce a checked
+table. An unfinished argument may isolate an exact missing obligation. The
+ledger keeps these objects in their proper categories. A smooth narrative is
+not permission to strengthen the evidence.
+
+Evidence also has depth. A solver may report that a negated claim has no
+solution. It may export a certificate for another program to check. A proof
+assistant may admit a term only after a small kernel checks every step. These
+routes place different programs inside the boundary of trust. We will name
+the route we have rather than borrow the force of one we do not.
+
+Here the machinery returns us to the original wonder. Thirty-two bytes and
+two instructions were easy to write down. The phrase \emph{no one-instruction
+program} was invisible until we gave its universe a boundary and its evidence
+a form. Exactness has made a much larger object available to thought.
+
+\section{How the argument moves}
+\label{sec:intro-reading}
+
+Most chapters begin with a machine problem that fits in the hands: a byte
+permutation, a population count, a bitwise identity, or a short schedule. We
+work a small instance before naming its general structure. Then we state the
+scoped claim, show the reader argument, inspect the artifact, and try to break
+the checker. The boundary of one result supplies the next question.
+
+The first part stays below any particular ISA. It constructs words, state,
+memory, operand forms, and straight-line programs. Concrete RISC-V and x86-64
+examples enter only after those common objects are available. Their
+differences will test the definitions rather than determine them.
+
+The exercises continue the argument. Some reproduce a result. Some damage an
+artifact on purpose. Some change a width, instruction family, or cost model
+until an earlier proof no longer applies. The harder exercises ask for the
+next object the book does not yet possess.
+
+Before two instruction sequences can be equivalent, their instructions must
+act on something exact. Before we can rule out a one-instruction program, we
+need a precise input space and precise operations. The register at the start
+therefore sends us inward, from thirty-two bytes to one byte, and then to the
+smallest things the machine can distinguish: a fixed number of zeros and
+ones.

@@ -1,0 +1,17 @@
+\begin{tikzpicture}[
+  cell/.style={draw=gray-500,fill=gray-100,minimum width=2.25cm,minimum height=.68cm,align=center},
+  rel/.style={cell,fill=accent-50,draw=accent-700},
+  arr/.style={-{Stealth[length=1.8mm]},thick,draw=accent-700}
+]
+  \foreach \x/\h in {0/logical,1/A0,2/RV64I,3/x86-64,4/relation} \node[cell] at ({2.3*\x},2.8) {\h};
+  \foreach \y/\q in {2/entry,1/decision,0/update,-1/exit} {
+    \node[cell] at (0,{.72*\y}) {\q};
+    \foreach \x in {1,2,3} \node[cell] at ({2.3*\x},{.72*\y}) {control point};
+    \node[rel] at (9.2,{.72*\y}) {clause family};
+  }
+  \foreach \x in {1,2,3,4} {
+    \draw[arr] ({2.3*\x},1.43)--({2.3*\x},.73);
+    \draw[arr] ({2.3*\x},.7)--({2.3*\x},0);
+    \draw[arr] ({2.3*\x},-.03)--({2.3*\x},-.7);
+  }
+\end{tikzpicture}

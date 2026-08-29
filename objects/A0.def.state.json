@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.state", "kind": "definition", "part": 1,
+  "title": "A0 architectural state",
+  "statement": "At a word width that is a positive multiple of eight, A0 state contains eight word-valued registers, finite byte memory, a word-valued program counter, Z N C V condition bits, and a running, halted, or trapped outcome.",
+  "formal": {"language": "prose", "statement": "State(w) = Registers(w) x Memory x PC(w) x Conditions x Outcome"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.word", "A0.def.byte"], "evidence": [],
+  "book": {"chapter": "ch02-state", "label": "def:a0-state", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

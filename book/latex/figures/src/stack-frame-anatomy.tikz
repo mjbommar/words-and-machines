@@ -1,0 +1,16 @@
+% Downward-growing stack frame and half-open ownership range.
+\begin{tikzpicture}[font=\small,
+  cell/.style={draw=gray-600,minimum width=5.2cm,minimum height=.85cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[cell,fill=gray-100] (caller) at (0,2.55) {caller's stack state};
+  \node[cell,fill=ml-amber-50] (saved) at (0,1.7) {saved continuation and registers};
+  \node[cell,fill=accent-50] (locals) at (0,.85) {local objects and spill slots};
+  \node[cell,fill=accent-50] (outgoing) at (0,0) {outgoing arguments or scratch};
+  \draw[thick,accent-700] (-2.8,-.43) -- (2.8,-.43);
+  \node[anchor=east,font=\scriptsize] at (-2.95,-.43) {current \(sp=s-F\)};
+  \draw[thick,ml-amber-800] (-2.8,2.98) -- (2.8,2.98);
+  \node[anchor=east,font=\scriptsize] at (-2.95,2.98) {entry \(sp=s\)};
+  \draw[arr] (3.3,2.8) -- node[right,font=\scriptsize]{lower addresses} (3.3,-.2);
+  \draw[decorate,decoration={brace,amplitude=5pt},thick,accent-700]
+    (2.9,-.38) -- node[right=7pt,font=\scriptsize]{callee frame \([s-F,s)\)} (2.9,2.95);
+\end{tikzpicture}

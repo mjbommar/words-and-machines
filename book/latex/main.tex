@@ -40,13 +40,16 @@
 \input{frontmatter/halftitle}
 \input{frontmatter/titlepage}
 \input{frontmatter/copyright}
-\input{frontmatter/dedication}
-\input{frontmatter/epigraph}
+\input{frontmatter/preface}
 
 \cleardoublepage
 % The ToC heading is \chapter*, which never bookmarks itself.
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents
+
+% Optional edition-specific Introduction, generated from book.yaml. It remains
+% in front matter so the first chapter begins with Chapter 1.
+\input{generated/introduction}
 
 % ---------------- Main matter (arabic folios) -------------------------
 \mainmatter

@@ -1,5 +1,11 @@
 # STYLE-CRAFT — Positive Craft
 
+For *Instruction Sets, Programs, and Proofs*, begin with [CRAFT.md](CRAFT.md). It defines the
+book's concrete-to-exact proof pedagogy, reader-proof/machine-evidence pairing,
+artifact placement, and exercise architecture. This inherited guide supplies
+additional sentence, scene, rhythm, and manuscript craft where it does not
+conflict with that authority.
+
 [STYLE.md](STYLE.md) is the mechanics; [STYLE-AI-TELLS.md](STYLE-AI-TELLS.md) is what to
 cut. This guide is what to *build*: the techniques that make prose worth reading.
 Engagement is not optional polish — an unread book teaches, warns, and persuades no one.

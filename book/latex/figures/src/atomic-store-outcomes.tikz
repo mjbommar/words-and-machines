@@ -1,0 +1,19 @@
+% A store checks its whole range before selecting one state outcome.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.55cm,minimum height=.9cm,align=center},
+  test/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.8cm,minimum height=.9cm,align=center},
+  good/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=3.0cm,minimum height=.9cm,align=center},
+  bad/.style={draw=gray-600,fill=gray-100,rounded corners=2pt,
+    minimum width=3.0cm,minimum height=.9cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (req) at (-4.3,0) {old memory +\\store request};
+  \node[test] (check) at (0,0) {does every requested\\byte address exist?};
+  \node[good] (commit) at (4.3,1.25) {yes: write every byte\\and advance control};
+  \node[bad] (trap) at (4.3,-1.25) {no: preserve all bytes\\and record a trap};
+  \draw[arr] (req)--(check);
+  \draw[arr] (check)--node[above,sloped,font=\scriptsize]{yes}(commit);
+  \draw[arr] (check)--node[below,sloped,font=\scriptsize]{no}(trap);
+\end{tikzpicture}

@@ -1,0 +1,11 @@
+\begin{tikzpicture}[x=1.55cm,y=1cm,font=\small]
+  \foreach \x/\lab/\tone in {0/opcode/ml-blue-50,1/roles/ml-teal-50,2/source or condition/ml-amber-50,3/immediate/callout-warning-bg} {
+    \fill[\tone] (\x,0) rectangle ++(1,1);
+    \draw[gray-700,thick] (\x,0) rectangle ++(1,1);
+    \node[align=center,font=\scriptsize] at (\x+.5,.5) {\lab};
+    \node[font=\scriptsize] at (\x+.5,1.22) {byte \x};
+  }
+  \node[anchor=east,font=\scriptsize] at (-.12,.5) {low address};
+  \node[anchor=west,font=\scriptsize] at (4.12,.5) {high address};
+  \draw[->,gray-700] (-.05,-.3) -- (4.05,-.3) node[midway,below,font=\scriptsize] {fetch order};
+\end{tikzpicture}

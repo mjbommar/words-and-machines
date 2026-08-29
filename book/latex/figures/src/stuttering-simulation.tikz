@@ -1,0 +1,19 @@
+% Unequal instruction counts between matched control points.
+\begin{tikzpicture}[font=\small,
+  state/.style={draw=accent-700,fill=accent-50,circle,minimum size=.65cm,inner sep=1pt},
+  mid/.style={draw=gray-500,fill=gray-100,circle,minimum size=.5cm,inner sep=1pt},
+  arr/.style={->,>=stealth,thick,gray-600},
+  rel/.style={dashed,ml-teal-700,thick}]
+  \node[font=\scriptsize,anchor=east] at (-4.7,2) {A0};
+  \node[state] (a0) at (-3.8,2) {0}; \node[state] (a1) at (0,2) {1}; \node[state] (a2) at (3.8,2) {2};
+  \draw[arr] (a0) -- (a1); \draw[arr] (a1) -- (a2);
+  \node[font=\scriptsize,anchor=east] at (-4.7,.3) {RV64};
+  \node[state] (r0) at (-3.8,.3) {0}; \node[mid] (rm) at (-1.9,.3) {}; \node[state] (r1) at (0,.3) {1}; \node[mid] (rn) at (1.9,.3) {}; \node[state] (r2) at (3.8,.3) {2};
+  \draw[arr] (r0)--(rm); \draw[arr] (rm)--(r1); \draw[arr] (r1)--(rn); \draw[arr] (rn)--(r2);
+  \node[font=\scriptsize,anchor=east] at (-4.7,-1.4) {x86-64};
+  \node[state] (x0) at (-3.8,-1.4) {0}; \node[mid] (xm1) at (-2.5,-1.4) {}; \node[mid] (xm2) at (-1.25,-1.4) {}; \node[state] (x1) at (0,-1.4) {1}; \node[mid] (xn) at (1.9,-1.4) {}; \node[state] (x2) at (3.8,-1.4) {2};
+  \draw[arr] (x0)--(xm1); \draw[arr] (xm1)--(xm2); \draw[arr] (xm2)--(x1); \draw[arr] (x1)--(xn); \draw[arr] (xn)--(x2);
+  \draw[rel] (a0)--(r0); \draw[rel] (r0)--(x0);
+  \draw[rel] (a1)--(r1); \draw[rel] (r1)--(x1);
+  \draw[rel] (a2)--(r2); \draw[rel] (r2)--(x2);
+\end{tikzpicture}

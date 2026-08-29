@@ -1,0 +1,8 @@
+{
+  "id": "OP.rel.cross-isa", "kind": "obligation", "part": 3,
+  "title": "Implement cross-ISA refinement",
+  "statement": "Implement typed A0-to-RV64 and A0-to-x86-64 state relations and a checked simulation route for one scalar routine.",
+  "epistemic_status": "open", "depends_on": ["OP.rv64.decoder-step", "OP.x64.decoder-step", "REL.def.refinement", "REL.def.state-relation"], "evidence": [],
+  "book": {"chapter": "ch12-cross-isa", "label": "op:cross-isa", "role": "boundary"},
+  "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
+}

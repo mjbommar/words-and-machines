@@ -1,0 +1,9 @@
+{
+  "id": "RV64.def.state", "kind": "definition", "part": 2,
+  "title": "RV64 slice state",
+  "statement": "RV64 slice state exposes the selected integer registers including x0 behavior, program counter, byte memory, and declared exceptional outcomes.",
+  "formal": {"language": "prose", "statement": "RV64State = integer registers x PC x Memory x Outcome"},
+  "epistemic_status": "stated", "depends_on": ["RV64.def.slice"], "evidence": [],
+  "book": {"chapter": "ch02-state", "label": "def:rv64-state", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

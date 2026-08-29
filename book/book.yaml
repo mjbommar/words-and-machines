@@ -9,8 +9,8 @@
 # ============================================================
 
 book:
-  title: "Words and Machines"
-  subtitle: "Instruction Sets from First Principles, with Proofs You Can Check"
+  title: "Instruction Sets, Programs, and Proofs"
+  subtitle: "Semantics, Equivalence, and Optimization"
   author: "Michael J. Bommarito II"
   author_short: "Bommarito"          # running heads; defaults to author
   publisher: "Bommarito Press"
@@ -19,20 +19,21 @@ book:
   edition_statement: "First Edition"
   copyright_holder: ""            # defaults to author
   description: >-
-    A from-first-principles treatment of instruction set architectures in the
-    manner of Spivak's Calculus: a tiny axiom base, every claim proved, and the
-    exercises carrying the subject. Every definition, theorem, computation, and
-    open problem in the book is an object in a ledger with a real artifact -- a
-    CNF, a DRAT refutation, a witness, an exhaustive-search transcript -- and a
-    checker whose exit status depends on the finding. The worked machines are
-    AVX2 and RISC-V; the reasoning stack is axeyum.
+    This textbook develops a precise account of fixed-width words, machine
+    state, instruction semantics, program equivalence, and machine-code
+    optimization. It begins with an architecture-neutral machine, then compares
+    fundamental RISC and CISC design features through RISC-V and x86-64 case
+    studies. Each main result has a defined scope, a concrete evidence
+    artifact, and a checker that can reject a false claim or damaged proof.
+    Worked examples connect human-scale arguments with solver queries, proof
+    certificates, exhaustive searches, and kernel-checked reasoning.
   language: en-US
 
 identifiers:
-  # Samples with valid ISBN-13 checksums so the template builds; `make
-  # release` (--strict) rejects this sample block until replaced.
-  isbn_print: "979-8-0000000-0-7"
-  isbn_epub: "979-8-0000000-1-4"
+  # Leave blank until assigned. `make release` requires real identifiers for
+  # every enabled format.
+  isbn_print: ""
+  isbn_epub: ""
   isbn_hardcover: ""
   lccn: ""
 
@@ -47,11 +48,13 @@ formats:
   hardcover: false
 
 trim:
-  preset: "7x10"                   # 6x9 | 7x10 | 5.5x8.5 | 5x8 | 8.5x11
-                                  # 8.5x11 (textbooks/workbooks): use
-                                  # base_size 12; KDP large-trim pricing
-  paper: "white"                  # white | cream | standard-color |
-                                  # premium-color (sets KDP spine width)
+  # Canonical edition: technical-textbook 7x10. It supports a same-size KDP
+  # hardcover, the 828-page B&W limit, and expanded distribution on white.
+  # Other supported technical trims are 7.5x9.25 and 8x10; large textbook
+  # trims are 8.25x11 and 8.5x11.
+  preset: "7x10"
+  paper: "white"                  # white | cream | groundwood |
+                                  # standard-color | premium-color
   bleed: 0.125
 
 typography:
@@ -85,15 +88,22 @@ simplified_english:
   # Terms this book admits. Introduce each one in the prose anyway — the
   # entry says "this is our word", not "no explanation needed". `not:`
   # lists spellings that must never appear, so one concept keeps one name.
-  # These samples belong to the template's own sample chapters; delete them
-  # when you write your own.
+  # This is terminology policy, not reader evidence. Each term still needs an
+  # in-place explanation at its first load-bearing use; see
+  # docs/guides/PLAIN-ENGLISH.md.
   terms:
-    - term: "callout"
-    - term: "keyidea"          # the callout environment, named in ch02
-    - term: "preflight"
-    - {term: "EPUB", not: ["ePub", "epub3"]}
+    - term: "artifact"
+    - term: "checker"
+    - term: "cost model"
+    - term: "instruction set"
+    - term: "ledger"
+    - term: "negative control"
+    - term: "object"
+    - term: "scope"
+    - term: "semantic package"
+    - term: "state relation"
   # Abbreviations this book may use bare, beyond the ones everybody knows.
-  abbreviations: ["ADR", "ISBN", "YAML", "PDF", "TOC", "KDP", "DPI", "TAC"]
+  abbreviations: ["ABI", "CISC", "CNF", "DRAT", "ISA", "PC", "RISC", "SAT", "SIMD", "SMT", "SMT-LIB", "SSA"]
   # Proper names whose official spelling is all capitals. Keep these separate
   # from abbreviations because there is no full form to introduce.
   names: []
@@ -117,7 +127,25 @@ modules:
 editions:
   full:
     default: true
-    chapters: [ch01, ch02, ch03, ch04, ch05, ch06]
+    frontmatter: [preface]
+    introduction: ch00
+    chapters:
+      - ch01
+      - ch02
+      - ch03
+      - ch04
+      - ch05
+      - ch06
+      - ch07
+      - ch08
+      - ch09
+      - ch10
+      - ch11
+      - ch12
+      - ch13
+      - ch14
+      - ch15
+      - ch16
   # essential:
   #   title_suffix: "Essential Edition"
   #   isbn_print: ""

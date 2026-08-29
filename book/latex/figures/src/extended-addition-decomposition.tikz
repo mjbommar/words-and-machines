@@ -1,0 +1,18 @@
+% Widened addition decomposed into a low word and carry.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.45cm,minimum height=.88cm,align=center},
+  hi/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=1.65cm,minimum height=.88cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (inputs) at (-4.2,0) {two width-\(w\) words\\\(x\) and \(y\)};
+  \node[box] (wide) at (-1.25,0) {widened sum\\\(s=\langle x\rangle_u+\langle y\rangle_u\)};
+  \node[hi] (carry) at (2.0,.65) {high part\\\(C\)};
+  \node[box] (low) at (2.0,-.65) {low \(w\) bits\\stored word \(r\)};
+  \node[box] (identity) at (5.0,0) {exact identity\\\(s=C2^w+r\)};
+  \draw[arr] (inputs)--(wide);
+  \draw[arr] (wide)--(carry);
+  \draw[arr] (wide)--(low);
+  \draw[arr] (carry)--(identity);
+  \draw[arr] (low)--(identity);
+\end{tikzpicture}

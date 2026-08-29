@@ -1,0 +1,12 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-500,fill=gray-100,rounded corners=2pt,minimum width=3cm,minimum height=.8cm,align=center},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=accent-700}
+]
+  \node[box] (spec) at (0,1.2) {speculative access};
+  \node[box] (arch) at (-4,-.6) {architectural state};
+  \node[box,fill=ml-amber-50,draw=ml-amber-800] (micro) at (4,-.6) {cache or timing state};
+  \node[box] (rollback) at (-4,-2.2) {rolled back};
+  \node[box,fill=ml-teal-50,draw=ml-teal-700] (probe) at (4,-2.2) {later observation};
+  \draw[arr] (spec)--(arch); \draw[arr] (spec)--(micro);
+  \draw[arr] (arch)--(rollback); \draw[arr] (micro)--(probe);
+\end{tikzpicture}

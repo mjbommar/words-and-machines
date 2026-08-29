@@ -15,22 +15,37 @@ between you and a release; add `--strict` to your own CI if you want a gate.
 **Per-book settings:** `simplified_english:` in `book.yaml`
 **How it was built:** [architecture/simplified-english.md](../architecture/simplified-english.md)
 
-Read after [STYLE.md](STYLE.md). SBE governs *which words*; STYLE governs
-voice and sentences; [STYLE-CRAFT.md](STYLE-CRAFT.md) governs rhythm and
-figure. Where they overlap, they defer (§8).
+Read after [VOICE.md](VOICE.md), [CRAFT.md](CRAFT.md),
+[PLAIN-ENGLISH.md](PLAIN-ENGLISH.md), and [STYLE.md](STYLE.md). SBE governs
+vocabulary evidence; the book-specific guides govern voice, teaching, and
+claim language; STYLE governs mechanics; [STYLE-CRAFT.md](STYLE-CRAFT.md)
+supplies additional rhythm and figure. Where they overlap, they defer (§8).
 
 ---
 
-## 1. The reader this standard assumes
+## 1. The reader this book assumes
 
 Every serious controlled language names its reader. STE's is a non-native
 technician on a tarmac. VOA Special English's is an intermediate learner.
 ISO 24495-1 makes identifying the reader the *first* thing you do, before
 drafting.[^iso] So:
 
-> **SBE is calibrated for an adult general reader of English trade
-> nonfiction:** fluent, not a specialist in this book's field, reading in
-> long stretches — in print, without a dictionary to hand.
+> **This book is for a technically literate reader who is not yet a specialist
+> in proof-carrying instruction-set claims:** a compiler, crypto-engineering,
+> or formal-methods practitioner who can read code and follow a worked
+> argument, but should not have to infer the meaning of the book's own terms.
+
+That reader does not need a smaller vocabulary. They need an honest route into
+each exact word. Keep *SAT*, *DRAT*, *SSA*, *minimality*, and *instruction
+set* when they name the real thing. Expand an abbreviation, define the term in
+ordinary words, give a small concrete example where useful, and then use the
+preferred term consistently. The book-specific rules and revision tests are
+in [PLAIN-ENGLISH.md](PLAIN-ENGLISH.md).
+
+The generic SBE calibration below remains useful as a vocabulary diagnostic.
+It is not a claim that this book is written for a general trade reader, and it
+must not be used to replace necessary mathematical or systems vocabulary with
+vaguer prose.
 
 **No CEFR claim.** An earlier draft of this section said "plausibly a
 non-native speaker at around CEFR B2–C1". Nothing in the build supports

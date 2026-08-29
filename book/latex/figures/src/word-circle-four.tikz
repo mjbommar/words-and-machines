@@ -1,0 +1,22 @@
+% The sixteen width-four words arranged as a modular cycle.
+\begin{tikzpicture}[
+  word/.style={circle, draw=gray-500, fill=gray-100,
+    minimum size=0.72cm, inner sep=1pt, font=\ttfamily\scriptsize},
+  arr/.style={->, >=stealth, line width=0.7pt, ml-blue-700}]
+  \foreach \bits/\angle in {
+    0000/90,0001/67.5,0010/45,0011/22.5,
+    0100/0,0101/-22.5,0110/-45,0111/-67.5,
+    1000/-90,1001/-112.5,1010/-135,1011/-157.5,
+    1100/180,1101/157.5,1110/135,1111/112.5}{
+      \node[word] (w\bits) at (\angle:3.25cm) {\bits};
+  }
+  \foreach \a/\b in {
+    0000/0001,0001/0010,0010/0011,0011/0100,
+    0100/0101,0101/0110,0110/0111,0111/1000,
+    1000/1001,1001/1010,1010/1011,1011/1100,
+    1100/1101,1101/1110,1110/1111,1111/0000}{
+      \draw[arr] (w\a) to[bend left=10] (w\b);
+  }
+  \node[align=center, font=\small] at (0,0)
+    {add one\\modulo \(2^4\)};
+\end{tikzpicture}

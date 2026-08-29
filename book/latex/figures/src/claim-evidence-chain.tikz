@@ -1,0 +1,21 @@
+% From a human claim to checked evidence, with failure questions below.
+\begin{tikzpicture}[
+  stage/.style={draw=accent-700, fill=accent-50, rounded corners=2pt,
+    minimum width=2.05cm, minimum height=0.78cm, align=center, font=\small},
+  question/.style={font=\scriptsize, text=gray-600, align=center},
+  arr/.style={->, >=stealth, line width=0.75pt, gray-600}]
+  \node[stage] (claim) at (-5.0,0) {scoped claim};
+  \node[stage] (sem) at (-2.5,0) {executable\\semantics};
+  \node[stage] (formula) at (0,0) {generated\\problem};
+  \node[stage] (artifact) at (2.5,0) {result or\\certificate};
+  \node[stage] (check) at (5.0,0) {independent\\check};
+  \draw[arr] (claim) -- (sem);
+  \draw[arr] (sem) -- (formula);
+  \draw[arr] (formula) -- (artifact);
+  \draw[arr] (artifact) -- (check);
+  \node[question] at (-5.0,-1.25) {right scope?};
+  \node[question] at (-2.5,-1.25) {right machine?};
+  \node[question] at (0,-1.25) {right translation?};
+  \node[question] at (2.5,-1.25) {complete output?};
+  \node[question] at (5.0,-1.25) {can it reject?};
+\end{tikzpicture}

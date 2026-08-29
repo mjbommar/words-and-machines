@@ -1,0 +1,17 @@
+% Artifact production and replay for an executable trace.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.35cm,minimum height=.88cm,align=center},
+  gate/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.35cm,minimum height=.88cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (input) at (-4.5,0) {program bytes\\initial state};
+  \node[box] (run) at (-1.5,0) {fetch, decode,\\and step};
+  \node[box] (artifact) at (1.5,0) {trace artifact\\states and bindings};
+  \node[gate] (replay) at (4.5,0) {independent replay\\and controls};
+  \draw[arr] (input)--(run);
+  \draw[arr] (run)--(artifact);
+  \draw[arr] (artifact)--(replay);
+  \draw[->,>=stealth,dashed,ml-teal-700] (input.south)
+    to[bend right=28] node[below]{recompute}(replay.south);
+\end{tikzpicture}

@@ -1,0 +1,15 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-400, rounded corners=2pt, fill=white, minimum width=4.7cm, minimum height=0.72cm, align=center},
+  arr/.style={-{Stealth[length=2.2mm]}, thick, draw=accent-700}
+]
+  \node[box] (d) at (0,0) {Definition};
+  \node[box] (t) at (0,0.95) {Execution trace};
+  \node[box] (c) at (0,1.90) {Computation};
+  \node[box] (v) at (0,2.85) {Solver verdict};
+  \node[box] (p) at (0,3.80) {Checkable certificate};
+  \node[box,draw=ml-teal-700,fill=ml-teal-50] (k) at (0,4.75) {Kernel reconstruction};
+  \draw[arr] (d)--(t); \draw[arr] (t)--(c); \draw[arr] (c)--(v);
+  \draw[arr] (v)--(p); \draw[arr] (p)--(k);
+  \node[draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,align=left,text width=4.0cm]
+    at (5.0,2.4) {Trust can move to a smaller checker.\\Scope does not grow automatically.};
+\end{tikzpicture}

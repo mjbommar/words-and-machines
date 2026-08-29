@@ -1,0 +1,9 @@
+{
+  "id": "REL.def.candidate-language", "kind": "definition", "part": 3,
+  "title": "Bounded candidate program language",
+  "statement": "A candidate language explicitly lists decoded instruction forms, operands, constants, temporaries, memory policy, well-formedness rules, and maximum length.",
+  "formal": {"language": "prose", "statement": "Language = finite grammar x resources x memory policy x length bound"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.instruction"], "evidence": [],
+  "book": {"chapter": "ch13-languages-costs", "label": "def:candidate-language", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

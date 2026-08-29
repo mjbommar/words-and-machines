@@ -1,0 +1,21 @@
+{
+  "id": "OP.axeyum.riscv-semantics",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Version-pinned RV64I decoding and semantics",
+  "statement": "Implement the book's exact RV64I teaching slice as decoded instruction instances and checked state transformations, with differential tests against an independent implementation and mutations for operands, immediates, memory effects, and branch conditions.",
+  "formal": {
+    "language": "none",
+    "statement": "decode_rv64i + sem_rv64i for M.def.riscv-foundation-slice"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "depends_on": ["OP.axeyum.machine-state-memory", "M.def.riscv-foundation-slice"],
+  "evidence": [],
+  "notes": "The existing RISC-V ledger objects are custom finite enumerations over Bitmanip operator sets, not a general RV64I decoder or semantics layer.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "live ../axeyum and current-object audit"
+  }
+}

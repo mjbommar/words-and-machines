@@ -1,0 +1,17 @@
+% Information retained by several program-agreement notions.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=4.2cm,minimum height=.75cm,align=center},
+  weak/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=4.2cm,minimum height=.75cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (trace) at (0,2.4) {corresponding-trace agreement};
+  \node[box] (full) at (0,1.2) {full final-state and behavior agreement};
+  \node[box] (obs) at (0,0) {declared observational agreement};
+  \node[weak] (partial) at (0,-1.2) {partial correctness on normal returns};
+  \draw[arr] (trace) -- node[right,font=\scriptsize]{forget intermediate states} (full);
+  \draw[arr] (full) -- node[right,font=\scriptsize]{apply observation} (obs);
+  \draw[arr] (obs) -- node[right,font=\scriptsize]{weaken termination policy} (partial);
+  \node[font=\scriptsize,text=gray-600,align=center] at (4.25,.6)
+    {reverse arrows need\\additional premises};
+\end{tikzpicture}

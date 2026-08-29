@@ -1,0 +1,8 @@
+{
+  "id": "OP.a0.state-memory", "kind": "obligation", "part": 1,
+  "title": "Implement A0 state and memory",
+  "statement": "Implement the complete A0 state, observations, byte memory, valid ranges, and normal or trapped memory effects in Axeyum.",
+  "epistemic_status": "open", "depends_on": ["OP.a0.word-package", "A0.def.state", "A0.def.observation", "A0.def.memory"], "evidence": [],
+  "book": {"chapter": "ch04-memory", "label": "op:a0-state-memory", "role": "boundary"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
+}

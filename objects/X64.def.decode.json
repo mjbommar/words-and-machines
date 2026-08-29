@@ -1,0 +1,9 @@
+{
+  "id": "X64.def.decode", "kind": "definition", "part": 2,
+  "title": "x86-64 slice decoder contract",
+  "statement": "The x86-64 decoder contract consumes the bytes of one selected instruction form, returns its decoded operands and length, or rejects the byte sequence according to the pinned slice.",
+  "formal": {"language": "prose", "statement": "decode_X64 : bytes -> selected instruction x length | illegal"},
+  "epistemic_status": "stated", "depends_on": ["X64.def.slice"], "evidence": [],
+  "book": {"chapter": "ch06-encoding-decoding", "label": "def:x64-decode", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

@@ -1,26 +1,30 @@
-# Research corpus
+# Research
 
-Everything the book and paper rest on, in the order it was produced. Two kinds of material:
+Active research follows the curriculum in the master outline and the semantic
+dependencies in the Axeyum evidence design.
 
-| Folder | What | Trust |
-|---|---|---|
-| `axeyum/` | Documents copied verbatim from the [axeyum](https://github.com/mjbommar/axeyum) repository: the five-target survey folder, the open-problems programme contract, the lane status file (the day-by-day record of what actually landed), the phase-8 track, and the ADRs behind every artifact in `../artifacts/`. | Repository record. ADR evidence sections were re-verified here where an artifact ships (see `../objects/`). |
-| `surveys/` | Ten literature sweeps by Opus 5 research agents (2026-08-25 and 2026-08-27), reproduced verbatim. Each report flags its own unverified items; **treat every bound as of its date and re-check currency before citing.** Google Scholar via SerpApi proved unreliable for exact-title queries; Google web plus direct fetch was the working instrument. | Secondary. Not refereed. Several agents ran out of search budget and say so. |
-| `certifiable-unknowns.html` | The first survey's ranked deliverable (2026-08-25), as published. | Snapshot. |
-| `prior-art-spivak-of-isa.md` | The search for an existing from-first-principles, everything-proved treatment of an ISA. | Searched 2026-08-27; negative with controls. |
+The top-level research directory contains only this index and the archive. New
+active research should be organized by chapter or semantic package, with
+authoritative sources, exact revision dates, and a clear statement of which
+book object it informs.
 
-## Reading order
+## Archive
 
-1. `axeyum/open-problems-2026-08/README.md` — the five targets and the three escape hatches.
-2. `surveys/05-simd-permutation-lowering.md` and `surveys/06-superoptimization-frontier.md` — the two that decide the paper's related-work section.
-3. `surveys/08-compiler-certification-gap.md` — the Franchetti–Püschel correction and the base rate of wrong "proved optimal" claims.
-4. `surveys/10-isa-design-and-other-isas.md` — the RISC-V findings that Part IV reproduces.
-5. `surveys/09-venue-and-reviewer-map.md` — where the paper goes and what its reviewers will say.
+The archive retains the evidence-led draft, old object ledger, former
+artifacts and producers, earlier Axeyum guide, prior paper, and supporting
+surveys and ADR copies. This material preserves provenance but has no active
+chapter, object, artifact, or build authority.
 
-## What was *measured* rather than read
+Do not cite an archived result in the book without reopening its source,
+checking current relevance, and creating a new active object under the current
+schema.
 
-Three things in this corpus are computations, not citations, and the book relies on them:
+## Next active research
 
-- The ISA-design agent's exhaustive reproductions of the RISC-V bit-logic table and Bitmanip Tables 2.2/4.1 (`surveys/10-…`, §B). **Re-implemented and re-run in this repository**: `../scripts/bitlogic_bfs.py`, `../scripts/byte_perm_bfs.py`; results in `../artifacts/riscv/`.
-- The engineering agent's in-session check of NIST's 29-AND AES S-box circuit against FIPS 197 on all 256 inputs (`surveys/02-…`).
-- The capability report's read of axeyum's frontier, reconstruction routes, and evidence formats (`surveys/04-axeyum-capability-report.md`) — every claim there carries a `file:line`.
+1. Pin the authoritative RV64 unprivileged ISA revision and exact teaching
+   forms.
+2. Pin the authoritative x86-64 architecture-manual revision and exact
+   teaching forms.
+3. Pin the two named ABI sources used in Chapter 10.
+4. Specify every A0 instruction, encoding, state effect, and trap.
+5. Identify independent decoder or test-vector sources for both real slices.

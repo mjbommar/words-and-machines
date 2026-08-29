@@ -1,0 +1,24 @@
+{
+  "id": "I.def.memory",
+  "kind": "definition",
+  "part": 1,
+  "title": "Byte-addressed memory",
+  "statement": "Memory is a finite map from word-sized addresses to bytes. A multi-byte load reconstructs a word according to a declared byte order and may require alignment, access, and non-faulting preconditions. Stores update exactly the addressed bytes in the declared model.",
+  "formal": {
+    "language": "prose",
+    "statement": "Memory aw := Word aw -> Word 8; load_le n m a := sum_{i=0}^{n-1} m(a+i) * 2^(8i)"
+  },
+  "epistemic_status": "stated",
+  "depends_on": ["W.def.word", "I.def.machine-state"],
+  "evidence": [],
+  "book": {
+    "chapter": "ch04-memory",
+    "label": "def:memory"
+  },
+  "notes": "This is the book's ordinary finite memory model, not a concurrency, cache, privilege, or virtual-memory model.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

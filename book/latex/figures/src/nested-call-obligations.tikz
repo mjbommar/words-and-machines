@@ -1,0 +1,16 @@
+% Data and continuation preservation around a nested call.
+\begin{tikzpicture}[font=\small,
+  state/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,minimum width=2.25cm,minimum height=.8cm,align=center},
+  save/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,minimum width=2.25cm,minimum height=.8cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[state] (enter) at (-4.5,0) {enter F\\live \(u\), link \(l\)};
+  \node[save] (save) at (-1.5,0) {save \(u,l\)\\in owned frame};
+  \node[state] (call) at (1.5,0) {call G\\scratch may change};
+  \node[save] (restore) at (4.5,0) {restore \(u,l\)\\return from F};
+  \draw[arr] (enter) -- (save);
+  \draw[arr] (save) -- (call);
+  \draw[arr] (call) -- (restore);
+  \draw[thick,ml-teal-700] (-2.65,-.72) -- (5.65,-.72);
+  \node[font=\scriptsize,text=gray-600] at (1.5,-1.05)
+    {G must preserve F's private save slots};
+\end{tikzpicture}

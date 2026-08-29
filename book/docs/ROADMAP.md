@@ -21,7 +21,7 @@ Phases execute in order; each has an acceptance gate. Status: `[ ]` pending, `[x
 ## Phase 2 — LaTeX print/PDF pipeline
 - [x] `latex/preamble/` modules: `main` (loader, documented order), `packages`, `fonts` (3 profiles, engine-conditional), `geometry` (trim presets 6×9 / 7×10 / 5.5×8.5 / 5×8, KDP-safe margins + gutter, bleed variants), `colors` (4-layer system), `styling` (chapter/section titles, fancyhdr per-matter styles, widow/orphan discipline, `\enable/\disablecleardoublepage`), `boxes` (semantic tcolorbox family with `importance=` keyval), `code` (listings + catcode-hash fix, per-language styles, print-safe wrapping), `verse` (optional paracol parallel-text module), `commands` (semantic inline macros ↔ EPUB CSS classes), `hyperref-last`
 - [x] `latex/main.tex` with mode flags, front/main/back matter structure
-- [x] `latex/frontmatter/`: halftitle, titlepage (from metadata macros), copyright w/ PCIP + AI-disclosure slot, dedication, epigraph
+- [x] `latex/frontmatter/`: halftitle, titlepage (from metadata macros), copyright w/ PCIP + AI-disclosure slot, and book-specific preface
 - [x] `latex/backmatter/`: acknowledgments, about-the-author, colophon
 - [x] `bib/references.bib` + house biblatex block (authoryear default; superscript-endnote preset selectable)
 - [x] Sample chapters (3) exercising every environment: boxes, code, figures, tables, verse, citations, footnotes, cross-refs

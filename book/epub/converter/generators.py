@@ -289,7 +289,9 @@ def generate(meta: dict, chapters: list[dict], cover_href: str,
     pages["copyright.xhtml"] = copyright_page(meta, lang)
 
     for ch in chapters:
-        body = ('<section epub:type="chapter" role="doc-chapter">\n'
+        kind = ch.get("kind", "chapter")
+        role = "doc-chapter" if kind == "chapter" else f"doc-{kind}"
+        body = (f'<section epub:type="{kind}" role="{role}">\n'
                 + ch["body"] + "\n</section>")
         pages[ch["file"]] = xhtml_page(ch["title"], body, lang)
 
@@ -305,9 +307,10 @@ def generate(meta: dict, chapters: list[dict], cover_href: str,
         {"href": "copyright.xhtml", "label": "Copyright"},
     ]
     for ch in chapters:
+        prefix = f"{ch['number']}. " if ch.get("number") is not None else ""
         entries.append({
             "href": ch["file"],
-            "label": f"{ch['number']}. {ch['title']}",
+            "label": f"{prefix}{ch['title']}",
             "children": [{"href": f"{ch['file']}#{sid}", "label": label}
                          for sid, label in ch["sections"]],
         })

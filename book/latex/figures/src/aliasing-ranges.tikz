@@ -1,0 +1,16 @@
+% Two four-byte ranges with a two-byte overlap.
+\begin{tikzpicture}[
+  cell/.style={draw=gray-500, minimum width=1.05cm, minimum height=0.72cm,
+    font=\scriptsize},
+  brace/.style={decorate, decoration={brace, amplitude=5pt},
+    line width=0.8pt}]
+  \foreach \x/\lab in {0/a,1/a+1,2/a+2,3/a+3,4/a+4,5/a+5}{
+    \node[cell] (c\x) at (\x*1.05,0) {\(\lab\)};
+  }
+  \draw[brace, ml-blue-700] (-0.5,0.55) -- (3.65,0.55)
+    node[midway,above=6pt,font=\small]{first four-byte range};
+  \draw[brace, ml-amber-800] (5.75,-0.55) -- (1.6,-0.55)
+    node[midway,below=6pt,font=\small]{second four-byte range};
+  \fill[accent-200,opacity=0.65] (1.6,-0.35) rectangle (3.65,0.35);
+  \node[font=\scriptsize, text=accent-800] at (2.625,0) {overlap};
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+\begin{tikzpicture}[
+  ev/.style={draw=gray-500,fill=gray-100,rounded corners=2pt,minimum width=2.2cm,minimum height=.7cm,align=center},
+  po/.style={-{Stealth[length=2mm]},thick,draw=accent-700},
+  rf/.style={-{Stealth[length=2mm]},thick,dashed,draw=ml-amber-800}
+]
+  \node at (-3,2.7) {thread 0}; \node at (3,2.7) {thread 1};
+  \node[ev] (w0) at (-3,1.6) {write $x:=1$}; \node[ev] (r0) at (-3,0) {read $y$};
+  \node[ev] (w1) at (3,1.6) {write $y:=1$}; \node[ev] (r1) at (3,0) {read $x$};
+  \draw[po] (w0)--node[left]{program order}(r0); \draw[po] (w1)--node[right]{program order}(r1);
+  \draw[rf] (w0) to[bend left=16] node[below]{reads-from?}(r1);
+  \draw[rf] (w1) to[bend right=16] node[above]{reads-from?}(r0);
+\end{tikzpicture}

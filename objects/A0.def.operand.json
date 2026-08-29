@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.operand", "kind": "definition", "part": 1,
+  "title": "A0 operand forms",
+  "statement": "A0 operands are registers, immediate words, base-plus-signed-offset memory locations, or relative branch targets, each with an explicit width and access role.",
+  "formal": {"language": "prose", "statement": "Operand = Reg | Imm | Mem(base, offset, width) | RelTarget(offset)"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.word", "A0.def.state"], "evidence": [],
+  "book": {"chapter": "ch03-instructions-operands", "label": "def:a0-operand", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

@@ -1,0 +1,14 @@
+\begin{tikzpicture}[
+  core/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,minimum width=4.2cm,minimum height=1.25cm,align=center},
+  edge/.style={draw=gray-500,fill=gray-100,rounded corners=2pt,minimum width=2.8cm,minimum height=.8cm,align=center},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=accent-700}
+]
+  \node[core] (c) at (0,0) {scalar architectural state};
+  \node[edge] (fp) at (-5,2) {floating point};
+  \node[edge] (vec) at (0,2.6) {vectors and masks};
+  \node[edge] (conc) at (5,2) {concurrency};
+  \node[edge] (priv) at (-5,-2) {privilege and translation};
+  \node[edge] (code) at (0,-2.6) {mutable code};
+  \node[edge] (leak) at (5,-2) {timing and leakage};
+  \foreach \x in {fp,vec,conc,priv,code,leak} \draw[arr] (c)--(\x);
+\end{tikzpicture}

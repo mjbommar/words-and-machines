@@ -1,0 +1,29 @@
+% Successive declarations narrow an ISA universe into a finite search.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum height=.68cm,align=center},
+  last/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum height=.68cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box,minimum width=8.8cm] (isa) at (0,3.2) {documented ISA forms and encodings};
+  \node[box,minimum width=7.6cm] (forms) at (0,2.2) {selected decoded forms and operand widths};
+  \node[box,minimum width=6.4cm] (res) at (0,1.2) {registers, constants, memory, and entry states};
+  \node[box,minimum width=5.2cm] (bound) at (0,.2) {well-formed programs within the bound};
+  \node[box,minimum width=4.0cm] (sem) at (0,-.8) {semantically valid candidates};
+  \node[last,minimum width=2.8cm] (obs) at (0,-1.8) {observed costs};
+  \draw[arr] (isa)--(forms);
+  \draw[arr] (forms)--(res);
+  \draw[arr] (res)--(bound);
+  \draw[arr] (bound)--(sem);
+  \draw[arr] (sem)--(obs);
+  \node[font=\scriptsize,text=gray-600,align=left,anchor=west] at (4.75,2.2)
+    {operation and encoding policy};
+  \node[font=\scriptsize,text=gray-600,align=left,anchor=west] at (4.15,1.2)
+    {resource and fault policy};
+  \node[font=\scriptsize,text=gray-600,align=left,anchor=west] at (3.55,.2)
+    {length or cost limit};
+  \node[font=\scriptsize,text=gray-600,align=left,anchor=west] at (2.95,-.8)
+    {precondition and execution};
+  \node[font=\scriptsize,text=gray-600,align=left,anchor=west] at (2.35,-1.8)
+    {observation and cost order};
+\end{tikzpicture}

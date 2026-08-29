@@ -1,0 +1,22 @@
+% Three distinct moves between four- and eight-bit words.
+\begin{tikzpicture}[font=\small,
+  word/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.6cm,minimum height=.78cm,align=center},
+  result/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=3.0cm,minimum height=.78cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[word] (small) at (-4,1.35) {four bits\\\texttt{1111}};
+  \node[result] (zero) at (0,2.35) {zero extend\\\texttt{00001111}};
+  \node[result] (sign) at (0,.35) {sign extend\\\texttt{11111111}};
+  \draw[arr] (small)--(zero);
+  \draw[arr] (small)--(sign);
+  \node[word] (large) at (-4,-2.0) {eight bits\\\texttt{10101111}};
+  \node[result] (trunc) at (0,-2.0) {truncate\\\texttt{1111}};
+  \draw[arr] (large)--(trunc);
+  \node[font=\scriptsize,text=gray-600,align=left] at (4,2.35)
+    {preserves the unsigned reading};
+  \node[font=\scriptsize,text=gray-600,align=left] at (4,.35)
+    {preserves the signed reading};
+  \node[font=\scriptsize,text=gray-600,align=left] at (4,-2.0)
+    {preserves only the low positions};
+\end{tikzpicture}

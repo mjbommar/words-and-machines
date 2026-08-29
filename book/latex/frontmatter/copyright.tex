@@ -1,7 +1,7 @@
 %% copyright.tex — copyright page (verso of the title page).
 %% Every line is macro-driven and conditionally present, so one file
 %% serves every book and every edition without editing (ADR 0002).
-%% Block order follows trade convention: rights -> publisher ->
+%% Block order follows academic-book convention: rights -> publisher ->
 %% identifiers -> PCIP -> disclosures -> printing statement.
 \thispagestyle{empty}
 \begingroup
@@ -42,16 +42,16 @@ except for brief quotations in reviews.
   Library of Congress Control Number: \BookLCCN
 \fi
 
-% PCIP-style block (Publisher's Cataloging-in-Publication) — the
-% self-published analogue of LC CIP data; libraries and some
-% distributors expect the shape even when entries are sparse.
-\emph{Publisher's Cataloging-in-Publication Data}\\
-Names: \BookAuthor, author.\\
-Title: \BookTitle\ifBookHasSubtitle{} : \BookSubtitle\fi\ / \BookAuthor.\\
-Description: \BookEditionStatement. \textbar{} \BookPublisher, \BookYear.%
-\ifBookHasISBNPrint\\
-Identifiers: ISBN \BookISBNPrint\ (paperback)%
-\ifdefstring{\BookISBNEpub}{}{}{ \textbar{} ISBN \BookISBNEpub\ (ebook)}.%
+% Print the house catalog block only after publication identifiers exist.
+% Draft copies should omit the block instead of showing sample catalog data.
+\ifBookHasISBNPrint
+  \emph{Publisher's Cataloging-in-Publication Data}\\
+  Names: \BookAuthor, author.\\
+  Title: \BookTitle\ifBookHasSubtitle{} : \BookSubtitle\fi\ / \BookAuthor.\\
+  Description: \BookEditionStatement. \textbar{} \BookPublisher, \BookYear.
+  \textbar{} Includes bibliographical references and exercises.\\
+  Identifiers: ISBN \BookISBNPrint\ (paperback)%
+  \ifdefstring{\BookISBNEpub}{}{}{ \textbar{} ISBN \BookISBNEpub\ (ebook)}.
 \fi
 
 % AI-assistance disclosure (KDP requires one on file; printing it on

@@ -1,0 +1,23 @@
+{
+  "id": "I.def.machine-state",
+  "kind": "definition",
+  "part": 1,
+  "title": "Architectural machine state",
+  "statement": "A machine state is an explicit tuple of architectural components: word-valued registers, byte-addressed memory, a program counter, named condition state, and a normal-or-trapped outcome. A particular theorem may use a declared projection of this tuple, but it may not hide a component that its instructions read or write.",
+  "formal": {
+    "language": "prose",
+    "statement": "State w := Registers w × Memory × ProgramCounter w × Conditions × Outcome"
+  },
+  "epistemic_status": "stated",
+  "evidence": [],
+  "book": {
+    "chapter": "ch02-state",
+    "label": "def:machine-state"
+  },
+  "notes": "Book-level foundation. Axeyum has bit-vector terms but no reusable architectural-state library at this audit.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

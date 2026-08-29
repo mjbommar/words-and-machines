@@ -1,0 +1,9 @@
+{
+  "id": "EVID.def.trust-class", "kind": "definition", "part": 3,
+  "title": "Evidence trust classes",
+  "statement": "The active trust classes are definition, trace, computation, verdict, independently checked certificate, and kernel reconstruction; each records a distinct boundary.",
+  "formal": {"language": "prose", "statement": "Trust = definition | trace | computation | verdict | certificate | kernel"},
+  "epistemic_status": "stated", "evidence": [],
+  "book": {"chapter": "ch14-evidence", "label": "def:trust-class", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "evidence ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
+}

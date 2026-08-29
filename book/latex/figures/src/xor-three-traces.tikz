@@ -1,0 +1,19 @@
+\begin{tikzpicture}[
+  dot/.style={circle,draw=gray-500,fill=white,inner sep=2.2pt},
+  arr/.style={-{Stealth[length=1.8mm]},thick,draw=gray-500}
+]
+  \node[anchor=east] at (-.5,2) {A0};
+  \node[anchor=east] at (-.5,1) {RV64I};
+  \node[anchor=east] at (-.5,0) {x86-64};
+  \foreach \y/\xs in {2/{0,1.2,2.3,3.5,4.5,5.6,6.7,7.8,9,10},1/{0,1.7,3.5,4.8,6.1,7.5,9,10},0/{0,2.2,3.5,5.2,6.8,8.3,9,10}}
+    \foreach \x in \xs \node[dot] at (\x,\y) {};
+  \foreach \y in {0,1,2} {
+    \draw[arr] (0,\y)--(3.5,\y);
+    \draw[arr] (3.5,\y)--(9,\y);
+    \draw[arr] (9,\y)--(10,\y);
+  }
+  \foreach \x/\lab in {0/entry,3.5/loop head,9/next cut,10/exit path} {
+    \draw[dashed,draw=accent-700] (\x,-.45)--(\x,2.45);
+    \node[below] at (\x,-.5) {\lab};
+  }
+\end{tikzpicture}

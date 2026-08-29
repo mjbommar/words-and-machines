@@ -1,0 +1,24 @@
+% Selected components aligned by an abstract cross-machine relation.
+\begin{tikzpicture}[font=\small,
+  machine/.style={draw=gray-600,fill=gray-100,rounded corners=2pt,minimum width=2.2cm,minimum height=.72cm,align=center},
+  meaning/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,minimum width=2.5cm,minimum height=.72cm,align=center},
+  arr/.style={<->,>=stealth,thick,gray-600}]
+  \node[meaning] (value) at (0,2.4) {abstract input/result};
+  \node[meaning] (memory) at (0,1.2) {related byte region};
+  \node[meaning] (control) at (0,0) {semantic control point};
+  \node[meaning] (outcome) at (0,-1.2) {related outcome};
+  \node[machine] (a) at (-4,2.4) {A0 \(r_0,M,pc,O\)};
+  \node[machine] (r) at (4,2.4) {RV64 \texttt{a0}, memory, pc};
+  \node[machine] (x) at (4,-1.2) {x86 \texttt{RAX}, memory, RIP};
+  \draw[arr] (a) -- (value);
+  \draw[arr] (value) -- (r);
+  \draw[arr] (outcome) -- (x);
+  \draw[dashed,gray-500] (a) -- (memory);
+  \draw[dashed,gray-500] (a) -- (control);
+  \draw[dashed,gray-500] (r) -- (memory);
+  \draw[dashed,gray-500] (r) -- (control);
+  \draw[dashed,gray-500] (x) -- (memory);
+  \draw[dashed,gray-500] (x) -- (control);
+  \node[font=\scriptsize,text=gray-600,align=center] at (-4,-.5)
+    {conditions and scratch\\related only when needed};
+\end{tikzpicture}

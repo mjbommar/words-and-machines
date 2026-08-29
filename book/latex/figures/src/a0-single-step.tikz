@@ -1,0 +1,27 @@
+% A0 fetch/decode/execute pipeline with failure exits.
+\begin{tikzpicture}[
+  stage/.style={draw=accent-700, fill=accent-50, rounded corners=2pt,
+    minimum width=2.25cm, minimum height=0.82cm,
+    align=center, font=\small},
+  check/.style={diamond, draw=gray-600, fill=gray-100,
+    aspect=2.1, align=center, font=\scriptsize},
+  stop/.style={draw=ml-amber-800, fill=ml-amber-50, rounded corners=2pt,
+    minimum width=2.1cm, minimum height=0.72cm,
+    align=center, font=\small},
+  arr/.style={->, >=stealth, line width=0.75pt, gray-600}]
+  \node[stage] (state) at (-5.2,0) {running state\\+ program};
+  \node[check] (fetch) at (-2.5,0) {fetch\\valid?};
+  \node[check] (decode) at (0,0) {decode\\legal?};
+  \node[stage] (apply) at (2.5,0) {evaluate operands\\apply effects};
+  \node[stage] (next) at (5.2,0) {next state\\or halt};
+  \node[stop] (ftrap) at (-2.5,-2.0) {fetch trap};
+  \node[stop] (dtrap) at (0,-2.0) {decode trap};
+  \node[stop] (etrap) at (2.5,-2.0) {execution trap};
+  \draw[arr] (state) -- (fetch);
+  \draw[arr] (fetch) -- node[above,font=\scriptsize]{yes} (decode);
+  \draw[arr] (decode) -- node[above,font=\scriptsize]{yes} (apply);
+  \draw[arr] (apply) -- (next);
+  \draw[arr] (fetch) -- node[right,font=\scriptsize]{no} (ftrap);
+  \draw[arr] (decode) -- node[right,font=\scriptsize]{no} (dtrap);
+  \draw[arr] (apply) -- node[right,font=\scriptsize]{failure} (etrap);
+\end{tikzpicture}

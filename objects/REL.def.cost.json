@@ -1,0 +1,9 @@
+{
+  "id": "REL.def.cost", "kind": "definition", "part": 3,
+  "title": "Declared program cost",
+  "statement": "A cost model is an explicit function from programs and any declared context to an ordered cost; instruction count, encoded bytes, and abstract weights are different models.",
+  "formal": {"language": "prose", "statement": "cost : Program x Context -> OrderedCost"},
+  "epistemic_status": "stated", "depends_on": ["REL.def.candidate-language"], "evidence": [],
+  "book": {"chapter": "ch13-languages-costs", "label": "def:cost", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

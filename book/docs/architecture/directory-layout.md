@@ -16,7 +16,7 @@ book-template/
 │   ├── preamble/             # main, packages, fonts, colors, geometry,
 │   │                         # styling, boxes, code, verse, commands, hyperref-last
 │   ├── chapters/             # ch01-*.tex … (canonical content)
-│   ├── frontmatter/          # halftitle, titlepage, copyright, dedication, epigraph
+│   ├── frontmatter/          # halftitle, titlepage, copyright, preface
 │   ├── backmatter/           # acknowledgments, about-author, colophon
 │   ├── bib/references.bib
 │   ├── figures/

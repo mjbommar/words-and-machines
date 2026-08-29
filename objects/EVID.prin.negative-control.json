@@ -1,0 +1,8 @@
+{
+  "id": "EVID.prin.negative-control", "kind": "principle", "part": 3,
+  "title": "Every checked route has a firing negative control",
+  "statement": "Every checked evidence route must reject a nearby false claim or damaged artifact for a named expected failure class.",
+  "epistemic_status": "stated", "depends_on": ["EVID.def.manifest", "EVID.def.trust-class"], "evidence": [],
+  "book": {"chapter": "ch14-evidence", "label": "prin:negative-control", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "evidence ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
+}

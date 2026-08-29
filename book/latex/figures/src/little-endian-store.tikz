@@ -1,0 +1,26 @@
+% A 32-bit word split across four increasing byte addresses.
+\begin{tikzpicture}[
+  word/.style={draw=accent-700, fill=accent-50, rounded corners=2pt,
+    minimum width=4.6cm, minimum height=0.9cm,
+    align=center, font=\ttfamily\large, text=accent-700},
+  byte/.style={draw=gray-500, fill=gray-100,
+    minimum width=1.25cm, minimum height=0.85cm,
+    align=center, font=\ttfamily\small},
+  arr/.style={->, >=stealth, line width=0.75pt, gray-600}]
+  \node[word] (w) at (0,2.0) {0x12345678};
+  \node[byte] (b8) at (-2.1,0) {78};
+  \node[byte] (b9) at (-0.7,0) {56};
+  \node[byte] (b10) at (0.7,0) {34};
+  \node[byte] (b11) at (2.1,0) {12};
+  \draw[arr] (w) -- (b8);
+  \draw[arr] (w) -- (b9);
+  \draw[arr] (w) -- (b10);
+  \draw[arr] (w) -- (b11);
+  \node[font=\scriptsize] at (-2.1,-0.75) {address 8};
+  \node[font=\scriptsize] at (-0.7,-0.75) {address 9};
+  \node[font=\scriptsize] at (0.7,-0.75) {address 10};
+  \node[font=\scriptsize] at (2.1,-0.75) {address 11};
+  \draw[<->, >=stealth, ml-teal-700, line width=0.7pt]
+    (-2.75,-1.35) -- (2.75,-1.35)
+    node[midway,below,font=\scriptsize]{increasing addresses};
+\end{tikzpicture}

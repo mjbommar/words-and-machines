@@ -1,0 +1,23 @@
+{
+  "id": "I.def.program",
+  "kind": "definition",
+  "part": 1,
+  "title": "Program semantics",
+  "statement": "A straight-line program is a finite sequence of instruction instances interpreted by semantic composition. A program with control flow is interpreted as a transition system over states and traces; termination and the chosen observation must be named before equivalence is stated.",
+  "formal": {
+    "language": "prose",
+    "statement": "run [] s := normal s; run (i::p) s := bind (sem i s) (run p)"
+  },
+  "epistemic_status": "stated",
+  "depends_on": ["I.def.instruction", "I.def.observation"],
+  "evidence": [],
+  "book": {
+    "chapter": "ch05-programs-control",
+    "label": "def:program"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

@@ -1,0 +1,134 @@
+%% preface.tex — purpose, audience, method, and reading guidance.
+\chapter{Preface}
+
+\begin{quotation}
+``[T]his arithmetic by 0 and 1 is found to contain the mystery.''
+
+---Gottfried Wilhelm Leibniz, ``Explanation of Binary Arithmetic''
+\autocite{leibniz1703binary}
+\end{quotation}
+
+Leibniz found mystery in an exact rule. With only zero and one, he could
+represent numbers and calculate with them. Three centuries later, the same
+two marks describe the words stored in a processor, the instructions that
+transform them, and the proofs that say those transformations are correct.
+The mystery did not disappear as the rules became precise. Precision gave it
+somewhere to live.
+
+This book begins with a modest question: what does it take to establish a
+claim about machine code? The question leads farther than its size suggests.
+A compiler replaces one instruction sequence with another. A programmer says
+that a sequence is the shortest possible. An instruction-set manual prints a
+table found by exhaustive search. Each statement concerns a finite machine,
+yet words such as \emph{every}, \emph{equivalent}, and \emph{shortest} reach
+beyond the examples anyone can inspect.
+
+That reach is one source of the subject's beauty. A short program can still
+denote a function on every possible input state in its finite domain. A finite
+formula can ask whether any of those inputs makes the program fail. A finite
+refutation can sometimes rule out every cheaper program in a declared
+language. Small written objects can carry universal claims about machines.
+This book studies when they really do.
+
+Testing remains indispensable. It can expose an error in a proposed program.
+It cannot by itself show that two programs agree on every input, or that no
+cheaper program exists. For those claims we need mathematics, and we need to
+know exactly what the machine evidence establishes.
+
+The chapters first build a machine without choosing a commercial instruction
+set. They develop words, registers, memory, machine state, operand forms, and
+instructions as functions. This foundation lets us compare features often
+grouped under the labels reduced instruction set computer (RISC) and complex
+instruction set computer (CISC): explicit and implicit operands,
+load-store rules and memory operands, fixed and variable encodings, condition
+flags, and instruction extensions. RISC-V and x86-64 then become sustained
+contrasting companions. Optional vector extensions appear only when the scalar
+model's boundary is itself the subject.
+
+After that foundation, the book turns to equivalence, lower bounds, cost
+models, proof certificates, and exhaustive search. The deeper subject is the
+passage from an executable example to a statement that ranges over every
+allowed case. No particular instruction set owns that passage.
+
+Readers should know how programs and processors work. Experience with
+a compiler, assembler, or systems code is enough preparation. No prior work
+with satisfiability solvers, proof assistants, or proof certificates is
+assumed. The mathematics uses functions, finite sets, elementary algebra,
+logic, and proof by contradiction. Each piece of notation arrives with the
+problem that needs it.
+
+The intended reader is willing to stop at a small example and ask what has
+actually been defined. That habit matters more than prior formal training. A
+compiler engineer may recognize every instruction in an example yet still
+need to state which flags a rewrite preserves. A verification student may
+know the solver vocabulary yet still need to follow an effective address into
+memory. The book brings those two kinds of care together.
+
+It can be read in three ways. For a first pass, execute the A0 examples by
+hand, follow the paired RV64 and x86-64 comparisons, and attempt the exercises
+marked by a concrete verb such as Execute, Break, or Transfer. For a course in
+semantics, add the definitions and reader proofs, requiring each answer to
+name its state and observation. For a course or reading group in
+machine-assisted proof, reproduce the artifact routes and their negative
+controls. The paths differ in depth, but none should reverse the dependency
+order: words before states, states before steps, steps before programs, and
+program meaning before optimization.
+
+Examples use small widths because a reader should be able to inspect every
+case that carries the explanation. The real architectures retain their real
+64-bit widths where the rule depends on them. Moving between those scales is
+part of the method. A width-four table reveals a carry boundary; algebra says
+which positive widths share it; a bit-vector route checks a declared machine
+instance. The text identifies which step supplies which reach.
+
+Figures and colored panels are working parts of the exposition. Definitions
+fix objects. Key-idea panels state distinctions worth carrying forward.
+Warnings isolate attractive mistakes. Proof kits expose the shape of an
+argument before its details. Artifact panels bind a claim to evidence. A
+reader should be able to cover any panel and recover its role from the
+surrounding prose; the panel organizes the explanation but never replaces it.
+
+Two rules govern the book.
+
+First, scope is part of every technical claim. A statement about an
+instruction sequence must name the word width, allowed instructions, operand
+forms, constants, and cost model that give the statement its meaning. Change
+one of them and the answer may change. Scope is not fine print around a
+theorem. It is part of the theorem.
+
+Second, every main theorem has a reader proof and a machine proof. The reader
+proof is small enough to reconstruct with pencil and paper. It may use an
+invariant, a case split, or a replay. The machine proof runs the complete
+stated instance against a stored artifact. One supplies understanding; the
+other supplies coverage. A solver output is not an explanation, and an
+explanation is not a complete check of a large search space.
+
+The evidence is recorded in objects. Each object joins a statement to its
+scope, artifact, checking route, and evidence status. A negative control sends
+a nearby false claim or damaged artifact through the same route. The checker
+must reject it. This modest demand catches a surprisingly empty ceremony: a
+checker that reports success no matter what it receives.
+
+Different objects justify different kinds of belief. Some rely on a solver
+verdict. Some carry a certificate that a separate program checks. Others
+reproduce a finite calculation or enter a proof-assistant kernel. The text
+keeps these routes distinct. A bounded calculation does not become a theorem
+for every width, and a solver verdict does not become a kernel proof because
+both happen to end successfully.
+
+The exercises are part of the development. They ask the reader to reproduce
+a result, damage an artifact, alter a machine, find a boundary, or carry an
+argument one step farther. At several points the exercises stop where the
+present proof library stops. An honest boundary is not a defect in the
+subject. It is where the next piece of mathematics begins.
+
+The accompanying repository contains the object ledger, evidence artifacts,
+checkers, and build instructions. The mathematics can be studied without
+running the software. Running it reveals another part of the beauty: a claim
+about every input eventually becomes particular bytes, read by a particular
+program, with a particular way to fail.
+
+The Introduction starts with fixed-width addition and asks which surrounding
+state gives that operation its meaning. Chapter 1 then constructs one machine
+word. From that smallest exact object, the book builds state, instructions,
+memory, programs, two real architectures, and finally the claims we can prove.

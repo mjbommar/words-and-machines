@@ -1,0 +1,22 @@
+% One stored pattern, several declared readings.
+% Build with `make figures`; include as figures/word-readings.pdf.
+\begin{tikzpicture}[
+  pattern/.style={draw=accent-700, fill=accent-50, rounded corners=2pt,
+    minimum width=3.0cm, minimum height=0.9cm,
+    font=\ttfamily\large, text=accent-700},
+  reading/.style={draw=gray-500, fill=gray-100, rounded corners=2pt,
+    minimum width=3.1cm, minimum height=0.8cm,
+    align=center, font=\small},
+  arr/.style={->, >=stealth, line width=0.7pt, gray-500}]
+  \node[pattern] (bits) at (0,0) {11111111};
+  \node[reading] (unsigned) at (-4.4,1.5) {unsigned integer\\255};
+  \node[reading] (signed) at (0,2.2) {signed integer\\-1};
+  \node[reading] (mask) at (4.4,1.5) {Boolean mask\\eight selected bits};
+  \node[reading] (byte) at (-3.0,-2.0) {memory byte\\at one address};
+  \node[reading] (encoding) at (3.0,-2.0) {instruction byte\\inside a decoder};
+  \draw[arr] (bits) -- (unsigned);
+  \draw[arr] (bits) -- (signed);
+  \draw[arr] (bits) -- (mask);
+  \draw[arr] (bits) -- (byte);
+  \draw[arr] (bits) -- (encoding);
+\end{tikzpicture}

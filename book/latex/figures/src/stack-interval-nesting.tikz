@@ -1,0 +1,20 @@
+% Half-open stack intervals for two nested frames.
+\begin{tikzpicture}[font=\small,
+  addrlabel/.style={font=\scriptsize,text=gray-700},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \draw[very thick,gray-500] (0,0) -- (10,0);
+  \fill[accent-50] (1.2,-.42) rectangle (8.8,.42);
+  \draw[thick,accent-700] (1.2,-.42) rectangle (8.8,.42);
+  \fill[ml-amber-50] (1.2,-.32) rectangle (4.6,.32);
+  \draw[thick,ml-amber-800] (1.2,-.32) rectangle (4.6,.32);
+  \draw (1.2,-.58)--(1.2,.58) (4.6,-.58)--(4.6,.58) (8.8,-.58)--(8.8,.58);
+  \node[addrlabel,below] at (1.2,-.62) {\(s-F-G\)};
+  \node[addrlabel,below] at (4.6,-.62) {\(s-F\)};
+  \node[addrlabel,below] at (8.8,-.62) {\(s\)};
+  \node[text=ml-amber-800] at (2.9,1.0) {nested frame \(G\)};
+  \node[text=accent-700] at (6.7,1.0) {current frame \(F\)};
+  \draw[arr] (9.5,.75)--(9.5,-.75);
+  \node[addrlabel,right] at (9.55,0) {lower addresses};
+  \node[font=\scriptsize,text=gray-600,align=center] at (5,-1.45)
+    {The intervals are adjacent and disjoint: \([s-F-G,s-F)\) and \([s-F,s)\).};
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+% Obligations between a computed destination and execution at that address.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.86cm,align=center},
+  gate/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.25cm,minimum height=.86cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (value) at (-5.0,0) {calculated value\\register or memory};
+  \node[gate] (form) at (-2.5,0) {architectural\\target rule};
+  \node[gate] (valid) at (0,0) {alignment and\\address validity};
+  \node[gate] (policy) at (2.5,0) {control policy\\when modeled};
+  \node[box] (fetch) at (5.0,0) {fetch and decode\\at destination};
+  \draw[arr] (value)--(form);
+  \draw[arr] (form)--(valid);
+  \draw[arr] (valid)--(policy);
+  \draw[arr] (policy)--(fetch);
+  \node[font=\scriptsize,text=gray-600,align=center] at (0,-1.15)
+    {Computing an address does not by itself justify execution from that address.};
+\end{tikzpicture}

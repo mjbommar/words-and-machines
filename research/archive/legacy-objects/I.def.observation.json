@@ -1,0 +1,23 @@
+{
+  "id": "I.def.observation",
+  "kind": "definition",
+  "part": 1,
+  "title": "Observation of machine state",
+  "statement": "An observation is a declared function from complete machine states to the portion of state a claim compares. Two states may agree under one observation while differing in scratch registers, flags, memory, or exceptional outcome; the observation is therefore part of an equivalence claim.",
+  "formal": {
+    "language": "prose",
+    "statement": "observe : State w -> Observable; equiv_obs p q := forall s, observe (p s) = observe (q s)"
+  },
+  "epistemic_status": "stated",
+  "depends_on": ["I.def.machine-state"],
+  "evidence": [],
+  "book": {
+    "chapter": "ch02-state",
+    "label": "def:observation"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.program", "kind": "definition", "part": 1,
+  "title": "A0 program",
+  "statement": "An A0 program is a finite instruction-byte map together with an entry program counter and declared code-address range.",
+  "formal": {"language": "prose", "statement": "Program = code memory x entry PC x code range"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.decode", "A0.def.state"], "evidence": [],
+  "book": {"chapter": "ch05-programs-control", "label": "def:a0-program", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

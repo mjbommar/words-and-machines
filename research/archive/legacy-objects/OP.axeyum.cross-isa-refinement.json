@@ -1,0 +1,20 @@
+{
+  "id": "OP.axeyum.cross-isa-refinement",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Cross-ISA observational refinement",
+  "statement": "Define and check a relation between the RISC-V and x86-64 teaching states so paired examples can establish the same architecture-neutral operation under explicit preconditions and observations without equating unlike hidden state.",
+  "formal": {
+    "language": "none",
+    "statement": "relate : State_rv64 -> State_x86 -> Prop; paired_refinement p q := related inputs imply related outcomes"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "depends_on": ["OP.axeyum.riscv-semantics", "OP.axeyum.x86-semantics", "I.def.observation"],
+  "evidence": [],
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

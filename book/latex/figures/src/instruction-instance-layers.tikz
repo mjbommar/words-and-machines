@@ -1,0 +1,15 @@
+% The layers hidden behind one printed instruction.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.4cm,minimum height=.86cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (bytes) at (-5,0) {instruction\\bytes};
+  \node[box] (instance) at (-2.5,0) {operation + form +\\concrete operands};
+  \node[box] (reads) at (0,0) {values and state\\read before writes};
+  \node[box] (effects) at (2.5,0) {explicit and\\implicit effects};
+  \node[box] (next) at (5,0) {complete successor\\or failure};
+  \draw[arr] (bytes)--(instance);
+  \draw[arr] (instance)--(reads);
+  \draw[arr] (reads)--(effects);
+  \draw[arr] (effects)--(next);
+\end{tikzpicture}

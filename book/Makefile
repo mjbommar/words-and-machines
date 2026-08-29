@@ -51,7 +51,7 @@ endef
         slop pangram verify-citations doctor validate-all release watch \
         ontology craft brief \
         simplified simplified-lexicon test-simplified calibrate-simplified \
-        test-compose \
+        test-compose test-formats \
         clean help
 
 help: ## list targets
@@ -74,6 +74,7 @@ pdf: generated ## print interior PDF (trim size, black links)
 	$(call say,"build/latex/book-print$(JOB_SUFFIX).pdf")
 
 quick: generated ## fast single-pass draft compile
+	mkdir -p $(BUILD)/latex
 	cd latex && $(ENGINE) -interaction=batchmode -output-directory=$(BUILD)/latex \
 	  -jobname=book-quick main.tex || (tail -30 $(BUILD)/latex/book-quick.log; exit 1)
 	$(call say,"build/latex/book-quick.pdf (single pass; refs may be stale)")
@@ -159,6 +160,9 @@ test-simplified: ## SBE checker regression tests
 test-compose: ## outline composer regression tests
 	@$(COMPOSE_UV) python -m unittest tests.test_outline_composer -v
 
+test-formats: ## trim catalog, KDP limits, and cover-formula regression tests
+	@$(UV) python -m unittest tests.test_trim_catalog -v
+
 calibrate-simplified: ## score the nine held-out sibling book projects
 	@$(SBE_UV) scripts/calibrate_simplified.py
 
@@ -228,7 +232,7 @@ verify-citations: ## URL reachability + verified= + archived= gates (network)
 doctor: ## toolchain, fonts, drift audit
 	@$(UV) scripts/doctor.py
 
-validate-all: pdf bleed ebook epub epub-a11y kdp-cover preflight cover-ink check test-simplified test-sbe-study doctor ## full gate
+validate-all: pdf bleed ebook epub epub-a11y kdp-cover preflight cover-ink check test-simplified test-sbe-study test-formats doctor ## full gate
 	$(call say,"validate-all: all gates passed")
 
 # ---------------- lifecycle ----------------

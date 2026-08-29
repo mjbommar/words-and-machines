@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.byte", "kind": "definition", "part": 1,
+  "title": "A0 byte split and join",
+  "statement": "A byte is an eight-bit word. Splitting lists consecutive eight-bit chunks from least significant to most significant; little-endian joining places chunk i at weight 2^(8i).",
+  "formal": {"language": "prose", "statement": "join_le(split_le(x)) = x when width is a positive multiple of 8"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.word"], "evidence": [],
+  "book": {"chapter": "ch01-words-meanings", "label": "def:a0-byte", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

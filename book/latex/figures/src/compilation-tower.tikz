@@ -1,0 +1,12 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-500,fill=gray-100,rounded corners=2pt,minimum width=5cm,minimum height=.62cm,align=center},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=accent-700}
+]
+  \node[box] (s) at (0,4.5) {source language};
+  \node[box] (i) at (0,3.4) {intermediate forms};
+  \node[box] (a) at (0,2.3) {assembly};
+  \node[box] (o) at (0,1.2) {object files};
+  \node[box] (l) at (0,.1) {linked image};
+  \node[box,fill=accent-50,draw=accent-700] (m) at (0,-1) {loaded machine state};
+  \foreach \x/\y in {s/i,i/a,a/o,o/l,l/m} \draw[arr] (\x)--node[right]{preserve meaning}(\y);
+\end{tikzpicture}

@@ -1,0 +1,261 @@
+\chapter{Superseded Solver-Led Words Draft}
+\label{ch:words}
+
+The byte \code{11111111} is eight marks on a page. A processor can hold the
+same pattern in eight switches. We may read it as the natural number 255, the
+signed integer -1, a mask with every switch on, or the result of an
+exceptional operation. The bits remain unchanged while their mathematical
+role changes. They do not choose their own meaning. An operation and its
+specification do.
+
+Begin with a four-bit counter. It visits 0 through 15. Add one to 15, and the
+counter returns to 0. There is no fifth position to hold the 16. Add two, and
+it stops at 1. The machine has not made an arithmetic mistake. It is counting
+in a finite circle.
+
+That small circle is the first mathematical object we need.
+
+\section{The word of width \(n\)}
+\label{sec:word}
+
+\begin{definition}[title={Word \(n\)}]
+Let \(n \geq 1\). The \keyterm{word of width \(n\)} is the set of residues
+modulo \(2^n\), written \(\mathbf{Z}/2^n\mathbf{Z}\). We represent its
+elements by the natural numbers \(0,1,\ldots,2^n-1\). Addition and
+multiplication use the ordinary result and then keep its remainder modulo
+\(2^n\).
+
+For \(0 \leq i < n\), bit \(i\) of a word \(x\) is
+\((x \div 2^i) \bmod 2\). Bitwise \emph{and}, \emph{or}, and \emph{xor}
+apply their Boolean operation at each bit position. A left shift by \(k\)
+multiplies by \(2^k\) and reduces modulo \(2^n\). A logical right shift by
+\(k\) takes the quotient after division by \(2^k\), rounded down to a whole
+number.
+\end{definition}
+
+Here \(\mathbf{Z}\) means the integers. The quotient notation groups together
+integers that differ by a multiple of \(2^n\). No special notation is needed
+to calculate. Take the ordinary result and keep the remainder after division
+by \(2^n\).
+
+At width four, this rule turns \(15+1\) into 0 and \(15+2\) into 1. It does
+not pretend that the natural numbers 16 and 17 have vanished. It says that 16
+and 0 represent the same stored word at this width, as do 17 and 1.
+
+The construction is small, but its consequences spread through the book. A
+word of width \(n\) has exactly \(2^n\) possible values. An instruction on one
+register is therefore a function on a finite set, or on a product of finite
+sets when it takes several inputs. Every later statement about instruction
+equivalence compares such functions. Every later exhaustive search depends
+on the fact that their domains have edges we can name and, sometimes, count.
+
+There is beauty in this compression. The same \(n\) bits can be printed as a
+string, stored as a physical state, read as a number, and passed as the input
+to a function. Those descriptions are not identical, but an exact semantics
+lets us move among them without losing the object.
+
+Axeyum is the reasoning software used to check this book's solver-backed
+objects. It constructs the natural numbers used here without assumptions. The
+present stack can build fixed-width bit-vector terms from those naturals, but
+it does not yet package this definition as one reusable word library inside
+the kernel. This limit matters: rebuilding fixed widths is not the same as
+stating and checking the laws once for every positive width.
+
+\begin{artifact}{W.def.word}
+This object fixes the mathematical carrier used throughout the book. The
+current kernel route rebuilds a word at the needed width. A reusable word
+prelude, with the operations and laws developed once for every positive width,
+is tracked by \obj{OP.kernel.word-prelude}.
+\ArtifactScope{W.def.word}
+\end{artifact}
+
+We now know which values fit in a word. We do not yet know what every
+operation should do at its awkward edges. Division gives us the first choice.
+
+\section{Why division needs an answer}
+\label{sec:totality}
+
+In ordinary integer arithmetic, \(7\div2\) has a quotient and a remainder.
+The expression \(7\div0\) has neither. A machine specification cannot leave
+the corresponding bit-vector operation half described and still expect a
+compiler, solver, and hardware model to compare the same function.
+
+Fixed-size bit-vector logic therefore makes its operations total: every pair
+of input words receives an output word. Totality does not force one particular
+answer to division by zero. It forces the specification to choose an answer.
+Once chosen, the awkward edge becomes as exact as any ordinary input.
+
+SMT-LIB's fixed-size bit-vector theory chooses two base rules. Unsigned
+division by zero returns the all-ones word. Unsigned remainder by zero returns
+the dividend. Signed division is defined from unsigned division and
+two's-complement signs. With a zero divisor, it returns 1 for a negative
+dividend and the all-ones word otherwise \autocite{smtlibfixedbv}.
+
+At width four, all ones is \code{1111}. Its unsigned reading is 15. Under the
+signed two's-complement reading it is -1: because the high bit is one, subtract
+\(2^4\) from 15. One pattern now serves two statements. Unsigned division by
+zero returns 15; the zero-or-positive branch of signed division by zero returns
+-1. The returned bits agree. The readings differ.
+
+These rules are design conventions, not consequences of ordinary division.
+Yet after we adopt the standard as our semantics, they become mathematical
+claims about a completely specified function. We can ask whether they hold
+for one example, for every byte, or for every positive width. Those are three
+different questions.
+
+\section{Turning every input into one question}
+\label{sec:refuting-opposite}
+
+For a byte \(x\), the unsigned claim is
+
+\[
+x\div_u0=255
+\qquad\mbox{for every }x\in\mathbf{Z}/256\mathbf{Z}.
+\]
+
+The reader proof is one line once the operation has been defined. The divisor
+is zero, so the zero-divisor branch returns the word whose eight bits are all
+one. Under the unsigned reading, that word is 255. The input \(x\) never
+affects the selected branch or its result.
+
+The machine route approaches the same sentence from the other side. It asks
+for a \keyterm{counterexample}: one byte \(x\) such that
+\(x\div_u0\ne255\). If the solver finds one, the original claim fails. If the
+encoded formula has no solution, no byte in the width-eight domain violates
+the claim. The universal statement has become a search for one exception.
+
+\begin{artifact}{W.thm.udiv0}
+Its artifact, \code{bvudiv-by-zero-is-allones.smt2}, contains the negated
+width-eight statement. The checker sends it through Axeyum's bit-vector solver
+route and expects the verdict that no counterexample exists.
+\ArtifactScope{W.thm.udiv0}
+\end{artifact}
+
+The two proofs meet at the zero-divisor branch. A reader can see why the input
+cannot matter. The machine route checks every byte under the actual
+encoding used by the book. Neither tells us why the standard's designers
+preferred this result. Mathematics can expose the consequence of a convention
+without inventing a necessity behind the choice.
+
+This modest example contains a pattern of surprising reach. To establish a
+statement about 256 inputs, we do not recite 256 successful calculations. We
+describe one function, turn failure into a formula, and ask whether any
+counterexample exists. The finite domain remains real; the proof makes its
+structure do the work.
+
+\section{Two neighboring rules}
+\label{sec:neighboring-rules}
+
+Unsigned remainder uses a different zero-divisor branch. At width four,
+\(x\bmod_u0=x\). The reader proof again selects the defining branch, but this
+time the returned word depends on the dividend. The width-eight machine query
+asks whether any byte differs from its own remainder by zero.
+
+\begin{artifact}{W.thm.urem0}
+This artifact asks for a width-eight counterexample to \(x\bmod_u0=x\). The
+same Axeyum route checks the formula.
+\ArtifactScope{W.thm.urem0}
+\end{artifact}
+
+Signed division adds a case split. Read the high bit as the sign. If it is
+one, the dividend is negative and division by zero returns the word for 1. If
+it is zero, the operation returns all ones, whose signed reading is -1. Every
+four-bit word enters exactly one branch. That split is the reader proof. At
+width eight, the formula represents the same split with a signed comparison.
+
+\begin{artifact}{W.thm.sdiv0}
+This artifact asks for a byte on which the signed zero-divisor case differs
+from the two-branch result. Its scope names both the width and the SMT-LIB
+semantics being checked.
+\ArtifactScope{W.thm.sdiv0}
+\end{artifact}
+
+All three arguments have the same outer shape: choose the zero-divisor branch,
+state its result, and search for a counterexample. Inside that shape, the
+functions differ. One returns all ones, one returns its input, and one chooses
+between two results by a sign. The phrase \emph{division by zero} is too vague
+to preserve these distinctions. The exact operation makes them visible.
+
+\section{Make the checker lose}
+\label{sec:negative-control}
+
+Now give the same route a false rule: unsigned division by zero returns zero.
+At width four, the specified branch returns 15 instead. Every dividend exposes
+the error. At width eight, the solver should find a counterexample rather than
+report that none exists.
+
+A \keyterm{negative control} is this deliberate failure. It tests whether the
+checking route distinguishes the expected claim from a nearby false one. The
+control is evidence about the checker, not another proof of the theorem.
+
+\begin{keyidea}[title={A checker that cannot fail}]
+If a checker reports the desired answer for every input, a true claim cannot
+distinguish it from a broken checker. A false neighbor can. The book therefore
+sends positive evidence and a negative control through the same route.
+\end{keyidea}
+
+\begin{artifact}{W.ctl.udiv0-wrong}
+This object asserts the negation of the false zero-result rule. The checker
+expects a counterexample to exist; reversing that expectation is itself the
+control that must fail.
+\ArtifactScope{W.ctl.udiv0-wrong}
+\end{artifact}
+
+This failed control has its own austere elegance. We learn something about a
+successful check by arranging a neighboring check that must not succeed.
+Correct rejection becomes evidence. The machinery earns trust not by being
+infallible, but by showing one precise way in which it can say no.
+
+That attack still has a boundary. It catches a route that gives the same
+verdict to every formula. It cannot catch every shared mistake. If the theorem
+and its control use the same bad encoding of division, both may behave as
+expected for the wrong reason. Independent semantics or a second checker
+would narrow that trust boundary.
+
+\section{What the verdict carries}
+\label{sec:verdict}
+
+All three theorem objects use a \keyterm{front-door verdict}. The command-line
+program reads an SMT-LIB formula and reports whether a counterexample exists.
+Axeyum checks the solver result inside that route, but the command used for
+these objects does not export a separate certificate for another checker to
+read. The reproducible verdict and firing control are the evidence we have.
+An exported-certificate claim would require another object and another route.
+
+The boundary has three layers. These formulas cover width eight. Axeyum's
+current front door checks them but exports no certificate. Its kernel does not
+yet contain a reusable word theory that states these laws once for every
+positive width. None of those limits weakens the width-eight statement. Each
+prevents us from silently making it stronger.
+
+We began with eight marks that did not choose their own meaning. We end with a
+specified function, a statement about every byte, two ways to support that
+statement, and a deliberate false neighbor that the checker rejects. The
+distance between those points is the work of semantics and proof.
+
+One word is not yet a machine. A running program also needs places for words,
+a place in the program, memory, and a record of exceptional outcomes. Chapter
+2 assembles those parts into a state that an instruction can change.
+
+\section{Exercises}
+
+\begin{enumerate}
+\item List all sixteen width-four words. Check by hand that unsigned division
+by zero returns \code{1111} for each one, then reproduce the width-eight
+object \obj{W.thm.udiv0}.
+\item Change the expected result in the unsigned-division formula from all
+ones to zero. Predict a counterexample before running the checker. Explain why
+the changed formula is a useful control but not evidence for the original
+claim by itself.
+\item State \obj{W.thm.udiv0} for every positive width at once. List the pieces
+a reusable kernel proof would need that 256 fixed-width cases do not supply.
+\item Show that there are \(2^n\) words of width \(n\) and
+\(2^{n2^n}\) functions from words to words. Explain why this large function
+count does not make the division-by-zero proof difficult.
+\item Design a different total result for unsigned division by zero. Name one
+definition, one compiler transformation, and one checker expectation that
+would have to change so that all three still describe the same operation.
+\item The same eight bits can represent 255, -1, a mask, or an exceptional
+result. Give one additional interpretation. State what information must be
+supplied before the bit pattern acquires that meaning.
+\end{enumerate}

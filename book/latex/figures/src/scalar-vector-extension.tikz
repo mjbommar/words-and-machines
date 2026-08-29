@@ -1,0 +1,14 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-500,fill=gray-100,minimum width=1.4cm,minimum height=.72cm,align=center},
+  active/.style={box,fill=accent-50,draw=accent-700},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=accent-700}
+]
+  \node[anchor=east] at (-.6,1.5) {scalar};
+  \node[box] (sw) at (1,1.5) {word}; \node[active] (sx) at (4,1.5) {$x$};
+  \draw[arr] (sw)--(sx);
+  \node[anchor=east] at (-.6,0) {vector};
+  \foreach \x in {0,...,3} {\node[active] (v\x) at ({1.6*\x},0) {lane \x}; \node[above=2pt] at (v\x.north) {mask};}
+  \node[active] (merge) at (8,0) {lane merge};
+  \foreach \x in {0,...,3} \draw[arr] (v\x)--(merge);
+  \node[below=5pt,text=gray-600] at (2.4,-.45) {active lanes and tail policy};
+\end{tikzpicture}

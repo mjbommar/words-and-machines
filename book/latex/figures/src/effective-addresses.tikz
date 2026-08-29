@@ -1,0 +1,28 @@
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=gray-600,rounded corners=2pt,minimum height=.72cm,align=center},
+  arr/.style={->,>=stealth,gray-600,thick}]
+  \node[box,fill=accent-50,minimum width=2.4cm] (a0b) at (0,2.2) {base register};
+  \node[box,fill=ml-amber-50,minimum width=2.4cm] (a0i) at (3.2,2.2) {sign-extended imm8};
+  \node[box,fill=ml-teal-50,minimum width=2.4cm] (a0e) at (6.4,2.2) {A0 address};
+  \draw[arr] (a0b) -- node[above]{+} (a0e);
+  \draw[arr] (a0i) -- (a0e);
+
+  \node[box,fill=accent-50,minimum width=2.4cm] (rvb) at (0,.7) {\texttt{rs1}};
+  \node[box,fill=ml-amber-50,minimum width=2.4cm] (rvi) at (3.2,.7) {sign-extended imm12};
+  \node[box,fill=ml-teal-50,minimum width=2.4cm] (rve) at (6.4,.7) {RV64 address};
+  \draw[arr] (rvb) -- node[above]{+} (rve);
+  \draw[arr] (rvi) -- (rve);
+
+  \node[box,fill=accent-50,minimum width=1.65cm] (xb) at (-.5,-.8) {base};
+  \node[box,fill=accent-50,minimum width=1.65cm] (xi) at (1.55,-.8) {index};
+  \node[box,fill=ml-blue-50,minimum width=1.3cm] (xs) at (3.45,-.8) {scale};
+  \node[box,fill=ml-amber-50,minimum width=1.65cm] (xd) at (5.45,-.8) {displacement};
+  \node[box,fill=ml-teal-50,minimum width=1.7cm] (xe) at (8.0,-.8) {x86 offset};
+  \draw[arr] (xb) -- (xe);
+  \draw[arr] (xi) -- node[above]{\(\times\)} (xs);
+  \draw[arr] (xs) -- (xe);
+  \draw[arr] (xd) -- (xe);
+  \node[font=\scriptsize,anchor=east] at (-1.35,2.2) {A0};
+  \node[font=\scriptsize,anchor=east] at (-1.35,.7) {RV64I};
+  \node[font=\scriptsize,anchor=east] at (-1.35,-.8) {x86-64};
+\end{tikzpicture}

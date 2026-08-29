@@ -38,9 +38,9 @@ build instead and tell KDP the manuscript has bleed.
 
 | Attribute | Value | Notes |
 |---|---|---|
-| Trim size | from `trim.preset` in `book.yaml` | 6×9 US Trade default; 7×10, 5.5×8.5, 5×8 presets |
+| Trim size | from `trim.preset` in `book.yaml` | This book: 7×10; see `FORMAT-SELECTION.md` for all presets |
 | Page count | `pdfinfo build/book-print.pdf` | Drives spine width and printing cost |
-| Paper | `trim.paper`: white or cream | White for figures/charts; affects spine formula |
+| Paper | `trim.paper`: white, cream, groundwood, standard-color, or premium-color | White suits figures/charts; stock affects limits, cost, and spine formula |
 | Ink | Black & white unless figures require color | Color multiplies printing cost |
 | Bleed | None for standard interiors | Full-bleed art → `make bleed` + 0.125" bleed declared |
 | Fonts | All embedded, vector, no Type 3 | Verify: `pdffonts build/book-print.pdf` |
@@ -71,6 +71,7 @@ from the built print PDF's page count. For sanity checks:
 |---|---|
 | KDP paperback, white paper | `pages × 0.002252` |
 | KDP paperback, cream paper | `pages × 0.0025` |
+| KDP paperback, groundwood paper | `pages × 0.00235` |
 | KDP paperback, standard color | `pages × 0.002252` (white stock) |
 | KDP paperback, premium color | `pages × 0.002347` |
 | Lulu paperback (perfect bound, standard) | `pages / 444 + 0.06` |

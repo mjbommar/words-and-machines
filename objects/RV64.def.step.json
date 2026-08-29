@@ -1,0 +1,9 @@
+{
+  "id": "RV64.def.step", "kind": "definition", "part": 2,
+  "title": "RV64 slice step contract",
+  "statement": "The RV64 step contract gives the complete state change for each selected decoded form, including x0 behavior, program-counter change, memory effects, and declared exceptions.",
+  "formal": {"language": "prose", "statement": "step_RV64 : RV64State x decoded selected instruction -> RV64State"},
+  "epistemic_status": "stated", "depends_on": ["RV64.def.state", "RV64.def.decode"], "evidence": [],
+  "book": {"chapter": "ch08-arithmetic-condition", "label": "def:rv64-step", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

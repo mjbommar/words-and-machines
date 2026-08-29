@@ -1,0 +1,9 @@
+{
+  "id": "REL.def.refinement", "kind": "definition", "part": 3,
+  "title": "Program refinement",
+  "statement": "A target program refines a specification when related allowed inputs produce target behaviors matched by specification behaviors under the declared state and outcome relation.",
+  "formal": {"language": "prose", "statement": "related_inputs(s,t) and run_target(t,t') imply exists s', run_spec(s,s') and related_outputs(s',t')"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.trace"], "evidence": [],
+  "book": {"chapter": "ch11-equivalence-refinement", "label": "def:refinement", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

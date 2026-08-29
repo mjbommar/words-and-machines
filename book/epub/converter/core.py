@@ -184,16 +184,19 @@ class Context:
         self.chapter_index = 0
         self.chapter_file = ""
         self.chapter_title = ""
+        self.document_kind = "chapter"
         self.sections: list[tuple[str, str]] = []
         self.footnotes: list[tuple[str, str, str]] = []
         self.extracted = Extracted()
         self._sec = self._sub = self._fig = self._tab = 0
 
     # -- chapter lifecycle -------------------------------------------------
-    def begin_chapter(self, index: int, fname: str, extracted: Extracted):
+    def begin_chapter(self, index: int, fname: str, extracted: Extracted,
+                      kind: str = "chapter"):
         self.chapter_index = index
         self.chapter_file = fname
         self.chapter_title = ""
+        self.document_kind = kind
         self.sections = []
         self.footnotes = []
         self.extracted = extracted
@@ -402,17 +405,26 @@ def build_book(root: Path, cover: Path, edition: str | None = None) -> Report:
     workdir = root / "build" / "epub-work"
     workdir.mkdir(parents=True, exist_ok=True)
 
-    # Preprocess every chapter (order comes from the metadata json).
-    pre: list[tuple[str, str, Extracted]] = []
+    # Preprocess authored front matter and every chapter. Order comes from the
+    # metadata json, which is generated from the selected edition.
+    pre: list[tuple[str, str, Extracted, str]] = []
+    for tex_name in meta.get("frontmatter", []):
+        tex_path = root / "latex" / "frontmatter" / tex_name
+        if not tex_path.exists():
+            raise BuildError(f"front-matter file not found: {tex_path}")
+        store = Extracted()
+        src = preprocess(tex_path.read_text(), store)
+        pre.append((Path(tex_name).stem + ".xhtml", src, store, "preface"))
     for tex_name in meta["chapters"]:
         tex_path = root / "latex" / "chapters" / tex_name
         if not tex_path.exists():
             raise BuildError(f"chapter not found: {tex_path}")
         store = Extracted()
         src = preprocess(tex_path.read_text(), store)
-        pre.append((Path(tex_name).stem + ".xhtml", src, store))
+        kind = "introduction" if tex_name.startswith("ch00-") else "chapter"
+        pre.append((Path(tex_name).stem + ".xhtml", src, store, kind))
 
-    labels = scan_labels([(f, s) for f, s, _ in pre])
+    labels = scan_labels([(f, s) for f, s, _, _ in pre])
 
     from .handlers import citations, notes  # registry side effects + helpers
     bib = citations.load_bib(root / "latex" / "bib" / "references.bib")
@@ -420,14 +432,18 @@ def build_book(root: Path, cover: Path, edition: str | None = None) -> Report:
 
     # Convert chapters.
     chapters: list[dict] = []
-    for i, (fname, src, store) in enumerate(pre, 1):
-        ctx.begin_chapter(i, fname, store)
+    chapter_number = 0
+    for fname, src, store, kind in pre:
+        if kind == "chapter":
+            chapter_number += 1
+        ctx.begin_chapter(chapter_number, fname, store, kind)
         body = ctx.convert_blocks(TexSoup(src).contents)
         body.append(notes.render_endnotes(ctx))
         chapters.append({
             "file": fname,
-            "title": ctx.plain(ctx.chapter_title) or f"Chapter {i}",
-            "number": i,
+            "title": ctx.plain(ctx.chapter_title) or kind.title(),
+            "number": chapter_number if kind == "chapter" else None,
+            "kind": kind,
             "sections": list(ctx.sections),
             "body": "\n".join(b for b in body if b),
         })

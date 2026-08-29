@@ -1,0 +1,19 @@
+% From operand fields to a committed memory transfer.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.35cm,minimum height=.88cm,align=center},
+  gate/.style={draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,
+    minimum width=2.35cm,minimum height=.88cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[box] (operands) at (-5,0) {old operand values\\and displacement};
+  \node[box] (address) at (-2.5,0) {effective-address\\word arithmetic};
+  \node[gate] (range) at (0,0) {full byte-range\\and policy checks};
+  \node[box] (transfer) at (2.5,0) {assemble load or\\split store value};
+  \node[box] (commit) at (5,0) {one successor\\or one fault outcome};
+  \draw[arr] (operands)--(address);
+  \draw[arr] (address)--(range);
+  \draw[arr] (range)--(transfer);
+  \draw[arr] (transfer)--(commit);
+  \node[font=\scriptsize,text=gray-600,align=center] at (0,-1.15)
+    {Every stage has a distinct mutation that a checker should reject.};
+\end{tikzpicture}

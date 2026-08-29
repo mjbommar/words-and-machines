@@ -14,6 +14,8 @@ def chapter(node, ctx):
     """\\chapter{Title} -> chapter-opening <h1> (one per file)."""
     title = ctx.convert_inline(ctx.arg_nodes(node))
     ctx.chapter_title = title
+    if ctx.document_kind != "chapter":
+        return f'<h1 class="chapter-title" id="chapter-0">{title}</h1>'
     return (
         f'<h1 class="chapter-title" id="chapter-{ctx.chapter_index}">'
         f'<span class="chapter-number">Chapter {ctx.chapter_index}</span> '

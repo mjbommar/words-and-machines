@@ -1,0 +1,22 @@
+{
+  "id": "M.prin.encoding-is-not-semantics",
+  "kind": "principle",
+  "part": 2,
+  "title": "Encoding is not semantics",
+  "statement": "Instruction bytes, a decoded instruction instance, and the state transformation denoted by that instance are three different objects. Fixed or variable encoding length changes decoding and code-size claims; it does not by itself determine semantic complexity.",
+  "formal": {
+    "language": "prose",
+    "statement": "decode : Bytes -> DecodeResult InstructionInstance; sem : InstructionInstance -> State -> Outcome State"
+  },
+  "epistemic_status": "stated",
+  "evidence": [],
+  "book": {
+    "chapter": "ch06-encoding-decoding",
+    "label": "prin:encoding-semantics"
+  },
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}

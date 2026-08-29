@@ -1,0 +1,9 @@
+{
+  "id": "A0.def.word", "kind": "definition", "part": 1,
+  "title": "A0 fixed-width word",
+  "statement": "An A0 word of width w is a residue modulo 2^w with explicit unsigned, signed two's-complement, bit, and byte readings.",
+  "formal": {"language": "prose", "statement": "Word(w) = Z / 2^w Z, for w >= 1"},
+  "epistemic_status": "stated", "evidence": [],
+  "book": {"chapter": "ch01-words-meanings", "label": "def:a0-word", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

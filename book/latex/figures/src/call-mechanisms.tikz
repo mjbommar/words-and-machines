@@ -1,0 +1,22 @@
+% Mechanism-level comparison of call and return paths.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=gray-600,rounded corners=2pt,minimum width=2.25cm,minimum height=.72cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[anchor=east,font=\scriptsize] at (-4.2,2) {A0 core};
+  \node[box,fill=accent-50] (ac) at (-2.7,2) {direct jump};
+  \node[box,fill=ml-amber-50] (ab) at (.2,2) {one fixed body};
+  \node[box,fill=gray-100] (ar) at (3.2,2) {direct fixed return};
+  \draw[arr] (ac) -- (ab); \draw[arr] (ab) -- (ar);
+
+  \node[anchor=east,font=\scriptsize] at (-4.2,.5) {RV64I};
+  \node[box,fill=accent-50] (rc) at (-2.7,.5) {JAL writes \(ra\)};
+  \node[box,fill=ml-amber-50] (rb) at (.2,.5) {procedure body};
+  \node[box,fill=ml-teal-50] (rr) at (3.2,.5) {JALR reads \(ra\)};
+  \draw[arr] (rc) -- (rb); \draw[arr] (rb) -- (rr);
+
+  \node[anchor=east,font=\scriptsize] at (-4.2,-1) {x86-64};
+  \node[box,fill=accent-50] (xc) at (-2.7,-1) {CALL pushes link};
+  \node[box,fill=ml-amber-50] (xb) at (.2,-1) {procedure body};
+  \node[box,fill=ml-teal-50] (xr) at (3.2,-1) {RET pops link};
+  \draw[arr] (xc) -- (xb); \draw[arr] (xb) -- (xr);
+\end{tikzpicture}

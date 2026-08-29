@@ -1,0 +1,15 @@
+% A narrower observation factors through a broader one.
+\begin{tikzpicture}[font=\small,
+  box/.style={draw=accent-700,fill=accent-50,rounded corners=2pt,
+    minimum width=2.8cm,minimum height=.86cm,align=center},
+  obs/.style={draw=ml-teal-700,fill=ml-teal-50,rounded corners=2pt,
+    minimum width=3.0cm,minimum height=.86cm,align=center},
+  arr/.style={->,>=stealth,thick,gray-600},
+  direct/.style={->,>=stealth,dashed,thick,ml-amber-800}]
+  \node[box] (state) at (-4,0) {complete state\\\(S\)};
+  \node[obs] (broad) at (0,0) {register map + outcome\\\(B(S)\)};
+  \node[obs] (narrow) at (4,0) {result register\\\(A(S)\)};
+  \draw[arr] (state)--node[above,font=\scriptsize]{observe}(broad);
+  \draw[arr] (broad)--node[above,font=\scriptsize]{forget more}(narrow);
+  \draw[direct] (state) to[bend right=28] node[below,font=\scriptsize]{same \(A\)} (narrow);
+\end{tikzpicture}

@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+  \draw[thick,draw=accent-700,fill=accent-50,rounded corners=18pt] (0,0) rectangle (8,4);
+  \node[anchor=north west,text=accent-700] at (.25,3.8) {specification behaviors};
+  \draw[thick,draw=ml-teal-700,fill=ml-teal-50,rounded corners=14pt] (2,1) rectangle (6.2,3);
+  \node[text=ml-teal-700] at (4.1,2.7) {implementation behaviors};
+  \foreach \x/\y in {1/1,2.8/1.6,4.2/1.8,5.3/1.4,7/3.1} \fill[gray-600] (\x,\y) circle (2.2pt);
+  \node[draw=ml-amber-800,fill=ml-amber-50,rounded corners=2pt,align=center] at (10,3.1) {forbidden\\extra behavior};
+  \draw[-{Stealth[length=2mm]},dashed,draw=ml-amber-800] (8,3.1)--(8.75,3.1);
+\end{tikzpicture}

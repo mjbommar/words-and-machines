@@ -1,0 +1,21 @@
+{
+  "id": "OP.axeyum.x86-semantics",
+  "kind": "open-problem",
+  "part": 5,
+  "title": "Version-pinned x86-64 decoding and semantics",
+  "statement": "Implement the book's exact x86-64 teaching slice as decoded instruction instances and checked state transformations, including selected flags, register and memory operand forms, partial-register behavior where admitted, and differential mutation controls.",
+  "formal": {
+    "language": "none",
+    "statement": "decode_x86_64 + sem_x86_64 for M.def.x86-foundation-slice"
+  },
+  "epistemic_status": "open",
+  "external_status": "open",
+  "depends_on": ["OP.axeyum.machine-state-memory", "M.def.x86-foundation-slice"],
+  "evidence": [],
+  "notes": "The current AVX2 synthesizers implement restricted shuffle-family semantics for particular searches. They are not an x86-64 decoder or general scalar semantics layer.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "live ../axeyum and current-object audit"
+  }
+}

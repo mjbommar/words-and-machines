@@ -1,0 +1,9 @@
+{
+  "id": "RV64.def.decode", "kind": "definition", "part": 2,
+  "title": "RV64 slice decoder contract",
+  "statement": "The RV64 decoder contract maps one selected base encoding to its decoded instruction or rejects it according to the pinned slice.",
+  "formal": {"language": "prose", "statement": "decode_RV64 : 32-bit encoding -> selected instruction | illegal"},
+  "epistemic_status": "stated", "depends_on": ["RV64.def.slice"], "evidence": [],
+  "book": {"chapter": "ch06-encoding-decoding", "label": "def:rv64-decode", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

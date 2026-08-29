@@ -29,24 +29,18 @@ import sys
 from pathlib import Path
 
 import yaml
+from trim_catalog import TRIM_CATALOG, TRIM_PRESETS
 
 ROOT = Path(__file__).resolve().parent.parent
 BOOK_YAML = ROOT / "book.yaml"
 GENERATED = ROOT / "latex" / "generated"
 BUILD = ROOT / "build"
 
-TRIM_PRESETS = {
-    "6x9": (6.0, 9.0),
-    "7x10": (7.0, 10.0),
-    "5.5x8.5": (5.5, 8.5),
-    "5x8": (5.0, 8.0),
-    "8.5x11": (8.5, 11.0),  # textbook/workbook; KDP "large trim" pricing tier
-}
 FONT_PROFILES = ("libertinus", "garamond", "plex")
 ENGINES = ("lualatex", "xelatex")
 CITATION_STYLES = ("authoryear", "superscript")
 AUDIENCES = ("trade", "academic", "young-readers")
-PAPERS = ("white", "cream", "standard-color", "premium-color")
+PAPERS = ("white", "cream", "groundwood", "standard-color", "premium-color")
 
 PLACEHOLDER_RE = re.compile(r"TODO|FIXME|XXX|\[[A-Za-z][^\]]*\]")
 
@@ -156,6 +150,15 @@ def validate(cfg: dict) -> None:
         fail("typography.base_size must be 10, 11, or 12")
     if get(cfg, "modules.verse", False) and get(cfg, "typography.engine") != "xelatex":
         fail("modules.verse requires typography.engine: xelatex (polyglossia)")
+
+    preset = get(cfg, "trim.preset")
+    platforms = get(cfg, "publishing.platforms", []) or []
+    if (get(cfg, "formats.hardcover", False) and "kdp" in platforms
+            and not TRIM_CATALOG[preset].kdp_hardcover):
+        supported = sorted(name for name, spec in TRIM_CATALOG.items()
+                           if spec.kdp_hardcover)
+        fail("formats.hardcover with publishing.platforms: [kdp] requires "
+             f"a KDP hardcover trim {supported}, got {preset!r}")
 
     kws = get(cfg, "classification.keywords", [])
     if len(kws) > 7:
@@ -314,12 +317,30 @@ def write_edition_tex(ed_name: str, ed: dict) -> list[str]:
     files = [resolve_chapter_file(ch) for ch in ed["chapters"]]
     lines = [
         f"% GENERATED edition '{ed_name}' — do not edit (see book.yaml editions).",
-    ] + [f"\\input{{chapters/{f.stem}}}" for f in files]
+    ]
+    introduction = ed.get("introduction")
+    if introduction:
+        intro_file = resolve_chapter_file(introduction)
+        files = [intro_file, *files]
+        intro_lines = [
+            f"% GENERATED introduction for edition '{ed_name}' — do not edit.",
+            "\\setcounter{secnumdepth}{-1}",
+            f"\\input{{chapters/{intro_file.stem}}}",
+            "\\setcounter{secnumdepth}{2}",
+        ]
+    else:
+        intro_lines = [
+            f"% GENERATED introduction for edition '{ed_name}' — none.",
+        ]
+    (GENERATED / "introduction.tex").write_text(
+        "\n".join(intro_lines) + "\n")
+    lines += [f"\\input{{chapters/{f.stem}}}" for f in files
+              if not introduction or f != intro_file]
     (GENERATED / "edition.tex").write_text("\n".join(lines) + "\n")
     return [f.name for f in files]
 
 
-def write_epub_json(cfg: dict, macros: dict[str, str], ed_name: str,
+def write_epub_json(cfg: dict, macros: dict[str, str], ed_name: str, ed: dict,
                     chapter_files: list[str]) -> None:
     BUILD.mkdir(parents=True, exist_ok=True)
     data = {
@@ -341,6 +362,8 @@ def write_epub_json(cfg: dict, macros: dict[str, str], ed_name: str,
         "font_profile": macros["BookFontProfile"],
         "citation_style": macros["BookCitationStyle"],
         "bibliography_title": macros["BookBibTitle"],
+        "frontmatter": [f"{name}.tex"
+                        for name in ed.get("frontmatter", [])],
         "keywords": get(cfg, "classification.keywords", []),
         "bisac": get(cfg, "classification.bisac", []),
         "chapters": chapter_files,
@@ -459,7 +482,7 @@ def main() -> None:
     macros = build_macros(cfg, ed_name, ed)
     write_metadata_tex(cfg, macros)
     chapter_files = write_edition_tex(ed_name, ed)
-    write_epub_json(cfg, macros, ed_name, chapter_files)
+    write_epub_json(cfg, macros, ed_name, ed, chapter_files)
     if args.emit_kdp:
         emit_kdp(cfg, macros)
     print(f"generated metadata for edition '{ed_name}' "

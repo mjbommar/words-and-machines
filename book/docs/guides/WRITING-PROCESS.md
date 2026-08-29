@@ -35,6 +35,10 @@ timeline built; open questions listed.
   arrive by design, not improvisation.
 - Structural review before drafting: clear argument? realistic word count? transitions to
   neighbors? dependencies on earlier chapters satisfied?
+- For this book, pin the chapter's object spine before prose: each
+  load-bearing object, its current status, evidence route, scope, reader-proof
+  or reader-explanation miniature, negative control, and next-door question.
+  An artifact without a teaching route is not ready to draft.
 - **Stuck on the angle or the shape?** `scripts/prompt_roller.py --kind chapter` rolls
   constrained chapter/essay concepts out of the writing ontology, and
   `scripts/exercise_generator.py --topic "…"` runs one topic up the progymnasmata ladder
@@ -50,6 +54,9 @@ place/date/stakes).
 ## Phase 3: Draft
 
 - **Read SPIRIT.md and the style guides immediately before drafting.**
+- Follow the book-specific sequence in `CRAFT.md`: encounter → exact term →
+  reader argument → formal object → machine evidence → attack → boundary →
+  consequence. Vary the local rhythm, but do not omit the reader argument.
 - Write the hook first, with care; then draft section by section without looping back.
 - **The first draft's job is to exist.** Mark problems `TODO`, missing sources `CITE`,
   and keep moving. Don't polish.

@@ -1,0 +1,14 @@
+% One-step semantics lifted to a multi-step execution relation.
+\begin{tikzpicture}[font=\small,
+  state/.style={draw=accent-700,fill=accent-50,circle,minimum size=.82cm},
+  arr/.style={->,>=stealth,thick,gray-600}]
+  \node[state] (s0) at (-4.5,0) {\(S_0\)};
+  \node[state] (s1) at (-1.5,0) {\(S_1\)};
+  \node[state] (s2) at (1.5,0) {\(S_2\)};
+  \node[state] (sk) at (4.5,0) {\(S_k\)};
+  \draw[arr] (s0)--node[above]{one step}(s1);
+  \draw[arr] (s1)--node[above]{one step}(s2);
+  \draw[arr,dashed] (s2)--node[above]{more steps}(sk);
+  \draw[->,>=stealth,very thick,ml-amber-800] (s0.south)
+    to[bend right=22] node[below]{\(k\)-step closure}(sk.south);
+\end{tikzpicture}

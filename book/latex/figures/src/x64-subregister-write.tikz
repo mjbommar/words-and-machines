@@ -1,0 +1,13 @@
+\begin{tikzpicture}[x=.095cm,y=1cm,font=\scriptsize]
+  \fill[gray-100] (0,0) rectangle (64,1);
+  \fill[ml-blue-50] (0,0) rectangle (32,1);
+  \draw[gray-700,thick] (0,0) rectangle (64,1);
+  \draw[gray-700] (32,0) -- (32,1);
+  \node at (16,.5) {new 32-bit value in EAX};
+  \node at (48,.5) {zeros written to bits 63--32};
+  \node[below] at (0,-.02) {0};
+  \node[below] at (32,-.02) {32};
+  \node[below] at (64,-.02) {64};
+  \draw[decorate,decoration={brace,amplitude=4pt},gray-700] (0,1.1) -- (64,1.1)
+    node[midway,above=4pt] {RAX after a 32-bit general-purpose write};
+\end{tikzpicture}

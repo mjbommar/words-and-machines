@@ -38,13 +38,14 @@ formats:
   hardcover: false
 
 trim:
-  preset: "6x9"                     # 6x9 | 7x10 | 5.5x8.5 | 5x8 | 8.5x11
-                                    # 8.5x11 = textbook/workbook trim: pair with
-                                    # typography.base_size: 12 (doctor warns);
-                                    # geometry caps the measure at 33em and gives
-                                    # the excess to the outer margin; KDP prices
-                                    # >6.12x9 as "large trim"
-  paper: "white"                    # white | cream | standard-color |
+  preset: "7x10"                    # compact: 5x8 | 5.5x8.5
+                                    # trade: 6x9
+                                    # technical: 7x10 | 7.5x9.25 | 8x10
+                                    # large: 8.25x11 | 8.5x11
+                                    # 7x10 is this book's selected format;
+                                    # 8.25x11 and 8.5x11 normally use 12pt
+  paper: "white"                    # white | cream | groundwood |
+                                    # standard-color |
                                     # premium-color (sets KDP spine formula)
   bleed: 0.125                      # inches, KDP standard
 
@@ -101,6 +102,8 @@ modules:
 editions:
   full:
     default: true
+    frontmatter: [preface]           # optional authored matter before the Introduction
+    introduction: ch00               # optional; unnumbered in print, first in EPUB
     chapters: [ch01, ch02, ch03]
   # essential:
   #   title_suffix: "Essential Edition"
@@ -131,7 +134,10 @@ publishing:
 ## Outputs of `generate_metadata.py`
 
 1. **`latex/generated/metadata.tex`** — `\BookTitle`, `\BookSubtitle`, `\BookAuthor`, `\BookAuthorShort`, `\BookPublisher`, `\BookYear`, `\BookISBNPrint`, `\BookISBNEpub`, `\BookDescription`, `\BookAIDisclosure`, `\BookEditionStatement`, trim/bleed dimension macros, plus `\BookHasSubtitle` etc. boolean flags.
-2. **`latex/generated/edition.tex`** — ordered `\input{chapters/...}` list for the selected edition (`--edition NAME`).
+2. **`latex/generated/introduction.tex`** — optional edition Introduction,
+   included while the book is still in front matter.
+3. **`latex/generated/edition.tex`** — ordered `\input{chapters/...}` list for
+   the selected edition (`--edition NAME`).
 3. **`build/epub-metadata.json`** — normalized dict consumed by `epub/converter/generators.py`.
 4. **`docs/publishing/KDP.md`** — dossier skeleton, only with `--emit-kdp` (won't overwrite an edited file).
 

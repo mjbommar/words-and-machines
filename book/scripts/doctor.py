@@ -23,6 +23,11 @@ import sys
 from pathlib import Path
 
 import yaml
+from trim_catalog import (
+    KDP_HARDCOVER_MAX_PAGES,
+    KDP_HARDCOVER_MIN_PAGES,
+    TRIM_CATALOG,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 errors, warnings = [], []
@@ -92,8 +97,6 @@ def check_claude_md_targets() -> None:
 # Source: KDP "Set Trim Size, Bleed, and Margins" (GVBQ3CMEQW3W2VL6).
 KDP_GUTTER_MIN = [(150, 0.375), (300, 0.5), (500, 0.625),
                   (700, 0.75), (828, 0.875)]
-TRIM_WIDTHS = {"6x9": 6.0, "7x10": 7.0, "5.5x8.5": 5.5,
-               "5x8": 5.0, "8.5x11": 8.5}
 INNER_FRACTION = 0.145833  # keep in sync with preamble/geometry.tex
 
 
@@ -113,11 +116,15 @@ def check_gutter_vs_pages(cfg: dict) -> None:
     pages = print_page_count()
     if pages is None:
         return
-    if pages > 828:
-        warnings.append(f"interior is {pages} pages — beyond KDP's 828-page "
-                        "black-ink paperback maximum; split or reformat")
+    preset = cfg["trim"]["preset"]
+    paper = cfg["trim"].get("paper", "white")
+    maximum = TRIM_CATALOG[preset].paperback_max[paper]
+    if pages > maximum:
+        errors.append(f"interior is {pages} pages — beyond KDP's "
+                      f"{maximum}-page maximum for {preset} on {paper}; "
+                      "split or reformat")
         return
-    gutter = INNER_FRACTION * TRIM_WIDTHS[cfg["trim"]["preset"]]
+    gutter = INNER_FRACTION * TRIM_CATALOG[preset].width
     required = next(g for cap, g in KDP_GUTTER_MIN if pages <= cap)
     if gutter < required:
         errors.append(f"gutter {gutter:.3f}in is below KDP's minimum "
@@ -125,24 +132,32 @@ def check_gutter_vs_pages(cfg: dict) -> None:
 
 
 def check_hardcover_pages(cfg: dict) -> None:
-    """KDP case-laminate hardcover accepts 75-550 pages (GDTKFJPNQCBTMRV6).
+    """KDP case-laminate hardcover accepts selected trims and 75-550 pages.
     Lulu's 24-799 hardcover range is enforced by update_cover_vars.py."""
     if not cfg.get("formats", {}).get("hardcover"):
         return
     platforms = cfg.get("publishing", {}).get("platforms", []) or []
     if "kdp" not in platforms:
         return
+    preset = cfg["trim"]["preset"]
+    if not TRIM_CATALOG[preset].kdp_hardcover:
+        errors.append(f"hardcover: KDP does not accept trim {preset}")
     pages = print_page_count()
-    if pages is not None and not 75 <= pages <= 550:
+    if pages is not None and not (
+            KDP_HARDCOVER_MIN_PAGES <= pages <= KDP_HARDCOVER_MAX_PAGES):
         errors.append(f"hardcover: interior is {pages} pages — KDP hardcover "
-                      "accepts 75-550; drop the format or fix the interior")
+                      f"accepts {KDP_HARDCOVER_MIN_PAGES}-"
+                      f"{KDP_HARDCOVER_MAX_PAGES}; drop the format or fix "
+                      "the interior")
 
 
 def check_large_trim_type_size(cfg: dict) -> None:
-    if cfg["trim"]["preset"] == "8.5x11" and cfg["typography"]["base_size"] < 12:
-        warnings.append("8.5x11 with base_size < 12: the measure cap keeps "
-                        "lines readable, but textbooks at this trim usually "
-                        "set typography.base_size: 12")
+    preset = cfg["trim"]["preset"]
+    recommended = TRIM_CATALOG[preset].recommended_base_size
+    if cfg["typography"]["base_size"] < recommended:
+        warnings.append(f"{preset} with base_size "
+                        f"{cfg['typography']['base_size']}: use at least "
+                        f"{recommended}pt for this trim")
 
 
 def check_cover_vars_freshness() -> None:

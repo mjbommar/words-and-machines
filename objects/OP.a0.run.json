@@ -1,0 +1,8 @@
+{
+  "id": "OP.a0.run", "kind": "obligation", "part": 1,
+  "title": "Implement A0 trace execution",
+  "statement": "Implement bounded and terminating A0 execution with distinct halt, trap, bound-exhaustion, and continuation results.",
+  "epistemic_status": "open", "depends_on": ["OP.a0.step", "A0.def.trace"], "evidence": [],
+  "book": {"chapter": "ch05-programs-control", "label": "op:a0-run", "role": "boundary"},
+  "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
+}

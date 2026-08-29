@@ -1,0 +1,10 @@
+{
+  "id": "RV64.def.slice", "kind": "definition", "part": 2,
+  "title": "Source-pinned RV64 teaching slice",
+  "statement": "The RV64 teaching slice is the exact user-mode integer instruction, state, encoding, exception, and ABI subset named by a versioned source manifest.",
+  "formal": {"language": "prose", "statement": "RV64Slice = source revision x state subset x encoding subset x instruction forms x exclusions"},
+  "epistemic_status": "stated", "evidence": [],
+  "book": {"chapter": "ch06-encoding-decoding", "label": "def:rv64-slice", "role": "definition"},
+  "notes": "The exact source revision and instruction list must be pinned before architectural claims use this object.",
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

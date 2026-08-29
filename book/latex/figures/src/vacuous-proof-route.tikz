@@ -1,0 +1,12 @@
+\begin{tikzpicture}[
+  box/.style={draw=gray-400, rounded corners=2pt, fill=white, minimum width=3.2cm, minimum height=.9cm, align=center},
+  arr/.style={-{Stealth[length=2.2mm]}, thick, draw=accent-700}
+]
+  \node[box] (f) {Formula $F$};
+  \node[box,right=18mm of f] (up) {Unit propagation};
+  \node[box,right=18mm of up,draw=ml-amber-800,fill=ml-amber-50] (conflict) {Conflict};
+  \node[box,right=18mm of conflict,draw=ml-teal-700,fill=ml-teal-50] (empty) {Empty clause accepted};
+  \draw[arr] (f)--(up); \draw[arr] (up)--(conflict); \draw[arr] (conflict)--(empty);
+  \node[box,fill=gray-100,text=gray-500] (prefix) at ($(up)!0.5!(conflict)+(0,-1.8)$) {Long proof prefix};
+  \draw[dashed,-{Stealth[length=2.2mm]},draw=gray-500] (prefix.east) to[bend right=16] node[below]{decorative} (empty.south);
+\end{tikzpicture}

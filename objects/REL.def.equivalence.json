@@ -1,0 +1,9 @@
+{
+  "id": "REL.def.equivalence", "kind": "definition", "part": 3,
+  "title": "Program equivalence under an observation",
+  "statement": "Two programs are equivalent under a precondition and observation when every allowed initial state produces matching observed outcomes.",
+  "formal": {"language": "prose", "statement": "forall s, pre(s) -> observe(run(p,s)) = observe(run(q,s))"},
+  "epistemic_status": "stated", "depends_on": ["A0.def.observation", "A0.def.trace"], "evidence": [],
+  "book": {"chapter": "ch11-equivalence-refinement", "label": "def:equivalence", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

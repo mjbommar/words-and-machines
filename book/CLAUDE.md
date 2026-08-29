@@ -4,10 +4,25 @@ This is the single source of AI instructions for this book project.
 AGENTS.md and GEMINI.md are pointers here; never let them diverge.
 `make doctor` audits this file: every target/script referenced must exist.
 
-> Starting a book from this template? Replace this file with
-> `docs/CLAUDE-TEMPLATE.md` (copy it here, fill in the "This book"
-> identity block) — it adds the substantive sections (premise, voice,
-> register, SPIRIT) this repo-level file doesn't need.
+## This book
+
+*Instruction Sets, Programs, and Proofs* explains how to establish claims about instruction sets that a
+reader can check. Its reader is a compiler, crypto-engineering, or
+formal-methods practitioner who is comfortable with code and willing to learn
+the mathematics, but has not already accepted the book's vocabulary or its
+conclusions.
+
+Build the common machine before introducing a named ISA: words, registers,
+memory, state, operand forms, and instructions as transformations. Treat RISC
+and CISC as clusters of concrete design choices, not complete semantics or
+rival essences. Use RISC-V and x86-64 as sustained contrasts, and introduce
+optional extensions only at a declared model boundary.
+
+The prose is precise, dry, and occasionally amused. It must pass the
+kitchen-table test; the objects must pass the blackboard test. Read
+`docs/SPIRIT.md`, `docs/guides/VOICE.md`, `docs/guides/CRAFT.md`, and
+`docs/guides/PLAIN-ENGLISH.md` before drafting or editing. These book-specific
+guides take precedence over a generic template convention where they differ.
 
 ## Project map
 
@@ -17,13 +32,36 @@ AGENTS.md and GEMINI.md are pointers here; never let them diverge.
 | `latex/chapters/` | Canonical content — the only place prose lives |
 | `latex/generated/`, `build/` | Machine-written — **never edit, never commit** |
 | `docs/architecture/authoring-contract.md` | The complete LaTeX vocabulary chapters may use |
-| `docs/guides/` | STYLE, STYLE-CRAFT, STYLE-AI-TELLS, SIMPLIFIED-ENGLISH, WRITING-PROCESS, CITATIONS, REVIEW-QA, RESEARCH, VOICE-MODELS, ONTOLOGY; `styles/` = genre profiles (`style.profile`) |
+| `docs/guides/` | VOICE, CRAFT, and PLAIN-ENGLISH (book authority); inherited STYLE, STYLE-CRAFT, STYLE-AI-TELLS, SIMPLIFIED-ENGLISH, WRITING-PROCESS, CITATIONS, REVIEW-QA, RESEARCH, VOICE-MODELS, ONTOLOGY; `styles/` = genre profiles (`style.profile`) |
 | `scripts/data/simplified_english/` | Simplified Book English: corpus-derived word tiers + curated substitution policy (guide: `docs/guides/SIMPLIFIED-ENGLISH.md`, derivation: `docs/architecture/simplified-english.md`) |
 | `scripts/data/ontology/` | Writing ontology: 20 branch files, macro arcs → micro constructions (design: `docs/architecture/writing-ontology.md`, usage: `docs/guides/ONTOLOGY.md`) |
 | `outline/composition.yaml` | Outline-composer state: registry, spine, node tree, promise ledger — canonical, hand-editable, committed (design: `docs/architecture/outline-composer.md`) |
 | `docs/publishing/` | KDP runbook, metadata dossier, release checklist, cover spec, narration channels |
 | `research/`, `outline/`, `notes/` | Research folders (README contract), outline, working notes |
 | `docs/review-NN/` | Review-round findings and synthesis |
+
+## Axeyum is the evidence stack
+
+The book's solver-backed objects are produced or checked by the sibling
+repository `../axeyum` (relative to this repository's root). Before saying
+what axeyum can prove, reconstruct, check, or not do, inspect its current code
+and tests. The copied material in `../research/axeyum/` records provenance; it
+does not establish the present capability.
+
+For a book change that affects a solver-backed object or its explanation:
+
+1. Read the matching route in `../axeyum-guide/` and inspect the named crate
+   and example in `../axeyum`.
+2. From the repository root, set `AXEYUM=../axeyum` and run
+   `$(MAKE) check-run`. This checks the positive evidence and the negative
+   control. The required release-example build commands are in
+   `../axeyum-guide/05-reproduce.md`.
+3. Record the route, scope, and limitation in the object. In prose, describe
+   only the result that this evidence supports.
+
+The sibling checkout is evidence infrastructure, not a source of decorative
+technical language. Do not edit it unless the assigned task explicitly includes
+an axeyum change.
 
 ## Hard rules
 
@@ -48,6 +86,21 @@ AGENTS.md and GEMINI.md are pointers here; never let them diverge.
    run `make check` after parallel edits to catch cross-chapter repetition.
 7. Don't hand-type build stats or metadata into prose or docs — derive them
    (`make stats`, `book.yaml`).
+8. **Use the book's language contract.** Explain a new technical term in
+   ordinary words before it does load-bearing work; retain the exact term after
+   that. Give every material claim its subject, scope, evidence route, and
+   limit. Do not let an artifact box, an object status, or a citation stand in
+   for the explanation.
+9. **Pair understanding with verification.** Before an artifact box carries a
+   result, give the reader a concrete problem and a human-scale reason the
+   result should hold. After it, show how the evidence can fail and state the
+   boundary. See `docs/guides/CRAFT.md`.
+10. **Earn the reader's wonder.** Let a proved relation, a finite object with
+    universal reach, or an honest limit open onto the larger mystery of
+    computation. Move from exact object to consequence; do not announce that
+    something is beautiful or mysterious in place of showing why. Keep every
+    historical or literary connection brief, exact, and verified. See
+    `docs/guides/VOICE.md` and `docs/guides/CRAFT.md`.
 
 ## Build targets (complete vocabulary — see docs/architecture/build-system.md)
 
@@ -99,8 +152,10 @@ research → outline → draft → edit (content, then copy) →
 review panel (scored, no edits) → synthesize → revise → verify → polish
 ```
 
-- Read `docs/guides/STYLE.md`, `STYLE-AI-TELLS.md`, and
-  `SIMPLIFIED-ENGLISH.md` **before** drafting; run `make check` after.
+- Read `docs/SPIRIT.md`, `docs/guides/VOICE.md`, `CRAFT.md`,
+  `PLAIN-ENGLISH.md`, `STYLE.md`, `STYLE-AI-TELLS.md`, and
+  `SIMPLIFIED-ENGLISH.md` **before** drafting; run `make check` after and
+  `make simplified` when terminology changes.
 - Explain necessary jargon and unusual or restricted uses at first authorial
   use. `\keyterm{}` identifies a defining occurrence but still needs an inline
   explanation or a real glossary definition; `book.yaml` records terminology

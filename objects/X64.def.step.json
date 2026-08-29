@@ -1,0 +1,9 @@
+{
+  "id": "X64.def.step", "kind": "definition", "part": 2,
+  "title": "x86-64 slice step contract",
+  "statement": "The x86-64 step contract gives complete state changes for selected decoded forms, including implicit operands, RIP advance, selected flags, memory effects, and declared exceptions.",
+  "formal": {"language": "prose", "statement": "step_X64 : X64State x decoded selected instruction -> X64State"},
+  "epistemic_status": "stated", "depends_on": ["X64.def.state", "X64.def.decode"], "evidence": [],
+  "book": {"chapter": "ch08-arithmetic-condition", "label": "def:x64-step", "role": "definition"},
+  "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
+}

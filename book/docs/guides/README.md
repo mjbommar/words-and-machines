@@ -7,12 +7,15 @@ legal-tech-history-book, hacking-with-ai-book). Written for both human authors a
 agents. Per-book deltas belong in the book's own `docs/`, which should *inherit* these
 and state only differences.
 
-**Read before writing prose:** STYLE → STYLE-AI-TELLS → STYLE-CRAFT →
-SIMPLIFIED-ENGLISH →
-your genre profile in [styles/](styles/) → the book's SPIRIT.md.
+**Read before writing prose:** the book's SPIRIT.md → VOICE → CRAFT →
+PLAIN-ENGLISH → STYLE → STYLE-AI-TELLS → STYLE-CRAFT → SIMPLIFIED-ENGLISH →
+the genre profile in [styles/](styles/).
 
 | Guide | What it covers |
 |---|---|
+| [VOICE.md](VOICE.md) | **Book voice authority**: the working-beside-the-reader relationship, four registers, humor, status language, and what this book must not sound like. |
+| [CRAFT.md](CRAFT.md) | **Book pedagogy and chapter craft**: concrete-to-exact teaching, the two proofs for theorems, checked reproduction for computations, examples/non-examples/boundaries, artifact placement, exercises, and chapter promises. |
+| [PLAIN-ENGLISH.md](PLAIN-ENGLISH.md) | **Book language standard**: the reader, explanatory order, claim grammar, terminology, and revision tests. This book-specific guide resolves the inherited guides for its technical subject. |
 | [STYLE.md](STYLE.md) | Voice, person/tense, sentence/paragraph targets, punctuation, numbers/dates. **Lint source:** machine-readable `banned-words` / `banned-phrases` blocks parsed by `scripts/check_style.py`. |
 | [STYLE-AI-TELLS.md](STYLE-AI-TELLS.md) | Rule-per-tell catalog of AI writing patterns with detection heuristics and rewrites; machine-readable `tell-patterns` regex block. |
 | [SIMPLIFIED-ENGLISH.md](SIMPLIFIED-ENGLISH.md) | **Simplified Book English**: the controlled-vocabulary layer — a named reader, evidence-labelled word tiers, 8 writing rules, and reader-facing explanation guidance for jargon and unusual uses. Dictionary: `scripts/data/simplified_english/lexicon.json`; advisory report: `make simplified`; derivation: [../architecture/simplified-english.md](../architecture/simplified-english.md). |

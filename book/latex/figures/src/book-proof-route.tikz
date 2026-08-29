@@ -1,0 +1,16 @@
+% The four-part curricular route.
+\begin{tikzpicture}[
+  part/.style={draw=gray-500, fill=gray-100, rounded corners=2pt,
+    minimum width=2.45cm, minimum height=1.05cm, align=center, font=\small},
+  current/.style={part, draw=accent-700, fill=accent-50, text=accent-700},
+  arr/.style={->, >=stealth, line width=0.8pt, ml-blue-700}]
+  \node[current] (p1) at (-4.5,0) {Part I\\construct A0};
+  \node[part] (p2) at (-1.5,0) {Part II\\read real ISAs};
+  \node[part] (p3) at (1.5,0) {Part III\\prove relations};
+  \node[part] (p4) at (4.5,0) {Part IV\\synthesize + bound};
+  \draw[arr] (p1) -- (p2);
+  \draw[arr] (p2) -- (p3);
+  \draw[arr] (p3) -- (p4);
+  \node[font=\scriptsize,text=gray-600] at (0,-1.35)
+    {definitions before adapters before universal claims};
+\end{tikzpicture}

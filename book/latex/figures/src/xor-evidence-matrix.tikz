@@ -1,0 +1,11 @@
+\begin{tikzpicture}[
+  cell/.style={draw=gray-500,minimum width=2.05cm,minimum height=.72cm,align=center},
+  done/.style={cell,fill=ml-teal-50,text=ml-teal-700},
+  missing/.style={cell,fill=ml-amber-50,text=ml-amber-800}
+]
+  \foreach \x/\h in {1/decoder,2/step,3/trace,4/relation,5/report} \node[cell,fill=gray-100] at (2.05*\x,2.8) {\h};
+  \foreach \y/\r in {2/A0,1/RV64I,0/x86-64} \node[cell,fill=gray-100] at (0,\y*.78) {\r};
+  \foreach \x in {1,...,5} \node[missing] at (2.05*\x,1.56) {to build};
+  \foreach \y in {0,1} \foreach \x in {1,...,5} \node[missing] at (2.05*\x,\y*.78) {to build};
+  \node[above,text=gray-600] at (5.12,3.3) {required executable evidence route};
+\end{tikzpicture}

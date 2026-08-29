@@ -1,0 +1,24 @@
+{
+  "id": "M.def.riscv-foundation-slice",
+  "kind": "definition",
+  "part": 2,
+  "title": "Foundational RV64I slice",
+  "statement": "The book's foundational RISC-V slice is a version-pinned, user-mode subset of RV64I with named integer registers, ordinary loads and stores, integer arithmetic and logic, comparisons, branches, jumps, and precisely declared trap and alignment assumptions. Extensions enter only when named.",
+  "formal": {
+    "language": "prose",
+    "statement": "Exact instruction instances and source version to be pinned before the chapter's claims are promoted."
+  },
+  "epistemic_status": "stated",
+  "scope": "Planned user-mode RV64I teaching slice; exact specification version and instruction list not yet pinned",
+  "evidence": [],
+  "book": {
+    "chapter": "ch06-encoding-decoding",
+    "label": "def:riscv-slice"
+  },
+  "notes": "Definition worklist, not a claim that Axeyum currently implements RV64I semantics.",
+  "provenance": {
+    "date": "2026-08-27",
+    "by": "foundational ISA restructure",
+    "origin": "book/docs/outlines/MASTER.md"
+  }
+}
