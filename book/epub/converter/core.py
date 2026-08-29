@@ -541,6 +541,13 @@ def convert_figure_image(ctx: Context, name: str) -> str | None:
     """Resolve latex/figures/<name>, converting PDF -> PNG via pdftoppm
     (cached in build/epub-work/). Registers bytes; returns epub href."""
     figdir = ctx.root / "latex" / "figures"
+    # Chapter sources use the print-facing path ``figures/name`` because
+    # LaTeX runs from ``latex/``.  The EPUB resolver already starts inside
+    # ``latex/figures``, so remove that one conventional prefix instead of
+    # accidentally looking below ``latex/figures/figures``.
+    parts = Path(name).parts
+    if parts and parts[0] == "figures":
+        name = str(Path(*parts[1:]))
     src = None
     for candidate in ([figdir / name] if Path(name).suffix else
                       [figdir / f"{name}{ext}" for ext in

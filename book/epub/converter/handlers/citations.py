@@ -191,26 +191,42 @@ def format_entry(entry: dict) -> str:
 
 @inline_handler("autocite", "textcite", "scite")
 def cite(node, ctx):
-    key = ctx.arg_raw(node, -1)  # last arg: tolerate [prenote] brackets
-    entry = ctx.bib.get(key)
-    if entry is None:
-        ctx.warn(f"citation key not in references.bib: {key}")
-        return "(?)"
-    index = ctx.cited.setdefault(key, len(ctx.cited) + 1)
-    href = f"bibliography.xhtml#bib-{key}"
+    # BibLaTeX accepts comma-separated keys in one command.  Treating the
+    # whole argument as one key dropped valid references from the EPUB.
+    keys = [key.strip() for key in ctx.arg_raw(node, -1).split(",")
+            if key.strip()]
     name = str(node.name)
-
     superscript = (name == "scite"
                    or ctx.meta.get("citation_style") == "superscript")
-    if superscript:  # endnote-style noteref fallback (pipeline spec)
-        return (f'<a class="citation-sup" href="{href}" epub:type="noteref" '
-                f'role="doc-noteref"><sup>{index}</sup></a>')
+    rendered = []
+    for key in keys:
+        entry = ctx.bib.get(key)
+        if entry is None:
+            ctx.warn(f"citation key not in references.bib: {key}")
+            rendered.append("?")
+            continue
+        index = ctx.cited.setdefault(key, len(ctx.cited) + 1)
+        href = f"bibliography.xhtml#bib-{key}"
+        if superscript:  # endnote-style noteref fallback (pipeline spec)
+            rendered.append(
+                f'<a class="citation-sup" href="{href}" '
+                f'epub:type="noteref" role="doc-noteref">'
+                f'<sup>{index}</sup></a>')
+            continue
+        label = ctx.text(author_label(entry))
+        year = entry_year(entry)
+        if name == "textcite":
+            rendered.append(
+                f'{label} (<a class="citation" href="{href}">{year}</a>)')
+        else:
+            rendered.append(
+                f'<a class="citation" href="{href}">{label} {year}</a>')
 
-    label = ctx.text(author_label(entry))
-    year = entry_year(entry)
+    if superscript:
+        return ",".join(rendered)
     if name == "textcite":
-        return f'{label} (<a class="citation" href="{href}">{year}</a>)'
-    return f'(<a class="citation" href="{href}">{label} {year}</a>)'
+        return "; ".join(rendered)
+    return "(" + "; ".join(rendered) + ")"
 
 
 # ---------------------------------------------------------------------------

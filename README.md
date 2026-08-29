@@ -2,6 +2,25 @@
 
 *Semantics, Equivalence, and Optimization*
 
+## Read the book
+
+**[Read or download the PDF](downloads/instruction-sets-programs-and-proofs.pdf)**
+&nbsp;·&nbsp;
+**[Download the EPUB](downloads/instruction-sets-programs-and-proofs.epub)**
+
+<p align="center">
+  <a href="downloads/instruction-sets-programs-and-proofs.pdf">
+    <img src="downloads/title-page.png" width="420" alt="Title page for Instruction Sets, Programs, and Proofs">
+  </a>
+</p>
+
+The linked title page opens the complete 287-page PDF. The EPUB is a
+development build with its diagrams embedded; its package structure and ZIP
+integrity have been checked, but it has not yet been run through `epubcheck`
+because that external program is unavailable in the current build environment.
+Build provenance and SHA-256 digests are recorded in
+[`downloads/README.md`](downloads/README.md).
+
 This repository contains a foundations textbook about instruction sets and
 proofs of machine-program behavior.
 
@@ -21,10 +40,11 @@ control transfer, or ABI convention.
 
 ## Current state
 
-The active book has an Introduction and sixteen chapters. Part I has initial
-prose; later chapters are structural first drafts. The active ledger contains
-41 definitions, principles, and implementation obligations following the new
-A0, RV64, and x86-64 dependency graph.
+The active book has an Introduction and sixteen chapters, totaling 83,565
+chapter words and 67 rendered figures. Every chapter is within its planned
+textbook-length band. The active ledger contains 41 definitions, principles,
+and implementation obligations following the A0, RV64, and x86-64 dependency
+graph.
 
 There are no active machine-proof artifacts yet. Axeyum has useful bit-vector,
 solver, certificate, and kernel infrastructure, but it does not yet implement
@@ -66,6 +86,7 @@ claim has been promoted beyond its implementation obligation.
 
 | Path | Purpose |
 |---|---|
+| downloads | Current PDF and EPUB builds, preview image, checksums, and provenance |
 | book | Canonical manuscript, guides, outlines, and publication build |
 | objects | Active A0, RV64, x86-64, relation, evidence, and obligation records |
 | artifacts | Active manifest schema and future semantic and evidence packages |
