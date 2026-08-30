@@ -20,7 +20,7 @@ make -C book pdf bleed ebook grayscale draft kdp-cover lulu-cover pdfx epub
 ## SHA-256
 
 ```text
-cec06554f7d4007ab24666699c61fa229e10509427b48b1b41fb347bb20911ad  instruction-sets-programs-and-proofs.pdf
-91bdfd2d96f90dfaebd267a4d155816f014c030ead6304dc2e113d82760da447  instruction-sets-programs-and-proofs.epub
+721db80f901e4847b359718ba8b13751338c18be4e06338a1b9ccea6e34b75ba  instruction-sets-programs-and-proofs.pdf
+634e15e4434189a21796755eaae5ee8ea79a6ece284bb4901354b077dd39ddfa  instruction-sets-programs-and-proofs.epub
 1da8d69a02339d3349c047a8ad009dc4d0bcd9c8f7a79a03bf3281030700df32  title-page.png
 ```

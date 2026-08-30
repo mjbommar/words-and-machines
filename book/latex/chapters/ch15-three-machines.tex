@@ -1926,10 +1926,17 @@ An introductory Python session should eventually have this shape:
 from axeyum.machines import a0, rv64, x86_64
 from axeyum.examples import xor_reduce
 
-case = xor_reduce.case(address=256, words=[0x0f0f, 0x00ff, 0x0ff0])
+case = xor_reduce.case(
+    address=256,
+    words=[0x0f0f, 0x00ff, 0x0ff0],
+)
 a0_run = a0.run(xor_reduce.a0_bytes(), case.a0_state())
-rv_run = rv64.run(xor_reduce.rv64_bytes(), case.rv64_state())
-x86_run = x86_64.run(xor_reduce.x86_bytes(), case.x86_state())
+rv_run = rv64.run(
+    xor_reduce.rv64_bytes(), case.rv64_state()
+)
+x86_run = x86_64.run(
+    xor_reduce.x86_bytes(), case.x86_state()
+)
 
 report = xor_reduce.compare(a0_run, rv_run, x86_run)
 report.require_controls()

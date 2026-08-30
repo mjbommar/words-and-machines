@@ -1278,7 +1278,8 @@ unsupported trust claims. A Python interface may make the route pleasant to
 teach:
 
 \begin{codelisting}[language=python,caption={The intended shape of a future evidence inspection interface}]
-# Illustrative API: the book manifest interface is not yet implemented.
+# Illustrative API.
+# The book manifest interface is not yet implemented.
 record = EvidenceManifest.load("a0-add-two.json")
 record.verify_digests()
 record.replay_witness()

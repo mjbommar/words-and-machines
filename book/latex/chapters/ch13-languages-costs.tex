@@ -1523,7 +1523,10 @@ language = CandidateLanguage.a0(
     observation=["normal", "r0"],
     max_instructions=2,
 )
-result = search_minimal(language, spec="r0_out == r0_in + 2")
+result = search_minimal(
+    language,
+    spec="r0_out == r0_in + 2",
+)
 result.replay_witness()
 result.check_lower_bound()
 \end{codelisting}

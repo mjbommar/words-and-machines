@@ -18,6 +18,8 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 CHAPTERS = ROOT / "latex" / "chapters"
 HEADING = re.compile(r"^\\(chapter|section|subsection)(\*)?\{([^{}]*)\}")
+LISTING_BEGIN = re.compile(r"^\\begin\{(?:codelisting|promptcode|outputcode)\}")
+LISTING_END = re.compile(r"^\\end\{(?:codelisting|promptcode|outputcode)\}")
 
 
 def words(title: str) -> int:
@@ -67,7 +69,16 @@ def glossary_index_contract() -> list[str]:
 def audit_file(path: Path) -> list[str]:
     findings = []
     headings = []
+    in_listing = False
     for line_no, line in enumerate(path.read_text().splitlines(), 1):
+        if LISTING_BEGIN.match(line):
+            in_listing = True
+        elif LISTING_END.match(line):
+            in_listing = False
+        elif in_listing and len(line) > 58:
+            findings.append(
+                f"{path.name}:{line_no}: listing line has {len(line)} characters "
+                "(limit 58); it will wrap in print")
         match = HEADING.match(line)
         if match:
             headings.append((match.group(1), bool(match.group(2)),
