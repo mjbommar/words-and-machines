@@ -5,14 +5,15 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **47** -- `computed` 7, `open` 12, `stated` 28
-- Evidence rows: **7** -- `checked` 7
+- Objects: **48** -- `computed` 8, `open` 12, `stated` 28
+- Evidence rows: **8** -- `checked` 8
 
 ## Part I -- Constructing an instruction set
 
 | ID | Kind | Title | Status | External | Scope | Evidence |
 |---|---|---|---|---|---|---|
 | [`A0.comp.byte-roundtrip-8-16`](A0.comp.byte-roundtrip-8-16.json) | computation | Finite A0 byte round trip at widths 8 and 16 | `computed` | `--` | All 65,792 words in the union of the complete width-8 and width-16 domains. This object does not quantify over widths 24 through 64. | `exhaustive-enumeration` / `computation`: checked |
+| [`A0.comp.decoder-roundtrip`](A0.comp.decoder-roundtrip.json) | computation | Exhaustive canonical A0 encoder and decoder round trip | `computed` | `--` | Every legal structured instruction in all seventeen A0 families, including every register tuple, signed immediate or offset, and branch condition. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.def.byte`](A0.def.byte.json) | definition | A0 byte split and join | `stated` | `--` | -- | -- |
 | [`A0.def.decode`](A0.def.decode.json) | definition | A0 decoder | `stated` | `--` | -- | -- |
 | [`A0.def.instruction`](A0.def.instruction.json) | definition | A0 decoded instruction | `stated` | `--` | -- | -- |

@@ -1,8 +1,8 @@
 {
-  "schema": "axeyum.a0.semantic-package.v3",
-  "version": "3",
+  "schema": "axeyum.a0.semantic-package.v4",
+  "version": "4",
   "source_path": "crates/axeyum-machine/src/a0.rs",
-  "source_sha256": "ce34ae91a43afe87a829d614ca98bef88202e7bb445649590aed71d52b40e8ff",
+  "source_sha256": "a21876a5c57969c049abe5d10b6b4decb3a543956583f8ca02a1cc6596191298",
   "word_widths": [
     8,
     16,
@@ -21,6 +21,7 @@
     "state",
     "observations",
     "decode",
+    "encode",
     "dynamic-effects",
     "step",
     "bounded-trace",

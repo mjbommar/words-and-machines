@@ -1,0 +1,12 @@
+{
+  "schema": "axeyum.a0.decoder-roundtrip.v1",
+  "semantic_package_sha256": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f",
+  "families": 17,
+  "instructions_checked": 41409,
+  "unique_encodings": 41409,
+  "roundtrip_passed": true,
+  "reserved_mutations_rejected": 82818,
+  "unused_field_controls_rejected": 8,
+  "unknown_opcode_rejected": true,
+  "result_sha256": "96252a6de3cb0515b62bb8229eee36284cc199ed68ae9d5e2545afe64ad60aaa"
+}
