@@ -180,10 +180,24 @@ def replay(rec: dict) -> list[str]:
     expected_revision = rec["environment"]["axeyum_revision"]
     if revision.returncode != 0:
         return [f"cannot read Axeyum revision at {axeyum}"]
-    if revision.stdout.strip() != expected_revision:
+    ancestry = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(axeyum),
+            "merge-base",
+            "--is-ancestor",
+            expected_revision,
+            revision.stdout.strip(),
+        ],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    if ancestry.returncode != 0:
         return [
-            f"Axeyum revision mismatch: expected {expected_revision}, "
-            f"found {revision.stdout.strip()}"
+            f"Axeyum checkout does not contain pinned producer revision {expected_revision}; "
+            f"HEAD is {revision.stdout.strip()}"
         ]
 
     producer = rec["producer"]

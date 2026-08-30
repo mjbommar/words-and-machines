@@ -19,8 +19,8 @@ from an ordinary book.
   case studies. Treat RISC and CISC as clusters of explicit semantic features.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
-- **Status:** the first active A0 finite-computation artifact is replayable;
-  the general word proof route, the remaining A0 artifacts, and every RV64,
+- **Status:** the first A0 finite computation and observation trace are
+  replayable; the general word proof route, the remaining A0 artifacts, and every RV64,
   x86-64, and cross-machine route remain open. The full manuscript has
   completed its first sequential breadth-and-depth pass and now requires
   executable-artifact, technical, editorial, and publication review. No

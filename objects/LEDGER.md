@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **42** -- `computed` 2, `open` 12, `stated` 28
-- Evidence rows: **2** -- `checked` 2
+- Objects: **43** -- `computed` 3, `open` 12, `stated` 28
+- Evidence rows: **3** -- `checked` 3
 
 ## Part I -- Constructing an instruction set
 
@@ -25,6 +25,7 @@
 | [`A0.def.trace`](A0.def.trace.json) | definition | A0 execution trace | `stated` | `--` | -- | -- |
 | [`A0.def.word`](A0.def.word.json) | definition | A0 fixed-width word | `stated` | `--` | -- | -- |
 | [`A0.prin.explicit-effects`](A0.prin.explicit-effects.json) | principle | All architectural effects are explicit | `stated` | `--` | -- | -- |
+| [`A0.trace.observation-separation`](A0.trace.observation-separation.json) | computation | A0 narrow and broad observation replay | `computed` | `--` | One width-8 pair with equal memory, PC, conditions, outcome, and r0=7; left r3=19 and right r3=20. The narrow observation selects r0 and outcome. The broad observation also selects r3, memory bytes 1 and 2, PC, and conditions. | `trace-replay` / `trace`: checked |
 | [`OP.a0.run`](OP.a0.run.json) | obligation | Implement A0 trace execution | `open` | `--` | -- | -- |
 | [`OP.a0.state-memory`](OP.a0.state-memory.json) | obligation | Implement A0 state and memory | `open` | `--` | -- | -- |
 | [`OP.a0.step`](OP.a0.step.json) | obligation | Implement the A0 decoder and step relation | `open` | `--` | -- | -- |

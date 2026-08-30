@@ -940,6 +940,21 @@ produce the differing register as a witness. Mutate the projection so that it
 silently omits a requested component. The negative control must reject the
 mutated route.
 
+\begin{artifact}{A0.trace.observation-separation}
+The active trace performs that experiment over two complete width-eight
+states. Both contain \(r_0=7\). The left state contains \(r_3=19\), and the
+right contains \(r_3=20\). The narrow observation of r0 and outcome agrees.
+The broad observation also selects r3, memory bytes 1 and 2, PC, and conditions;
+it separates the states first at r3.
+
+The checker reconstructs both states and both observations from the
+source-bound semantics. Its negative control omits requested r3. The mutated
+broad observations then agree, so the recorded report is rejected with a
+semantic mismatch. This is one replayed pair, not a universal theorem about
+all observations.
+\ArtifactScope{A0.trace.observation-separation}
+\end{artifact}
+
 The serialized state should be canonical enough for an artifact digest to
 bind one meaning. Register order, address order, word width, outcome tags, and
 trap reasons must not depend on a hash-map iteration order or a Python display
@@ -997,10 +1012,11 @@ executable definitions. None of those layers decides which observation is
 appropriate for the surrounding program; that remains part of the theorem we
 choose to state.
 
-No such Axeyum package accompanies this draft yet. The tuple and the arguments
-in this chapter are definitions and reader reasoning; they are not a hidden
-machine-proof route. That boundary will remain visible until the executable
-state and its controls exist.
+Axeyum now supplies the concrete state, canonical observation, and the trace
+above. Object \obj{OP.a0.state-memory} remains open because the public artifact
+surface does not yet serialize arbitrary states or expose the complete normal
+and trapped memory route. One fixed observation replay does not fill those
+remaining requirements.
 
 \section{What the state model fixes}
 

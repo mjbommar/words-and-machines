@@ -43,16 +43,17 @@ The active book has an Introduction and sixteen chapters, totaling 182,440
 chapter-source words and 67 rendered figures. The first sequential depth pass
 is complete: every chapter is within its planned textbook-length band, with
 worked examples, exercises, proof development, and explicit model boundaries.
-The active ledger contains 42 definitions, principles, computations, and
+The active ledger contains 43 definitions, principles, computations, and
 implementation obligations following the A0, RV64, and x86-64 dependency
 graph.
 
-The first active artifact is a source-bound finite computation over all 8- and
-16-bit A0 byte round trips. Its checker recomputes 65,792 cases, and its
-reversed-byte-order control must fail. It is not a general theorem. Axeyum now
-also has concrete A0 state, memory, decoder, instruction semantics, traps, and
-bounded traces on its executable-curriculum branch. Proof-facing A0 formulas,
-the real-ISA slices, and cross-machine relations remain open.
+The first active routes are a source-bound finite computation over all 8- and
+16-bit A0 byte round trips and a concrete observation-separation trace. Their
+checkers recompute the results. Reversed byte order and omission of a requested
+state component must fail. Neither is a general theorem. Axeyum now also has
+concrete A0 state, memory, decoder, instruction semantics, dynamic effects,
+traps, and bounded traces on its executable-curriculum branch. Proof-facing A0
+formulas, the real-ISA slices, and cross-machine relations remain open.
 
 Legacy evidence-led chapters, objects, artifacts, producers, surveys, guide,
 and paper are retained under the research archive. They do not feed the active
@@ -81,8 +82,9 @@ not an execution model. Equal destination words are not cross-ISA refinement.
     make book
     make -C book check
 
-The runtime check executes the finite A0 byte-roundtrip computation and its
-firing negative control. Every other planned machine route remains open.
+The runtime check executes the finite A0 byte-roundtrip computation and the
+observation-separation trace, together with both firing negative controls.
+Every other planned machine route remains open.
 
 ## Layout
 

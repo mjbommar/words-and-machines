@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.trace.observation-separation",
+  "statement": "Two complete A0 states that agree at r0 and differ at r3 agree under the declared narrow observation and separate under the declared broad observation.",
+  "scope": "One source-bound pair of width-8 running states with equal memory, PC, conditions, outcome, and r0=7; r3 is 19 on the left and 20 on the right.",
+  "exclusions": [
+    "A universal observation-factorization theorem",
+    "Arbitrary serialized input states",
+    "Python projection",
+    "Solver, certificate, or kernel evidence"
+  ],
+  "trust_class": "trace",
+  "semantic_inputs": [
+    {
+      "name": "a0-semantics",
+      "version": "2",
+      "path": "artifacts/semantic/a0-v2.json",
+      "sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/claims/A0.trace.observation-separation/report.json",
+      "sha256": "af9825ce2c6c39c79e900f934cb51d66d1f5fc754c124a61f0a5c8438e286849",
+      "role": "report"
+    }
+  ],
+  "producer": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-observation-separation artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.observation-separation/report.json",
+    "version": "axeyum-machine-evidence-v2"
+  },
+  "checker": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-observation-separation artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.observation-separation/report.json",
+    "version": "axeyum-machine-evidence-v2",
+    "expected_result": "PASS: narrow_equal=true broad_equal=false separator=r3"
+  },
+  "negative_control": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-observation-omission artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.observation-separation/report.json",
+    "expected_failure": "semantic-mismatch",
+    "mutates": "Omit requested r3 from the broad observation"
+  },
+  "environment": {
+    "axeyum_revision": "17838f430727d4e665d114d7a4fe0f7871e69ad5",
+    "rust_version": "1.88 or newer"
+  },
+  "limitations": [
+    "The report recomputes one illustrative pair of complete states; it is not a quantified theorem.",
+    "The checker and semantic implementation share the Axeyum repository, while the source digest and full-state witness digest bind their exact inputs."
+  ],
+  "created": "2026-08-30"
+}

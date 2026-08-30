@@ -1,0 +1,60 @@
+{
+  "id": "A0.trace.observation-separation",
+  "kind": "computation",
+  "part": 1,
+  "title": "A0 narrow and broad observation replay",
+  "statement": "For the recorded pair of complete A0 states, the r0-and-outcome observation agrees, while the declared broad observation separates the states at r3.",
+  "formal": {
+    "language": "prose",
+    "statement": "A_narrow(S_left) = A_narrow(S_right) and A_broad(S_left) != A_broad(S_right), with the first separating requested component r3.",
+    "fragment": "concrete-trace-replay"
+  },
+  "epistemic_status": "computed",
+  "scope": "One width-8 pair with equal memory, PC, conditions, outcome, and r0=7; left r3=19 and right r3=20. The narrow observation selects r0 and outcome. The broad observation also selects r3, memory bytes 1 and 2, PC, and conditions.",
+  "depends_on": [
+    "A0.def.state",
+    "A0.def.memory",
+    "A0.def.observation"
+  ],
+  "evidence": [
+    {
+      "kind": "trace-replay",
+      "trust_class": "trace",
+      "semantic_inputs": [
+        "artifacts/semantic/a0-v2.json",
+        "artifacts/claims/A0.trace.observation-separation/manifest.json"
+      ],
+      "artifact": "artifacts/claims/A0.trace.observation-separation",
+      "sha256": {
+        "artifacts/semantic/a0-v2.json": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+        "artifacts/claims/A0.trace.observation-separation/manifest.json": "9cb610953ee962fc098b6746768d612cfa9eb2c9bfb4bad04745cb595cbe018a",
+        "artifacts/claims/A0.trace.observation-separation/report.json": "af9825ce2c6c39c79e900f934cb51d66d1f5fc754c124a61f0a5c8438e286849"
+      },
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-observation-separation artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.observation-separation/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-observation-omission artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.observation-separation/report.json",
+      "expected_failure": "semantic-mismatch",
+      "check_status": "checked",
+      "checked_on": "2026-08-30",
+      "note": "The checker rebuilds both complete states and both observations. Omitting requested r3 changes broad inequality to equality and is rejected."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-machine-evidence",
+    "example": "axeyum-machine-evidence",
+    "route": "observation separation trace",
+    "adr": [
+      "ADR-0811"
+    ],
+    "reconstruction": "none"
+  },
+  "book": {
+    "chapter": "ch02-state",
+    "label": "trace:a0-observation-separation",
+    "role": "machine-proof"
+  },
+  "provenance": {
+    "date": "2026-08-30",
+    "by": "Axeyum executable curriculum",
+    "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md state and observation controls"
+  }
+}

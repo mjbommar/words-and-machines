@@ -1,0 +1,28 @@
+{
+  "schema": "axeyum.a0.semantic-package.v2",
+  "version": "2",
+  "source_path": "crates/axeyum-machine/src/a0.rs",
+  "source_sha256": "6fd42d227005ec8f22e6b94a759ef566a04e7755ffa07521408cb439a1a04add",
+  "word_widths": [
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56,
+    64
+  ],
+  "instruction_bytes": 4,
+  "byte_order": "little-endian",
+  "capabilities": [
+    "words",
+    "finite-memory",
+    "state",
+    "observations",
+    "decode",
+    "dynamic-effects",
+    "step",
+    "bounded-trace"
+  ]
+}

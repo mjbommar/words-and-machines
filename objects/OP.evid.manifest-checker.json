@@ -16,7 +16,7 @@
       "artifact": "scripts/check_artifacts.py",
       "sha256": {
         "artifacts/schema/manifest.schema.json": "ec42a4ec326a908fbff4437f2fa67cb004427052fc0e5f83e16d7190bb8e80b6",
-        "scripts/check_artifacts.py": "fa2bb46e3c8144e6e95585131c48cf22f7e3fb3bd7bb1b62058441a9f592b606",
+        "scripts/check_artifacts.py": "6264472dc4658f621c7447b6cc25c29ba4678de59a599e0d69ace15673ea624a",
         "scripts/control_check_artifacts.py": "b22fa4ca7326239706be6d05325d7df06adf326b38644657f46ca239e44532a0",
         "scripts/tests/test_check_artifacts.py": "87da32ddded5c824ca15d02bb674ea07bfae3acf29c052752778ba0e5afea440"
       },

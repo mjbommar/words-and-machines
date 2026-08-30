@@ -1,0 +1,17 @@
+{
+  "schema": "axeyum.a0.observation-separation.v1",
+  "semantic_package_sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+  "witness_states_sha256": "a7af4a12a2d711a237d928c40fed608a4a778bcace1355eecd759a607834bdfe",
+  "narrow_registers": [
+    0
+  ],
+  "broad_registers": [
+    0,
+    3
+  ],
+  "narrow_equal": true,
+  "broad_equal": false,
+  "separating_register": 3,
+  "left_value": 19,
+  "right_value": 20
+}
