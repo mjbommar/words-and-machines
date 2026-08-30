@@ -5,12 +5,12 @@
   "scope": "One width-16 successful store/load trace over four data bytes and one separate width-16 boundary-trap state.",
   "exclusions": ["All memory values and addresses", "Aligned-access requirements", "A universal memory theorem"],
   "trust_class": "trace",
-  "semantic_inputs": [{"name": "a0-semantics", "version": "2", "path": "artifacts/semantic/a0-v2.json", "sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb"}],
-  "artifacts": [{"path": "artifacts/claims/A0.trace.memory-roundtrip/report.json", "sha256": "6154bc167a4fd16234833497cf60ea54f6df36367cc4471d7001453bebdb39e3", "role": "trace"}],
-  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-memory-trace artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.memory-roundtrip/report.json", "version": "axeyum-machine-evidence-v2"},
-  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-memory-trace artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.memory-roundtrip/report.json", "version": "axeyum-machine-evidence-v2", "expected_result": "PASS: loaded=0xabcd boundary_trapped=true no_partial_write=true"},
-  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-memory-byte-order artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.memory-roundtrip/report.json", "expected_failure": "semantic-mismatch", "mutates": "Reverse the two observed stored bytes"},
-  "environment": {"axeyum_revision": "700b2e6507272797d4067cea3466cd0c6c0e277b", "rust_version": "1.88 or newer"},
+  "semantic_inputs": [{"name": "a0-semantics", "version": "3", "path": "artifacts/semantic/a0-v3.json", "sha256": "481ffe012a0a9cb5d474eb86154009479b94e0a63a055e9edf644c8b60d1d698"}],
+  "artifacts": [{"path": "artifacts/claims/A0.trace.memory-roundtrip/report.json", "sha256": "d69472b9fdf07ec9040486925d3c34329c6c2f5095e57ffa3bfce9f1f59e337d", "role": "trace"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-memory-trace artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.memory-roundtrip/report.json", "version": "axeyum-machine-evidence-v3"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-memory-trace artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.memory-roundtrip/report.json", "version": "axeyum-machine-evidence-v3", "expected_result": "PASS: loaded=0xabcd boundary_trapped=true no_partial_write=true"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-memory-byte-order artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.memory-roundtrip/report.json", "expected_failure": "semantic-mismatch", "mutates": "Reverse the two observed stored bytes"},
+  "environment": {"axeyum_revision": "bc25b4ca7d83a8e791f8a78c1aac180842060c9f", "rust_version": "1.88 or newer"},
   "limitations": ["This is a concrete trace, not exhaustive address or value coverage.", "The report records selected architectural observations rather than a public arbitrary-state serialization."],
   "created": "2026-08-30"
 }

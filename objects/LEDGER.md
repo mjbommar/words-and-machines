@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **46** -- `computed` 6, `open` 12, `stated` 28
-- Evidence rows: **6** -- `checked` 6
+- Objects: **47** -- `computed` 7, `open` 12, `stated` 28
+- Evidence rows: **7** -- `checked` 7
 
 ## Part I -- Constructing an instruction set
 
@@ -27,6 +27,7 @@
 | [`A0.prin.explicit-effects`](A0.prin.explicit-effects.json) | principle | All architectural effects are explicit | `stated` | `--` | -- | -- |
 | [`A0.trace.memory-roundtrip`](A0.trace.memory-roundtrip.json) | computation | A0 store/load and boundary-trap replay | `computed` | `--` | One unaligned width-16 store/load at address 1 over four bytes, plus one out-of-range width-16 store beginning at address 4. | `trace-replay` / `trace`: checked |
 | [`A0.trace.observation-separation`](A0.trace.observation-separation.json) | computation | A0 narrow and broad observation replay | `computed` | `--` | One width-8 pair with equal memory, PC, conditions, outcome, and r0=7; left r3=19 and right r3=20. The narrow observation selects r0 and outcome. The broad observation also selects r3, memory bytes 1 and 2, PC, and conditions. | `trace-replay` / `trace`: checked |
+| [`A0.trace.run-classification`](A0.trace.run-classification.json) | computation | A0 runner outcome and continuation replay | `computed` | `--` | Four concrete width-8 executions, a zero-step boundary, and one resumed unconditional self-loop. | `trace-replay` / `trace`: checked |
 | [`OP.a0.run`](OP.a0.run.json) | obligation | Implement A0 trace execution | `open` | `--` | -- | -- |
 | [`OP.a0.state-memory`](OP.a0.state-memory.json) | obligation | Implement A0 state and memory | `open` | `--` | -- | -- |
 | [`OP.a0.step`](OP.a0.step.json) | obligation | Implement the A0 decoder and step relation | `open` | `--` | -- | -- |

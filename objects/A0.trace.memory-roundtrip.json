@@ -8,15 +8,15 @@
   "depends_on": ["A0.def.memory", "A0.def.step", "A0.def.trace"],
   "evidence": [{
     "kind": "trace-replay", "trust_class": "trace",
-    "semantic_inputs": ["artifacts/semantic/a0-v2.json", "artifacts/claims/A0.trace.memory-roundtrip/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v3.json", "artifacts/claims/A0.trace.memory-roundtrip/manifest.json"],
     "artifact": "artifacts/claims/A0.trace.memory-roundtrip",
     "sha256": {
-      "artifacts/semantic/a0-v2.json": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
-      "artifacts/claims/A0.trace.memory-roundtrip/manifest.json": "be57e3cc9e392add035518e5570976737fea9ddcb3e01de024617adbdfcf640e",
-      "artifacts/claims/A0.trace.memory-roundtrip/report.json": "6154bc167a4fd16234833497cf60ea54f6df36367cc4471d7001453bebdb39e3"
+      "artifacts/semantic/a0-v3.json": "481ffe012a0a9cb5d474eb86154009479b94e0a63a055e9edf644c8b60d1d698",
+      "artifacts/claims/A0.trace.memory-roundtrip/manifest.json": "1ca4d0164853675b4ee7774aea28426c8a1b6454e433e009238c1ef8428cbd39",
+      "artifacts/claims/A0.trace.memory-roundtrip/report.json": "d69472b9fdf07ec9040486925d3c34329c6c2f5095e57ffa3bfce9f1f59e337d"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-memory-trace artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-memory-byte-order artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-memory-trace artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-memory-byte-order artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
     "note": "The checker reruns successful and trapped states. Reversing the observed stored bytes is rejected."
   }],

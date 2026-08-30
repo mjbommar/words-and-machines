@@ -1010,8 +1010,10 @@ An Axeyum runner for A0 must fetch, decode, and step through the program while
 keeping halt, trap, bound exhaustion, and continued execution distinct.
 Object \obj{OP.a0.run} records that obligation.
 
-The live Axeyum checkout already contains related machinery, but not this
-runner. Its solver defines a symbolic \code{TransitionSystem} interface with
+The active Axeyum book lane now contains this concrete runner. It fetches,
+decodes, and steps through A0 bytes; retains complete states; and distinguishes
+halt, trap, bound exhaustion, and a caller-returned running prefix. The wider
+checkout also defines a symbolic \code{TransitionSystem} interface with
 initial-state, transition, and bad-state predicates. Its bounded model checker
 returns a replay-checked reachable model, a statement limited to the searched
 bound, or an explicit unknown result. The verification crate adapts scalar
@@ -1019,9 +1021,9 @@ loops to that interface, reflects selected MIR and LLVM control-flow graphs,
 checks bounded loops, and records branch decisions for one form of
 control-flow constant-time analysis.
 
-Those capabilities do not define A0 program bytes, fetch, decode, complete A0
-state, halt and trap transitions, or the four-way runner result in this
-chapter. The general scalar-loop adapter also stutters after a guard becomes
+Those symbolic capabilities do not by themselves define A0 program bytes or
+the four-way result in this chapter; the separate concrete A0 core now does.
+The general scalar-loop adapter also stutters after a guard becomes
 false so that bad-state queries remain meaningful at later depths. That is a
 useful model-checking convention, but it is not A0's rule that halted or
 trapped states have no successor. Reusing the substrate requires an explicit
@@ -1060,6 +1062,20 @@ machine outcome and the requested bound. Halt and trap must arise from actual
 steps. Bound exhaustion requires a running final state and exactly the allowed
 number of steps. A continued-execution result may expose a shorter prefix
 without claiming that the machine stopped.
+
+\begin{artifact}{A0.trace.run-classification}
+Axeyum replays concrete runs that end halted, trapped, bound exhausted, and
+with a caller-returned running prefix. A zero-step bounded run contains only
+its initial state. The route also returns two steps of a self-loop, resumes
+from the final state for three more steps, and checks that the joined states
+equal one five-step prefix.
+
+The checker derives every label from the source-bound runner. Its negative
+control calls the running prefix halted, which is rejected with a semantic
+mismatch. These cases exercise the API distinction and resumption law; they do
+not prove that an arbitrary A0 program terminates.
+\ArtifactScope{A0.trace.run-classification}
+\end{artifact}
 
 A solver-backed question comes later. It may ask whether two short A0 programs
 can finish with different observations under an input premise. If the answer

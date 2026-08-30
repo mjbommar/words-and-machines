@@ -1,0 +1,18 @@
+{
+  "schema": "axeyum.a0.run-classification.v1",
+  "semantic_package_sha256": "481ffe012a0a9cb5d474eb86154009479b94e0a63a055e9edf644c8b60d1d698",
+  "halted_stop": "halted",
+  "trapped_stop": "trapped",
+  "exhausted_stop": "bound-exhausted",
+  "prefix_stop": "prefix-returned",
+  "zero_bound_states": 1,
+  "resumed_equals_whole": true,
+  "resumed_pcs": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

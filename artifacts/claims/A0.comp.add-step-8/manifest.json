@@ -5,12 +5,12 @@
   "scope": "Complete finite enumeration of all 65,536 pairs of width-8 operands at PC 0 with destination r2 and sources r0 and r1.",
   "exclusions": ["Widths 16 through 64", "Other instructions", "A symbolic or kernel theorem"],
   "trust_class": "computation",
-  "semantic_inputs": [{"name": "a0-semantics", "version": "2", "path": "artifacts/semantic/a0-v2.json", "sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb"}],
-  "artifacts": [{"path": "artifacts/claims/A0.comp.add-step-8/report.json", "sha256": "b05160ac243b43346a6c2f506056db6286e75ace1151dd8e8363272cf2f20abe", "role": "report"}],
-  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-add-step artifacts/semantic/a0-v2.json artifacts/claims/A0.comp.add-step-8/report.json", "version": "axeyum-machine-evidence-v2"},
-  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-add-step artifacts/semantic/a0-v2.json artifacts/claims/A0.comp.add-step-8/report.json", "version": "axeyum-machine-evidence-v2", "expected_result": "PASS: cases=65536 destination=r2"},
-  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-add-wrong-destination artifacts/semantic/a0-v2.json artifacts/claims/A0.comp.add-step-8/report.json", "expected_failure": "semantic-mismatch", "mutates": "Read r3 instead of declared destination r2"},
-  "environment": {"axeyum_revision": "700b2e6507272797d4067cea3466cd0c6c0e277b", "rust_version": "1.88 or newer"},
+  "semantic_inputs": [{"name": "a0-semantics", "version": "3", "path": "artifacts/semantic/a0-v3.json", "sha256": "481ffe012a0a9cb5d474eb86154009479b94e0a63a055e9edf644c8b60d1d698"}],
+  "artifacts": [{"path": "artifacts/claims/A0.comp.add-step-8/report.json", "sha256": "6e30c66542617fa38ff66c5e2837a76282eddbae737095569f02257ff001b5ff", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-add-step artifacts/semantic/a0-v3.json artifacts/claims/A0.comp.add-step-8/report.json", "version": "axeyum-machine-evidence-v3"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-add-step artifacts/semantic/a0-v3.json artifacts/claims/A0.comp.add-step-8/report.json", "version": "axeyum-machine-evidence-v3", "expected_result": "PASS: cases=65536 destination=r2"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-add-wrong-destination artifacts/semantic/a0-v3.json artifacts/claims/A0.comp.add-step-8/report.json", "expected_failure": "semantic-mismatch", "mutates": "Read r3 instead of declared destination r2"},
+  "environment": {"axeyum_revision": "bc25b4ca7d83a8e791f8a78c1aac180842060c9f", "rust_version": "1.88 or newer"},
   "limitations": ["The arithmetic oracle and semantic executor are independently written Rust code in the same evidence crate.", "This exhaustive result is width-specific and carries no independent proof certificate."],
   "created": "2026-08-30"
 }

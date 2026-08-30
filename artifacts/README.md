@@ -3,13 +3,15 @@
 This directory contains only evidence produced under the A0, RV64, x86-64,
 cross-machine, and evidence-manifest architecture.
 
-Five artifacts currently bind A0 semantic package v2: complete width-8/16
+Six artifacts currently bind A0 semantic package v3: complete width-8/16
 byte round trips, one narrow-versus-broad observation trace, complete
 width-eight addition steps, one atomic memory round trip with a boundary trap,
-and one taken/untaken branch pair. Every checker recomputes its report through
+one taken/untaken branch pair, and four runner classifications with prefix
+resumption. Every checker recomputes its report through
 the bound semantics. The controls reverse bytes, omit requested r3, write an
 addition result to the wrong destination, reverse memory byte order, or use the
-wrong branch-target base; each must fail with `semantic-mismatch`. These routes
+wrong branch-target base. The runner control labels a running prefix as halted.
+Each must fail with `semantic-mismatch`. These routes
 do not establish general-width theorems or any later machine route.
 
 The layout has a schema directory, versioned semantic packages, and one claims

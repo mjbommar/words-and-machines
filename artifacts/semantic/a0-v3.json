@@ -1,8 +1,8 @@
 {
-  "schema": "axeyum.a0.semantic-package.v2",
-  "version": "2",
+  "schema": "axeyum.a0.semantic-package.v3",
+  "version": "3",
   "source_path": "crates/axeyum-machine/src/a0.rs",
-  "source_sha256": "6fd42d227005ec8f22e6b94a759ef566a04e7755ffa07521408cb439a1a04add",
+  "source_sha256": "ce34ae91a43afe87a829d614ca98bef88202e7bb445649590aed71d52b40e8ff",
   "word_widths": [
     8,
     16,
@@ -23,6 +23,7 @@
     "decode",
     "dynamic-effects",
     "step",
-    "bounded-trace"
+    "bounded-trace",
+    "returned-prefix"
   ]
 }

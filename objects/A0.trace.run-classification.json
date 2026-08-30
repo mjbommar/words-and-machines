@@ -1,0 +1,26 @@
+{
+  "id": "A0.trace.run-classification", "kind": "computation", "part": 1,
+  "title": "A0 runner outcome and continuation replay",
+  "statement": "The recorded A0 runs distinguish halted, trapped, bound-exhausted, and caller-returned-prefix results; resuming a two-step prefix for three steps yields the same states as one five-step prefix.",
+  "formal": {"language": "prose", "statement": "stop(halt)=halted, stop(illegal)=trapped, stop(run(loop,3))=bound-exhausted, stop(prefix(loop,5))=prefix-returned, and prefix(loop,2) ++ tail(prefix(loop@2,3)) = prefix(loop,5).", "fragment": "concrete-trace-replay"},
+  "epistemic_status": "computed",
+  "scope": "Four concrete width-8 executions, a zero-step boundary, and one resumed unconditional self-loop.",
+  "depends_on": ["A0.def.step", "A0.def.trace"],
+  "evidence": [{
+    "kind": "trace-replay", "trust_class": "trace",
+    "semantic_inputs": ["artifacts/semantic/a0-v3.json", "artifacts/claims/A0.trace.run-classification/manifest.json"],
+    "artifact": "artifacts/claims/A0.trace.run-classification",
+    "sha256": {
+      "artifacts/semantic/a0-v3.json": "481ffe012a0a9cb5d474eb86154009479b94e0a63a055e9edf644c8b60d1d698",
+      "artifacts/claims/A0.trace.run-classification/manifest.json": "5fd6fcf6ac760f75f62d1c6e5fc5054a82f1829359359761e5a401d4cc557868",
+      "artifacts/claims/A0.trace.run-classification/report.json": "31ac75cbb01130bffb647ab64b09cb5b5bc305c7322c70cf2207c40c7c14de0e"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-run-classification artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.run-classification/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-run-false-halt artifacts/semantic/a0-v3.json artifacts/claims/A0.trace.run-classification/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The checker recomputes all classifications and resumption. Falsely reporting the running prefix as halted is rejected."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "run classification replay", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch05-programs-control", "label": "trace:a0-run-classification", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md a0-run"}
+}

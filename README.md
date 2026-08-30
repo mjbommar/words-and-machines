@@ -43,13 +43,14 @@ The active book has an Introduction and sixteen chapters, totaling 182,440
 chapter-source words and 67 rendered figures. The first sequential depth pass
 is complete: every chapter is within its planned textbook-length band, with
 worked examples, exercises, proof development, and explicit model boundaries.
-The active ledger contains 46 definitions, principles, computations, and
+The active ledger contains 47 definitions, principles, computations, and
 implementation obligations following the A0, RV64, and x86-64 dependency
 graph.
 
-Five A0 routes are active: exhaustive 8- and 16-bit byte round trips,
+Six A0 routes are active: exhaustive 8- and 16-bit byte round trips,
 observation separation, exhaustive width-eight addition steps, a concrete
-atomic memory round trip, and a taken/untaken branch pair. Their checkers
+atomic memory round trip, a taken/untaken branch pair, and all four runner
+classifications with resumed-prefix composition. Their checkers
 recompute the results through source-bound Rust semantics, and every route has
 a firing negative control. These finite computations and traces are not
 general theorems. Proof-facing A0 formulas, the real-ISA slices, and
@@ -82,7 +83,7 @@ not an execution model. Equal destination words are not cross-ISA refinement.
     make book
     make -C book check
 
-The runtime check executes all five active A0 computations and traces, together
+The runtime check executes all six active A0 computations and traces, together
 with their firing negative controls. Every other planned machine route remains
 open.
 
