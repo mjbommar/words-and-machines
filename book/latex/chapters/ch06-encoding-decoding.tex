@@ -20,7 +20,9 @@ instance and a state to a successor state. Assembly is notation for humans.
 Evidence about one map does not automatically establish the other.
 \end{keyidea}
 
-\section{Why instruction encodings exist}
+\section{Why instructions need encodings}
+\indexentry{instruction encoding}
+\indexentry{instruction!encoding}
 
 An early stored-program machine needed a way to place operations and their
 arguments in the same finite storage used for numbers. That choice made a
@@ -110,7 +112,7 @@ short variable-length instruction whose meaning depends on a prefix and an
 operand byte. The arithmetic result is familiar. The path used to select that
 arithmetic is not.
 
-\section{Four objects, not one}
+\section{Four distinct objects}
 
 We will keep four representations separate.
 
@@ -159,7 +161,8 @@ where \(n\) is the number of bytes consumed and \(r\) is a declared rejection
 reason. A0 fixes most of these parameters, but keeping the full shape in view
 prevents the small model from teaching an accidental universal rule.
 
-\subsection{A decoder is total when rejection is a result}
+\subsection{Rejection makes decoding total}
+\indexentry{decoder!totality}
 
 A useful decoder function returns an answer for every finite input supplied to
 its declared interface. That answer need not be an instruction. It may say
@@ -247,7 +250,7 @@ future book extension. That input should exercise the scope boundary rather
 than the reserved-bit control.
 \end{tryit}
 
-\section{How many meanings fit in a word?}
+\section{Capacity of an instruction word}
 
 An encoding begins with a counting constraint. A field of \(k\) bits has
 \(2^k\) patterns. It can distinguish at most \(2^k\) alternatives without
@@ -296,7 +299,7 @@ design room and helping a strict decoder catch corruption or version
 mismatch. Whether a reserved pattern traps, remains unspecified, or becomes a
 hint is an architectural rule. The arithmetic alone cannot decide it.
 
-\subsection{Packing and extraction are modular arithmetic}
+\subsection{Packing and extraction}
 
 Let a field have width \(k\), start at bit \(j\), and contain a value \(a\)
 with \(0\le a<2^k\). Packing that field into an otherwise zero word gives
@@ -352,7 +355,7 @@ field boundary. Prove the ranges disjoint before treating either operation as
 field concatenation.
 \end{warning}
 
-\subsection{Three orders that diagrams often hide}
+\subsection{Bit, byte, and display order}
 
 Instruction examples involve at least three orders.
 
@@ -390,7 +393,7 @@ first be placed into its declared logical bit positions. Only the completed
 fragment separately assigns several false sign bits and cannot reconstruct
 the intended displacement.
 
-\section{Boundaries, codes, and ambiguity}
+\section{Codes, boundaries, and ambiguity}
 
 A fixed-length code makes every aligned (n)-byte boundary a candidate
 instruction boundary. A variable-length code must also determine where one
@@ -432,7 +435,7 @@ second can miss code reached through unresolved indirect control. Neither
 method discovers a unique intended program from arbitrary bytes without
 additional assumptions.
 
-\section{A0: every byte has a job}
+\section{The A0 encoding}
 
 Every A0 instruction occupies four bytes and begins at an address divisible
 by four. The program map is read in increasing address order.
@@ -505,7 +508,8 @@ fetches a complete but illegal instruction, its next state is trapped with an
 illegal-encoding reason. Thus the decoder's rejection becomes an architectural
 event through the step relation.
 
-\subsection{Canonical encoding is stronger than successful decoding}
+\subsection{Canonical encoding}
+\indexentry{canonical encoding}
 
 A decoder could ignore every unused A0 field and still recover the intended
 operation and operands from encodings produced by the official encoder. Such a
@@ -544,7 +548,7 @@ text. Their correct round-trip property may therefore use normalization:
 decode, re-encode to a designated canonical form, and compare meanings rather
 than demand reproduction of the original spelling.
 
-\section{RV64I: one word, several fields}
+\section{RV64I fixed-width fields}
 
 The RV64I base integer ISA uses 32-bit base instructions. The optional
 compressed extension can add 16-bit instructions, but we exclude that
@@ -613,7 +617,7 @@ on the exact ISA and extension set. ``My current processor does nothing
 visible'' does not establish that a pattern is universally a no-operation.
 The book will name the enabled subset before assigning meaning.
 
-\subsection{Regular length does not mean one field layout}
+\subsection{Several field layouts}
 
 RV64I base instructions in this window share a 32-bit length, but their fields
 do not all play the same roles. R-type arithmetic has two source registers and
@@ -657,7 +661,7 @@ value. A decoder that accepts extension forms while claiming the base subset is
 too permissive; one that rejects enabled forms may be sound but incomplete for
 the larger scope.
 
-\subsection{A complete split-immediate reconstruction}
+\subsection{Reconstructing a split immediate}
 
 The branch form makes the field rule concrete. Consider the RV64I instruction
 
@@ -735,7 +739,8 @@ Each fragment has named destination positions. Draw those positions or write
 the shifts before performing sign extension.
 \end{warning}
 
-\section{Encoding before and after linking}
+\section{Encoding and linking}
+\indexentry{linker}
 
 The earlier examples use operands whose numeric fields are already known. A
 source program often names a symbol instead. An assembler may know the opcode
@@ -792,7 +797,7 @@ the machine. A complete execution artifact identifies which stage it records
 and binds its claim to the executable image.
 \end{keyidea}
 
-\section{x86-64: length is part of the answer}
+\section{x86-64 variable-length encoding}
 
 In 64-bit mode, an x86 instruction can contain legacy prefixes, a REX prefix,
 an opcode, a ModR/M byte, an optional scale-index-base (SIB) byte, an optional
@@ -849,7 +854,7 @@ decoder consumes three bytes while another consumes two, their disagreement
 does not end at the first instruction. They begin the next decode at different
 addresses. A length bug can change the interpretation of the entire suffix.
 
-\subsection{x86 decoding is a constrained walk through the bytes}
+\subsection{A constrained walk through bytes}
 
 A practical x86-64 decoder cannot split every instruction into the same fixed
 slots. It walks through a bounded sequence of possible components. Prefix
@@ -892,7 +897,7 @@ yet the next sequential instruction begins at the wrong byte and changes the
 decoded suffix.
 \end{warning}
 
-\section{Three additions, three decoder shapes}
+\section{Three decoder shapes}
 
 The examples perform the same broad arithmetic but do not have the same
 architectural contract.
@@ -928,7 +933,8 @@ the facts later relations need. If the translation drops instruction length
 or condition behavior, it cannot support proofs that observe those facts.
 \end{goingdeeper}
 
-\section{What decoder correctness can mean}
+\section{Decoder correctness}
+\indexentry{instruction!decoding}
 
 There is no single useful sentence called ``the decoder is correct'' until we
 choose a reference and a scope. Four properties matter.
@@ -959,7 +965,7 @@ The strongest practical route combines source-derived cases, independent
 implementations, generated boundary inputs, and small proofs for regular field
 operations.
 
-\subsection{Decoder tests should cover partitions, not only examples}
+\subsection{Testing decoder partitions}
 
 Random byte strings often spend most of their time in common rejection paths.
 A more informative generator partitions the input space by form, operand
@@ -1006,7 +1012,7 @@ table check so a later manual revision does not masquerade as a change in bit
 arithmetic.
 \end{proofkit}
 
-\subsection{Correct decoding composes with correct execution}
+\subsection{Composing decoding with execution}
 
 Let (D) be a decoder, (S) a structured instruction semantics, and (F) a
 fetch operation. A machine step can be factored as
@@ -1065,7 +1071,7 @@ Using literal equality where the ISA permits aliases falsely rejects a correct
 encoder. Using semantic equivalence where A0 promises one canonical byte
 string weakens a property that can and should detect nonzero reserved fields.
 
-\section{Why decoding costs money}
+\section{The cost of decoding}
 
 The architectural decoder is a mathematical classifier. A physical
 instruction frontend---the processor region that fetches and prepares
@@ -1121,7 +1127,7 @@ A scanner may need conservative handling of undecodable regions. Sharing one
 well-tested decoding core can reduce disagreement, but a common defect then
 reaches more tools.
 
-\subsection{Malformed bytes are a security boundary}
+\subsection{Malformed bytes and security}
 
 An attacker who controls bytes can choose rare prefixes, truncated inputs,
 reserved combinations, and sequences that change meaning under another mode.
@@ -1158,7 +1164,7 @@ The historical layer explains both the value of compatibility and the size of
 the modern decoder's obligation.
 \end{archive}
 
-\section{The introductory Axeyum route}
+\section{Axeyum route}
 
 Axeyum does not yet contain the architectural packages used in this chapter.
 At the inspected sibling revision

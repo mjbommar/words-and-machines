@@ -15,7 +15,9 @@ counter values through complete states. Sequential layout matters only because
 the instruction semantics assigns it an address rule.
 \end{keyidea}
 
-\section{A program supplies the bytes}
+\section{Programs and instruction bytes}
+\indexentry{stored-program computer}
+\indexentry{program}
 
 \begin{definition}[title={A0 program}]
 An A0 \keyterm{program} is a finite immutable map of instruction bytes,
@@ -90,7 +92,7 @@ memory use, synchronization, and another validation surface. Neither policy
 is always superior. The proof obligation follows the chosen life cycle of the
 instruction bytes.
 
-\subsection{Stored programs made control a data-dependent process}
+\subsection{Stored programs and data-dependent control}
 
 Before stored programs, changing a machine's task could mean rewiring,
 reconfiguring switches, or replacing an external sequence of control media.
@@ -180,7 +182,8 @@ fixed limit. The mystery is not an infinite program hidden in memory. It is
 iteration: a finite transition rule applied again to each new state.
 \end{archive}
 
-\section{A trace through states}
+\section{Execution traces}
+\indexentry{execution trace}
 
 \begin{definition}[title={A0 execution trace}]
 An A0 \keyterm{execution trace} is a finite sequence
@@ -245,7 +248,8 @@ This trace is straight-line because every non-halt step uses its ordinary next
 address. The definition still comes from the program counter. That distinction
 will let a branch choose another path without changing what a trace is.
 
-\subsection{Multi-step execution is the closure of one-step execution}
+\subsection{From one step to many}
+\indexentry{reflexive transitive closure}
 
 The instruction semantics defines one edge \(S\to S'\). Program theorems
 usually concern zero or more edges. Write
@@ -331,7 +335,8 @@ claimed midpoint \(U\) is useful only after proving both
 counter alone is insufficient because the registers, memory, conditions, and
 outcome at the join may differ.
 
-\section{A branch asks state a question}
+\section{Branches and control flow}
+\indexentry{branch instruction}
 
 A0 separates comparison from conditional control. The instruction
 \code{cmp r1, r2} computes the width-\(w\) subtraction \(R[r_1]-R[r_2]\) to
@@ -379,7 +384,9 @@ condition flags and a later conditional jump read them. A0 deliberately uses
 the second broad shape. The comparison dimension is where the branch predicate
 lives, not which family receives the simpler label.
 
-\subsection{Control-flow graphs summarize possible local edges}
+\subsection{Control-flow graphs}
+\indexentry{control-flow graph}
+\indexentry{basic block}
 
 A \keyterm{basic block} is a sequence entered at its first instruction and
 left only at its end under the chosen graph construction. Ordinary
@@ -422,7 +429,7 @@ supporting the same higher-level argument. They also keep loop invariants
 readable: the invariant can describe the state at the head rather than every
 temporary state inside the body.
 
-\subsection{Reachability is a least fixed point}
+\subsection{Reachability as a fixed point}
 
 Let \(E\) be a set of allowed entry states. For any state set \(X\), define
 \[
@@ -477,7 +484,8 @@ Show that no state entering through the first true edge can take it. Then give
 an invariant at the inner test that removes the infeasible edge.
 \end{tryit}
 
-\section{Four ways a bounded run can end}
+\section{Four outcomes of bounded execution}
+\indexentry{bounded execution}
 
 A halted trace has executed \code{halt}. A trapped trace has encountered a
 declared failure, such as an invalid fetch or memory range. Both have a final
@@ -549,7 +557,8 @@ remains running. Applying the same rule again recreates the same state. An
 induction over the number of steps then covers every finite prefix. The proof
 uses the transition rule, not the patience of the runner.
 
-\subsection{Invariants prove safety; variants can prove termination}
+\subsection{Invariants and variants}
+\indexentry{variant}
 
 An invariant is a predicate intended to hold whenever execution reaches a
 chosen control point. The proof has two obligations. Initialization shows that
@@ -647,7 +656,9 @@ that each update remains in the well-founded range. Modular decrease at zero
 wraps and does not support the ordinary countdown proof.
 \end{warning}
 
-\subsection{Partial and total correctness answer different questions}
+\subsection{Partial and total correctness}
+\indexentry{partial correctness}
+\indexentry{total correctness}
 
 Suppose the four-instruction example has the final condition \(r_0=8\). We can
 ask two different questions. First: whenever the program reaches its normal
@@ -745,7 +756,8 @@ produce the right value whenever it exits but diverge on an input where the
 other program halts. Agreement on final register values then fails to capture
 the difference in behavior.
 
-\section{Replacement inside a context}
+\section{Replacement in context}
+\indexentry{contextual equivalence}
 
 Suppose programs \(p\) and \(q\) leave the same value in \(r_0\) for every
 allowed initial state. Can one replace the other before any suffix \(r\)?
@@ -850,7 +862,7 @@ output. The suffix did not create the earlier difference; it converted hidden
 state into an observed register.
 \end{example}
 
-\section{Real control paths carry contracts and costs}
+\section{Control contracts and costs}
 
 A0 gives every ordinary instruction one fixed four-byte length and gives its
 conditional branch a compare-then-jump shape. Neither companion architecture
@@ -907,7 +919,7 @@ exceptional. They expose the parameters hidden by the broad word
 \emph{branch}. A reusable control theorem should receive those parameters
 through a machine definition or a proved refinement relation.
 
-\subsection{Compilers use graphs, probabilities, and profiles for different claims}
+\subsection{Graphs, probabilities, and profiles}
 
 Compiler intermediate representations group instructions into basic blocks
 and require a terminator to describe how control leaves each block. LLVM, for
@@ -947,7 +959,7 @@ execution, abstract interpretation, bounded checking, and proof invariants
 manage that structure in different ways. They do not make the combinatorial
 question disappear.
 
-\subsection{Timeouts and watchdogs are operational policies}
+\subsection{Timeouts and watchdogs}
 
 Services, embedded controllers, and batch systems often impose time or step
 limits. A caller may cancel work after a deadline. A watchdog may reset a
@@ -969,7 +981,7 @@ named cost model. Caches, prediction, interrupts, and shared resources can
 invalidate a bound derived only from architectural instruction count. Chapter
 16 will enlarge the state for those questions.
 
-\subsection{Indirect control is also a security boundary}
+\subsection{Indirect control and security}
 
 A direct branch carries its destination family in the instruction bytes. An
 indirect jump or return obtains a target from mutable state. If an attacker can
@@ -992,7 +1004,7 @@ security policy. A complete transition system either includes the policy state
 and its failure outcome or states that it models a mode in which the mechanism
 is absent.
 
-\section{The implementation boundary}
+\section{Implementation boundary}
 
 An Axeyum runner for A0 must fetch, decode, and step through the program while
 keeping halt, trap, bound exhaustion, and continued execution distinct.
@@ -1079,7 +1091,7 @@ executions of the stated A0 rules. They establish how the future runner must
 behave on these examples; they do not claim that all A0 traces have already
 been checked.
 
-\section{One complete Part I trace}
+\section{A complete Part I trace}
 
 We can now name every layer in the four-instruction example. The immediate
 bytes denote width-eight words. Registers and conditions belong to complete

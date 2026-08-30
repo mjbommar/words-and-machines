@@ -26,7 +26,10 @@ printing convention supplies the -1. This distinction may feel fussy on one
 byte. It becomes decisive when two instructions preserve the same bits but
 give them different roles.
 
-\subsection*{Positional notation made rules reusable}
+\section{Binary place value}
+\indexentry{binary notation}
+
+\subsection{Reusable positional rules}
 
 A positional numeral assigns a weight to each place. In decimal, those
 weights are powers of ten. In binary, they are powers of two. The gain is not
@@ -53,7 +56,7 @@ compact bargain and add a fixed boundary: beyond the highest position, the
 operation must say what happens.
 \end{archive}
 
-\subsection*{Every admitted pattern has one positional value}
+\subsection{Unique positional values}
 
 Let a width-\(w\) pattern have bits
 \(b_{w-1}\ldots b_1b_0\), where every \(b_i\) is either 0 or 1. Its unsigned
@@ -121,7 +124,8 @@ join-by-place-value undo each other. Later proof routes must preserve
 that hinge; a solver formula that numbers the bits in the opposite direction
 describes a different reading.
 
-\section{Writing patterns without losing the width}
+\section{Writing fixed-width patterns}
+\indexentry{word!notation}
 
 Binary notation writes one symbol for every bit, which makes bit positions
 visible and long words tiresome. Hexadecimal notation groups four bits into
@@ -175,7 +179,10 @@ The notation still does not choose an interpretation. The spelling
 bytes, a mask, or part of a wider object. Hexadecimal makes the pattern easier
 to inspect. It does not decide what an operation means.
 
-\section{A finite circle}
+\section{Words as residue classes}
+\indexentry{modular arithmetic}
+\indexentry{word}
+\indexentry{wraparound}
 
 Begin with a four-bit counter. It visits the patterns for 0 through 15. Add one
 to 15 and the counter returns to 0 because there is no fifth bit in which to
@@ -237,7 +244,7 @@ load-bearing fact: every representative except the largest has room for one
 more, while the largest is one less than the modulus. The same split works at
 width 8 or width 64 without asking us to inspect \(2^{64}\) rows.
 
-\subsection{Congruence explains why representatives may change}
+\subsection{Congruence and representatives}
 
 The notation is older than the electronic computer. In the opening sections
 of \emph{Disquisitiones Arithmeticae}, Gauss gave a name and a compact symbol
@@ -299,7 +306,7 @@ Each remainder therefore names one class, no two names collide, and every
 integer belongs to one of the \(2^w\) classes.
 \end{proofkit}
 
-\subsection{Width counts distinguishable alternatives}
+\subsection{Width and the number of patterns}
 
 The cardinality \(2^w\) gives width an information meaning before any numeric
 reading is chosen. One bit can distinguish two alternatives. Two bits can
@@ -366,7 +373,9 @@ older encounter with the same compression: a tiny alphabet can support a
 complete arithmetic once its rules are fixed.\autocite{leibniz1703binary}
 \end{archive}
 
-\section{Bits and Boolean operations}
+\section{Bitwise logic}
+\indexentry{Boolean operation}
+\indexentry{mask}
 
 The algebra and the machinery met in stages. Boole's nineteenth-century work
 treated logical classes through algebraic operations. It was not a manual for
@@ -526,7 +535,9 @@ from one that returns zero. The eventual Axeyum operation must implement the
 rule stated here and reject a control that substitutes either neighboring
 policy.
 
-\subsection{Shifts move a boundary; rotations preserve positions in a cycle}
+\subsection{Shifts and rotations}
+\indexentry{shift}
+\indexentry{rotation}
 
 For \(0\leq k<w\), a logical left shift has the word-level definition
 \[
@@ -598,6 +609,10 @@ bit and show which supposedly preserved position is damaged.
 \end{tryit}
 
 \section{Unsigned and signed readings}
+\indexentry{signed integer}
+\indexentry{unsigned integer}
+\indexentry{carry out}
+\indexentry{signed overflow}
 
 The unsigned reading of a word is its representative between 0 and
 \(2^w-1\). The signed two's-complement reading agrees with that value when the
@@ -699,7 +714,7 @@ has a high bit of one. Adding two negative values overflows exactly when the
 stored result has a high bit of zero. Chapter 3 will turn these observations
 into explicit A0 condition-state updates rather than leaving them as prose.
 
-\subsection{When modular addition agrees with signed addition}
+\subsection{When modular and signed addition agree}
 
 Let \(S_w(x)\) denote the two's-complement reading of word \(x\). Consider any
 two words \(x\) and \(y\). Modular addition first forms
@@ -766,6 +781,9 @@ each. Identify the point at which the signed order wraps from 7 to -8.
 \end{tryit}
 
 \section{Changing widths}
+\indexentry{sign extension}
+\indexentry{zero extension}
+\indexentry{truncation}
 
 Moving a value between widths requires another rule. Truncating from width
 \(w\) to a smaller width \(v\) keeps the remainder modulo \(2^v\). Truncating
@@ -840,6 +858,8 @@ a witness with nonzero discarded positions. The pair teaches more than two
 successful examples because it marks exactly where information is lost.
 
 \section{Words and bytes}
+\indexentry{byte order}
+\indexentry{little-endian}
 
 A byte is a word of width eight. Memory will store bytes at addresses, so a
 wider word needs a declared relation to a sequence of bytes.
@@ -932,7 +952,7 @@ page. A complete A0 state has width equal to a positive multiple of eight.
 Here lies the first firm boundary between a proof miniature and the executable
 teaching machine.
 
-\section{One carrier, several arithmetic contracts}
+\section{Several arithmetic contracts}
 
 The modular carrier guarantees a stored result for addition, subtraction, and
 multiplication. A programming interface may expose that result in several
@@ -987,7 +1007,7 @@ Saturation asks which endpoint should replace an out-of-range result. A
 language-level exception asks whether ordinary execution continues at all.
 The same adder inputs can lead these observers to different conclusions.
 
-\section{Width is an engineering budget}
+\section{Width as an engineering budget}
 
 A wider word admits more patterns, but those patterns are not free. A billion
 eight-bit values contain one billion payload bytes. A billion 64-bit values
@@ -1064,7 +1084,7 @@ running, while it also constrains new implementations and compiler back ends.
 The proof obligation begins only after the chosen benefit and the exact rule
 have names.
 
-\section{The two companion questions}
+\section{RV64 and x86-64 questions}
 
 Both later companion slices contain fixed-width integer values and access
 byte-addressed memory. That common description does not settle how a given
@@ -1101,7 +1121,7 @@ the exact instruction form and the governing manual revision. Part II will
 supply those source-pinned answers after A0 has given us the questions in a
 stable order.
 
-\section{What the word model now fixes}
+\section{What the word model fixes}
 
 A word begins as one member of a finite carrier. Its width fixes the number of
 patterns and the modulus for stored arithmetic. Positional expansion relates
@@ -1134,7 +1154,7 @@ encoding fragment. The multiplicity is a source of expressive power because
 the boundaries are explicit.
 \end{keyidea}
 
-\section{The implementation boundary}
+\section{Implementation boundary}
 
 The definitions in this chapter are book-level foundations. Axeyum already
 has fixed-width bit-vector terms and solver routes, but the redesigned book

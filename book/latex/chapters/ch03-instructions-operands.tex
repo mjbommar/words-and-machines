@@ -21,7 +21,10 @@ line. Which bytes were fetched? Which instruction instance did the decoder
 produce? What does that instance do to state? A correct answer to one does not
 repair an error in another.
 
-\subsection*{From operation tables to transition rules}
+\section{Instructions as state transitions}
+\indexentry{instruction semantics}
+
+\subsection{From operation tables to transition rules}
 
 An instruction table is one of computing's durable forms. It gives a short
 name or bit pattern to an operation and tells a programmer which operands may
@@ -95,7 +98,8 @@ conditions, failures, and preserved state exactly. A short name without those
 clauses compresses nothing; it merely postpones the definition.
 \end{archive}
 
-\section{From a spelling to an action}
+\section{From spelling to action}
+\indexentry{assembly language}
 
 We can now name four objects that a listing tends to collapse:
 
@@ -243,7 +247,7 @@ This worked step shows why a destination value is not the whole result. A rule
 that writes 0 to \(r_0\) but leaves \(C=0\) has performed a different A0
 transition. So has a rule that leaves \(pc=12\).
 
-\subsection{Derive the whole addition, not only its sum}
+\subsection{The complete effect of addition}
 
 Let the decoded instruction \(i\) be printed as \code{add rd,ra,rb}, and let
 \(S\) be a well-formed running state. Write
@@ -320,7 +324,10 @@ hand example covers one state; exhaustive enumeration covers a stated finite
 width; a symbolic proof covers the formula and assumptions accepted by its
 checking route.
 
-\section{What an operand does}
+\section{Operand forms}
+\indexentry{operand}
+\indexentry{operand form}
+\indexentry{implicit effect}
 
 An operand is often introduced as a place where an instruction gets a value.
 That account is too narrow. A destination operand names where a value goes. A
@@ -443,7 +450,7 @@ This is not shorthand for ``the other fields probably stay unchanged.'' It is
 one part of the instruction rule. A state diff is useful to a reader only
 because this law gives absence from the diff a precise meaning.
 
-\subsection{Well-formed operands are checked before arithmetic}
+\subsection{Operand validity before arithmetic}
 
 An operation name does not accept every operand tuple. A register field must
 name an available register. A form may require distinct roles, a particular
@@ -493,7 +500,7 @@ test plan checks the two domains and their connection.
 Neither collection can establish coverage of the other merely by producing
 many successful examples.
 
-\subsection{Read old values before committing new ones}
+\subsection{Read before commit}
 
 An instruction may name the same location in more than one role. In
 \code{add r0,r0,r1}, the old value of \(r_0\) is a source and \(r_0\) is also
@@ -541,7 +548,7 @@ their ordering, and the state retained on failure. A0 avoids those forms in
 its first instruction set, but the method is already in place for the selected
 x86-64 cases that combine more work in one instruction.
 
-\subsection{Evaluation and commit are separate mathematical stages}
+\subsection{Evaluation and commit}
 
 We can make the snapshot rule exact. For a legal instance \(i\), let
 \(E_i(S)\) evaluate every required source, destination location, address,
@@ -605,7 +612,10 @@ memory operation between threads, immunity from interruption, or absence of
 speculative internal work. Those claims require larger state and observation
 models.
 
-\section{One step}
+\section{The single-step relation}
+\indexentry{single step}
+\indexentry{read footprint}
+\indexentry{write footprint}
 
 A running machine does not execute a mnemonic in isolation. It uses the
 program counter to fetch instruction bytes, decodes those bytes, and applies
@@ -657,7 +667,7 @@ A complete-state check must reject the step. Second, leave the program counter
 unchanged after a normal \code{add}. A checker that looks only at \(r_0\) will
 miss the error; a checker for the whole A0 transition must not.
 
-\subsection{Read and write footprints summarize dependence}
+\subsection{Read and write footprints}
 
 The \keyterm{read footprint} of an instruction on a state is the architectural
 information needed to determine its successor. The \keyterm{write footprint}
@@ -695,7 +705,9 @@ to make its newly calculated effects agree. It is not enough to make complete
 successor states equal when unrelated old state already differed. Chapter 11
 will turn that distinction into observations and state relations.
 
-\section{Three value roles, two printed operands}
+\section{Implicit and explicit operands}
+\indexentry{operand!implicit}
+\indexentry{operand!explicit}
 
 The two companion architectures make operand roles visible in different ways.
 A later RV64 integer addition will use a form such as
@@ -807,7 +819,7 @@ write set before calculating any values. Include implicit state and possible
 outcomes. Which two forms can trap after successful decoding?
 \end{tryit}
 
-\section{Instructions in sequence}
+\section{Instruction sequences}
 
 If instruction \(i\) takes \(S_0\) to a running state \(S_1\), and instruction
 \(j\) takes \(S_1\) to \(S_2\), then the sequence \(i;j\) has taken \(S_0\) to
@@ -923,7 +935,7 @@ show a write-then-read dependence on condition state. The numerical addition
 can remain correct while control changes.
 \end{example}
 
-\section{Instruction descriptions support the toolchain}
+\section{Instruction descriptions and tools}
 
 An instruction definition now serves a chain of tools. An assembler must know
 accepted operand forms and encodings. A disassembler must map bytes back to a
@@ -1034,7 +1046,7 @@ the operand cases, effects, encodings, tool consumers, validation controls,
 and years over which compatibility must be preserved.
 \end{keyidea}
 
-\subsection{The single-step boundary is useful because it is small}
+\subsection{Why the single-step boundary helps}
 
 The chapter's transition deliberately stops at one architectural instruction.
 That boundary includes every state component required to determine and record
@@ -1087,7 +1099,7 @@ adds selected implementation and environment state. Each extension must say
 which old conclusions survive and which new observations can distinguish
 states that were formerly treated as the same.
 
-\section{The implementation boundary}
+\section{Implementation boundary}
 
 An Axeyum implementation must join the state, decoder, operand rules, and
 instruction transitions into one reusable A0 step. Object

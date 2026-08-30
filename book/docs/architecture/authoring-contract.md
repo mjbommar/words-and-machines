@@ -17,6 +17,7 @@ Chapters may use **only** the vocabulary below. This is simultaneously (a) the s
 | `\person{...}` | small caps optional | `<span class="person">` |
 | `\code{...}` | mono (module: code) | `<code>` |
 | `\keyterm{...}` | bold-face term at its definition site | `<dfn class="keyterm">` |
+| `\indexentry{...}` | invisible index locator | omitted; EPUB navigation uses the glossary and headings |
 | `\foreignphrase{...}` | italics | `<i class="foreign">` |
 
 ## Block environments
@@ -30,6 +31,9 @@ Chapters may use **only** the vocabulary below. This is simultaneously (a) the s
 
 ## Notes & citations
 - `\footnote{...}` — print footnote; EPUB chapter endnote with backlink
+- `\indexentry{term}` — add a substantive discussion to the print index;
+  use `term!subtopic` for a subentry. Mark the defining occurrence separately
+  with `\keyterm`; do not index incidental mentions.
 - `\autocite{key}` / `\textcite{key}` (authoryear) or `\scite{key}` (superscript preset)
 - Every cited URL in `references.bib` carries `verified = {YYYY-MM-DD}` (see guides/CITATIONS.md)
 

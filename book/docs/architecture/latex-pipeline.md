@@ -12,7 +12,8 @@
 6. **boxes.tex** — tcolorbox family, `importance=` keyval scaling frame weight/color, `lines before break=3` smart breaking (complexity pattern)
 7. **code.tex** *(module)* — listings with `lstnewenvironment`, the `\lst@AddToHook{Init}{\catcode`\#=12}` fix (vibe-coding), per-language styles, `breaklines`, 72-char guidance, `promptcode`/`outputcode` environments
 8. **verse.tex** *(module)* — paracol `\columnratio{0.70}`, `\stanzasync`, hanging indents, per-5 line numbers, `\setchapterheads` markboth workaround (iliad/ovid)
-9. **commands.tex** — semantic inline macros (authoring-contract.md table)
+9. **commands.tex** — semantic inline macros (authoring-contract.md table),
+   including invisible curated index locators
 10. **hyperref-last.tex** — hyperref + bookmark; print builds force black links; `\EbookMode` enables colored links; PDF metadata from `\BookTitle`/`\BookAuthor`
 
 ## Bibliography

@@ -21,7 +21,8 @@ what that context may read. Without those parts, ``same program'' is an
 intuition rather than a theorem statement.
 \end{keyidea}
 
-\section{Why program agreement became a central problem}
+\section{Why program agreement matters}
+\indexentry{program equivalence}
 
 Programmers have replaced instruction sequences for as long as they have
 optimized code. A hand optimizer shortened an address calculation. A compiler
@@ -106,7 +107,8 @@ alike. It is justified when every allowed future use receives the behavior the
 contract promised. Context gives local equality its program-wide meaning.
 \end{archive}
 
-\section{Programs produce behaviors, not only final values}
+\section{Programs produce behaviors}
+\indexentry{partial correctness}
 
 Let \(P\) be a deterministic program and \(S\) an allowed initial state. Its
 execution may reach a normally halted state, reach a trapped state with a
@@ -147,7 +149,7 @@ If one execution returns \(r_0=7\) and another traps after previously writing
 normal, trapped, and divergent behavior before comparing a result value.
 \end{warning}
 
-\subsection{When one input can have several behaviors}
+\subsection{Several behaviors from one input}
 
 The selected A0, RV64I, and x86-64 slices are deterministic: a legal running
 state has at most one next architectural state. Larger models may admit several
@@ -187,7 +189,8 @@ direction of refinement and prepares the boundary discussion in Chapter 16.
 It also prevents an endpoint equation from being generalized beyond the model
 that made it single-valued.
 
-\section{Preconditions select the promised domain}
+\section{Preconditions and the promised domain}
+\indexentry{precondition}
 
 A \keyterm{precondition} \(\Phi(S)\) is a predicate on initial state. It can
 require valid memory ranges, aligned code, buffers that do not overlap, a bounded
@@ -236,7 +239,7 @@ a false full-state claim with one premise removed. Give the witness for the
 false claim before asking a solver to find it.
 \end{tryit}
 
-\subsection{Where preconditions come from}
+\subsection{Sources of preconditions}
 
 A precondition may be inherited from a caller, derived from earlier
 instructions, imposed by an ABI, or chosen to make a local optimization true.
@@ -270,6 +273,8 @@ against the executable semantics and simplified without changing its domain.
 Discovery and theorem admission are separate routes.
 
 \section{A hierarchy of agreement}
+\indexentry{equivalence!full-state}
+\indexentry{equivalence!observational}
 
 Let \(\Phi\) be a precondition and \(A\) an observation. For programs over the
 same deterministic state space, define termination-sensitive observational
@@ -375,7 +380,7 @@ states. The clear-register example supplies two unequal condition states that
 map to the same result observation. No philosophical argument is needed; the
 two states and projection are enough.
 
-\subsection{Observations form a design space}
+\subsection{Choosing an observation}
 
 An observation is not limited to selecting fields. It can calculate a
 mathematical reading, normalize several machine outcomes, record an address
@@ -420,7 +425,7 @@ uses complete final state and a client needs only a result, apply the result
 projection as a lemma. Do not copy the theorem and silently give its scope a
 different name.
 
-\section{Real instructions make the observation concrete}
+\section{Observing real instructions}
 
 The A0 clear-register pair was chosen to expose forgotten condition state. A
 real-machine comparison should do more than replace the register names. It
@@ -495,7 +500,11 @@ write rules, flag effects, undefined flag state, and variable length alter the
 contract. ``Copy'' and ``clear'' are mathematical intentions; equivalence
 still belongs to the selected machine semantics.
 
-\section{Refinement relates different state spaces}
+\section{Refinement across state spaces}
+\indexentry{refinement}
+\indexentry{forward simulation}
+\indexentry{stuttering}
+\indexentry{bisimulation}
 
 Equivalence starts both programs from one state. \keyterm{refinement} uses an
 input relation \(R_{in}(S,T)\) between source state \(S\) and implementation
@@ -531,7 +540,7 @@ comparison followed by a branch, RV64I may compare registers in the branch,
 and x86-64 may read flags set earlier. The relation needs to hold at selected
 entry and exit points, not after every unmatched instruction.
 
-\subsection{A simulation turns endpoint hope into a step argument}
+\subsection{Simulation as a step argument}
 
 An endpoint test can compare two completed executions without explaining why
 every admitted execution reaches related endpoints. A \keyterm{forward
@@ -617,7 +626,8 @@ signed and unsigned readings without a range premise, and the next comparison
 can diverge. A simulation checker should reject at least one mutation aimed at
 each load-bearing relation component.
 
-\section{Contexts can expose forgotten state}
+\section{Contexts expose forgotten state}
+\indexentry{equivalence!contextual}
 
 A \keyterm{context} is surrounding program structure with a hole into which a
 fragment is placed. Write \(C[P]\) for context \(C\) containing fragment
@@ -662,7 +672,7 @@ relative to a program point and future uses. It is not a permanent semantic
 property of the location.
 \end{warning}
 
-\subsection{Read and write sets give a practical sufficient rule}
+\subsection{A footprint rule for replacement}
 
 Let \(D\) be the set of locations on which fragments \(P\) and \(Q\) may
 differ at their common exit. If every path in the suffix writes each location
@@ -695,7 +705,8 @@ and nevertheless calculate equal outputs. A relational invariant can prove
 that more general case. The overwrite rule is valuable because a compiler's
 live-variable and effect analyses can often establish it automatically.
 
-\section{Counterexamples should become traces}
+\section{Counterexamples as traces}
+\indexentry{counterexample}
 
 The negation of a finite-width observational-equivalence claim asks for an
 allowed initial state whose observed behaviors differ:
@@ -771,7 +782,7 @@ report records which fields changed and which checker reconfirmed the witness.
 This keeps the explanatory example connected to the machine-derived result
 without pretending that the minimized state was the solver's original output.
 
-\section{Traps, undefined domains, and stuck states}
+\section{Traps and undefined domains}
 
 A precondition can exclude a trap only when the theorem says so. For example,
 a load/store equivalence may require both byte ranges to be valid. Under that
@@ -798,7 +809,7 @@ trap class only; trap class and reason; complete trapped state. Identify which
 differences each policy can expose.
 \end{tryit}
 
-\subsection{Undefined behavior makes compiler refinement asymmetric}
+\subsection{Undefined behavior and asymmetry}
 
 Source and intermediate languages can assign no ordinary requirement to some
 executions. In C, selected operations outside the language's defined domain
@@ -856,7 +867,7 @@ an example with two uses to fail. Treat an architectural memory fault as
 undefined and require a trap-sensitive comparison to reject the weakened
 model. These mutations test three different semantic layers.
 
-\section{Composing equivalence claims}
+\section{Composing claims}
 
 Equivalence is reflexive, symmetric, and transitive when its precondition,
 behavior policy, semantics, and observation are fixed appropriately. These
@@ -885,7 +896,7 @@ hard; simulations, logical relations, type systems, and effect analyses supply
 tractable sufficient conditions.
 \end{goingdeeper}
 
-\subsection{Refinement relations compose through an intermediate state}
+\subsection{Composition through an intermediate state}
 
 Suppose \(P\) refines to \(Q\) through relations \(R_{in}^{PQ}\) and
 \(R_{out}^{PQ}\), and \(Q\) refines to \(R\) through corresponding relations
@@ -920,7 +931,7 @@ Combining destination-only, flag-sensitive, memory-sensitive, and
 termination-insensitive facts without conversion rules can produce an
 unsupported final claim even when every individual checker returns success.
 
-\section{Four ways to check a finite equivalence claim}
+\section{Checking finite equivalence claims}
 
 Direct testing runs selected examples. It is fast and excellent for debugging,
 but its conclusion covers only those examples. Exhaustive enumeration covers
@@ -967,7 +978,8 @@ Replay every returned model. Only then invest in a certificate or parametric
 proof whose exact statement has survived those cheaper attacks. Each stage
 sharpens the claim carried by the next.
 
-\section{Translation validation is a production tradeoff}
+\section{Translation validation}
+\indexentry{translation validation}
 
 A compiler can validate one local rewrite, one pass, or one complete source--
 target pair. The larger the boundary, the more interactions it can catch and
@@ -1035,7 +1047,7 @@ sample broader pipelines, require complete validation for release profiles, or
 use a verified compiler for a constrained source language. The evidence must
 say which strategy was used and what happened when checking did not finish.
 
-\section{An introductory Axeyum equivalence route}
+\section{Axeyum route}
 
 The audited Axeyum checkout at revision \code{a9991fda} already contains a
 real scalar translation-validation route. Its tests reflect selected Rust MIR
@@ -1105,7 +1117,7 @@ Rust layer owns semantic definitions, digests, solver translation, and replay.
 The convenient interface must not invent a broader result than the evidence
 returned by that layer.
 
-\section{Where the equivalence model stops}
+\section{Where the model stops}
 
 This chapter uses deterministic sequential architectural behavior. It does not
 cover concurrency, weak memory, probabilistic behavior, external input during

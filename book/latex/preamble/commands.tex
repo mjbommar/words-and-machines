@@ -27,8 +27,11 @@
 \newcommand{\person}[1]{#1}
 
 % \keyterm — a defined term at its definition site (bold; converter:
-% dfn.keyterm). Pairs with an explanation in the surrounding prose.
+% dfn.keyterm). Indexing is deliberately separate: not every locally defined
+% phrase is a durable lookup term, and an automatic index is a concordance.
+% Use \indexentry at definitions and substantive later discussions.
 \newcommand{\keyterm}[1]{\textbf{#1}}
+\newcommand{\indexentry}[1]{\index{#1}}
 
 % \foreignphrase — non-English phrases (italic; converter: i.foreign,
 % which also earns a lang attribute during EPUB conversion).

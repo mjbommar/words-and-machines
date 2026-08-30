@@ -28,7 +28,8 @@ contract, and a cost order. Change any one of the three and the claim changes.
 The ISA name by itself supplies none of them.
 \end{keyidea}
 
-\section{From clever sequences to complete searches}
+\section{From sequences to complete searches}
+\indexentry{superoptimization}
 
 Programmers have always looked for shorter or faster ways to express a fixed
 calculation. A compiler performs the same work mechanically when it replaces
@@ -88,7 +89,7 @@ every byte string, and a minimum schedule does not choose every instruction.
 The history therefore gives us no useful priority slogan. It gives us several
 ways a finite space can be made exact.
 
-\subsection{Rewrites, schedules, and programs define different universes}
+\subsection{Rewrites, schedules, and programs}
 
 Three optimization questions can begin from the same computation and still
 range over different mathematical sets. A rewrite system begins with an
@@ -163,7 +164,7 @@ relation, and a cost. A tool may solve one of them exactly without representing
 the others.
 \end{archive}
 
-\subsection{Tests are filters, not lower-bound certificates}
+\subsection{Tests do not prove lower bounds}
 
 Massalin's selected test values illustrate a distinction that remains useful.
 Executing a candidate on a few inputs can reject it quickly. One wrong result
@@ -224,7 +225,8 @@ mean that the tool timed out, its grammar omitted the needed operation, its
 encoding was wrong, or there truly is no candidate. Only the last reading is
 a lower bound, and it is the reading that requires the most care.
 
-\section{Print the language before searching it}
+\section{Declare the candidate language}
+\indexentry{candidate language}
 
 A \keyterm{candidate language} is the exact set of programs allowed to compete
 with the reference program. For a bounded search, we want this set to be
@@ -298,7 +300,7 @@ search-space reduction is the same as for any other rewrite: every removed
 candidate must have a retained representative with the same observed
 behavior and no greater cost.
 
-\subsection{Count the grammar before trusting the search}
+\subsection{Count the grammar}
 
 A finite grammar lets us calculate how many instruction instances it names.
 Suppose form \(f\) has \(m_f\) operand positions. If position \(j\) admits
@@ -346,7 +348,7 @@ the simple grammar counts and the counts that remain after typing, resource,
 and encoding checks. A disagreement between those counts is evidence of work
 to do, not an opportunity to search less.
 
-\subsection{Types and resources make the grammar stateful}
+\subsection{Types and resource state}
 
 A realistic candidate generator does not choose each instruction from one
 unchanging alphabet. Earlier choices determine which later operands make
@@ -449,7 +451,9 @@ continuation of length \(k\) exactly once. The two sums partition suffixes by
 their unique first instance. They omit none and duplicate none.
 \end{proofkit}
 
-\subsection{A symmetry quotient needs a proof}
+\section{Symmetry and resources}
+
+\subsection{Symmetry quotients}
 
 Two scratch registers may have different names and the same role. Suppose
 \(t_0\) and \(t_1\) are initially dead, have the same width, may appear in the
@@ -486,7 +490,7 @@ instruction may have an implicit operand that aliases one name. In any of
 these cases the swap may change legality, behavior, or cost. Sorting register
 names is then a bug wearing the clothes of a symmetry reduction.
 
-\subsection{Group actions count the quotient}
+\subsection{Counting with group actions}
 
 The scratch swap is the smallest example of a \keyterm{group action}: a set of
 reversible renamings acts on a set of candidates. Applying the identity
@@ -548,7 +552,7 @@ cost differs inside an orbit, the reduction is still unsound. A durable search
 records the group action, representative rule, expected orbit count, and
 preservation argument separately.
 
-\subsection{Constants are resources}
+\subsection{Constants as resources}
 
 The expression \(x+1\) looks as though it contains a free constant. Machines
 do not receive constants from typography. A one may be encoded in an
@@ -576,7 +580,7 @@ and vector registers are not free merely because a calling convention makes
 some of them caller-saved. The local context decides which changes are
 observable.
 
-\subsection{Memory policy is more than yes or no}
+\subsection{Memory policy}
 
 A candidate that may use memory needs a region, permissions, alignment rule,
 aliasing policy, and fault policy. ``One temporary stack slot'' should name
@@ -592,7 +596,7 @@ declared set of symbolic regions, or it may encode address choices in a
 solver. Either choice belongs in the scope. ``Memory instructions permitted''
 is not enough information to reproduce the set.
 
-\section{The equivalence contract inside the search}
+\section{The equivalence contract}
 
 Chapter~\ref{ch:equivalence-refinement} defined program agreement relative to
 a precondition and an observation. A minimality search inherits that entire
@@ -629,7 +633,8 @@ that also contains \((Z,N,C,V)\), it does not. Neither answer corrects the
 other. They answer different replacement questions.
 \end{example}
 
-\section{Cost is a function, not an adjective}
+\section{Cost models}
+\indexentry{cost model}
 
 A \keyterm{cost model} maps a candidate program and its declared context to an
 ordered value. The simplest model counts instructions:
@@ -693,7 +698,7 @@ must introduce. For this reason, the most general cost has the shape
 \(C(P,K)\), where \(K\) records the declared context. A context-independent
 model is still useful; it simply fixes or ignores those terms and says so.
 
-\subsection{Latency and throughput need a processor}
+\subsection{Latency and throughput}
 
 The ISA defines architectural behavior. It does not fully define how many
 cycles a concrete processor spends on a sequence. Latency can depend on
@@ -744,7 +749,7 @@ measured difference. It cannot prove that no unmeasured candidate is faster.
 Search and measurement may work together, but they retain different
 quantifiers.
 
-\subsection{A search budget is an investment decision}
+\subsection{Search budgets}
 
 Optimization consumes resources before optimized code consumes fewer of them.
 The complete cost comparison therefore has at least two time scales. Let
@@ -832,7 +837,7 @@ outputs. The chosen search policy is rational only relative to a workload,
 deployment horizon, failure cost, and evidence requirement.
 \end{archive}
 
-\subsection{Orders, ties, and several objectives}
+\subsection{Orders, ties, and multiple objectives}
 
 Costs need not be single numbers. The adjective \keyterm{lexicographic} means
 that we compare the first component and consult the next one only to break a
@@ -881,7 +886,7 @@ instance has minima. The proof should rely on that finite image rather than
 claiming that the real numbers themselves are well founded. This small
 distinction keeps an order-theory slogan from doing work it cannot do.
 
-\section{An upper bound and a lower bound must meet}
+\section{Matching upper and lower bounds}
 
 Let \(L\) be the candidate language, \(E(P,S)\) the equivalence condition, and
 \(C(P)\) the cost. A witness \(P^*\in L\) with \(E(P^*,S)\) supplies an upper
@@ -915,7 +920,9 @@ candidate unless the algorithm's completeness and termination for that query
 have been established. ``No result in one hour'' is a measurement of the
 search, not a property of the language.
 
-\section{A tiny A0 lower bound}
+\section{An A0 lower bound}
+\indexentry{lower bound}
+\indexentry{minimality}
 
 We now make every choice explicit. Fix an A0 word width \(w\geq2\). At entry,
 \(r_0=x\) is the input and output register, and \(r_1=1\) is a read-only
@@ -998,7 +1005,7 @@ enumeration, checker, and negative control. That distinction matters even
 when the mathematics fits on half a page. The later evidence route must check
 the bytes and semantics it claims, not borrow confidence from this table.
 
-\subsection{Why every clause mattered}
+\subsection{Why each clause matters}
 
 The width premise excludes \(w=1\), where \(2\equiv0\pmod2\) and the empty
 program already implements \(x+2\). Making \(r_1\) read-only prevents the
@@ -1020,7 +1027,8 @@ bound intact while the second supplies a cheaper witness. State the modified
 language before giving either answer.
 \end{tryit}
 
-\section{Turning enumeration into evidence}
+\section{Enumeration as evidence}
+\indexentry{refutation}
 
 The pencil proof used a useful compression: six one-step programs produced
 only five observed functions. A program search can exploit the same idea.
@@ -1047,7 +1055,7 @@ To synthesize a candidate that works for all inputs, the conceptual form is
 generation with counterexample discovery rather than handing that formula to
 one solver unchanged.
 
-\subsection{Three ways to cover a cheaper stratum}
+\subsection{Covering cheaper candidates}
 
 Direct enumeration, symbolic encoding, and dynamic programming can answer the
 same bounded question, but their evidence looks different.
@@ -1092,7 +1100,7 @@ refutes the final symbolic stratum. The combination is sound only when the
 handoffs preserve coverage. Fast rejection is an engineering technique; it
 does not excuse an unrepresented candidate.
 
-\subsection{A proof-producing encoding has two correctness directions}
+\subsection{Soundness and completeness of the encoding}
 
 It helps to follow one stratum from machine language to a Boolean formula that
 a separate program can check. Fix a cost \(c\) and a finite separating input
@@ -1166,7 +1174,7 @@ keeping the old proof and confirm that the manifest refuses to compose the
 claim. These mutations separate an actual evidence route from a script that
 prints success after several unrelated commands.
 
-\subsection{Branch and bound needs both words}
+\subsection{Branch-and-bound search}
 
 A \keyterm{branch-and-bound search} divides the candidate choices into
 branches and carries a lower estimate of the best cost each branch can still
@@ -1258,7 +1266,7 @@ behavior must stop. With an infinite grammar, an incomplete verifier, or a
 resource cap, the same loop may return unknown or run forever. The letters
 CEGIS name the alternation; they do not grant completeness.
 
-\subsection{What an independently checked lower bound must retain}
+\subsection{Retaining independently checked evidence}
 
 A lower bound is \keyterm{independently checked} when it carries evidence that a separate program can
 accept or reject without repeating the original search. Such a result needs
@@ -1341,7 +1349,7 @@ that the formula represents the printed candidate language unless the
 encoding bridge is also checked.
 \end{warning}
 
-\section{Negative controls for search claims}
+\section{Negative controls for search}
 
 The most revealing negative control gives the checker something it ought to
 accept but the claimed lower bound says cannot exist. Add a known cheaper
@@ -1367,7 +1375,7 @@ negative control shows that at least one nearby wrong instance crosses a
 failure boundary. It does not prove the checker has no other bugs. It makes
 the checking claim falsifiable and gives future maintainers a precise alarm.
 
-\section{From A0 to RV64 and x86-64}
+\section{RV64 and x86-64 search spaces}
 
 A0 makes instruction-count minimality unusually clean. Its instructions have
 one width, its first scalar model has a small explicit state, and the book
@@ -1437,7 +1445,7 @@ is therefore not a priority slogan. It is a per-instance route in which the
 reader can inspect the language, replay the witness, check the cheaper-space
 refutations, and break the checker with a negative control.
 
-\section{The Axeyum route, in the right order}
+\section{Axeyum route}
 
 The live Axeyum checkout supplies more than generic solver layers and less than
 the three-machine route this book needs. Its search crate has complete bounded

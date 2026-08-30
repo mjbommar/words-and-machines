@@ -132,23 +132,15 @@ editions:
     default: true
     frontmatter: [preface]
     introduction: ch00
-    chapters:
-      - ch01
-      - ch02
-      - ch03
-      - ch04
-      - ch05
-      - ch06
-      - ch07
-      - ch08
-      - ch09
-      - ch10
-      - ch11
-      - ch12
-      - ch13
-      - ch14
-      - ch15
-      - ch16
+    parts:
+      - title: "Constructing an Instruction Set"
+        chapters: [ch01, ch02, ch03, ch04, ch05]
+      - title: "Reading Two Real Instruction Sets"
+        chapters: [ch06, ch07, ch08, ch09, ch10]
+      - title: "Proving Claims About Programs"
+        chapters: [ch11, ch12, ch13, ch14]
+      - title: "Synthesis and Boundaries"
+        chapters: [ch15, ch16]
   # essential:
   #   title_suffix: "Essential Edition"
   #   isbn_print: ""

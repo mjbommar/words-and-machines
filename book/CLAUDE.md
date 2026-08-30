@@ -42,7 +42,7 @@ contents does not establish adequate breadth or depth.
 | `latex/chapters/` | Canonical content — the only place prose lives |
 | `latex/generated/`, `build/` | Machine-written — **never edit, never commit** |
 | `docs/architecture/authoring-contract.md` | The complete LaTeX vocabulary chapters may use |
-| `docs/guides/` | VOICE, CRAFT, and PLAIN-ENGLISH (book authority); inherited STYLE, STYLE-CRAFT, STYLE-AI-TELLS, SIMPLIFIED-ENGLISH, WRITING-PROCESS, CITATIONS, REVIEW-QA, RESEARCH, VOICE-MODELS, ONTOLOGY; `styles/` = genre profiles (`style.profile`) |
+| `docs/guides/` | VOICE, CRAFT, PLAIN-ENGLISH, and INDEX-GLOSSARY (book authority); inherited STYLE, STYLE-CRAFT, STYLE-AI-TELLS, SIMPLIFIED-ENGLISH, WRITING-PROCESS, CITATIONS, REVIEW-QA, RESEARCH, VOICE-MODELS, ONTOLOGY; `styles/` = genre profiles (`style.profile`) |
 | `scripts/data/simplified_english/` | Simplified Book English: corpus-derived word tiers + curated substitution policy (guide: `docs/guides/SIMPLIFIED-ENGLISH.md`, derivation: `docs/architecture/simplified-english.md`) |
 | `scripts/data/ontology/` | Writing ontology: 20 branch files, macro arcs → micro constructions (design: `docs/architecture/writing-ontology.md`, usage: `docs/guides/ONTOLOGY.md`) |
 | `outline/composition.yaml` | Outline-composer state: registry, spine, node tree, promise ledger — canonical, hand-editable, committed (design: `docs/architecture/outline-composer.md`) |
@@ -118,6 +118,10 @@ an axeyum change.
     chapter, or exclude explicitly. Historical firsts need primary evidence;
     current prices, performance, market, energy, and manufacturing claims need
     dated sources and declared units.
+12. **Maintain navigation as you write.** Keep the four-part spine and public
+    Part--Chapter--Section hierarchy stable. Update `glossary.yaml` and curated
+    `\indexentry` locators during each chapter revision. See
+    `docs/guides/INDEX-GLOSSARY.md`; run `make structure` before building.
 
 ## Build targets (complete vocabulary — see docs/architecture/build-system.md)
 
@@ -130,6 +134,7 @@ an axeyum change.
 | `make cover-vars` | Page count → spine → `latex/generated/cover-vars.tex` |
 | `make kdp-cover` / `make lulu-cover` / `make cover-image` | Wrap covers, Kindle raster |
 | `make check` | Style + prose checkers on `latex/chapters/` |
+| `make structure` | Four-Part spine, heading hierarchy, title-length, and chapter-ending gate |
 | `make preflight` | Font-embedding + image-DPI gates on interior and cover PDFs |
 | `make cover-ink` | Cover total-ink (TAC ≤ 240%) gate |
 | `make pdfx` | PDF/X-1a interior for IngramSpark/Lulu (KDP uses `make pdf`) |

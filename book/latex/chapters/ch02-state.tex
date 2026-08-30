@@ -46,7 +46,8 @@ them, so A0 cannot answer a question whose next result depends on those
 effects. A timing model may restore them as state. The right snapshot changes
 with the promised observation.
 
-\section{A present that replaces the relevant past}
+\section{State replaces relevant history}
+\indexentry{state}
 
 Suppose a machine has accepted a finite history \(h\) of instructions and
 external inputs. Let \(\sigma(h)\) be the state description retained after
@@ -88,7 +89,7 @@ definition and proof carry distinctions that never matter. The useful state
 is not the smallest tuple in the abstract. It is a sufficient description for
 the declared transitions and observations.
 
-\subsection{A stored bit is a controlled physical distinction}
+\subsection{A stored bit is a physical distinction}
 
 Chapter 1 treated a bit as one of two mathematical symbols. A processor must
 hold that distinction while time passes. The minimum physical idea is
@@ -133,7 +134,9 @@ moment. The first gives a function; the second lets repeated applications of
 functions form an execution. State is where time enters the model without
 requiring the complete past to enter with it.
 
-\section{The teaching machine}
+\section{A0 machine state}
+\indexentry{machine state}
+\indexentry{frame condition}
 \label{sec:a0-state}
 
 The abstract machine used in this book is A0. Its word width \(w\) is a
@@ -208,7 +211,7 @@ modes. A0 will name reasons such as illegal encoding, incomplete fetch, and
 invalid data range. We may later choose an observation that retains only the
 fact of trapping, but the complete state does not discard the reason first.
 
-\subsection{Well-formed states and equality one component at a time}
+\subsection{Well-formed states and equality}
 
 Not every tuple of mathematical objects is an A0 state. The width must be a
 positive multiple of eight. Each register value and the program counter must
@@ -319,7 +322,10 @@ checks.
 Compact presentation and complete checking can therefore coexist without
 weakening the state contract.
 
-\section{Which state belongs to the architecture?}
+\section{Architectural and physical state}
+\indexentry{state!architectural}
+\indexentry{state!physical representation}
+\indexentry{architectural state}
 
 The tuple above is an \keyterm{architectural state}: it contains the parts
 that A0 instructions are defined to read or change. A physical processor
@@ -374,7 +380,7 @@ that tuple or its outcome. It is not complete for RV64, x86-64, or a physical
 processor merely because it is written with eight fields. Each later slice
 must perform its own inventory.
 
-\subsection{One architectural state can have many physical representations}
+\subsection{Many physical representations}
 
 An implementation need not store each architectural register in one fixed
 physical cell. An out-of-order processor may map one architectural name to
@@ -415,7 +421,7 @@ forbids that exposure. Chapter 16 will revisit speculation and leakage. Here
 we retain the simpler fact that internal work and architectural state change
 are different events.
 
-\subsection{An initial state is supplied, not wished into existence}
+\subsection{Initial states are premises}
 
 Every execution theorem begins somewhere. A0 takes an initial state from a
 declared set. The set may fix the entry program counter, argument registers,
@@ -446,7 +452,7 @@ A resumed task receives values from a saved context. Later chapters will name
 these environments precisely. For now, the lesson is enough: construction of
 the initial-state set is part of the claim.
 
-\subsection{A state component also needs an owner}
+\subsection{Ownership of state}
 
 A0 describes one scalar machine. Its eight registers and condition bits belong
 to that one execution, and its finite memory is part of the same state. This
@@ -475,7 +481,8 @@ one responsible rule. Once several actors may step, the semantics must say
 which interleavings or partial orders are permitted. A larger tuple without an
 ownership model would still leave the next-state question unanswered.
 
-\section{State is a contract that software must carry}
+\section{State as a software contract}
+\indexentry{serialization}
 
 Architectural state persists beyond one instruction. When an operating system
 stops one runnable task and starts another, it must eventually restore every
@@ -523,7 +530,11 @@ using preserved conditions, symbolic values, decomposition, and observations tha
 irrelevant differences. Deleting a difficult component without proving it
 irrelevant is not abstraction. It is a change of theorem.
 
-\section{What we choose to observe}
+\section{Observations}
+\indexentry{observational equivalence}
+\indexentry{observation}
+\indexentry{continuation}
+\indexentry{initial-state premise}
 \label{sec:state-observation}
 
 Now consider a less severe difference. Program \(p\) leaves 7 in \(r_0\) and
@@ -628,7 +639,7 @@ whether the programs agree under it. Choosing the projection after seeing a
 counterexample changes the question instead of answering it.
 \end{keyidea}
 
-\subsection{A continuation can expose a hidden difference}
+\subsection{Continuations expose hidden differences}
 
 Take two running states with the same registers, memory, program counter, and
 outcome. Let only the zero condition differ. An observation of \(r_0\) groups
@@ -732,7 +743,7 @@ statements are exact. Only the first would be useful to a context that cannot
 inspect the carry bit or distinguish success from failure.
 \end{example}
 
-\subsection{Initial-state premises restrict the question honestly}
+\subsection{Initial-state premises}
 
 A program theorem rarely concerns every well-formed state. It may require a
 running outcome, a particular entry program counter, valid input addresses,
@@ -768,7 +779,10 @@ is neither expected nor required.
 What matters is the declared correspondence at entry, at matched control
 points, and at the observed exit.
 
-\section{Successors, reachability, and preserved conditions}
+\section{Reachability and invariants}
+\indexentry{reachability}
+\indexentry{reachable state}
+\indexentry{invariant}
 
 A state becomes useful when a rule can move from it. For one decoded
 instruction \(i\), a deterministic rule has the shape
@@ -833,7 +847,7 @@ initial set, transition rules, and invariant must rule it out. This is another
 form of the chapter's central discipline: a missing state needs an argument,
 not an omission.
 
-\section{State in the two companion machines}
+\section{RV64 and x86-64 state}
 \label{sec:paired-state}
 
 A0 now gives us an inventory to carry to a real instruction set. We ask which
@@ -905,7 +919,7 @@ both: a relation for corresponding inputs and intermediate states, and an
 observation for the outputs the claim exposes.
 \end{keyidea}
 
-\section{The implementation boundary}
+\section{Implementation boundary}
 
 We can now say what an executable A0 state package must do. It must construct
 the entire tuple, enforce the width and memory conditions, represent all three
@@ -988,7 +1002,7 @@ in this chapter are definitions and reader reasoning; they are not a hidden
 machine-proof route. That boundary will remain visible until the executable
 state and its controls exist.
 
-\section{What the state model now fixes}
+\section{What the state model fixes}
 
 The chapter began with a paused machine and a question about what remains. We
 can now answer without listing hardware parts by habit. A state is sufficient

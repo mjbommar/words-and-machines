@@ -15,6 +15,7 @@ the genre profile in [styles/](styles/).
 |---|---|
 | [VOICE.md](VOICE.md) | **Book voice authority**: the working-beside-the-reader relationship, four registers, humor, status language, and what this book must not sound like. |
 | [CRAFT.md](CRAFT.md) | **Book pedagogy and chapter craft**: concrete-to-exact teaching, the two proofs for theorems, checked reproduction for computations, examples/non-examples/boundaries, artifact placement, exercises, and chapter promises. |
+| [INDEX-GLOSSARY.md](INDEX-GLOSSARY.md) | **Reference-system craft**: distinct roles for glossary definitions and curated index locators, plus the per-chapter maintenance workflow. |
 | [PLAIN-ENGLISH.md](PLAIN-ENGLISH.md) | **Book language standard**: the reader, explanatory order, claim grammar, terminology, and revision tests. This book-specific guide resolves the inherited guides for its technical subject. |
 | [STYLE.md](STYLE.md) | Voice, person/tense, sentence/paragraph targets, punctuation, numbers/dates. **Lint source:** machine-readable `banned-words` / `banned-phrases` blocks parsed by `scripts/check_style.py`. |
 | [STYLE-AI-TELLS.md](STYLE-AI-TELLS.md) | Rule-per-tell catalog of AI writing patterns with detection heuristics and rewrites; machine-readable `tell-patterns` regex block. |

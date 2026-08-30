@@ -45,6 +45,9 @@
 \cleardoublepage
 % The ToC heading is \chapter*, which never bookmarks itself.
 \pdfbookmark[0]{\contentsname}{toc}
+% The contents is a map of the book, not a transcript of every local turn.
+% Parts, chapters, and sections appear; subsections remain chapter-level aids.
+\setcounter{tocdepth}{1}
 \tableofcontents
 
 % Optional edition-specific Introduction, generated from book.yaml. It remains
@@ -70,6 +73,12 @@
 % Renders via the citation preset selected in book.yaml (packages.tex):
 % authoryear -> standard list; superscript -> two-column footnotesize.
 \BookPrintBibliography
+
+\input{generated/glossary}
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
 
 \input{backmatter/colophon}
 

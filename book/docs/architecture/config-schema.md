@@ -104,12 +104,16 @@ editions:
     default: true
     frontmatter: [preface]           # optional authored matter before the Introduction
     introduction: ch00               # optional; unnumbered in print, first in EPUB
-    chapters: [ch01, ch02, ch03]
+    parts:                              # use parts for a structured edition
+      - title: "Foundations"
+        chapters: [ch01, ch02]
+      - title: "Applications"
+        chapters: [ch03]
   # essential:
   #   title_suffix: "Essential Edition"
   #   isbn_print: ""
   #   isbn_epub: ""
-  #   chapters: [ch01, ch03]
+  #   chapters: [ch01, ch03]           # flat editions remain supported
 
 # ── Publishing ──────────────────────────────────────────────
 publishing:
@@ -136,8 +140,9 @@ publishing:
 1. **`latex/generated/metadata.tex`** — `\BookTitle`, `\BookSubtitle`, `\BookAuthor`, `\BookAuthorShort`, `\BookPublisher`, `\BookYear`, `\BookISBNPrint`, `\BookISBNEpub`, `\BookDescription`, `\BookAIDisclosure`, `\BookEditionStatement`, trim/bleed dimension macros, plus `\BookHasSubtitle` etc. boolean flags.
 2. **`latex/generated/introduction.tex`** — optional edition Introduction,
    included while the book is still in front matter.
-3. **`latex/generated/edition.tex`** — ordered `\input{chapters/...}` list for
-   the selected edition (`--edition NAME`).
+3. **`latex/generated/edition.tex`** — ordered `\part{...}` and
+   `\input{chapters/...}` list for a structured edition, or a flat input list
+   for an edition that declares `chapters` (`--edition NAME`).
 3. **`build/epub-metadata.json`** — normalized dict consumed by `epub/converter/generators.py`.
 4. **`docs/publishing/KDP.md`** — dossier skeleton, only with `--emit-kdp` (won't overwrite an edited file).
 

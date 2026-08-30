@@ -1,5 +1,11 @@
 # EPUB Pipeline
 
+The generated EPUB navigation follows the edition's structured parts from
+`book.yaml`: Part, Chapter, then Section. Subsections remain local reading
+structure and are intentionally omitted from public navigation. The pipeline
+also renders `glossary.yaml` as `glossary.xhtml`; print-only `\indexentry`
+markers are consumed without visible output.
+
 ## Flow
 ```
 book.yaml ─► generate_metadata.py ─► build/epub-metadata.json

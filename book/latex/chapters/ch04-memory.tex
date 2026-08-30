@@ -15,7 +15,9 @@ eight registers. A memory access can form a word address for which some needed
 byte does not exist. The semantics must decide that failure before it can
 state what the instruction writes.
 
-\section{A finite map of bytes}
+\section{Memory as a finite byte map}
+\indexentry{memory!byte-addressed}
+\indexentry{data memory}
 
 \begin{definition}[title={A0 data memory}]
 A0 \keyterm{data memory} is a finite map from \(w\)-bit addresses to bytes. A
@@ -28,7 +30,7 @@ Object \obj{A0.def.memory} records the complete contract. This is data memory,
 not the immutable program map. An A0 store cannot overwrite instruction bytes
 in the first model.
 
-\subsection{Addressable memory separated place from meaning}
+\subsection{Address separates place from meaning}
 
 Early calculating machines had storage, but not every store presented the
 same abstraction. A value might live in a physical register, a delay line, a
@@ -100,7 +102,7 @@ reliability mechanism must correct, report, or expose the error. Chapter 16
 will add those mechanisms; A0 assumes the byte supplied by its map is already
 the architectural value.
 
-\subsection{Reliability stands between cells and bytes}
+\subsection{From physical cells to reliable bytes}
 
 A physical read can return a signal too weak or ambiguous to classify with the
 required confidence. A stored charge can decay; a particle or electrical
@@ -192,7 +194,7 @@ does not improvise a shorter access. The requested width belongs to the
 instruction form. Either the whole access completes or the state records a
 trap.
 
-\subsection{Memory equality is checked one address at a time}
+\subsection{Memory equality by address}
 
 Let \(A_w=\{0,\ldots,2^w-1\}\) be the word-valued address set and
 \(B=\{0,\ldots,255\}\) the byte set. An A0 memory is a finite partial
@@ -270,7 +272,9 @@ old byte. The phrase \emph{everything else is unchanged} is therefore not a
 gesture toward the rest of memory. It abbreviates a quantified clause that a
 checker must test or derive.
 
-\section{Store, then load}
+\section{Stores and loads}
+\indexentry{load instruction}
+\indexentry{store instruction}
 
 Return to \code{0x12345678}. Its little-endian split is
 \code{78}, \code{56}, \code{34}, \code{12}. A store at address 8 writes
@@ -292,7 +296,7 @@ The word has not been numerically reversed. The low byte receives the low
 address. Endianness describes the relation between byte addresses and place
 values.
 
-\subsection{Bytes acquire a value through an access rule}
+\subsection{Access rules give bytes a value}
 
 Memory stores bytes. A load instruction decides how many adjacent bytes to
 read and how to place them in its result. The four locations in
@@ -446,7 +450,7 @@ weight \(2^{24}\) instead of \(2^0\). It returns \code{0x78563412}, not
 between address and weight is wrong.
 \end{example}
 
-\section{Effective addresses and range}
+\section{Effective addresses and valid ranges}
 
 For the A0 operand \([r_1-4]\), the base is the word \(R[r_1]\), and the
 offset is the sign extension of the immediate byte \code{fc}. The effective
@@ -491,7 +495,7 @@ memory domain containing addresses 0 through 255. Repeat with a domain
 containing only addresses 0 through 63.
 \end{tryit}
 
-\subsection{A range is a set of byte addresses, not two unchecked endpoints}
+\subsection{Ranges as sets of byte addresses}
 
 For a non-wrapping access, it is convenient to write the requested range as
 the right-exclusive interval \([a,a+n)\). It contains \(a\) through \(a+n-1\)
@@ -520,7 +524,9 @@ restricting the input relation to aligned addresses or representing the
 additional failure in the abstract model. Matching successful examples does
 not repair the missing case.
 
-\subsection{Alignment is congruence applied to addresses}
+\subsection{Alignment as congruence}
+\indexentry{alignment}
+\indexentry{memory!alignment}
 
 An \(n\)-byte access is naturally aligned when its starting address satisfies
 \[
@@ -560,7 +566,10 @@ the within-page offset, not natural operand alignment. It explains why a
 multi-byte access near the end of a page may require two translations even on
 an architecture that permits the address alignment.
 
-\section{When two accesses meet}
+\section{Aliasing and dependence}
+\indexentry{aliasing}
+\indexentry{memory aliasing}
+\indexentry{memory!aliasing}
 
 Two memory accesses \keyterm{alias} when their byte ranges overlap in the same
 state. Equality of their starting addresses is sufficient but not necessary.
@@ -612,7 +621,7 @@ order decides which one wins. We may recover commutation when the overlapping
 bytes happen to be equal, but that is a different premise and a narrower
 theorem.
 
-\subsection{Loads turn aliasing into a data dependence}
+\subsection{Loads create data dependence}
 
 Place a load beside a store. If their ranges are disjoint and both operations
 succeed, moving the load before the store preserves the loaded value. The
@@ -646,7 +655,10 @@ written by the other. Mnemonics, operand spellings, and unequal starting
 addresses are not enough to decide the question.
 \end{keyidea}
 
-\section{One address can stand in front of another}
+\section{Address translation}
+\indexentry{virtual memory}
+\indexentry{virtual address}
+\indexentry{memory!address translation}
 
 A0 uses an address word directly as the key of its finite map. Most ordinary
 programs on current general-purpose systems use a further abstraction. The
@@ -670,7 +682,7 @@ code from writes, and place devices at controlled addresses. Moving an absent
 page in from storage is one possible policy response, not the definition of
 virtual memory.
 
-\subsection{Pages make translation finite and shareable}
+\subsection{Pages and translation}
 
 Suppose a model divides virtual and physical addresses into pages of \(2^k\)
 bytes. Every virtual address \(v\) has a virtual page number and an offset:
@@ -724,7 +736,8 @@ the other, provided their permissions admit the accesses. Comparing only the
 virtual intervals would miss the alias.
 \end{example}
 
-\subsection{A fault is a transition, not a missing explanation}
+\subsection{Faults as transitions}
+\indexentry{memory fault}
 
 If an entry is absent or its permissions reject the access, the processor
 reports an architectural fault according to the selected environment. System
@@ -761,7 +774,7 @@ range contribute to a multi-byte value. Either rule can be correct while the
 other is wrong.
 \end{warning}
 
-\subsection{Some mapped addresses are devices}
+\subsection{Memory-mapped devices}
 
 An address space can include device registers as well as ordinary memory. A
 load may receive a device status, consume input, or acknowledge an event. A
@@ -781,7 +794,7 @@ ordinary memory can lose events or issue commands twice. Region metadata and
 source-pinned rules allow tools to preserve correctness without discarding all
 optimization.
 
-\section{Memory in the two companion machines}
+\section{Memory in RV64 and x86-64}
 
 The later RV64 slice will use distinct load and store forms to move values
 between integer registers and memory. Arithmetic in the selected base forms
@@ -873,7 +886,8 @@ What can fail? & alignment, range, permission, or selected architectural outcome
 \end{tabular}
 \end{table}
 
-\section{Memory costs have several units}
+\section{The costs of memory}
+\indexentry{memory!cost}
 
 Saying that memory is expensive or slow is not yet an engineering claim. A
 memory system exposes several resources, and an improvement in one can worsen
@@ -924,7 +938,7 @@ requests without changing these three numbers. Explain why the equation alone
 cannot determine the new bytes-per-second throughput.
 \end{tryit}
 
-\subsection{Locality turns history into a performance prediction}
+\subsection{Locality and performance}
 
 Programs often reuse recently accessed locations or access neighbors. The
 first pattern is \keyterm{temporal locality}; the second is \keyterm{spatial
@@ -961,7 +975,7 @@ entries needed for a region but can increase internal waste and the amount of
 data tied to one mapping decision. These are tradeoffs, not arguments for one
 page size in every system.
 
-\subsection{Allocation adds regions and lifetimes to the byte map}
+\subsection{Allocation, regions, and lifetimes}
 
 The architectural map says which byte addresses are present. An allocator
 answers a different question: which present ranges have been assigned to
@@ -994,7 +1008,9 @@ adds economic questions: time spent finding a range, bytes lost to
 fragmentation, bytes used by the allocator itself, and work required to
 clear, move, or reuse storage. Each question needs its own state and unit.
 
-\subsection{Architectural validity is weaker than memory safety}
+\subsection{Validity and memory safety}
+\indexentry{memory safety}
+\indexentry{memory!safety}
 
 Suppose a process has a readable page containing two adjacent allocated
 objects. A load can stay inside the mapped page yet cross from the first object
@@ -1037,7 +1053,7 @@ intended object, that the object is still alive, or that concurrent access is
 properly synchronized.
 \end{warning}
 
-\section{The implementation boundary}
+\section{Implementation boundary}
 
 The Axeyum state and memory package must implement the finite map, valid-range
 check, atomic load and store outcomes, little-endian split and join, wrapped

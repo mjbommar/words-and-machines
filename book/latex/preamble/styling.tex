@@ -73,6 +73,15 @@
 \titlespacing*{\chapter}{0pt}{50pt}{40pt}
 \titlespacing*{name=\chapter,numberless}{0pt}{50pt}{40pt}
 
+% Parts expose the four-stage proof spine. Keep them quieter than a chapter
+% title: the division matters, but the reader should reach the chapter quickly.
+\titleformat{\part}[display]
+  {\normalfont\centering}
+  {\large\color{bk-chapter-word}\bklabelcaps{Part \Roman{part}}}
+  {0.75\baselineskip}
+  {\Huge\bfseries\color{bk-chapter-title}}
+\titlespacing*{\part}{0pt}{40pt}{36pt}
+
 \titleformat{\section}
   {\normalfont\Large\bfseries\color{bk-section-title}}
   {\thesection}{0.6em}{}

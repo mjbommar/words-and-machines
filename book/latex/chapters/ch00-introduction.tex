@@ -17,7 +17,8 @@ not the same layer.
 
 This book takes them apart and puts them back together.
 
-\section{An old ambition with modern consequences}
+\section{Calculation by rule}
+\indexentry{calculation!universal rules}
 
 The wish to make calculation mechanical is older than the electronic
 computer. In 1703, Gottfried Wilhelm Leibniz described an arithmetic that used
@@ -139,6 +140,7 @@ level below it, but each connection carries assumptions that must be stated.
 \end{goingdeeper}
 
 \section{A machine small enough to finish}
+\indexentry{A0 teaching machine}
 
 We begin with an abstract instruction set called A0. It has fixed-width words,
 eight registers, byte-addressed memory, a program counter, four condition
@@ -176,7 +178,9 @@ breaks. Those mutations become negative controls for the later executable
 model. A teaching machine should make both the right rule and its nearest
 wrong neighbors easy to inspect.
 
-\section{Two companions, not two stereotypes}
+\section{Two architectural companions}
+\indexentry{RISC}
+\indexentry{CISC}
 
 The reduced-instruction movement arose from a concrete engineering argument,
 not from a rule that fewer mnemonics must be better. During the 1970s and
@@ -272,7 +276,8 @@ A0 uses fixed four-byte encodings, but x86-64 reminds us that instruction
 length can itself be a decoded result. The companions pressure-test the
 foundation.
 
-\section{From execution to a claim}
+\section{From execution to claims}
+\indexentry{machine claim}
 
 Suppose two short programs leave the same value in their designated output
 register. Are they equivalent?
@@ -354,7 +359,8 @@ lowest address. The failure lies before the solver, at the connection
 between the printed semantics and the generated problem.
 \end{example}
 
-\subsection{Four claims that look alike in assembly}
+\subsection{Four kinds of machine claim}
+\indexentry{minimality}
 
 One sequence on the page can support several kinds of sentence. Their
 quantifiers determine what evidence can settle them. Let $S$ be the allowed
@@ -438,7 +444,9 @@ $Q$.'' Write the three formulas. Name the smallest decisive evidence for each
 one. Give one test result that would leave each claim unsettled.
 \end{tryit}
 
-\section{The two proofs}
+\section{Reader proof and machine proof}
+\indexentry{proof!reader proof}
+\indexentry{proof!machine proof}
 
 Every load-bearing theorem in this book needs two forms of support. The reader
 proof exposes the reason. It may use a width-four example, an invariant, a
@@ -510,7 +518,8 @@ the producer's search procedure for the inferences recorded in the artifact.
 Controls and semantic review must cover the remaining connections.
 \end{warning}
 
-\section{The route through the book}
+\section{The book's four-part route}
+\indexentry{program}
 
 \begin{figure}[htbp]
 \centering
@@ -556,7 +565,7 @@ Chapter 13 will depend on all of those semantics plus a candidate language and
 cost. The dependency chain prevents a solver formula from quietly becoming a
 machine theorem.
 
-\section{How to work through a chapter}
+\section{How to study a chapter}
 
 The book is meant to be used with pencil, terminal, and source manual near one
 another. New material normally arrives in five passes. First comes an object
@@ -614,7 +623,8 @@ negative control. An experienced compiler engineer may move quickly through
 basic arithmetic but should resist skipping the observation and state
 relations: those are where familiar optimization claims acquire exact scope.
 
-\section{How Axeyum enters the argument}
+\section{Axeyum's role}
+\indexentry{Axeyum}
 
 Axeyum is the evidence stack used by the accompanying repository. It supplies
 bit-vector expressions, solver routes, certificate machinery, and other
@@ -648,7 +658,12 @@ RV64, x86-64, and cross-ISA packages the full book requires. Planned examples
 remain labeled as obligations until those packages and their controls run.
 This prevents tutorial prose from becoming accidental evidence.
 
-\section{What the ledger is for}
+\section{The object ledger}
+\indexentry{object ledger}
+\indexentry{ABI|see{application binary interface}}
+\indexentry{flags|see{condition code}}
+\indexentry{ISA|see{instruction set architecture}}
+\indexentry{proof artifact|see{certificate}}
 
 The project keeps a machine-readable record for its definitions, claims, and
 unresolved obligations. Chapters take scope and evidence descriptions from

@@ -20,7 +20,7 @@ Both rules belong to the instruction's meaning. Neither can be recovered from
 the mnemonic alone.
 \end{keyidea}
 
-\section{Why machines spend instructions on movement}
+\section{Why machines move data}
 
 Arithmetic circuits act on values already presented in the right places.
 Programs therefore spend much of their time arranging operands: bringing a
@@ -98,6 +98,7 @@ Which failure prevents a write? What state is preserved? Those questions are
 more durable than a classification label.
 
 \section{Values, locations, and transfers}
+\indexentry{location}
 
 A \keyterm{location} is a place named by the architecture that can hold or
 yield a value. In our models, ordinary register names and valid memory byte
@@ -209,7 +210,7 @@ says, for example, ``copy the low eight bits of register 2 to memory address
 \(a\), preserving all other bytes,'' or ``load four bytes, assemble them in
 little-endian order, and sign-extend bit 31 through a 64-bit destination.''
 
-\subsection{Locations may overlap without being independent}
+\subsection{Overlapping locations}
 
 Two names can denote overlapping storage. The clearest example is the x86-64
 RAX family, but memory ranges overlap too. A four-byte store at address 100 and
@@ -246,7 +247,7 @@ A model with independent AL and RAX cells would wrongly preserve the old
 64-bit value.
 \end{example}
 
-\subsection{A location is a view with a read and a write rule}
+\subsection{Read and write rules}
 
 A location name can be modeled as a pair of functions over machine state. Its
 read function produces a value. Its write function accepts a new value and an
@@ -305,7 +306,7 @@ order determining the read and write conversions. Unlike a register view, it
 also has a domain condition: every byte must permit reading or writing under the
 selected policy before the operation commits.
 
-\subsection{Equality of values is not identity of locations}
+\subsection{Value equality and location identity}
 
 Two registers can hold equal words while remaining independent locations. Two
 address expressions can differ in their written form while naming the same memory
@@ -350,7 +351,7 @@ not alias when every allowed state is disjoint. A compiler that cannot prove
 the last condition must preserve dependences that a possible overlap could
 create.
 
-\section{A0 movement is deliberately explicit}
+\section{Explicit movement in A0}
 
 A0 separates register moves, immediate construction, loads, and stores. Every
 ordinary register has width \(w\), so \code{mov rd,rs1} copies one complete
@@ -391,7 +392,7 @@ This omission is useful. Extension and truncation can be introduced as explicit
 bridge operations when we relate a real instruction to A0 rather than being
 hidden in the small machine's basic move.
 
-\subsection{A complete A0 store and load}
+\subsection{An A0 store and load}
 
 Take width \(w=16\). Let \(r_1=\mathtt{0010}\),
 \(r_2=\mathtt{BEEF}\), and let the signed immediate byte be \code{02}. The
@@ -446,7 +447,8 @@ mutation should produce a different witness or failure. A checker that still
 reports the original round trip is ignoring one of its inputs.
 \end{tryit}
 
-\section{Effective addresses are calculated words}
+\section{Effective-address calculation}
+\indexentry{effective address}
 
 An \keyterm{effective address} is the offset produced by an instruction's
 address calculation before the memory system determines whether the requested
@@ -531,7 +533,7 @@ wraps, the resulting address may still fall inside the finite modeled memory.
 A theorem that intends to exclude wrap must say so as a precondition. Merely
 checking the final byte range does not establish that the mathematical sum fit.
 
-\subsection{Address formation and memory access are separate stages}
+\subsection{Address formation before access}
 
 A load or store proof is clearer when decomposed into stages. First read every
 old operand needed for the source and address. Next calculate the effective
@@ -605,7 +607,7 @@ different stages. If the model distinguishes them or their priority, the
 trace and refinement relation must distinguish them too.
 \end{warning}
 
-\subsection{A total transfer returns success or a named failure}
+\subsection{Success and named failures}
 
 A mathematical load need not throw a host-language exception or leave a
 half-built state. Define it as a total classifier over declared inputs. For
@@ -671,7 +673,7 @@ frame check. Every declined case needs a caller test that refuses to treat the
 decline as an architectural trap. A decoder or executor that rejects every
 input can no longer masquerade as safe.
 
-\section{RV64I movement: widths are in the instruction}
+\section{Data movement in RV64I}
 
 Our RV64I window uses the base integer ISA at XLEN 64. Register \code{x0}
 always reads as zero, and writes to it have no architectural effect. The other
@@ -702,7 +704,7 @@ produces \code{FFFFFFFF80000000}; an \code{lwu} produces
 rule creates the difference.
 \end{example}
 
-\subsection{Extension is a theorem about all destination bits}
+\subsection{Extension and destination width}
 
 Let \(u\) be the unsigned reading of an \(n\)-bit source and let the
 destination width be \(m>n\). Zero extension preserves the same nonnegative
@@ -752,7 +754,7 @@ operands. The chapter may print the convenient spelling beside it, but should
 not count the alias as another machine instruction.
 \end{sidebar}
 
-\section{x86-64 movement: register names carry width}
+\section{Data movement in x86-64}
 
 x86-64 names overlapping portions of a general-purpose register. In the RAX
 family, \code{rax} names 64 bits, \code{eax} the low 32, \code{ax} the low
@@ -837,7 +839,7 @@ provides the numeric word and access behavior. Object identity and provenance
 enter only through a stronger language or compiler relation.
 \end{sidebar}
 
-\section{Relating selected movements}
+\section{Relating movement operations}
 
 A real instruction refines an A0 movement---meaning that every selected real
 step is matched by the declared A0 behavior---when related starting states
@@ -879,7 +881,7 @@ the new value and still look plausible on non-aliasing tests. Read sets and
 write order should be explicit even when the mathematical transition is
 presented as one atomic step.
 
-\subsection{When two memory movements may commute}
+\subsection{When memory operations commute}
 
 Reordering independent loads and stores is central to compilers and processors,
 but independence is a semantic claim. Two stores to disjoint byte intervals
@@ -919,7 +921,7 @@ and perhaps a different fault boundary. Under a no-fault premise and an
 observation only at the sequence endpoints, the replacement may still be
 valid; without those conditions, instruction count is not the only change.
 
-\section{The present cost of moving a value}
+\section{The cost of data movement}
 
 An ISA instruction counts an architectural transfer. A physical system may
 move the corresponding bits through register files, bypass networks, cache
@@ -991,7 +993,7 @@ offset exceeds the signed immediate range. A shorter sequence is not
 automatically faster, and a faster sequence on one core is not automatically
 better under a code-size or energy budget.
 
-\subsection{Alias information buys optimization freedom}
+\subsection{Alias information and optimization}
 
 A compiler can reorder, combine, remove, or move memory operations only when
 the transformation preserves every behavior in scope. Alias analysis supplies
@@ -1021,7 +1023,7 @@ object size and later access. An extra level of indirection may add loads or
 reduce locality. ``Zero copy'' should therefore name the boundary across which
 no copy occurs; data may still move through caches, devices, or networks.
 
-\subsection{Safety checks and information leakage}
+\subsection{Safety checks and leakage}
 
 A valid machine address is weaker than a safe source-language access. Bounds
 checking can prevent an array index from selecting bytes outside its object.
@@ -1051,7 +1053,7 @@ cloud or device system, its bytes consume shared bandwidth and energy. The
 same word ``load'' is useful only when the current level and evidence are named.
 \end{archive}
 
-\section{How Axeyum enters this chapter}
+\section{Axeyum route}
 
 The live Axeyum checkout at revision \code{a9991fda} still lacks A0, RV64I, and
 x86-64 architectural packages. It does contain array reasoning, symbolic

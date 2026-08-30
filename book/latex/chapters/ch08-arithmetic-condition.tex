@@ -20,6 +20,7 @@ separate parts of the transition.
 \end{keyidea}
 
 \section{Why machines record arithmetic conditions}
+\indexentry{condition code}
 
 A program rarely computes only to keep the result. It also asks whether the
 result was zero, whether one value was less than another, whether an unsigned
@@ -48,7 +49,7 @@ summary of a larger event. The summary is useful precisely because it is
 incomplete; proofs must therefore say which later questions it can answer.
 \end{archive}
 
-\subsection{Arithmetic rules arrived before electronic arithmetic units}
+\subsection{Arithmetic before electronic circuits}
 
 The ideas in this chapter have several histories. Positional notation made a
 digit's place part of its value. Hand calculation and mechanical calculators
@@ -100,7 +101,7 @@ compiler assumption. Date the event being claimed: publication, working
 hardware, architecture, or software contract.
 \end{sidebar}
 
-\section{One addition, four separate questions}
+\section{Four questions about addition}
 
 Let \(x\) and \(y\) be width-\(w\) words. Their ordinary nonnegative readings
 lie from zero through \(2^w-1\). Write
@@ -134,7 +135,7 @@ Carry records an unsigned boundary:
 Signed overflow records a signed boundary. It holds exactly when the operands
 have the same high bit and the result has the other high bit.
 
-\subsection{An arithmetic event has several projections}
+\subsection{Several views of one addition}
 
 It is useful to model one successful arithmetic event before placing it inside
 a machine state. For a selected operation and width, the event can contain
@@ -193,7 +194,7 @@ overflow is clear. The lower-right example adds 7 and 1. It has no unsigned
 carry, but the signed result 8 is outside the width-four signed range and sets
 overflow.
 
-\subsection{The widened identity separates storage from range}
+\subsection{Widening separates storage from range}
 
 Because two unsigned width-\(w\) readings sum to at most \(2^{w+1}-2\), one
 extra bit is enough to hold their exact sum. There are unique values
@@ -249,7 +250,7 @@ and signed overflow answer different range questions and can disagree. Name
 the reading, range, and condition bit.
 \end{warning}
 
-\subsection{The word ring preserves some laws and rejects others}
+\subsection{Algebraic laws of word addition}
 
 Width-\(w\) words with modular addition and multiplication form a finite
 commutative ring. Addition and multiplication are associative and commutative.
@@ -312,7 +313,8 @@ invertibility alone says nothing: outputs may leave that interval and later
 range handling may lose information.
 \end{example}
 
-\section{A one-bit adder connects algebra to a circuit}
+\section{From a one-bit adder to a circuit}
+\indexentry{full adder}
 
 The widened identity describes what addition must mean. A circuit still has to
 produce the bits. Begin with input bits \(a,b\). A half adder has sum bit
@@ -393,7 +395,7 @@ state, while optimized networks demand careful connection and equivalence
 checks. Mathematics supplies identities, but a chip must pay for their
 realization in matter, time, energy, and engineering labor.
 
-\subsection{The top carries give another overflow formula}
+\subsection{Overflow from the top carries}
 
 The carry chain provides a second way to calculate signed addition overflow.
 Let \(c_{w-1}\) be the carry entering the high bit and \(c_w\) the carry leaving
@@ -424,7 +426,7 @@ rule. Then invert only \(c_{w-1}\) in a faulty implementation and find a row
 that distinguishes the formulas.
 \end{tryit}
 
-\subsection{Zero and negative are readings of the stored word}
+\subsection{Zero and negative conditions}
 
 The zero condition has no ambiguity between signed and unsigned readings. A width-\(w\) word has
 unsigned reading zero exactly when all bits are zero, and its signed reading is
@@ -459,7 +461,7 @@ unchanged even when it writes a zero word; a logic instruction might define
 does not store. The mathematical predicate and the architectural decision to
 record it are separate claims.
 
-\section{Deriving the signed-overflow rule}
+\section{The signed-overflow rule}
 
 The sign rule is not a hardware incantation. It follows from the signed range.
 If one operand is nonnegative and the other negative, their sum lies between
@@ -492,7 +494,7 @@ This proof handles every width \(w>0\). Exhausting all 256 pairs at width four
 is still useful, but it checks an instance. The case argument explains why the
 same rule holds at width 8, 32, 64, or another positive width.
 
-\subsection{Counting the boundary cases strengthens a test census}
+\subsection{Boundary cases for testing}
 
 A census can say more than whether every row passed. Let
 \(M=2^w\). There are \(M^2\) ordered pairs of width-\(w\) words. For a fixed
@@ -559,6 +561,7 @@ and some overflowing sums wrap to a word with the same high bit as one
 operand.
 
 \section{Subtraction, borrow, and comparison}
+\indexentry{borrow}
 
 Subtraction stores
 \[
@@ -596,7 +599,7 @@ subtraction stays in range, the result sign tells the ordering. When it
 overflows, that sign is reversed from the mathematical ordering, and the
 overflow bit reverses the decision back.
 
-\subsection{Subtraction can be read three ways}
+\subsection{Three readings of subtraction}
 
 The same stored subtraction supports three claims. As a word equation,
 \[
@@ -648,7 +651,7 @@ signed predicate \(N\ne V\) is true. The same subtraction summary answers
 both questions because the branch chooses a different formula.
 \end{example}
 
-\section{Logic acts pointwise, but its meaning is not only arithmetic}
+\section{Bitwise logic}
 
 For width-\(w\) words, AND, OR, and XOR apply the corresponding Boolean
 operation independently at each bit position. NOT complements every bit. This
@@ -717,7 +720,7 @@ Adding one produces the modular additive inverse. Hence
 That identity supports subtraction hardware and bit-level proofs. It does not
 say that bitwise NOT alone is arithmetic negation.
 
-\section{Logic and shifts need condition policies too}
+\subsection{Condition policies for logic and shifts}
 
 A0's AND, OR, XOR, and NOT instructions set \(Z\) and \(N\) from the result
 and clear \(C\) and \(V\). The clearing is a policy, not a theorem about
@@ -752,7 +755,7 @@ width rule is part of its model. RV64I and x86-64 selected forms have their own
 count rules. A cross-ISA theorem must either relate those rules on a restricted
 domain or expose the difference.
 
-\subsection{A shift theorem needs a count domain}
+\subsection{The domain of a shift count}
 
 For a logical left shift by a mathematical count \(k\) with
 \(0\leq k<w\), the stored result has unsigned reading
@@ -794,7 +797,7 @@ Derive the effective count once, branch on zero, and use the same value for
 both the result and condition calculation.
 \end{warning}
 
-\subsection{Rotation preserves bits while changing their places}
+\subsection{Rotation preserves bits}
 
 A shift discards bits at one edge and introduces fill bits at the other. A
 rotation returns the departing bits at the opposite edge. For an effective
@@ -820,7 +823,7 @@ in the permutation. That operation has a different state space from ordinary
 word rotation. The count normalization, flag input, and flag output must be
 included before the two can be compared.
 
-\section{Multiplication and division expose more than one result word}
+\section{Multiplication and division}
 
 The product of two width-\(w\) unsigned readings can require \(2w\) bits. Let
 
@@ -895,7 +898,7 @@ latency, workload, and software compatibility. Instruction availability does
 not imply one cycle or one circuit, and instruction absence does not imply
 that programs cannot compute the operation.
 
-\section{Three ways to carry a condition forward}
+\section{Condition state in three machines}
 
 The state paths differ across our machines.
 
@@ -934,7 +937,7 @@ cross-machine relation should equate that decision on the declared states. It
 need not invent identical condition registers on all three machines.
 \end{sidebar}
 
-\subsection{A0 makes the complete teaching policy small enough to print}
+\subsection{A0 condition policy}
 
 For A0 addition and subtraction, \(Z\) and \(N\) come from the stored result.
 Addition sets \(C\) from the widened unsigned sum and \(V\) from signed range
@@ -957,7 +960,7 @@ if later added, must state whether it commits any condition state before the
 fault. A correct result word with an incorrect frame is still an incorrect
 transition.
 
-\subsection{RV64I turns many retained conditions into ordinary data}
+\subsection{RV64I conditions as data}
 
 Base RV64I ADD and SUB store low 64-bit results and do not write an arithmetic
 flag register. Signed and unsigned comparisons are explicit operations. For
@@ -988,7 +991,7 @@ decision is needed immediately. These are instruction-count and register-
 pressure choices, not differences in the mathematical predicate
 \autocite{riscv2026unpriv}.
 
-\subsection{x86-64 makes selected arithmetic facts implicit inputs and outputs}
+\subsection{x86-64 condition flags}
 
 For selected x86-64 ADD forms, CF records unsigned carry and OF records signed
 overflow; ZF and SF describe the stored result. ADC also reads entry CF as an
@@ -1020,7 +1023,7 @@ decision while allowing different registers, flags, program lengths, and
 preserved state.
 \end{example}
 
-\section{Carry chains turn condition state into data}
+\section{Carry chains}
 
 A word is often only one limb of a larger integer. Let a three-word unsigned
 number use little-indexed limbs \(x_0,x_1,x_2\), each of width \(w\). Add
@@ -1072,7 +1075,8 @@ the low equation. The terms \(c_1 2^w\) cancel from opposite sides, leaving
 the exact two-limb sum with low limbs \(r_0,r_1\) and final carry \(c_2\).
 \end{proofkit}
 
-\section{Observed and unobserved conditions}
+\section{Condition liveness}
+\indexentry{liveness!condition state}
 
 Consider two instruction sequences that always leave the same destination
 word. One writes the correct conditions; the other leaves old conditions in
@@ -1104,7 +1108,7 @@ may be harmless in one closed routine. If later code reads the register, the
 difference is visible. Hidden versus explicit state changes the analysis tools,
 not the need for a scope.
 
-\subsection{Condition liveness is ordinary backward reasoning}
+\subsection{Backward reasoning about conditions}
 
 To decide whether a condition write matters, begin at the later use and reason
 backward. A branch that reads \(Z\) makes the most recent reaching definition
@@ -1136,7 +1140,7 @@ yet the next limb differs. Backward liveness from the add-with-carry identifies
 \(C\) as a required observation across the inserted instruction.
 \end{example}
 
-\section{Software chooses what an out-of-range result means}
+\section{Policies for out-of-range results}
 
 The ISA defines an instruction transition. A programming language, library,
 or intermediate representation may place another contract above it. Several
@@ -1179,7 +1183,7 @@ Then \((7+7)+(-7)\) becomes \(7+(-7)=0\). But
 addition are associative; stepwise saturated addition is not.
 \end{example}
 
-\subsection{Unexpected wrap can change a resource or security boundary}
+\subsection{Wraparound and security boundaries}
 
 Modular arithmetic is not itself a defect. The defect appears when one layer
 uses a modular result while another assumes an ordinary integer fact. A length
@@ -1235,7 +1239,7 @@ extension of the low word. To preserve the mathematical product, widen before
 multiplication or use an operation that returns the full high and low parts.
 \end{warning}
 
-\subsection{Compiler facts are promises, not spare flag bits}
+\subsection{Compiler range facts}
 
 LLVM integer addition without a no-wrap marker returns the modular result. Its
 \code{nuw} and \code{nsw} markers add claims that unsigned or signed wrapping
@@ -1268,7 +1272,7 @@ carry idioms often use general registers and direct branches instead. The
 dependence is more visible in the register graph, but it still consumes an
 instruction result and perhaps a register name.
 
-\subsection{Arithmetic cost has several dimensions}
+\subsection{Dimensions of arithmetic cost}
 
 Latency asks how long one dependent result takes. Throughput asks how often an
 implementation can begin or finish operations. Area asks how much hardware is
@@ -1307,7 +1311,7 @@ scalar laws can be lifted lane by lane only after those questions are answered.
 Chapter~\ref{ch:model-boundary} treats that extension as a larger state and
 observation problem rather than pretending that one scalar flag covers it.
 
-\section{How Axeyum can check the arithmetic layer}
+\section{Axeyum route}
 
 The live Axeyum checkout at revision \code{a9991fda} already contains more than
 a generic solver. Its Rust term layer implements fixed-width addition,
@@ -1386,7 +1390,7 @@ selected flags for exact operand widths and forms. An evidence manifest must
 name the observation: destination only, selected conditions, or complete
 in-scope state.
 
-\section{Integer words are one arithmetic domain, not all arithmetic}
+\section{Arithmetic beyond integer words}
 
 The same stored bits can participate in other numeric contracts. A fixed-point
 format assigns an implicit scale. If a word represents integer \(q\) with

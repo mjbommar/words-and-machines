@@ -33,6 +33,7 @@ from trim_catalog import TRIM_CATALOG, TRIM_PRESETS
 
 ROOT = Path(__file__).resolve().parent.parent
 BOOK_YAML = ROOT / "book.yaml"
+GLOSSARY_YAML = ROOT / "glossary.yaml"
 GENERATED = ROOT / "latex" / "generated"
 BUILD = ROOT / "build"
 
@@ -225,12 +226,33 @@ def ai_disclosure_parts(cfg: dict) -> tuple[str, dict | None]:
         fail(f"exactly one edition must set default: true (found {len(defaults)})")
     chapter_re = re.compile(r"^ch\d{2}$")
     for name, ed in editions.items():
-        chapters = (ed or {}).get("chapters") or []
+        ed = ed or {}
+        chapters = edition_chapter_ids(ed)
         if not chapters:
             fail(f"edition {name!r} has no chapters")
+        if ed.get("chapters") and ed.get("parts"):
+            fail(f"edition {name!r} must use chapters or parts, not both")
+        for i, part in enumerate(ed.get("parts") or [], 1):
+            if not isinstance(part, dict):
+                fail(f"edition {name!r}: part {i} must be a mapping")
+            if not str(part.get("title") or "").strip():
+                fail(f"edition {name!r}: part {i} has no title")
+            if not part.get("chapters"):
+                fail(f"edition {name!r}: part {i} has no chapters")
         for ch in chapters:
             if not chapter_re.match(ch):
                 fail(f"edition {name!r}: chapter id {ch!r} must match chNN")
+
+
+def edition_chapter_ids(ed: dict) -> list[str]:
+    """Return an edition's chapter ids in reading order.
+
+    Flat ``chapters`` remains supported for compact editions.  A structured
+    edition uses ``parts`` so the same spine drives print and EPUB navigation.
+    """
+    if ed.get("parts"):
+        return [ch for part in ed["parts"] for ch in part.get("chapters", [])]
+    return list(ed.get("chapters") or [])
 
 
 def resolve_chapter_file(ch_id: str) -> Path:
@@ -314,7 +336,8 @@ def write_metadata_tex(cfg: dict, macros: dict[str, str]) -> None:
 
 
 def write_edition_tex(ed_name: str, ed: dict) -> list[str]:
-    files = [resolve_chapter_file(ch) for ch in ed["chapters"]]
+    chapter_ids = edition_chapter_ids(ed)
+    files = [resolve_chapter_file(ch) for ch in chapter_ids]
     lines = [
         f"% GENERATED edition '{ed_name}' — do not edit (see book.yaml editions).",
     ]
@@ -334,8 +357,14 @@ def write_edition_tex(ed_name: str, ed: dict) -> list[str]:
         ]
     (GENERATED / "introduction.tex").write_text(
         "\n".join(intro_lines) + "\n")
-    lines += [f"\\input{{chapters/{f.stem}}}" for f in files
-              if not introduction or f != intro_file]
+    if ed.get("parts"):
+        for part in ed["parts"]:
+            lines.append(f"\\part{{{part['title']}}}")
+            lines += [f"\\input{{chapters/{resolve_chapter_file(ch).stem}}}"
+                      for ch in part["chapters"]]
+    else:
+        lines += [f"\\input{{chapters/{f.stem}}}" for f in files
+                  if not introduction or f != intro_file]
     (GENERATED / "edition.tex").write_text("\n".join(lines) + "\n")
     return [f.name for f in files]
 
@@ -367,6 +396,15 @@ def write_epub_json(cfg: dict, macros: dict[str, str], ed_name: str, ed: dict,
         "keywords": get(cfg, "classification.keywords", []),
         "bisac": get(cfg, "classification.bisac", []),
         "chapters": chapter_files,
+        "parts": [
+            {
+                "title": part["title"],
+                "chapters": [resolve_chapter_file(ch).name
+                             for ch in part["chapters"]],
+            }
+            for part in ed.get("parts", [])
+        ],
+        "glossary": load_glossary(),
         "modules": {
             "code": bool(get(cfg, "modules.code", False)),
             "verse": bool(get(cfg, "modules.verse", False)),
@@ -374,6 +412,65 @@ def write_epub_json(cfg: dict, macros: dict[str, str], ed_name: str, ed: dict,
         },
     }
     (BUILD / "epub-metadata.json").write_text(json.dumps(data, indent=2) + "\n")
+
+
+def load_glossary() -> list[dict[str, str]]:
+    """Load and validate the reader glossary.
+
+    Definitions are deliberately authored data rather than sentences scraped
+    from ``\\keyterm`` locations.  The in-place explanation teaches the idea;
+    this list helps a reader recover it later.
+    """
+    if not GLOSSARY_YAML.exists():
+        return []
+    raw = yaml.safe_load(GLOSSARY_YAML.read_text()) or {}
+    entries = raw.get("entries") or []
+    seen: set[str] = set()
+    clean: list[dict[str, str]] = []
+    for i, entry in enumerate(entries, 1):
+        if not isinstance(entry, dict):
+            fail(f"glossary entry {i} must be a mapping")
+        term = str(entry.get("term") or "").strip()
+        definition = str(entry.get("definition") or "").strip()
+        if not term or not definition:
+            fail(f"glossary entry {i} needs term and definition")
+        key = term.casefold()
+        if key in seen:
+            fail(f"duplicate glossary term: {term}")
+        seen.add(key)
+        item = {"term": term, "definition": definition}
+        if entry.get("see_also"):
+            item["see_also"] = str(entry["see_also"]).strip()
+        clean.append(item)
+    return sorted(clean, key=lambda e: e["term"].casefold())
+
+
+def latex_escape(text: str) -> str:
+    replacements = {
+        "\\": r"\textbackslash{}", "&": r"\&", "%": r"\%",
+        "$": r"\$", "#": r"\#", "_": r"\_", "{": r"\{",
+        "}": r"\}", "~": r"\textasciitilde{}", "^": r"\textasciicircum{}",
+    }
+    return "".join(replacements.get(ch, ch) for ch in text)
+
+
+def write_glossary_tex() -> None:
+    entries = load_glossary()
+    lines = ["% GENERATED from glossary.yaml — do not edit.",
+             r"\chapter{Glossary}"]
+    current = ""
+    for entry in entries:
+        letter = entry["term"][0].upper()
+        if letter != current:
+            lines += [r"\section*{" + latex_escape(letter) + "}"]
+            current = letter
+        definition = latex_escape(entry["definition"])
+        if entry.get("see_also"):
+            definition += " See also " + latex_escape(entry["see_also"]) + "."
+        lines += [r"\noindent\textbf{" + latex_escape(entry["term"])
+                  + "}. " + definition + r"\par\smallskip"]
+    GENERATED.mkdir(parents=True, exist_ok=True)
+    (GENERATED / "glossary.tex").write_text("\n".join(lines) + "\n")
 
 
 _AI_ANSWERS = {
@@ -481,6 +578,7 @@ def main() -> None:
     ed_name, ed = edition_config(cfg, args.edition)
     macros = build_macros(cfg, ed_name, ed)
     write_metadata_tex(cfg, macros)
+    write_glossary_tex()
     chapter_files = write_edition_tex(ed_name, ed)
     write_epub_json(cfg, macros, ed_name, ed, chapter_files)
     if args.emit_kdp:

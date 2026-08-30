@@ -19,7 +19,8 @@ movement and what new observation can distinguish outcomes. Extend those
 definitions before extending the proof machinery.
 \end{keyidea}
 
-\section{A model is an instrument, not a miniature universe}
+\section{Models as instruments}
+\indexentry{model boundary}
 
 A scientific model is built for questions. A map that shows streets may omit
 soil composition; a geological map may omit turn restrictions. Neither is
@@ -66,7 +67,7 @@ translation and stable permissions. The extension may reveal that an earlier
 claim needed a stronger premise. That is a correction, not a failure of the
 method.
 
-\subsection{Abstraction is a relation between questions and answers}
+\subsection{Abstraction and questions}
 
 The idea has roots deeper than computer architecture. Mechanics replaces a
 body by a point mass when shape is irrelevant to the question. Circuit theory
@@ -112,7 +113,7 @@ small theorem. When it does not commute, a proof inside the abstract model may
 still be impeccable while saying nothing about the concrete case that broke
 the connection.
 
-\subsection{Conservative extension is a theorem, not a design intention}
+\subsection{Conservative extension}
 
 Suppose \(M_0\) is the scalar model and \(M_1\) adds component \(q\). An
 embedding \(E:S_0\rightarrow S_1\) chooses the \(M_1\) representation of every
@@ -152,7 +153,7 @@ regression tests alone are insufficient. Tests sample states. Conservative
 extension quantifies over every admitted old state and instruction. Tests can
 attack the theorem; they cannot silently replace its universal premise.
 
-\subsection{Model cost is paid at construction and at every claim}
+\subsection{The cost of a model}
 
 Richer models can answer richer questions, but they create more states,
 transitions, cases, serialized fields, and proof obligations. That cost is not
@@ -169,7 +170,8 @@ needs translation and invalidation behavior that an application proof can
 assume. The smallest adequate model reduces both false confidence and needless
 verification expense.
 
-\section{Floating point adds an arithmetic environment}
+\section{Floating-point state}
+\indexentry{floating-point arithmetic}
 
 An integer word represents one residue modulo a power of two, with optional
 signed and unsigned readings. A floating-point datum has a different
@@ -215,7 +217,7 @@ Nothing random occurred. Each operation followed one exact rounding rule.
 The difference arose because a finite representation was applied at two
 different points in the expression tree.
 
-\subsection{Representation, rounding, and error are different objects}
+\subsection{Representation, rounding, and error}
 
 A finite binary value has the conceptual form
 
@@ -258,7 +260,7 @@ invalid-operation state. If client code reads the flags, result-only
 equivalence is too weak. If the environment traps on a selected exception,
 the flag becomes a control-flow boundary rather than passive metadata.
 
-\subsection{Reproducibility is a contract with a cost}
+\subsection{Reproducible floating-point results}
 
 Parallel hardware and optimizing compilers make reassociation economically
 tempting. A balanced sum has less dependency depth than a left-to-right sum.
@@ -295,7 +297,8 @@ yet have different zero signs, NaN payloads, or exception histories. State the
 observation before calling an optimization correct.
 \end{warning}
 
-\section{Vectors add shape, masks, and partial activity}
+\section{Vector state}
+\indexentry{vector instruction}
 
 A packed or vector instruction does not merely apply a scalar operation to a
 wider word. It introduces lanes, element widths, lane ordering, masks, tail
@@ -330,7 +333,7 @@ controls for inactive lanes, tail elements, lane order, and masked faults. Old
 archived shuffle or bit-manipulation artifacts may inform tests, but they do
 not define the new package's semantics or establish its claims.
 
-\subsection{One vector instruction contains several element classes}
+\subsection{Vector element classes}
 
 The ratified RISC-V vector extension gives a useful concrete inventory. It
 adds 32 vector registers and control state including vector length, vector
@@ -385,7 +388,7 @@ still needs separate range facts for each active address. Algebra cannot prove
 that a masked-off load did not fault unless the vector semantics says it was
 not performed.
 
-\subsection{Scalable length changes what a binary promises}
+\subsection{Scalable vector length}
 
 In a fixed-width vector ISA, the binary can name a width known during
 compilation. In a vector-length-agnostic design, one binary can operate across
@@ -408,7 +411,8 @@ where production inputs stop aligning with the most frequently benchmarked
 length. The proof boundary should make the rare path as explicit as the full
 vector path.
 
-\section{Concurrency replaces one trace with an event structure}
+\section{Concurrency and event structures}
+\indexentry{concurrency}
 
 The book's executions are single-threaded sequences. At each step one
 instruction reads one state and produces one successor. With multiple agents,
@@ -449,7 +453,7 @@ one successor at a time. A counterexample is an event graph with a forbidden
 or surprising outcome, and replay means validating every event and relation
 against the memory model.
 
-\subsection{A four-event litmus test changes the semantic object}
+\subsection{A four-event litmus test}
 
 Let shared locations \(x\) and \(y\) begin at zero. Two threads execute
 
@@ -495,7 +499,7 @@ hardware. Litmus tests do not prove a complete model correct. They reveal
 specific allowed or forbidden outcomes and are especially effective as
 negative controls for a formal rule.
 
-\subsection{Axiomatic and operational models answer the same question differently}
+\subsection{Axiomatic and operational models}
 
 An operational model describes machines that move: buffers receive writes,
 messages propagate, and instructions commit under transition rules. An
@@ -521,7 +525,7 @@ Architectural rules constrain combinations of these relations. Treating all
 of them as one vague ``memory order'' hides the very distinction a weak-memory
 proof must use.
 
-\subsection{Language, compiler, and hardware contracts must compose}
+\subsection{Composing concurrency contracts}
 
 A programmer normally writes atomics in a source language, not raw memory
 events. The language assigns meaning to atomic orders and data races. A
@@ -551,7 +555,7 @@ programmers. The economic question is not merely how many cycles a fence
 costs. It includes the engineering cost of preventing, reproducing, and
 diagnosing outcomes that arise only under rare interleavings.
 
-\section{Privilege and virtual memory put addresses in context}
+\section{Privilege and virtual memory}
 
 Our scalar memory maps addresses directly to bytes and checks whether a range
 exists. An operating system and privileged architecture add translation,
@@ -586,7 +590,7 @@ may enter a handler with saved state. Returning from that handler has its own
 privilege and restoration rules. A proof that assumes uninterrupted procedure
 execution must state that premise or model the interference.
 
-\subsection{Translation is a partial stateful computation}
+\subsection{Stateful address translation}
 
 A useful abstract translation relation has the form
 
@@ -623,7 +627,7 @@ allow a privileged mode but not a user mode. Keep translation, authorization,
 and physical-memory access as distinct proof steps.
 \end{warning}
 
-\subsection{Caches create an agreement problem inside translation}
+\subsection{Translation caches}
 
 A translation lookaside buffer retains derived mappings so that common
 accesses need not repeat a full page-table walk. That cache is valuable because
@@ -647,7 +651,7 @@ semantics can include multiple walks, caches, and invalidations. The model
 should expose only the depth needed by the theorem while refusing claims that
 depend on omitted interactions.
 
-\subsection{Virtual memory joined isolation to resource economics}
+\subsection{Isolation and resource economics}
 
 Historically, virtual memory did more than enlarge the apparent address space.
 It supported protection, relocation, sharing, and the allocation of scarce
@@ -672,7 +676,8 @@ allocation granularity and internal fragmentation. A proof should not choose
 that policy. It should make clear which functional guarantees survive every
 policy and which performance claims require measured deployment assumptions.
 
-\section{Self-modifying code joins program and data memory}
+\section{Self-modifying code}
+\indexentry{self-modifying code}
 
 A0 deliberately keeps an immutable program map separate from mutable data
 memory. That design makes decoding stable: the instruction at a program
@@ -707,7 +712,7 @@ cached decode and require the stale step to be rejected. Another can omit a
 required synchronization event and require the execution route to refuse the
 stronger claim.
 
-\subsection{Publication turns bytes into executable meaning}
+\subsection{Publishing executable bytes}
 
 It is useful to distinguish three moments. During \keyterm{construction}, a
 tool writes bytes that are not yet promised as executable instructions. During
@@ -762,7 +767,10 @@ attack surface, while switching permissions and coordinating processors costs
 time. A model can clarify the choices by separating generation correctness,
 publication correctness, and steady-state execution performance.
 
-\section{Timing and leakage require richer observations}
+\section{Timing and leakage}
+\indexentry{side channel}
+\indexentry{noninterference}
+\indexentry{constant time}
 
 Two programs can be functionally equivalent and still take different time,
 touch different cache sets, contend for different resources, or draw different
@@ -807,7 +815,7 @@ secret-dependent address or branch and require the leakage checker to notice.
 A result-only checker would accept the mutation and thereby expose its own
 inadequate observation.
 
-\subsection{Noninterference is a two-execution theorem}
+\subsection{Noninterference}
 
 Partition an input into public part \(u\) and secret part \(k\). Let
 \(L(P,u,k)\) be the leakage observation produced by program \(P\). A basic
@@ -840,7 +848,7 @@ the invariant. A secret-indexed table lookup breaks the address step even when
 both runs return the same value.
 \end{proofkit}
 
-\subsection{Constant time names a model, not a stopwatch result}
+\subsection{Constant-time models}
 
 In cryptographic engineering, \keyterm{constant time} commonly means that
 selected control flow and memory addresses do not depend on secrets. That
@@ -865,7 +873,7 @@ consequence is a second validation program: teams must maintain protected
 implementations, inspect generated code, test across supported platforms, and
 respond when a new microarchitectural channel changes the attacker model.
 
-\subsection{Speculation separates permission to commit from permission to affect}
+\subsection{Speculative effects}
 
 Speculative execution predicts a future control path and performs work before
 the prediction is known to be correct. On a wrong prediction, architectural
@@ -888,7 +896,8 @@ attacker. Each mitigation needs a model containing the mechanism it claims to
 control. Otherwise a successful check can certify syntax while the operative
 channel remains outside the theorem.
 
-\section{Verified compilation adds a tower of languages}
+\section{Verified compilation}
+\indexentry{verified compilation}
 
 Our cross-ISA proofs begin with machine programs on both sides. A compiler
 starts higher: source syntax, types, undefined or unspecified behavior,
@@ -931,7 +940,7 @@ real-machine semantics. The right introductory path is to verify one small
 translation pass or one instruction-selection rule, then compose only after
 the interfaces and controls are stable.
 
-\subsection{Behavior preservation is not syntax preservation}
+\subsection{Behavior preservation}
 
 Let \(\mathcal{B}_S(P)\) be the set of source behaviors of program \(P\), and
 let \(\mathcal{B}_T(C(P))\) be the target behaviors after successful
@@ -971,7 +980,7 @@ provided the intermediate definitions and observations match. In practice,
 that proviso is load-bearing. Serialization, pass options, target data layout,
 and versioned intermediate forms must agree with the theorem being composed.
 
-\subsection{Undefined behavior allocates responsibility}
+\subsection{Undefined behavior}
 
 An undefined source operation is not a nondeterministic instruction that may
 return any convenient value while the rest of the program retains its usual
@@ -993,7 +1002,7 @@ them as allowed target outcomes, or prove that compilation preserves a source
 counterpart. Silently dropping them would make the target model stronger than
 the deployed machine.
 
-\subsection{The trusted base is also a maintenance budget}
+\subsection{The trusted base}
 
 Every unverified arrow in the compilation tower becomes a trusted process and
 a regression surface. A compiler upgrade, assembler change, linker script,
@@ -1009,7 +1018,7 @@ automatically spreads from one component to a whole product. Assurance grows
 by composing explicit interfaces; marketing language cannot supply a missing
 arrow.
 
-\section{How to extend the workbench without blurring it}
+\section{Extending the model}
 
 Every extension should pass four gates. The \keyterm{state gate} inventories
 new components and preservation rules. The \keyterm{step gate} defines legal
@@ -1052,7 +1061,7 @@ initialized and preserved. Then prove that the new observation of \(E(s)\)
 agrees with the old observation of \(s\).
 \end{proofkit}
 
-\subsection{A boundary ledger prevents accidental theorem drift}
+\subsection{The boundary ledger}
 
 Before implementing an extension, record one row for every new semantic
 component. The row should name its type, initial value, readers, writers,
@@ -1097,7 +1106,7 @@ evidence to exact definitions and show that a semantic mutation fails. If any
 obligation remains open, report the narrower achieved claim.
 \end{proofkit}
 
-\section{Three ways boundary claims go wrong}
+\section{Three boundary failures}
 
 The first failure is \keyterm{silent completion}: an unsupported case is given
 a convenient default. A floating-point decoder treats an unknown format as
@@ -1146,7 +1155,7 @@ not show that an instruction decoder selected the intended format. A compiler
 proof does not verify an unmodeled loader. The claim-to-evidence chain grows as
 the model grows; no link becomes optional because another link is strong.
 
-\section{A research question for every new component}
+\section{Questions for every extension}
 
 Adding state should immediately produce proof questions. For each new component
 \(q\), ask how it is initialized, which transitions can read it, which can
@@ -1186,7 +1195,7 @@ preservation check, and a negative control. When no observation can distinguish
 the new state, ask whether the theorem truly needs it or whether its effect is
 only latent in a larger context.
 
-\section{An Axeyum learning sequence beyond the scalar core}
+\section{Axeyum beyond the scalar core}
 
 The next Axeyum lessons should grow one semantic dimension at a time. A useful
 sequence is: one binary floating-point addition with a fixed format; the same

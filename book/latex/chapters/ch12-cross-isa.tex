@@ -20,7 +20,8 @@ ignore scratch registers or condition state, but only after showing that the
 rest of the allowed computation cannot expose those differences.
 \end{keyidea}
 
-\section{Why translation needs more than matching answers}
+\section{Why translation needs a relation}
+\indexentry{cross-ISA translation}
 
 Programs have crossed machine boundaries since assemblers, compilers, and
 emulators first separated a programmer's operation from one machine's code.
@@ -161,7 +162,7 @@ these bytes represent the same array, these locations are corresponding loop
 heads, and these outcomes mean the same kind of completion.
 \end{archive}
 
-\subsection{Three translation questions that should not be collapsed}
+\subsection{Three translation questions}
 
 Compiler correctness, instruction lifting, and binary translation all cross
 semantic boundaries, but they begin with different objects. A compiler starts
@@ -212,7 +213,7 @@ machine implements every A0 behavior. The candidate slices and relations are
 chosen per theorem. Keeping that scope narrow is what makes the proof
 inspectable.
 
-\subsection{RISC and CISC are shapes, not proof shortcuts}
+\subsection{RISC and CISC as design shapes}
 
 RV64I often exposes operations through regular fixed-width instructions and
 explicit registers. Selected x86-64 instructions may combine a memory access
@@ -262,7 +263,8 @@ That flexibility is disciplined rather than arbitrary: every chosen grouping
 must still preserve the declared observation, expose its freedom clauses, and
 survive a control aimed at the semantic difference it intentionally crosses.
 
-\section{Anatomy of a cross-machine state relation}
+\section{Cross-machine state relations}
+\indexentry{state relation}
 
 Let \(S_A\), \(S_R\), and \(S_X\) range over A0, RV64, and x86-64 states. A
 relation for one routine can be written as a conjunction of smaller clauses.
@@ -372,7 +374,7 @@ branch and x86-64 after the flags used by its conditional jump have been
 established. The relation can pair those distinct addresses through one
 control-point tag.
 
-\subsection{Design the observation before the relation}
+\subsection{Observation before relation}
 
 A relation can become needlessly strong when its author starts by pairing
 registers. Begin instead with the client-visible contract. Does the caller
@@ -427,7 +429,7 @@ holding every related component fixed. Then append a context that reads it.
 Either the context must be excluded, or the relation must be strengthened.
 \end{tryit}
 
-\section{Memory correspondence needs addresses and ownership}
+\section{Memory correspondence}
 
 Equal bytes at numerically equal addresses are only one possible memory
 relation. A translated routine may place the source array at base \(a\) and
@@ -465,7 +467,8 @@ nonaliasing says the admitted ranges share no byte. If overlap is
 allowed, the simulation must account for the shared bytes and write order.
 \end{warning}
 
-\subsection{A memory injection relates blocks, offsets, and permissions}
+\subsection{Memory injections}
+\indexentry{memory injection}
 
 Equal-length intervals are enough for one fixed array. Compilers and binary
 translators also move stack frames, split global objects, allocate helper
@@ -536,7 +539,9 @@ partition supplied by the harness, a loader map, an ABI frame description, or
 a richer intermediate memory model. Recovering unique source objects from
 arbitrary machine addresses is not automatic.
 
-\section{Forward simulation permits unequal step counts}
+\section{Forward simulation}
+\indexentry{forward simulation}
+\indexentry{stuttering}
 
 A \keyterm{forward simulation} begins with related states. Whenever the source
 makes a matched step or segment, the target makes zero or more steps to a state
@@ -579,7 +584,7 @@ clause is stated that way. With nondeterminism, reverse simulation may be
 needed to exclude extra target behaviors. Our selected scalar examples are
 deterministic, but the direction should still appear in the theorem.
 
-\subsection{Safety, progress, and termination are separate transfers}
+\subsection{Transferring safety and termination}
 
 A local simulation usually establishes a safety shape: if related execution
 reaches the next cut point, the new states are related. That conditional does
@@ -613,7 +618,7 @@ fixed list of instructions. In a symbolic proof, a rank or bounded internal
 semantics may establish that the path is finite. A trace bound chosen by the checker is only
 a search resource until the theorem connects it to program structure.
 
-\subsection{When a reverse direction is required}
+\subsection{When reverse simulation is required}
 
 Imagine a target program that returns the correct result for every related
 source run but also has an extra path that leaks into an unrelated successful
@@ -627,7 +632,7 @@ choose another successor. The theorem should still cite determinism rather
 than inherit it from intuition. Later models with concurrency, interrupts, or
 underspecified behavior lose that shortcut.
 
-\section{A three-machine absolute-value routine}
+\section{Absolute value on three machines}
 
 Let \(x\) be a width-\(w\) word and \(\langle x\rangle_s\) its signed reading.
 The mathematical absolute value lies outside the signed width-\(w\) range when
@@ -752,7 +757,7 @@ positive and equal to \(|x|\). At \emph{done}, the result words, outcomes, and
 preserved memory are related. Scratch condition state may differ.
 \end{proofkit}
 
-\subsection{The synchronization table is the proof skeleton}
+\subsection{A synchronization table}
 
 The three traces need not have a related state after every instruction. Their
 relations meet at entry, decision, optional update, and exit. Table
@@ -805,7 +810,7 @@ mathematical-positive-result claim fails because \(2^{w-1}\) has no positive
 signed width-\(w\) representation. This counterexample shows why the input
 domain belongs beside the relation.
 
-\subsection{Expand the branch proof into local movements}
+\subsection{Local branch movements}
 
 The reader proof above compresses setup, decision, and update. Expanding those
 movements shows exactly where architecture-specific facts enter.
@@ -868,7 +873,7 @@ predicate, each path, and final word. Identify which input satisfies modular
 absolute value but violates the mathematical-range specification.
 \end{tryit}
 
-\section{Condition state can be related and then forgotten}
+\section{Relating and forgetting condition state}
 
 A0 and x86-64 need condition information at their branches. RV64I does not
 retain an arithmetic-flags register. The simulation relation should therefore
@@ -896,7 +901,7 @@ instead relate only the predicate whose source rules define it, choose another
 instruction form, or restrict the context so that the undefined component is
 unobserved.
 
-\section{Faults and outcomes must correspond}
+\section{Fault and outcome correspondence}
 
 The absolute-value routine uses registers only, but instruction fetch, illegal
 encoding, invalid targets, and terminal input states can still affect execution
@@ -924,7 +929,7 @@ each source progress segment has a finite target match and stuttering cannot
 continue forever. If the target may take an unbounded internal loop between
 control points, endpoint tests do not exclude divergence.
 
-\subsection{A translator needs an explicit fault policy}
+\subsection{Translation fault policies}
 
 Fault names rarely line up across machines. One source instruction may report
 an alignment fault, while a target sequence first performs an address
@@ -951,7 +956,7 @@ do not decide this input. The translator can restrict entry to
 adopt a theorem that excludes the source fault. Each choice changes the
 contract.
 
-\subsection{Returns relate continuations, not only result registers}
+\subsection{Returns and continuations}
 
 A routine that computes the right word can still fail as translated code. The
 source caller may expect a saved register to survive, a stack pointer to be
@@ -982,7 +987,7 @@ result back, restores host-preserved state, and enters the host continuation.
 Those instructions belong to the proof and cost account. Calling them
 runtime support does not place their effects outside semantics.
 
-\section{Building the Axeyum cross-ISA route}
+\section{Axeyum route}
 
 The current Axeyum checkout already contains a nearby but different form of
 translation validation. Its test suite can reflect selected Rust mid-level
@@ -1082,7 +1087,7 @@ the typed semantic objects, digests, solver encoding, and replay. Convenience
 at the boundary should reduce setup work, not erase which route and scope
 supported the result.
 
-\subsection{A beginner route should expose the relation}
+\subsection{Expose the relation first}
 
 An introductory interface should not begin with a Boolean function named
 \code{equivalent}. It should let the reader construct the three entry states,
@@ -1139,7 +1144,7 @@ failed relation clause, and the decoded steps that crossed the gap. Those
 facts turn disagreement into a repairable semantic question.
 \end{sidebar}
 
-\section{Where the cross-ISA model stops}
+\section{Where the model stops}
 
 This chapter covers deterministic scalar architectural routines over selected
 integer instructions. It excludes floating point, vector state, atomics,

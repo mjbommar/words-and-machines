@@ -1,5 +1,9 @@
 # Build System
 
+`make structure` is the fast manuscript-navigation gate. It validates the
+four-part chapter order, heading depth and title limits, chapter endings, and
+the glossary-to-index routing contract before a PDF or EPUB build.
+
 ## Makefile variables
 ```make
 EDITION ?= full          # key into book.yaml editions

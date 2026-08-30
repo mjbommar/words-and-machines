@@ -44,7 +44,7 @@ define say
 endef
 
 .PHONY: generated figures pdf quick bleed ebook grayscale draft cover-vars \
-        kdp-cover lulu-cover cover-image epub epub-check epub-a11y check \
+        kdp-cover lulu-cover cover-image epub epub-check epub-a11y check structure \
         preflight cover-ink pdfx onix narration-export stats vocab metrics \
         prose-report \
         lengths \
@@ -146,6 +146,9 @@ epub-a11y: epub ## Ace by DAISY audit (fails on serious/critical)
 check: ## style + prose gates on chapters
 	@$(UV) scripts/check_style.py
 	@$(UV) scripts/check_prose.py
+
+structure: ## audit Parts, heading hierarchy, title lengths, and chapter endings
+	@$(UV) scripts/check_structure.py --strict
 
 simplified: ## Simplified Book English vocabulary report (advisory; docs/guides/SIMPLIFIED-ENGLISH.md)
 	@$(SBE_UV) scripts/check_simplified.py

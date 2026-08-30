@@ -15,6 +15,7 @@ import os
 import re
 import time
 import uuid
+from pathlib import Path
 
 _E = lambda s: html.escape(str(s), quote=True)  # noqa: E731
 
@@ -123,23 +124,39 @@ def copyright_page(meta: dict, lang: str) -> str:
     return xhtml_page("Copyright", body, lang)
 
 
+def glossary_page(meta: dict, lang: str) -> str:
+    rows = []
+    for entry in meta.get("glossary", []):
+        definition = _E(entry["definition"])
+        if entry.get("see_also"):
+            definition += (
+                f' <span class="see-also">See also '
+                f'{_E(entry["see_also"])}.</span>')
+        rows.append(f'<dt>{_E(entry["term"])}</dt><dd>{definition}</dd>')
+    body = ('<section epub:type="glossary" role="doc-glossary">\n'
+            '<h1>Glossary</h1>\n<dl class="glossary">\n'
+            + "\n".join(rows) + "\n</dl>\n</section>")
+    return xhtml_page("Glossary", body, lang)
+
+
 # ---------------------------------------------------------------------------
 # Navigation: nav.xhtml (EPUB 3) + toc.ncx (legacy readers)
 # ---------------------------------------------------------------------------
 
 def nav_doc(meta: dict, entries: list[dict], first_chapter: str,
             lang: str) -> str:
-    items = []
-    for e in entries:
-        sub = ""
-        if e.get("children"):
-            sub = ("\n<ol>\n" + "\n".join(
-                f'<li><a href="{c["href"]}">{_E(c["label"])}</a></li>'
-                for c in e["children"]) + "\n</ol>")
-        items.append(f'<li><a href="{e["href"]}">{_E(e["label"])}</a>{sub}</li>')
+    def render(items: list[dict]) -> str:
+        rows = []
+        for item in items:
+            children = item.get("children") or []
+            sub = f"\n<ol>\n{render(children)}\n</ol>" if children else ""
+            rows.append(
+                f'<li><a href="{item["href"]}">{_E(item["label"])}</a>'
+                f"{sub}</li>")
+        return "\n".join(rows)
     body = (
         '<nav epub:type="toc" role="doc-toc" id="toc">\n'
-        "<h1>Contents</h1>\n<ol>\n" + "\n".join(items) + "\n</ol>\n</nav>\n"
+        "<h1>Contents</h1>\n<ol>\n" + render(entries) + "\n</ol>\n</nav>\n"
         '<nav epub:type="landmarks" hidden="hidden">\n<h2>Landmarks</h2>\n<ol>\n'
         '<li><a epub:type="cover" href="cover.xhtml">Cover</a></li>\n'
         '<li><a epub:type="toc" href="nav.xhtml">Table of Contents</a></li>\n'
@@ -298,6 +315,8 @@ def generate(meta: dict, chapters: list[dict], cover_href: str,
     if bibliography:
         pages["bibliography.xhtml"] = xhtml_page(
             bibliography["title"], bibliography["body"], lang)
+    if meta.get("glossary"):
+        pages["glossary.xhtml"] = glossary_page(meta, lang)
 
     # Reading-order TOC: front matter, chapters (with section children),
     # bibliography. Labels derive from converted content, not book.yaml.
@@ -306,17 +325,33 @@ def generate(meta: dict, chapters: list[dict], cover_href: str,
         {"href": "titlepage.xhtml", "label": "Title Page"},
         {"href": "copyright.xhtml", "label": "Copyright"},
     ]
+    chapter_entries = {}
     for ch in chapters:
         prefix = f"{ch['number']}. " if ch.get("number") is not None else ""
-        entries.append({
+        chapter_entries[ch["file"]] = {
             "href": ch["file"],
             "label": f"{prefix}{ch['title']}",
             "children": [{"href": f"{ch['file']}#{sid}", "label": label}
                          for sid, label in ch["sections"]],
-        })
+        }
+    part_files = {
+        Path(name).stem + ".xhtml"
+        for part in meta.get("parts", []) for name in part["chapters"]
+    }
+    for ch in chapters:
+        if ch["file"] not in part_files:
+            entries.append(chapter_entries[ch["file"]])
+    for i, part in enumerate(meta.get("parts", []), 1):
+        children = [chapter_entries[Path(name).stem + ".xhtml"]
+                    for name in part["chapters"]]
+        entries.append({"href": children[0]["href"],
+                        "label": f"Part {i}. {part['title']}",
+                        "children": children})
     if bibliography:
         entries.append({"href": "bibliography.xhtml",
                         "label": bibliography["title"]})
+    if meta.get("glossary"):
+        entries.append({"href": "glossary.xhtml", "label": "Glossary"})
 
     first_chapter = chapters[0]["file"] if chapters else "titlepage.xhtml"
     pages["nav.xhtml"] = nav_doc(meta, entries, first_chapter, lang)
@@ -324,7 +359,8 @@ def generate(meta: dict, chapters: list[dict], cover_href: str,
 
     spine = (["cover.xhtml", "titlepage.xhtml", "copyright.xhtml"]
              + [ch["file"] for ch in chapters]
-             + (["bibliography.xhtml"] if bibliography else []))
+             + (["bibliography.xhtml"] if bibliography else [])
+             + (["glossary.xhtml"] if meta.get("glossary") else []))
     extra = ["epub.css"] + sorted(images or [])
     pages["content.opf"] = content_opf(meta, uid, spine, extra,
                                        cover_href, lang)

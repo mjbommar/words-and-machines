@@ -21,7 +21,9 @@ survive the call, how the stack is aligned, and who restores each resource.
 Procedure correctness needs both layers and must name each separately.
 \end{keyidea}
 
-\section{Why procedures became a machine-level agreement}
+\section{Why procedures require agreements}
+\indexentry{procedure}
+\indexentry{application binary interface}
 
 Early programmers quickly learned that repeating instruction sequences by
 copying them was costly and error-prone. A reusable subroutine stored one body
@@ -98,7 +100,7 @@ the caller wants the result. Both must know the narrow contract at the entry
 and exit. That controlled ignorance is what permits separate compilation.
 \end{archive}
 
-\section{Six parts of a procedure contract}
+\section{The procedure contract}
 
 For one scalar procedure, write the contract as six declarations:
 
@@ -140,7 +142,7 @@ the caller saves it or moves it to a preserved location. Liveness turns an ABI
 permission into a concrete save obligation.
 \end{example}
 
-\subsection{A procedure theorem has four layers}
+\subsection{Four layers of a procedure theorem}
 
 A useful theorem about a procedure is not merely a relation between two
 snapshots. It joins four layers of reasoning. The \emph{entry relation}
@@ -186,7 +188,9 @@ This establishes only the normal-return behavior named by the theorem; a trap,
 divergence, or exceptional exit needs a separate clause.
 \end{proofkit}
 
-\section{A stack is memory governed by an invariant}
+\section{Stacks and frame invariants}
+\indexentry{stack}
+\indexentry{stack frame}
 
 An architectural stack pointer is an ordinary register with special uses or
 conventions. A0 has none. RV64I base instructions do not force \code{x2} to be
@@ -242,7 +246,7 @@ register value, or violating alignment at an intervening call. Check the
 whole interval and every required checkpoint.
 \end{warning}
 
-\subsection{Nested frames are interval arithmetic}
+\subsection{Nested stack frames}
 
 Suppose a procedure enters with stack pointer (s), allocates (F) bytes,
 and calls a second procedure that allocates (G) bytes. Immediately before
@@ -277,7 +281,7 @@ the permitted stack region. Checking only the largest printed offset misses
 the width of the access: an eight-byte store beginning four bytes below the
 upper boundary crosses it.
 
-\subsection{The call history is a tree; one active path is a stack}
+\subsection{Call trees and active stacks}
 
 Across an entire execution, procedure activations form a rooted tree. The
 initial activation is the root. Each call creates a child of the activation
@@ -331,7 +335,7 @@ transfer outside the current call nesting can keep data live after the pictured 
 model before using the diagram as a proof.
 \end{warning}
 
-\subsection{Space exhaustion is different from address wrap}
+\subsection{Space exhaustion and address wrap}
 
 The recurrence \(s'=s-F\) can be arithmetically defined while the intended
 frame is not backed by usable memory. A finite thread stack has a resource
@@ -355,7 +359,7 @@ different allocation and scheduling costs. These are runtime and workload
 decisions, not properties of \code{CALL}, \code{RET}, or an ISA stack-pointer
 register.
 
-\section{A0 exposes the missing mechanism}
+\section{Procedures in A0}
 
 Core A0 has direct relative \code{jump}, conditional branches, and eight
 ordinary registers. It has no call instruction, register-indirect jump,
@@ -390,7 +394,9 @@ compute without a frame. Its proof must show the result relation, preservation
 of \(r_4,r_5,r_6\), permitted scratch changes, unchanged memory, and a direct
 jump to the unique continuation.
 
-\section{RV64I separates link register from stack memory}
+\section{Procedures in RV64I}
+\indexentry{leaf procedure}
+\indexentry{non-leaf procedure}
 
 RV64I \code{JAL} writes \(pc+4\) to a destination register and transfers to a
 PC-relative target. The common call convention writes the link to \code{x1},
@@ -434,7 +440,7 @@ Explain why a later \code{jalr x0,0(ra)} cannot return to 100 unless the
 original value was kept elsewhere and restored.
 \end{tryit}
 
-\subsection{A complete RV64 frame owes more than balanced arithmetic}
+\subsection{A complete RV64 frame}
 
 Consider a non-leaf procedure that must preserve its incoming continuation and
 the preserved register \code{s0}. It also keeps the input in \code{s0} across
@@ -500,7 +506,7 @@ subject to its declared result in \code{a0}. Every premise is needed by a
 specific instruction or nested contract.
 \end{proofkit}
 
-\subsection{Leaf is a control-flow fact, not a size class}
+\subsection{Leaf procedures}
 
 A \keyterm{leaf procedure} makes no procedure call on the path under
 discussion. A \keyterm{non-leaf procedure} does. The distinction does not say
@@ -526,7 +532,7 @@ entry and exit sequences. An optimizer that removes the last call may remove a
 now-unneeded continuation save, but it must prove that no remaining path or
 indirect transfer invokes a callee.
 
-\section{x86-64 puts the continuation on the stack}
+\section{Procedures in x86-64}
 
 In 64-bit mode, a selected near \code{CALL} records the address of the
 following instruction on the stack and transfers to its target. A matching
@@ -573,7 +579,7 @@ specified region below the current stack pointer without first adjusting
 hardware property and is not shared by every x86-64 calling convention. This
 chapter's worked proof does not rely on it.
 
-\subsection{A System V frame composes an implicit push with explicit storage}
+\subsection{A System V stack frame}
 
 Suppose a System V AMD64 procedure needs to preserve \code{RBX}, keep its first
 argument across a helper call, and reserve 32 bytes of private scratch. At
@@ -621,7 +627,7 @@ it may not treat the word as private scratch. A frame layout that includes
 needed to justify control after \code{ret}.
 \end{warning}
 
-\subsection{Microsoft x64 uses the same ISA under another agreement}
+\subsection{The Microsoft x64 agreement}
 
 Microsoft x64 assigns the first four ordinary integer or pointer parameter
 positions to \code{RCX}, \code{RDX}, \code{R8}, and \code{R9}, subject to its
@@ -670,7 +676,7 @@ cross-platform compiler backend earns compatibility by implementing those
 contracts; it does not obtain compatibility merely by emitting x86-64
 instructions.
 
-\subsection{The ISA supplies effects; the ABI selects a composition}
+\subsection{ISA effects and ABI composition}
 
 It is tempting to divide the layers by vocabulary: instructions belong to the
 ISA, while register names belong to the ABI. The real boundary is functional.
@@ -707,7 +713,7 @@ about one calling convention must not be labeled only ``x86-64.'' Name the ABI
 and the selected platform assumptions.
 \end{warning}
 
-\section{Argument classification is a packing contract}
+\section{Argument classification}
 
 An argument list is a typed mathematical sequence. An ABI must map that
 sequence into a finite set of register positions and a memory layout. The map
@@ -768,7 +774,7 @@ is passed by reference, run the classifier again. Counting source parameters
 is not enough.
 \end{example}
 
-\subsection{Large results reverse the direction of one argument}
+\subsection{Large return values}
 
 When a result does not fit the direct return locations, an ABI can require the
 caller to allocate result storage and pass its address as an implicit argument.
@@ -788,7 +794,7 @@ calling-convention variant can place the same apparent result differently.
 Foreign-function declarations must match the binary classifier as well as the
 source type spelling.
 
-\subsection{Variadic calls weaken static type agreement}
+\subsection{Variadic calls}
 
 A variadic procedure accepts a fixed named prefix followed by a
 number of additional arguments chosen at each call. The callee does not have a
@@ -819,7 +825,7 @@ narrow add-one theorem. Every implemented classifier must name its admitted
 types and reject the rest.
 \end{warning}
 
-\section{The same leaf contract in three machines}
+\section{One leaf contract in three machines}
 
 Define a mathematical procedure \(I\) that accepts a width-\(w\) word \(x\)
 and returns \(x+1\bmod 2^w\). Its boundary contract observes the result,
@@ -900,7 +906,7 @@ bytes, correct
 width and byte order, and normal return to the restore instruction.
 \end{proofkit}
 
-\subsection{Normal return is only one exit class}
+\subsection{Normal and exceptional exits}
 
 Unwinding after exceptions is harder because the ordinary epilogue may not
 run. A procedure may also trap on an invalid access, fail a checked arithmetic
@@ -926,7 +932,7 @@ between unwind rows and instruction semantics. Full unwinding remains outside
 this first scalar model, but the boundary is now explicit
 \autocite{dwarf2017v5}.
 
-\subsection{An unwind row describes recovery at one control range}
+\subsection{Unwind information}
 
 DWARF call-frame information uses a
 \keyterm{canonical frame address}, or CFA, as a stable reference from which an
@@ -965,7 +971,7 @@ intermediate state and the architectural rule selecting the reported fault.
 If the theorem excludes faults, its precondition must be strong enough to make
 every prologue, body, and epilogue access valid.
 
-\section{Return protection separates three different claims}
+\section{Protecting return control}
 
 The continuation is ordinary machine state with extraordinary authority. On
 x86-64 it occupies stack memory that permits writes. In a conventional RV64 non-leaf
@@ -1084,7 +1090,8 @@ caller's continuation instead of creating another one, but only after the
 current frame and preservation obligations have been discharged. Calling a
 jump a tail call does not prove that the ABI state at the target is valid.
 
-\subsection{A tail call transfers an obligation instead of adding one}
+\subsection{Tail calls}
+\indexentry{tail call}
 
 Let caller \(A\) call procedure \(F\) with continuation \(k\). An ordinary
 call from \(F\) to \(G\) creates another continuation \(k_F\); \(G\) returns
@@ -1130,7 +1137,7 @@ calling conventions. A performance claim therefore names the generated
 sequence, ABI, toolchain, and workload; the semantic theorem names the
 continuation and boundary relation.
 
-\section{Binary boundaries outlive one compiler invocation}
+\section{Binary boundaries}
 
 Separate compilation works because a producer can publish a symbol and binary
 contract without publishing its internal instruction choices. A consumer can
@@ -1155,7 +1162,7 @@ unwind and symbol formats. The same promise creates costs: old layouts and
 calling rules may constrain future design, and compatibility testing must
 cover code produced by many toolchains and years.
 
-\subsection{A foreign-function interface needs five agreements}
+\subsection{Foreign-function interfaces}
 
 A \keyterm{foreign-function interface}, or FFI, connects components whose
 source languages or runtimes differ. Selecting the same platform calling
@@ -1199,7 +1206,7 @@ deployment independence, and compatibility. The narrowest correct boundary is
 not always the cheapest to maintain. A proof should state the chosen boundary;
 a cost study should measure it under the expected message sizes and call rates.
 
-\section{An introductory Axeyum route}
+\section{Axeyum route}
 
 The audited Axeyum checkout at revision \code{a9991fda} already has a real
 modular-call proof route at the checked scalar LLVM level. It can parse selected
@@ -1267,7 +1274,7 @@ attributed counterexample. This proves that contract composition machinery is
 real. It does not prove a saved-register, frame, or return-address claim until
 those state components enter the semantics and observation.
 
-\section{Where the procedure model stops}
+\section{Where the model stops}
 
 The executable proof core in this chapter covers ordinary scalar calls and
 normal returns. Selected sections explain aggregate and variadic

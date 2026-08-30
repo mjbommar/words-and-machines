@@ -44,6 +44,12 @@ def callout_icon(node, ctx):
     return ""
 
 
+@inline_handler("index", "indexentry")
+def index_marker(node, ctx):
+    """Print page locators have no stable meaning in a reflowable EPUB."""
+    return ""
+
+
 @inline_handler("TeX")
 def tex_logo(node, ctx):
     return "TeX"

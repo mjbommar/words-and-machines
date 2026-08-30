@@ -143,6 +143,43 @@ claim. Otherwise the detail belongs in the ledger or reproduction guide.
 
 ## 5. Chapter architecture
 
+### The book-scale spine and heading hierarchy
+
+The contents page must expose the proof spine, not every local turn in the
+prose. The print and EPUB navigation therefore use three public levels:
+
+1. **Part** -- one major stage of the book's argument;
+2. **Chapter** -- one durable subject or proof obligation;
+3. **Section** -- one major conceptual movement within that chapter.
+
+Subsections are local teaching aids. They may separate a derivation, worked
+example, historical cause, present consequence, attack, or boundary inside a
+section, but they do not appear in the print contents. Do not use a subsection
+before its parent section, use a starred structural heading, or create a
+subsection merely to label one or two paragraphs.
+
+Parts and chapters use title case. Sections and subsections use sentence case.
+Prefer a short noun phrase or direct question that names the object on the
+page: ``Effective addresses and valid ranges,'' not ``A range is a set of byte
+addresses, not two unchecked endpoints.'' A heading is navigation, not the
+first sentence of the argument. As working limits, keep section titles at ten
+words or fewer and subsection titles at twelve words or fewer. Exceed those
+limits only when the exact technical name requires it.
+
+Parallel jobs receive parallel names. Every chapter ends with ``Exercises.''
+Use ``Implementation boundary'' for the Part I construction chapters and
+``Where the model stops'' for later chapters that apply a selected real-ISA or
+proof model. Do not cycle among decorative synonyms for the same structural
+function.
+
+The index and glossary serve different jobs. Mark the defining occurrence of
+a durable term with `\keyterm`. Add `\indexentry` at its defining passage and
+at later passages that compare, derive, or materially qualify the concept. The
+two actions are separate because a bold local definition does not always merit
+a durable index entry. The glossary gives a short recovery
+definition for terms the reader must carry across chapters. It does not replace
+the in-place explanation and should not collect every bold phrase.
+
 Before drafting, give the chapter an object spine. For every load-bearing
 object record:
 
