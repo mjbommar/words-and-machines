@@ -145,6 +145,8 @@ entries:
     definition: "A directional relation requiring every admitted behavior of an implementation to correspond to behavior allowed by its specification."
   - term: "refutation"
     definition: "A proof that a formula has no satisfying assignment."
+  - term: "satisfiable"
+    definition: "Having at least one assignment of values that makes a formula true."
   - term: "state relation"
     definition: "A predicate stating when states from the same or different machines represent corresponding situations."
   - term: "stuttering"

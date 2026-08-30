@@ -1313,66 +1313,48 @@ observation problem rather than pretending that one scalar flag covers it.
 
 \section{Axeyum route}
 
-The active Axeyum book lane contains both the reusable bit-vector substrate and
-an executable A0 arithmetic transition. Its Rust term layer implements fixed-width addition,
-subtraction, multiplication, comparisons, shifts, rotations, extension, and
-unsigned and signed overflow predicates for addition, subtraction, and
-multiplication. The bit-vector lowering constructs Boolean networks, including
-a ripple-carry addition path. Python bindings expose the operations. Property
-tests compare the overflow builders with independent unbounded Python integer
-definitions across generated widths and boundary values.
+Axeyum now gives A0 addition one definition that can run in two domains. With
+concrete words and Boolean conditions, it is the operation called by the A0
+step function. With bit-vector terms, it constructs the formula sent to the
+proof-producing solver. Sharing that operation structure matters: a separate
+formula that merely resembled the executor would prove a claim about itself,
+not about the code used for the machine step.
 
-The A0 step relation now records the result and \(Z,N,C,V\), and focused tests
-exercise the instruction-specific arithmetic policies. The first active
-artifact exhausts one addition instruction at width eight. The four-quadrant
-teaching census, solver proof export, width-parametric kernel theorem, and thin
-RV64I and x86-64 adapters remain separate work. A finite census has a different
-assurance claim from each of those routes.
+The shared structure does not remove every trust boundary. A small adapter
+maps ``sum,'' ``high bit,'' ``carry,'' and ``overflow'' to Axeyum term
+operations. Axeyum then lowers those terms to a Boolean network and a
+conjunctive normal form (CNF) formula. The saved proof establishes the CNF
+claim. The adapter and the term-to-CNF reduction remain code a reader must
+trust or audit.
 
-The first book-facing implementation goal is therefore to assemble, rather
-than duplicate, the pure substrate. Define a width-parametric A0 arithmetic
-result that contains the result word and every declared condition. At small
-widths, enumerate every input pair and compare that record with independent
-mathematical definitions. At selected larger widths, ask a solver for a
-counterexample to each equivalence: carry versus extended unsigned sum, signed
-overflow versus the sign formula, subtraction no-borrow versus unsigned order,
-and compare predicates versus signed or unsigned readings.
+Two routes now meet at this definition. The first executes all 65,536 ordered
+operand pairs at width eight. The second constructs eight separate bit-vector
+claims, one for every supported width from 8 through 64 in steps of 8, and
+asks whether any pair disagrees with the reference result and conditions. A
+formula is \keyterm{satisfiable} when some assignment makes it true, so such a
+pair would be a counterexample. For the unmodified definition, each negated
+claim is unsatisfiable: no assignment works. The proof producer saves a
+\keyterm{refutation}, a certificate that records why no assignment can satisfy
+the formula.
+\indexentry{satisfiable}
+\indexentry{refutation}
 
-Every solver model should replay through the executable function. Negative
-controls should invert carry, confuse carry with overflow, use \(N\) instead
-of \(N\ne V\) for signed comparison, preserve a logic flag that A0 clears, and
-handle count zero incorrectly. Each mutation has a small concrete witness, so a green
-route that cannot reject it is not exercising the promised rule.
+\begin{proofkit}[title={Why addition determines all five output fields}]
+Let \(M=2^w\) and write the ordinary unsigned sum as
+\(x+y=CM+r\), where \(0\leq r<M\). Euclidean division makes \(r\) and
+\(C\) unique. The stored word is therefore \(r=(x+y)\bmod M\), and \(C\)
+is exactly unsigned carry.
 
-The first solver obligations can be small and independent of instruction
-decoding. For arbitrary width-\(w\) bit vectors \(x,y\), build an extended
-\((w+1)\)-bit sum by zero-extending both operands. Compare its low \(w\) bits
-with the executable result and its high bit with executable carry. For signed
-overflow, compare the executable bit with the high-bit Boolean formula. Ask
-the solver for a state where either equality fails.
-
-Subtraction needs its own obligation rather than reuse by name. Compare
-executable no-borrow with unsigned \(x\geq y\), and executable signed
-less-than with the signed bit-vector predicate. Shift checks quantify over a
-raw count, derive A0's effective count, and split zero from nonzero before
-stating the shifted-out-bit formula. These separate formulas make a failed
-control diagnostic: a carry mutation should not be reported as an unrelated
-signed-overflow failure.
-
-At a teaching width, a census should retain counts as well as a pass bit. For
-addition, partition every ordered pair by \((C,V)\), then retain one witness
-from each class that contains a pair. Requiring all four classes prevents a checker from
-passing only easy rows. A second census for subtraction should cover equality,
-unsigned less-than, signed less-than, and the cases where the two orders
-disagree.
-
-The Python layer should assemble these as explicit objects rather than hide
-them behind a single Boolean helper: an input domain, mathematical reference,
-executable function, observation fields, enumerated census, solver query,
-replayed witness, and semantic digest. The Rust layer already owns the
-width-safe term operations; the book artifact must add the architectural
-record and serialized evidence checks. Python can assemble lessons and display
-tables without becoming an unrecorded semantic authority.
+The carry test used by the symbolic A0 definition says \(r<x\). If there is
+no carry, then \(r=x+y\geq x\). If there is a carry, then
+\(r=x+y-M<x\), because \(y<M\). Thus this comparison gives the same \(C\)
+as the widened sum. The zero field tests \(r=0\), and the negative field is
+the high bit of \(r\), so those two fields follow directly from the stored
+word. Finally, the sign argument earlier in this chapter shows that signed
+overflow occurs exactly when the operands have the same high bit and the
+result has the other high bit. These cases account for the result and all four
+conditions.
+\end{proofkit}
 
 \begin{artifact}{A0.comp.add-step-8}
 Axeyum exhaustively executes A0 addition at width eight for every ordered pair
@@ -1387,14 +1369,32 @@ of every arithmetic opcode, or an RV64I or x86-64 refinement result.
 \ArtifactScope{A0.comp.add-step-8}
 \end{artifact}
 
-\begin{goingdeeper}[title={From exhaustive rows to a universal formula}]
-Width four has 256 ordered addition pairs. Exhaustive checking can classify
-all of them by \(C\) and \(V\). The Boolean overflow proof covers every
-positive width. Axeyum can connect the two: enumerate the teaching instance,
-solve the general bit-vector negation at selected widths, and later reconstruct
-a width-parametric theorem in a stronger kernel route. Keep those assurance
-levels separate in the evidence record.
-\end{goingdeeper}
+\begin{artifact}{A0.thm.addition-flags}
+For each of A0's eight supported widths, the checker rebuilds the negation of
+the result-and-conditions claim from the current Rust semantics. It binds that
+term to the saved CNF, checks the saved LRAT proof by following its explicit
+clause hints, and also checks the published DRAT proof.
+Unit propagation alone does not refute any of the eight formulas, so the saved
+refutations carry information beyond an empty-clause wrapper.
+
+The negative control inverts only carry. Axeyum reports the changed formula
+satisfiable. A separate complete width-eight evaluation finds the pair
+\((0,0)\), and encoded A0 execution replays it: concrete carry is false while
+the mutated formula says true. This theorem covers eight fixed widths. It is
+not induction over every positive width, a theorem about another arithmetic
+operation, or a Lean-kernel reconstruction.
+\ArtifactScope{A0.thm.addition-flags}
+\end{artifact}
+
+One finite object now rules out every operand pair at each declared width. The
+reach comes from the quantifier and the checked refutation, not from calling a
+few tests representative.
+
+Several neighboring obligations remain open. Subtraction needs its own
+no-borrow and signed-order theorem. Shifts must split the zero-count case from
+the shifted-out-bit rule. A four-quadrant \((C,V)\) teaching census would make
+the small cases easier to inspect. The A0 Python interface shown later in the
+book must expose these records without becoming a second semantic authority.
 
 Thin RV64I and x86-64 adapters come after the pure laws. The RV64 adapter maps
 selected comparison results and arithmetic destinations. The x86 adapter maps

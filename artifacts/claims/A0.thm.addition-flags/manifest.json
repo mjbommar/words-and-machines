@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.thm.addition-flags",
+  "statement": "For each A0-supported width, the domain-parametric A0 addition definition agrees with the declared modular result and Z/N/C/V condition predicates for every operand pair.",
+  "scope": "Eight separate fixed-width QF_BV theorems at widths 8, 16, 24, 32, 40, 48, 56, and 64; pure register addition without memory or trap behavior.",
+  "exclusions": [
+    "An induction theorem over arbitrary word widths",
+    "Subtraction, shifts, multiplication, memory, traps, and instruction decoding",
+    "Kernel reconstruction of the bit-vector theorem"
+  ],
+  "trust_class": "certificate",
+  "semantic_inputs": [
+    {
+      "name": "a0-semantics",
+      "version": "6",
+      "path": "artifacts/semantic/a0-v6.json",
+      "sha256": "e0055b172d7d586c791e575d54e4eca2f50c2cf48291aed998beaecf3b3d5f69"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/claims/A0.thm.addition-flags/report.json",
+      "sha256": "793eaed0125396402936ea0b1f47be5faf8336ae5c5f70a54120780cca0fac26",
+      "role": "certificate"
+    }
+  ],
+  "producer": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-symbolic-addition artifacts/semantic/a0-v6.json artifacts/claims/A0.thm.addition-flags/report.json",
+    "version": "axeyum-machine-evidence-v6"
+  },
+  "checker": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-addition artifacts/semantic/a0-v6.json artifacts/claims/A0.thm.addition-flags/report.json",
+    "version": "axeyum-machine-evidence-v6",
+    "expected_result": "PASS: widths=8 LRAT=all counterexample-replayed=true"
+  },
+  "negative_control": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-addition-inverted-carry artifacts/semantic/a0-v6.json artifacts/claims/A0.thm.addition-flags/report.json",
+    "expected_failure": "semantic-mismatch",
+    "mutates": "Invert the symbolic carry predicate; require SAT, enumerate a width-8 model, and replay encoded A0 add"
+  },
+  "environment": {
+    "axeyum_revision": "100e70004c0882c14005cd2f78350cb010a853ee",
+    "rust_version": "1.88 or newer"
+  },
+  "limitations": [
+    "The symbolic AdditionDomain adapter and Axeyum term-to-CNF lowering are trusted reductions.",
+    "LRAT checks each clausal refutation but does not reconstruct a theorem in the Lean kernel.",
+    "The satisfiable inverted-carry mutation is exhaustively model-searched and concretely replayed only at width 8.",
+    "Unit propagation reaches a no-conflict fixpoint with zero assignments for every saved CNF, so each refutation is load-bearing rather than an empty-clause wrapper around a propagation contradiction."
+  ],
+  "created": "2026-08-30"
+}

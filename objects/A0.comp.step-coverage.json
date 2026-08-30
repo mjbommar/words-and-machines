@@ -8,15 +8,15 @@
   "depends_on": ["A0.def.decode", "A0.def.step", "A0.prin.explicit-effects"],
   "evidence": [{
     "kind": "trace-replay", "trust_class": "computation",
-    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.comp.step-coverage/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v6.json", "artifacts/claims/A0.comp.step-coverage/manifest.json"],
     "artifact": "artifacts/claims/A0.comp.step-coverage",
     "sha256": {
-      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
-      "artifacts/claims/A0.comp.step-coverage/manifest.json": "ee6382339e7615126eea6a2570415c7efbea16e912c3e5b7f27065fef97b832a",
-      "artifacts/claims/A0.comp.step-coverage/report.json": "cf8cfb3fef33308c5f975f8494e896af18f1a0267a310fd98413de08b5c72959"
+      "artifacts/semantic/a0-v6.json": "e0055b172d7d586c791e575d54e4eca2f50c2cf48291aed998beaecf3b3d5f69",
+      "artifacts/claims/A0.comp.step-coverage/manifest.json": "f870dbe2557256f2e74e3284daf05639597a0c81807f61b7de89c9e6e1278b01",
+      "artifacts/claims/A0.comp.step-coverage/report.json": "f629d444bfb6b043755b3d969f338b644fd5ac94558f826f2d83eb0e2a8d729b"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v6.json artifacts/claims/A0.comp.step-coverage/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v6.json artifacts/claims/A0.comp.step-coverage/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
     "note": "The checker recomputes family transitions and effects. Hidden-write, missing-condition, and wrong-PC mutations are each rejected."
   }],

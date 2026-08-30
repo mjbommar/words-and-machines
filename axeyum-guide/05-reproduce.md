@@ -5,12 +5,15 @@
 From the book repository root run make ledger, make artifact-check, make check,
 and make check-run.
 
-The active ledger now contains one checked finite computation and one checked
-trace. `make check-run` recomputes every 8- and 16-bit A0 byte round trip and
-the declared narrow-versus-broad state observation. It requires both the
-reversed-byte-order control and the requested-component-omission control to
-exit nonzero with a semantic mismatch. It does not run any general-width
-proof, RV64, x86-64, cross-ISA, or minimality route because those remain open.
+The active ledger contains nine checked A0 evidence routes. `make check-run`
+recomputes the finite byte, observation, addition-step, memory, branch,
+runner, decoder, and step-coverage reports. It also rebuilds and checks the
+fixed-width addition certificates. Every route runs a negative control and
+requires a nonzero exit with `semantic-mismatch`.
+
+The certificate route checks eight separate widths. It does not run an
+arbitrary-width kernel proof, RV64, x86-64, cross-ISA, or minimality route;
+those remain open.
 
 ## Promotion checklist
 
@@ -29,8 +32,8 @@ The first artifact followed this checklist. Apply it again to every new route:
 Each artifact pins the Axeyum revision that produced it. The replay checkout
 may be a descendant of that revision, but the semantic-source digest must
 still match exactly; a later incompatible semantic edit therefore fails
-closed instead of inheriting credit. Until this work reaches Axeyum `main`,
-set `AXEYUM` to the published `book/executable-curriculum` branch.
+closed instead of inheriting credit. The current manifests pin Axeyum `main`
+revision `100e70004c0882c14005cd2f78350cb010a853ee` and semantic package v6.
 
 The old reproduction commands for vector shuffles and Bitmanip tables are in
 the research archive. They are not part of the active gate.

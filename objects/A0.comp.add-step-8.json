@@ -8,15 +8,15 @@
   "depends_on": ["A0.def.step", "A0.prin.explicit-effects"],
   "evidence": [{
     "kind": "exhaustive-enumeration", "trust_class": "computation",
-    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.comp.add-step-8/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v6.json", "artifacts/claims/A0.comp.add-step-8/manifest.json"],
     "artifact": "artifacts/claims/A0.comp.add-step-8",
     "sha256": {
-      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
-      "artifacts/claims/A0.comp.add-step-8/manifest.json": "6ad128e3594436eafb6f8a967ff36a5b62769ff77e0f0f100761dbcacabc59ea",
-      "artifacts/claims/A0.comp.add-step-8/report.json": "bf68bf591e42e13f398398ff142145e09fe86e55b45e9afa9512dc0b9c1b58fb"
+      "artifacts/semantic/a0-v6.json": "e0055b172d7d586c791e575d54e4eca2f50c2cf48291aed998beaecf3b3d5f69",
+      "artifacts/claims/A0.comp.add-step-8/manifest.json": "fe2cc47e94fba6881fd39f4c04bac447b49e95c0375e6e57708d824ba2012dc5",
+      "artifacts/claims/A0.comp.add-step-8/report.json": "20b83e9c4640ab72c9beae87e6fce48980553892c9b82c0725a6b29a86feac9d"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-add-step artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.add-step-8/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-add-wrong-destination artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.add-step-8/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-add-step artifacts/semantic/a0-v6.json artifacts/claims/A0.comp.add-step-8/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-add-wrong-destination artifacts/semantic/a0-v6.json artifacts/claims/A0.comp.add-step-8/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
     "note": "The checker independently calculates result and flags for every pair. Reading r3 instead of r2 changes the report and is rejected."
   }],

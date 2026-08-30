@@ -3,20 +3,23 @@
 This directory contains only evidence produced under the A0, RV64, x86-64,
 cross-machine, and evidence-manifest architecture.
 
-Eight artifacts currently bind A0 semantic package v5: complete width-8/16
+Nine artifacts currently bind A0 semantic package v6: complete width-8/16
 byte round trips, one narrow-versus-broad observation trace, complete
 width-eight addition steps, one atomic memory round trip with a boundary trap,
 one taken/untaken branch pair, and four runner classifications with prefix
-resumption, and exhaustive canonical encoding of all legal structured A0
-instructions, plus complete family/effect/trap coverage for the A0 step. Every
+resumption, exhaustive canonical encoding of all legal structured A0
+instructions, complete family/effect/trap coverage for the A0 step, and
+term-bound addition certificates at all eight supported widths. Every
 checker recomputes its report through
 the bound semantics. The controls reverse bytes, omit requested r3, write an
 addition result to the wrong destination, reverse memory byte order, or use the
 wrong branch-target base. The runner control labels a running prefix as halted;
 the decoder control accepts one reserved-bit form. The step suite injects a
 hidden write, removes a condition update, and changes the sequential PC.
+The addition-proof control inverts carry, finds a satisfying width-eight
+model, and replays that pair through encoded A0 execution.
 Each must fail with `semantic-mismatch`. These routes
-do not establish general-width theorems or any later machine route.
+do not establish an arbitrary-width theorem or any later machine route.
 
 The layout has a schema directory, versioned semantic packages, and one claims
 subdirectory per object ID. Each claim directory contains one

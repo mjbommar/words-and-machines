@@ -1,0 +1,60 @@
+{
+  "id": "A0.thm.addition-flags",
+  "kind": "theorem",
+  "part": 2,
+  "title": "A0 addition result and conditions",
+  "statement": "At each supported A0 word width, addition produces the modular sum, sets zero exactly when that sum is zero, copies its high bit into negative, reports unsigned carry, and reports signed two's-complement overflow for every operand pair.",
+  "formal": {
+    "language": "smt-lib",
+    "statement": "For each w in {8,16,24,32,40,48,56,64}, no x,y in BV_w make A0.addition(x,y) differ from (bvadd, zero, msb, bvuaddo, bvsaddo).",
+    "fragment": "QF_BV"
+  },
+  "epistemic_status": "proved",
+  "scope": "Eight separate fixed-width bit-vector theorems for pure A0 register addition at widths 8 through 64 in steps of 8. This is not an arbitrary-width induction theorem and does not cover other operations, memory, traps, or decoding.",
+  "depends_on": [
+    "A0.def.word",
+    "A0.def.step",
+    "A0.comp.add-step-8"
+  ],
+  "evidence": [
+    {
+      "kind": "unsat-certificate",
+      "trust_class": "certificate",
+      "semantic_inputs": [
+        "artifacts/semantic/a0-v6.json",
+        "artifacts/claims/A0.thm.addition-flags/manifest.json"
+      ],
+      "artifact": "artifacts/claims/A0.thm.addition-flags",
+      "sha256": {
+        "artifacts/semantic/a0-v6.json": "e0055b172d7d586c791e575d54e4eca2f50c2cf48291aed998beaecf3b3d5f69",
+        "artifacts/claims/A0.thm.addition-flags/manifest.json": "030550a3c0154cfa8c869444cb3465cbf44f11e7d3fc3f1c814b4485eb28e2f0",
+        "artifacts/claims/A0.thm.addition-flags/report.json": "793eaed0125396402936ea0b1f47be5faf8336ae5c5f70a54120780cca0fac26"
+      },
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-addition artifacts/semantic/a0-v6.json artifacts/claims/A0.thm.addition-flags/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-addition-inverted-carry artifacts/semantic/a0-v6.json artifacts/claims/A0.thm.addition-flags/report.json",
+      "expected_failure": "semantic-mismatch",
+      "check_status": "checked",
+      "checked_on": "2026-08-30",
+      "note": "Replay rebuilds the source Boolean term, binds it to deterministic DIMACS, checks LRAT and DRAT, and rejects a malformed certificate. Unit propagation alone does not refute any of the eight CNFs, so the saved refutations are load-bearing. Inverting carry yields a width-8 model (0,0) that replays through encoded A0 add with concrete carry false and mutated carry true."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-machine-evidence",
+    "example": "axeyum-machine-evidence",
+    "route": "source-derived fixed-width QF_BV addition certificates",
+    "adr": [
+      "ADR-0811"
+    ],
+    "reconstruction": "none"
+  },
+  "book": {
+    "chapter": "ch08-arithmetic-condition",
+    "label": "thm:a0-addition-flags",
+    "role": "machine-proof"
+  },
+  "provenance": {
+    "date": "2026-08-30",
+    "by": "Axeyum executable curriculum",
+    "origin": "book executable-artifact completion audit"
+  }
+}

@@ -1,12 +1,17 @@
 # Current capability boundary
 
-The redesign audit found reusable bit-vector expressions, solver routes, SAT
-and DRAT machinery, custom synthesis encoders, and kernel reconstruction
-infrastructure in the sibling Axeyum checkout.
+The sibling Axeyum checkout now contains a reusable `axeyum-machine` package
+for A0 architectural words, state, finite byte memory, instruction effects,
+canonical encoding and strict decoding, complete concrete steps, and bounded
+traces. `axeyum-machine-evidence` produces nine book routes and their negative
+controls. The addition route constructs symbolic terms through the same
+operation structure used by concrete execution and saves term-bound DRAT and
+LRAT certificates.
 
-It did not find a reusable package for architectural state, byte-addressed ISA
-memory, A0 execution, an RV64 decoder and semantics, an x86-64 decoder and
-semantics, or typed cross-ISA refinement.
+Axeyum still does not contain the book's source-pinned RV64 decoder and
+semantics, x86-64 decoder and semantics, typed cross-ISA refinement, or A0
+symbolic theorem for every operation. The addition certificates are eight
+fixed-width theorems, not one arbitrary-width kernel theorem.
 
 These distinctions govern every active claim:
 
@@ -15,6 +20,8 @@ These distinctions govern every active claim:
 - a decoded single step is not a program trace;
 - matching destination words are not cross-machine refinement;
 - a solver verdict is not an independently checked certificate; and
+- a checked clausal certificate does not remove the symbolic-adapter or
+  term-to-CNF trust boundary;
 - an old synthesis artifact is not evidence for the revised curriculum.
 
 Before promoting any obligation, inspect the current checkout, identify the

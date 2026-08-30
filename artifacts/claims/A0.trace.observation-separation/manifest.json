@@ -13,34 +13,34 @@
   "semantic_inputs": [
     {
       "name": "a0-semantics",
-      "version": "5",
-      "path": "artifacts/semantic/a0-v5.json",
-      "sha256": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6"
+      "version": "6",
+      "path": "artifacts/semantic/a0-v6.json",
+      "sha256": "e0055b172d7d586c791e575d54e4eca2f50c2cf48291aed998beaecf3b3d5f69"
     }
   ],
   "artifacts": [
     {
       "path": "artifacts/claims/A0.trace.observation-separation/report.json",
-      "sha256": "98d61fffcbb008aea7a690775f221adb3744cfeab14644e0d6a77fcd471277e2",
+      "sha256": "2486c805c326d6b2da6cd520613b66415302d22ad0cacc7061a2b8e89869ed1d",
       "role": "report"
     }
   ],
   "producer": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-observation-separation artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.observation-separation/report.json",
-    "version": "axeyum-machine-evidence-v5"
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-observation-separation artifacts/semantic/a0-v6.json artifacts/claims/A0.trace.observation-separation/report.json",
+    "version": "axeyum-machine-evidence-v6"
   },
   "checker": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-observation-separation artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.observation-separation/report.json",
-    "version": "axeyum-machine-evidence-v5",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-observation-separation artifacts/semantic/a0-v6.json artifacts/claims/A0.trace.observation-separation/report.json",
+    "version": "axeyum-machine-evidence-v6",
     "expected_result": "PASS: narrow_equal=true broad_equal=false separator=r3"
   },
   "negative_control": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-observation-omission artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.observation-separation/report.json",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-observation-omission artifacts/semantic/a0-v6.json artifacts/claims/A0.trace.observation-separation/report.json",
     "expected_failure": "semantic-mismatch",
     "mutates": "Omit requested r3 from the broad observation"
   },
   "environment": {
-    "axeyum_revision": "e89479fc916ea5c36d9490bcda67ee114640e9c9",
+    "axeyum_revision": "100e70004c0882c14005cd2f78350cb010a853ee",
     "rust_version": "1.88 or newer"
   },
   "limitations": [
