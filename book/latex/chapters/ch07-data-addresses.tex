@@ -52,6 +52,46 @@ set exposes one contract while implementations remain free to realize that
 contract with very different internal work.
 \end{archive}
 
+The earliest stored-program machines made the separation physical and
+visible. An instruction word could name a storage address, while an
+accumulator---a working register used by the arithmetic unit---held a value
+for arithmetic. Moving a value between store and accumulator was not clerical
+work around the computation. It was how the
+machine presented an operand to its arithmetic circuits and returned a result
+to durable storage.
+
+Repeated access exposed another problem. A program that processed successive
+array elements could alter the address field of its own next instruction, or
+repeat a longer sequence of arithmetic and rewriting. The Manchester Mark I
+added address-modification registers known as B-lines during its development
+in 1949. A stored modifier could change the effective address without changing
+the instruction word itself. The mechanism made a loop over successive
+locations easier to express and helped establish the modern index-register
+idea \autocite{manchester2026mark1}.
+
+The historical vocabulary needs care. A B-line modified parts of an order in
+the design conventions of its machine. A present x86 index register participates
+in a base-plus-scaled-index expression. An RV64I load adds a signed immediate
+to one base register. These are related answers to repeated address formation,
+not one unchanged mechanism passed intact through time.
+
+By 1964, System/360 published base, index, and displacement fields as part of
+a compatible architecture. Programs could calculate useful addresses from
+short instruction fields while operating systems and loaders placed code and
+data in a larger address space \autocite{amdahl1964system360,ibm1964system360principles}.
+That interface also became an economic commitment. New implementations could
+change internal circuits, yet existing programs depended on the same visible
+address equation and transfer widths.
+
+Later instruction-set families divided the work differently. Load/store
+designs made memory access explicit and kept ordinary arithmetic on registers.
+x86 families retained forms in which an arithmetic instruction can name a
+memory operand and inherited overlapping register names from earlier widths.
+Compilers learned to select among these forms; processors learned to perform
+their own internal scheduling and address generation. The surface differences
+matter, but the durable questions remain the source value, effective address,
+access interval, destination view, and failure behavior.
+
 This chapter holds the semantic questions steady across three machines. What
 value is produced? Where is it written? How is an effective address formed?
 Which failure prevents a write? What state is preserved? Those questions are
@@ -74,6 +114,77 @@ We can describe a transfer with five items:
 \item the destination location; and
 \item the effect on every other state component, including failure.
 \end{enumerate}
+
+Several operations fit that contract while performing different kinds of
+movement.
+
+\begin{description}
+\item[Copy.] Read one location and write the same-width value to another. The
+source normally remains unchanged.
+\item[Construct.] Form a value from instruction bits or arithmetic, then write
+it without reading a data-memory source.
+\item[Load.] Calculate an address, read a memory interval, assemble a source
+word, and form the destination-width value.
+\item[Store.] Calculate an address, select source bits, split them into bytes,
+and update a memory interval.
+\item[Exchange.] Read two locations and write each old value to the other
+location under one declared atomicity rule.
+\item[Address production.] Calculate an offset and write the number without
+accessing the memory it could name.
+\item[Discard.] Calculate or read a value whose destination rule leaves no
+ordinary register or memory change, as with a write to RV64 register x0.
+\end{description}
+
+The categories overlap at the level of implementation but differ in semantic
+obligations. An immediate construction and a load may produce the same word;
+only the load depends on data memory and can fail through its access. An LEA
+address production and a memory load may print similar brackets; only the load
+reads the selected bytes. A self-copy can leave the register map unchanged;
+it remains an executed step with a changed program counter.
+
+Exchange shows why read-before-write order matters. If locations (A) and
+(B) are independent, the intended result is
+
+\[
+  A'=\mathrm{read}_B(S),\qquad B'=\mathrm{read}_A(S).
+\]
+
+Both right-hand sides use the entry state. A sequential host implementation
+that writes (A) first and then reads (A) for the second assignment loses
+the old value. It implements two copies, not one exchange. If the locations
+overlap, even this pair of equations needs an architecture-specific rule for
+the containing storage.
+
+\begin{warning}[title={Unchanged data does not mean no effect}]
+A move from a register to itself, a load that reproduces the old destination,
+or a store that writes bytes already present can leave the selected data
+unchanged. The instruction can still advance control, fault, trigger a device,
+or have cost outside the scalar architectural state. State equality must be
+stated over the chosen observation, not inferred from one equal value.
+\end{warning}
+
+This taxonomy helps later proofs choose the right frame. A pure register copy
+frames memory. A load frames memory but reads it. A store changes memory but
+frames registers. An exchange writes two locations. Address production frames
+memory and cannot claim that the calculated address was readable. The mnemonic
+is evidence for none of these facts until the decoded form and its rule are
+fixed.
+
+\begin{definition}[title={A complete movement claim}]
+A complete movement claim binds the decoded instruction and entry state,
+identifies every old value read, derives any effective address, names the byte
+or register view accessed, constructs every destination bit, classifies the
+outcome, and states the frame for all remaining architectural state. If the
+claim includes cost, safety, atomicity, or source-language objects, it also
+names the additional model and premises that make those words meaningful.
+\end{definition}
+
+This checklist is deliberately longer than an assignment equation. The
+equation (d'=s) can describe the central value while hiding a changed upper
+register half, an invalid source address, a partial memory write, or a trap.
+Conversely, a full state theorem can show that a self-copy has no data change
+while still advancing the program counter. Completeness belongs to the state
+contract, not to the visual complexity of the instruction.
 
 Consider an eight-bit source \code{80}. Read as unsigned, it is 128. Read as a
 signed two's-complement byte, it is -128. Zero extension to 16 bits produces
@@ -106,9 +217,10 @@ an eight-byte store at address 96 both include bytes 100 through 103. Treating
 named locations as unrelated map keys would miss the interaction.
 
 It is often safer to model one underlying object and define views into it. A
-subregister read extracts selected bits from the containing register. A
-subregister write replaces selected bits and then applies any architectural
-rule for the rest, such as zeroing after a 32-bit general-purpose write.
+subregister is a named view of part of a wider register. Its read extracts
+selected bits from the containing register. Its write replaces selected bits
+and then applies any architectural rule for the rest, such as filling the high
+half with zeros after a 32-bit general-purpose write.
 Likewise, a memory load extracts a byte interval from one byte-addressed map,
 and a store updates that interval while preserving every address outside it.
 
@@ -133,6 +245,110 @@ RAX observes the narrow write even though its destination name was only AL.
 A model with independent AL and RAX cells would wrongly preserve the old
 64-bit value.
 \end{example}
+
+\subsection{A location is a view with a read and a write rule}
+
+A location name can be modeled as a pair of functions over machine state. Its
+read function produces a value. Its write function accepts a new value and an
+old state, then returns a complete new state. For a well-behaved independent
+cell (L), two laws are expected:
+
+\[
+  \mathrm{read}_L(\mathrm{write}_L(v,S))=v
+\]
+
+and
+
+\[
+  \mathrm{write}_L(\mathrm{read}_L(S),S)=S.
+\]
+
+The first says that reading immediately after a write returns the written
+value. The second says that writing back the current value changes nothing.
+These laws resemble a mathematical lens: a view into a larger object together
+with a disciplined update of that object.
+
+Overlapping machine locations require stronger wording. Writing EAX and then
+reading RAX does not return the 32-bit input as a 64-bit word without a rule;
+it returns the input in the low half and zeros in the high half. Writing AL
+and then reading AX combines the new low byte with an old neighboring byte.
+The correct laws therefore mention the containing register and the
+architecture's completion function.
+
+Let a view \(V\) select bit set \(B\) of a containing word. A simple preserving
+write has the form
+
+\[
+  \mathrm{put}_V(v,x)
+  = (x\mathbin{\&}\neg M_B)
+    \mathbin{|} \mathrm{place}_B(v),
+\]
+
+where \(M_B\) marks the selected bits. The old word supplies every bit outside
+the view's selection. A
+bit. A 32-bit x86 destination that fills the high half with zeros instead discards the old high half and
+constructs all 64 result bits from the 32-bit input plus zeros. Its write
+footprint is the entire containing register even though its printed name is
+EAX.
+
+\begin{proofkit}[title={A preserving view changes only selected bits}]
+For a selected bit, the mask removes the old bit and the placement term
+provides the corresponding new bit. For a bit outside the selection, the mask preserves
+the old bit and the placement term contributes zero. Splitting on membership
+in \(B\) proves both the read-after-write law for the selected view and the
+frame law outside it.
+\end{proofkit}
+
+This formulation also handles memory. A memory location of width \(n\) at
+address \(a\) is a view of the byte map over interval \([a,a+n)\), with byte
+order determining the read and write conversions. Unlike a register view, it
+also has a domain condition: every byte must permit reading or writing under the
+selected policy before the operation commits.
+
+\subsection{Equality of values is not identity of locations}
+
+Two registers can hold equal words while remaining independent locations. Two
+address expressions can differ in their written form while naming the same memory
+interval. A useful semantics therefore separates value equality from a
+location relation.
+
+For byte intervals \(I=[a,a+n)\) and \(J=[b,b+m)\):
+
+\begin{description}
+\item[Equal location.] The intervals have the same start and width.
+\item[Disjoint.] Their intersection is empty.
+\item[Partial overlap.] Their intersection contains at least one byte, but neither interval
+is identical to the other.
+\item[Containment.] Every byte of one interval lies within the other.
+\end{description}
+
+The half-open form makes the no-overlap test exact when arithmetic does not
+wrap:
+
+\[
+  [a,a+n)\cap[b,b+m)=\emptyset
+  \quad\hbox{iff}\quad
+  a+n\leq b\ \hbox{or}\ b+m\leq a.
+\]
+
+An endpoint that equals the next start is not an overlap. A four-byte access at
+100 and another at 104 are adjacent and disjoint. Starts 100 and 103 overlap
+at byte 103. Under fixed-width addresses, these integer inequalities require
+a no-wrap premise or a representation as a set of one or two modular
+intervals.
+
+\begin{warning}[title={Different expressions do not prove different bytes}]
+Base 100 plus index 3 and base 102 plus index 1 both name address 103. Alias
+reasoning compares evaluated locations over allowed states, not the spelling
+of the address expressions.
+\end{warning}
+
+An alias claim is quantified over states. Two expressions \(e_1\) and \(e_2\)
+must alias on a precondition (P) when every (P)-state gives overlapping
+intervals. They may alias when at least one allowed state overlaps. They do
+not alias when every allowed state is disjoint. A compiler that cannot prove
+the last condition must preserve dependences that a possible overlap could
+create.
 
 \section{A0 movement is deliberately explicit}
 
@@ -175,6 +391,61 @@ This omission is useful. Extension and truncation can be introduced as explicit
 bridge operations when we relate a real instruction to A0 rather than being
 hidden in the small machine's basic move.
 
+\subsection{A complete A0 store and load}
+
+Take width \(w=16\). Let \(r_1=\mathtt{0010}\),
+\(r_2=\mathtt{BEEF}\), and let the signed immediate byte be \code{02}. The
+store's effective address is
+\[
+  \mathtt{0010}+\mathtt{0002}=\mathtt{0012}.
+\]
+The access interval is \([\mathtt{0012},\mathtt{0014})\). If both byte
+addresses permit writes, the store splits \code{BEEF} into low byte \code{EF}
+and high byte \code{BE}. Little-endian order writes \code{EF} at address
+\code{0012} and \code{BE} at address \code{0013}. Every other memory byte,
+every register, and every condition bit is preserved. The program counter
+advances by four and the outcome remains running.
+
+Now execute a load from the same base and immediate into \(r_3\). It reads the
+two old memory bytes before changing any register. Little-endian assembly gives
+\[
+  \mathtt{EF}+2^8\mathtt{BE}=\mathtt{BEEF}.
+\]
+The load writes that complete word to \(r_3\), preserves memory and the other
+registers, and advances control. This two-step round trip recovers \(r_2\)'s
+entry word in \(r_3\) under four premises: both steps use the same effective
+address, both ranges are valid, no intervening step changes either byte, and
+both instructions use the same width and byte order.
+
+\begin{proofkit}[title={Store then load reconstructs one word}]
+For byte index \(i\in\{0,1\}\), the store writes
+\[
+  M'(a+i)=\left\lfloor
+  \frac{\langle r_2\rangle_u}{2^{8i}}
+  \right\rfloor\bmod 2^8.
+\]
+The later load forms
+\[
+  \sum_{i=0}^{1} M'(a+i)2^{8i}.
+\]
+Substitution returns the two base-256 digits of the original 16-bit word.
+Their weighted sum is its unique value below \(2^{16}\). Range validity and
+fault-free execution are needed before either state update exists.
+\end{proofkit}
+
+Several nearby programs do not satisfy this theorem. A byte store followed by
+a 16-bit load leaves one byte from the old memory. A store at the final valid
+byte traps because its interval needs one more address. A big-endian load over
+the same two bytes returns \code{EFBE}. A load before the store reads the entry
+memory. These are boundary cases, not exceptions to a properly scoped claim.
+
+\begin{tryit}[title={Attack every premise of the round trip}]
+Change the load immediate, remove the high byte from the valid range, insert a
+store to address \code{0013}, and reverse the load's byte assembly. Each
+mutation should produce a different witness or failure. A checker that still
+reports the original round trip is ignoring one of its inputs.
+\end{tryit}
+
 \section{Effective addresses are calculated words}
 
 An \keyterm{effective address} is the offset produced by an instruction's
@@ -197,7 +468,7 @@ A0 and the selected RV64I loads share the broad equation
 \[
   a=\mathit{base}+\mathit{signExtendedOffset}\pmod {2^{64}}
 \]
-when A0 is instantiated at width 64. The immediate widths differ: eight bits
+when A0 is set to width 64. The immediate widths differ: eight bits
 for A0 and twelve bits for the selected RV64I form. Their encodings and failure
 environments also differ.
 
@@ -221,6 +492,32 @@ is 16. The selected x86-64 address is
 The scale naturally matches an eight-byte array element, while the displacement
 can locate a field within or beyond the indexed object. The hardware does not
 know that story. It performs the declared arithmetic and access checks.
+
+The equation reads all contributing registers from the entry state. If the
+destination register of a load is also the base or index, its new value cannot
+participate in its own address. For example, a selected load into RBX from
+\([\mathrm{RBX}+8]\) uses old RBX to choose the bytes and only then replaces
+RBX with the loaded word. A symbolic executor that performs the register write
+first creates a circular or incorrect address rule.
+
+Scale multiplication and addition occur at the declared address width. Let
+the mathematical integer sum be
+\[
+  A=\langle base\rangle_u+s\langle index\rangle_u+d.
+\]
+The ordinary fixed-width offset is \(A\bmod 2^{64}\). A theorem may use that
+architectural word directly. If it intends the stronger claim that no wrap
+occurred, it must prove \(0\leq A<2^{64}\). The signed displacement \(d\) can
+make the lower inequality fail even when the final modular word is a mapped
+address.
+
+\begin{example}[title={A valid final address after mathematical underflow}]
+Let the base and index contributions be zero and the displacement be (-1).
+The mathematical sum is negative, while the 64-bit word result is
+\code{FFFFFFFFFFFFFFFF}. A model whose finite memory includes that address
+could permit the final byte access. A no-underflow theorem cannot infer its
+premise from the successful access.
+\end{example}
 
 \begin{warning}[title={Address arithmetic is not an object-bounds proof}]
 An effective address can be numerically valid while pointing outside the
@@ -267,7 +564,8 @@ address. One safe premise is
 \[
   \langle a\rangle_u+n\leq 2^w
 \]
-together with membership of every address in the modeled readable or writable
+together with membership of every address in the modeled region that permits
+the required read or write
 region.
 
 \begin{proofkit}[title={Full-range validity from endpoint inequalities}]
@@ -286,12 +584,92 @@ permit the access, split it internally, or report a different failure. A
 machine-code theorem must pin the policy actually used rather than infer it
 from the operand width.
 
+The distinction is visible in RV64I. A naturally aligned load or store must
+not raise an address-misaligned exception. For an access that is not naturally
+aligned, the base ISA leaves important behavior to the execution environment.
+That environment may support the access invisibly, complete it slowly through
+an internal path, or permit a contained or fatal trap. The instruction's byte
+width does not choose one universal result \autocite{riscv2026unpriv}.
+
+Atomicity is another separate premise. The chapter's A0 step either commits
+all bytes or traps with none changed. A real environment may impose additional
+rules on misaligned, device, or concurrent accesses. Even when one thread sees
+the intended final bytes, another observer might distinguish internal pieces
+unless the architecture promises an atomic access of that class. Chapter 16
+owns that concurrent extension.
+
 \begin{warning}[title={Do not merge all memory failures}]
 An out-of-range address, an alignment violation, a permission failure, and a
 later translation fault can preserve the same destination while arising at
 different stages. If the model distinguishes them or their priority, the
 trace and refinement relation must distinguish them too.
 \end{warning}
+
+\subsection{A total transfer returns success or a named failure}
+
+A mathematical load need not throw a host-language exception or leave a
+half-built state. Define it as a total classifier over declared inputs. For
+width (n), destination (d), effective address (a), and entry state (S),
+its result can have the form
+
+\[
+  \begin{array}{c}
+  \mathrm{LoadResult}\in
+  \{\mathrm{Success}(S'),\mathrm{AddressFault},\mathrm{AlignmentFault},\\
+  \mathrm{PermissionFault},\mathrm{PolicyOutsideScope}\}.
+  \end{array}
+\]
+
+The selected model may omit or combine some categories, but it should say so.
+Success requires one complete successor. A failure either produces the
+architecture's declared trapped state or reports that the small semantic
+package declines the case. Declining a device access absent from the model is not the
+same claim as proving that the real machine raises an address fault.
+
+Let \(\mathrm{bytes}(S,a,n)\) return the ordered byte sequence only when the
+full interval is readable. Let \(\mathrm{assemble}_{LE}\) construct the
+little-endian source word, and let \(\mathrm{extend}\) be the selected full
+destination rule. The successful value has the explicit composition
+
+\[
+  v'=\mathrm{extend}
+  \bigl(\mathrm{assemble}_{LE}(\mathrm{bytes}(S,a,n))\bigr).
+\]
+
+The successor then updates destination view \(d\) with \(v'\), updates the
+program counter and outcome as specified, and preserves every framed
+component. This factorization prevents a decoder, memory reader, and extension
+rule from becoming one opaque host function whose intermediate mistakes
+cannot be attacked.
+
+A store has a dual composition. It selects the low \(8n\) bits of the old
+source, splits them into \(n\) bytes, validates the whole write interval, and
+updates all bytes in one architectural successor. The source selection occurs
+before memory changes. A source value loaded from an overlapping memory range
+by an earlier instruction is ordinary entry state; a single store does not
+read its own partially written bytes.
+
+\begin{proofkit}[title={Failure preserves the destination in A0}]
+Assume the requested interval fails the A0 range check. The load rule selects
+the trapped branch before it constructs a register update. That branch changes
+the outcome and declared fault reason but retains the entry register map and
+memory map. Projection therefore proves that the destination register and all
+memory bytes are unchanged. A negative control that writes the first readable
+byte or clears the destination before checking must fail this frame theorem.
+\end{proofkit}
+
+Fault priority matters when several checks fail. A misaligned address may also
+cross a permission boundary. One semantic package can choose an ordered check
+sequence if the architecture exposes a priority. Another can return a set of
+permitted failures if the source specification allows more than one. Choosing
+one convenient result without authority makes later trace comparison too
+strong.
+
+The total-result design also clarifies testing. Every success partition needs
+a witness that reaches the write. Every named failure needs a witness and a
+frame check. Every declined case needs a caller test that refuses to treat the
+decline as an architectural trap. A decoder or executor that rejects every
+input can no longer masquerade as safe.
 
 \section{RV64I movement: widths are in the instruction}
 
@@ -361,14 +739,15 @@ does not generally recover the original wide register; it recovers the signed
 extension of the stored low portion.
 
 An immediate arithmetic instruction can also serve movement. \code{addi x5,x6,0}
-copies \code{x6} to \code{x5} as an assembler pseudoinstruction commonly
-spelled \code{mv x5,x6}. The hardware-visible instruction is still ADDI. If
+copies \code{x6} to \code{x5}. An assembler may print the pseudoinstruction
+\code{mv x5,x6}; a pseudoinstruction is a convenient notation that expands to
+a base instruction. The hardware-visible instruction is still ADDI. If
 the destination is \code{x0}, the calculated result is discarded. Decoding must
 retain \code{rd=0}; execution enforces the special destination behavior.
 
 \begin{sidebar}[title={Pseudoinstructions belong to the notation layer}]
-A pseudoinstruction can make source code easier to read without adding an ISA
-operation. Proof artifacts should record the decoded base instruction and its
+A convenient assembler alias can make source code easier to read without adding
+an ISA operation. Proof artifacts should record the decoded base instruction and its
 operands. The chapter may print the convenient spelling beside it, but should
 not count the alias as another machine instruction.
 \end{sidebar}
@@ -384,8 +763,16 @@ architectural register.
 In 64-bit mode, a 32-bit write to a general-purpose register zeros its upper
 32 bits. Thus \code{mov eax,ebx} writes the low 32 bits from EBX and leaves
 RAX with a zero high half. A 16-bit write to AX or an 8-bit write to AL does
-not receive that automatic full-register zeroing rule; the unselected higher
+not receive that automatic full-register completion rule; the higher bits
+outside the named view
 bits of RAX remain as specified by the instruction form.
+
+The legacy high-byte name AH selects bits 15 through 8. It overlaps AX but not
+AL. In 64-bit mode, instruction forms using a REX prefix cannot encode AH,
+BH, CH, or DH as an 8-bit register operand. This is a decoder legality rule in
+addition to the view semantics. A proof that accepts every combination of a
+REX prefix and an old high-byte name invents instructions the architecture
+does not provide \autocite{intel2026sdm2}.
 
 \begin{figure}[htbp]
 \centering
@@ -400,6 +787,13 @@ Let RAX initially be \code{1122334455667788}. After writing \code{AABBCCDD}
 to EAX, RAX is \code{00000000AABBCCDD}. After instead writing \code{EEFF}
 to AX, RAX is \code{112233445566EEFF}. A proof that observes only the named
 destination width misses the difference in the containing register.
+
+Writing \code{AA} to AL from the same initial state produces
+\code{11223344556677AA}. Writing \code{AA} to AH produces
+\code{112233445566AA88}. Writing \code{AABB} to AX produces
+\code{112233445566AABB}. These cases cover distinct views of one containing
+word. They should be tested from the same nonzero background so an accidental
+high-half clearing or preservation rule cannot hide.
 
 x86-64 also distinguishes moves that extend a smaller source. A selected
 zero-extending move fills the new high bits with zero; a selected sign-extending
@@ -445,8 +839,9 @@ enter only through a stronger language or compiler relation.
 
 \section{Relating selected movements}
 
-A real instruction refines an A0 movement when related starting states lead
-to related results under printed preconditions. The relation can translate
+A real instruction refines an A0 movement---meaning that every selected real
+step is matched by the declared A0 behavior---when related starting states
+lead to related results under printed preconditions. The relation can translate
 register names and instruction addresses. It cannot discard a destination-width
 effect that a later observation can reveal.
 
@@ -524,11 +919,148 @@ and perhaps a different fault boundary. Under a no-fault premise and an
 observation only at the sequence endpoints, the replacement may still be
 valid; without those conditions, instruction count is not the only change.
 
+\section{The present cost of moving a value}
+
+An ISA instruction counts an architectural transfer. A physical system may
+move the corresponding bits through register files, bypass networks, cache
+levels, translation structures, memory controllers, package links, and main
+memory. The same architectural load can be served by a nearby cache on one
+run and by distant memory on another. Its value rule remains stable while its
+latency, bandwidth demand, and energy change.
+
+At the circuit level, movement changes electrical state. A wire and the gates
+connected to it have capacitance. Driving a different logic value requires
+charge to move, and the rough dynamic-energy term grows with capacitance and
+the square of supply voltage. Longer wires, larger fan-out, and wider buses
+can require more switching work. A register beside an arithmetic unit and a
+memory chip across a package boundary are therefore not interchangeable
+physical locations even when both hold the same 64-bit pattern.
+
+Distance is not measured by the ISA address. Two consecutive virtual
+addresses may occupy the same cache line, different pages, or storage reached
+through different hierarchy levels. Conversely, a distant numeric address
+may already be present in a nearby cache. The physical path depends on mapping,
+history, sharing, and implementation state that the scalar architecture hides.
+The separation lets the chapter prove loaded-value equality without proving equal
+energy or time.
+
+Bandwidth is a rate, not merely a byte count. Moving 64 bytes once and moving
+64 bytes on every cycle have the same transfer size but different demand over
+time. A shared channel also creates opportunity cost: bytes used by one core,
+device, tenant, or process can delay another. An economic claim should name
+the owner of the resource, the sustained or peak interval, and whether the
+measurement includes useful payload, protocol overhead, or fetched bytes that
+the program never consumes.
+
+Data placement can trade capacity for movement. Replicating a small read-only
+table near several workers spends storage to reduce repeated distant reads.
+Compressing data spends computation to reduce bytes moved. Recomputing a value
+can be cheaper than loading it on one system and more expensive on another.
+These choices are program and platform decisions above the ISA semantics, but
+the exact transfer widths and access patterns in this chapter are their input.
+
+This gap is why an instruction count is not a movement-cost model. A model
+that prices every load equally can still be useful for a scoped search, but it
+does not establish equal time or energy. Horowitz's technology survey made the
+scale difference between arithmetic and data access explicit: energy depends
+strongly on operation width and on how far storage is from computation
+\autocite{horowitz2014energy}. The numerical table is tied to its 2014 process
+assumptions; the lasting lesson is to measure the relevant hierarchy rather
+than promote one old number to a constant of nature.
+
+\begin{keyidea}[title={Count bytes and distance, not only move instructions}]
+For an industrial cost claim, name how many bytes cross which boundary: a
+register-file port, cache line, on-chip link, memory channel, device link, or
+network. Then name the workload and time interval. ``One load'' leaves all of
+those quantities open.
+\end{keyidea}
+
+Address generation consumes resources too. A processor may have dedicated
+address-generation paths, load and store queues, caches of recent address
+translations, and a limited number of memory ports. Their counts and capabilities
+belong to a named implementation. An x86 base-plus-scaled-index expression
+may fit one architectural operand yet compete for a different physical path
+than a simple base address on a particular processor. The manual gives the
+meaning; measurement and implementation documentation give the cost.
+
+Code generation balances several accounts. Folding a load into an x86
+arithmetic instruction can reduce code bytes and remove a named temporary.
+Using a separate load can expose scheduling freedom or permit reuse of the
+loaded value. On RV64, a compiler may need extra address arithmetic when an
+offset exceeds the signed immediate range. A shorter sequence is not
+automatically faster, and a faster sequence on one core is not automatically
+better under a code-size or energy budget.
+
+\subsection{Alias information buys optimization freedom}
+
+A compiler can reorder, combine, remove, or move memory operations only when
+the transformation preserves every behavior in scope. Alias analysis supplies
+facts about whether two pointer-based memory locations must, may, partially,
+or cannot overlap. LLVM exposes such results to memory-dependence and
+optimization clients; a may-aliasing store can block motion of a load because
+it might change the loaded bytes \autocite{llvm2026alias}.
+
+The value of a no-alias proof is economic as well as logical. It can allow a
+value to remain in a register, eliminate a repeated load, remove an overwritten
+store, or enable vector work over independent elements. A false no-alias claim
+miscompiles the program. A conservative may-alias result preserves correctness
+but can forgo those savings. Analysis precision therefore trades compiler
+time and complexity against runtime opportunities.
+
+The bridge to ISA bytes must remain visible. A source-language object has
+lifetime, type, and provenance rules. An LLVM memory location has its own
+intermediate-representation contract. A machine access has an address and byte
+interval. A proof that a source-level no-alias fact justifies swapping two
+machine stores must relate all three layers and account for the address
+calculation actually emitted.
+
+Copy avoidance changes the amount of movement rather than merely its spelling.
+Passing a reference, reusing a buffer, moving ownership, or streaming through
+one representation can avoid copying a large object. The saved work depends on
+object size and later access. An extra level of indirection may add loads or
+reduce locality. ``Zero copy'' should therefore name the boundary across which
+no copy occurs; data may still move through caches, devices, or networks.
+
+\subsection{Safety checks and information leakage}
+
+A valid machine address is weaker than a safe source-language access. Bounds
+checking can prevent an array index from selecting bytes outside its object.
+Memory permissions can prevent writes to a page. Neither fact alone proves
+that the pointer has the intended lifetime or provenance. The model must name
+which safety property is being enforced and at which layer.
+
+Checks also have ordering obligations. If an implementation reads secret or
+out-of-range data transiently before a later architectural fault, the final
+ISA state can still match the specification while timing or cache state leaks
+information. This chapter's scalar transition does not model speculation or
+cache observations. Chapter 16 adds that boundary. The omission must prevent
+a broad ``safe because it traps'' claim here.
+
+Memory-mapped devices provide another boundary. Reading the same device
+address twice may consume two inputs; writing can trigger an external action.
+Ordinary load elimination or commuting-store arguments assume memory behaves
+like the byte map defined in Chapter 4. They do not apply to a device region
+without an explicit effect model. Volatile language or compiler markers help
+preserve required accesses, but their exact guarantees must be connected to
+the platform contract.
+
+\begin{archive}[title={Movement is where abstractions meet physics}]
+At the ISA level, a load is a relation on state. In a processor, it recruits
+circuits and storage structures. In a compiler, it constrains reordering. In a
+cloud or device system, its bytes consume shared bandwidth and energy. The
+same word ``load'' is useful only when the current level and evidence are named.
+\end{archive}
+
 \section{How Axeyum enters this chapter}
 
-The live Axeyum checkout still lacks A0, RV64I, and x86-64 architectural
-packages. This chapter therefore defines the first data-movement obligations
-rather than reporting completed machine proofs.
+The live Axeyum checkout at revision \code{a9991fda} still lacks A0, RV64I, and
+x86-64 architectural packages. It does contain array reasoning, symbolic
+memory, bounded checking with memory, and a toy bit-vector virtual machine
+with word-addressed load and store instructions. Those components prove that
+reusable substrate exists. They do not implement the chapter's byte-addressed
+A0 ranges, widths, byte order, traps, or complete state. This chapter therefore
+defines data-movement obligations rather than reporting completed machine
+proofs.
 
 Start with an executable A0 transfer package. Represent the register map,
 finite byte memory, and running/trapped outcome. Implement \code{mov},
@@ -580,14 +1112,14 @@ an artifact is active, the examples remain reader-checkable specification work.
 \section{Where the model stops}
 
 This chapter uses finite byte memory and single-threaded atomic instruction
-steps. It does not model caches, translation lookaside buffers, page tables,
+steps. It does not model caches of address translations, page tables,
 weak memory, concurrency, memory-mapped devices, or speculative execution. It
 does not claim the full RV64I or x86-64 addressing repertoire.
 
 The x86-64 discussion assumes ordinary 64-bit address size and a flat segment
 base for the selected examples. The RV64I discussion leaves access-fault and
-misalignment policy to a later execution-environment pin where the base
-unprivileged ISA does. These limits are not footnotes to the theorem. They say
+misalignment policy to a later execution-environment pin where the base ISA
+does. These limits are not footnotes to the theorem. They say
 which machine the theorem is about.
 
 Within that machine, something broad has become exact. A0, RV64I, and x86-64
@@ -656,4 +1188,130 @@ required.
 \item Design an Axeyum negative control that changes sign extension to zero
 extension. Give one concrete witness it must find and the failure class the
 checker should report.
+
+\item \textbf{History.} Explain which programming problem an address-modification
+register helped solve on the Manchester Mark I. Distinguish its B-line rule
+from a modern scaled index.
+
+\item \textbf{History.} State how a published base, index, and displacement
+contract supported the System/360 compatibility goal. Separate the stable
+architecture from an implementation's internal circuits.
+
+\item \textbf{Explain.} Give two independent locations holding equal values
+and two different address expressions naming the same location. State which
+equality statements concern values and which concern locations.
+
+\item \textbf{Prove.} For a preserving eight-bit view into a 16-bit word,
+prove read-after-write and preservation of the high byte outside the view.
+
+\item \textbf{Break.} Model AL, AX, EAX, and RAX as independent cells. Give a
+two-instruction sequence whose result differs from the real overlapping-view
+model.
+
+\item \textbf{Execute.} Starting from RAX \code{1122334455667788}, separately
+write \code{AA} to AL and AH. Give both complete results and the selected bit
+ranges.
+
+\item \textbf{Legality.} Explain why an instruction form with a REX prefix and
+AH as an encoded byte operand must be rejected even if an AH view function is
+defined.
+
+\item \textbf{Intervals.} Classify ([100,104)) against ([104,108)),
+([103,107)), ([100,102)), and ([100,104)) as disjoint, partial overlap,
+containment, or equality.
+
+\item \textbf{Prove.} Under no-wrap premises, prove the half-open interval
+no-overlap test \(a+n\leq b\) or \(b+m\leq a\).
+
+\item \textbf{Break.} Apply the ordinary endpoint test to an eight-bit address
+interval beginning at 254 with width four. Show why modular wrap invalidates
+the unqualified argument.
+
+\item \textbf{Alias.} Give two affine address expressions that must alias
+under one precondition, may alias under a weaker one, and cannot alias under a
+third. State the quantifier in each claim.
+
+\item \textbf{Execute.} Reproduce the chapter's width-16 A0 store of
+\code{BEEF}. List every changed and preserved state component, not only the
+two memory bytes.
+
+\item \textbf{Prove.} Derive the width-16 store-then-load theorem from the two
+base-256 digits. State all range, interference, width, and byte-order premises.
+
+\item \textbf{Break.} Replace only the load's byte order in that round trip.
+Give the result and explain why successful access does not imply successful
+reconstruction.
+
+\item \textbf{Address.} Calculate an unsigned 64-bit effective address for
+base zero and displacement (-1). Separate the mathematical sum, modular word,
+and memory-validity question.
+
+\item \textbf{Address.} Let a load destination also be its base register.
+Give entry values and bytes that distinguish old-base address formation from
+an incorrect new-destination rule.
+
+\item \textbf{Range.} For region ([4096,8192)), give the exact validity
+inequalities for an eight-byte access. Test starts 4096, 8184, and 8185.
+
+\item \textbf{Policy.} A four-byte RV64I load begins at address 3. List the
+outcomes an execution environment may permit and the one universal conclusion
+that natural alignment would have supplied.
+
+\item \textbf{Transfer.} Compare RV64I \code{sb}, \code{sh}, and \code{sw}
+from the same source word. Give their write intervals, byte values, and frame
+conditions.
+
+\item \textbf{Prove.} Show that zero and sign extension from (n) to (m)
+agree exactly when the source high bit is zero. Prove both directions.
+
+\item \textbf{Break.} Prove only that an \code{lw} and \code{lwu} destination
+share their low 32 bits, then use the result as full-register equality. Give a
+one-instruction suffix that exposes the error.
+
+\item \textbf{x86-64.} Derive a RIP-relative address from the address following
+an instruction and a signed displacement. Change the instruction length while
+holding its start and displacement fixed; calculate the changed target.
+
+\item \textbf{x86-64.} An array element is twelve bytes. Give an arithmetic
+sequence or address construction for element \(i\), and explain why the SIB
+scale field alone cannot encode scale twelve.
+
+\item \textbf{Commute.} Two stores have disjoint memory intervals, but the
+first changes a register used to calculate the second address. Construct a
+witness showing that disjoint final intervals alone do not justify changing the order.
+
+\item \textbf{Faults.} Give two stores where one succeeds and the other traps.
+Compare both orders and state which visible effects prevent a commutation claim.
+
+\item \textbf{Compiler.} Distinguish must alias, may alias, partial alias, and
+no alias for four concrete byte-interval pairs. Name one optimization blocked
+by an unresolved may-alias result.
+
+\item \textbf{Economics.} Compare moving a 64-byte object through a register,
+one cache line, and a main-memory channel. Name the bytes, boundary, actor,
+time interval, and missing measurements before making a cost claim.
+
+\item \textbf{Design.} Give a precise meaning for ``zero copy'' at one system
+boundary. Name two other boundaries across which the same data may still move.
+
+\item \textbf{Security.} Explain why an architecturally trapping out-of-bounds
+load does not by itself prove absence of speculative leakage. Name the extra
+observations and model needed.
+
+\item \textbf{Devices.} Give a memory-mapped input register for which two loads
+cannot be replaced by one load and reuse. Identify the byte-map premise that
+fails.
+
+\item \textbf{Axeyum.} Map A0 byte memory and complete-range validation onto
+Axeyum's current array and symbolic-memory substrate. List every semantic
+component the adapter must add.
+
+\item \textbf{Axeyum.} Design four controls for a store-then-load checker:
+wrong byte order, truncated range check, intervening overlap, and partial write
+on fault. Give the expected witness class for each.
+
+\item \textbf{Synthesis.} State a complete movement theorem for one real load.
+Bind bytes, decoded form, old operands, address arithmetic, access interval,
+policy, assembled value, extension, destination view, frame, outcome, source
+version, and excluded processor-internal effects.
 \end{enumerate}

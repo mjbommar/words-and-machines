@@ -93,6 +93,7 @@ simplified_english:
   # docs/guides/PLAIN-ENGLISH.md.
   terms:
     - term: "artifact"
+    - term: "bisimulation"
     - term: "checker"
     - term: "cost model"
     - term: "instruction set"
@@ -101,16 +102,18 @@ simplified_english:
     - term: "object"
     - term: "scope"
     - term: "semantic package"
+    - term: "serialization"
     - term: "state relation"
+    - term: "variadic"
   # Abbreviations this book may use bare, beyond the ones everybody knows.
   abbreviations: ["ABI", "CISC", "CNF", "DRAT", "ISA", "PC", "RISC", "SAT", "SIMD", "SMT", "SMT-LIB", "SSA"]
   # Proper names whose official spelling is all capitals. Keep these separate
   # from abbreviations because there is no full form to introduce.
-  names: []
+  names: ["ADC", "ADDI", "CMP", "EAX", "EBX", "MOV", "QEMU", "RAX", "RBX", "SBB", "SLT", "SLTU"]
   # Substitutions this book has decided are correct for its subject —
   # a computability book keeps "enumerate", a calculus book keeps
   # "with respect to". Takes phrases as well as words.
-  ignore: []
+  ignore: ["prin"]
   # Extra words to treat as core, and extra words to ban outright.
   allow: []
   deny: []

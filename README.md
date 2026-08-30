@@ -14,10 +14,9 @@
   </a>
 </p>
 
-The linked title page opens the complete 287-page PDF. The EPUB is a
-development build with its diagrams embedded; its package structure and ZIP
-integrity have been checked, but it has not yet been run through `epubcheck`
-because that external program is unavailable in the current build environment.
+The linked title page opens the complete 553-page, 7×10 print PDF. The EPUB is
+a complete reflowable edition with its diagrams embedded and has passed
+`epubcheck` with no errors or warnings.
 Build provenance and SHA-256 digests are recorded in
 [`downloads/README.md`](downloads/README.md).
 
@@ -40,11 +39,12 @@ control transfer, or ABI convention.
 
 ## Current state
 
-The active book has an Introduction and sixteen chapters, totaling 83,565
-chapter words and 67 rendered figures. Every chapter is within its planned
-textbook-length band. The active ledger contains 41 definitions, principles,
-and implementation obligations following the A0, RV64, and x86-64 dependency
-graph.
+The active book has an Introduction and sixteen chapters, totaling 182,440
+chapter-source words and 67 rendered figures. The first sequential depth pass
+is complete: every chapter is within its planned textbook-length band, with
+worked examples, exercises, proof development, and explicit model boundaries.
+The active ledger contains 41 definitions, principles, and implementation
+obligations following the A0, RV64, and x86-64 dependency graph.
 
 There are no active machine-proof artifacts yet. Axeyum has useful bit-vector,
 solver, certificate, and kernel infrastructure, but it does not yet implement

@@ -47,6 +47,163 @@ These systems differ in language, search method, and cost. They share a
 pressure that matters here: the word \emph{smallest} forces the search space
 into the statement.
 
+Massalin searched Motorola 68020 instruction sequences in increasing order of
+length and estimated cost. Candidate programs first ran on selected test
+values. Only survivors received a more expensive check. The reported programs
+were commonly four to thirteen instructions long. This arrangement made a
+large search useful on the hardware of 1987, but the probabilistic filter did
+not become a proof merely because the search began at length zero.
+
+Bansal and Aiken changed the engineering shape of the task. Their system
+harvested short target sequences, searched for replacements offline, and
+stored useful rewrites in a table for later compiler use. Its language made
+instruction instances from an operation and valid operands. It restricted
+immediate and symbolic constants so that the set remained finite, and it
+identified candidates that differed only by permitted register or constant
+renaming. Those decisions bought search capacity. They also became premises
+of every smallest-sequence claim produced by that search.
+
+Between those two systems, Denali used goal-directed theorem proving rather
+than direct sequence enumeration. Its intended users were willing to spend an
+overnight run on an important inner loop instead of demanding the throughput
+of an ordinary compiler. Denali represented alternative computations in an
+equivalence graph. \keyterm{Satisfiability} asks whether a formula has at least
+one assignment that makes it true. Denali used a satisfiability solver to ask
+whether any represented computation fit within a cycle budget. A failed search
+at \(K-1\) and a witness
+at \(K\) had the upper-bound/lower-bound shape we need. Yet the authors called
+the result near-optimal: completeness depended on the background axioms,
+matching time, and heuristics that could stop expansion. They printed the
+caveat next to the search principle rather than letting the solver inherit
+coverage by reputation.\autocite{joshinelsonrandall2002}
+
+Other optimization traditions establish narrow lower bounds in different
+spaces. Franchetti and P\"{u}schel generated selected SIMD permutations through
+rewrite rules and dynamic programming, with minimum shuffle counts for the
+covered classes.\autocite{franchettipuschel2008} Equality-saturation systems
+search an equivalence graph built from declared rewrites. Instruction
+schedulers search assignments of operations to times and resources. These are
+neighbors, not synonyms. A minimum in a rewrite graph does not by itself cover
+every byte string, and a minimum schedule does not choose every instruction.
+The history therefore gives us no useful priority slogan. It gives us several
+ways a finite space can be made exact.
+
+\subsection{Rewrites, schedules, and programs define different universes}
+
+Three optimization questions can begin from the same computation and still
+range over different mathematical sets. A rewrite system begins with an
+expression and closes it under declared equations. A scheduler begins with
+operations and dependences, then assigns them to times and processor
+resources. An instruction search begins with a grammar of candidate programs
+and asks which of those programs has the required behavior. The sets can
+overlap without being equal.
+
+Let \(E_0\) be an initial expression and let \(R\) be a set of bidirectional
+rewrite rules. The rewrite closure contains every expression reachable from
+\(E_0\) by finitely many applications of rules in \(R\). If \(R\) includes
+commutativity and associativity of addition, it can represent many spellings
+of one sum. If it omits a multiplication-by-constant identity, expressions
+using that identity remain outside the closure even when they compute the same
+function. Minimum cost in the closure means minimum among reachable
+expressions, not minimum among all semantically equivalent machine programs.
+
+An equality graph, often called an e-graph, stores many such related
+expressions compactly. An equivalence class groups nodes that the rewrite
+engine has established equal. Saturation repeatedly applies rules until no
+new represented equality appears or a resource policy stops the process.
+Extraction then selects a low-cost represented expression. The extraction
+can be exact while saturation remains incomplete: it can find the cheapest
+member of the graph without proving that the graph contains every equivalent
+program.
+
+Denali makes this distinction historically concrete. Its equivalence graph
+and axioms created candidate computations, while a solver searched for one
+that met a schedule bound. Matching limits and heuristic stopping could leave
+useful computations unrepresented. The schedule decision could still be
+correct for the represented graph. The limitation entered through coverage,
+not through the arithmetic meaning of a found witness.
+
+Instruction scheduling fixes more structure. Suppose a dependence graph has
+operations as vertices and required orderings as edges. A schedule assigns
+each operation a start time and a compatible execution resource. It must
+respect every dependence and resource-capacity rule. Minimizing the final
+completion time can prove that no shorter schedule exists for those operations
+under that processor model. It does not ask whether a different instruction
+sequence computes the same function with fewer operations.
+
+Register allocation changes the schedule universe again. Two operations that
+could overlap with unlimited temporary values may need a different order when
+only a few registers are available. Spilling a value introduces loads and
+stores, so allocation can change the operation graph that scheduling receives.
+Unison combines these choices rather than optimizing them in isolation. Its
+optimality gap belongs to the combined constraint model and objective, not to
+all machine programs with the same input-output function.
+
+The distinctions can be summarized by three lower-bound statements:
+
+\begin{enumerate}
+\item No represented rewrite of \(E_0\) has extraction cost below \(c\).
+\item No legal schedule of the fixed operation graph finishes before time \(c\).
+\item No program in candidate language \(L\) meets the semantic contract with
+cost below \(c\).
+\end{enumerate}
+
+Each statement can be valuable. None should borrow the quantifier of another.
+An equality proof supports the relation between represented expressions. A
+schedule proof supports timing inside a declared resource model. A
+program-minimality proof supports exclusion inside a declared grammar and
+semantics. Combining them requires explicit bridges: instruction selection
+from expressions, dependence preservation, register and memory effects,
+encoding, and the final observation.
+
+\begin{archive}[title={The noun after minimum matters}]
+Minimum expression, minimum schedule, minimum encoded sequence, and minimum
+measured time are different claims. Each names a universe, an equivalence
+relation, and a cost. A tool may solve one of them exactly without representing
+the others.
+\end{archive}
+
+\subsection{Tests are filters, not lower-bound certificates}
+
+Massalin's selected test values illustrate a distinction that remains useful.
+Executing a candidate on a few inputs can reject it quickly. One wrong result
+is a conclusive counterexample. Agreement on the selected inputs is only a
+reason to perform the next, more expensive check.
+
+Suppose a finite input domain has \(N\) values and a wrong candidate fails on
+\(b\) of them. If each test is sampled independently and uniformly, one test
+misses the failure with probability \(1-b/N\). A suite of \(q\) independent
+tests misses every bad input with probability
+\[
+  (1-b/N)^q.
+\]
+The calculation explains why random filtering can save work when many inputs
+separate most bad candidates. It does not establish correctness because \(b\)
+is unknown before verification, the sampling may not be independent, and a
+candidate may fail on one rare boundary value.
+
+Machine arithmetic supplies exactly such boundaries. Zero, one, the largest
+unsigned value, the largest positive signed value, and the most negative
+signed value often expose wraparound or flag errors. Memory candidates may
+fail only at the last valid starting address. A branch replacement may differ
+only when a displacement crosses its signed range. Deliberately chosen edge
+tests can be more effective than uniform samples, but their success still
+does not change the universal quantifier.
+
+A safe search pipeline may therefore use tests asymmetrically. Any observed
+failure permanently rejects the candidate. A survivor advances to exhaustive
+evaluation, symbolic verification, or another complete route. The lower-bound
+count includes both classes: candidates rejected by concrete counterexamples
+and survivors rejected by complete evidence. If a timeout leaves survivors
+unresolved, the stratum remains open.
+
+Tests also help audit the semantic encoder. Replay a lifted solver model in an
+independent interpreter on both ordinary and boundary inputs. A mismatch
+shows that model lifting, bit ordering, decoding, or transition clauses
+disagree. Agreement raises confidence in the bridge but does not prove its
+completeness. The proof obligation and the test obligation complement one
+another; neither should be renamed as the other.
+
 A search can serve at least three different goals.
 
 \begin{enumerate}
@@ -129,8 +286,10 @@ encode closely related operations with different prefixes, immediate widths,
 or addressing forms. A search over meanings can quotient duplicate encodings
 when cost ignores bytes. A byte-minimal search cannot.
 
-Canonicalization can reduce work without weakening a claim, but only when the
-discarded candidates are genuinely redundant. Suppose addition is
+\keyterm{Canonicalization} means choosing one standard representative from
+several candidates treated as equivalent. It can reduce work without weakening
+a claim, but only when the discarded candidates are genuinely redundant.
+Suppose addition is
 commutative and both sources are pure registers. Keeping only
 \code{add r0,r0,r1} and dropping \code{add r0,r1,r0} preserves the possible
 result functions. If the two forms have different encodings, fault behavior,
@@ -138,6 +297,256 @@ or costs, that quotient is no longer harmless. The proof obligation for a
 search-space reduction is the same as for any other rewrite: every removed
 candidate must have a retained representative with the same observed
 behavior and no greater cost.
+
+\subsection{Count the grammar before trusting the search}
+
+A finite grammar lets us calculate how many instruction instances it names.
+Suppose form \(f\) has \(m_f\) operand positions. If position \(j\) admits
+\(n_{f,j}\) choices independently of the others, the product rule gives
+
+\[
+  I_f=\prod_{j=1}^{m_f} n_{f,j}
+\]
+
+instances of that form. Distinct forms combine by the sum rule, so the whole
+instruction alphabet has
+
+\[
+  I=\sum_{f\in F} I_f
+\]
+
+instances. If every position in a program may choose any alphabet member,
+there are \(I^k\) sequences of exact length \(k\). The number of sequences up
+to length \(K\), including the empty program, is a finite geometric sum.
+When \(I=1\), the sum is \(K+1\). When \(I\ne1\), the geometric-series
+identity gives
+
+\[
+  1+I+I^2+\cdots+I^K=\frac{I^{K+1}-1}{I-1}.
+\]
+
+Take a small register language with four writable registers. It has a
+two-operand move, a three-operand add, and an add-immediate whose immediate is
+chosen from \(\{-1,0,1,2\}\). With independent operand choices, move contributes
+\(4\cdot4=16\) instances, add contributes \(4^3=64\), and add-immediate
+contributes \(4\cdot4\cdot4=64\). The alphabet therefore contains 144
+instances. Lengths zero through three contain
+\(1+144+144^2+144^3=3{,}006{,}865\) syntactic programs before any semantic
+quotient. One extra instruction level multiplies the largest stratum by 144.
+The exponent, not a mysterious solver mood, explains much of the cost.
+
+The product formula applies only when choices are independent. A compressed
+RV64 form may restrict which registers its fields can name. An x86-64 memory
+operand may allow an index except for one register code, and the available
+scratch values at step \(t\) may depend on earlier definitions. Then the
+language is a finite tree rather than a fixed alphabet power. At each node we
+sum the legal outgoing choices. An \keyterm{enumerator} is the program that
+visits every legal candidate in the declared order. It should report both
+the simple grammar counts and the counts that remain after typing, resource,
+and encoding checks. A disagreement between those counts is evidence of work
+to do, not an opportunity to search less.
+
+\subsection{Types and resources make the grammar stateful}
+
+A realistic candidate generator does not choose each instruction from one
+unchanging alphabet. Earlier choices determine which later operands make
+sense. A register may become available only after it is defined. A condition
+may be read only after an instruction produces it. A memory load may require a
+live base address and a proof that the selected width is permitted. The
+grammar therefore carries a small \keyterm{resource state} as it descends the
+candidate tree.
+
+Consider a straight-line word language with two live inputs, \(r_0\) and
+\(r_1\), and two initially unavailable scratch registers, \(t_0\) and \(t_1\).
+Each scratch register may be defined once. A move chooses one unavailable
+scratch destination and one live source. An add chooses one unavailable
+scratch destination and two live sources. After either instruction, its
+destination becomes live. At the root, the live set has size two and the
+unavailable set has size two.
+
+The first instruction has
+\[
+  2\cdot2+2\cdot2^2=12
+\]
+legal instances: four moves and eight adds. After any first instruction, three
+registers are live and one scratch register remains unavailable. The second
+instruction again has
+\[
+  1\cdot3+1\cdot3^2=12
+\]
+legal instances. There are therefore \(12\cdot12=144\) legal two-instruction
+programs. This total did not come from squaring a fixed alphabet. It came from
+summing the outgoing choices at one resource state and repeating the count at
+its successor states.
+
+\begin{table}[htbp]
+\centering
+\caption{The resource state changes the legal choices at each program
+position. Source repetition is allowed, so ordered source pairs are counted.}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Position & Live sources & Fresh destinations & Moves & Adds \\
+\midrule
+1 & \(r_0,r_1\) & \(t_0,t_1\) & \(2\cdot2=4\) & \(2\cdot2^2=8\) \\
+2 & three registers & one register & \(1\cdot3=3\) & \(1\cdot3^2=9\) \\
+\bottomrule
+\end{tabular}
+\label{tab:resource-dependent-grammar}
+\end{table}
+
+Now change one rule: an add may not use the same source twice. At the first
+position it has \(2\cdot2\cdot1=4\) instances, not eight. At the second it has
+\(1\cdot3\cdot2=6\), not nine. The two-instruction total becomes
+\((4+4)(3+6)=72\). A single distinctness condition halves the language. A
+checker that enforces the condition while the published count omits it has not
+proved a bound over the printed language.
+
+Types add another component to the resource state. Suppose a comparison
+defines a Boolean condition while addition requires word sources. It is not
+enough to mark a register live. The generator must record whether its current
+value is a word, a condition, an address, or another admitted type. For each
+instruction form \(f\), define a transition
+\[
+  q \mathrel{\longrightarrow_f} q',
+\]
+where \(q\) records live typed values, fresh destinations, condition
+availability, and any other bounded resource. The candidate count at depth
+\(k\) obeys the recurrence
+\[
+  N(q,0)=1,\qquad
+  N(q,k+1)=\sum_{f\ {\rm legal\ in}\ q}
+           \ \sum_{i\ {\rm instances\ of}\ f\ {\rm in}\ q} N(q_{f,i},k).
+\]
+The recurrence is a finite dynamic program when the resource-state set,
+instruction forms, operand sets, and depth are finite. It is also an executable
+specification for the expected count. An independently written enumerator can
+be checked against it state by state instead of only comparing one final
+number.
+
+Memory effects need the same care. One common symbolic technique threads a
+memory token through every load and store. A load consumes the current token
+and produces a value while preserving the token. A store consumes the token
+and produces a successor token. This discipline prevents a candidate from
+reading a value before the store that defines it or silently reordering two
+observable stores. The token is not hardware. It is a bookkeeping device for
+the order already required by the semantics.
+
+The count must distinguish syntactic rejection from semantic failure. A move
+from an unavailable scratch register is not a candidate in this grammar. A
+well-typed add that computes the wrong result is a candidate that fails the
+specification. Mixing those categories makes diagnostics misleading and can
+hide an accidental restriction. A useful search report therefore prints, for
+each depth and resource state, the number of grammar instances, type
+rejections, resource rejections, decoded candidates, and semantic failures.
+
+\begin{proofkit}[title={Reader proof: the resource recurrence is complete}]
+Use induction on the remaining depth \(k\). At depth zero, the empty suffix is
+the only suffix, so \(N(q,0)=1\). For the induction step, every legal suffix
+that contains an instruction has one unique first form \(f\) and one unique concrete
+instance \(i\) legal in \(q\). Executing that grammar transition produces
+\(q_{f,i}\). By the induction hypothesis, \(N(q_{f,i},k)\) counts every legal
+continuation of length \(k\) exactly once. The two sums partition suffixes by
+their unique first instance. They omit none and duplicate none.
+\end{proofkit}
+
+\subsection{A symmetry quotient needs a proof}
+
+Two scratch registers may have different names and the same role. Suppose
+\(t_0\) and \(t_1\) are initially dead, have the same width, may appear in the
+same operand positions, cost the same to encode, and are absent from the final
+observation. Swapping their names throughout a candidate produces another
+legal candidate with the same cost. The pair forms a symmetry orbit: a set of
+programs related by a permitted renaming.
+
+We can keep one representative from each orbit. Let \(\pi\) swap \(t_0\) and
+\(t_1\), both in programs and in machine states. Write
+\(\mathsf{run}(P,s)\) for the result of running program \(P\) from state
+\(s\). The required semantic fact is
+\[
+  \mathsf{run}(\pi(P),\pi(s))
+  =\pi(\mathsf{run}(P,s)).
+\]
+\keyterm{Equivariance} means that renaming before execution agrees with
+renaming after execution. The precondition and observation must also ignore
+the difference, and cost must satisfy \(C(\pi(P))=C(P)\).
+
+\begin{proofkit}[title={Reader proof: first-use scratch naming is complete}]
+Take any legal candidate that uses the two symmetric scratch registers. If its
+first scratch use names \(t_0\), retain it. If the first use names \(t_1\), swap
+the two names everywhere. The renamed program is legal, costs the same, and
+has the same observed behavior by equivariance. Its first scratch use now
+names \(t_0\). Thus every removed candidate has a retained representative.
+Programs using neither scratch register are unchanged.
+\end{proofkit}
+
+The proof fails as soon as the names acquire different meanings. An ABI may
+make one register callee-saved. One name may need a longer x86-64 encoding.
+The initial state may contain a constant in only one register. A later
+instruction may have an implicit operand that aliases one name. In any of
+these cases the swap may change legality, behavior, or cost. Sorting register
+names is then a bug wearing the clothes of a symmetry reduction.
+
+\subsection{Group actions count the quotient}
+
+The scratch swap is the smallest example of a \keyterm{group action}: a set of
+reversible renamings acts on a set of candidates. Applying the identity
+renaming changes nothing. Applying two renamings in sequence agrees with their
+composite renaming. Each candidate belongs to an orbit containing all
+candidates reachable by the allowed renamings.
+
+If \(m\) scratch registers are fully interchangeable, all \(m!\) permutations
+may act on their names. It is tempting to divide the raw candidate count by
+\(m!\). That division is correct only when every orbit has size \(m!\). Some
+candidates may use no scratch register, or may possess another structure that
+is fixed by a nonidentity renaming. Their orbits are smaller. Blind division
+can therefore produce a noninteger answer or, worse, an integer that is still
+wrong.
+
+For two scratch registers, the acting group contains the identity and the swap
+\(\pi\). Let \(X\) be the finite candidate set. The identity fixes all
+\(|X|\) candidates. Let
+\(\mathsf{Fix}(\pi)\) be the candidates unchanged by the swap. The number
+of orbits is
+\[
+  \frac{|X|+|\mathsf{Fix}(\pi)|}{2}.
+\]
+To see why, separate \(X\) into one-element and two-element orbits. A
+one-element orbit contributes one candidate to both terms in the numerator.
+A two-element orbit contributes two candidates to the first term and none to
+the second. In either case, division by two contributes exactly one orbit.
+
+This argument is the two-element case of Burnside's counting lemma. For a
+finite group \(G\), it counts orbits by averaging the number of candidates
+fixed by each renaming:
+\[
+  |X/G|
+  =\frac{1}{|G|}\sum_{g\in G}|\mathsf{Fix}(g)|.
+\]
+The notation \(X/G\) means the set of orbits, not ordinary numeric division.
+The formula is useful as an independent count. An enumerator that chooses a
+standard representative
+that emits one representative per orbit should produce exactly this many
+representatives.
+
+Counting orbits does not prove that replacing each orbit by one representative
+preserves the optimization problem. The group must also preserve language membership, observed behavior,
+and cost. Burnside's lemma answers how many syntactic orbits exist under a
+declared action. Equivariance and cost preservation answer whether one member
+can safely stand for the others.
+
+The first-use naming rule gives a constructive representative. With three
+fully symmetric fresh registers, name the first one used \(t_0\), the next new
+one \(t_1\), and the third \(t_2\). This rule resembles the standard naming of
+bound variables in logic: the spelling changes while the binding structure
+does not. The representative is useful because it can be generated directly,
+without first constructing every renamed candidate.
+
+The constructive rule and the orbit count check different failures. If the
+rule emits too many programs, the representative rule is incomplete. If it emits too
+few, it has collapsed distinct orbits. If its count is right but legality or
+cost differs inside an orbit, the reduction is still unsound. A durable search
+records the group action, representative rule, expected orbit count, and
+preservation argument separately.
 
 \subsection{Constants are resources}
 
@@ -187,19 +596,19 @@ is not enough information to reproduce the set.
 
 Chapter~\ref{ch:equivalence-refinement} defined program agreement relative to
 a precondition and an observation. A minimality search inherits that entire
-contract. Let (S) be the specification program or function, (P) a
-candidate, (A(s)) the allowed-input predicate, and (O) the observation.
+contract. Let \(S\) be the specification program or function, \(P\) a
+candidate, \(A(s)\) the allowed-input predicate, and \(O\) the observation.
 The candidate works when
 \[
   \forall s,\quad A(s)\Longrightarrow O(P(s))=O(S(s)).
 \]
-If execution can trap, halt, or diverge, (O) must retain whichever behavior
+If execution can trap, halt, or diverge, \(O\) must retain whichever behavior
 classes the replacement context can detect. A result-only projection may be
 appropriate for a pure straight-line exercise. It is too weak for a compiler
 rewrite when the continuation can read flags or observe a fault.
 
 This universal condition is where testing stops. Tests sample states. The
-candidate must work on every state allowed by (A). For a tiny width, direct
+candidate must work on every state allowed by \(A\). For a tiny width, direct
 enumeration can check all inputs. At width 64, symbolic bit-vector reasoning
 can represent all \(2^{64}\) inputs without listing them one by one. The
 symbolic formula is still accountable to the instruction semantics and the
@@ -216,7 +625,7 @@ stops rather than letting it run into whatever bytes happen to follow.
 Suppose an A0 sequence clears \(r_0\) with arithmetic and leaves \(Z=1\), while
 a shorter move also writes zero but leaves different condition bits. Under an
 observation containing only \(r_0\), the move may win. Under an observation
-that also contains (Z,N,C,V), it does not. Neither answer corrects the
+that also contains \((Z,N,C,V)\), it does not. Neither answer corrects the
 other. They answer different replacement questions.
 \end{example}
 
@@ -288,8 +697,10 @@ model is still useful; it simply fixes or ignores those terms and says so.
 
 The ISA defines architectural behavior. It does not fully define how many
 cycles a concrete processor spends on a sequence. Latency can depend on
-operand values, cache state, branch prediction, instruction alignment,
-microarchitectural generation, and the instructions around the replacement.
+operand values, cache state, branch prediction, instruction alignment, and the
+\keyterm{microarchitecture}, the processor's internal execution design.
+Processor generation and the instructions around the replacement can also
+change the cycle count.
 Throughput asks a different question from dependency-chain latency. A model
 for either must name the processor data, scheduling assumptions, and context
 used to combine individual costs.
@@ -300,6 +711,126 @@ cannot by itself establish a universal minimum over all programs, and a
 minimum in an abstract schedule model need not be the fastest sequence on
 silicon. The honest result is often a pair: a theorem about the model and a
 measurement about the machine.
+
+Unison supplies a measured case. It integrates register allocation with
+instruction scheduling through constraint programming. Its speed objective
+assumes constant instruction latencies, an explicit simplification of dynamic
+processor behavior. On the Hexagon study, Unison reported a zero optimality
+gap for 81 percent of the selected functions within the time limit. When the
+authors ran hot MediaBench functions on the processor, 60.8 percent became
+faster than LLVM output, while 17.7 percent became slower, by as much as 11.1
+percent.\autocite{castanedalozano2019unison}
+
+The paper then removed pipeline stalls in an idealized Hexagon experiment.
+The share of slowed functions fell from 17.7 percent to 3.8 percent, and the
+rank correlation between estimated and measured speedup rose from 0.70 to
+0.89. The solver had not failed to optimize its objective. The objective had
+hidden processor behavior that affected the measurement.
+
+That distinction has an economic form. A compiler team pays for model design,
+solver time, benchmark machines, regression analysis, and support for each
+processor family. A user pays at run time through latency, energy, cloud
+capacity, or binary size. Spending another minute in a solver can be sensible
+for code deployed on millions of devices and absurd for code compiled once to
+run once. The unit of account belongs beside the cost: build seconds per
+function, bytes per binary, cycles per invocation, joules per task, or dollars
+per fleet-hour. None is a free translation of another.
+
+Measurement also changes the mathematical object. Repeated timings form a
+distribution, not one exact scalar. The experiment needs a warm-up policy,
+input set, frequency and power controls, isolation rule, sample count, and a
+summary statistic. A confidence interval can describe uncertainty in a
+measured difference. It cannot prove that no unmeasured candidate is faster.
+Search and measurement may work together, but they retain different
+quantifiers.
+
+\subsection{A search budget is an investment decision}
+
+Optimization consumes resources before optimized code consumes fewer of them.
+The complete cost comparison therefore has at least two time scales. Let
+\(B\) be the one-time cost of building the model and search route, \(S\) the
+cost of running the search for one program region, \(V\) the cost of validating
+and deploying its result, and \(g\) the saving from one execution. If the
+optimized region runs \(n\) times, the simplest condition for recovering the
+investment is
+\[
+  n g > B+S+V.
+\]
+The quantities may be measured in processor time, energy, engineering hours,
+or money, but they must use a common unit before addition. The inequality is
+not a performance theorem. It is a decision model that makes the assumed
+reuse visible.
+
+Different deployment settings change every term. Ahead-of-time optimization
+for a widely distributed library can amortize a long search across many
+machines and years. A just-in-time compiler operates while a user waits, so
+its search budget may be milliseconds. Firmware for a device with strict
+capacity or energy limits may justify hours of offline work for a handful of
+hot routines. A research artifact may value a certified lower bound even when
+the witness saves no production cost, because the evidence answers a different
+question.
+
+Expected execution count is itself a forecast. Workloads change, products
+retire, and a faster successor processor may reduce the value of today's
+saving. Benefits received years later may also be valued less than costs paid
+now. A serious deployment model can attach probabilities and time values to
+the terms instead of treating \(n\) as certain. The simple inequality remains
+useful because it exposes where those assumptions enter; adding uncertain
+numbers does not turn the decision into a theorem.
+It makes disagreement about the forecast visible before the search budget is
+spent unnecessarily.
+
+The build pipeline also has an opportunity cost. If one difficult function
+occupies a solver worker for an hour, that worker cannot optimize other
+functions during that hour. A production system needs a policy for allocating
+a finite portfolio of search time. It may spend more on hot code, on code
+shared by many products, or on regions where a cheap preliminary search shows
+a large gap. The policy should separate three outcomes: proved optimal,
+improved but not proved optimal, and no accepted improvement. Treating all
+three as ``solver finished'' destroys the information needed to revise the
+budget.
+
+Parallel search changes elapsed time and total work differently. Eight workers
+may reduce wall-clock delay without reducing processor-hours. Portfolio
+solving may run several heuristics or encodings because their failure patterns
+differ. That can improve the chance of an early witness or proof, but it also
+increases compute, storage, and operational complexity. A report should state
+both elapsed time and aggregate work. Cloud billing, energy use, and capacity
+planning follow the second number even when a developer experiences only the
+first.
+
+Proof production has its own price. Logging clauses consumes I/O and storage.
+Checking a retained proof consumes more time. Keeping formulas, manifests, and
+tool versions requires artifact management. These costs buy a different
+property from a fast unlogged solver verdict: another implementation can
+recheck the lower bound after the search process has ended. Whether that
+property is worth its cost depends on the claim. A transient compiler
+heuristic may need regression tests. A published statement that no cheaper
+program exists needs stronger evidence.
+
+Model maintenance is often larger than one search run. Processor descriptions
+change, toolchains acquire new instruction forms, and deployments move to new
+microarchitectures. A sequence optimized under an old model may remain
+functionally correct while its performance rationale expires. The durable
+artifact should therefore separate semantic validity from cost-model
+validity. A decoder or semantics change can invalidate correctness. A
+processor-model change can invalidate the ranking without changing the
+computed result.
+
+There is also a risk term. An incorrect optimization may impose debugging,
+rollback, security, and reputation costs far larger than its expected speed
+saving. Validation reduces that risk but does not make it zero. A useful
+deployment calculation considers not only expected gain but the probability
+and consequence of error. This is one reason tiny, replayable witnesses and
+negative controls matter economically: they shorten diagnosis when something
+goes wrong.
+
+\begin{archive}[title={Optimization has a balance sheet}]
+Search time, proof storage, model maintenance, benchmark operation, and
+validation are inputs. Code size, latency, energy, capacity, and confidence are
+outputs. The chosen search policy is rational only relative to a workload,
+deployment horizon, failure cost, and evidence requirement.
+\end{archive}
 
 \subsection{Orders, ties, and several objectives}
 
@@ -330,9 +861,29 @@ Arbitrary real-valued estimates or partially ordered profiles need a more
 careful statement of what ``all cheaper candidates'' means.
 \end{goingdeeper}
 
+A \keyterm{well-founded order} is an order with no infinite sequence
+\(c_0>c_1>c_2>\cdots\). Natural-number instruction counts are well founded:
+each strict decrease consumes at least one unit, so descent must stop. A finite
+lexicographic tuple of natural numbers is also well founded. Its first changing
+component decreases, while all earlier components stay fixed.
+
+Well founded does not mean totally ordered. Suppose each cost pair lists bytes
+first and cycles second. Under a Pareto order, costs \((4,3)\) and \((5,2)\)
+are incomparable. Neither dominates the other. A complete search can still
+establish the whole Pareto frontier by
+showing that every excluded candidate is dominated by a retained candidate.
+It cannot call one frontier member the minimum without another policy.
+
+Real-valued cost predictions require special care. If a model admits every
+positive real cost, then \(1,1/2,1/4,\ldots\) descends forever. A finite
+candidate language still has a finite image under that cost, so the actual
+instance has minima. The proof should rely on that finite image rather than
+claiming that the real numbers themselves are well founded. This small
+distinction keeps an order-theory slogan from doing work it cannot do.
+
 \section{An upper bound and a lower bound must meet}
 
-Let (L) be the candidate language, (E(P,S)) the equivalence condition, and
+Let \(L\) be the candidate language, \(E(P,S)\) the equivalence condition, and
 \(C(P)\) the cost. A witness \(P^*\in L\) with \(E(P^*,S)\) supplies an upper
 bound \(C(P^*)\). Minimality also needs
 \[
@@ -398,7 +949,7 @@ the second step produces \(x+2\), with all arithmetic taken modulo \(2^w\).
 This replay establishes the upper bound two.
 
 The lower bound is small enough to see as a table. A zero-instruction program
-returns (x). The six one-instruction instances return only the following
+returns \(x\). The six one-instruction instances return only the following
 five functions; the two mixed-source additions coincide because word
 addition is commutative.
 
@@ -406,11 +957,11 @@ addition is commutative.
 \centering
 \caption{Every program below cost two in the tiny A0 language. A single input
 separates each observed function from \(x+2\).}
-\begin{tabular}{lll}
+\begin{tabular}{@{}lll@{}}
 \toprule
 Candidate form & Final \(r_0\) & Separating input \\
 \midrule
-empty or \code{mov r0,r0} & (x) & any (x) \\
+empty or \code{mov r0,r0} & \(x\) & any \(x\) \\
 \code{mov r0,r1} & \(1\) & \(x=0\) \\
 \code{add r0,r0,r0} & \(2x\) & \(x=0\) \\
 \code{add r0,r0,r1} or reversed & \(x+1\) & any \(x\) \\
@@ -496,13 +1047,155 @@ To synthesize a candidate that works for all inputs, the conceptual form is
 generation with counterexample discovery rather than handing that formula to
 one solver unchanged.
 
+\subsection{Three ways to cover a cheaper stratum}
+
+Direct enumeration, symbolic encoding, and dynamic programming can answer the
+same bounded question, but their evidence looks different.
+
+Direct enumeration generates every candidate, checks its well-formedness, and
+compares its behavior with the specification. At width four, a truth table with
+16 rows gives a complete behavior key for a unary function. The route is easy
+to inspect. Its cost grows with the number of syntax trees and input states.
+A durable run records the grammar count, the enumeration order, and the final
+count in each rejection class. If the grammar predicts 144 one-step instances
+and the run visits 143, the lower bound has a hole even if every visited
+candidate fails.
+
+A symbolic encoding replaces choices with variables. For each step, selector
+variables choose an instruction family and its operands. Transition
+constraints connect the symbolic input state to the next symbolic state. A
+cost constraint restricts the selected sequence to one cheaper stratum. The
+resulting formula is satisfiable when some represented candidate meets the
+encoded specification and unsatisfiable when none does. A refutation can make
+the last statement portable, but a separate argument must still connect
+selector assignments to legal candidates in both directions. Every satisfying
+selector assignment must lift to one legal program. Every legal program in the
+stratum must also have a selector assignment.
+
+The first line protects soundness of witnesses. The second protects
+completeness of lower bounds. Testing only the model-lifting direction leaves
+the dangerous half unchecked.
+
+Dynamic programming stores one least-cost representative for each behavior
+and resource state. In the tiny A0 case, the five functions below cost two are
+the table entries. Extending an entry by one instruction produces entries for
+the next layer. If two prefixes have the same complete continuation-relevant
+behavior, the higher-cost one can be discarded. The method can prove a lower
+bound when the behavior key and extension rule form a complete quotient. It
+can also fail quietly when the key drops a flag or resource that a later suffix
+reads.
+
+Searches often combine the three. Concrete tests reject easy candidates.
+Symbolic verification separates survivors. A semantic table prevents the same
+behavior from returning under another spelling. A satisfiability solver
+refutes the final symbolic stratum. The combination is sound only when the
+handoffs preserve coverage. Fast rejection is an engineering technique; it
+does not excuse an unrepresented candidate.
+
+\subsection{A proof-producing encoding has two correctness directions}
+
+It helps to follow one stratum from machine language to a Boolean formula that
+a separate program can check. Fix a cost \(c\) and a finite separating input
+set \(T\). For every
+program position, Boolean selector variables choose an instruction form and
+its operands. Exact-choice clauses require one legal choice at each active
+position. Additional clauses enforce typing, resource transitions, the cost
+equation, and the stop policy.
+
+For each input \(s\in T\), make a separate symbolic copy of the machine state.
+The selector variables are shared across copies because the same program must
+run on every input. State variables are not shared because each run begins
+with a different input. Transition clauses connect the selected instruction
+at position \(j\) to the state before and after that position. Final clauses
+require the declared observation to match the specification.
+
+Call the resulting formula \(F_c(T)\). It is satisfiable exactly when some
+program of cost \(c\) meets the contract on every input in \(T\).
+The right-to-left direction is \keyterm{encoding completeness}: every legal
+program has selector values and state values that satisfy the clauses. The
+left-to-right direction is \keyterm{encoding soundness}: every satisfying
+assignment decodes to a legal program whose replay meets the sample contract.
+Model lifting tests only the second direction. A lower bound also needs the
+first.
+
+For the one-instruction \(x+2\) example, take \(T=\{0,1\}\). One selector
+chooses among the six instruction instances. Two state copies execute that
+same choice. The final constraints demand results two and three,
+respectively. The table already showed that no row produces both results.
+Therefore \(F_1(\{0,1\})\) is unsatisfiable. Since any universally correct
+program must be correct on zero and one, this finite-sample refutation is
+enough to exclude the complete cost-one stratum.
+
+Conjunctive normal form, or CNF, permits only clauses made from disjunctions of
+\keyterm{literals}, meaning Boolean variables or their negations. Bit-vector
+operations and exact-choice constraints must therefore
+be reduced to Boolean gates and then to clauses. A fresh variable may name the
+output of an internal gate. Clauses constrain that variable to equal the
+gate's function. This introduction of names is often called a Tseitin
+encoding. It can keep the formula proportional to the circuit size instead of
+expanding a nested expression exponentially.
+
+The clause generator becomes part of the trust boundary. A missing clause may
+admit a false witness. An extra clause may remove a real candidate and create
+a false lower bound. A SAT proof checker establishes only that the emitted CNF
+is unsatisfiable. It does not establish that the CNF faithfully represents
+the candidate language or transition semantics.
+
+\begin{proofkit}[title={The four links from refutation to lower bound}]
+First, prove or test that legal programs of cost \(c\) map into satisfying
+selector assignments whenever they meet the sample contract. Second, retain
+the exact CNF bytes and check that their digest matches the manifest. Third,
+check the solver's refutation against those bytes with an independent proof
+checker. Fourth, use the subset argument: a program correct on every allowed
+input would be correct on every input in \(T\). Unsatisfiability of
+\(F_c(T)\) then excludes every universally correct program in the stratum.
+\end{proofkit}
+
+Proof logging changes the operational design of the search. The generator
+must use a solver route that can emit an accepted proof format. Preprocessing
+must either log its transformations or produce a proof for the transformed
+formula that can be connected to the original. Splitting a large formula into
+cases must retain a cover proof. Formula, proof, and checker versions must be
+stored before temporary files disappear.
+
+There are useful independent controls for each link. Remove one legal selector
+and confirm that the grammar-count comparison fails. Flip one transition bit
+and confirm that concrete replay rejects a lifted model. Delete proof bytes
+and confirm that the proof checker fails. Change one language digest while
+keeping the old proof and confirm that the manifest refuses to compose the
+claim. These mutations separate an actual evidence route from a script that
+prints success after several unrelated commands.
+
+\subsection{Branch and bound needs both words}
+
+A \keyterm{branch-and-bound search} divides the candidate choices into
+branches and carries a lower estimate of the best cost each branch can still
+achieve. If the estimate is no better than the current witness, the search
+cuts that branch. The witness supplies the bound. The branch estimate supplies
+the reason that the cut cannot hide an improvement.
+
+For additive nonnegative instruction weights, a prefix of cost \(c\) cannot
+lead to a program below \(c\). That lower estimate is weak but sound. A
+stronger estimate may add the least possible cost of the unresolved outputs or
+resources. Its proof obligation is monotonic: every completion of the prefix
+must cost at least the estimate. An optimistic guess that sometimes exceeds a
+real completion can prune the optimum.
+
+Memoization and meet-in-the-middle search offer different savings.
+\keyterm{Memoization} stores the result for a behavior already reached so the
+search does not solve it twice. A meet-in-the-middle method enumerates prefix
+and suffix summaries separately and joins compatible pairs. Both depend on a
+summary sufficient for composition. A suffix that reads flags cannot be
+joined using a prefix summary that retained only \(r_0\). The same state
+boundary governs enumeration, dynamic programming, and decomposition.
+
 \subsection{Counterexample-guided search}
 
-A counterexample-guided loop keeps a finite set of test inputs. It finds a
-candidate that works on those inputs, then asks a \keyterm{verifier}, the
-checker for universal agreement, for an allowed input where the candidate
-fails. A counterexample joins the test set, and the loop repeats. If the
-verifier finds none under a sound complete route, the
+\keyterm{Counterexample-guided inductive synthesis} (CEGIS) keeps a finite set
+of test inputs. It finds a candidate that works on those inputs, then asks a
+\keyterm{verifier}, the checker for universal agreement, for an allowed input
+where the candidate fails. A counterexample joins the test set, and the loop
+repeats. If the verifier finds none under a sound complete route, the
 candidate meets the universal contract. If no candidate can satisfy the
 accumulated examples, the current cost stratum may be empty, but the lower
 bound still depends on how candidate choices and universal correctness were
@@ -514,11 +1207,68 @@ inputs. They eliminate whole classes of candidate functions. The search is
 not merely trying programs; it is learning which distinctions the
 specification requires.
 
-\subsection{What a checkable lower bound must retain}
+The tiny language gives a complete trace. Begin the cost-one stratum with the
+test set \(T=\{0\}\). The one-step candidate
+\code{add r0,r1,r1} returns two, so it passes that test. Universal verification
+finds \(x=1\): the candidate still returns two, while the specification returns
+three. Add one to \(T\). No one-step candidate in
+Table~\ref{tab:a0-add-two-lower-bound} works on both zero and one, so a complete
+candidate generator reports the cost-one sample problem unsatisfiable. Any
+program correct for every input would be correct on those two inputs. The
+unsatisfiable sample problem therefore rules out the whole cost-one stratum,
+provided the generator encoded every candidate in it.
 
-A durable result needs more than a final line saying that a solver returned an
-unsatisfiable verdict. The evidence package should retain enough information to reconstruct
-the claim:
+At cost two, the generator can return the repeated-add witness. A verifier now
+asks whether there exists an allowed \(x\) such that
+
+\[
+  ((x+1)+1)\bmod 2^w\ne(x+2)\bmod 2^w.
+\]
+
+The formula is unsatisfiable. The reader reason is associativity of modular
+addition; a machine route may instead retain a checked refutation. The loop
+terminates with a cost-two upper bound and a cost-one lower bound.
+
+The quantifiers explain each result. Synthesis asks
+
+\[
+  \exists P\in L_c\;\forall s,\quad
+  A(s)\Longrightarrow O(P(s))=O(S(s)),
+\]
+
+where \(L_c\) is one cost stratum. Candidate generation over a finite test set
+replaces the universal range by a conjunction over \(T\). Verification fixes
+\(P\) and searches for the opposite statement,
+
+\[
+  \exists s,\quad A(s)\land O(P(s))\ne O(S(s)).
+\]
+
+A satisfying verifier query supplies the next test. An unsatisfiable verifier
+query establishes that fixed candidate's universal agreement under the
+encoded semantics. An unsatisfiable sample query establishes an empty stratum
+only when its program variables cover all of \(L_c\). These are two different
+unsatisfiable formulas. A report that does not say which one failed is
+unfinished.
+
+Termination also has a scope. If \(L_c\) and the input domain are finite, each
+failed candidate can yield a counterexample and only finitely many candidate
+behaviors remain. A deterministic loop that never repeats an eliminated
+behavior must stop. With an infinite grammar, an incomplete verifier, or a
+resource cap, the same loop may return unknown or run forever. The letters
+CEGIS name the alternation; they do not grant completeness.
+
+\subsection{What an independently checked lower bound must retain}
+
+A lower bound is \keyterm{independently checked} when it carries evidence that a separate program can
+accept or reject without repeating the original search. Such a result needs
+more than a final line saying that a solver returned an unsatisfiable verdict.
+The evidence package should retain enough information to reconstruct the
+claim:
+
+A \keyterm{refutation} is a proof that the formula has no satisfying
+assignment. It supplies the logical evidence for one cheaper stratum; the
+package must still bind that formula to the language.
 
 \begin{enumerate}
 \item a serialized candidate-language contract;
@@ -526,11 +1276,54 @@ the claim:
 \item the exact decoder and semantic version or digest;
 \item the formula for every cheaper cost stratum, or a reproducible generator;
 \item a witness at the claimed minimum cost;
-\item a checkable refutation for each cheaper satisfiability query when the
-solver route can export one; and
+\item a refutation for each cheaper satisfiability query when the solver route
+can export one; and
 \item a negative control that corrupts a witness, formula, or proof and is
 rejected.
 \end{enumerate}
+
+One concrete package can make those dependencies hard to confuse. Its root
+record contains digests of five child records: language, semantics,
+specification, cost, and observation. A witness record names the root digest,
+the chosen instructions, their bytes where byte cost matters, and a replay
+result. Each cheaper stratum record names the same root digest, its cost
+predicate, the generated formula digest, the refutation digest, and the proof
+checker version. A coverage record gives the grammar cardinality and records
+every sound quotient used before encoding.
+
+\begin{table}[htbp]
+\centering
+\caption{A lower-bound package binds the claim in both directions. Changing a
+parent record invalidates every child digest that depended on it.}
+\begin{tabular}{@{}p{0.14\textwidth}p{0.40\textwidth}p{0.36\textwidth}@{}}
+\toprule
+Record & Binds & Independent check \\
+\midrule
+language & forms, operands, resources, bounds & recount and enumerate \\
+semantics & decode and step relation & replay test corpus \\
+claim & precondition, specification, observation & type and scope check \\
+witness & minimum-cost candidate & concrete or symbolic replay \\
+stratum & cheaper formula and refutation & proof checker \\
+coverage & quotients and complete strata & representative proof and counts \\
+control & deliberate mutation & required rejection \\
+\bottomrule
+\end{tabular}
+\label{tab:minimality-package}
+\end{table}
+
+Suppose a later edit adds \code{addi r0,r0,2}. The language digest changes.
+An old cost-one refutation still proves its old formula unsatisfiable, but its
+parent digest no longer matches. The package must refuse the lower-bound claim
+before reading the proof. A perfect proof of yesterday's smaller language
+cannot certify today's larger one.
+
+A long search may split a stratum into cells. Then the package needs a coverage
+argument as well as a refutation for each cell. If choices
+\(g_1,\ldots,g_m\) form finite branch groups, the cells must be exactly the
+Cartesian product \(g_1\times\cdots\times g_m\). Every tuple must occur once,
+and each tuple's added assumptions must match its proof. Missing one cell
+leaves a candidate region open. Duplicating a cell does not close the hole.
+The checker should reconstruct the product rather than trust a line count.
 
 The witness checker and lower-bound checker should fail for different reasons.
 Change the second add in the A0 witness to \code{add r0,r0,r0}; replay should
@@ -541,8 +1334,9 @@ refutation; the proof checker should reject it. These attacks test three
 different links.
 
 \begin{warning}[title={A solver verdict is not a portable lower bound}]
-An unsatisfiable verdict reports what one solver said about one formula. A checked
-refutation can support that formula's unsatisfiability. Neither establishes
+An unsatisfiable verdict reports what one solver said about one formula. A
+checked refutation can support the claim that the formula has no satisfying
+assignment. Neither establishes
 that the formula represents the printed candidate language unless the
 encoding bridge is also checked.
 \end{warning}
@@ -580,6 +1374,42 @@ one width, its first scalar model has a small explicit state, and the book
 owns its definition. The real-ISA slices add obligations before they add
 glory.
 
+The \(x+2\) example shows why a lower bound does not transfer by analogy. In a
+selected RV64I language that admits \code{addi a0,a0,2}, one instruction
+suffices. Its encoding is \code{13 05 25 00}. In 64-bit x86 mode,
+\code{addq \$2,\%rdi} has bytes \code{48 83 c7 02} and also supplies a
+one-instruction in-place witness. The A0 proof remains correct because neither
+immediate form belongs to its six-instance alphabet.
+
+x86-64 adds another choice before we can call the witness equivalent. The
+\code{addq} form writes arithmetic flags. The four-byte
+\code{leaq 2(\%rdi),\%rdi}, encoded as \code{48 8d 7f 02}, computes the same
+register result without those flag effects. Under a result-only observation,
+both may compete. If a following branch reads flags, the reference behavior
+decides which, if either, is legal. Equal instruction count and equal byte
+length do not settle the semantic contract.
+
+\begin{table}[htbp]
+\centering
+\caption{The same source-level expression enters three different candidate
+languages. The minimum shown is only the first visible upper bound.}
+\begin{tabular}{llll}
+\toprule
+Machine slice & Candidate & Instructions & Bytes \\
+\midrule
+A0 six-form language & two register adds & 2 & 8 \\
+RV64I with \code{addi} & \code{addi a0,a0,2} & 1 & 4 \\
+x86-64 selected forms & \code{addq \$2,\%rdi} & 1 & 4 \\
+\bottomrule
+\end{tabular}
+\label{tab:add-two-three-languages}
+\end{table}
+
+The table does not prove either real instruction minimal. That conclusion
+would still require a complete zero-cost stratum and the exact instruction
+language. It demonstrates something narrower and more useful: changing the
+constant route changes the candidate universe before any search begins.
+
 For an RV64I scalar search, name the base ISA version, permitted extensions,
 architectural integer width, privilege assumptions, and exact operand forms.
 Decide whether compressed
@@ -609,28 +1439,47 @@ refutations, and break the checker with a negative control.
 
 \section{The Axeyum route, in the right order}
 
-The live Axeyum checkout already supplies useful lower layers: fixed-width
-bit-vector terms, solver connections, propositional encodings, proof checking
-components, and kernel-facing evidence machinery. It does not yet supply a
-reusable A0 decoder and transition system, nor complete RV64 or x86-64
-packages. We should not place a Python convenience function over that gap and
-call the result an ISA proof.
+The live Axeyum checkout supplies more than generic solver layers and less than
+the three-machine route this book needs. Its search crate has complete bounded
+AVX2 shuffle encodings. A satisfying assignment is lifted to a typed program
+and replayed through separate execution code. Unsatisfiable bounds can carry
+DRAT refutations checked against the generated formula. One example constructs
+a two-instruction byte reversal over a declared unary language containing
+\code{vpshufb} and \code{vperm2i128}. It checks that no zero- or
+one-instruction candidate in that language works. Another encoding assigns
+family weights and checks one bound at a time.
+
+The same crate has an exhaustive-cover design for large combinatorial
+instances. It checks that every branch group belongs to the formula, that the
+recorded cells equal the full Cartesian product, that no cell is duplicated,
+and that every cell carries an accepted refutation. It can also compose cell
+proofs into one refutation of the original formula. Those mechanisms are
+directly relevant to a durable lower-bound package.
+
+The missing boundary remains substantial. Axeyum does not yet supply the
+book's reusable A0 decoder and transition system, nor complete RV64 or x86-64
+semantic and candidate-language packages. Its AVX2 shuffle semantics track
+byte provenance for a selected operation family; they are not an x86-64
+machine semantics. We should not place a Python convenience function over
+that gap and call the result an ISA proof.
 
 The first implementation route should follow the dependency order already
 visible in the reader argument.
 
 \begin{enumerate}
-\item Define the candidate-language data types in Rust: decoded forms,
-resources, precondition, observation, bound, and cost.
-\item Connect those forms to an executable A0 decoder and step semantics.
-\item Enumerate the tiny language and replay each candidate concretely at a
+\item Generalize the existing Rust search contracts beyond the selected AVX2
+families: decoded forms, resources, precondition, observation, bound, and cost.
+\item Connect an A0 instance of that contract to an executable decoder and step
+semantics owned by the book's machine definition.
+\item Enumerate the tiny language and replay every candidate concretely at a
 small width, including the zero- and one-instruction layers above.
 \item Translate the same semantics to Axeyum bit-vector expressions and check
 candidate equivalence by searching for a counterexample input.
-\item Emit a canonical record of the language, witness, formula digests, and
-cheaper-stratum results.
-\item Add proof-export and independent checking where the selected solver
-route supports it, then add mutations that must fail.
+\item Reuse the existing satisfying-model lift, DRAT checking, and exhaustive
+cover obligations, while binding them to canonical language and semantic
+digests.
+\item Add mutations for language closure, semantic replay, witness failure,
+missing cover cells, and truncated proof bytes.
 \item Expose a small Python interface only after Rust owns these meanings and
 the evidence record.
 \end{enumerate}
@@ -677,10 +1526,11 @@ code with an executable example and bind any machine-backed result to the
 exact Axeyum revision and checker route.
 
 The real-ISA layers come later. First establish that decoded bytes and A0
-steps agree, then lift selected RV64 forms, then selected x86-64 forms. Only
-after those semantic bridges survive their own negative controls should the
-same minimality engine range over them. The search engine is not the hard
-foundation. Meaning is.
+steps agree, then lift selected RV64 forms, then selected x86-64 forms. The
+existing AVX2 result can inform the search and proof design, but it cannot
+reverse this dependency. Only after the semantic bridges survive their own
+negative controls should the same minimality engine range over them. The
+search engine is not the hard foundation. Meaning is.
 
 \section{Where the model stops}
 
@@ -714,9 +1564,9 @@ without quotienting commutative additions. Confirm that their observed
 functions match Table~\ref{tab:a0-add-two-lower-bound}.
 
 \item \textbf{Prove.} Generalize the reader argument from adding two to adding
-(k) by repeated addition of the entry constant one. State a language in
-which (k) instructions are minimal, or explain why the present language
-admits a shorter construction for some (k).
+\(k\) by repeated addition of the entry constant one. State a language in
+which \(k\) instructions are minimal, or explain why the present language
+admits a shorter construction for some \(k\).
 
 \item Find every place the width premise \(w\geq2\) enters the lower-bound
 argument. Give the exact result at width one.
@@ -727,7 +1577,7 @@ one-step function table and identify the failed sentence in the old proof.
 \item Add \code{sub r0,r0,r1}. Does it create a cheaper witness for \(x+2\)?
 Does it create new observed functions? Answer for width two and width three.
 
-\item Change the observation so that it includes A0's (Z,N,C,V). Define the
+\item Change the observation so that it includes A0's \((Z,N,C,V)\). Define the
 specification's desired final conditions, then determine whether the old
 witness still works.
 
@@ -775,4 +1625,196 @@ registers, extensions, memory, traps, observation, and cost.
 canonical language bytes, semantic revision, witness, formula digests,
 checker result, and one negative-control mutation. Mark which fields the
 Python layer may display and which meanings Rust must own.
+
+\item \textbf{Count.} Reproduce the 144-instance grammar calculation. Then add
+a subtraction form with one destination and two register sources. Give the
+new alphabet size and the number of sequences of length at most three.
+
+\item A form has destinations from four registers, its first source from four
+registers, and its second source from three registers unequal to the
+destination. Explain why the independent product formula is wrong, then count
+the legal instances.
+
+\item Draw the first two levels of a candidate tree in which the first
+instruction may define one new temporary and the second may read any value
+defined so far. Label the outgoing count at each kind of node.
+
+\item \textbf{Break.} Write an enumerator that accidentally treats a
+destination choice and a source choice as independent when they share a
+no-alias rule. Give one legal program it retains and one illegal program it
+must reject.
+
+\item For an alphabet of size \(I>1\), derive the geometric-sum formula for
+all lengths through \(K\) by multiplying the sum by \(I\) and subtracting.
+State why the \(I=1\) case needs a separate expression.
+
+\item The 144-instance grammar gains one additional immediate value. Compute
+the new alphabet size and the factor by which the exact length-four stratum
+grows.
+
+\item \textbf{Prove.} Formalize the two-scratch-register swap as a permutation
+\(\pi\). List the three separate facts needed about legality, semantics, and
+cost before the first-use standard naming rule is sound.
+
+\item Give an x86-64 case where swapping two register names changes encoded
+byte length because one name requires an additional prefix bit. Explain which
+line of the symmetry proof fails under byte cost.
+
+\item Give an ABI case where two registers have equal instruction cost but
+different preservation duties. State whether the failure is in the language,
+observation, or cost contract.
+
+\item Extend first-use canonicalization from two to three fully symmetric
+scratch registers. Describe a canonical naming rule and prove that every orbit
+has a representative satisfying it.
+
+\item Two candidates have costs \((4,3)\), \((5,2)\), and \((6,4)\) under
+(bytes, cycles). Find the Pareto frontier. Then choose a lexicographic order
+and identify its winner.
+
+\item \textbf{Break.} Give a scalar cost function with negative instruction
+weights. Construct an infinite descending sequence if the language admits
+unbounded repetitions. State two different repairs to the cost contract.
+
+\item Prove that a finite candidate language has a minimum under any
+real-valued cost function, even though the ordinary order on the real numbers
+is not well founded.
+
+\item A compiler minimizes expected cycles using profile probabilities.
+Change one branch probability enough to reverse the order of two candidates.
+State which context bytes or records must be pinned with the result.
+
+\item Compare latency and reciprocal throughput for a chain of four dependent
+operations and four independent operations. Explain why adding per-instruction
+latencies models the first case better than the second.
+
+\item Design a measurement protocol for two 20-byte straight-line x86-64
+sequences. Name the processor, inputs, warm-up, repetitions, frequency policy,
+summary statistic, and uncertainty report. State the strongest conclusion the
+measurement can support.
+
+\item Unison's idealized no-stall experiment reduced the slowed-function share
+from 17.7 percent to 3.8 percent. Calculate the change in percentage points.
+Explain why the experiment diagnoses a model boundary but does not prove that
+all remaining error comes from one source.
+
+\item Give one deployment where spending 60 seconds of solver time per hot
+function is economically plausible and one where it is not. Name the actor
+who pays compile time and the actor who receives the run-time benefit.
+
+\item \textbf{CEGIS.} Replay the cost-one trace with test set
+\(T=\{0\}\). List every one-step candidate that passes the first test, not only
+the constant-two candidate. Find a separating input for each survivor.
+
+\item Start the same CEGIS loop with \(T=\{1\}\). Which one-step candidates
+pass? Add one counterexample that makes the sample problem unsatisfiable.
+
+\item Prove the finite-sample lower-bound step: if no \(P\in L_c\) satisfies
+the specification on \(T\), then no \(P\in L_c\) satisfies it on every allowed
+input. Identify the direction of implication that would be invalid.
+
+\item \textbf{Break.} Let the candidate generator omit one program from
+\(L_c\). Show how its sample query can be unsatisfiable while the full stratum
+contains a correct program.
+
+\item Distinguish the two unsatisfiable formulas in a CEGIS run: candidate
+generation over \(T\) and counterexample search for a fixed \(P\). For each,
+write what the absence of a satisfying assignment establishes.
+
+\item Give a finite CEGIS loop that repeats the same candidate forever because
+it fails to retain a blocking clause. State the progress measure needed for a
+termination proof.
+
+\item \textbf{Act as the checker.} A package contains proofs for 15 of 16
+Cartesian-product cells and duplicates one of the 15. Explain why its row count
+still looks correct and which two independent checks reject it.
+
+\item Change one byte in a serialized language contract without changing a
+stored stratum formula. Trace the digest mismatches that should prevent the
+old proof from being credited.
+
+\item A proof checker accepts a refutation of formula \(F\). List the remaining
+steps needed to establish that \(F\) represents every candidate cheaper than
+the witness.
+
+\item Compare an equality-saturation extraction claim with an instruction-byte
+minimality claim. Name the candidate universe, equivalence source, and cost in
+each. Give one reason neither claim implies the other.
+
+\item Read Massalin's candidate filtering order and Bansal--Aiken's offline
+rewrite-table design. Identify one engineering choice in each that increases
+capacity and one premise that choice adds to the resulting claim.
+
+\item \textbf{Transfer.} Choose one minimum-shuffle result from
+Franchetti--Püschel. Write the narrowest candidate-language and lower-bound
+statement you can justify from its rewrite system. Do not turn it into a claim
+about every instruction sequence.
+
+\item Inspect Axeyum's unary AVX2 byte-reversal example. Separate the witness
+replay, the zero/one-step formula, the DRAT proof, and the proof check. State
+what additional semantic bridge would be needed before calling it an x86-64
+machine-code result.
+
+\item Inspect Axeyum's weighted unary AVX2 encoding. Replace its declared
+family weights with instruction count. Predict which records and formula
+digests must change, even if the same witness remains optimal.
+
+\item Design one negative control for each Axeyum cover obligation: branch
+membership, complete Cartesian product, unique cells, and accepted cell
+refutations. Each control should damage only the named obligation.
+
+\item \textbf{Count and prove.} Reproduce
+Table~\ref{tab:resource-dependent-grammar}. Then forbid repeated add sources
+and derive the 72-program total. Prove that your cases partition the legal
+two-instruction programs.
+
+\item Extend the resource grammar with a comparison that defines a Boolean
+condition and a select that reads one condition and two word values. Give a
+resource-state representation that prevents either form from reading a value
+of the wrong type.
+
+\item Add one store form to the resource grammar. Define the memory-token
+transition for a two-store sequence and explain why grouping prefixes only by
+register values is no longer a sound semantic quotient.
+
+\item For the cost-one A0 stratum and \(T=\{0,1\}\), introduce selector
+variables for all six candidates. Write exact-choice clauses in prose or CNF
+and state the final-result constraints for both input copies. Explain why the
+selectors are shared and the state variables are not.
+
+\item \textbf{Break the encoding.} Remove the clause that prevents two
+instruction selectors from being true together. Describe a satisfying
+assignment that no legal one-instruction program can realize. Which direction
+of the encoding theorem fails?
+
+\item A proof checker accepts a refutation after the solver simplified the
+original formula. State two acceptable ways to connect the proof to the
+original formula and one unacceptable way that merely trusts the
+preprocessor.
+
+\item Use the break-even inequality with \(B=200\) engineering hours,
+\(S=2\) machine-hours, \(V=3\) engineering hours, and a saving worth one
+micro-dollar per execution. Convert the terms to one declared monetary model
+and calculate the required execution count. List two assumptions that make
+the result uncertain.
+
+\item Compare a search run using one worker for eight hours with a run using
+eight workers for ninety minutes. Calculate wall-clock time and
+processor-hours. Give one setting that values each measure more strongly.
+
+\item Separate semantic validity from cost-model validity for an optimized
+x86-64 sequence after deployment moves to a new processor. Name the evidence
+that can be reused and the measurements or model checks that must be repeated.
+
+\item A wrong candidate fails on 16 inputs in a domain of 256 values. Compute
+the probability that 20 independent uniform tests miss every failure. Explain
+why this probability is not a correctness certificate.
+
+\item A two-register swap acts on 100 candidates, 20 of which use neither
+scratch name and are fixed by the swap. Use the two-element orbit formula to
+count the orbits. Explain why dividing 100 by two gives the wrong answer.
+
+\item For three symmetric scratch registers, state the first-use canonical
+naming rule and identify one ABI change that destroys the group action. Say
+whether the failure affects legality, observation, cost, or more than one.
 \end{enumerate}

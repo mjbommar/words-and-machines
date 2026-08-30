@@ -20,7 +20,9 @@ from an ordinary book.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
 - **Status:** new ledger structure verified; no active machine-proof artifacts;
-  Part I in initial prose and later chapters in structural first draft.
+  the full manuscript has completed its first sequential breadth-and-depth
+  pass and now requires whole-book technical, editorial, and publication
+  review. No chapter is complete merely because it meets a word or page band.
 
 ## Hard rules
 
@@ -54,6 +56,15 @@ from an ordinary book.
     claim before widening the view. Never use mystery, beauty, or historical
     grandeur to cover a missing definition, proof, scope, or citation. Follow
     the earned-wonder rules in `book/docs/guides/VOICE.md` and `CRAFT.md`.
+13. **Teach each object across time, levels, and use.** Integrate (a) the
+    sourced origin and historical problem that shaped it, (b) the mathematics,
+    logic, physics, electrical engineering, and computer science needed to
+    derive it, and (c) its current industrial and economic consequences. These
+    are explanatory lenses, not detachable history or business sidebars.
+    Prefer primary sources, date current quantities, name the actor and unit of
+    cost, and distinguish invention, standardization, and adoption. Record the
+    coverage comparison and deliberate omissions in the chapter research
+    contract before drafting. Follow `book/docs/guides/CRAFT.md`.
 
 ## Project map
 

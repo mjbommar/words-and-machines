@@ -23,8 +23,8 @@ separate parts of the transition.
 
 A program rarely computes only to keep the result. It also asks whether the
 result was zero, whether one value was less than another, whether an unsigned
-addition carried, or whether a signed calculation left its representable
-range. Early arithmetic units exposed some of these facts as condition state
+addition carried, or whether a signed calculation left the range its word can
+represent. Early arithmetic units exposed some of these facts as condition state
 because the next instruction could branch on them without storing another
 ordinary word.
 
@@ -47,6 +47,58 @@ for a compare instruction, often the arithmetic result itself. It is a small
 summary of a larger event. The summary is useful precisely because it is
 incomplete; proofs must therefore say which later questions it can answer.
 \end{archive}
+
+\subsection{Arithmetic rules arrived before electronic arithmetic units}
+
+The ideas in this chapter have several histories. Positional notation made a
+digit's place part of its value. Hand calculation and mechanical calculators
+made carrying a step that had to be performed reliably. Leibniz's published
+1703 account showed addition, subtraction, multiplication, and division in
+binary notation. He was explaining arithmetic, not specifying a modern
+processor, but the account makes one lasting point clear: a small digit set
+can support a complete system of calculation once the place rules are fixed
+\autocite{leibniz1703binary}.
+
+Congruence supplied another language. Gauss's systematic use of congruence in
+1801 lets us say that two integers have the same residue modulo \(2^w\)
+without saying that they are equal as ordinary integers
+\autocite{gauss1801disquisitiones}. A machine word later gave that distinction
+a physical boundary. It retains one residue and discards, redirects, or
+records information outside the selected width.
+
+Boolean algebra and switching theory supplied a circuit language. Boole
+studied logical relations in algebraic form. Shannon showed in 1938 how relay
+and switching networks could be analyzed and synthesized with such algebra
+\autocite{boole1854laws,shannon1938symbolic}. This lineage does not make the
+integer reading of a wire bundle automatic. Gates combine physical signals;
+the representation contract says when those signals mean a sum, sign, carry,
+or comparison.
+
+Electronic machines then had to decide which arithmetic facts software could
+observe. Some exposed accumulator signs or overflow indicators. Some made a
+small condition field that later branches tested. IBM System/360 published a
+two-bit condition code as part of a compatible architecture: different
+instruction classes assigned documented meanings to the same architectural
+field \autocite{amdahl1964system360,ibm1964system360principles}. That history
+is important because it separates a temporary circuit signal from a durable
+software interface. Once programs branch on a condition code, compatibility
+gives its definition economic weight.
+
+Multiplication shows the same meeting of mathematics and equipment. Booth's
+1951 paper sought one process for signed binary operands represented in
+complementary form. Its motivation explicitly included reducing the equipment
+and special correction needed for mechanized multiplication
+\autocite{booth1951multiplication}. Later arithmetic designs developed many
+ways to form and combine partial products. The lesson is not that one method
+won forever. A representation can make one operation regular while moving
+cost into another operation, a correction step, or more circuitry.
+
+\begin{sidebar}[title={Three dates can describe one arithmetic idea}]
+A mathematical identity may precede a practical circuit. A circuit may
+precede a published instruction rule. An instruction rule may later become a
+compiler assumption. Date the event being claimed: publication, working
+hardware, architecture, or software contract.
+\end{sidebar}
 
 \section{One addition, four separate questions}
 
@@ -82,6 +134,49 @@ Carry records an unsigned boundary:
 Signed overflow records a signed boundary. It holds exactly when the operands
 have the same high bit and the result has the other high bit.
 
+\subsection{An arithmetic event has several projections}
+
+It is useful to model one successful arithmetic event before placing it inside
+a machine state. For a selected operation and width, the event can contain
+
+\[
+  E=(r,z,n,c,v),
+\]
+
+where \(r\) is the result word and the other fields are mathematical facts.
+Not every instruction exposes every field. A machine policy maps the event to
+architectural writes. For each condition location, the policy can:
+
+\begin{description}
+\item[Define.] Write a specified event field or Boolean formula.
+\item[Clear or set.] Write a fixed bit independent of the operands.
+\item[Preserve.] Copy the entry-state bit into the successor.
+\item[Leave undefined.] Make no promise that clients may rely on for the
+selected form.
+\end{description}
+
+Undefined is not a synonym for preserve. It is also not automatically a fresh
+random bit. A faithful model may represent an allowed set of successors, a
+symbolic value constrained only by the manual, or a declared refusal to model
+programs that observe the field. The choice affects equivalence. Two
+implementations that choose different undefined bits can both satisfy the
+instruction rule, while a later program that relies on one choice lies outside
+the portable contract.
+
+The full state transition adds destination and frame rules to this event. If
+the operation succeeds, it writes the result where promised, applies the
+condition policy, advances control, and preserves the remaining in-scope
+state. If the operation can fail, its outcome class and commit rule are another
+field. Division by zero cannot be modeled merely by inventing an arbitrary
+quotient and calling the arithmetic event complete.
+
+\begin{keyidea}[title={Separate fact, record, and observation}]
+Carry may be a true mathematical fact about a widened sum. An instruction may
+or may not record it. A later observation may or may not include the location
+where it was recorded. Proofs become clearer when these three questions are
+answered separately.
+\end{keyidea}
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.83\textwidth]{figures/carry-overflow-quadrants}
@@ -93,7 +188,7 @@ overflow combinations. Neither condition implies the other.}
 
 The upper-left example in the figure adds \code{1111} and \code{0001}. The
 unsigned readings are 15 and 1, so the mathematical sum reaches 16 and sets
-carry. The signed readings are -1 and 1, whose sum is representable, so signed
+carry. The signed readings are -1 and 1, whose sum fits the signed range, so signed
 overflow is clear. The lower-right example adds 7 and 1. It has no unsigned
 carry, but the signed result 8 is outside the width-four signed range and sets
 overflow.
@@ -154,9 +249,184 @@ and signed overflow answer different range questions and can disagree. Name
 the reading, range, and condition bit.
 \end{warning}
 
+\subsection{The word ring preserves some laws and rejects others}
+
+Width-\(w\) words with modular addition and multiplication form a finite
+commutative ring. Addition and multiplication are associative and commutative.
+Zero and one are identities. Multiplication distributes over addition. Every
+word has an additive inverse. These laws hold without no-overflow premises
+because equality is equality of residues modulo \(2^w\).
+
+The same structure is not an ordered copy of the integers. Following a modular
+addition around the greatest unsigned word returns to zero, so unsigned order
+cannot satisfy the ordinary implication
+
+\[
+  x<y\quad\Longrightarrow\quad x+z<y+z
+\]
+
+for every word \(z\). At width four, \(0<1\), but adding 15 gives
+15 is not less than 0 under unsigned readings. Signed order has its own boundary and
+fails the same unrestricted compatibility. Order-preserving rewrites require a
+range premise that excludes wraparound.
+
+Multiplicative cancellation also needs care. Over ordinary integers, a
+nonzero factor can be cancelled from an equality. Modulo \(2^w\), an even
+nonzero word can be a zero divisor. At width four,
+
+\[
+  2\cdot0\equiv2\cdot8\pmod{16},
+\]
+
+although \(0\ne8\) as words. A word has a multiplicative inverse modulo
+\(2^w\) exactly when its unsigned reading is odd. Thus cancellation by an odd
+word is valid; cancellation by an arbitrary nonzero word is not.
+
+This distinction matters in low-level code. Multiplication by an odd constant
+is a permutation of width-\(w\) words and can be reversed by multiplication
+with its modular inverse. Multiplication by an even constant loses at least
+one low-bit distinction. A hash mixer, random-number transition, or bit
+scrambler that needs an invertible step must choose constants according to the
+finite ring, not ordinary nonzero arithmetic.
+
+The signed reading is a useful bijection from word patterns to a centered
+integer interval, but it is not a ring homomorphism into ordinary integers.
+It maps a modular sum to the ordinary signed sum only when the latter remains
+inside its range. The unsigned reading has the same limitation at its upper
+boundary. A proof can always use the word-ring identity, then add a separate
+range lemma to recover the desired integer equation.
+
+\begin{proofkit}[title={Odd words are exactly the invertible words modulo a power of two}]
+If \(x\) is even, every product \(xy\) is even, so it cannot be congruent to
+one modulo \(2^w\). If \(x\) is odd, its greatest common divisor with \(2^w\)
+is one. Bézout's identity gives integers \(a,b\) with
+\(ax+b2^w=1\); reducing modulo \(2^w\) makes \(a\) a multiplicative inverse
+of \(x\). The argument classifies every word.
+\end{proofkit}
+
+\begin{example}[title={A reversible word update that is not reversible over an interval}]
+At width eight, the update \(x\mapsto5x+1\) is a permutation because 5 is odd.
+The inverse uses the modular inverse of 5. If the same formula is required to
+stay within an ordinary application interval such as 0 through 99, modular
+invertibility alone says nothing: outputs may leave that interval and later
+range handling may lose information.
+\end{example}
+
+\section{A one-bit adder connects algebra to a circuit}
+
+The widened identity describes what addition must mean. A circuit still has to
+produce the bits. Begin with input bits \(a,b\). A half adder has sum bit
+\(a\mathbin{\mathsf{xor}}b\) and carry bit
+\(a\mathbin{\mathsf{and}}b\). Its four input rows are the ordinary one-column
+binary addition table.
+
+A full adder also accepts carry-in \(c\). Define
+
+\[
+  p=a\mathbin{\mathsf{xor}}b,
+  \qquad
+  s=p\mathbin{\mathsf{xor}}c,
+\]
+\[
+  g=a\mathbin{\mathsf{and}}b,
+  \qquad
+  c'=g\mathbin{\mathsf{or}}(p\mathbin{\mathsf{and}}c).
+\]
+
+Here \(p\) says that the input pair will pass an incoming carry, while \(g\)
+says that the pair generates a carry on its own. For every one of the eight
+input triples,
+
+\[
+  a+b+c=2c'+s.
+\]
+
+This tiny equation is the circuit version of the widened identity. It is also
+a complete proof target: evaluate all eight Boolean rows, or derive the result
+from the definitions of exclusive-or, conjunction, and disjunction.
+
+\begin{proofkit}[title={Full-adder correctness composes by place value}]
+For bit position \(i\), let \(c_i\) enter and \(c_{i+1}\) leave. Full-adder
+correctness gives
+\(x_i+y_i+c_i=s_i+2c_{i+1}\). Multiply by \(2^i\) and sum from zero through
+\(w-1\). Every internal carry occurs once on each side and cancels. With
+\(c_0=0\), the remaining equation is the widened word identity with low result
+bits \(s_i\) and final carry \(c_w\).
+\end{proofkit}
+
+One direct construction places \(w\) full adders in a chain. The outgoing carry
+of position \(i\) becomes the incoming carry of position \(i+1\). This ripple-carry
+design has a simple local proof and regular layout. Its longest dependence,
+however, can cross the whole word. The high result bit cannot settle until a
+carry generated near the low end has propagated through every intervening
+position.
+
+Parallel carry methods reorganize that recurrence. For each position, a
+generate/propagate pair summarizes how an interval of bits responds to an
+incoming carry. Adjacent summaries combine with an associative operation. A
+tree can therefore compute distant carries in logarithmic logical depth rather
+than a linear chain. Kogge and Stone's 1973 recurrence method became one
+important basis for such parallel-prefix networks
+\autocite{koggestone1973parallel}.
+
+The smaller depth is not free. A prefix network may require more combination
+nodes, longer wires, larger fan-out control, more area, and more switching than
+a ripple chain. Other prefix shapes choose other points among depth, wiring,
+fan-out, and regularity. A real implementation also faces placement, process,
+voltage, clock, and workload constraints. Thus ``fast adder'' is not a complete
+engineering claim. It needs a width, technology, timing target, physical
+layout, and cost measure.
+
+\begin{warning}[title={The proof circuit need not be the processor circuit}]
+A ripple network is a clear constructive proof of word addition. A processor
+may use a different adder, split the operation across stages, or reuse
+arithmetic resources. Architectural correctness requires the same visible
+relation, not the same internal graph.
+\end{warning}
+
+The physical boundary matters even when the architectural rule is timeless.
+Charging and discharging capacitance consumes energy. Wider structures place
+more nodes and wires in play; longer or more heavily loaded paths take more
+time to settle. Designers can trade parallel hardware for repeated use of a
+smaller unit. Verification effort changes too: regular local cells are easy to
+state, while optimized networks demand careful connection and equivalence
+checks. Mathematics supplies identities, but a chip must pay for their
+realization in matter, time, energy, and engineering labor.
+
+\subsection{The top carries give another overflow formula}
+
+The carry chain provides a second way to calculate signed addition overflow.
+Let \(c_{w-1}\) be the carry entering the high bit and \(c_w\) the carry leaving
+it. Then
+
+\[
+  V=c_{w-1}\mathbin{\mathsf{xor}}c_w.
+\]
+
+To see why, inspect the high-bit full adder. If both operand high bits are zero,
+signed overflow occurs only when an incoming carry makes the result high bit
+one. Then \(c_{w-1}=1\) and \(c_w=0\). If both input high bits are one,
+overflow occurs when their negative sum wraps to a nonnegative high bit. Then
+\(c_{w-1}=0\) and \(c_w=1\). When the input high bits differ, the top adder
+either receives and emits a carry or receives and emits none, so the two carry
+bits agree and \(V=0\).
+
+This formula is equivalent to the same-input-sign, different-result-sign rule.
+The two expressions use different intermediate facts. A proof system can
+establish their equivalence for all input bits, while a circuit may choose the
+form that fits its available signals and timing. An architecture that exposes
+OF or \(V\) promises the final Boolean fact, not either internal construction.
+
+\begin{tryit}[title={Compare two overflow implementations}]
+At width four, calculate the carry entering and leaving the high bit for one
+example in each \((C,V)\) class. Check both the top-carry XOR rule and the sign
+rule. Then invert only \(c_{w-1}\) in a faulty implementation and find a row
+that distinguishes the formulas.
+\end{tryit}
+
 \subsection{Zero and negative are readings of the stored word}
 
-The zero condition has no signedness ambiguity. A width-\(w\) word has
+The zero condition has no ambiguity between signed and unsigned readings. A width-\(w\) word has
 unsigned reading zero exactly when all bits are zero, and its signed reading is
 then also zero. Thus \(Z\) can support equality-to-zero tests for either
 reading. What produced the word is irrelevant once the instruction policy says
@@ -193,7 +463,7 @@ record it are separate claims.
 
 The sign rule is not a hardware incantation. It follows from the signed range.
 If one operand is nonnegative and the other negative, their sum lies between
-them. It cannot exceed both ends of the representable interval. Therefore
+them. It cannot exceed both ends of the interval that the word represents. Therefore
 opposite-sign addition cannot overflow.
 
 If both operands are nonnegative, signed overflow occurs exactly when the
@@ -222,10 +492,67 @@ This proof handles every width \(w>0\). Exhausting all 256 pairs at width four
 is still useful, but it checks an instance. The case argument explains why the
 same rule holds at width 8, 32, 64, or another positive width.
 
+\subsection{Counting the boundary cases strengthens a test census}
+
+A census can say more than whether every row passed. Let
+\(M=2^w\). There are \(M^2\) ordered pairs of width-\(w\) words. For a fixed
+unsigned \(x\), exactly \(x\) choices of \(y\) satisfy \(x+y\geq M\).
+Therefore the number of carry-producing pairs is
+
+\[
+  \sum_{x=0}^{M-1}x=\frac{M(M-1)}{2}.
+\]
+
+The remaining \(M(M+1)/2\) pairs do not carry. These counts are useful
+negative evidence. A checker that reports every row as no-carry can still
+claim to have visited \(M^2\) rows; it cannot match the partition count.
+
+Signed overflow has another exact count. Put \(H=2^{w-1}\). The nonnegative
+signed readings are \(0,\ldots,H-1\). For fixed nonnegative \(x\), the number
+of nonnegative \(y\) with \(x+y\geq H\) is \(x\), giving
+\(H(H-1)/2\) positive-overflow pairs. The negative readings are
+\(-H,\ldots,-1\). Counting pairs whose sum is below \(-H\) gives
+\(H(H+1)/2\). Thus the total signed-overflow count is
+
+\[
+  \frac{H(H-1)}{2}+\frac{H(H+1)}{2}=H^2=2^{2w-2}.
+\]
+
+Exactly one quarter of all ordered pairs cause signed overflow at every
+positive width. The positive and negative sides are not individually equal:
+the least signed value creates more lower-bound cases than the greatest
+positive value creates upper-bound cases. Their sum is the clean power of two.
+
+The joint \((C,V)\) partition carries still more information. For widths at
+least two, all four classes contain at least one pair. Four compact witnesses are:
+
+\[
+\begin{array}{c|c|c}
+\hbox{class} & x,y & \hbox{reason}\\ \hline
+(0,0) & 0,0 & \hbox{neither boundary is crossed}\\
+(1,0) & M-1,1 & \hbox{unsigned carry, signed }(-1)+1\\
+(0,1) & H-1,1 & \hbox{positive signed overflow without carry}\\
+(1,1) & H,H & \hbox{two least signed values and an unsigned carry}
+\end{array}
+\]
+
+At width one, the interpretation interval is too small for this same
+four-witness pattern, so the width premise matters. A test generator should
+either exclude that width from a four-class obligation or give it its own
+expected partition.
+
+\begin{proofkit}[title={Counts, witnesses, and formulas test different failures}]
+The universal Boolean proof can reject a wrong overflow formula. A complete
+small-width enumeration can reject a missed input. Expected partition counts
+can reject a checker that visits rows but classifies them incorrectly. Retained
+witnesses can make each class replayable. No one layer makes the others
+redundant because each exposes a different failure mode.
+\end{proofkit}
+
 The boundary cases are worth naming. Adding one to the greatest signed
 positive word sets \(V\) and produces the least signed word. Adding negative
 one to the least signed word may set carry while clearing \(V\), because the
-signed sum remains representable. Adding the two least signed words sets both
+signed sum remains inside the signed range. Adding the two least signed words sets both
 conditions at widths above one. These examples defeat the vague rule that
 overflow means the high bit changed: many legitimate sums change the high bit,
 and some overflowing sums wrap to a word with the same high bit as one
@@ -287,7 +614,7 @@ complement inverse:
   x-y\equiv x+(\mathord{\sim}y)+1\pmod{2^w}.
 \]
 This identity explains why an arithmetic unit can reuse addition machinery,
-but it does not settle flag polarity. The final carry-out of this addition is
+but it does not settle flag polarity. The final outgoing carry of this addition is
 one exactly when no unsigned borrow is needed under A0's convention. An ISA
 that defines a borrow flag with the opposite polarity must invert that fact at
 its architectural boundary.
@@ -303,23 +630,92 @@ less-than and \(C\) to unsigned greater-than-or-equal.
 
 Equality needs less retained information. Modular subtraction stores zero
 exactly when the two width-\(w\) words are identical, so \(Z\) recovers word
-equality without a signedness choice. Signed and unsigned order disagree on
+equality without choosing a signed or unsigned reading. Signed and unsigned order disagree on
 some pairs, but equality does not: both readings are one-to-one over the same
 finite set of words.
 
 Negation reveals a special signed boundary. The least signed word represents
-\(-2^{w-1}\). Its mathematical negation \(2^{w-1}\) is not representable, so
+\(-2^{w-1}\). Its mathematical negation \(2^{w-1}\) is outside the range, so
 modular negation returns the same word and sets signed overflow under a policy
-that reports it. Every other signed word has a representable negation. This is
+that reports it. Every other signed word has a negation inside the range. This is
 why an absolute-value routine needs an explicit policy for the least signed
 input.
 
-\begin{example}[title={One subtraction, two orderings}]
+\begin{example}[title={One subtraction, two orders}]
 At width eight, compare \code{FF} with \code{01}. Unsigned 255 is greater
 than 1, so no borrow is needed and \(C=1\). Signed -1 is less than 1, and the
 signed predicate \(N\ne V\) is true. The same subtraction summary answers
 both questions because the branch chooses a different formula.
 \end{example}
+
+\section{Logic acts pointwise, but its meaning is not only arithmetic}
+
+For width-\(w\) words, AND, OR, and XOR apply the corresponding Boolean
+operation independently at each bit position. NOT complements every bit. This
+pointwise definition gives algebraic laws without choosing a signed or
+unsigned reading. For words \(x,y,z\):
+
+\[
+  x\mathbin{\mathsf{xor}}x=0,
+  \qquad
+  x\mathbin{\mathsf{and}}x=x,
+  \qquad
+  x\mathbin{\mathsf{or}}0=x,
+\]
+\[
+  x\mathbin{\mathsf{and}}(y\mathbin{\mathsf{or}}z)
+  =
+  (x\mathbin{\mathsf{and}}y)\mathbin{\mathsf{or}}
+  (x\mathbin{\mathsf{and}}z).
+\]
+
+Each word law follows by fixing a bit position and applying the one-bit Boolean
+law there. This proof pattern is useful: pointwise equality of all \(w\) bits
+implies equality of the words. It avoids interpreting the whole word as an
+integer when the operation itself is defined on bits.
+
+Masks give these laws practical roles. AND with a mask selects positions where
+the mask has ones and clears the rest. OR forces selected positions to one.
+XOR toggles them. If masks \(m_1\) and \(m_2\) have no common set bit, then
+XOR updates by those masks commute. If they overlap, they still commute because
+XOR is associative and commutative, but replacing XOR with assignment to
+selected fields may not. The exact operator, not the visual idea of ``changing
+some bits,'' determines the theorem.
+
+Logic also connects representation domains. XOR is addition in each bit over
+the two-element field, but ordinary word addition is not bitwise XOR because
+it propagates carries. The expressions agree exactly when no bit position
+generates a carry that affects a higher position. For nonnegative word
+readings, one useful condition is
+
+\[
+  x\mathbin{\mathsf{and}}y=0.
+\]
+
+Under that condition, \(x+y=x\mathbin{\mathsf{xor}}y\) as width-\(w\) words.
+Without it, \code{0001 + 0001} gives \code{0010}, while XOR gives
+\code{0000}. This near miss is a compact example of why an algebraic rewrite
+needs a premise.
+
+\begin{proofkit}[title={No common one-bit means XOR equals addition}]
+At the low bit, no input pair contains two ones, so it generates no carry. By
+induction, assume no carry enters position \(i\). The mask premise says that
+the two input bits there are not both one, so the full adder emits their XOR
+and no carry. Every result bit therefore equals XOR, and no final carry is
+lost.
+\end{proofkit}
+
+NOT illustrates a different bridge. Complementing every bit of \(x\) gives
+the width-\(w\) word whose unsigned reading is
+\(2^w-1-\langle x\rangle_u\).
+Adding one produces the modular additive inverse. Hence
+
+\[
+  -x\equiv (\mathord{\sim}x)+1\pmod{2^w}.
+\]
+
+That identity supports subtraction hardware and bit-level proofs. It does not
+say that bitwise NOT alone is arithmetic negation.
 
 \section{Logic and shifts need condition policies too}
 
@@ -398,6 +794,107 @@ Derive the effective count once, branch on zero, and use the same value for
 both the result and condition calculation.
 \end{warning}
 
+\subsection{Rotation preserves bits while changing their places}
+
+A shift discards bits at one edge and introduces fill bits at the other. A
+rotation returns the departing bits at the opposite edge. For an effective
+left-rotation count \(0\leq k<w\), one mathematical form is
+
+\[
+  \mathrm{rol}_w(x,k)=
+  ((x\ll k)\mathbin{\mathsf{or}}(x\gg(w-k)))\bmod 2^w,
+\]
+
+with count zero handled separately so that \(w-k\) is not used as an invalid
+word-width shift. The right rotation is symmetric.
+
+Rotation is a permutation of bit positions. It therefore preserves the number
+of one-bits and is invertible: rotating left by \(k\) and then right by the
+same effective count recovers the original word. A logical shift is generally
+not invertible because discarded bits are absent from its result. This
+difference matters in hashing, cryptographic mixing, bit-field layout, and
+proofs that need to recover an input.
+
+An ISA may also rotate through a carry flag, making the flag an additional bit
+in the permutation. That operation has a different state space from ordinary
+word rotation. The count normalization, flag input, and flag output must be
+included before the two can be compared.
+
+\section{Multiplication and division expose more than one result word}
+
+The product of two width-\(w\) unsigned readings can require \(2w\) bits. Let
+
+\[
+  P=\langle x\rangle_u\langle y\rangle_u
+   =P_{hi}2^w+P_{lo},
+\]
+
+where \(0\leq P_{hi},P_{lo}<2^w\). A low-product instruction stores
+\(P_{lo}\). An unsigned multiplication overflow predicate says
+\(P_{hi}\ne0\). A high-product instruction returns \(P_{hi}\), which is
+valuable for arithmetic over integers stored in several words. These are different projections of
+one exact doubled-width product.
+
+For signed operands, sign-extend both readings to the doubled width before
+multiplying. A low width-\(w\) product is the same bit pattern for signed and
+unsigned multiplication because both are multiplication modulo \(2^w\). The
+high half is not generally the same. Signed overflow is absent exactly when
+the full signed product is the sign extension of its low half.
+
+\begin{example}[title={The same low product can hide different high facts}]
+At width eight, \code{FF * 02} has low byte \code{FE}. Under unsigned readings,
+\(255\cdot2=510\), whose width-sixteen code is \code{01FE}, so the high byte
+is \code{01}. Under signed readings, \((-1)\cdot2=-2\), whose width-sixteen
+code is \code{FFFE}, so the high byte is \code{FF}. The low byte alone cannot
+recover which doubled-width reading was
+intended.
+\end{example}
+
+Shift-and-add multiplication follows the positional expansion of the
+multiplier. If bit \(y_i\) is one, add \(x2^i\) to the partial product. Booth's
+signed technique instead uses transitions in runs of multiplier bits to select
+additions and subtractions in a complementary representation
+\autocite{booth1951multiplication}. Modern implementations may use other
+recodings, partial-product trees, iterative units, or specialized arrays. The
+architectural product relation does not select one internal method.
+
+Division produces a quotient and remainder. For unsigned divisor \(d>0\),
+Euclidean division gives unique \(q,r\) such that
+
+\[
+  n=qd+r,
+  \qquad 0\leq r<d.
+\]
+
+A machine instruction must also define its finite operand widths, which result
+pieces it stores, and what occurs when \(d=0\). Signed division adds a rounding
+rule and a special boundary. With quotient rounded toward zero, the remainder
+has the dividend's sign or is zero. Dividing the least signed value by
+\(-1\) asks for a positive result outside the signed range.
+
+Those two inputs—zero divisor and least-signed divided by negative one—show why
+division cannot be specified as an unrestricted ordinary function into one
+same-width quotient. An architecture might trap, return fixed values, define
+the result through a larger destination pair, or use another declared policy.
+RV64's M extension and x86-64 do not use identical exceptional behavior, so a
+cross-ISA theorem must either exclude these inputs or relate their distinct
+outcomes \autocite{riscv2026unpriv,intel2026sdm2}.
+
+\begin{warning}[title={A bit-vector division operator has its own total rule}]
+A solver's fixed-bit-vector division is total according to its logic. A source
+language or ISA may trap, return a specified word, or leave a case outside a
+selected model. Reusing the solver operator without an adapter can silently
+prove the wrong exceptional behavior.
+\end{warning}
+
+Multiplication and division also widen the economic range. A processor may
+build a fast pipelined multiplier, reuse a smaller iterative unit, omit an
+operation from a small core, or place wide arithmetic in a vector or
+accelerator block. The right choice depends on area, energy, throughput,
+latency, workload, and software compatibility. Instruction availability does
+not imply one cycle or one circuit, and instruction absence does not imply
+that programs cannot compute the operation.
+
 \section{Three ways to carry a condition forward}
 
 The state paths differ across our machines.
@@ -415,7 +912,7 @@ RV64I base ADD and SUB write the destination register but no x86-style
 arithmetic flags. \code{slt rd,rs1,rs2} writes one when the signed reading of
 \code{rs1} is less than that of \code{rs2}, otherwise zero. \code{sltu} uses
 unsigned readings. Branch instructions can compare registers directly. These
-rules come from the pinned unprivileged specification
+rules come from the pinned base ISA specification
 \autocite{riscv2026unpriv}.
 
 x86-64 selected ADD, SUB, and CMP forms update arithmetic status flags including
@@ -436,6 +933,92 @@ predicate, and an x86-64 flag formula can represent the same decision. A
 cross-machine relation should equate that decision on the declared states. It
 need not invent identical condition registers on all three machines.
 \end{sidebar}
+
+\subsection{A0 makes the complete teaching policy small enough to print}
+
+For A0 addition and subtraction, \(Z\) and \(N\) come from the stored result.
+Addition sets \(C\) from the widened unsigned sum and \(V\) from signed range
+crossing. Subtraction sets \(C\) for no unsigned borrow and \(V\) from signed
+subtraction overflow. Compare performs the subtraction calculation and writes
+only the four conditions, leaving ordinary registers unchanged.
+
+A0 logic operations write their result, set \(Z,N\), and clear \(C,V\). Its
+shifts set \(Z,N\), clear \(V\), and define \(C\) from the last removed bit for
+a nonzero effective count. Count zero clears \(C\) under the A0 policy. These
+choices are deliberately complete. A checker never has to guess whether a
+condition is preserved, cleared, derived, or outside the model.
+
+The frame is as important as the formulas. An arithmetic register instruction
+reads its named sources and entry condition state only when the operation
+requires it, writes the named destination and declared condition bits, advances
+the program counter, and preserves every other register and all memory. A
+compare does not write a destination register. A faulting arithmetic extension,
+if later added, must state whether it commits any condition state before the
+fault. A correct result word with an incorrect frame is still an incorrect
+transition.
+
+\subsection{RV64I turns many retained conditions into ordinary data}
+
+Base RV64I ADD and SUB store low 64-bit results and do not write an arithmetic
+flag register. Signed and unsigned comparisons are explicit operations. For
+unsigned words \(x,y\), let \(r=x+y\bmod 2^{64}\). The carry identity gives
+
+\[
+  C\quad\hbox{iff}\quad r<x
+\]
+
+when the comparison is unsigned. Thus an ADD followed by SLTU can place carry
+in a general register. The comparison could use \(y\) instead; both forms need
+a proof that relates the selected operand to the wrapped result. If the
+destination replaces an operand, register allocation must preserve whichever
+value the comparison still needs.
+
+Adding an incoming carry needs care because \(x+y+c\) can cross the word
+boundary in either of two stages. One sequence computes \(t=x+y\), records
+\(c_1=[t<x]\), computes \(r=t+c\), records \(c_2=[r<t]\), and returns
+\(c_1\mathbin{\mathsf{or}}c_2\). Since \(c\) is zero or one, the two stage
+overflows cannot both require a value larger than one final carry. A proof can
+instead compare the exact widened sum directly. The staged version explains
+the ordinary-register dependencies an implementation must preserve.
+
+RV64I branches compare two registers directly for equality or signed/unsigned
+order. SLT and SLTU are useful when the Boolean result must survive for later
+arithmetic or selection. A direct branch can avoid that stored Boolean when the
+decision is needed immediately. These are instruction-count and register-
+pressure choices, not differences in the mathematical predicate
+\autocite{riscv2026unpriv}.
+
+\subsection{x86-64 makes selected arithmetic facts implicit inputs and outputs}
+
+For selected x86-64 ADD forms, CF records unsigned carry and OF records signed
+overflow; ZF and SF describe the stored result. ADC also reads entry CF as an
+incoming addend. SUB and CMP define the subtraction conditions, while SBB
+reads CF according to x86's borrow convention. The exact set of affected,
+preserved, or undefined flags depends on the named instruction and form
+\autocite{intel2026sdm2}.
+
+Conditional instructions interpret formulas, not isolated letters. Equality
+uses ZF. Unsigned below uses CF; unsigned below-or-equal uses
+\(\mathrm{CF}\mathbin{\mathsf{or}}\mathrm{ZF}\). Signed less-than uses
+\(\mathrm{SF}\ne\mathrm{OF}\); signed less-than-or-equal also admits ZF. The
+same subtraction therefore supports two orders only because later
+instructions select different formulas.
+
+Implicit state can shorten an encoding and carry information between adjacent
+instructions. It can also create a dependence that is easy to miss in a
+destination-only data-flow graph. An intervening flag-writing instruction can
+break ADC, SBB, a conditional move, or a branch even when no named general
+register changes. Conversely, an instruction that avoids changing selected
+flags may preserve a live carry chain. A proof and an optimizer must use the
+manual's exact flag footprint, not the broad label ``arithmetic.''
+
+\begin{example}[title={One predicate, three storage paths}]
+To retain unsigned \(x<y\), A0 may execute compare and preserve \(\neg C\) in
+condition state. RV64I may place the result of SLTU in a general register.
+x86-64 may execute CMP and retain CF. A relation can equate the Boolean
+decision while allowing different registers, flags, program lengths, and
+preserved state.
+\end{example}
 
 \section{Carry chains turn condition state into data}
 
@@ -467,14 +1050,15 @@ summing makes every internal carry cancel. The result is
 where \(X,Y,R\) are the three-word unsigned readings. The local widened
 identity therefore composes into a whole-number theorem.
 
-This use makes condition liveness concrete. On a flag-based machine, an
+\keyterm{Condition liveness}, meaning whether a later step reads a condition
+before another step replaces it, is concrete here. On a flag-based machine, an
 instruction inserted between two limbs must not destroy the carry before the
 next add-with-carry consumes it. On a machine without an architectural carry
 flag, code may calculate the carry into an ordinary register and add it to the
 next limb. The state shapes differ, but both proofs need the same recurrence
 and must protect \(c_{i+1}\) across the intervening steps.
 
-Signed multiprecision addition usually uses the same limb operations. Signed
+Signed multiple-word addition usually uses the same limb operations. Signed
 overflow is judged at the high end from the full-width operand and result
 signs, not by combining the per-limb overflow bits. Internal limbs are pieces
 of one large representation; interpreting each as a separate signed integer
@@ -508,7 +1092,7 @@ That fact can come from liveness analysis, a typed context, or a theorem whose
 observation omits the condition state.
 
 \begin{warning}[title={Dead conditions require evidence}]
-Conditions are not unobservable merely because the current basic block does
+Conditions are not outside the observation merely because the current basic block does
 not print them as outputs. A successor branch, conditional move, carry chain,
 or surrounding context may read them. Prove that the relevant condition state
 is dead or preserve it.
@@ -524,7 +1108,7 @@ not the need for a scope.
 
 To decide whether a condition write matters, begin at the later use and reason
 backward. A branch that reads \(Z\) makes the most recent reaching definition
-of \(Z\) live. Earlier writes are dead if every path to the branch overwrites
+of \(Z\) live. Earlier writes are dead if every path to the branch replaces
 \(Z\) first. If one path preserves an earlier value, that definition remains
 live on that path. The same analysis applies separately to \(C\), \(V\), and
 \(N\); treating the whole condition register as one indivisible value can be
@@ -552,16 +1136,201 @@ yet the next limb differs. Backward liveness from the add-with-carry identifies
 \(C\) as a required observation across the inserted instruction.
 \end{example}
 
+\section{Software chooses what an out-of-range result means}
+
+The ISA defines an instruction transition. A programming language, library,
+or intermediate representation may place another contract above it. Several
+common policies begin from the same exact mathematical result but expose
+different outcomes.
+
+\begin{description}
+\item[Wrapping arithmetic.] Store the residue modulo \(2^w\). This is useful
+for counters, hashes, low-level encodings, and algorithms stated in a finite
+ring.
+\item[Checked arithmetic.] Return both a success/failure indication and, on
+success, a result inside the selected range. The caller decides how to handle failure.
+\item[Trapping or strict arithmetic.] Transfer control or otherwise fail when
+the selected range is crossed. The failure behavior is part of the contract.
+\item[Saturating arithmetic.] Clamp a result below the range to its minimum
+and a result above the range to its maximum. This avoids wraparound but changes
+the algebra.
+\item[Overflow-reporting arithmetic.] Return a wrapped word together with a
+Boolean that reports the range crossing.
+\end{description}
+
+Current Rust application programming interfaces (APIs) make these families explicit in names such as
+\code{wrapping_add}, \code{checked_add}, \code{overflowing_add},
+\code{strict_add}, and \code{saturating_add}
+\autocite{rust2026u8}. An interface name is not a theorem, but a good name forces the
+caller to choose a policy that an unqualified ``add'' would conceal.
+
+Saturation is common where a wrapped result would be physically or
+perceptually absurd. An unsigned brightness value above its maximum may remain
+at maximum rather than return near zero. A controller may clamp an actuator
+request. Packed audio, image, and signal operations can apply saturation to
+each lane. Yet saturation loses the modular group laws: there is generally no
+additive inverse, and regrouping can change a result. An optimization valid
+for wrapping words may be false for saturated values.
+
+\begin{example}[title={Reassociation fails under saturation}]
+Suppose signed values range from -8 through 7 and every addition saturates.
+Then \((7+7)+(-7)\) becomes \(7+(-7)=0\). But
+\(7+(7+(-7))\) becomes \(7+0=7\). Ordinary integer addition and modular word
+addition are associative; stepwise saturated addition is not.
+\end{example}
+
+\subsection{Unexpected wrap can change a resource or security boundary}
+
+Modular arithmetic is not itself a defect. The defect appears when one layer
+uses a modular result while another assumes an ordinary integer fact. A length
+calculation gives a common pattern. Suppose a message contains \(n\) records
+of \(s\) bytes plus a header of \(h\) bytes. The mathematical allocation size
+is
+
+\[
+  L=h+ns.
+\]
+
+If \(L\) is computed in a width-\(w\) word without a range check, the stored
+length may be much smaller than the mathematical length. An allocator can then
+reserve the wrapped size while a later copy follows the original record count.
+The arithmetic mismatch becomes a memory-safety problem.
+
+The proof obligation is not merely ``check for overflow.'' It must connect the
+check to every later interpretation:
+
+\begin{enumerate}
+\item establish that \(n\), \(s\), and \(h\) are in their declared domains;
+\item prove that \(ns\) fits the selected width before adding the header;
+\item prove that the final sum fits the allocation-size type;
+\item allocate exactly that checked size; and
+\item prove that every later write uses the same accepted bounds.
+\end{enumerate}
+
+Checking only the final stored word against one operand can miss a wrapped
+multiplication. Widening after a narrow multiplication is also too late: the
+discarded high product bits cannot be recovered. Widen the operands before the
+operation, use a checked primitive, or prove a bound that makes the narrow
+calculation exact.
+
+MITRE Corporation's current CWE-190 entry records consequences that include data
+corruption, resource errors, altered control, protection bypass, and chains
+into memory corruption when wraparound affects sizes or bounds
+\autocite{mitre2026cwe190}. The classification does not mean every modular
+counter is vulnerable. It identifies a recurring interface error: the program
+assumes a result that always increases or fits the integer range where the selected
+calculation does not guarantee one.
+
+Economic calculations have the same semantic risk even when memory safety is
+not involved. Quantities, prices, rates, and totals may use different scales
+and widths. Saturation can hide lost magnitude; wraparound can reverse an
+ordering; silent truncation can erase fractional or high-order information.
+A sound design states units, scale, range, rounding, and failure policy before
+choosing an instruction sequence. A larger type reduces some risks but does
+not replace a bound on adversarial or long-running inputs.
+
+\begin{warning}[title={A later wide cast cannot restore an earlier lost high part}]
+If a narrow product wraps and is then widened, the wide value is only an
+extension of the low word. To preserve the mathematical product, widen before
+multiplication or use an operation that returns the full high and low parts.
+\end{warning}
+
+\subsection{Compiler facts are promises, not spare flag bits}
+
+LLVM integer addition without a no-wrap marker returns the modular result. Its
+\code{nuw} and \code{nsw} markers add claims that unsigned or signed wrapping
+does not occur. If the corresponding claim is violated, the result is poison
+under the current IR semantics \autocite{llvm2026langref}. Poison is not an
+x86 overflow flag and not an immediate hardware exception. It is an IR value
+whose allowed propagation gives optimizers freedom, subject to the IR's exact
+rules.
+
+That freedom can justify transformations unavailable for arbitrary modular
+words. Over mathematical integers, \(x+1>x\) is always true. Over width-\(w\)
+unsigned wrapping words, it is false at the greatest word. If an IR operation
+has a valid unsigned-no-wrap promise, the boundary case is excluded and the
+comparison may simplify. If the promise was inferred incorrectly, the
+optimization can expose the error far from the original addition.
+
+No-wrap facts also support range analysis, loop reasoning, address
+calculation, and strength reduction. They are economically valuable because
+better proofs can remove tests or expose better machine instructions. They are
+also a verification burden: front ends, optimizers, and back ends must preserve
+the contract across every rewrite. A condition flag observed in assembly and
+a no-wrap fact in IR can describe related arithmetic, but a compiler needs a
+proved lowering rule between their levels.
+
+Instruction selection must account for condition state as well. On x86-64, a
+candidate instruction may produce a desired word while defining flags
+differently from the source pattern. That replacement is legal only when the
+different flags are dead or separately repaired. On RV64I, comparisons and
+carry idioms often use general registers and direct branches instead. The
+dependence is more visible in the register graph, but it still consumes an
+instruction result and perhaps a register name.
+
+\subsection{Arithmetic cost has several dimensions}
+
+Latency asks how long one dependent result takes. Throughput asks how often an
+implementation can begin or finish operations. Area asks how much hardware is
+committed. Energy asks how much physical activity a workload causes. Code size
+and register pressure ask what software must spend. Verification and
+compatibility add engineering and long-term costs.
+
+Addition, multiplication, and division can occupy very different points in
+that space. Horowitz's 2014 technology-specific comparison illustrates that
+arithmetic and data movement have materially different energy costs, and that
+the cost depends on width and location \autocite{horowitz2014energy}. The
+dated quantities should not be copied as universal constants. The durable
+lesson is to state which operation, precision, storage level, and technology a
+cost claim concerns.
+
+Multiprecision arithmetic makes the dependencies explicit. A carry chain
+across limbs can limit parallel work. Wider instructions can reduce the number
+of limbs but may use rarer or more expensive resources. Cryptographic code may
+prefer regular instruction sequences and avoid data-dependent branches or
+memory addresses. These choices balance arithmetic latency, instruction
+availability, portability, side-channel goals, and the effort required to
+verify the implementation.
+
+\begin{warning}[title={Branch-free is not a complete constant-time claim}]
+Removing a condition-reading branch eliminates one possible source-level
+variation. It does not prove equal execution time, equal cache behavior, or
+equal power on a physical processor. A constant-time theorem needs an
+observation model and implementation assumptions that include the effects it
+promises to hide.
+\end{warning}
+
+Packed and vector arithmetic introduce one more policy axis. Does overflow
+wrap or saturate per lane? Does a condition summarize each lane, all lanes, or
+no lane? Are inactive lanes preserved, zeroed, or ignored? This chapter's
+scalar laws can be lifted lane by lane only after those questions are answered.
+Chapter~\ref{ch:model-boundary} treats that extension as a larger state and
+observation problem rather than pretending that one scalar flag covers it.
+
 \section{How Axeyum can check the arithmetic layer}
 
-The current Axeyum checkout provides reusable bit-vector and solver machinery
-but not the A0 or real-ISA transition packages. The first implementation goal
-for this chapter is a width-parametric arithmetic record containing the result
-word and declared conditions. It should not begin with a full processor.
+The live Axeyum checkout at revision \code{a9991fda} already contains more than
+a generic solver. Its Rust term layer implements fixed-width addition,
+subtraction, multiplication, comparisons, shifts, rotations, extension, and
+unsigned and signed overflow predicates for addition, subtraction, and
+multiplication. The bit-vector lowering constructs Boolean networks, including
+a ripple-carry addition path. Python bindings expose the operations. Property
+tests compare the overflow builders with independent unbounded Python integer
+definitions across generated widths and boundary values.
 
-Implement pure functions for addition, subtraction, logic, and shifts. At
-small widths, enumerate every input pair and compare the implementation with
-independent mathematical definitions. At larger widths, ask a solver for a
+That is strong reusable substrate, but it is not yet this chapter's artifact.
+The checkout has no A0 arithmetic record containing result and \(Z,N,C,V\), no
+instruction-specific logic and shift policies, no four-quadrant teaching
+census, no lesson about live conditions, and no thin RV64I or x86-64 adapter. A
+property test over a term builder also has a different assurance claim from a
+solver proof export, an architectural transition check, or a
+width-parametric kernel theorem.
+
+The first book-facing implementation goal is therefore to assemble, rather
+than duplicate, the pure substrate. Define a width-parametric A0 arithmetic
+result that contains the result word and every declared condition. At small
+widths, enumerate every input pair and compare that record with independent
+mathematical definitions. At selected larger widths, ask a solver for a
 counterexample to each equivalence: carry versus extended unsigned sum, signed
 overflow versus the sign formula, subtraction no-borrow versus unsigned order,
 and compare predicates versus signed or unsigned readings.
@@ -569,7 +1338,7 @@ and compare predicates versus signed or unsigned readings.
 Every solver model should replay through the executable function. Negative
 controls should invert carry, confuse carry with overflow, use \(N\) instead
 of \(N\ne V\) for signed comparison, preserve a logic flag that A0 clears, and
-mis-handle count zero. Each mutation has a small concrete witness, so a green
+handle count zero incorrectly. Each mutation has a small concrete witness, so a green
 route that cannot reject it is not exercising the promised rule.
 
 The first solver obligations can be small and independent of instruction
@@ -589,17 +1358,18 @@ signed-overflow failure.
 
 At a teaching width, a census should retain counts as well as a pass bit. For
 addition, partition every ordered pair by \((C,V)\), then retain one witness
-from each nonempty class. Requiring all four classes prevents a checker from
+from each class that contains a pair. Requiring all four classes prevents a checker from
 passing only easy rows. A second census for subtraction should cover equality,
-unsigned less-than, signed less-than, and the cases where the two orderings
+unsigned less-than, signed less-than, and the cases where the two orders
 disagree.
 
-The future Python layer should expose these as explicit objects rather than a
-single Boolean helper: an input domain, mathematical reference, executable
-function, observation fields, enumerated census, solver query, replayed
-witness, and semantic digest. The Rust layer should own the width-safe word
-operations and serialized evidence checks. Python can assemble lessons and
-display tables without becoming an unrecorded semantic authority.
+The Python layer should assemble these as explicit objects rather than hide
+them behind a single Boolean helper: an input domain, mathematical reference,
+executable function, observation fields, enumerated census, solver query,
+replayed witness, and semantic digest. The Rust layer already owns the
+width-safe term operations; the book artifact must add the architectural
+record and serialized evidence checks. Python can assemble lessons and display
+tables without becoming an unrecorded semantic authority.
 
 \begin{goingdeeper}[title={From exhaustive rows to a universal formula}]
 Width four has 256 ordered addition pairs. Exhaustive checking can classify
@@ -616,17 +1386,73 @@ selected flags for exact operand widths and forms. An evidence manifest must
 name the observation: destination only, selected conditions, or complete
 in-scope state.
 
+\section{Integer words are one arithmetic domain, not all arithmetic}
+
+The same stored bits can participate in other numeric contracts. A fixed-point
+format assigns an implicit scale. If a word represents integer \(q\) with
+scale \(2^{-f}\), its numeric value is \(q2^{-f}\). Addition requires aligned
+scales; multiplication doubles the fractional-bit count before a declared
+rescaling and rounding step. The underlying word operations remain finite,
+but a useful theorem must include scale and rounding.
+
+Decimal arithmetic serves domains in which powers of ten and decimal rounding
+are part of the contract. Its digits, encodings, carries, and exceptional
+rules are not obtained merely by reading a binary word as unsigned. Financial
+software may also require exact decimal quantities, bounded integer minor
+units, or arbitrary precision. Which representation is right depends on the
+unit, range, rounding law, legal or business rules, and required audit trail.
+
+Floating-point arithmetic represents a sign, a \keyterm{significand}, meaning
+the field that holds the precision bits, and an exponent, and it
+has rounding modes, infinities, not-a-number values, signed zeros, and named
+exceptions. Its addition is not modular word addition, even though a floating-
+point value is encoded in bits. IEEE 754 standardizes a broad floating-point
+contract \autocite{ieee7542019}; Chapter~\ref{ch:model-boundary} explains why
+adding that contract expands both state and evidence.
+
+Arbitrary-precision integers remove a fixed mathematical range only by making
+representation length and allocation part of the computation. They can still
+fail through unavailable memory, resource limits, or conversion back to a
+fixed width. Their running time and memory access can depend on operand size
+and value. ``No overflow'' therefore does not mean ``no failure, cost, or
+side-channel question.''
+
+Packed and vector formats divide storage into lanes. A scalar 64-bit addition
+propagates carry across every bit. Four 16-bit lane additions block carries at
+lane boundaries and may apply four separate saturation decisions. Both use 64
+physical input bits, but they implement different algebras. A proof must know
+the lane partition before reusing a scalar identity.
+
+\begin{sidebar}[title={Representation is part of the arithmetic operation}]
+The verb ``add'' does not identify a complete function. Width, integer or other
+format, signed reading, scale, lane shape, rounding, overflow policy, and
+failure outcome determine what inputs and outputs mean.
+\end{sidebar}
+
+Conversion between these domains is an operation, not a change of notation.
+Converting a wide integer to a narrow word may reject, wrap, or saturate.
+Converting a scaled fixed-point value may round. Converting an integer to
+floating point may lose low-order precision even when the magnitude remains
+finite. Reinterpreting the same bits performs none of those numeric
+conversions; it changes only the reading. A complete conversion theorem names
+the source domain, destination domain, rounding or range policy, exceptional
+outcome, and information that can no longer be recovered.
+Tests should include both exact conversions and the first values on each side
+of every rounding, range, lane, or exceptional boundary named by that policy.
+
 \section{Where the model stops}
 
-This chapter treats integer words. It excludes floating-point exceptions,
-saturation, packed lanes, decimal arithmetic, and multiprecision conventions
-beyond a small carry-chain example. It does not claim that one flag policy
-covers every x86-64 instruction form or optional RISC-V extension.
+This chapter proves a scalar fixed-width integer core. It compares saturation,
+fixed point, decimal, floating point, arbitrary precision, and packed lanes
+only well enough to mark their different contracts. It does not provide their
+complete transition systems or proof libraries. It also does not claim that
+one flag policy covers every x86-64 instruction form or optional RISC-V
+extension.
 
 It also treats an instruction as an atomic state transition. Hardware may
 compute condition information through internal circuits unlike these formulas.
-The architectural theorem concerns the visible result, not the microarchitectural
-route that produced it.
+The architectural theorem concerns the visible result, not the internal
+processor route that produced it.
 
 The reward for this restraint is a reusable core. A few finite-word identities
 explain wraparound, comparisons, branches, and the legality of later program
@@ -636,7 +1462,7 @@ mathematical boundary those bits crossed.
 The chapter's recurring method is deliberately uniform: widen when the exact
 unsigned result matters, interpret high bits when signed range matters, and
 name every condition-state policy that later code can observe. That method
-scales from a four-bit teaching table to a multiprecision routine and from a
+scales from a four-bit teaching table to a multiple-word routine and from a
 reader proof to a solver obligation without changing the meaning of the claim.
 
 \section{Exercises}
@@ -685,5 +1511,133 @@ Include the independent definition, row count, digest, replay check, and a
 negative control.
 
 \item Extend a destination-only arithmetic equivalence claim to a condition-
-sensitive one. List the additional postconditions and tests required.
+sensitive one. List the additional output conditions and tests required.
+
+\item \textbf{History.} Read the cited passage from Leibniz's binary account.
+Separate what it demonstrates about arithmetic from any claim about electronic
+storage, gates, or instruction sets.
+
+\item \textbf{History.} Explain why Shannon's switching analysis and the
+System/360 condition code belong to different stages of the story. Name the
+claim that each source can support.
+
+\item \textbf{Circuit.} Write all eight rows of the full-adder truth table.
+Check \(a+b+c=2c'+s\) on every row.
+
+\item \textbf{Prove.} Starting from the per-bit full-adder equation, derive the
+width-\(w\) widened addition identity. Show where every internal carry
+cancels.
+
+\item \textbf{Design.} Compare a width-eight ripple-carry adder with a balanced
+carry tree. Give symbolic dependence depth, then list area, wiring, fan-out,
+energy, and verification questions that depth alone does not answer.
+
+\item \textbf{Break.} Wire one full-adder carry output to the next position
+after its intended neighbor. Find the smallest input that distinguishes the
+broken circuit from word addition.
+
+\item Prove \(x\mathbin{\mathsf{xor}}y=x+y\) when
+\(x\mathbin{\mathsf{and}}y=0\). Give a counterexample when the premise is
+removed.
+
+\item Derive the unsigned-reading formula for bitwise NOT, then derive
+\(-x\equiv(\mathord{\sim}x)+1\pmod{2^w}\).
+
+\item \textbf{Mask.} For a width-sixteen word, design masks that select bits
+4 through 9, force bits 0 and 15 to one, and toggle every even position. State
+which operations commute and why.
+
+\item \textbf{Prove.} Show that left rotation by \(k\) is inverted by right
+rotation by the same effective count. State the count domain and handle zero.
+
+\item \textbf{Break.} Implement rotation with a raw expression containing a
+shift by \(w-k\). Give the boundary input that makes the expression's shift
+domain invalid even though the intended rotation is defined.
+
+\item Compute the full unsigned and signed width-sixteen products of
+\code{FF} and \code{02} when the operands begin as width-eight words. Explain
+why the low byte agrees and the high byte differs.
+
+\item \textbf{Prove.} Show that signed and unsigned multiplication always have
+the same low width-\(w\) product word.
+
+\item State and prove a test for absence of signed multiplication overflow
+using the high half and sign extension of the low half.
+
+\item \textbf{History.} From Booth's paper, identify the representation problem
+and equipment concern that motivated the method. Do not describe the paper as
+a complete history of multiplication hardware.
+
+\item For unsigned \(n=173\) and \(d=13\), compute quotient and remainder and
+check the Euclidean identity and remainder bound.
+
+\item \textbf{Boundary.} Compare zero-divisor and least-signed divided by
+negative-one behavior for the selected RV64 and x86-64 forms. State the manual
+versions and every excluded mode or width.
+
+\item \textbf{Solver.} Explain why an SMT fixed-bit-vector division term cannot
+be substituted directly for a trapping ISA instruction on every input.
+Describe the adapter or precondition needed.
+
+\item Derive the two-stage RV64I carry idiom using ADD and SLTU. Prove that the
+final Boolean represents the carry from \(x+y+c\), where \(c\) is zero or one.
+
+\item \textbf{Register pressure.} Give an RV64I carry-producing sequence that
+replaces one source too early. Repair it and name the extra live value.
+
+\item \textbf{x86-64.} For one pinned ADC form, list every explicit input,
+implicit input, destination, defined flag, and excluded flag. Then state its
+widened unsigned equation.
+
+\item \textbf{Transfer.} Relate an x86-64 unsigned-below condition after CMP
+to an RV64I SLTU result. Include source-order polarity and all state that may
+differ.
+
+\item \textbf{Liveness.} Draw a short control-flow graph with two paths to a
+carry-reading instruction. Make the carry definition dead on one path and
+live on the other. Perform the backward analysis.
+
+\item \textbf{Undefined state.} Compare three models of a manual-declared
+undefined flag: preserve entry value, choose an unconstrained successor bit,
+and reject later observations. Which machine claims does each model permit?
+
+\item For width-four signed saturation, find counterexamples to additive
+inverse, regrouping, and distributivity over a second saturated operation.
+State which algebraic law each example breaks.
+
+\item \textbf{Policy.} Design one interface for a sensor accumulator under wrapping,
+checked, trapping, saturating, and overflow-reporting arithmetic. Explain which
+failure or boundary behavior a user observes in each version.
+
+\item \textbf{Compiler.} Prove that \(x+1>x\) for an unsigned no-wrap addition.
+Give the greatest-word counterexample when the no-wrap promise is absent.
+
+\item \textbf{Break.} Attach an incorrect LLVM \code{nsw} marker to an
+addition that can overflow. Give an input and a later use through which poison
+can make the source-level expectation invalid.
+
+\item \textbf{Economics.} Compare two implementations of a 256-bit addition:
+four 64-bit limbs with a serial carry and a dedicated 256-bit unit. Define
+latency, throughput, area, energy, code-size, and verification measures before
+arguing for either design.
+
+\item \textbf{Security.} Rewrite a conditional arithmetic selection without a
+source-level branch. Then state why the rewrite alone does not prove constant
+time on a named physical processor.
+
+\item \textbf{Packed arithmetic.} Give a two-lane example where per-lane
+saturation differs from treating the same bits as one scalar word. Name the
+extra lane structure required by the semantics.
+
+\item \textbf{Axeyum audit.} Locate the live unsigned- and signed-overflow
+builders, their Python bindings, their independent property-test references,
+and the Boolean lowering for addition. Record the inspected revision.
+
+\item \textbf{Axeyum design.} Specify the missing A0 arithmetic record and a
+four-quadrant census artifact. Include observations, source definitions,
+negative controls, solver route, replay, and assurance class.
+
+\item \textbf{Synthesis.} Choose one arithmetic replacement across A0, RV64I,
+and x86-64. State the input relation, mathematical fact, state projections,
+failure domain, cost model, and evidence needed for a defensible theorem.
 \end{enumerate}

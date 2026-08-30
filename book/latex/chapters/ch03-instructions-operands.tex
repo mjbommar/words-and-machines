@@ -43,6 +43,51 @@ to observe while leaving circuit organization and timing to a later model.
 That position gives the instruction an unusual reach: a finite rule describes
 its action on every admitted state.
 
+That compact rule was not obvious at the beginning of stored-program
+computing. The 1945 EDVAC report called instructions \emph{orders}. Before
+giving their bit patterns, it asked for their mathematical and logical meaning
+and their operational significance. It then classified orders partly by where
+values came from and where results went. The terminology is old; the
+separation is current. An operation such as addition, the roles that supply
+its values, and the code that selects the operation are related facts, not one
+fact. \autocite{vonneumann1945edvac}
+
+The physical restrictions of an early machine made each choice expensive. An
+order had to fit the available storage, control circuits had to recognize it,
+and data had to reach the correct arithmetic path. Later machines gained more
+storage and more circuits, but they also acquired a stronger constraint: old
+programs had to keep their meaning. An instruction table became a promise made
+across time.
+
+The original System/360 manual shows that promise taking a systematic form.
+Its five basic formats were called RR, RX, RS, SI, and SS. Their fields named
+register operands, indexed storage addresses, immediate data, and explicit
+lengths. A one-halfword instruction named no storage address; longer formats
+made room for one or two. The format did not merely arrange bits. It organized
+the routes by which operands reached an operation across a compatible family
+of implementations. \autocite{ibm1964system360principles,amdahl1964system360}
+
+This history prevents two opposite mistakes. We should not treat today's
+three-register form as the natural shape of every instruction. We should also
+not treat a mature instruction with several effects as an arbitrary bag of
+exceptions. Operand arrangements record engineering choices about storage,
+circuits, code density, address reach, and compatibility. Once software
+depends on those choices, changing them has a cost beyond the decoder.
+
+The architectural rule still does not prescribe the control circuit. Wilkes
+and Stringer described a control unit in which one machine instruction could
+be realized by a sequence of smaller control operations. That is the root of
+what came to be called microprogramming. It demonstrates a general point: one
+instruction transition may be implemented by many internal steps without
+making those steps visible as architectural instructions.
+\autocite{wilkes1953microprogramming}
+
+Some present processors use hardwired control for one form, sequenced control
+for another, or a mixture that changes between implementations. This book
+does not infer a current processor's internal method from the apparent
+complexity of its assembly. The architectural rule says what must be true at
+the boundary. Chapter 16 will ask how an implementation can arrive there.
+
 \begin{archive}[title={A short operation name can denote a vast table}]
 At width sixty-four, one register addition rule covers more input pairs than
 could be listed. The rule earns that compression by stating the arithmetic,
@@ -52,12 +97,51 @@ clauses compresses nothing; it merely postpones the definition.
 
 \section{From a spelling to an action}
 
+We can now name four objects that a listing tends to collapse:
+
+\begin{enumerate}
+\item an \emph{assembly statement}, which belongs to a notation accepted by
+an assembler;
+\item an \emph{encoded instruction}, which is a sequence of bytes or bits in
+an instruction set;
+\item a \emph{decoded instruction instance}, which selects an operation and
+legal concrete operands; and
+\item an \emph{instruction transition}, which determines the architectural
+successor for an admitted state.
+\end{enumerate}
+
+The arrows between these objects need not be one-to-one. An assembler may
+accept aliases or pseudo-instructions. Several encodings may denote closely
+related operations. A \keyterm{disassembler}, a tool that turns instruction
+bytes back into assembly text, must choose one printable spelling. The
+same decoded instance produces different successor values in different input
+states. Keeping the objects separate lets us state which arrow a test checks.
+
 \begin{definition}[title={Instruction instance}]
 An \keyterm{instruction instance} is an operation together with one allowed
 operand form and concrete operands. Its semantics gives the complete state
 change for a running input state, including the next program counter and any
 trapped outcome.
 \end{definition}
+
+Formally, let \(O\) be the finite set of A0 operations. Each operation
+\(o\in O\) has a set \(F_o\) of admitted operand forms. Each form \(f\) has a
+set \(P_{o,f}\) of concrete operand tuples. The decoded instruction space is
+the tagged union
+\[
+ I=\bigcup_{o\in O}\bigcup_{f\in F_o}\{o\}\mathbin{\times}
+ \{f\}\mathbin{\times}P_{o,f}.
+\]
+The tags matter. The bit pattern for a register number and the bit pattern for
+an immediate may happen to contain the same numeral; they do not acquire the
+same role. The form tells the semantics how to interpret each field.
+
+An integer triple without type tags, such as \((3,1,2)\), is therefore not yet
+an addition. It
+becomes the register instance \code{add r3,r1,r2} only under the addition
+operation and its register-register form. Under another form, a field could
+be an offset, a condition selector, or a reserved value. A typed constructor
+keeps those alternatives apart before execution begins.
 
 Object \obj{A0.def.instruction} records this state-transformer view. A decoded
 instruction is not the same object as its printed assembly or its instruction
@@ -79,9 +163,34 @@ For deterministic A0, a fixed instruction instance and running input state
 select at most one successor. We may therefore present its meaning as a
 function whose result includes either an ordinary state or a trapped state.
 Other machine models may use a relation and admit several successors: an
-underspecified value, an external event, or a concurrent action can make more
+value that the model leaves partly unspecified, an external event, or a
+concurrent action can make more
 than one next state possible. Calling both accounts semantics does not make
 their proof obligations identical.
+
+Let \(S_{\mathrm{run}}\) be the well-formed running A0 states and let
+\(S_{\mathrm{stop}}\) contain the declared halted and trapped states. A useful
+type for the semantics is
+\[
+ \mathit{exec}:I\mathbin{\times}S_{\mathrm{run}}
+ \longrightarrow S_{\mathrm{run}}\mathbin{\cup}S_{\mathrm{stop}}.
+\]
+This function is total over legal instances and admitted running states: a
+failed memory access returns a trap rather than falling outside mathematics.
+The whole-machine step is still partial because stopped states have no next
+instruction. Total instruction outcomes and partial program continuation are
+different design choices.
+
+One may instead define a relation
+\(E\subseteq I\mathbin{\times}S\mathbin{\times}S\). A function gives a
+convenient executor; a relation can state several allowed successors or other
+permitted choice.
+For deterministic A0 they agree when
+\[
+ (i,S,S')\in E \quad\hbox{exactly when}\quad \mathit{exec}(i,S)=S'.
+\]
+The book uses the function for hand execution and the relational reading when
+it prepares proof claims. Neither presentation licenses an omitted case.
 
 \begin{definition}[title={Deterministic instruction semantics}]
 An instruction semantics is deterministic when one instruction instance and
@@ -113,8 +222,8 @@ particular operation.
 Take width eight, \(R[r_1]=255\), and \(R[r_2]=1\). The result in \(r_0\) is
 0. The zero bit \(Z\) is one, the negative bit \(N\) is zero, and the carry
 bit \(C\) is one because the mathematical sum reached 256. Signed overflow
-\(V\) is zero: the signed inputs are -1 and 1, whose mathematical sum is
-representable. If \(pc=12\), the next sequential value is 16.
+\(V\) is zero: the signed inputs are -1 and 1, whose mathematical sum fits in
+the signed width. If \(pc=12\), the next sequential value is 16.
 
 \begin{example}[title={One complete A0 addition}]
 The input facts are width eight, \(R[r_1]=255\), \(R[r_2]=1\), \(pc=12\), and
@@ -127,12 +236,89 @@ one of those clauses produces an incomplete transition.
 Preservation clauses deserve to be explicit. If a rule lists only the fields
 that change, a reader may infer that every unlisted field stays fixed. An
 executable semantics must enforce that inference. Otherwise an implementation
-could change \(r_7\) while still satisfying a postcondition that mentions only
-\(r_0\) and the flags.
+could change \(r_7\) while still satisfying claimed output conditions that
+mention only \(r_0\) and the flags.
 
 This worked step shows why a destination value is not the whole result. A rule
 that writes 0 to \(r_0\) but leaves \(C=0\) has performed a different A0
 transition. So has a rule that leaves \(pc=12\).
+
+\subsection{Derive the whole addition, not only its sum}
+
+Let the decoded instruction \(i\) be printed as \code{add rd,ra,rb}, and let
+\(S\) be a well-formed running state. Write
+\[
+ x=S.R[r_a],\qquad y=S.R[r_b],\qquad n=2^w.
+\]
+The mathematical sum \(m=x+y\) lies between 0 and \(2n-2\). Its destination
+word is the unique remainder
+\[
+ z=m\bmod n.
+\]
+The carry bit records whether the mathematical sum crossed the word boundary:
+\[
+ C'=[m\geq n].
+\]
+Here the brackets denote one when the proposition is true and zero otherwise.
+The zero and negative bits inspect the width-\(w\) result:
+\[
+ Z'=[z=0],\qquad N'=[z\geq 2^{w-1}].
+\]
+The signed-overflow bit \(V'\) follows the A0 addition definition from Chapter
+1: it is one exactly when equal-sign signed inputs produce a result with the
+opposite sign. Chapter 8 will derive and compare the arithmetic tests. For
+this chapter, the important fact is that \(V'\) is a declared write even when
+the destination word already looks right.
+
+Let \(p=(S.pc+4)\bmod n\). The successful successor is the complete update
+\[
+ S'=S[R[r_d]\leftarrow z,
+       Z\leftarrow Z',N\leftarrow N',C\leftarrow C',V\leftarrow V',
+       pc\leftarrow p].
+\]
+The update notation inherits Chapter 2's frame law. Every unlisted register,
+every memory byte, and the running outcome retain their old values. If
+\(r_d=r_a\), the right side still uses the old \(x\), because all right-side
+expressions are evaluated in \(S\).
+
+Take width four and the instance \code{add r1,r1,r1}. Suppose the old
+\(R[r_1]=9\), old \(pc=28\), and old flags are arbitrary. The mathematical
+sum is 18, so \(z=2\) and \(C'=1\). The result is nonzero and its high bit is
+zero, so \(Z'=0\) and \(N'=0\). Both signed inputs represent -7, while the
+result represents 2, so \(V'=1\). The next program counter is
+\((28+4)\bmod16=0\). Aliasing and program-counter wrap both occur in the same
+small example, yet the rule needs no special assignment order.
+
+\begin{example}[title={A plausible result with three hidden errors}]
+For that width-four state, suppose an executor returns \(R[r_1]=2\) but sets
+\(C=0\), leaves \(V=0\), and reports \(pc=32\). Its visible arithmetic
+remainder is correct. Its carry and signed-overflow observations are wrong,
+and 32 is not even a width-four program-counter word. The result violates both
+the instruction rule and the state well-formedness invariant. Checking the
+destination alone accepts all three defects.
+\end{example}
+
+This example also separates two kinds of rejection. A checker can reject the
+result because a declared effect is wrong. It can independently reject it
+because the alleged state is not in the state space. A robust executor should
+construct only well-formed output states, while an artifact checker should
+still defend against malformed serialized claims.
+
+\begin{proofkit}[title={The A0 addition successor is unique}]
+For a fixed legal instance and running state, the two register reads and old
+program counter are fixed. Division by \(2^w\) gives one remainder \(z\).
+Each condition-bit predicate therefore has one Boolean value, and modular
+addition gives one next program counter. The complete-update law fixes every
+listed component to those values and preserves every unlisted component.
+No second distinct state can satisfy all of those component equations.
+\end{proofkit}
+
+Uniqueness is not the same as correctness of an implementation. The equations
+show that the specification admits at most one successor. Evidence must still
+show that an executor returns that successor for the states in its claim. A
+hand example covers one state; exhaustive enumeration covers a stated finite
+width; a symbolic proof covers the formula and assumptions accepted by its
+checking route.
 
 \section{What an operand does}
 
@@ -154,6 +340,53 @@ A memory address adds that same signed offset to a base register. A relative
 target adds four times the signed offset to the sequential address \(pc+4\).
 The multiplication keeps branch targets on four-byte instruction boundaries.
 
+The four forms do not all return the same kind of thing. A source operand is
+resolved to a value. A destination operand is resolved to a location that can
+be updated. A branch operand is resolved to a possible next address. Treating
+all three as words loses the rule that connects a calculated word to a part of
+state.
+
+Let \(W\) be the set of width-\(w\) words and \(L\) the A0 locations that an
+instruction may write. Let
+locations, and \(A\) the set of code or data addresses. We can give the
+operand roles separate functions:
+\[
+ \begin{array}{rcl}
+ \mathit{source} &:& P_{\mathrm{src}}\mathbin{\times}S
+                       \longrightarrow W\mathbin{\cup}\mathrm{Trap},\\
+ \mathit{destination} &:& P_{\mathrm{dst}}\mathbin{\times}S
+                       \longrightarrow L\mathbin{\cup}\mathrm{Trap},\\
+ \mathit{target} &:& P_{\mathrm{target}}\mathbin{\times}S
+                       \longrightarrow A\mathbin{\cup}\mathrm{Trap}.
+ \end{array}
+\]
+A register source returns the old register value. A register destination
+returns the named register location. A memory source first returns an address,
+checks the required byte range, and then returns the interpreted word. These
+functions share operand syntax only where the architecture says they do.
+
+This distinction is familiar outside machine semantics. In algebra, an
+expression denotes a value. In programming languages, an assignable place
+must also identify where an update will occur. In logic, the assertion after
+an update must distinguish the new value at that place from every preserved
+place. Instruction semantics brings those three views together without
+requiring one overloaded notion of ``operand.''
+
+Consider \code{movi r3,-1}. The immediate source function ignores the register
+file and sign-extends the encoded eight-bit value to \(w\) bits. The
+destination function identifies \(r_3\). The operation then writes the source
+value to that location. By contrast, \code{load r3,[r1+4]} uses \(r_1\) and
+the offset to form an address, reads memory through a checked access, and
+writes the returned value to the same destination location. The destination
+syntax agrees; the source computation does not.
+
+There is also a useful difference between a location and its present value.
+If \(R[r_3]=9\), resolving source \(r_3\) gives 9, while resolving destination
+\(r_3\) gives the register-file position named \(r_3\). Writing 10 changes
+the value stored at that position; it does not change which position the
+operand names. Confusing the two makes read-modify-write forms impossible to
+state cleanly.
+
 The written operands need not list every state component the operation uses.
 The A0 \code{add} instance prints three registers yet also writes four
 condition bits and the program counter. These are \keyterm{implicit effects}:
@@ -165,6 +398,15 @@ shortcut. A destination may also be a source. An address operand may read a
 base register, read an offset from the instruction, access memory, and expose
 a trap. A branch target may consume the current program counter even when the
 assembly does not print it. Counting commas does not count semantic inputs.
+
+We can classify effects along two axes. An effect is \emph{explicit} when an
+assembly operand names the affected location or value role. It is
+\emph{implicit} when the operation fixes that role without printing it. An
+effect is \emph{data} when it contributes to the main calculated result and
+\emph{control} when it determines continuation, conditions, or failure. The
+ordinary next program counter is implicit control state. An x86-64 arithmetic
+flag write is also implicit even though later instructions can read it as
+data. These categories describe the interface; they do not rank importance.
 
 \begin{table}
 \centering
@@ -186,9 +428,20 @@ A semantic rule must expose every architectural read, write, program-counter
 change, and exceptional outcome used by its instruction form.
 \end{keyidea}
 
-Object \obj{A0.prin.explicit-effects} records this rule. It is a discipline
+The explicit-effects principle, object
+\obj{A0.prin.explicit-effects}, records this rule. It is a discipline
 for the semantics, not a requirement that assembly syntax spell out every
 effect.
+
+The frame is the complement of those effects. If \(W_i(S)\) is the write
+footprint of instruction \(i\) in state \(S\), then every successful
+successor \(S'\) must satisfy
+\[
+ \ell\notin W_i(S)\quad\Longrightarrow\quad S'(\ell)=S(\ell).
+\]
+This is not shorthand for ``the other fields probably stay unchanged.'' It is
+one part of the instruction rule. A state diff is useful to a reader only
+because this law gives absence from the diff a precise meaning.
 
 \subsection{Well-formed operands are checked before arithmetic}
 
@@ -204,6 +457,27 @@ decoding. If an external API tries to construct an operand tuple that no A0
 encoding can denote, the typed constructor should reject it before the step
 function runs. The execution semantics need not invent behavior for an object
 the instruction set excludes.
+
+There are three distinct predicates in this neighborhood. A byte sequence can
+be available for fetching from the current program counter. A fetched sequence can decode
+to a legal instance. A legal instance can be executable without a state-based
+trap. For A0 we can write them as
+\[
+ \mathit{canFetch}(P,pc),\qquad
+ \mathit{decodes}(b,i),\qquad
+ \mathit{enabled}(i,S).
+\]
+The first speaks about the program and an address. The second speaks about
+bytes and the instruction grammar. The third speaks about a decoded instance
+and running state. A valid decoder must not use a later execution check to
+give meaning to reserved bytes.
+
+This separation also clarifies partial specifications. If a book defines only
+register addition, a memory-form byte sequence is outside that small decoder;
+it is not an addition with an unknown result. If a legal load has an invalid
+data address, it is inside the instruction set and returns the defined access
+trap. ``Not modeled,'' ``illegal,'' and ``trapped'' are three different
+claims.
 
 \begin{keyidea}[title={Legality precedes effect}]
 First establish that the bytes select one admitted instruction instance. Then
@@ -266,6 +540,70 @@ same issue becomes more demanding. The rule must identify every access,
 their ordering, and the state retained on failure. A0 avoids those forms in
 its first instruction set, but the method is already in place for the selected
 x86-64 cases that combine more work in one instruction.
+
+\subsection{Evaluation and commit are separate mathematical stages}
+
+We can make the snapshot rule exact. For a legal instance \(i\), let
+\(E_i(S)\) evaluate every required source, destination location, address,
+condition, and target in the old state. Its result is either a bundle \(q\) of
+resolved facts or a trap reason \(t\):
+\[
+ E_i:S_{\mathrm{run}}\longrightarrow Q_i\mathbin{\cup}\mathrm{TrapReason}.
+\]
+The successful commit function \(C_i(S,q)\) begins from the old state \(S\),
+replaces exactly the declared write locations, and returns a running state.
+The trap commit \(T_i(S,t)\) begins from the same old state and applies the
+declared trap rule. Thus
+\[
+ \mathit{exec}(i,S)=
+ \left\{\begin{array}{ll}
+ C_i(S,q), & E_i(S)=q,\\
+ T_i(S,t), & E_i(S)=t.
+ \end{array}\right.
+\]
+The notation does not require a physical evaluation phase followed by a
+physical commit pulse. It requires the visible result to agree with that
+logical construction.
+
+For A0 register addition, evaluation returns two old register values, the
+destination location, and the old program counter. It cannot trap after a
+legal instance has been supplied. Commit calculates the width-\(w\) sum, four
+condition bits, and \(pc+4\), then updates those locations. For an A0 load,
+evaluation also forms and checks the byte range. Failure selects the trap
+commit before the destination receives a value.
+
+\begin{proofkit}[title={Aliased sources still use old values}]
+Let the destination of \code{add r0,r0,r1} be the same location as its first
+source. The evaluation function is applied to the old state, so it returns
+the old values \(S.R[r_0]\) and \(S.R[r_1]\) before commit is called. Commit
+then replaces \(r_0\) with their sum. No ordering of assignments inside a
+prose description can substitute the new \(r_0\) for the captured first
+source. Therefore operand aliasing changes which old value is read, but it
+does not make the result depend on an accidental write order.
+\end{proofkit}
+
+\begin{proofkit}[title={A failed evaluation cannot expose an ordinary write}]
+Assume \(E_i(S)=t\) for a trap reason \(t\). By the definition of
+\(\mathit{exec}\), the selected branch is \(T_i(S,t)\), not \(C_i(S,q)\) for
+any successful bundle \(q\). The ordinary destination and sequential
+program-counter updates occur only in \(C_i\). They therefore cannot appear in
+the trapped successor unless the trap rule itself explicitly declares them.
+This is a proof from the construction, not an appeal to how quickly hardware
+detects the failure.
+\end{proofkit}
+
+The two proofs use the same boundary in different ways. The first protects
+old inputs from successful writes. The second protects the failure state from
+writes that belong only to success. A model that uses a mutable state record
+can implement both laws, but only if it avoids returning a partly changed
+record when evaluation fails.
+
+Architectural atomicity has this bounded meaning: the specified observer sees
+the declared success state or the declared trap state, not an arbitrary
+prefix of the semantic updates. It does not by itself promise an atomic
+memory operation between threads, immunity from interruption, or absence of
+speculative internal work. Those claims require larger state and observation
+models.
 
 \section{One step}
 
@@ -376,6 +714,48 @@ writes. This is a concrete comparison of operand and state design. Calling
 one RISC and the other CISC may place the examples in historical families; it
 does not supply either transition rule.
 
+The current RISC-V specification makes the base integer register-register
+rule unusually direct. \code{ADD rd,rs1,rs2} reads \code{rs1} and \code{rs2},
+writes the low integer-register-width (XLEN) bits of their sum to \code{rd},
+and ignores arithmetic
+overflow. The base form does not update a bank of arithmetic condition flags.
+The register fields also remain in consistent positions across the base
+formats, a choice the specification connects to simpler decoding.
+\autocite{riscv2026unpriv}
+
+The selected Intel rule differs in role as well as spelling. In 64-bit mode,
+a register-register \code{ADD r64,r64} reads the old destination and the
+source, writes the width-limited sum to the destination, and defines the
+documented arithmetic status flags. Other Intel \code{ADD} forms admit an
+immediate or one memory operand, but not two general memory operands. Prefix,
+encoding, mode, and exception details belong to the exact selected form, not
+to the mnemonic in isolation. \autocite{intel2026sdm2}
+
+\begin{table}
+\centering
+\caption{One numerical operation produces two different architectural contracts.}
+\begin{tabular}{p{0.18\textwidth}p{0.28\textwidth}p{0.36\textwidth}}
+\toprule
+Question & RV64 base \code{ADD} & selected x86-64 register \code{ADD} \\
+\midrule
+Printed roles & \code{rd,rs1,rs2} & destination/source, source \\
+Old register reads & \code{rs1}, \code{rs2} & destination, source \\
+Register write & \code{rd} & destination \\
+Condition writes & none in the base form & documented arithmetic flags \\
+Overflow result & low 64 bits & low 64 bits plus status effects \\
+Control effect & next instruction address & next instruction address \\
+\bottomrule
+\end{tabular}
+\label{tab:add-contracts}
+\end{table}
+
+Suppose all named source registers hold corresponding values and both
+destinations represent corresponding locations. The destination words can
+agree after addition. Complete states still do not have the same shape. A
+relation may ignore the x86-64 arithmetic flags, require them to agree with a
+derived predicate on the RV64 values, or relate them to extra A0 condition
+state. Each choice supports a different set of surrounding programs.
+
 Here is the reader argument that keeps the extra state honest. Suppose two
 instructions start from the same state and both leave 2 in their destination.
 One leaves \(Z=0\), while the other leaves \(Z=1\). Their output states differ
@@ -411,6 +791,14 @@ architecture's conventions. It may omit a fixed register, a condition-code
 write, a stack update, or the ordinary next address. Semantic comparison must
 restore those facts before counting sources, destinations, or effects.
 \end{sidebar}
+
+The comparison also has a physical shadow. A three-register form must identify
+two old source values and one destination even when the destination register
+number differs from both sources. A two-address form can reuse one printed
+field for an old source and the new destination. Those facts influence field
+allocation, register-file ports, rename information, and code size, but none
+determines a complete processor design alone. The semantic roles are the
+stable starting point from which such costs can be measured.
 
 \begin{tryit}[title={Read sets before arithmetic}]
 For each of these A0 forms—\code{add r0,r1,r2}, \code{movi r0,-1},
@@ -468,7 +856,7 @@ same in either order.
 These footprint intersections are the semantic root of familiar instruction
 hazards. A read-after-write
 dependence carries a value forward. A write-after-read dependence can make
-reordering destroy an old value before it is consumed. A write-after-write
+changing the order destroy an old value before it is consumed. A write-after-write
 dependence makes final state depend on which write comes last. Hardware may
 execute internally in another schedule, but retirement must preserve the
 architectural result required by the machine model.
@@ -479,6 +867,226 @@ An optimizer that sees only named registers may move an addition across a
 flag-reading branch or move a load across an overlapping store. The assembly
 still looks plausible. The state transition has changed.
 
+\subsection{A sufficient commutation rule}
+
+We can state the safe straight-line case more carefully. Temporarily remove
+the ordinary program-counter update from each local effect and suppose both
+instructions are known to succeed. Let \(R_i,W_i\) and \(R_j,W_j\) be read and
+write footprints that remain valid in either order. Assume
+\[
+ W_i\cap(R_j\cup W_j)=\{\}
+ \quad\hbox{and}\quad
+ W_j\cap(R_i\cup W_i)=\{\}.
+\]
+Then neither instruction changes a value read or written by the other. Their
+local effects commute.
+
+\begin{proofkit}[title={\iconProofKit\ Independent local effects commute}]
+Take any architectural location \(\ell\). If neither instruction writes
+\(\ell\), both orders preserve its old value. If only \(i\) writes it, then
+\(j\) neither reads nor writes that location, and \(i\)'s reads are unchanged
+by \(j\); both orders leave \(i\)'s calculated value there. The case in which
+only \(j\) writes it is symmetric. The premises exclude a location written by
+both. Thus every location agrees after \(i;j\) and \(j;i\). Because success
+was assumed stable in either order, the outcomes agree as well.
+\end{proofkit}
+
+The theorem uses stronger premises than ``different destinations.'' Let
+\(i\) write \(r_1\) and let \(j\) read \(r_1\) while writing \(r_2\). Their
+destinations differ, but switching them changes the value seen by \(j\). Let
+two stores write overlapping bytes through different starting addresses.
+Their printed operands differ, but their write footprints intersect. Let two
+checked loads use disjoint destinations while one access can trap. Changing
+their order can change which trap is observed first.
+
+The program counter needs special handling because two consecutive
+instructions normally occupy different addresses. We do not literally swap
+two whole step functions while retaining their old fetch addresses. An
+optimizer constructs a new program whose local data effects occur in a new order and
+whose control path is repaired. The theorem applies to those local effects;
+program equivalence must also relate the new instruction locations and final
+program counter. Chapter 11 will make that observation explicit.
+
+Static tools rarely know the exact state. They use conservative footprints:
+a set guaranteed to contain every dynamic read or write for states under
+consideration. Enlarging a footprint can create a false dependence, but
+shrinking it without proof can miss a real one. This gives analysis a
+one-sided safety rule. Uncertainty costs optimization opportunities; an
+unsound omission can cost correctness.
+
+\begin{example}[title={A flag defeats a register-only order test}]
+Suppose an x86-64 addition writes a destination register and arithmetic flags.
+A following conditional branch reads one of those flags. A tool that records
+only the printed register operands sees no register flow into the branch and
+might move another flag-writing instruction between them. The full footprints
+show a write-then-read dependence on condition state. The numerical addition
+can remain correct while control changes.
+\end{example}
+
+\section{Instruction descriptions support the toolchain}
+
+An instruction definition now serves a chain of tools. An assembler must know
+accepted operand forms and encodings. A disassembler must map bytes back to a
+chosen notation. A compiler must know which operation patterns a form can
+realize, what operands it accepts, which state it uses and defines, and often
+how it is scheduled. An emulator needs executable effects. A debugger needs
+register and control consequences. A validator or formal model needs cases
+that are complete enough to reject a nearly correct transition.
+
+These consumers overlap, but no single description automatically satisfies
+them all. A compiler pattern can be adequate for instruction selection while
+omitting exception detail required by an emulator. An assembler table can
+encode legal forms without stating their state transformation. A prose manual
+can be authoritative while remaining awkward to execute. The engineering
+problem is to keep several representations aligned with the same architectural
+contract.
+
+The same form therefore appears through several projections. Let \(D\) be a
+complete architectural description. An assembler uses a projection concerned
+with accepted notation and encoding. A compiler uses one concerned with
+operations, operand constraints, effects, and cost. An emulator uses one
+concerned with executable state changes and failures. If \(A(D)\), \(C(D)\),
+and \(E(D)\) are those projections, consistency does not mean that their files
+are identical. It means that they agree where their responsibilities overlap.
+
+For example, if the assembler emits bytes for a register-register addition,
+the decoder used by the emulator must accept those bytes as the corresponding
+instance. If the compiler says a form defines condition state, its scheduling
+and live-value analyses, which track values still needed later, must protect
+later uses of that state. If an emulator
+says a memory form can trap before its destination write, a validator must not
+certify a trace that exposes the write on failure. These are commuting
+diagrams in practical clothing: taking either route across an overlapping
+contract must reach the same fact.
+
+\begin{table}
+\centering
+\caption{Different consumers need different projections of one instruction contract.}
+\begin{tabular}{p{0.18\textwidth}p{0.28\textwidth}p{0.36\textwidth}}
+\toprule
+Consumer & Primary question & Omission that can break it \\
+\midrule
+assembler & Which accepted form emits which bytes? & reserved or constrained field \\
+disassembler & Which instance and spelling fit these bytes? & alias or instruction length \\
+compiler & Which operation, operands, effects, and costs apply? & implicit use or definition \\
+emulator & What complete successor or failure occurs? & frame, trap, or width rule \\
+debugger & Which visible state changed and where does control continue? & implicit state or next address \\
+validator & Which claim and boundary must be checked? & legality or preserved component \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The table gives a review method. For each instruction-form change, list the
+consumers, identify the shared facts, and install at least one cross-boundary
+test. An assemble-then-decode round trip checks one connection. A decoded-step
+test checks another. A compiler-generated instruction replayed through an
+independent executor checks a third, provided the test compares the complete
+declared state rather than only the main result.
+
+Round trips also have limits. Disassembling and reassembling can change an
+alias while preserving bytes or meaning. Assembling and disassembling through
+the same mistaken table can reproduce the same mistake. Independence must be
+named: a second implementation, an official example, a separately generated
+oracle, or a proof checked by a smaller trusted component. Repetition within
+one data pipeline is useful regression evidence, not automatic corroboration.
+
+LLVM's TableGen documentation illustrates the scale of one such
+representation. Its expanded x86 addition record contains explicit input and
+output operands, assembly syntax, an instruction-selection pattern, encoding
+facts, and an implicit definition of \code{EFLAGS}, among other fields. The
+short source definition factors shared facts through classes because spelling
+every field for every instruction would be difficult to maintain.
+\autocite{llvm2026tablegen}
+
+GCC uses a different machine-description system. Its target files contain
+instruction patterns, operand constraints, RTL effects, and assembly output
+templates for the forms the compiler needs. Again, the mnemonic alone is not
+the useful unit. The compiler needs a relation between an internal operation,
+admitted operands, target effects, and emitted text. \autocite{gcc2026machinedesc}
+
+This supplies an honest economic unit. Adding one architectural form can
+require edits or generated cases across target descriptions, assemblers,
+disassemblers, emulators, debuggers, operating-system context rules, test
+corpora, documentation, and formal models. The cost can be counted as affected
+artifacts, validation cases, implementation area, or support time. It cannot
+be reduced to one universal dollar figure without a named organization and
+measurement.
+
+Compatibility makes the cost persistent. A form used in shipped binaries may
+need support long after the product that introduced it disappears. Removing a
+form can strand software; changing an implicit effect can invalidate an
+optimizer or operating-system assumption. Conversely, regular fields and
+explicit effect descriptions can reduce duplication and make generated tools
+possible. Instruction-set design therefore allocates future maintenance work
+as well as present bits.
+
+Security also enters through disagreement between consumers. If a validator,
+decoder, and processor partition byte strings differently, bytes checked as
+one instruction stream may execute as another. If a compiler omits an
+implicit destructive write, it may preserve a value the architecture permits the
+instruction to destroy. If an emulator commits a destination before a trap,
+replay diverges from hardware. The useful control changes one layer at a time
+and checks that the disagreement is detected at its proper boundary.
+
+\begin{keyidea}[title={Count the maintained contracts}]
+The practical cost of an instruction form is not its mnemonic count. Count
+the operand cases, effects, encodings, tool consumers, validation controls,
+and years over which compatibility must be preserved.
+\end{keyidea}
+
+\subsection{The single-step boundary is useful because it is small}
+
+The chapter's transition deliberately stops at one architectural instruction.
+That boundary includes every state component required to determine and record
+the step. It excludes the time taken, the internal control sequence, overlap
+with other instructions, and interactions with another processor. The
+exclusions are not claims that those things do not exist. They state what the
+present function is allowed to forget.
+
+This is an instance of abstraction from mathematics and science. Choose a set
+of states, choose an input, and define a rule for the next state. Details may
+be removed only when their differences cannot alter the declared result. A
+pipeline stage, cache hit, or renamed physical register can be absent from the
+architectural state because the instruction rule does not inspect it. If a
+later question asks about timing or information leakage, the old abstraction
+may no longer be sufficient.
+
+The boundary also resembles a controlled physical experiment. We prepare an
+initial condition, apply one intervention, and observe a result. Repeating the
+experiment over chosen states can expose a defect. A universal semantic claim
+is stronger: it covers every state in its stated domain. Testing, exhaustive
+finite enumeration, and symbolic proof offer different routes to that claim,
+each with a different scope and trust chain.
+
+Four statements should therefore remain separate:
+
+\begin{enumerate}
+\item the printed rule determines one successor for every admitted input;
+\item a hand calculation agrees with the rule for one chosen input;
+\item an executor agrees with expected outputs for a tested collection; and
+\item checked evidence establishes agreement for a quantified domain.
+\end{enumerate}
+
+The first is a specification property. The second is reader evidence. The
+third is implementation evidence bounded by the test set. The fourth is a
+proof claim whose formula, assumptions, and checker must be named. None
+becomes another merely because all four discuss the same instruction.
+
+A useful negative control preserves most of the visible result while changing
+one excluded possibility into an included error. The wrong-\(pc\) mutation
+keeps arithmetic correct but violates declared control state. The illicit
+\(r_7\) write keeps the state diff tempting but violates the frame. A reserved
+encoding keeps the mnemonic-looking fields but violates legality. Together
+the controls show why the one-step boundary contains more than the main
+calculation.
+
+This small model will grow in controlled directions. Chapter 4 expands
+operand evaluation into byte-addressed memory. Chapter 5 repeats the step to
+form traces. Chapter 6 supplies the exact byte-to-instance map. Chapter 16
+adds selected implementation and environment state. Each extension must say
+which old conclusions survive and which new observations can distinguish
+states that were formerly treated as the same.
+
 \section{The implementation boundary}
 
 An Axeyum implementation must join the state, decoder, operand rules, and
@@ -487,6 +1095,31 @@ instruction transitions into one reusable A0 step. Object
 destination, a missing condition write, a wrong sequential program counter, a
 wrong branch target, reserved encoding fields, and attempted execution after
 halt or trap.
+
+The live Axeyum checkout already contains useful lower layers. Its bit-vector
+terms can express width-limited arithmetic. Its solver and verification
+crates have transition-system interfaces and bounded and unbounded checking
+routes. Its LLVM work includes typed scalar-instruction parsing. None of those
+objects is an A0 machine. The checkout currently lacks the closed A0
+instruction type, operand resolver, decoder, complete state executor, and
+public replay path required here.
+
+That distinction changes the implementation plan. A0 should not begin as a
+Python dictionary of mnemonics mapped to callbacks. The Rust layer should own
+the closed operation and operand types, their legality checks, and the
+deterministic executor. A small PyO3 layer can then construct typed instances,
+run steps, encode states in the canonical interchange form, and display
+diffs. Solver formulas should be
+derived from or checked against that shared semantic core so a counterexample
+can replay through the same executor.
+
+The first milestone is deliberately narrow: width-eight register addition
+with a complete state before and after, including flags, outcome, and program
+counter. The positive case must match the worked example in this chapter.
+Negative controls must mutate one destination bit, one flag, and the next
+program counter separately. A second milestone adds typed immediates. Fetch,
+decode, memory, and control transfer should enter only when each earlier
+boundary has a working failure control.
 
 The corresponding introductory Axeyum route should begin with execution, not
 with a solver. A reader should construct one width-eight state and one decoded
@@ -568,4 +1201,81 @@ suffix, provided both produce running middle states.
 \item \textbf{Transfer.} For one paired addition form, state the weakest
 observation under which it could refine A0 addition and one surrounding
 context that requires a stronger observation.
+\item \textbf{Explain.} Give one assembly alias or pseudo-instruction from an
+architecture you know. Identify the assembly statement, encoded instruction,
+decoded instance, and transition. Which arrow is not one-to-one?
+\item \textbf{Classify.} For each of these facts, say whether it belongs to
+fetch, decode, operand resolution, or commit: an unavailable code byte, a
+reserved function field, a bad data range, a sign-extended immediate, and a
+new zero flag.
+\item \textbf{Design.} Give typed data constructors for A0 register,
+immediate, memory, and relative-target operands. State one invalid object that
+an integer tuple without role tags would admit.
+\item \textbf{Prove.} Let two old states agree on all source locations for a
+fixed register addition but differ in an unrelated register. Prove that their
+calculated writes agree and their complete successor states differ.
+\item \textbf{Break.} Write a faulty executor for \code{add r0,r0,r1} that
+updates \(r_0\) before reading it. Choose width-eight inputs that distinguish
+the faulty rule from old-state evaluation.
+\item \textbf{Execute.} Resolve the source value and destination location for
+\code{movi r3,-1} at widths 8 and 16. Show the bit pattern written in each
+case.
+\item \textbf{Execute.} For \code{load r2,[r1+4]}, list in order the facts
+that evaluation must produce before successful commit. Do not calculate the
+loaded value until the address range is known to be valid.
+\item \textbf{Break.} Construct a proposed state diff that contains the
+correct destination and flags but silently changes \(r_7\). State the frame
+law that rejects it.
+\item \textbf{Prove.} Using the definition of \(E_i\), \(C_i\), and \(T_i\),
+prove that a trapped load cannot expose its ordinary destination write under
+the A0 rule.
+\item \textbf{Classify.} Explain why a legal load with a bad address is not
+the same as reserved bytes and neither is the same as a form omitted from a
+partial teaching model.
+\item \textbf{History.} Compare one EDVAC order role with one System/360
+operand format. Identify a continuity in purpose without claiming that the
+later format was a direct copy.
+\item \textbf{Transfer.} Explain how a sequence of internal control actions
+can implement one architectural instruction without becoming several
+architectural instructions.
+\item \textbf{Audit.} From the pinned RISC-V manual, record the explicit
+sources, destination, overflow rule, and condition-state effects of base
+integer \code{ADD}. Cite the section and revision.
+\item \textbf{Audit.} From the pinned Intel manual, select exactly one
+64-bit \code{ADD} form. Record its explicit operands, implicit effects, and
+exception boundary. Do not generalize from it to every form.
+\item \textbf{Break.} Give two instructions with different destination
+registers that do not commute because one reads the other's destination.
+Calculate a concrete starting state and both final states.
+\item \textbf{Break.} Give two instructions with disjoint register writes
+that do not commute because both affect condition state. State which premise
+of the commutation theorem fails.
+\item \textbf{Prove.} Reproduce the location-by-location proof that two
+successful local effects commute under the chapter's footprint premises.
+Explain why the proof needs stable read sets.
+\item \textbf{Design.} Extend the commutation claim to two loads that can
+trap. State additional premises that make the observed outcome independent of
+order.
+\item \textbf{Analysis.} Give a dynamic memory footprint for one concrete
+base-plus-offset access and a conservative static footprint for a range of
+possible base values. Explain the precision cost of the latter.
+\item \textbf{Tooling.} Inspect one official LLVM or GCC target description.
+List five fields or clauses beyond the mnemonic and explain which consumer
+uses each.
+\item \textbf{Economics.} Suppose a new instruction form affects an
+assembler, disassembler, compiler backend, emulator, debugger, and formal
+model. Propose measurable maintenance units for a release. Do not invent a
+dollar estimate.
+\item \textbf{Security.} Design a negative control in which a decoder and a
+validator disagree about one reserved field. State the dangerous false
+acceptance and the expected rejection.
+\item \textbf{Axeyum.} Specify the input and output types for a first public
+A0 register-addition executor. Include enough state to detect a bad flag and a
+bad program-counter update.
+\item \textbf{Axeyum.} Design three independent mutations for that executor
+and state why one combined failing test would provide weaker diagnostic
+evidence.
+\item \textbf{Synthesis.} Write a complete transition contract for one small
+instruction not used in this chapter. Include legality, old-state reads,
+ordinary writes, frame, next program counter, and failure behavior.
 \end{enumerate}

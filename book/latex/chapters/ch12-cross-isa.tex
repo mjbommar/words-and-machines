@@ -31,7 +31,9 @@ architectures. Hardware verification often compares an implementation with a
 simpler reference machine.
 
 Today the same question appears in verified compilers, portable cryptography,
-instruction lifting, migration tools, and superoptimization. A translator can
+instruction lifting, migration tools, and \keyterm{superoptimization}, the
+search for an improved instruction sequence within a declared language and
+cost model. A translator can
 produce the expected result on test inputs while mishandling a fault, high
 address, condition bit, calling convention, or loop exit. A destination-only
 comparison is a useful test; it is not a cross-machine correctness theorem.
@@ -41,6 +43,116 @@ to a word in each machine. A source function may correspond to entire machine
 routines. One abstract step may require several target instructions, while one
 target instruction may combine several abstract operations. The proof should
 choose a level at which the relation is both true and useful.
+
+The problem began before instruction sets acquired their modern name. A
+program prepared for one early computer could not simply be copied to another
+whose orders, word size, memory, and input devices differed. Porting meant
+recovering the intended operation and expressing it again through another
+machine's resources. Assemblers made symbolic spelling less dependent on
+numeric opcodes. Compilers went further by placing a source language and one
+or more intermediate forms above the target machine.
+
+Retargeting separated two questions that handwritten ports had mixed. First,
+what does the source program mean? Second, does the selected back end preserve
+that meaning in the target's states and behaviors? An intermediate language
+can reduce duplicated compiler engineering, but it does not answer the second
+question automatically. Every lowering pass and machine description still
+needs a semantic connection to its neighbors.
+
+Emulation approaches the boundary from the other side. Instead of translating
+a source language, it begins with guest-machine state and instructions. An
+interpreter can decode one guest instruction, apply its guest effect, and
+repeat. A dynamic translator groups guest instructions, emits host code, and
+keeps that code while the relevant assumptions remain valid. The grouping
+can improve execution speed, but it makes control maps, cached translations,
+faults, and cache resets part of the correctness problem. A cache reset
+discards a translated block when an assumption behind it no longer holds.
+
+Bellard's 2005 QEMU paper documented a portable dynamic translator supporting
+several guest and host architectures, together with full-system and Linux
+user-mode use \autocite{bellard2005qemu}. The paper is historical evidence for
+an implemented translation architecture, not a universal proof that every
+guest behavior matched every host behavior. Its importance here is structural:
+a practical translator needs decoded guest meaning, a host realization,
+temporary state, control transfer, and services at the boundary between
+translated code and the surrounding system.
+
+The QEMU development manual inspected on 2026-08-30 still exposes those
+boundaries. Its Tiny Code Generator groups guest instructions into translation
+blocks under recorded virtual-CPU assumptions. Block lookup uses the simulated
+program counter and state. Writes to translated code can force blocks to be
+discarded, and exception support maps a host program counter back to the guest
+instruction \autocite{qemu2026tcg}. These mechanisms do not prove that QEMU is
+correct. They identify the state that a faithful block relation must include:
+entry assumptions, guest state updates, exits, code identity, and fault
+locations.
+
+Apple's Rosetta 2 gives the same problem a current platform purpose: retain
+access to x86-64 applications while hardware and native software move to Apple
+silicon. Apple's developer documentation, inspected on 2026-08-30, presents
+the translation environment as the route for executing x86-64 instructions on
+Apple silicon \autocite{apple2026rosettaenv}. Apple's security documentation
+distinguishes just-in-time and
+ahead-of-time translation. It also connects translation to loading, code-page
+hashes, code signatures, and trust caches \autocite{apple2021rosetta}. These
+details show that binary translation is not only an instruction substitution
+algorithm. It participates in a chain that identifies bytes, authorizes code,
+constructs translated artifacts, and enters a process.
+
+Compatibility has economic value because installed software does not migrate
+at the speed of a processor release. Application developers need time to ship
+native builds. Users may depend on an old application or plug-in. A platform
+vendor can use translation to reduce the immediate cost of changing
+architectures. The vendor then assumes another cost: translator development,
+testing across a wide binary corpus, security integration, storage or cache
+management, performance diagnosis, and a support-lifetime promise.
+
+The costs occur in different units. Ahead-of-time work can move latency away
+from application startup but creates translated artifacts that need identity
+and storage. Just-in-time work sees actual execution and dynamic code but adds
+runtime compilation and cache management. Native multi-architecture binaries
+avoid some translation work but increase build, distribution, and testing
+surface. A sound comparison names the application, workload, cache state,
+translation mode, and actor paying the cost.
+
+Formal ISA descriptions reduce another source of duplication. The adopted
+RISC-V Sail model records instruction formats, encoding and decoding, and
+architectural semantics in a language with executable and proof-assistant
+routes \autocite{riscv2026sail}. One maintained semantic source can support
+testing, emulation, documentation, and proof generation. Generated routes do
+not eliminate provenance: the theorem still depends on the model revision,
+enabled extensions, generation path, and connection to the actual bytes.
+
+These systems also show why translation performance cannot be reduced to one
+percentage. A translation can spend time before first execution, during a
+first hot path, during cache lookup, or on every translated instruction. It
+can consume memory for translated blocks and metadata, storage for an
+ahead-of-time artifact, and engineering labor for compatibility tests. The
+appropriate denominator may be application startup time, elapsed workload
+time, translated bytes, resident memory, energy, or support years.
+
+\begin{table}[htbp]
+\centering
+\caption{Practical translation decisions have different payers and units.}
+\begin{tabular}{@{}p{0.19\textwidth}p{0.23\textwidth}p{0.25\textwidth}p{0.23\textwidth}@{}}
+\toprule
+Decision & Actor paying & Useful measurement & Semantic boundary \tabularnewline
+\midrule
+Interpret guest steps & emulator operator & time per workload; dispatch work & guest state and external devices \tabularnewline
+Translate hot blocks & runtime and user & cold and warm elapsed time; cache memory & block entry, exits, faults, cache reset \tabularnewline
+Cache translated code & platform vendor & stored bytes; lookup and validation time & code identity, permissions, freshness \tabularnewline
+Ship native variants & developer and distributor & build/test time; download bytes & each native binary and supported platform \tabularnewline
+Retain translation support & vendor and user & engineering effort; supported applications and years & documented guest subset and operating services \tabularnewline
+\bottomrule
+\end{tabular}
+\end{table}
+
+No row gives a timeless verdict that translation is fast or cheap. A current
+measurement must name the machine, software revision, workload, cache state,
+baseline, and date. A compatibility benefit should likewise name what remains
+usable and for whom. The installed application that buys a user another year
+may be more important than steady-state throughput; a cloud operator running
+millions of translated process-hours may reach the opposite conclusion.
 
 \begin{archive}[title={A relation is a small bilingual dictionary}]
 The relation does not translate every fact in either machine. It records the
@@ -75,7 +187,8 @@ A binary translator owns control layout as well as local operations. Expanding
 one source instruction into several target instructions moves branch targets
 and may require scratch storage. Calls and returns must respect a target ABI.
 Code addresses embedded in data or calculated at run time can make relocation
-observable. Local instruction lemmas are necessary, but a whole-program
+observable. Local instruction results intended for reuse in a
+larger argument, are necessary, but a whole-program
 control relation is what composes them.
 
 \begin{table}[htbp]
@@ -187,6 +300,65 @@ assume either that every omitted component must match or that every omission
 is harmless. A typed relation should list ignored and scratch state explicitly
 and prevent the final observation from reading it.
 
+Mathematically, a cross-machine relation is a subset
+\(R\subseteq\Sigma_A\times\Sigma_T\), where the two state sets need not have
+the same shape or size. It need not be a function. One abstract state can
+relate to several target states that differ only in scratch registers or code
+layout. Nor need every target state represent an admitted abstract state. The
+entry precondition selects the pairs for which the theorem makes a promise.
+
+A functional relation is sometimes convenient. A representation function
+\(\alpha_T:\Sigma_T\rightarrow\Sigma_M\) can map target states into a common
+mathematical state, while \(\alpha_A\) does the same for A0. Then
+
+\[
+  R(s_A,s_T)\quad\hbox{when}\quad
+  \alpha_A(s_A)=\alpha_T(s_T).
+\]
+
+This construction explains the relation through a shared meaning. It can also
+be too rigid. A partially initialized target state, a source with unspecified
+choices, or a memory injection that grows during allocation may require a
+relation that is not captured by one fixed abstraction function.
+
+The familiar simulation square is a \keyterm{commuting diagram}. Begin with
+related states. Move across the top by one source segment and down the side by
+the relation. The proof must find a target segment along the bottom whose
+endpoint is related to the source successor. The square ``commutes'' because
+either path---source movement then relation, or relation then target
+movement---reaches a related pair. This is a statement about paths and
+relations, not literal equality of endpoints.
+
+Relations can be indexed by control points. Write \(R_q\) at entry, decision,
+update, or exit. A segment from \(q\) to \(q'\) proves
+
+\[
+  R_q(s,t)\mathbin{\mathsf{and}}s\rightarrow_A^{+}s'
+  \quad\Longrightarrow\quad
+  \exists t'.\;t\rightarrow_T^{*}t'\mathbin{\mathsf{and}}R_{q'}(s',t').
+\]
+
+The plus on the source side requires progress through at least one source
+step. The star on the target side permits a finite sequence, possibly empty.
+A rank or structural argument must control empty matches if the theorem covers
+unbounded execution. For the fixed straight-line routine below, every segment
+lists its concrete finite instructions instead.
+
+Composition introduces an intermediate relation. If \(R_{AR}\) relates A0 to
+RV64 and \(R_{RX}\) relates RV64 to x86-64, their relational composition is
+
+\[
+  (R_{AR};R_{RX})(a,x)
+  \quad\hbox{when}\quad
+  \exists r.\;R_{AR}(a,r)\mathbin{\mathsf{and}}R_{RX}(r,x).
+\]
+
+The witness \(r\) must satisfy both contracts at once. One relation cannot use
+an RV64 register as protected data while the next declares it arbitrary
+scratch. This is why pass-by-pass compiler proofs record state mappings and
+why a shared intermediate language alone does not make a translation chain
+correct.
+
 \begin{definition}[title={Control points name related moments}]
 A control point is a semantic location such as routine entry, branch decision,
 loop head, memory update, or normal exit. It maps to one or more concrete
@@ -288,9 +460,81 @@ result misses collateral memory damage.
 
 \begin{warning}[title={A memory relation must survive aliasing}]
 Two symbolic base registers may identify overlapping ranges. If a proof treats
-them as disjoint, nonaliasing belongs in the input relation. If overlap is
+them as disjoint, \keyterm{nonaliasing} belongs in the input relation:
+nonaliasing says the admitted ranges share no byte. If overlap is
 allowed, the simulation must account for the shared bytes and write order.
 \end{warning}
+
+\subsection{A memory injection relates blocks, offsets, and permissions}
+
+Equal-length intervals are enough for one fixed array. Compilers and binary
+translators also move stack frames, split global objects, allocate helper
+storage, and choose target addresses that did not exist in the source. A
+\keyterm{memory injection} records how each live source block enters target
+memory. For a source block \(b\), let
+\[
+  j(b)=(b',\delta)
+\]
+mean that source offset \(i\) corresponds to target offset \(i+\delta\) in
+block \(b'\). The injection is partial: a source block outside the observation
+may have no target partner. It is injective over live, observable blocks unless
+the proof deliberately permits their representations to overlap.
+
+The formula is only the address clause. A usable injection also preserves the
+facts that make an access legal:
+
+\begin{enumerate}
+\item if source offset \(i\) lies within block \(b\), then \(i+\delta\) lies
+within \(b'\);
+\item readable source bytes correspond to readable target bytes with the same
+declared value relation;
+\item a writable source range maps to a target range the translated store may
+write;
+\item distinct source locations that the source can distinguish do not
+collapse onto one target byte;
+\item target-private blocks, such as a spill area, cannot overlap the image of
+caller-owned source storage.
+\end{enumerate}
+
+These clauses connect set theory to machine safety. The injection maps
+locations; preservation of bounds, permissions, and separation makes the map
+useful for execution. A relation that maps values but not access rights can
+turn a legal source load into a target fault. A relation that maps two
+independent source blocks onto overlapping target ranges can change the result
+of a later load after either block is stored.
+
+\begin{example}[title={Two source blocks move without becoming aliases}]
+Let source blocks \(u\) and \(v\) each contain eight bytes. Map \(u\) to target
+block \(t_0\) at offset 16 and \(v\) to \(t_1\) at offset 0. A load from
+\((u,3)\) corresponds to \((t_0,19)\); a load from \((v,3)\) corresponds to
+\((t_1,3)\). The equal numeric offset 3 does not create aliasing because the
+target blocks differ. If both source blocks instead map into \(t_0\), their
+translated intervals must be disjoint.
+\end{example}
+
+Allocation makes the relation evolve. Suppose the source allocates a fresh
+block \(b\) and the target allocates \(b'\). Extend \(j\) with
+\(b\mapsto(b',\delta)\) while leaving every old mapping unchanged. Freshness
+and separation show that old pointers keep their meaning. Deallocation can
+remove a mapping only when no later source observation may use the block.
+Thus a simulation relation may grow along a trace rather than remain one fixed
+function from entry to exit.
+
+\begin{proofkit}[title={A translated load preserves its word}]
+Assume \(j(b)=(b',\delta)\), source range \([i,i+k)\) is readable, the mapped
+target range \([i+\delta,i+\delta+k)\) is readable, and corresponding bytes
+are equal. Bounds preservation makes both loads defined. Offset preservation
+selects matching byte positions. Equal byte order and width make their joins
+equal. Remove any one premise and the conclusion can fail through a fault,
+wrong address, reversed reconstruction, or different value.
+\end{proofkit}
+
+Concrete machines present flat architectural addresses, while compiler proofs
+often use blocks to retain object identity and separation. A cross-ISA route
+must say where that structure comes from. It may be an admitted region
+partition supplied by the harness, a loader map, an ABI frame description, or
+a richer intermediate memory model. Recovering unique source objects from
+arbitrary machine addresses is not automatic.
 
 \section{Forward simulation permits unequal step counts}
 
@@ -401,33 +645,79 @@ The worked proof uses the second. The precondition is not a decoder fact or an
 ABI rule. It is the domain on which a positive signed result represents the
 mathematical absolute value.
 
-Use these schematic implementations:
+Fix the code bases at zero and use the following three implementations. The
+A0 comparison is written as a subtraction into scratch register \(r_2\). The
+subtraction establishes the signed condition while leaving the input in
+\(r_0\) available for the update path.
 
 \begin{codelisting}[language={},caption={A0 absolute value, with r1 initialized to zero}]
-cmp       r0, r1
-branch.ge done
-sub       r0, r1, r0
+00: sub       r2, r0, r1
+04: branch.ge done
+08: sub       r0, r1, r0
 done:
 \end{codelisting}
 
 \begin{codelisting}[language={},caption={RV64I absolute value}]
-bge  a0, x0, done
-sub  a0, x0, a0
+00: bge  a0, x0, done
+04: sub  a0, x0, a0
 done:
 \end{codelisting}
 
 \begin{codelisting}[language={},caption={x86-64 absolute value in the selected local contract}]
-mov  rax, rdi
-test rax, rax
-jns  done
-neg  rax
+00: mov  rax, rdi
+03: test rax, rax
+06: jns  done
+08: neg  rax
 done:
 \end{codelisting}
 
-The x86 listing is schematic Intel syntax for selected 64-bit forms. The
-chapter compares decoded semantics, not exact bytes. Machine-code evidence
-would additionally require source-pinned encodings and instruction lengths
+These addresses determine the relative branches. Table
+\ref{tab:abs-bytes} gives the complete byte strings in increasing address
+order. A0 uses the Chapter 6 four-byte envelope: selected opcode \code{11}
+means register subtraction, selected opcode \code{30} means conditional
+branch, and condition code 3 means signed greater-than-or-equal. The branch at
+address 4 stores displacement 1 because \(4+4+4(1)=12\). The RV64 words and
+x86-64 instruction forms follow the pinned architecture references
 \autocite{riscv2026unpriv,intel2026sdm2}.
+
+\begin{table}[htbp]
+\centering
+\caption{Exact code bytes for the three absolute-value routines.}
+\label{tab:abs-bytes}
+\begin{tabular}{@{}p{0.13\textwidth}p{0.16\textwidth}p{0.28\textwidth}p{0.29\textwidth}@{}}
+\toprule
+Machine & Address & Bytes in memory order & Decoded instruction \\
+\midrule
+A0 & 0 & \code{11 02 01 00} & \code{sub r2,r0,r1} \\
+A0 & 4 & \code{30 00 18 01} & \code{branch.ge 12} \\
+A0 & 8 & \code{11 08 00 00} & \code{sub r0,r1,r0} \\
+RV64I & 0 & \code{63 54 05 00} & \code{bge a0,x0,8} \\
+RV64I & 4 & \code{33 05 A0 40} & \code{sub a0,x0,a0} \\
+x86-64 & 0 & \code{48 89 F8} & \code{mov rax,rdi} \\
+x86-64 & 3 & \code{48 85 C0} & \code{test rax,rax} \\
+x86-64 & 6 & \code{79 03} & \code{jns 11} \\
+x86-64 & 8 & \code{48 F7 D8} & \code{neg rax} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For RV64I, the branch word is \code{00055463}; little-endian memory reverses
+its byte groups to \code{63 54 05 00}. Its offset is 8, so a taken branch at
+address 0 reaches address 8. The subtraction word is \code{40A00533}. An
+assembler may print it as the pseudoinstruction \code{neg a0,a0}, but the
+decoder returns \code{sub a0,x0,a0}. The distinction matters because the
+proof concerns the decoded base instruction.
+
+For x86-64, the short jump displacement is measured from address 8, the
+address following the two-byte \code{jns}. Adding 3 reaches address 11. The
+three machines therefore place \emph{done} at addresses 12, 8, and 11. A
+control relation makes those unequal numbers denote one logical exit.
+
+The bytes above were assembled and disassembled locally with LLVM's machine
+code tools. That independent calculation is a useful transcription check. It
+does not turn the worked simulation into machine evidence: A0 lacks an
+executable decoder here, and the chapter does not yet bind any of the three
+decoders and step relations into an Axeyum object.
 
 At entry, relate A0 \(r_0\), RV64 \code{a0}, and x86-64 \code{RDI} to the
 same input word \(x\). Require A0 \(r_1=0\). The x86 destination \code{RAX}
@@ -436,7 +726,7 @@ running outcomes, valid code, and routine-entry control points. Memory is
 unchanged by all three routines and may be required equal or separately
 preserved under the local contract.
 
-At the decision point, A0's comparison establishes \(N=V\) exactly for
+At the decision point, A0's scratch subtraction establishes \(N=V\) exactly for
 signed \(x\geq0\) in this comparison. x86 \code{test} establishes the sign
 predicate read by \code{jns}. RV64 \code{bge} compares \code{a0} directly
 with \code{x0}. Thus all three choose their done edge exactly when the common
@@ -462,6 +752,53 @@ positive and equal to \(|x|\). At \emph{done}, the result words, outcomes, and
 preserved memory are related. Scratch condition state may differ.
 \end{proofkit}
 
+\subsection{The synchronization table is the proof skeleton}
+
+The three traces need not have a related state after every instruction. Their
+relations meet at entry, decision, optional update, and exit. Table
+\ref{tab:abs-sync} makes those meetings explicit. A machine may perform no
+instruction between two rows when its current state already carries the
+meaning required by the later relation.
+
+\begin{table}[htbp]
+\centering
+\caption{Synchronization points for the absolute-value simulation.}
+\label{tab:abs-sync}
+\begin{tabular}{@{}p{0.11\textwidth}p{0.11\textwidth}p{0.11\textwidth}p{0.12\textwidth}p{0.31\textwidth}@{}}
+\toprule
+Point & A0 \(pc\) & RV64 \(pc\) & x86 \(rip\) & Required relation \\
+\midrule
+Entry & 0 & 0 & 0 & inputs carry \(x\); A0 \(r_1=0\); outcomes run \\
+Decision & 4 & 0 & 6 & result paths carry \(x\); predicates mean
+\(\langle x\rangle_s\geq0\) \\
+Update & 8 & 4 & 8 & all selected the negative edge; inputs still carry \(x\) \\
+Exit & 12 & 8 & 11 & results carry the same modular word; memory and outcomes agree \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The entry-to-decision segment takes one A0 step, zero RV64 steps, and two x86
+steps. Zero RV64 steps are safe here because its branch reads \(a0\) directly;
+the decision relation derives its predicate from the state rather than from a
+stored flag. A rank for this isolated stutter is the number of setup movements
+still required before the next shared branch. It begins at two for x86, falls
+after each setup instruction, and is already zero for RV64. No machine can
+remain in setup while that natural number decreases forever.
+
+From decision, the nonnegative path executes the A0 branch, the RV64 branch,
+and the x86 jump. Their endpoints are the three exit addresses. The negative
+path first reaches the update row, then executes one subtraction or negation
+per machine. Thus the local segment lengths are unequal, but every segment is
+finite and restores the next named relation.
+
+Take \(x=3\). A0 computes \(3-0\) into scratch, all predicates say
+nonnegative, and the branch reaches 12. RV64 branches from 0 to 8. x86 copies
+and tests 3, then jumps from 6 to 11. The observed results remain 3. Take
+\(x=-3\), represented by \code{FFFFFFFFFFFFFFFD} at width 64. All three select
+the update row and produce 3 before reaching their unequal exit addresses.
+These two traces cover the branch shapes; the case split in the reader proof
+covers every admitted word.
+
 For the excluded minimum word, each modular negation returns the same bit
 pattern as the input. The modular-refinement claim still holds. The
 mathematical-positive-result claim fails because \(2^{w-1}\) has no positive
@@ -473,9 +810,10 @@ domain belongs beside the relation.
 The reader proof above compresses setup, decision, and update. Expanding those
 movements shows exactly where architecture-specific facts enter.
 
-At A0 entry, \(r_1=0\) is a premise supplied by the harness. The comparison
-writes condition state without changing \(r_0\). Its signed predicate follows
-from the A0 subtraction rule. At RV64 entry, \code{x0} supplies zero and the
+At A0 entry, \(r_1=0\) is a premise supplied by the harness. The scratch
+subtraction writes \(r_2\) and condition state without changing \(r_0\). Its
+signed predicate follows from the A0 subtraction rule. At RV64 entry,
+\code{x0} supplies zero and the
 branch compares register readings directly; there is no setup condition state.
 At x86 entry, \code{mov rax,rdi} copies the input, then \code{test rax,rax}
 sets the sign and zero information read by \code{jns}.
@@ -565,7 +903,9 @@ encoding, invalid targets, and terminal input states can still affect execution
 in a complete model. A cross-ISA theorem normally restricts entry to valid
 code and running outcomes, then proves corresponding normal exits.
 
-Memory routines need stronger fault agreement. One ISA may permit an unaligned
+Memory routines need stronger fault agreement. One ISA may permit a
+misaligned access, whose starting address is not a multiple of the required
+alignment,
 access that another traps or decomposes. A theorem can require aligned valid
 ranges, relate both trap classes, or refine a source operation into a checked
 target sequence. Silently discarding inputs on which only one side traps
@@ -584,12 +924,90 @@ each source progress segment has a finite target match and stuttering cannot
 continue forever. If the target may take an unbounded internal loop between
 control points, endpoint tests do not exclude divergence.
 
+\subsection{A translator needs an explicit fault policy}
+
+Fault names rarely line up across machines. One source instruction may report
+an alignment fault, while a target sequence first performs an address
+calculation and then reports a page or access fault. An operating environment
+may convert either event into a signal, exception object, process exit, or
+guest-machine trap. The relation should therefore compare the meaning exposed
+at the selected boundary rather than equate architecture-specific numeric
+codes by accident.
+
+There are three common policies. A \emph{fault-preserving} translation relates
+each admitted source fault to a target event with the same client-visible
+meaning. A \emph{safe-input} theorem assumes enough alignment, presence, and
+permission to prove that neither side faults. A \emph{normal-behavior}
+refinement speaks only about source executions that finish normally. The last
+policy is weakest. It can establish a useful compiler lemma, but it cannot
+support a claim that a binary translator faithfully presents all guest
+exceptions.
+
+Consider an eight-byte load at address \(a+4\). In a model that requires
+eight-byte alignment, the source traps before reading a byte. A target ISA may
+permit the misaligned access and return a word. Equal results on aligned tests
+do not decide this input. The translator can restrict entry to
+\(a\bmod8=0\), synthesize an explicit alignment check and translated trap, or
+adopt a theorem that excludes the source fault. Each choice changes the
+contract.
+
+\subsection{Returns relate continuations, not only result registers}
+
+A routine that computes the right word can still fail as translated code. The
+source caller may expect a saved register to survive, a stack pointer to be
+restored, and execution to resume at one continuation. The target ABI may put
+arguments in different registers, reserve stack space differently, or use a
+different return mechanism. Chapter 10 supplies these contracts; a cross-ISA
+relation applies them on both sides.
+
+At call entry, relate logical arguments rather than equal register names. Also
+relate the source and target stack regions through a frame injection, record
+their saved continuations, and protect each ABI's preserved registers. At
+return, require the logical result, restored stack state, preserved-register
+clauses, and related continuation points. Caller-saved scratch may differ
+because both callers agreed not to rely on it.
+
+\begin{example}[title={A correct value with a wrong continuation}]
+Suppose an x86-64 translation places the expected result in \code{RAX} but
+increments the saved return address by one byte. A result-only observation
+accepts the endpoint. A procedure relation rejects it because the next
+fetch is not the target continuation corresponding to the source return.
+Likewise, a target that leaves its stack pointer eight bytes low has not
+implemented the source call even if the current result register is correct.
+\end{example}
+
+Wrappers often mediate the mismatch. An entry wrapper moves arguments from the
+host ABI into registers used by translated code. An exit wrapper moves the
+result back, restores host-preserved state, and enters the host continuation.
+Those instructions belong to the proof and cost account. Calling them
+runtime support does not place their effects outside semantics.
+
 \section{Building the Axeyum cross-ISA route}
 
-The current Axeyum checkout does not yet contain reusable A0, RV64I, or
+The current Axeyum checkout already contains a nearby but different form of
+translation validation. Its test suite can reflect selected Rust mid-level
+intermediate representation (MIR) and LLVM intermediate representation (LLVM
+IR) into one term arena, then compare scalar results. Cases include wrapping
+negation represented as a MIR unary operation on one side and LLVM subtraction
+from zero on the other. A wrong-transform corpus changes shifts, selections,
+masks, or signedness and requires returned countermodels to replay against the
+reflected terms.
+
+That substrate contributes reusable ideas: typed bit-vector terms, solver
+queries, countermodel replay, negative controls, and the discipline of
+comparing two independently reflected forms. It does not establish this
+chapter's claim. MIR and LLVM terms are not decoded A0, RV64I, or x86-64
+states. Scalar result equality does not cover machine-code bytes, program
+counters, architectural flags, memory injections, faults, or ABI
+continuations.
+
+The checkout inspected on 2026-08-30 does not contain reusable A0, RV64I, or
 x86-64 decoder-and-step packages or typed cross-machine relations. This
 chapter therefore specifies the required route without presenting the
-absolute-value simulation as machine-established evidence.
+absolute-value simulation as machine-established evidence. The distinction is
+productive: the existing route shows how formulas and replay should behave,
+while the missing adapters identify which semantics must be added rather than
+assumed.
 
 Implementation should proceed in dependency order:
 
@@ -602,7 +1020,8 @@ conditional jump, negation, and return forms used;
 \item define typed control-point relations with register, memory, condition,
 program-counter, outcome, and freedom clauses;
 \item check each local simulation segment and compose the endpoint theorem;
-\item decode and replay every satisfiable counterexample through all affected
+\item when a query is \keyterm{satisfiable}, meaning that some assignment
+makes its formula true, decode and replay its counterexample through all affected
 executable semantics.
 \end{enumerate}
 
@@ -725,7 +1144,8 @@ facts turn disagreement into a repairable semantic question.
 This chapter covers deterministic scalar architectural routines over selected
 integer instructions. It excludes floating point, vector state, atomics,
 concurrency, weak memory, privilege, interrupts, exceptions across frames,
-self-modifying code, dynamic linking, timing, microarchitectural state,
+self-modifying code, dynamic linking, timing, architecture-hidden state such
+as cache and predictor contents,
 speculation, and side-channel observations.
 
 The worked routine is a semantic teaching instance, not evidence that current
@@ -803,4 +1223,102 @@ precondition, relation clauses, observation, and seven negative controls.
 \item A returned solver model violates the relation but fails RV64 executable
 replay. List possible generator, decoder, and semantic fault classes. Explain
 why the model cannot support the claimed counterexample.
+
+\item \textbf{Decode.} Recover every A0 operand and reserved field from
+\code{11 02 01 00}. Explain why the destination is scratch rather than the
+routine result.
+
+\item \textbf{Encode.} Derive the A0 branch bytes
+\code{30 00 18 01} from its address, destination, condition code, and target
+formula. Give one mutation that remains a legal branch but reaches the wrong
+control point.
+
+\item \textbf{Decode.} Treat \code{63 54 05 00} as one little-endian RV64
+instruction word. Recover its two register fields, signed condition, and
+offset. Recompute its taken target from address zero.
+
+\item Explain why an RV64 disassembler may print \code{neg a0,a0} for
+\code{33 05 A0 40} even though the decoder theorem should name
+\code{sub a0,x0,a0}.
+
+\item Derive the x86 short-jump destination from bytes \code{79 03} at address
+6. Give the incorrect destination obtained by using the jump's own address as
+the displacement base.
+
+\item \textbf{Audit.} Reassemble the RV64 and x86 listings with an independent
+tool. Record tool version, target triple, bytes, and disassembly. State which
+parts of the chapter this checks and which semantic claims remain unchecked.
+
+\item Write all local segment lengths in Table \ref{tab:abs-sync} for both
+branch outcomes. Identify the zero-step match and explain why it does not
+permit infinite stuttering.
+
+\item Replace the setup rank with an ordered pair that counts remaining x86
+setup instructions and remaining source control points. Order the pair
+lexicographically and show where it decreases.
+
+\item \textbf{Prove.} Compose an A0-to-RV64 relation with an RV64-to-x86
+relation. Give a concrete scratch-register conflict that prevents one RV64
+state from serving as the existential witness.
+
+\item Give a deterministic transition system in which forward simulation is
+enough to exclude an extra target successor. Then add one nondeterministic
+target edge and explain which conclusion is lost.
+
+\item \textbf{Memory.} Define an injection from two source blocks into one
+target block. Choose offsets that preserve separation for two eight-byte
+objects, then choose offsets that violate it.
+
+\item Extend that injection after one source and target allocation. State the
+freshness fact needed to prove that every old mapping remains valid.
+
+\item \textbf{Break.} Keep byte values equal under a memory injection but drop
+permission preservation. Construct a readable source load whose target match
+faults.
+
+\item Construct two source pointers that are unequal but become equal under a
+bad target mapping. Give a later store and load that expose the collapse.
+
+\item \textbf{Faults.} For a misaligned eight-byte access, write a
+fault-preserving contract, a safe-input contract, and a normal-behavior
+contract. Compare their admitted inputs and conclusions.
+
+\item \textbf{ABI.} Relate one two-argument procedure under the
+RISC-V integer calling convention and one selected x86-64 calling convention.
+Name argument, result, preserved-register, stack, and continuation clauses.
+
+\item Give a translated routine with the correct result and restored stack but
+one damaged preserved register. Design a caller that makes the damage
+observable.
+
+\item \textbf{History.} Compare an interpreter with a dynamic binary
+translator. For each, identify the unit decoded, the stored translation state,
+the point where a cached block must be discarded, and one proof obligation.
+
+\item \textbf{Industry.} Build a measurement plan that separates cold startup,
+warm translated-code cache, and steady-state execution. Name the workload,
+hardware, translation mode, baseline, actor, and unit for every reported cost.
+
+\item Compare ahead-of-time translation, just-in-time translation, and a
+multi-architecture native binary from the perspective of a platform vendor,
+application developer, and user. Do not combine their costs into one number.
+
+\item \textbf{Security.} Explain why code-page hashes, signatures, and a
+translation cache belong to the provenance relation even when instruction
+semantics are correct. Give one stale-cache failure.
+
+\item \textbf{Transfer.} Choose one QEMU translation block or another
+documented emulator unit. Sketch its guest entry relation, host-private state,
+exit map, fault boundary, and cache-reset premise. Mark every fact that still
+needs source or executable evidence.
+
+\item \textbf{Axeyum.} Compare the current MIR-to-LLVM scalar route with the
+required A0-to-RV64 route. List the reusable term, solver, replay, and control
+components, then list the decoder, state, control, memory, fault, and ABI
+components that cannot be inherited.
+
+\item Design a negative-control matrix with one mutation for code bytes,
+signed predicate, arithmetic destination, memory frame, fault policy, saved
+register, continuation, and minimum-value precondition. Name the first
+relation clause each mutation should break.
 \end{enumerate}

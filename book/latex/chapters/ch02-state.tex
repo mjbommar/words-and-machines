@@ -46,6 +46,93 @@ them, so A0 cannot answer a question whose next result depends on those
 effects. A timing model may restore them as state. The right snapshot changes
 with the promised observation.
 
+\section{A present that replaces the relevant past}
+
+Suppose a machine has accepted a finite history \(h\) of instructions and
+external inputs. Let \(\sigma(h)\) be the state description retained after
+that history. The description is sufficient only if equal descriptions make
+the histories interchangeable for the next modeled step. In symbols, if
+
+\[
+\sigma(h_1)=\sigma(h_2),
+\]
+
+then every declared next input must permit the same modeled successors and
+outputs after \(h_1\) and \(h_2\). The state need not reconstruct either
+history. It must retain every fact from those histories that can still affect
+the promised future.
+
+This condition is sometimes called a Markov condition: once the present state
+is known, the transition rule does not consult an additional past. We need the
+condition, not the borrowed name. A0 will be deterministic once its program
+and external setting are fixed, so one state and one legal instruction select
+one next state. A later weak-memory model may use a relation with several
+possible successors. State sufficiency applies to both forms.
+
+Here is the smallest useful failure. Imagine a device with one visible bit
+(b) and one hidden mode (m). Its next operation toggles (b) when (m=1)
+and preserves (b) when (m=0). If our proposed state records only (b), the
+two physical situations ((b,m)=(0,0)) and ((0,1)) collapse to the same
+description. Give each the command \code{step}. One remains at 0 and the other
+becomes 1. The proposed state was not sufficient because the transition still
+depended on a fact we called history and then failed to record.
+
+We can repair the model in either of two honest ways. Add (m) to the state,
+or narrow the promised transition model so that mode never affects a result.
+Calling the mode internal does not repair anything. An omitted component is
+safe only when the questions and rules cannot expose it.
+
+This gives state a precise economy. Too little state makes future behavior
+depend on an unnamed past. More state than the question needs makes every
+definition and proof carry distinctions that never matter. The useful state
+is not the smallest tuple in the abstract. It is a sufficient description for
+the declared transitions and observations.
+
+\subsection{A stored bit is a controlled physical distinction}
+
+Chapter 1 treated a bit as one of two mathematical symbols. A processor must
+hold that distinction while time passes. The minimum physical idea is
+feedback: part of a circuit's present output helps determine its later input.
+With suitable gain and timing, the circuit can have two stable regions. A
+small disturbance within one region settles back there; a strong enough write
+signal moves the circuit into the other region.
+
+The voltage is not itself the bit. A decoding rule maps one permitted region
+to 0 and the other to 1. Voltages between the regions, transitions that have
+not settled, noise margins, setup times, and failures of stable sampling
+belong to the physical contract. The architectural model deliberately replaces
+that contract with a word that is already either 0 or 1.
+
+One abstract storage cell makes the replacement visible. Let
+\(q_t\in\{0,1\}\) be the retained value before a clock event, let \(d_t\) be
+a proposed new value, and let \(e_t\) be a write-enable bit. Define
+
+\[
+q_{t+1}=
+\left\{\begin{array}{ll}
+d_t, & e_t=1,\\
+q_t, & e_t=0.
+\end{array}\right.
+\]
+
+When writing is disabled, the old output returns as the new value. The cell
+therefore remembers. When writing is enabled, the proposed input replaces the
+old value. A register applies this rule to several cells under a common
+control. A register file adds a rule that selects which register receives the
+write.
+
+This equation is a functional model, not a transistor diagram. It assumes the
+write and sampling conditions succeed. That boundary is valuable: instruction
+semantics can prove which word a register should contain without proving the
+analog behavior of every storage cell. A circuit-correctness or fault model
+would have to reconnect those levels.
+
+The stored-program machine joins two kinds of structure. Combinational logic
+maps present inputs to outputs. Storage feeds selected outputs into a later
+moment. The first gives a function; the second lets repeated applications of
+functions form an execution. State is where time enters the model without
+requiring the complete past to enter with it.
+
 \section{The teaching machine}
 \label{sec:a0-state}
 
@@ -98,8 +185,8 @@ acts.
 Separating code from data is a modeling decision, not a claim about all real
 machines. It gives the first A0 model a stable program while we learn to reason
 about data memory. A theorem under this separation says nothing about
-self-modifying programs unless a later model adds code memory to the writable
-state and repairs every affected definition.
+self-modifying programs unless a later model adds code memory that instructions
+can write and repairs every affected definition.
 
 The outcome needs three cases. A running state may take a step. A halted state
 has finished by executing \code{halt}. A trapped state records that execution
@@ -121,13 +208,31 @@ modes. A0 will name reasons such as illegal encoding, incomplete fetch, and
 invalid data range. We may later choose an observation that retains only the
 fact of trapping, but the complete state does not discard the reason first.
 
-\subsection{Well-formed states and componentwise equality}
+\subsection{Well-formed states and equality one component at a time}
 
 Not every tuple of mathematical objects is an A0 state. The width must be a
 positive multiple of eight. Each register value and the program counter must
 fit that width. Every memory value must be a byte, and every memory key must be
 a width-\(w\) address. Condition fields are bits. The outcome must be one of the
 declared cases, with a recognized reason when it is trapped.
+
+The tuple notation is a Cartesian product with a well-formed subset. If
+\(\mathcal W_w\) is the set of width-\(w\) words, \(\mathcal M_w\) is the
+set of admitted finite byte maps, and \(\mathcal T\) is the set of trap
+reasons, then the unconstrained shape is
+
+\[
+(\mathcal W_w)^8\mathbin{\times}\mathcal M_w
+\mathbin{\times}\mathcal W_w\mathbin{\times}\{0,1\}^4
+\mathbin{\times}(\{\mathrm{running},\mathrm{halted}\}\cup\mathcal T).
+\]
+
+The machine definition then removes malformed members. For example, a trapped
+outcome must carry one recognized reason, while a running outcome carries no
+trap reason. Thinking in products helps us inventory the fields. Thinking in
+the well-formedness invariant---the condition every legal state must
+maintain---stops us from mistaking every product-shaped tuple for a legal
+state.
 
 A constructor should enforce these requirements once. Later instruction
 rules can then assume they receive a well-formed state and must return another
@@ -137,9 +242,29 @@ that is not a byte.
 
 Two A0 states are equal exactly when their corresponding components are equal:
 the same register map, memory map, program counter, four conditions, and
-outcome. This componentwise rule gives both proof directions. To establish
+outcome. This one-component-at-a-time rule gives both proof directions. To establish
 state equality, establish every component. To refute it, one unequal component
 is enough.
+
+Even before memory and trap reasons enter, the state space is large. Count
+only eight registers, the program counter, four condition bits, and the three
+coarse outcome classes. At width \(w\), these fields admit
+
+\[
+3\cdot 2^{9w+4}
+\]
+
+assignments. For \(w=64\), that is \(3\cdot2^{580}\), more than
+\(10^{175}\). This number does not measure the states reachable by one
+program, and it omits memory. It measures the cost of replacing a universal
+argument with an undirected list of examples. No test campaign can visit the
+raw product one member at a time.
+
+The count also explains why a clean state definition helps a solver. An
+instruction usually reads and writes only a few components. A proof can keep
+the untouched components symbolic and use the frame condition instead of
+enumerating their values. Structure, not sampling, makes the state space
+manageable.
 
 \begin{figure}[htbp]
 \centering
@@ -156,6 +281,36 @@ diff is a convenient way to display the other branch, but a diff is complete
 only when it is interpreted against an old state and a rule that preserves
 everything omitted from it.
 
+We can write the rule without listing every field in every instruction. Let
+\(C\) be the set of state components and let \(W\subseteq C\) be an
+instruction's declared write set. For each \(c\in W\), the instruction gives
+a new-value expression \(u_c(S)\). The complete update is
+
+\[
+S'[c]=
+\left\{\begin{array}{ll}
+u_c(S), & c\in W,\\
+S[c], & c\notin W.
+\end{array}\right.
+\]
+
+The second line is load-bearing. Without it, an instruction description that
+mentions only \(r_0\) says nothing about memory, conditions, the program
+counter, or the outcome. Readers often supply preservation from habit. A
+checker must receive it as part of the semantics.
+
+The frame law has a short reader proof. Choose any component \(c\notin W\).
+The definition selects its second branch, so \(S'[c]=S[c]\). The choice of
+\(c\) was arbitrary; therefore every component outside \(W\) is preserved.
+The proof is almost small enough to miss. Its universal conclusion is exactly
+what a destination-only test fails to establish.
+
+Now attack it. Mutate an addition rule so that it writes the correct sum to
+\(r_0\) and also clears one memory byte. Every test that inspects only the
+sum still passes. The write-set check fails because memory changed outside the
+declared set. A negative control at this layer should make precisely that
+mutation and require rejection.
+
 A destination-only test is therefore weak. It checks one changed component
 without checking conditions, control, memory, outcome, or the frame. A
 complete-state checker can still print a compact diff for the reader. It must
@@ -171,6 +326,14 @@ that A0 instructions are defined to read or change. A physical processor
 needs much more. It may contain pipeline registers, cache tags, branch
 predictor entries, queues, and circuitry that has no name in an assembly
 program.
+
+Amdahl, Blaauw, and Brooks made the architecture boundary explicit while
+describing IBM System/360 in 1964. They separated the attributes visible to a
+programmer from the organization and physical implementation of a particular
+machine. That separation allowed members of one family to differ internally
+while preserving a common software contract. It did not make implementation
+irrelevant. It located which differences compatible software was entitled to
+ignore.\autocite{amdahl1964system360}
 
 Whether those parts belong in a model depends on the question. If the question
 is whether two additions leave the same A0 state, cache replacement policy is
@@ -211,6 +374,155 @@ that tuple or its outcome. It is not complete for RV64, x86-64, or a physical
 processor merely because it is written with eight fields. Each later slice
 must perform its own inventory.
 
+\subsection{One architectural state can have many physical representations}
+
+An implementation need not store each architectural register in one fixed
+physical cell. An out-of-order processor may map one architectural name to
+different physical registers at successive moments. It may hold speculative results that
+have not yet become architectural results. It may keep several instructions
+in flight although the ISA describes their effects in program order.
+
+The mapping and speculative values are implementation state. They matter to
+correctness because the processor must eventually present an allowed
+architectural result. They do not become extra programmer-visible registers
+merely because the implementation uses them.
+
+Suppose architectural register \(r_1\) currently maps to physical location
+\(p_7\). A speculative instruction computes a candidate replacement in
+\(p_{12}\). Before the instruction commits, the architectural reading still
+comes from the old committed mapping. At commit, the implementation may change
+the mapping to \(p_{12}\). Two different physical descriptions therefore
+represent the same architectural state before commit, and a controlled change
+of representation realizes one architectural transition.
+
+Another relation connects these levels. Let \(\alpha(P)=S\) map a physical
+implementation state \(P\) to its represented architectural state \(S\). A
+correct implementation need not take one physical step for each architectural
+step. It must make its longer physical evolution agree with the architectural
+transition at the declared comparison points.
+
+The map can be many-to-one. Cache contents, queue positions, predictor tables,
+and unused physical registers may differ while \(\alpha\) returns the same A0
+state. That freedom permits implementation techniques. It also marks the
+boundary of a functional proof: equal \(\alpha(P)\) values do not imply equal
+timing, power, or speculative leakage.
+
+Exceptions make the comparison point especially important. If an instruction
+traps, the architecture specifies which earlier effects are visible and which
+later effects are not. An implementation may have computed later candidates,
+but it cannot expose them as committed architectural updates when the contract
+forbids that exposure. Chapter 16 will revisit speculation and leakage. Here
+we retain the simpler fact that internal work and architectural state change
+are different events.
+
+\subsection{An initial state is supplied, not wished into existence}
+
+Every execution theorem begins somewhere. A0 takes an initial state from a
+declared set. The set may fix the entry program counter, argument registers,
+selected memory bytes, and a running outcome while leaving scratch registers
+unrestricted. Nothing in the word \emph{initial} makes an omitted component
+zero.
+
+Real systems reach an entry state through earlier mechanisms: reset, firmware,
+a loader, an operating system, a caller, or a restored checkpoint. Those
+mechanisms have their own contracts. The A0 theorem may abstract them into a
+premise, but it must not borrow properties they have not promised.
+
+This matters whenever a program reads before writing. If scratch register
+\(r_4\) is unrestricted at entry and the first instruction adds it to the
+result, the program's behavior depends on \(r_4\). Testing from an all-zero
+snapshot hides that dependence. An honest repair writes a starting value to \(r_4\), adds a
+premise fixing it, or proves that no read occurs before a write.
+
+The three repairs answer different questions. Writing the starting value
+changes the program. Adding a premise narrows the admitted environment.
+Proving write-before-read establishes that the initial value is irrelevant.
+One cannot be substituted for another after a counterexample appears.
+
+Reset state also differs from ordinary start state. A hardware reset may fix
+some architectural fields and leave others with values the architecture does
+not promise. A procedure entry normally inherits most state from its caller.
+A resumed task receives values from a saved context. Later chapters will name
+these environments precisely. For now, the lesson is enough: construction of
+the initial-state set is part of the claim.
+
+\subsection{A state component also needs an owner}
+
+A0 describes one scalar machine. Its eight registers and condition bits belong
+to that one execution, and its finite memory is part of the same state. This
+simple ownership rule lets us write one tuple. Real systems divide state among
+hardware threads, processes, the operating system, devices, and shared memory.
+
+The inventory alone does not settle that division. Two hardware threads may
+have separate integer registers and program counters while reaching a shared
+memory system. A process may see an address space assembled by system
+software. A device may change memory without executing an A0 instruction.
+Each case changes which actor can produce the next state.
+
+Ownership matters to a frame claim. Saying that an instruction preserves
+``memory'' is clear in A0 because no concurrent actor changes it during the
+step. In a shared system, the instruction may issue no write while another
+actor changes a location. A proof must distinguish preservation by this actor
+from global equality of the memory snapshot.
+
+We therefore keep A0 single-threaded and closed during one step. External
+input, device action, interrupt delivery, and competing memory actions are not
+secret components of its state. They are excluded behaviors. Chapter 16 will
+add selected events and owners when it introduces concurrency and weak memory.
+
+The exclusion is not merely convenient. It makes every state transition name
+one responsible rule. Once several actors may step, the semantics must say
+which interleavings or partial orders are permitted. A larger tuple without an
+ownership model would still leave the next-state question unanswered.
+
+\section{State is a contract that software must carry}
+
+Architectural state persists beyond one instruction. When an operating system
+stops one runnable task and starts another, it must eventually restore every
+state component that the first task is entitled to observe. A debugger needs
+enough of the same contract to suspend and resume execution. A virtual-machine
+monitor must preserve the guest-visible state across a transition. A
+checkpoint intended for later replay must bind both values and the model that
+gives those values meaning.
+
+This turns architectural growth into systems work. A new visible register or
+mode may require storage in a task record, save-and-restore logic, debugger
+formats, crash dumps, virtual-machine state, migration checks, and tests for
+old software. The relevant costs have concrete units: bytes reserved per
+saved context, bytes transferred during a save, instructions or cycles spent
+away from the workload, and engineering effort in every layer that handles
+the state. The cost is not proof that an extension is undesirable. It is part
+of the extension's contract.
+
+Intel's current manuals make the layering visible. The general-purpose
+registers, instruction pointer, and flags belong to the basic programming
+environment. Floating-point and vector facilities add further register state.
+Intel's older floating-point and vector save area occupies a fixed 512-byte
+region. The later extended-state facility organizes enabled features into
+separately identified state components and an extended region. Software can
+discover and manage those components rather than pretending that every
+processor has one timeless context shape.\autocite{intel2026sdm1}
+
+That example does not say that every context switch copies 512 bytes, nor that
+all supported components are enabled. Implementations can avoid unnecessary
+work, and operating systems choose policies. The architectural point is
+narrower: once a task can observe a component, suspension and restoration
+must not silently substitute another task's value.
+
+Migration sharpens the same obligation. Moving an execution to another
+machine requires a destination that can represent the source's exposed state
+or an explicit translation that preserves the promised behavior. A byte dump
+is not enough if the destination assigns different meaning to a field.
+We call an encoding used for storage or transfer a \keyterm{serialization}.
+State transfer depends on semantics, not only that encoding.
+
+Formal verification pays another state cost. If a component can affect the
+property, the model must represent it or justify its abstraction. Each
+independent bit can double a raw finite state space. Proof methods survive by
+using preserved conditions, symbolic values, decomposition, and observations that forget
+irrelevant differences. Deleting a difficult component without proving it
+irrelevant is not abstraction. It is a change of theorem.
+
 \section{What we choose to observe}
 \label{sec:state-observation}
 
@@ -226,6 +538,20 @@ information exposed by a claim. Two states agree under observation \(A\) when
   A(S_1)=A(S_2).
 \]
 \end{definition}
+
+In 1956 Edward Moore approached finite sequential machines from the position
+of an experimenter who could supply inputs and watch outputs. Two internal
+states were distinguishable when some experiment produced outcomes that
+depended on which state had been present. The question was operational: a
+hidden difference mattered when a finite interaction could expose
+it.\autocite{moore1956gedanken}
+
+Our observation function is deliberately simpler than Moore's adaptive
+experiments. It inspects one complete A0 state at a declared boundary. Later,
+a surrounding program can turn a hidden flag or register difference into a
+visible result. The shared lesson is that a state difference and a detectable
+state difference are not the same statement. Detection depends on the
+permitted experiment or observation.
 
 Object \obj{A0.def.observation} fixes this role. An observation may select one
 register, all registers, a range of memory, the outcome, or a declared
@@ -254,11 +580,39 @@ result register. Agreement under \(B\) then implies agreement under \(A\):
 equal broad observations remain equal after applying \(f\). The reverse may
 fail because \(f\) discards the other registers and the outcome.
 
+Factorization gives an information order without counting output fields. Say
+that \(B\) is at least as informative as \(A\) when some function \(f\) makes
+\(A=f\mathbin{\circ}B\). Then every distinction made by \(A\) is also made by
+\(B\). The proof is the equality calculation above. Two observations can be
+equally informative even when they encode their answers differently, so this
+order is best understood up to reversible recodings.
+
+This view handles observations that are not simple projections. One may return
+the parity of a register, whether an address lies in a permitted range, or the
+coarse outcome \code{stopped} for either halt or trap. Listing more fields is
+not the definition of broader. The factorization test asks whether one answer
+can be computed from the other without reopening the complete state.
+
 An observation partitions the state space into groups that it cannot
 distinguish. Every state with the same observed result belongs to the same
 group, even if hidden components differ. A broader observation usually splits
 some of those groups. Full-state observation leaves only groups of equal
 states.
+
+Define \(S_1\sim_A S_2\) when \(A(S_1)=A(S_2)\). This is an equivalence
+relation on the state space:
+
+\begin{itemize}
+\item reflexivity holds because \(A(S)=A(S)\);
+\item symmetry holds because equality of observed values is symmetric; and
+\item transitivity---two successive agreements give an agreement between the
+      endpoints---holds because \(A(S_1)=A(S_2)\) and
+      \(A(S_2)=A(S_3)\) imply \(A(S_1)=A(S_3)\).
+\end{itemize}
+
+The equivalence classes are exactly the groups in the partition. Observation
+does not merely discard a few printed columns. It replaces the complete state
+space with a quotient whose members are the distinctions the claim retains.
 
 The partition view explains why an observation is neither correct nor
 incorrect by
@@ -274,6 +628,57 @@ whether the programs agree under it. Choosing the projection after seeing a
 counterexample changes the question instead of answering it.
 \end{keyidea}
 
+\subsection{A continuation can expose a hidden difference}
+
+Take two running states with the same registers, memory, program counter, and
+outcome. Let only the zero condition differ. An observation of \(r_0\) groups
+them together. Now place both states before a conditional instruction that
+writes 1 to \(r_0\) when the zero condition is set and 2 otherwise. After that
+\keyterm{continuation}---a permitted sequence that runs after the boundary---the
+same result-register observation separates them.
+
+The continuation is a Moore-style distinguishing experiment inside a program. The initial
+observation could not see the condition directly. The permitted continuation
+converted it into a visible register difference. Calling the condition hidden
+was therefore a statement about one observation at one boundary, not a
+promise that no future context could detect it.
+
+Let \(K\) denote a continuation and let \(A\) be the final observation. The
+experiment observes
+
+\[
+A(K(S)).
+\]
+
+Two states are indistinguishable to a set of contexts only if this value
+agrees for every admitted \(K\). The empty continuation recovers direct
+observation. Longer such sequences may expose differences in flags, scratch
+registers, memory, control location, or outcome.
+
+This does not force every replacement claim to compare complete state. A
+procedure contract may promise that a scratch register is dead when the
+procedure returns. The admitted callers then exclude later sequences that read
+it before overwriting it. The contract, not our preference, determines the
+context set.
+
+The continuation view also explains when states may be merged in a smaller
+machine. A proposed group must be stable under every admitted input: members
+of one group must produce matching visible outputs and move into the same next
+group. Otherwise one step separates states that the smaller model declared
+identical.
+
+The proof is by attack. Suppose \(S_1\) and \(S_2\) are merged, but some input
+sends them to states in different groups or produces different visible
+outputs. Apply that input. The reduced model begins from one claimed state and
+would need two incompatible answers. The merge was not a valid state
+abstraction.
+
+This stability condition is stronger than noticing that two snapshots happen
+to print the same value today. It asks whether the chosen equivalence survives
+the transition rules. Chapter 11 will turn that idea into program equivalence
+and refinement. Here it tells us why a state model cannot be reduced solely by
+deleting columns from a trace.
+
 The scratch-register example gives a small proof of an important limit. Let
 \(A(S)=R[r_0]\). Both final states map to 7, so they agree under \(A\). Let
 \(B(S)=R\), the complete register map. The first map sends \(r_3\) to 19 and
@@ -287,8 +692,9 @@ difference; it cannot create one between equal inputs.
 \begin{proofkit}[title={\iconProofKit\ Equality survives every observation}]
 Assume \(S_1=S_2\). An observation \(A\) is a function, so replacing an input
 by an equal input cannot change its output. Therefore \(A(S_1)=A(S_2)\).
-The reverse implication needs more: it holds only when \(A\) is injective on
-the states under discussion. A projection to one register is not injective
+The reverse implication needs more: it holds only when \(A\) is
+\keyterm{injective}, meaning that two different admitted states cannot have
+the same observed value. A projection to one register is not injective
 because many complete states share that register value.
 \end{proofkit}
 
@@ -362,6 +768,71 @@ is neither expected nor required.
 What matters is the declared correspondence at entry, at matched control
 points, and at the observed exit.
 
+\section{Successors, reachability, and preserved conditions}
+
+A state becomes useful when a rule can move from it. For one decoded
+instruction \(i\), a deterministic rule has the shape
+
+\[
+T_i:S\longmapsto S'.
+\]
+
+The arrow says that the complete old state is the input and the complete new
+state is the output. It does not say that every mathematical tuple admits a
+step. A0 accepts only well-formed running states whose instruction and
+addresses satisfy the relevant rules. A0 permits no successor after either
+halt or trap.
+
+We could model failure with a partial function that simply has no result. A0
+instead records a trapped outcome with a reason when a running instruction
+encounters a declared failure. This preserves a difference that later claims
+may observe. After the trap is recorded, no further A0 step follows. A rule
+that silently drops the state would lose the evidence needed to distinguish
+failure from successful halt.
+
+A transition relation has the broader shape \(S\mathrel{T_i}S'\). One old
+state may relate to no successor, one successor, or several successors. A
+deterministic function is the special case with at most one successor for each
+admitted input. Relations become necessary when the model deliberately keeps
+a choice open, as later concurrency and weak-memory models may do. The state
+inventory still has to be sufficient: the permitted successor set must not
+depend on an unnamed past.
+
+Deterministic does not mean easy to predict. A 64-bit state function can be
+computationally expensive, and the initial state may be unknown. Conversely,
+a relation with several outcomes can support a strong theorem if every
+permitted outcome satisfies the property. The mathematical shape tells us how
+many successors the semantics permits, not how convenient analysis will be.
+
+Fix an initial-state set \(I\). A state is \keyterm{reachable} when zero or
+more legal steps lead to it from a member of \(I\). Reachability is narrower
+than well-formedness. A tuple may satisfy every field rule yet never arise
+from the selected program and entry states.
+
+This distinction supports induction over execution. Suppose a property
+\(P(S)\) holds for every initial state and every legal step preserves it:
+
+\[
+P(S)\mathbin{\wedge}S\mathrel{T}S'\quad\Longrightarrow\quad P(S').
+\]
+
+Then \(P\) holds for every reachable state. The reader proof follows the
+length of the path. It holds at length zero by the initial premise. If it holds
+after \(n\) steps, preservation gives it after step \(n+1\). The argument does
+not inspect every reachable state separately.
+
+Such a preserved property is an \keyterm{invariant}. Well-formedness is the first one
+we need: constructors establish it, and every instruction rule must preserve
+it. Later preserved properties will connect a loop counter to consumed memory, or an A0
+state to an RV64 state at matching control points. The word earns its keep
+only when the initial case and preservation step are both present.
+
+Reachability can justify a smaller proof domain, but only after it is proved.
+Declaring an awkward state unreachable is not a premise-free shortcut. The
+initial set, transition rules, and invariant must rule it out. This is another
+form of the chapter's central discipline: a missing state needs an argument,
+not an omission.
+
 \section{State in the two companion machines}
 \label{sec:paired-state}
 
@@ -374,7 +845,10 @@ For the later RV64 slice, the integer register named \code{x0} needs special
 treatment. A model that stores and later returns an arbitrary word from
 \code{x0} would describe a different machine. The slice must also name its
 program counter, ordinary integer registers, memory assumptions, and relevant
-exceptional outcomes.
+exceptional outcomes. In base RV64I, the integer register file has 32
+width-64 registers; reads of \code{x0} return zero and attempted writes are
+discarded. The architecture also has a program counter, although
+ordinary code does not treat it as another integer register.\autocite{riscv2026unpriv}
 
 For the later x86-64 slice, the model must name the selected general-purpose
 registers, \code{RIP}, memory, and exactly which \code{RFLAGS} bits matter to
@@ -382,6 +856,35 @@ the included forms. An arithmetic replacement that preserves its destination
 but changes a later branch condition is not full-state equality. It may be
 valid under a narrower observation, but only if the surrounding program is
 unable to rely on the omitted flag.
+
+In 64-bit mode, the basic Intel programming environment exposes 16
+general-purpose registers, the 64-bit instruction pointer \code{RIP}, and the
+\code{RFLAGS} register, among other state. That sentence is still broader than
+our teaching slice. An x86 instruction may preserve, define, clear, set, or
+leave individual flag bits undefined. The slice must take the rule from each
+included instruction form rather than model \code{RFLAGS} as one ordinary
+destination word.\autocite{intel2026sdm1,intel2026sdm2}
+
+\begin{table}[htbp]
+\centering
+\caption{A relation must say which parts of the three inventories correspond.}
+\begin{tabular}{@{}p{0.16\textwidth}p{0.35\textwidth}p{0.37\textwidth}@{}}
+\toprule
+Machine & Integer and control state & Conditions, memory, and outcome \\
+\midrule
+A0 & eight ordinary width-\(w\) registers and \(pc\) & four condition bits, finite byte memory, and running, halt, or named trap \\
+RV64 slice & mapped subset of 32 width-64 registers, special \code{x0}, and program counter & no base integer condition-code register; related memory and selected result \\
+Intel slice & mapped subset of 16 general-purpose registers and \code{RIP} & selected \code{RFLAGS} bits, related memory, and selected result \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The table is a proof checklist, not a claim that the rows are identical. A
+relation may connect A0 \(r_0\) to RV64 \code{x10} and x86-64 \code{RAX},
+while allowing unrelated scratch registers to differ. It may connect three
+control locations that use different numeric addresses. It must also say what
+happens to A0 condition bits when the RV64 segment has no corresponding flag
+state.
 
 These are state questions, not verdicts about RISC and CISC. One architecture
 has a special integer-register rule; the other example carries selected
@@ -430,6 +933,35 @@ choice. A reader-facing table may choose a pleasant order, but replay should
 parse one explicit representation and reject duplicates, missing fields, and
 out-of-width values.
 
+Canonical means that one admitted state has one accepted byte encoding. It is
+stronger than merely having a parser. If two field orders or two number
+spellings represent the same state, a digest of the bytes can change while the
+meaning does not. If one byte sequence admits two parses, the digest does not
+even select one state.
+
+Let \(E\) encode an A0 state and \(D\) decode admitted bytes. The first reader
+law is a round trip:
+
+\[
+D(E(S))=S.
+\]
+
+This law implies that encoding is injective. If \(E(S_1)=E(S_2)\), apply
+\(D\) to both sides. The round-trip law gives \(S_1=S_2\). Thus equal encoded
+bytes cannot conceal two different states.
+
+The other direction needs a stated byte grammar. For every canonical encoding
+\(b\), require \(E(D(b))=b\). A permissive parser may accept noncanonical
+input for a user interface, but an evidence checker should either reject it or
+normalize it before hashing. The choice must not depend on which library or
+language happens to read the artifact.
+
+Useful negative controls follow directly. Swap two register entries, repeat a
+memory address, omit the outcome, put a nine-bit value in an eight-bit field,
+or append an unknown field. Each mutation attacks a different ambiguity. The
+checker must reject the changed artifact rather than silently invent a default
+state.
+
 Observation descriptions also belong in the artifact. A label such as
 \code{result} is insufficient unless it resolves to a declared register,
 width, and outcome policy. The checker should rebuild the observation from
@@ -456,6 +988,42 @@ in this chapter are definitions and reader reasoning; they are not a hidden
 machine-proof route. That boundary will remain visible until the executable
 state and its controls exist.
 
+\section{What the state model now fixes}
+
+The chapter began with a paused machine and a question about what remains. We
+can now answer without listing hardware parts by habit. A state is sufficient
+when equal recorded states make the relevant past interchangeable for the
+next modeled behavior. A0 chooses one such state for a scalar teaching
+machine. Its tuple records words, bytes, control location, conditions, and
+outcome; its well-formedness rules say which tuples are legal.
+
+The model fixes five distinctions that later proofs will rely on:
+
+\begin{itemize}
+\item a mathematical bit and the physical regions that realize it are related
+      by a decoding contract, not identity.
+\item architectural state is the state named by the semantic contract, not
+      every latch and queue in one processor.
+\item complete state and observed state differ because an observation is a
+      declared function that may forget information.
+\item a premise restricts admitted initial states, while an observation
+      selects which final differences count.
+\item a relation connects states of unlike machines, while an observation
+      reads one state.
+\end{itemize}
+
+These distinctions also locate the costs. Physical storage spends area and
+energy to retain distinctions. System software spends bytes and execution
+time to preserve visible state. Verification spends representation and proof
+effort on every component that can affect the claim. An observation can reduce
+that burden only when the surrounding contract truly cannot expose what it
+forgets.
+
+One quiet fact connects the layers. The physical machine carries a vast and
+changing electrical history. The architectural state replaces that history
+with a finite mathematical object sufficient for the next specified step.
+That compression is what makes an instruction rule possible.
+
 A state is a still picture. It tells us where every modeled value is, what may
 happen next, and whether another step is allowed. It does not move itself.
 Chapter 3 supplies the object that turns one such picture into the next.
@@ -477,9 +1045,9 @@ converse is false for a non-injective observation.
 \item \textbf{Transfer.} For a proposed RV64 state and a proposed x86-64
 state, list one special component or rule that has no direct A0 counterpart.
 State the functional question that makes it relevant.
-\item A sequence changes \(C\) but no register or memory byte. State two
+\item \textbf{Explain.} A sequence changes \(C\) but no register or memory byte. State two
 replacement claims for which that fact leads to different answers.
-\item Give one timing question for which A0 architectural state is too small.
+\item \textbf{Design.} Give one timing question for which A0 architectural state is too small.
 Name the missing physical information without adding it to A0.
 \item \textbf{Execute.} Starting from the state in the first exercise, change
 only \(pc\), then only \(O\), then one memory byte. For each change, list the
@@ -493,4 +1061,59 @@ equality does not support the original full-state claim.
 \item \textbf{Transfer.} Sketch a relation between an A0 input state and a
 future real-ISA input state for a routine with two arguments and one result.
 Name what the relation deliberately leaves unmatched.
+\item \textbf{Explain.} The hidden-mode device records only its visible bit.
+Give two histories that reach visible bit zero and then produce different
+answers to the same next command. State both honest repairs to its model.
+\item \textbf{Execute.} For the storage rule
+\(q_{t+1}=d_t\) when \(e_t=1\) and \(q_{t+1}=q_t\) otherwise, begin with
+\(q_0=0\). Apply the pairs \((d,e)=(1,0),(1,1),(0,0),(0,1)\). Record every
+retained value and identify which inputs were ignored.
+\item \textbf{Prove.} Count the register, program-counter, and condition
+assignments of A0 at width eight before memory and outcome enter. Then include
+the three coarse outcome classes. Explain why this is not a reachable-state
+count for a particular program.
+\item \textbf{Break.} Remove the preservation branch from the complete-update
+definition. Give two different next states that both satisfy an instruction
+description saying only that \(r_0\) receives \(r_1+r_2\).
+\item \textbf{Audit.} A test compares the declared write components before and
+after an instruction but never checks components outside the write set. Inject
+one hidden memory write that the test accepts. State the missing check.
+\item \textbf{Prove.} Show that agreement under a fixed observation is an
+equivalence relation. For an observation of the low bit of \(r_0\), describe
+one complete equivalence class at width four.
+\item \textbf{Design.} Give two observations that return different data
+formats but carry the same information. Supply conversion functions in both
+directions.
+\item \textbf{Break.} Find observations \(A\) and \(B\) such that neither
+factors through the other. Use one register observation and one memory
+observation, then exhibit a pair of states separated by each but not the
+other.
+\item \textbf{Execute.} Construct two states that differ only in \(Z\). Apply
+a continuation that copies 1 into \(r_0\) when \(Z=1\) and 2 otherwise. Show
+the direct and post-continuation results under observation of \(r_0\).
+\item \textbf{Prove.} A proposed state abstraction merges two states, but one
+input gives different visible outputs from them. Prove that no deterministic
+reduced transition rule can preserve both behaviors from the merged state.
+\item \textbf{Generalize.} Replace A0's deterministic step with a relation.
+Rewrite state sufficiency so that it compares sets of permitted successors.
+State what remains unchanged in the hidden-mode counterexample.
+\item \textbf{Prove.} Use induction on path length to show that an initial and
+step-preserved property holds in every reachable state. Identify the two
+premises that would be missing from the claim ``bad states are unreachable.''
+\item \textbf{Economics.} An extension adds \(k\) bytes of task-visible state.
+For \(n\) suspended tasks, express the direct storage increase. List two other
+costs that cannot be inferred from \(k\) alone and name the measurements they
+would require.
+\item \textbf{Transfer.} Map A0 \(r_0,r_1,r_2\) to three selected RV64
+registers and three selected x86-64 registers. Add program-counter and outcome
+clauses. State why this relation says nothing yet about instruction behavior.
+\item \textbf{Prove.} Assume \(D(E(S))=S\) for every admitted state. Prove
+that \(E\) is injective. Then explain why this law alone does not forbid two
+different byte strings from decoding to the same state.
+\item \textbf{Audit.} Design five mutations of a serialized A0 state: a
+duplicate register, a duplicate address, an omitted outcome, an out-of-width
+word, and an unknown field. State the required checker result for each.
+\item \textbf{Boundary.} Name one functional, one timing, and one leakage
+claim that the A0 tuple cannot establish. For each, identify the missing state
+or physical behavior without expanding A0 itself.
 \end{enumerate}

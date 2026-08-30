@@ -53,6 +53,74 @@ compact bargain and add a fixed boundary: beyond the highest position, the
 operation must say what happens.
 \end{archive}
 
+\subsection*{Every admitted pattern has one positional value}
+
+Let a width-\(w\) pattern have bits
+\(b_{w-1}\ldots b_1b_0\), where every \(b_i\) is either 0 or 1. Its unsigned
+positional value is
+\[
+  U_w(b_{w-1}\ldots b_0)=\sum_{i=0}^{w-1} b_i2^i.
+\]
+The rightmost bit has weight 1, the next has weight 2, and position \(i\) has
+weight \(2^i\). At width four,
+\[
+  U_4(1011)=1\mathbin{\cdot}8+0\mathbin{\cdot}4+
+  1\mathbin{\cdot}2+1\mathbin{\cdot}1=11.
+\]
+This equation is a reading of the pattern. It is not a claim that the marks
+on the page contain the number 11 without a convention.
+
+The sum always lies in the natural representative range. Its smallest value
+is zero. The largest value has a one in every position.
+\[
+  1+2+4+\cdots+2^{w-1}=2^w-1.
+\]
+The identity follows by doubling the sum and subtracting the original:
+\[
+  2(1+2+\cdots+2^{w-1})-(1+2+\cdots+2^{w-1})=2^w-1.
+\]
+Thus a width-\(w\) pattern never reads outside
+\(0,\ldots,2^w-1\), and every possible word representative has room in that
+interval.
+
+The converse is constructive. Given a representative \(x<2^w\), divide it by
+2. The remainder is bit \(b_0\), and the quotient contains the remaining high
+bits. Divide the quotient by 2 again to obtain \(b_1\). Repeating the step
+\(w\) times produces the pattern. For 11, the successive quotient-remainder
+pairs are
+\[
+  11=2\mathbin{\cdot}5+1,\quad
+  5=2\mathbin{\cdot}2+1,\quad
+  2=2\mathbin{\cdot}1+0,\quad
+  1=2\mathbin{\cdot}0+1.
+\]
+Reading the remainders from last to first gives \code{1011}.
+
+No second width-\(w\) pattern can have the same unsigned value. Suppose two
+patterns first differ at their highest differing position \(j\). One has a
+one there and the other has a zero. The weight \(2^j\) exceeds the sum of all
+lower weights,
+\[
+  1+2+\cdots+2^{j-1}=2^j-1.
+\]
+No arrangement of lower bits can cancel that difference. The two positional
+sums must be unequal.
+
+\begin{proofkit}[title={\iconProofKit\ Existence and uniqueness are separate}]
+Repeated division shows that every natural representative below \(2^w\) has
+a width-\(w\) binary pattern. The highest-differing-position argument shows
+that it has at most one. Together they establish a one-to-one correspondence
+between the \(2^w\) patterns and the natural representatives
+\(0,\ldots,2^w-1\).
+\end{proofkit}
+
+This correspondence is the hinge between two useful views. The bit view makes
+positions, masks, and encodings visible. The residue view makes boundary
+arithmetic concise. We may move between them because split-by-division and
+join-by-place-value undo each other. Later proof routes must preserve
+that hinge; a solver formula that numbers the bits in the opposite direction
+describes a different reading.
+
 \section{Writing patterns without losing the width}
 
 Binary notation writes one symbol for every bit, which makes bit positions
@@ -77,15 +145,43 @@ rule that maps the numeral into that set.
 Leading zeroes carry this missing information when the context has not
 already fixed it. The patterns \code{1111} and \code{00001111} have the same
 unsigned reading, but they are different-width words. They offer different
-high bits, different wraparound points, and different results under a
+high bits, different points where arithmetic returns to zero, and different results under a
 width-sensitive operation such as bitwise not.
+
+Hexadecimal is useful because the grouping is exact. Each hexadecimal digit
+has sixteen possible values, and four bits have \(2^4=16\) possible patterns.
+The mapping is one-to-one:
+\[
+\begin{array}{c|cccccccccccccccc}
+\mathrm{hex}&0&1&2&3&4&5&6&7&8&9&A&B&C&D&E&F\\
+\hline
+\mathrm{value}&0&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15
+\end{array}
+\]
+To convert binary to hexadecimal, group from the low end in blocks of four.
+To convert back, replace each digit with its four-bit pattern. No arithmetic
+meaning is lost, provided the width or leading group is retained.
+
+Decimal notation behaves differently. The value 255 has a short decimal
+spelling, but its decimal digits do not align with fixed groups of bits.
+Converting between decimal and binary uses repeated division or a weighted
+sum. Converting between hexadecimal and binary is a local substitution at
+each group. This is why architecture manuals, debuggers, masks, addresses, and
+instruction dumps commonly use hexadecimal: it is compact while leaving bit
+boundaries recoverable.
+
+The notation still does not choose an interpretation. The spelling
+\code{0xffffffff} can denote the unsigned value \(2^{32}-1\), signed -1, four
+bytes, a mask, or part of a wider object. Hexadecimal makes the pattern easier
+to inspect. It does not decide what an operation means.
 
 \section{A finite circle}
 
 Begin with a four-bit counter. It visits the patterns for 0 through 15. Add one
 to 15 and the counter returns to 0 because there is no fifth bit in which to
-store 16. This return to the start of a fixed-width range is
-\keyterm{wraparound}. Add two to 15 and the counter stops at 1.
+store 16. This is \keyterm{wraparound}: arithmetic returned from the largest
+word to zero.
+Add two to 15 and the counter stops at 1.
 
 \begin{definition}[title={A0 word}]
 For \(w \geq 1\), a \keyterm{word of width \(w\)} is a residue modulo
@@ -143,6 +239,14 @@ width 8 or width 64 without asking us to inspect \(2^{64}\) rows.
 
 \subsection{Congruence explains why representatives may change}
 
+The notation is older than the electronic computer. In the opening sections
+of \emph{Disquisitiones Arithmeticae}, Gauss gave a name and a compact symbol
+to the relation between integers that leave the same remainder. He wrote that
+one number is congruent to another for a modulus when their
+difference is divisible by that modulus.\autocite{gauss1801disquisitiones}
+Our special choice of modulus, \(2^w\), comes from the number of patterns in a
+width-\(w\) word.
+
 Write \(a\equiv b\pmod{2^w}\) when \(a-b\) is a multiple of \(2^w\). The two
 integers then name the same width-\(w\) word. At width four,
 \(-1\equiv15\pmod{16}\) and \(17\equiv1\pmod{16}\). Choosing the natural
@@ -154,6 +258,93 @@ name the same word, then adding the same integer \(c\) to both produces
 another pair whose difference is still a multiple of \(2^w\). Multiplying by
 \(c\) does the same. This is why modular operations are well-defined on words
 rather than on one accidental choice of integer representative.
+
+The phrase \keyterm{well-defined} carries a precise burden. Suppose a word is
+written once by representative \(a\) and again by representative \(a'\), with
+\(a\equiv a'\pmod{2^w}\). Suppose the same is true of \(b\) and \(b'\). An
+operation on words is well-defined only if choosing the primed spellings
+cannot change the resulting residue. For addition,
+\[
+  (a+b)-(a'+b')=(a-a')+(b-b').
+\]
+Both terms on the right are multiples of \(2^w\), so their sum is too. Hence
+\(a+b\equiv a'+b'\pmod{2^w}\). For multiplication, expand
+\[
+  ab-a'b'=a(b-b')+b'(a-a').
+\]
+Again, each term is a multiple of the modulus. Addition and multiplication
+therefore act on the residue classes themselves, not merely on the natural
+representatives we print.
+
+This small proof prevents a large ambiguity. We often compute with the
+representative 15 for a width-four word. A signed argument may instead use
+-1. The two calculations may take different paths through the integers, but
+an operation defined on the modular carrier must return the same stored word.
+If it does not, the purported word operation has accidentally depended on a
+reading.
+
+An \keyterm{equivalence relation} is a relation that is reflexive, symmetric,
+and transitive. Congruence has all three properties. Every integer is
+congruent to itself; reversing a divisible difference preserves divisibility;
+and adding two divisible differences gives a divisible difference. The
+relation partitions all integers into \(2^w\) nonoverlapping classes. A word
+is one of those classes. Its natural representative is a convenient name for
+the class, not its entire mathematical identity.
+
+\begin{proofkit}[title={\iconProofKit\ Why the quotient has exactly \(2^w\) words}]
+Division with remainder assigns every integer exactly one remainder in
+\(0,\ldots,2^w-1\). Integers with the same remainder are congruent, and
+integers with different remainders cannot differ by a multiple of \(2^w\).
+Each remainder therefore names one class, no two names collide, and every
+integer belongs to one of the \(2^w\) classes.
+\end{proofkit}
+
+\subsection{Width counts distinguishable alternatives}
+
+The cardinality \(2^w\) gives width an information meaning before any numeric
+reading is chosen. One bit can distinguish two alternatives. Two bits can
+distinguish four. Appending one independent bit doubles the number of possible
+patterns because each old pattern can be paired with either 0 or 1.
+
+If a field must distinguish \(N\) alternatives, its width must satisfy
+\(2^w\geq N\). The smallest sufficient width is
+\[
+  w=\lceil\log_2 N\rceil.
+\]
+The ceiling means the least whole number not below the logarithm. Five
+operation codes need at least three bits: two bits distinguish only four
+cases, while three bits distinguish eight. The three unused patterns do not
+vanish. The instruction-set design must reserve them, declare them illegal,
+or assign them later.
+
+This counting lower bound is independent of the chosen code. No clever
+assignment can put five distinct operations into four patterns without making
+two operations share a spelling. A variable-length code can change the
+question by allowing different numbers of bits, but it must then provide a
+rule that says where one code ends. Chapter 6 will apply that trade to fixed
+and variable instruction encodings.
+
+Unused patterns have economic and semantic value. Reserving them can leave
+room for later extensions. Declaring them illegal can detect damaged or
+unsupported input. Assigning every pattern can make a decoder total, but it
+removes that particular source of extension space. The count alone does not
+choose among these policies. It makes their capacity cost visible.
+
+The same argument applies to data. An unsigned field for the values 0 through
+999 needs ten bits because \(2^9=512<1000\leq1024=2^{10}\). Sixteen such
+fields occupy 160 payload bits before alignment or metadata. Rounding every
+field to 16 bits simplifies many machine operations but raises the payload to
+256 bits. Packing saves 96 bits per record while introducing extraction,
+insertion, and possibly cross-byte access work.
+
+\begin{goingdeeper}[title={\iconGoingDeeper\ Capacity is not physical reliability}]
+Counting patterns says how many alternatives a width can name. It does not
+say how a circuit stores them or how reliably a receiver distinguishes them.
+Voltage ranges, timing, noise, error detection, and physical energy belong to
+the realization of the bit abstraction. Chapter 2 introduces that boundary;
+later chapters ask which physical effects remain invisible to architectural
+semantics and which become observable faults or timing behavior.
+\end{goingdeeper}
 
 Subtraction needs no separate underflow object in the carrier. At width four,
 \(0-1=-1\equiv15\pmod{16}\), so the stored result is \code{1111}. An
@@ -177,6 +368,20 @@ complete arithmetic once its rules are fixed.\autocite{leibniz1703binary}
 
 \section{Bits and Boolean operations}
 
+The algebra and the machinery met in stages. Boole's nineteenth-century work
+treated logical classes through algebraic operations. It was not a manual for
+binary computers. In 1938, Claude Shannon used a two-valued symbolic calculus
+to analyze relay contacts and switching networks. A closed or open path could
+be represented symbolically, and algebraic manipulation could test
+equivalence or seek a circuit with fewer contacts.
+\autocite{boole1854laws,shannon1938symbolic}
+
+That bridge matters because it separates three objects that are easy to
+collapse: a logical value, a physical switching condition, and a stored bit.
+The algebra describes relations among two values. An engineering design says
+which physical conditions realize them. A word arranges several such
+positions and gives each a weight or role.
+
 For \(0 \leq i < w\), bit \(i\) of a word \(x\) is
 \[
   \bigl(x \mathbin{\mathrm{div}} 2^i\bigr) \bmod 2.
@@ -185,6 +390,25 @@ Bit zero is the least significant bit. Bit \(w-1\) is the most significant.
 Bitwise and, or, exclusive or, and not apply one Boolean operation at every
 position.
 
+The three binary operations have four possible input pairs. The table gives
+all results:
+\[
+\begin{array}{cc|ccc}
+a & b & a\mathbin{\mathrm{and}}b & a\mathbin{\mathrm{or}}b &
+ a\mathbin{\mathrm{xor}}b \\
+\hline
+0&0&0&0&0\\
+0&1&0&1&1\\
+1&0&0&1&1\\
+1&1&1&1&0
+\end{array}
+\]
+Bitwise not needs one input: it exchanges 0 and 1. Because the table lists
+every possible input pair, it is both an executable definition and a tiny
+exhaustive proof resource. The xor column shows directly that
+\(a\mathbin{\mathrm{xor}}0=a\) and
+\(a\mathbin{\mathrm{xor}}a=0\) for either bit.
+
 For example,
 \[
   \mathtt{1010}\mathbin{\mathrm{and}}\mathtt{1100}=\mathtt{1000},
@@ -192,6 +416,16 @@ For example,
   \mathtt{1010}\mathbin{\mathrm{xor}}\mathtt{1100}=\mathtt{0110}.
 \]
 Each output position can be checked without consulting another position.
+
+Applying a Boolean law to every position lifts it to words. If
+\(x\mathbin{\mathrm{xor}}m\) toggles the positions selected by mask \(m\), a
+second xor with \(m\) restores each position. Selected bits toggle twice.
+The positions not selected agree with xor zero twice. Thus
+\[
+  (x\mathbin{\mathrm{xor}}m)\mathbin{\mathrm{xor}}m=x.
+\]
+The proof is local to one position, yet it covers words of every width. This
+is our first bitwise proof that scales without enumerating every word.
 
 Bitwise operations become useful when one word carries several independent
 choices. A \keyterm{mask} is a word used to select positions. If a mask has a
@@ -215,6 +449,57 @@ the mask clears everything above it. Each step has a separate purpose, which
 makes a wrong shift distance or a wrong mask easy to attack.
 \end{example}
 
+The extraction formula follows from positional division. Write
+\[
+  x=q2^{p+\ell}+f2^p+r,
+\]
+where \(0\leq f<2^\ell\) is the desired length-\(\ell\) field at position
+\(p\), and \(0\leq r<2^p\) contains the lower positions. Whole-number
+division by \(2^p\) discards \(r\):
+\[
+  x\mathbin{\mathrm{div}}2^p=q2^\ell+f.
+\]
+Taking the remainder modulo \(2^\ell\) then discards the higher part and
+leaves \(f\). Hence
+\[
+  \mathrm{extract}(x,p,\ell)=
+  (x\mathbin{\mathrm{div}}2^p)\bmod 2^\ell.
+\]
+The shift-and-mask method is the same calculation in word operations. Logical
+right shift performs the division, and an all-ones mask of length \(\ell\)
+performs the remainder.
+
+Insertion needs two protections. It must prevent old field bits from surviving
+under new zeroes, and it must prevent an oversized new value from reaching
+neighboring positions. Let
+\[
+  M_{p,\ell}=(2^\ell-1)2^p
+\]
+be the mask whose ones occupy exactly the destination field. Then
+\[
+\begin{array}{rcl}
+  \mathrm{insert}(x,y,p,\ell)&=&
+  (x\mathbin{\mathrm{and}}\mathop{\mathrm{not}}M_{p,\ell})\\
+  &&\mathbin{\mathrm{or}}
+  ((y\mathbin{\mathrm{and}}(2^\ell-1))2^p).
+\end{array}
+\]
+The first line clears the destination in \(x\). The second keeps only the
+admitted low bits of \(y\) and moves them into place. Since the two pieces
+have no common one-position, or combines them without a carry.
+
+Two laws state the intended frame precisely. Extracting the inserted field
+returns \(y\bmod2^\ell\). Extracting any position outside that field returns
+the corresponding bit of \(x\). The first is a result law; the second is a
+frame law saying what the operation leaves unchanged. Chapter 3 will require
+the same two-part discipline for instructions.
+
+\begin{warning}[title={Clearing and masking do different work}]
+Clearing only the old field does not constrain an oversized new value.
+Masking only the new value does not remove old one-bits where the new field
+contains zeroes. A correct insertion needs both steps.
+\end{warning}
+
 A logical left shift by \(k\) multiplies by \(2^k\) and then reduces modulo
 \(2^w\). A logical right shift divides by \(2^k\) and keeps the whole-number
 quotient. Thus \code{1100} shifted logically right by one becomes
@@ -228,9 +513,89 @@ treats it as a sign; an unsigned operation does not.
 
 A shift count also needs a boundary rule. What happens when \(k\geq w\)?
 Different languages and instruction forms may mask the count, reject it, or
-define a zero result for a logical shift. A0 must choose one rule before a
-shift theorem can range over all inputs. Until that choice appears in the
-executable word package, examples in this chapter keep \(0\leq k<w\).
+define a zero result for a logical shift. A0 chooses a total rule. A logical
+shift by \(k\geq w\) returns zero. An arithmetic right shift by \(k\geq w\)
+returns all zeroes when the source high bit is zero and all ones when it is
+one. A rotation uses the effective count \(k\bmod w\). These are A0 teaching
+rules, not claims about every language or processor.
+
+The total rule matters for proofs and implementations. A function that is
+undefined at large counts cannot support a universal theorem over all natural
+counts. A function that silently masks a count proves a different theorem
+from one that returns zero. The eventual Axeyum operation must implement the
+rule stated here and reject a control that substitutes either neighboring
+policy.
+
+\subsection{Shifts move a boundary; rotations preserve positions in a cycle}
+
+For \(0\leq k<w\), a logical left shift has the word-level definition
+\[
+  \mathrm{shl}_w(x,k)=(x2^k)\bmod 2^w.
+\]
+The low \(k\) result positions become zero. Source bits that move beyond
+position \(w-1\) are discarded. The operation is therefore multiplication by
+a power of two on the modular carrier, but it need not preserve the ordinary
+integer product. At width eight, shifting \code{11100001} left by three gives
+\code{00001000}. The mathematical product is larger than the unsigned range;
+only its low eight bits remain.
+
+A logical right shift uses whole-number division:
+\[
+  \mathrm{lshr}_w(x,k)=x\mathbin{\mathrm{div}}2^k.
+\]
+The high \(k\) result positions become zero, and the low \(k\) source bits are
+discarded. This operation is not an inverse of left shift on every word. Once
+a discarded bit is gone, the other shift cannot recover it. The identity
+\[
+  \mathrm{lshr}_w(\mathrm{shl}_w(x,k),k)=x
+\]
+holds only when the top \(k\) bits of \(x\) were zero. The premise names the
+information that the left shift would otherwise lose.
+
+Arithmetic right shift fills the new high positions with copies of the old
+high bit. Under the two's-complement reading, it computes floor division by
+\(2^k\). This differs from truncation toward zero for a negative odd value.
+At width four, \code{1101} has signed reading -3. Arithmetic right shift by
+one gives \code{1110}, whose signed reading is -2. The result is
+\(\lfloor-3/2\rfloor\), not -1. An optimizer that replaces signed division
+with a right shift must account for the language's rounding rule.
+
+A \keyterm{rotation} moves bits around a fixed cycle instead of discarding
+them. Consider a left rotation by \(k\). Split \(x\) into the bits that remain
+after the left shift and the high bits that cross the boundary:
+\[
+  \mathrm{rol}_w(x,k)=
+  \mathrm{shl}_w(x,k)\mathbin{\mathrm{or}}
+  \mathrm{lshr}_w(x,w-k),
+\]
+for \(0<k<w\), with rotation by zero defined as the identity. At width eight,
+rotating \code{11100001} left by three gives \code{00001111}: the three high
+ones return in the low positions. Unlike a shift, a rotation is a permutation
+of positions. Rotating left by \(k\) and then right by \(k\) returns every
+word.
+
+\begin{proofkit}[title={\iconProofKit\ Why a rotation loses no bit}]
+The source positions \(0\) through \(w-k-1\) move upward by \(k\). The source
+positions \(w-k\) through \(w-1\) wrap to positions \(0\) through \(k-1\).
+The two destination ranges are \keyterm{disjoint}, meaning that they share no
+position. Together they cover all \(w\) positions. Every source position has one destination, and every destination
+has one source. Reversing the movement gives the opposite rotation.
+\end{proofkit}
+
+Masks and shifts also support field insertion. To replace a field of length
+\(\ell\) beginning at position \(p\), first clear those positions in the old
+word. Then keep only the low \(\ell\) bits of the new field, shift them left
+by \(p\), and combine the two pieces with or. The range premise
+\(0\leq p\), \(0\leq\ell\), and \(p+\ell\leq w\) is part of the operation.
+Without it, the field may cross the word boundary or ask for a negative
+position.
+
+\begin{tryit}[title={Extract, change, and insert one field}]
+Treat \code{10110110} as four two-bit fields. Extract the field in positions
+4 and 5. Replace it with \code{01} while preserving the other six positions.
+Write the clear mask, shifted new field, and final word. Then change one mask
+bit and show which supposedly preserved position is damaged.
+\end{tryit}
 
 \section{Unsigned and signed readings}
 
@@ -257,6 +622,60 @@ separate fact that later condition-state rules may record. It is imprecise to
 say that \code{1000} simply is negative. It has signed reading -8 and unsigned
 reading 8.
 
+The modular carrier also explains negation. An additive \keyterm{inverse} is a
+value that adds to the original value to produce zero. The inverse of word
+\(x\) is the word \(-x\bmod 2^w\).
+At the bit level, invert every position and add one:
+\[
+  -x\equiv (2^w-1-x)+1\equiv \mathop{\mathrm{not}}x+1
+  \pmod{2^w}.
+\]
+The all-ones word represents \(2^w-1\), so subtracting \(x\) from it flips
+each bit. The final one completes the modular inverse. For width four,
+\code{0011} becomes \code{1100} after inversion and \code{1101} after adding
+one. The signed readings are 3 and -3.
+
+The word \keyterm{nonnegative} means zero or positive. This rule is not a
+trick pasted onto binary notation. It is the ordinary
+additive inverse in the residue system. The same width-\(w\) adder can add
+unsigned representatives or two's-complement readings because both use the
+same stored modular addition. The interpretation of carry and signed overflow
+changes; the low \(w\) sum bits do not.
+
+Two words are their own additive inverses. Zero plainly satisfies
+\(-0=0\). The word \(2^{w-1}\) does too, since doubling it gives \(2^w\),
+which is zero modulo \(2^w\). Under the signed reading this second fixed point
+is the most negative value. At width four, negating \code{1000} returns
+\code{1000}. There is no stored pattern for +8. A claim that signed negation
+always produces the mathematical opposite therefore needs a premise excluding
+the most negative input, or it needs a wider result.
+
+\begin{warning}[title={The signed range is asymmetric}]
+A width-\(w\) two's-complement word represents one more negative integer than
+positive integers. The range begins at \(-2^{w-1}\) and ends at
+\(2^{w-1}-1\). Negating the lower endpoint cannot produce its positive
+opposite at the same width.
+\end{warning}
+
+Two's complement was not the only possible signed reading. A
+\keyterm{sign-magnitude} convention reserves one bit for the sign and uses the
+remaining bits for the magnitude. A \keyterm{ones'-complement} convention
+forms a negative pattern by inverting every bit of the positive pattern.
+Both admit separate positive-zero and negative-zero patterns. Historical
+computers used these and other numeric organizations. For example, the
+UNIVAC 1108 programmer's reference defines a 36-bit signed word by
+ones' complement and explicitly gives all-zero and all-one patterns for +0
+and -0.\autocite{univac1970processor} The manual makes representation an
+architectural rule a program must know, not a hidden fact about a circuit.
+The eventual prevalence of two's complement should not be retold as if the
+bits demanded it.
+
+The engineering attraction is visible in the mathematics we have already
+built. Modular addition serves signed and unsigned readings, zero has one
+pattern, and sign extension has a simple rule. Those benefits do not make
+every operation interpretation-free. Comparisons, division, right shifts,
+conversions, and overflow tests still need the signed or unsigned contract.
+
 Two boundary facts deserve separate names. An unsigned addition produces a
 \keyterm{carry out} when the ordinary nonnegative sum is at least \(2^w\).
 A signed addition has \keyterm{signed overflow} when the sum of the two signed
@@ -279,6 +698,67 @@ them. Adding two nonnegative values overflows exactly when the stored result
 has a high bit of one. Adding two negative values overflows exactly when the
 stored result has a high bit of zero. Chapter 3 will turn these observations
 into explicit A0 condition-state updates rather than leaving them as prose.
+
+\subsection{When modular addition agrees with signed addition}
+
+Let \(S_w(x)\) denote the two's-complement reading of word \(x\). Consider any
+two words \(x\) and \(y\). Modular addition first forms
+\[
+  z=(x+y)\bmod2^w.
+\]
+If the mathematical signed sum \(S_w(x)+S_w(y)\) lies inside the signed
+range, then
+\[
+  S_w(z)=S_w(x)+S_w(y).
+\]
+In this exact sense, the shared word adder computes signed addition. Outside
+the range, the word result still exists. Its signed reading
+is the mathematical sum shifted by \(2^w\) into the interval that fits the
+width.
+
+The proof can be organized by the two readings. Each unsigned representative
+equals its signed reading or its signed reading plus \(2^w\). There are
+therefore integers \(e_x,e_y\in\{0,1\}\) such that
+\[
+  x=S_w(x)+e_x2^w,
+  \qquad
+  y=S_w(y)+e_y2^w.
+\]
+Adding gives
+\[
+  x+y=S_w(x)+S_w(y)+(e_x+e_y)2^w.
+\]
+The last term vanishes when we take the residue modulo \(2^w\). The stored
+sum is congruent to the mathematical signed sum. If that sum already lies in
+the signed range, it is the unique signed reading for the result. If it lies
+outside, congruence alone cannot make the out-of-range integer fit the width;
+the reading returns the congruent integer that does fit.
+
+This proof explains both the power and the limit of the shared carrier. We do
+not need a second addition operation for signed low bits. We do need a
+separate condition to say whether reading those bits as the mathematical sum
+is valid.
+
+The familiar sign rule now follows. Two operands with different signs have a
+sum between them, so their sum remains inside the signed range. Two
+nonnegative operands overflow only if the result crosses the upper endpoint
+and reappears with a high bit of one. Two negative operands overflow only if
+the result crosses the lower endpoint and reappears with a high bit of zero.
+
+\begin{proofkit}[title={\iconProofKit\ A condition is a theorem about readings}]
+The word adder always returns \((x+y)\bmod2^w\). The signed-overflow condition
+is true exactly when the signed reading of that word differs from the ordinary
+sum of the operand readings. The condition does not alter the result. It
+reports whether one interpretation law survived the modular operation.
+\end{proofkit}
+
+Subtraction uses the same structure because
+\(x-y=x+(-y)\) in the modular carrier. Its signed-overflow test must still
+follow the subtraction readings, not a memorized addition slogan. Subtracting
+a negative value from a nonnegative value can cross the upper endpoint;
+subtracting a nonnegative value from a negative value can cross the lower
+endpoint. Chapter 8 will derive the complete condition formulas beside the
+machine flags that record them.
 
 \begin{tryit}[title={Two readings, one pattern}]
 List all sixteen width-four patterns. Write the unsigned and signed reading of
@@ -393,6 +873,48 @@ and \(2^8-1\). Splitting extracts \(b_0=x\bmod 2^8\). Dividing \(x\) by
 \(b_0+2^8b_1=x\). For more bytes, the same quotient-and-remainder step repeats.
 Nothing in this argument depends on the hexadecimal spelling of \(x\).
 
+The general proof can be written as repeated division. Let the word contain
+\(n\) bytes, so its width is \(8n\). Division by \(2^8\) gives a quotient and
+a remainder. Both are unique.
+\[
+  x=2^8q_1+b_0,\qquad 0\leq b_0<2^8.
+\]
+Apply the same step to \(q_1\), then to the next quotient:
+\[
+  q_1=2^8q_2+b_1,\quad
+  q_2=2^8q_3+b_2,\quad\ldots\quad
+  q_{n-1}=2^8q_n+b_{n-1}.
+\]
+Because \(x<2^{8n}\), the final quotient \(q_n\) is zero. Substituting each
+equation into the previous one gives
+\[
+  x=b_0+b_1 2^8+b_2 2^{16}+\cdots+b_{n-1}2^{8(n-1)}.
+\]
+The right side is exactly the join formula. Splitting and then joining returns
+the original word.
+
+The reverse direction matters too. Begin with any \(n\)-byte sequence and
+join it. The resulting sum is less than \(2^{8n}\), because its largest value
+occurs when every byte is 255. Splitting at position \(i\) divides away the
+lower \(i\) byte weights and takes the remainder modulo 256. All higher terms
+are multiples of 256, so only \(b_i\) remains. Joining and then splitting
+returns the original sequence.
+
+\begin{proofkit}[title={\iconProofKit\ Split and join form a bijection}]
+Split-after-join is the identity on byte sequences, and join-after-split is the
+identity on words whose width is a positive multiple of eight. The two
+functions undo each other. They establish a one-to-one correspondence between
+width-\(8n\) words and sequences of \(n\) bytes. Endianness chooses which
+sequence position meets the lowest address; it does not change the number of
+possible words.
+\end{proofkit}
+
+The counting agrees with the algebra. There are 256 choices for each of
+\(n\) bytes, hence \(256^n=(2^8)^n=2^{8n}\) sequences. That is exactly the
+number of width-\(8n\) words. Equal counts alone would not prove that our
+particular split and join are inverse. The quotient-and-remainder argument
+does.
+
 \begin{tryit}[title={A byte round trip with unequal digits}]
 Split \code{0x00a17c03} into four little-endian bytes. Join them in the proper
 order, then join the reversed list. Unequal bytes make an order error visible;
@@ -409,6 +931,138 @@ Width four was useful for the reader proofs because all sixteen cases fit on a
 page. A complete A0 state has width equal to a positive multiple of eight.
 Here lies the first firm boundary between a proof miniature and the executable
 teaching machine.
+
+\section{One carrier, several arithmetic contracts}
+
+The modular carrier guarantees a stored result for addition, subtraction, and
+multiplication. A programming interface may expose that result in several
+ways. These choices are contracts above the carrier, not rival accounts of
+what remainder means.
+
+\begin{description}
+\item[Modular arithmetic] returns the low \(w\) bits. Crossing the unsigned
+range wraps around. Counters, checksums, hashing, cryptographic operations,
+and address calculations often use this behavior deliberately.
+\item[Checked arithmetic] returns the mathematical result when it fits and
+otherwise reports failure, raises an exception, traps, or produces a separate
+status. The failure is part of the outcome.
+\item[Saturating arithmetic] returns the nearest endpoint when the
+mathematical result lies outside the chosen range. Adding 20 to an unsigned
+eight-bit value 250 returns 255 rather than 14. Image, audio, control, and
+vector operations may prefer a clipped boundary to wraparound.
+\end{description}
+
+The three contracts agree on inputs whose mathematical result lies in range.
+Agreement there does not make them equivalent. Width-eight addition of 250
+and 20 separates all three: modular addition returns 14, checked addition
+reports the out-of-range event, and unsigned saturation returns 255. A test
+suite containing only small operands cannot tell which contract was
+implemented.
+
+These choices appear side by side in current software interfaces. Rust's
+fixed-width integer types provide named method families such as
+\code{wrapping_add}, \code{checked_add}, \code{overflowing_add},
+\code{strict_add}, and \code{saturating_add}.\autocite{rust2026u8} The names
+make the boundary policy part of the operation a programmer selects. A proof
+that replaces one method with another must cover the out-of-range inputs where
+their results or outcomes differ.
+
+Signed arithmetic adds another distinction. The modular word result still
+exists, but a language may refuse to assign a normal signed result when the
+mathematical sum lies outside the signed range. A compiler cannot infer a
+language-level rewrite merely from the fact that the target adder produces
+low bits. It must preserve the source language's rule for the exceptional
+case as well as the machine's visible flags, traps, or lack of them.
+
+\begin{keyidea}[title={The carrier does not choose the error policy}]
+Modulo \(2^w\) defines the stored low bits. A checked, trapping, flag-setting,
+or saturating interface adds an observation about crossing a declared range.
+State both layers before proving that an arithmetic replacement is correct.
+\end{keyidea}
+
+This distinction also explains why ``overflow'' cannot name one universal
+event. Unsigned carry asks whether a nonnegative result crossed \(2^w\).
+Signed overflow asks whether a signed result left a different interval.
+Saturation asks which endpoint should replace an out-of-range result. A
+language-level exception asks whether ordinary execution continues at all.
+The same adder inputs can lead these observers to different conclusions.
+
+\section{Width is an engineering budget}
+
+A wider word admits more patterns, but those patterns are not free. A billion
+eight-bit values contain one billion payload bytes. A billion 64-bit values
+contain eight billion payload bytes. Ignoring metadata, alignment, and
+compression, the width choice changes the payload from about 1 GB to about
+8 GB. Reading the wider representation also moves eight times as many payload
+bits through a memory interface.
+
+That arithmetic does not prove that the narrow representation is faster or
+cheaper in every system. A processor may widen narrow values before
+calculation. Alignment may add unused space. Conversion instructions may cost
+time. Compression may remove repeated high bits. The point is narrower:
+representation width places a first-order bound on storage and transfer, then
+the surrounding machine changes the realized cost.
+
+Width also determines parallel capacity. A 256-bit vector register can hold
+thirty-two eight-bit lanes, sixteen 16-bit lanes, eight 32-bit lanes, or four
+64-bit lanes. More lanes may increase the number of independent operations per
+instruction, while narrower lanes also reduce each result's range. Whether the
+trade is acceptable depends on the data, the arithmetic contract, and the
+cost of conversion or saturation.
+
+Addresses create a different pressure. Their width limits the directly named
+address space, but widening every address also enlarges pointers stored in
+tables and object structures. An architecture and its software environment
+therefore balance address reach, register rules, instruction encoding,
+memory footprint, and compatibility with existing programs. ``Use the widest
+integer'' is not an architecture principle. It is one choice among competing
+costs.
+
+The present industrial question is often not which single width a machine
+has. Modern architectures support several operand widths and impose rules for
+how they meet a wider register. In RV64I, instructions with a \code{W} suffix
+compute a 32-bit result and sign-extend it into the 64-bit destination.
+\autocite{riscv2026unpriv} In 64-bit mode, selected x86-64 writes to a 32-bit
+general-purpose destination clear the upper half of the corresponding 64-bit
+register.\autocite{intel2026sdm1} Both rules give later instructions a known
+upper half, but they establish different known patterns.
+
+The shift count is another width contract. In the teaching slice,
+\code{SRAI rd, rs1, shamt} uses a six-bit immediate amount in RV64I. The
+x86-64 form \code{SAR r64, CL} masks the supplied count to six low bits, and
+its flag effects depend on the effective count.
+\autocite{riscv2026unpriv,intel2026sdm2}
+A compiler, decoder, or proof model must preserve those exact rules. Replacing
+them with the vague sentence ``shift by \(k\)'' loses behavior at the boundary
+where verification is most useful.
+
+The narrow-result pair is also concrete. \code{ADDIW rd, rs1, imm} computes a
+32-bit result and sign-extends it into the RV64 destination. The x86-64 form
+\code{MOV r32, r/m32} writes a 32-bit general-purpose destination and clears
+the upper 32 bits of its 64-bit register. The same low pattern with bit 31 set
+therefore produces different upper halves.
+\autocite{riscv2026unpriv,intel2026sdm1,intel2026sdm2}
+
+\begin{table}[htbp]
+\centering
+\caption{Three present width rules that answer different questions.}
+\begin{tabular}{@{}p{0.22\textwidth}p{0.31\textwidth}p{0.35\textwidth}@{}}
+\toprule
+Rule & What it fixes & What it does not settle \\
+\midrule
+RV64I \code{*W} result & low 32-bit computation and sign-extended destination & source-language overflow policy \\
+x86-64 32-bit register write & upper half of the 64-bit register becomes zero & signed reading of the low half \\
+Shift-count rule & effective count admitted by one instruction form & whether the right shift is logical or arithmetic \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These are economic rules as well as mathematical ones. Known upper bits can
+remove a separate extension instruction. Narrow lanes can increase packed
+throughput and reduce traffic. Stable legacy behavior lets old binaries keep
+running, while it also constrains new implementations and compiler back ends.
+The proof obligation begins only after the chosen benefit and the exact rule
+have names.
 
 \section{The two companion questions}
 
@@ -446,6 +1100,39 @@ has 64-bit registers does not settle the result of a narrower write. We need
 the exact instruction form and the governing manual revision. Part II will
 supply those source-pinned answers after A0 has given us the questions in a
 stable order.
+
+\section{What the word model now fixes}
+
+A word begins as one member of a finite carrier. Its width fixes the number of
+patterns and the modulus for stored arithmetic. Positional expansion relates
+each pattern to one natural representative. A signed reading maps the same
+carrier to a different interval without moving a bit.
+
+Operations then state what they preserve. Boolean operations act independently
+at each position. Shifts move bits across a boundary and may discard them.
+Rotations permute all positions. Extension chooses a reading to preserve.
+Truncation keeps low positions and generally loses information. Split and join
+relate one byte-multiple word to an ordered byte sequence.
+
+None of these definitions supplies a physical register or memory cell. None
+chooses a language's failure policy. None says that two machine instructions
+with similar printed operands have the same effects. Those are later layers.
+The word model instead gives them a common exact vocabulary.
+
+The distinctions also organize proof. A residue law may use congruence. A
+bitwise law may prove one position and lift it to every position. A width-change
+law names the reading it preserves. A split/join law uses quotient and
+remainder. A claim about cost states whether it counts bits, bytes, lanes,
+instructions, traffic, or time. Choosing the proof shape after choosing the
+claim is part of the method, not decoration around it.
+
+\begin{keyidea}[title={One pattern can support many meanings without ambiguity}]
+Ambiguity enters only when a claim omits its reading, width, operation, or
+observation. Once those are declared, the same underlying pattern can safely
+serve as an unsigned value, signed value, mask, field collection, byte, or
+encoding fragment. The multiplicity is a source of expressive power because
+the boundaries are explicit.
+\end{keyidea}
 
 \section{The implementation boundary}
 
@@ -510,22 +1197,26 @@ the state in which those questions have answers.
 
 \section{Exercises}
 
+The exercises move from calculation to proof and transfer. A complete answer
+states the width and reading before using a result. For every false claim,
+prefer a smallest or boundary witness that explains the failure.
+
 \begin{enumerate}
 \item \textbf{Execute.} Compute every width-four sum \(x+1\). Explain the wraparound once by
 enumeration and once by the remainder definition.
-\item Find two width-four additions with the same stored result but different
+\item \textbf{Explain.} Find two width-four additions with the same stored result but different
 signed or unsigned interpretations.
-\item Convert \code{0x9d} to eight binary digits. Use masks and shifts to
+\item \textbf{Execute.} Convert \code{0x9d} to eight binary digits. Use masks and shifts to
 extract its low three bits and its high three bits.
-\item Zero-extend and sign-extend each width-four pattern whose high bit is
+\item \textbf{Execute.} Zero-extend and sign-extend each width-four pattern whose high bit is
 one. State which integer reading each operation preserves.
-\item For every pair among \code{0111}, \code{1111}, and \code{0001}, compute
+\item \textbf{Execute.} For every pair among \code{0111}, \code{1111}, and \code{0001}, compute
 the width-four sum, unsigned carry out, and signed overflow. Explain each
 disagreement between the two conditions.
 \item \textbf{Transfer.} Split \code{0x89abcdef} into little-endian bytes and join them again.
 Then reverse the byte list and calculate the different word it represents.
 \item \textbf{Prove.} Prove that splitting and joining a two-byte word returns the original
-word. Identify the exact step that generalizes to any positive byte count.
+word. Identify the exact step that also works for any positive byte count.
 \item \textbf{Break.} Design a false join rule by changing one exponent. Give a word whose
 round trip exposes the error. This will become the negative control for the
 future A0 word package.
@@ -534,4 +1225,43 @@ own inverse. State why the argument works independently at every bit position.
 \item \textbf{Break.} Give a pair of different width-eight words that truncate
 to the same width-four word. Then state a premise under which truncation would
 preserve the unsigned reading.
+\item \textbf{Prove.} Use the highest-differing-position argument to prove
+that two different width-\(w\) patterns cannot have the same unsigned reading.
+Explain why counting \(2^w\) patterns and \(2^w\) values would be insufficient
+without an existence or injectivity argument.
+\item \textbf{Execute.} Rotate \code{10010110} left by 1, 3, and 8 positions.
+For each result, rotate right by the same effective count. State the boundary
+rule you used for the count 8.
+\item \textbf{Break.} Find the smallest width-four word that disproves
+\[
+\mathrm{lshr}_4(\mathrm{shl}_4(x,1),1)=x.
+\]
+Then state and prove a premise that repairs the identity.
+\item \textbf{Prove.} Derive the field-extraction formula from
+\(x=q2^{p+\ell}+f2^p+r\). Identify the bounds on \(f\) and \(r\) that make the
+two division steps valid.
+\item \textbf{Break.} Implement field insertion on paper while omitting the
+old-field clear step. Give an input on which a requested zero bit remains one.
+Repeat while omitting the mask on the new field, and show damage to a neighbor.
+\item \textbf{Explain.} Add 250 and 20 at width eight under modular, checked,
+and unsigned-saturating contracts. Name the observation that distinguishes
+each pair of contracts.
+\item \textbf{Prove.} Show that the width-four word \code{1000} is its own
+additive inverse. Generalize the result to width \(w\), then explain why it is
+the only nonzero word with that property.
+\item \textbf{Design.} A format needs 19 operation codes and 5 register names.
+Find the smallest fixed width for each field. Count the unused patterns. Give
+one reason to reserve an unused pattern and one reason to reject it.
+\item \textbf{Economics.} A table holds 50 million values known to lie between
+0 and 1000. Compare the raw payload sizes for 10-bit packed fields, 16-bit
+fields, and 64-bit fields. Then list two machine effects that could keep raw
+bit savings from becoming equal runtime savings.
+\item \textbf{Transfer.} From the pinned RV64I manual, state what \code{ADDIW}
+does to the upper 32 destination bits. From the pinned Intel manual, select one
+32-bit general-purpose register write and state its upper-bit rule in 64-bit
+mode. Give one input for which the resulting 64-bit patterns differ.
+\item \textbf{Audit.} Write a claim that split followed by join is the identity
+for four bytes. List the scope, formula, expected negative control, and replay
+observation that an eventual Axeyum artifact must bind. Explain why a solver
+result for a handwritten formula alone would not establish the A0 package.
 \end{enumerate}

@@ -169,9 +169,59 @@ A typical chapter then follows this arc:
 7. **Exercises.** Let the reader reproduce, break, generalize, or transfer the
    method.
 
-Historical material belongs only when it sharpens the live machine question.
-Do not rebuild a general history of logic or automated reasoning; that is not
-this book's job.
+### Three explanatory lenses
+
+Every chapter must explain its subject through three connected lenses. These
+are not three detachable sidebars. They belong where they change the reader's
+understanding of the object on the page.
+
+1. **Origins.** Recover the problem that made the concept necessary, the
+   people and machines that gave it a durable form, and the alternatives that
+   were still live at the time. Prefer original papers, manuals, standards,
+   patents, oral histories, and surviving machines to a story repeated from a
+   later textbook. Avoid simple invention myths: distinguish the first known
+   instance, independent development, standardization, and widespread use.
+2. **Foundations.** Build the relevant mathematics, logic, physics, electrical
+   engineering, and computer science from the smallest model that explains the
+   behavior. Connect levels explicitly: charge or timing to a stored bit;
+   Boolean algebra to logic; congruence to wraparound; a state transition to
+   execution; a relation to refinement. State which physical details the ISA
+   abstracts away.
+3. **Present consequences.** Show what the concept costs or permits in current
+   practice: silicon area, energy, latency, bandwidth, code size, compiler
+   freedom, compatibility, verification effort, licensing, manufacturing,
+   cloud cost, security, or maintenance. Name the relevant actor and unit of
+   account. Do not turn a vendor claim, benchmark, list price, or market
+   estimate into a timeless fact; date it, source it, and state its limits.
+
+History earns its place when it explains why the present object has its shape.
+Industry and economics earn their place when they explain a real constraint or
+choice. Foundations earn their place when they let the reader derive rather
+than memorize. None may become a general survey detached from the chapter's
+semantic spine.
+
+### Breadth and depth, not page quotas
+
+A chapter is not complete because it reaches a word band. Before declaring it
+complete, compare its coverage with authoritative specifications, university
+course expectations, and at least two substantial textbooks. Record the
+comparison in the chapter research contract. Then classify every neighboring
+topic as one of:
+
+- **derive here** -- the reader needs the mechanism or argument in this
+  chapter;
+- **work here** -- the reader needs several examples or exercises, but an
+  earlier chapter supplied the definition;
+- **route explicitly** -- another named chapter owns the full treatment;
+- **exclude explicitly** -- the book does not teach it, and says why.
+
+Coverage requires enough independent examples for transfer, not repeated
+versions of one example. A central concept normally needs a smallest case, a
+real-machine case from each sustained ISA, a failure or edge case, and an
+exercise that changes an assumption. A chapter whose central mechanism fits
+in fourteen pages may be sound, but a broad chapter called "Memory" is not
+complete if those pages must also carry representation, addressing, physical
+storage, ISA behavior, performance, safety, and proof.
 
 ## 6. Exercises carry the subject
 

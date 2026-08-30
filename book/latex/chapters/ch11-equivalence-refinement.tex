@@ -44,6 +44,62 @@ meaning is unsafe: comparing only the desired numeric result can hide a trap,
 wrong return address, or caller-owned memory corruption. The task is to choose
 the smallest observation that still protects every permitted use.
 
+The earliest optimization arguments were often local and operational. Replace
+one instruction sequence with another, run examples, and inspect the result.
+That practice could find errors and save scarce time or memory, but it left the
+word ``same'' informal. The difficulty was not only the number of inputs. A
+program could fail to terminate, damage a location outside the intended
+result, or reach the same final value by a path whose intermediate actions
+mattered to another observer.
+
+Floyd's 1967 account of assigning meanings to programs attached propositions
+to points in a flow graph. Each command had to carry a true assertion at its
+entry to a true assertion at its exit. The framework was meant to support
+rigorous arguments about correctness, equivalence, and termination
+\autocite{floyd1967meanings}. Hoare's 1969 axiomatic treatment made the familiar
+precondition--command--postcondition shape a compositional proof interface
+\autocite{hoare1969axiomatic}. Neither contribution reduced program meaning to
+one output number. Both made the assumptions and promised result part of the
+mathematical object.
+
+Later operational semantics represented a program as transitions among
+states. Relations between states then supported simulations: if one program
+moves, another program can make a corresponding move or sequence of moves and
+restore the relation. Refinement calculi used an order rather than equality:
+an implementation may choose one behavior from several permitted by an
+abstract specification. These developments explain why modern compiler
+correctness theorems are commonly directional preservation claims rather than
+claims that source and target executions are literally identical.
+
+Two industrial strategies grew from this foundation. A verified compiler
+proves semantic preservation for the compiler's admitted source programs and
+passes. CompCert demonstrated that approach for a realistic compiler, with a
+machine-checked proof connecting its source and target semantics
+\autocite{leroy2009compcert}. \keyterm{Translation validation} instead checks
+the source and target produced by one compilation. Pnueli, Siegel, and
+Singerman gave that approach its name and an explicit verification architecture
+\autocite{pnueli1998translation}. The two strategies place proof effort in
+different locations; neither removes the need to define the behaviors being
+preserved.
+
+Alive2 applies bounded translation validation to LLVM's intermediate
+representation. Its 2021 report described solver-backed checking integrated
+with LLVM practice, stated its bounded and unsupported cases, and reported 47
+new defects found during the work \autocite{lopes2021alive2}. That number is a
+dated result from one study, not a timeless defect rate. Its deeper lesson is
+that an equivalence checker can affect both implementation and specification:
+counterexamples exposed compiler errors, while other investigations led to
+clarifications of the intermediate-language semantics.
+
+The economics follows the proof boundary. Proving a compiler can amortize a
+large argument over many compilations, but maintaining the proof constrains
+changes to passes and semantics. Validating each translation follows an
+evolving compiler without proving its whole implementation, but it adds work
+to compilation and can time out or reject unsupported cases. Engineering teams
+pay in proof maintenance, solver time, build latency, triage, and trusted-base
+review. A sound comparison names which of those costs moves; it does not call
+formal assurance free.
+
 \begin{archive}[title={Optimization is a promise about the future}]
 A replacement is not justified merely because two isolated executions look
 alike. It is justified when every allowed future use receives the behavior the
@@ -134,7 +190,7 @@ that made it single-valued.
 \section{Preconditions select the promised domain}
 
 A \keyterm{precondition} \(\Phi(S)\) is a predicate on initial state. It can
-require valid memory ranges, aligned code, nonaliasing buffers, a bounded
+require valid memory ranges, aligned code, buffers that do not overlap, a bounded
 counter, related ABI state, or a specific operand width. Equivalence under
 \(\Phi\) quantifies over every initial state satisfying it, not merely the
 examples used to discover the claim.
@@ -225,6 +281,65 @@ equivalence by
 \]
 for every initial state \(S\).
 
+The symbol \(\equiv\) earns its name only after three elementary laws are
+checked. A relation \(E\) is an \keyterm{equivalence relation} when it is
+reflexive, symmetric, and transitive. Reflexive means \(E(x,x)\): every program
+agrees with itself. Symmetric means \(E(x,y)\) implies \(E(y,x)\): exchanging
+the two sides changes no claim. Transitive means \(E(x,y)\) and \(E(y,z)\)
+imply \(E(x,z)\): validated replacements can form a chain.
+
+Observed-behavior equality has these properties when the precondition,
+semantics, termination policy, and observation remain fixed. Change one of
+those parts and transitivity no longer follows automatically. A result-only
+claim from \(P\) to \(Q\) and a full-state claim from \(Q\) to \(R\) do not
+share one relation. Nor may a termination-insensitive first link silently feed
+a termination-sensitive second link.
+
+Every observation \(A:X\rightarrow Y\) induces a relation on states:
+
+\[
+  x\mathrel{\ker(A)}x'
+  \quad\hbox{exactly when}\quad
+  A(x)=A(x').
+\]
+
+This \keyterm{kernel relation} groups states that the observation cannot tell
+apart. Equality of complete state has singleton groups. A result-register
+observation groups all states with the same selected result, regardless of
+scratch registers or forgotten conditions. Choosing an observation therefore
+chooses a partition of the state space into visible classes.
+
+Suppose observation \(A\) can be computed from \(B\): there is a function
+\(f\) with \(A=f\circ B\). If \(B(x)=B(x')\), applying \(f\) gives
+\(A(x)=A(x')\). Thus
+
+\[
+  \ker(B)\subseteq\ker(A).
+\]
+
+The finer observation has the smaller kernel because it identifies fewer
+states. This reversal is easy to forget. More visible information means fewer
+pairs counted as equivalent.
+
+Refinement uses weaker algebra. A \keyterm{preorder} is reflexive and
+transitive but need not be symmetric. Let \(I\preceq S\) mean every behavior
+of implementation \(I\) is permitted by specification \(S\). The program
+refines itself, and two refinement steps compose, but the specification need
+not refine the implementation: it may deliberately permit choices that the
+implementation has resolved. If both \(I\preceq S\) and \(S\preceq I\), the
+two are equivalent under that behavior model even when their representations
+differ.
+
+\begin{proofkit}[title={Behavior inclusion is a refinement preorder}]
+For every behavior set \(X\), \(X\subseteq X\), so refinement is reflexive. If
+\(X\subseteq Y\) and \(Y\subseteq Z\), then every member of \(X\) is a member of
+\(Z\), so refinement is transitive. Symmetry fails: the singleton set
+\(\{\mathsf{return}\ 0\}\) is a subset of
+\(\{\mathsf{return}\ 0,\mathsf{return}\ 1\}\), while the reverse inclusion is
+false. The implementation has removed a permitted choice rather than changed
+an answer into an equal set.
+\end{proofkit}
+
 Full-state equivalence is the special case in which the observation retains
 the complete terminal state and behavior class. Trace equivalence is stronger
 again if it requires agreement after each corresponding step. Equal final
@@ -305,6 +420,81 @@ uses complete final state and a client needs only a result, apply the result
 projection as a lemma. Do not copy the theorem and silently give its scope a
 different name.
 
+\section{Real instructions make the observation concrete}
+
+The A0 clear-register pair was chosen to expose forgotten condition state. A
+real-machine comparison should do more than replace the register names. It
+must account for encodings, instruction lengths, architectural side effects,
+and the control point at which results are compared.
+
+On RV64I, consider these two one-instruction fragments:
+
+\begin{codelisting}[language={},caption={Two RV64I ways to copy a0 to itself}]
+P: addi a0, a0, 0
+Q: or   a0, a0, x0
+\end{codelisting}
+
+The first adds the sign-extended immediate zero. The second computes bitwise
+OR with architectural zero. For every input word \(x\), both write \(x\) to
+\code{a0}. Neither instruction writes condition flags because base RV64I has no
+such architectural flag register. Each occupies four bytes and advances to
+the next aligned instruction under the selected sequential semantics. Their
+little-endian bytes are \code{13 05 05 00} and \code{33 65 05 00}.
+
+\begin{proofkit}[title={RV64I full-state agreement for the selected pair}]
+Assume legal aligned fetches of the stated bytes and the same entry state
+except for program memory containing the selected fragment. Both instructions
+read entry \code{a0}=\(x\). Immediate addition produces
+\(x+0\bmod 2^{64}=x\); OR with \code{x0} produces
+\(x\mathbin{\mathsf{or}}0=x\). Both write only \code{a0}, advance by four,
+preserve memory and all other registers, and remain
+running. After relating the two code regions and their corresponding next
+program counters, the complete architectural data states agree.
+\end{proofkit}
+
+The phrase ``except for program memory'' matters. If code bytes are part of
+the state observation, the two initial states are not equal. A relational
+claim maps the first code region to the second while requiring equal data
+state. If the machine keeps immutable program bytes outside data state, the
+same fact appears in the semantic-package premise instead.
+
+On x86-64, a familiar write-zero comparison has a different answer:
+
+\begin{codelisting}[language={},caption={Two x86-64 ways to write zero to RAX}]
+P: xor eax, eax       ; 31 C0
+Q: mov eax, 0         ; B8 00 00 00 00
+\end{codelisting}
+
+Both selected forms write zero to the 32-bit destination and thereby clear the
+upper half of \code{RAX}. They do not have the same length. The larger difference is that
+\code{XOR} writes selected arithmetic flags, while \code{MOV} leaves those
+flags unchanged. The instruction reference also leaves the auxiliary-carry
+flag undefined for the selected logical operation. A claim of equal \code{RAX}
+at corresponding join points can be true. A claim of equal complete state is
+generally false.
+
+Choose an entry with carry set. After \code{MOV}, carry remains set. After
+\code{XOR}, carry is clear. A following carry-conditional branch distinguishes
+the fragments. Choose instead a context that writes every flag before
+using it and maps the two different-length exits to one logical join. The
+result difference disappears under that restricted context. The example joins
+encoding, semantics, observation, and contextual use in one small case.
+
+\begin{warning}[title={Do not compare unequal-length fragments at one numeric exit}]
+Starting both x86-64 fragments at address \(p\) gives exits \(p+2\) and \(p+5\).
+Their next instruction pointers should not be declared equal. Place each in
+its own code region and relate corresponding join points, or include explicit
+control transfers and compare after the common join. A result-only proof must
+not erase control by accident.
+\end{warning}
+
+The three cases now separate three lessons. A0 makes hidden condition state
+visible in the book's small machine. RV64I gives a base-ISA pair with no flag
+side effect and equal instruction lengths. x86-64 shows how partial-register
+write rules, flag effects, undefined flag state, and variable length alter the
+contract. ``Copy'' and ``clear'' are mathematical intentions; equivalence
+still belongs to the selected machine semantics.
+
 \section{Refinement relates different state spaces}
 
 Equivalence starts both programs from one state. \keyterm{refinement} uses an
@@ -324,8 +514,8 @@ make the state spaces identical.
 Refinement is directional. An implementation may allow fewer behaviors than
 an abstract specification while satisfying every abstract requirement. For
 our deterministic scalar slices, direction often appears only in the chosen
-input and output relations. It becomes essential with \keyterm{nondeterminism},
-where one input can permit several behaviors,
+input and output relations. It becomes essential when one input can permit
+several behaviors, a property called \keyterm{nondeterminism},
 underspecification, concurrency, or implementation-defined choices.
 
 \begin{keyidea}[title={A relation carries meaning across machines}]
@@ -341,6 +531,92 @@ comparison followed by a branch, RV64I may compare registers in the branch,
 and x86-64 may read flags set earlier. The relation needs to hold at selected
 entry and exit points, not after every unmatched instruction.
 
+\subsection{A simulation turns endpoint hope into a step argument}
+
+An endpoint test can compare two completed executions without explaining why
+every admitted execution reaches related endpoints. A \keyterm{forward
+simulation} supplies that bridge. Let source states use transition
+\(s\rightarrow_S s'\), target states use \(t\rightarrow_T t'\), and let
+\(R(s,t)\) say that the two states represent the same abstract situation.
+
+The simplest rule works in \keyterm{lockstep}, meaning that one source step
+matches one target step. It requires
+
+\[
+  R(s,t)\mathbin{\mathsf{and}}s\rightarrow_S s'
+  \quad\Longrightarrow\quad
+  \exists t'.\;t\rightarrow_T t'\mathbin{\mathsf{and}}R(s',t').
+\]
+
+It also requires related initial states and a terminal rule connecting related
+terminal states to the promised output observation. The step rule alone says
+nothing about where execution begins or what a final relation means.
+
+\begin{proofkit}[title={Finite lockstep simulation}]
+Assume related initial states \(R(s_0,t_0)\). Suppose the source makes \(n\)
+steps. Prove by induction on \(n\) that the target can make \(n\) matching
+steps to a related state. At zero steps, choose \(t_0\). For the induction
+step, apply the hypothesis to obtain \(R(s_n,t_n)\), then apply the simulation
+rule to the next source step and obtain \(t_{n+1}\) with
+\(R(s_{n+1},t_{n+1})\). If \(s_n\) is terminal and the terminal rule makes
+\(t_n\) terminal with related observation, the endpoint refinement follows.
+\end{proofkit}
+
+Real translations rarely move in lockstep. One A0 operation may correspond to
+several RV64 instructions. A target may use a setup instruction that changes a
+scratch register without advancing the source. Replace one target step by a
+finite sequence \(t\rightarrow_T^{*}t'\). This is often called
+\keyterm{stuttering}: one side takes internal steps while the other remains at
+the same logical point.
+
+Allowing zero target steps creates a termination danger. A target could match
+every source step by doing nothing forever while the source progresses. A
+sound proof adds a progress measure, well-founded order, or rule that prevents
+an infinite sequence of zero-progress matches. For finite acyclic fragments,
+one can instead give an explicit positive bound on the target segment for each
+source edge.
+
+\begin{example}[title={One source move, two target moves}]
+Suppose a source instruction computes \(r_0\leftarrow r_1+r_2\) and sets a
+zero condition. A target first adds into a result register and then compares
+that register with zero. The intermediate target state need not relate to a
+completed source state under the boundary relation: the numeric result exists,
+but the target condition representation is not ready. Relate the source state
+before the instruction to the target state before both instructions, and the
+source successor to the target state after the compare. The two-instruction
+segment restores the relation.
+\end{example}
+
+Simulation direction matters when behavior is not deterministic. A forward
+simulation commonly shows that each source move can be matched by a target
+move. Depending on which system is source and which is implementation, that
+may prove the wrong inclusion. If a source specification admits several
+choices and an implementation selects one, the desired conclusion is that
+every implementation behavior is allowed by the source. State the behavior
+inclusion first; then choose the simulation orientation that establishes it.
+
+A relation is a \keyterm{bisimulation} when it supplies matching moves in both
+directions. It can
+support a symmetric behavioral equivalence, but it is stronger than many
+compiler refinements need. Requiring it can reject a correct implementation
+that resolves an abstract choice or removes an internal step. Stronger proof
+rules are not automatically better contracts.
+
+\begin{warning}[title={A diagram of paired arrows is not yet a simulation proof}]
+The relation must cover every admitted related state, not only one trace. The
+step rule must cover traps and terminal states or exclude them through proved
+premises. A stuttering rule needs progress. A nondeterministic claim needs the
+right quantifier and direction. Missing any one of these can leave an
+attractive diagram that proves no endpoint theorem.
+\end{warning}
+
+The relation itself deserves negative controls. Remove the source program
+counter from \(R\), and two unrelated source blocks may map to one target
+state. Forget a live memory region, and a store mismatch may disappear. Relate
+signed and unsigned readings without a range premise, and the next comparison
+can diverge. A simulation checker should reject at least one mutation aimed at
+each load-bearing relation component.
+
 \section{Contexts can expose forgotten state}
 
 A \keyterm{context} is surrounding program structure with a hole into which a
@@ -350,7 +626,7 @@ fragment is placed. Write \(C[P]\) for context \(C\) containing fragment
 observation forgot.
 
 Return to \code{movi r0,0} and \code{xor r0,r0,r0}. A suffix that immediately
-overwrites all conditions before reading them cannot expose their difference.
+writes all conditions before reading them cannot expose their difference.
 A suffix beginning with \code{branch.hs} can. Contextual replacement therefore
 needs either stronger local agreement or a restriction on what the context
 may observe before forgotten state is overwritten.
@@ -389,18 +665,18 @@ property of the location.
 \subsection{Read and write sets give a practical sufficient rule}
 
 Let \(D\) be the set of locations on which fragments \(P\) and \(Q\) may
-differ at their common exit. If every path in the suffix overwrites each
-location in \(D\) before reading it, and the overwrite does not itself depend
+differ at their common exit. If every path in the suffix writes each location
+in \(D\) before reading it, and the write does not itself depend
 on another difference, then those exit differences cannot affect the later
 observation. This is a semantic form of dead-state elimination.
 
-The order matters. A suffix that reads carry and then overwrites all flags can
+The order matters. A suffix that reads carry and then writes all flags can
 still distinguish the clear-register fragments. A suffix that first executes
 an instruction with fully defined condition outputs and only then branches may
 erase the difference. The proof follows paths, not just unordered read and
 write sets.
 
-Memory makes the rule relational. A store to \([p,p+8)\) overwrites a differing
+Memory makes the rule relational. A store to \([p,p+8)\) replaces a differing
 byte only when the suffix's effective address is known to alias that byte. A
 load through another symbolic pointer may expose it. Nonaliasing or must-alias
 facts therefore become premises of the contextual proof.
@@ -468,7 +744,8 @@ provided minimization reruns the semantic checker. A smaller printed model
 that no longer satisfies the formula is not evidence.
 
 Minimization should preserve a named witness predicate. Start from a replayed
-failure. Try setting irrelevant registers to zero, shrinking the initialized
+failure. Try setting irrelevant registers to zero, shrinking the memory region
+supplied with starting bytes,
 memory region, simplifying word values, or lowering a loop count. After every
 change, rerun the precondition, both executions, and the same observation. Keep
 the change only if the same failure class remains.
@@ -520,6 +797,64 @@ different destination-register values. Compare them under three policies:
 trap class only; trap class and reason; complete trapped state. Identify which
 differences each policy can expose.
 \end{tryit}
+
+\subsection{Undefined behavior makes compiler refinement asymmetric}
+
+Source and intermediate languages can assign no ordinary requirement to some
+executions. In C, selected operations outside the language's defined domain
+have undefined behavior. LLVM distinguishes several mechanisms, including
+poison values whose later use can trigger immediate undefined behavior and
+\code{freeze}, which selects a usable value from an otherwise unstable one
+under the pinned language rules \autocite{llvm2026langref}. These are language
+semantics, not architectural trap instructions.
+
+Let \(D_P\) be the initial states on which source program \(P\) has defined
+behavior. A compiler-preservation statement can require target agreement only
+for states in \(D_P\). Outside that set, the source contract supplies no
+ordinary result to preserve. This direction gives optimizers freedom, but it
+also makes a symmetric equation misleading: the target may be defined on more
+inputs than the source without violating source-to-target refinement.
+
+\begin{example}[title={A premise is part of the optimization}]
+Suppose a source operation adds one to a signed value under a rule that excludes
+signed overflow. Replacing it with a mathematical simplification is justified
+only when the source's no-overflow premise holds or when the intermediate
+operation explicitly carries that promise. At the maximum signed input, a
+target that wraps to the minimum word has produced a hardware value, but the
+source-to-target theorem has no defined source value to compare there. Removing
+the premise and reporting equality on all words changes the claim.
+\end{example}
+
+Poison also defeats naive testing. A test runner may choose one concrete value
+and make a transformation appear stable, while the semantics permits other
+uses or makes a later control operation undefined. A validator must model the
+language's value domain and propagation rules rather than substitute an
+arbitrary machine word at the first occurrence. Conversely, an architectural
+trap must not be labeled undefined merely because the validator lacks a rule
+for it.
+
+Refinement can be stated through defined-behavior inclusion. For each admitted
+source input, every behavior of the target must correspond to a behavior the
+source permits. If the source has one defined result, the target may not add a
+different normal result or trap. If the source permits a set of results, the
+target may select a subset. If the source behavior is undefined, this particular
+preservation obligation is silent; separate security or platform contracts may
+still restrict the target.
+
+\begin{warning}[title={More undefined behavior makes a theorem easier and a language weaker}]
+Declaring a troublesome input undefined removes a proof obligation. It does
+not improve the program. A semantic design should justify its undefined cases
+through the language contract, not add them until an optimization validates.
+The validator checks a declared language; it must not enlarge the undefined
+domain to obtain a successful verdict.
+\end{warning}
+
+A negative control can target this boundary. Remove a no-overflow premise from
+a valid rewrite and require the checker to return the signed boundary input.
+Replace \code{freeze} with an unconstrained fresh value at every use and require
+an example with two uses to fail. Treat an architectural memory fault as
+undefined and require a trap-sensitive comparison to reject the weakened
+model. These mutations test three different semantic layers.
 
 \section{Composing equivalence claims}
 
@@ -582,7 +917,7 @@ machine state. The pattern is the same; only the relations change.
 
 Optimization pipelines should record the exact contract of each rewrite.
 Combining destination-only, flag-sensitive, memory-sensitive, and
-termination-insensitive facts without conversion lemmas can produce an
+termination-insensitive facts without conversion rules can produce an
 unsupported final claim even when every individual checker returns success.
 
 \section{Four ways to check a finite equivalence claim}
@@ -595,7 +930,7 @@ width, registers, memory, or program length grows.
 Symbolic execution represents many inputs with expressions and accumulates
 path conditions. It can expose how a disagreement depends on an input and can
 feed a solver. A direct solver encoding instead asks whether the precondition
-and observation mismatch are jointly satisfiable. Both routes rely on the
+and observation mismatch can both be true. Both routes rely on the
 sound connection between machine semantics and generated formulas.
 
 A reader proof can establish a parametric law, such as XOR clearing a register
@@ -632,22 +967,109 @@ Replay every returned model. Only then invest in a certificate or parametric
 proof whose exact statement has survived those cheaper attacks. Each stage
 sharpens the claim carried by the next.
 
+\section{Translation validation is a production tradeoff}
+
+A compiler can validate one local rewrite, one pass, or one complete source--
+target pair. The larger the boundary, the more interactions it can catch and
+the harder its formulas become. Local checking obtains small queries and
+precise blame but depends on every transformation entering the checked route.
+End-to-end checking sees the actual produced program but must align larger
+control-flow graphs, memory effects, and language boundaries.
+
+Validation time competes with build time. A developer may accept a solver
+query that takes seconds in continuous integration but not for every edit. A
+safety-critical release may pay more to retain checked evidence. A just-in-time
+compiler has a much smaller latency budget because the application waits for
+code. These are actor-specific costs: developer feedback, release assurance,
+or application startup. One timing number cannot represent all three.
+
+A timeout is not a counterexample and not a proof. A production validator needs
+at least four outcomes: validated, refuted with replayed witness, unsupported,
+and resource limit. Treating the last two as success creates a silent hole;
+treating every unsupported construct as a compiler defect creates unusable
+noise. The policy decides whether code generation stops, falls back to a known
+route, emits an unvalidated binary with a visible status, or escalates for
+review.
+
+Counterexample quality changes labor cost. A formula model naming hundreds of
+temporary variables sends a compiler engineer back through the encoding. A
+report that identifies the source input, first differing value, relevant
+instruction pair, and semantic premise can become a regression test. Replay
+and minimization are therefore not cosmetic reporting features. They shorten
+the path from solver result to repaired compiler or corrected specification.
+
+Validation also has a supply-chain boundary. A library producer may validate
+its object files, but later linking, relocation, binary rewriting, loading, or
+just-in-time specialization can change the executed bytes. An end-to-end claim
+must either include those stages or bind the validated semantics to the final
+artifact through hashes and checked transformations. ``The compiler output was
+validated'' is not automatically a theorem about the loaded process image.
+
+Cryptographic code illustrates observation cost. Functional equality may be
+enough for an ordinary arithmetic optimization. A constant-time contract can
+also compare branch decisions or memory-address traces. The richer observation
+creates more solver state and may reject a faster sequence whose addresses
+depend on secret data. That rejection is valuable only when the security
+contract actually includes the selected leakage model; Chapter 16 states the
+larger timing and processor-implementation boundary.
+
+\begin{table}[htbp]
+\centering
+\caption{Validation placement moves both assurance and engineering cost.}
+\begin{tabular}{@{}p{0.23\textwidth}p{0.31\textwidth}p{0.34\textwidth}@{}}
+\toprule
+Placement & Main benefit & Main boundary or cost \\
+\midrule
+Rewrite rule & small query and precise blame & unchecked ways to bypass the rule \\
+Compiler pass & sees interactions within one pass & needs an input/output semantics for the pass \\
+Whole compilation & checks the actual produced pair & graph alignment, memory, and solver scale \\
+Post-link binary & closer to executed bytes & source meaning and relocation provenance are harder to recover \\
+Runtime or JIT & checks specialized code and assumptions & validation latency is paid during execution \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The economic conclusion is not that one placement wins. It is that assurance
+and cost should meet at a named boundary. Teams can validate high-risk passes,
+sample broader pipelines, require complete validation for release profiles, or
+use a verified compiler for a constrained source language. The evidence must
+say which strategy was used and what happened when checking did not finish.
+
 \section{An introductory Axeyum equivalence route}
 
-The current Axeyum checkout supplies bit-vector and solver infrastructure but
-does not yet contain the executable A0 program layer required by this chapter.
-The first sound route begins only after \code{a0-state}, \code{a0-step}, and
-\code{a0-run} exist with their negative controls.
+The audited Axeyum checkout at revision \code{a9991fda} already contains a
+real scalar translation-validation route. Its tests reflect selected Rust MIR
+and LLVM IR into one term arena over shared symbolic inputs. They prove equality
+for admitted examples, check selected LLVM defined-operation conditions, and
+evaluate concrete samples through the reflected terms. Cases include signed
+shifts, branch-to-select conversion, strength reduction, switch lowering, and
+hypothesis-conditioned agreement.
 
-Represent an equivalence query with semantic-package digests, two decoded
-programs, word width, precondition, behavior policy, observation, and a bound
-or termination argument. Generate the negation of the exact reader statement.
-For a satisfiable result, decode the model into a complete A0 initial state and
-replay both programs. Reject the evidence if replay does not reproduce the
-claimed mismatch.
+The negative route is equally important. A committed wrong-transform corpus
+contains an off-by-one shift, logical shift substituted for arithmetic shift,
+flipped select arms, a dropped mask, and a signed comparison translated as
+unsigned. The solver must return a countermodel. The test then evaluates both
+reflected programs at the reported input and requires different results. A
+model that does not replay is a test failure, not a refutation.
+
+That route is stronger than the inherited chapter claimed, but narrower than
+the machine-program model taught here. It handles selected scalar MIR and LLVM
+IR, not A0, RV64, or x86-64 instruction bytes. Its current comparison does not
+offer the chapter's general observation object over architectural registers,
+conditions, memory, traps, continuations, and traces. It is translation
+validation within one shared term vocabulary, not yet a cross-ISA simulation.
+
+The first book adapter still needs \code{a0-state}, \code{a0-step}, and
+\code{a0-run}, with code-byte provenance and negative controls. Represent an
+A0 query with semantic-package digests, two decoded programs, word width,
+precondition, behavior policy, observation, and a bound or termination
+argument. Generate the negation of the exact reader statement. When a solver
+finds a mismatch, decode a complete A0 initial state and replay both programs.
+Reject the evidence if replay does not reproduce the mismatch.
 
 For an unsatisfiable result, preserve the formula and solver configuration.
-The strongest available route should export independently checkable evidence
+The strongest available route should export evidence that an independent
+checker can verify
 or reconstruct the theorem in a kernel. The assurance label must still say
 whether the result covers one width, a finite width set, or a width-parametric
 statement.
@@ -691,13 +1113,15 @@ execution, interactive systems, fairness, timing, energy, cache traces,
 speculation, or quantitative leakage. Each can require sets or distributions
 of behaviors and richer observations.
 
-It also introduces refinement without yet proving a cross-ISA simulation.
-Chapter 12 supplies control-point relations, stuttering, and forward-simulation
-reasoning. Chapter 13 adds program languages and costs; agreement alone says
-nothing about minimality or speed.
+It gives the general forward-simulation rule and a small segmented example but
+does not yet prove a complete cross-ISA program. Chapter 12 supplies sustained
+control-point relations and machine-to-machine simulations. Chapter 13 adds
+program languages and costs; agreement alone says nothing about minimality or
+speed.
 
 Within the boundary, a precise equivalence statement turns optimization from
-hope into a refutable claim. The counterexample is not an embarrassment. It is
+hope into a claim that a concrete witness can refute. The counterexample is not
+an embarrassment. It is
 the smallest state in which our promised sameness breaks, and therefore one of
 the clearest explanations the machine can give us.
 Preserving that explanation requires the report to retain the starting state,
@@ -774,4 +1198,135 @@ command, formula digest, and five negative controls.
 \item A solver returns a model that fails executable replay. Give at least
 three possible fault classes and explain why the original equivalence verdict
 cannot use that model as evidence.
+\item \textbf{History.} Explain what changes when an informal instruction
+replacement is restated with Floyd-style assertions at control points. Which
+part becomes a precondition, which part becomes a preservation obligation, and
+which behaviors still need an explicit policy?
+
+\item Compare whole-compiler verification with translation validation. Name
+the object proved or checked, how often the work is performed, one maintenance
+cost, and one failure mode for each route.
+
+\item Alive2's published study reported a dated number of discovered defects.
+Explain why that number supports the usefulness of the route but does not
+measure a timeless LLVM defect rate or prove that every LLVM pass is covered.
+
+\item \textbf{Prove.} Show directly that equality of observed behaviors is an
+equivalence relation when semantics, precondition, termination policy, and
+observation are fixed. Give a failed transitivity chain when the middle claims
+use incompatible observations.
+
+\item Let \(A(r,m,c)=r\) and \(B(r,m,c)=(r,c)\). List the equivalence class of
+one selected three-component state under each kernel. Prove
+\(\ker(B)\subseteq\ker(A)\) and refute the reverse inclusion.
+
+\item Construct the product observation of result register, outcome class,
+and selected memory range. State the three projections and prove that product
+agreement implies agreement under each one.
+
+\item Give two incomparable observations: neither can be calculated from the
+other. Use concrete states to show both failures, then give their product as a
+common finer observation.
+
+\item \textbf{Prove.} Prove that subset inclusion on behavior sets is a
+preorder. Give two distinct behavior sets that refine each other only if they
+are equal, and one strict refinement that is not symmetric.
+
+\item A specification permits results 0 or 1; an implementation always returns
+0. State the desired refinement direction. Then reverse the relation and show
+the concrete behavior that breaks it.
+
+\item \textbf{Execute.} Decode and execute RV64I bytes
+\code{13 05 05 00} and \code{33 65 05 00} from three different values of
+\code{a0}. List all architectural locations each form reads and writes.
+
+\item \textbf{Prove.} Prove the RV64I self-copy equivalence for every 64-bit
+input. Include related code regions, corresponding program counters, program
+memory policy, unchanged registers, memory, and outcome.
+
+\item \textbf{Break.} Change the second RV64 instruction's \code{rs2} from
+\code{x0} to \code{a1}. Ask for the smallest replayed input that separates the
+result observations, and explain why \code{a1=0} is not a universal repair.
+
+\item \textbf{Execute.} Begin the x86-64 write-zero pair with \code{RAX} set
+to \code{0xffffffffffffffff} and carry set. Trace \code{RAX}, the selected
+arithmetic flags, and the next instruction pointer after each fragment.
+
+\item Write the narrowest useful relation between the unequal-length x86-64
+fragments' exit points. Then construct one context that respects the relation
+and one carry-reading context that distinguishes the fragments.
+
+\item \textbf{Break.} Claim complete-state equivalence for the x86-64 write-zero
+pair. Give independent witnesses based on carry, instruction pointer, and the
+selected undefined auxiliary-carry behavior. State which are deterministic
+witnesses under the pinned semantics.
+
+\item Define a lockstep forward simulation for a two-instruction straight-line
+program. List the initial, step, terminal, and observation obligations rather
+than drawing only paired arrows.
+
+\item \textbf{Prove.} Prove the finite lockstep-simulation theorem by induction
+on source trace length. State exactly where determinism is used, if at all.
+
+\item Give a segmented simulation in which one source instruction corresponds
+to two target instructions. Show why the intermediate target state need not
+satisfy the boundary relation.
+
+\item \textbf{Break.} Permit every source step to match zero target steps with
+no progress measure. Construct an infinite source execution that the stationary
+target appears to simulate. Add a well-founded condition that rejects it.
+
+\item Compare forward simulation, backward simulation, and bisimulation for a
+specification that permits two results and an implementation that chooses one.
+Which direction establishes the desired behavior inclusion?
+
+\item Mutate a state relation by removing the program counter. Construct two
+unrelated basic blocks that now appear related and show the first invalid step
+match admitted by the weakened relation.
+
+\item Mutate a relation by forgetting one writable memory byte. Construct a
+store pair that passes the weakened endpoint relation but is exposed by a
+following load.
+
+\item A source addition is defined only when signed overflow does not occur.
+State a source-to-target refinement over its defined domain. Give the maximum
+signed input as a witness against the same claim after its premise is removed.
+
+\item Explain why replacing poison with one arbitrary test value is not a
+sound model of every use. Design a two-use example that distinguishes a stable
+frozen value from independently chosen values.
+
+\item Distinguish an architectural trap, a partial mathematical function
+outside its domain, LLVM poison, and an accidentally stuck semantic state.
+For each, state what an equivalence checker should report or compare.
+
+\item \textbf{Break.} Modify a validator so that every unsupported instruction
+is treated as undefined source behavior. Explain why more claims now pass and
+why none of those new successes is trustworthy.
+
+\item Design a four-outcome production policy for validated, refuted,
+unsupported, and resource-limited translations. State what a developer build,
+release build, and just-in-time compiler do for each outcome.
+
+\item Compare rewrite-level, pass-level, whole-compilation, post-link, and JIT
+validation. Choose one boundary for a safety-critical release and justify the
+extra semantics, latency, and artifact provenance it requires.
+
+\item A validated object is changed by relocation and a binary rewriter. State
+the hashes, semantic relations, and replay steps needed before making a claim
+about the loaded bytes rather than the compiler's earlier output.
+
+\item Extend functional equality with an address-trace observation for a
+table lookup. Construct two functions with equal results but secret-dependent
+addresses on only one side. Route timing and cache conclusions to the correct
+model boundary.
+
+\item Audit Axeyum's current MIR/LLVM equivalence tests. Classify the checked
+defined-operation result, solver equality result, concrete sample evaluation,
+and replayed wrong-transform model by evidence role and scope.
+
+\item Design a negative control for each missing A0 adapter layer: decoder,
+step semantics, observation, formula binding, model decoding, and replay. Each
+mutation must make the route fail for its own reason.
+
 \end{enumerate}

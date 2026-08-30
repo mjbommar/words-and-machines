@@ -49,6 +49,61 @@ grow. Reading an encoding is therefore partly mathematics and partly careful
 historical interpretation of a versioned specification.
 \end{archive}
 
+The history began before a byte stream existed. The Electronic Numerical
+Integrator and Computer (ENIAC) had first users who described
+a calculation by setting switches and joining functional units with cables.
+The machine could perform electronic arithmetic quickly, yet changing the
+calculation required human work on the machine around it. A stored-program
+design moved at least part of that control description into addressable
+memory. Operation selections, addresses, and constants then had to share a
+finite word. Encoding was no longer only a wiring decision. It became a
+published boundary between programs and a machine.
+
+That change has no defensible one-person creation story. Designs circulated,
+several groups developed related ideas, and proposed machines must be kept
+separate from working ones. The Manchester Small-Scale Experimental Machine,
+often called the Baby, ran a stored program in June 1948. Its 32-bit words
+held both data and instructions in a Williams--Kilburn tube. The surviving
+highest-factor routine used only seventeen instruction words, yet those words
+directed a run lasting fifty-two minutes. A small encoded object had acquired
+an indefinitely extensible consequence \autocite{chm2026storedprogram}.
+
+The Electronic Delay Storage Automatic Calculator (EDSAC) performed practical
+calculations in 1949. Its initial orders loaded
+later orders from punched tape, and its users developed a library practice in
+which prepared routines could be reused. An instruction encoding therefore
+served two audiences almost immediately: the physical control circuits that
+selected an action and the people and tools that prepared a program. Human
+notation, tape symbols, memory words, and circuit selection were related, but
+they were not the same representation.
+
+The relationship became an economic promise as machines became product
+families. IBM presented System/360 as a compatible architecture spanning
+implementations with different price and performance points. Its published
+formats made program-visible fields part of that durable interface
+\autocite{amdahl1964system360,ibm1964system360principles}. Compatibility let
+software and training survive hardware replacement. It also constrained how
+future instructions could reuse or extend existing bit patterns. A reserved
+field was therefore both unused capacity and an option on later design.
+
+The contrast between regular and irregular formats also grew from concrete
+constraints, not from two timeless philosophical camps. A fixed word can
+simplify boundary discovery and parallel field selection. Shorter forms can
+reduce program bytes, instruction-cache demand, and transfer bandwidth.
+Several formats within one fixed length can give different instructions the
+operand fields they need. Variable length can preserve old forms and spend
+more bytes only on instructions that need them. Each choice moves work among
+the program image, fetch path, decoder, compiler, and future extension space.
+
+RISC projects made regular field layouts and compiler-visible operations an
+important design cluster. RISC-V continues that lineage in its base formats,
+but its compressed extension also gives common operations 16-bit forms.
+x86-64 preserves much older byte patterns while adding prefixes and opcode
+maps. Neither history supports the slogan that RISC always means one length
+or CISC means arbitrary chaos. The useful question remains exact: given a
+mode, feature set, address, and finite sequence of bytes, which structured
+result is permitted, and how many bytes does it consume?
+
 The rest of this chapter uses one addition on three machines. A0 makes every
 field visible. RV64I shows a regular commercial-scale design. x86-64 shows a
 short variable-length instruction whose meaning depends on a prefix and an
@@ -150,6 +205,233 @@ an incomplete-input path. Setting a reserved bit should exercise legality.
 Changing the start address should exercise alignment or boundary selection.
 One generic rejection loses the evidence that all three checks actually fire.
 
+Named rejection results should record the first architectural decision that
+prevents a legal instance, not an accident of the implementation. A useful
+introductory set contains:
+
+\begin{description}
+\item[Need more bytes.] The supplied prefix can still begin an in-scope legal
+instruction, but the decoder lacks a required byte. This result says nothing
+about whether a machine fetch could obtain that byte.
+\item[Bad boundary.] The declared start address violates an alignment rule or
+does not satisfy the selected decoder interface.
+\item[Reserved pattern.] The complete bit pattern occupies space that the
+pinned specification does not assign to an enabled instruction.
+\item[Feature disabled.] The pattern has a meaning under another declared
+extension or mode, but not under this input's feature set.
+\item[Outside selected scope.] The source specification may define the form,
+but the book-owned decoder deliberately does not. This is an implementation
+limit, not an illegal-encoding claim about the architecture.
+\end{description}
+
+The categories prevent a small decoder from lying about completeness. Suppose
+it implements only integer addition. Returning ``reserved pattern'' for a
+legal load would attribute its own missing case to the ISA. Returning
+``outside selected scope'' keeps the architectural fact and implementation
+boundary separate. A caller that needs a complete RV64I decoder must reject
+the smaller component as unsuitable even though every ADD it accepts is
+sound.
+
+The classification order is part of the public contract when more than one
+condition applies. Three supplied bytes at a misaligned A0 address are both
+short and badly aligned. The decoder may report the boundary failure first or
+the missing byte first, but its specification and tests must choose. A richer
+result may retain several causes. Either design is clearer than depending on
+which internal check happened to run first.
+
+\begin{tryit}[title={A rejection result can itself be wrong}]
+Give a selected-scope A0 decoder four bytes with a reserved bit set. It must
+not return ``outside selected scope,'' because the opcode form is in scope and
+its legality check failed. Now give it a well-formed opcode assigned only to a
+future book extension. That input should exercise the scope boundary rather
+than the reserved-bit control.
+\end{tryit}
+
+\section{How many meanings fit in a word?}
+
+An encoding begins with a counting constraint. A field of \(k\) bits has
+\(2^k\) patterns. It can distinguish at most \(2^k\) alternatives without
+using information from another field or from the decoding context. A three-bit
+A0 register field names eight registers. A five-bit RV64 register field names
+thirty-two. If an architecture needs forty registers in one otherwise fixed
+format, five bits cannot name them all. The designer must spend another bit,
+use an escape form, infer an operand, divide the register set by context, or
+change the format.
+
+The same limit governs operation codes. An \(m\)-bit operation field has
+\(2^m\) leaves if every pattern is assigned directly. A design can instead
+reserve one pattern as an escape into a second field. This does not create
+information for free. It gives the common operations short selectors while
+some uncommon operations spend more bits or require another decoding stage.
+Opcode maps, function fields, and prefixes are variations on this allocation
+of a finite naming space.
+
+Suppose a simple instruction needs one of sixteen operations, three registers
+chosen independently from a set of eight, and no other information. Direct
+fields need
+
+\[
+  \log_2 16 + 3\log_2 8 = 4+9=13
+\]
+
+bits. A 12-bit format cannot contain all \(16\cdot 8^3=8192\) combinations,
+because it has only \(4096\) patterns. Some combinations must be removed,
+made implicit, or represented with another word. The pigeonhole principle
+means that more objects cannot occupy fewer distinct places. This argument is
+small, but it explains why an instruction table contains exclusions rather
+than every mnemonic accepting every operand shape.
+
+\begin{goingdeeper}[title={Formats are tagged products}]
+A fixed R-type format can be viewed as a product of finite sets: operation
+selector, destination, first source, and second source. A whole ISA is closer
+to a tagged sum of such products. The tag chooses a format; the remaining
+bits carry that format's fields. Overlapping tags are safe only when later
+rules, mode, or feature state resolve them uniquely.
+\end{goingdeeper}
+
+Unused and reserved patterns matter to the counting. Assigning every pattern
+today maximizes the present vocabulary but leaves no direct name for a future
+extension. Reserving patterns reduces current capacity while preserving
+design room and helping a strict decoder catch corruption or version
+mismatch. Whether a reserved pattern traps, remains unspecified, or becomes a
+hint is an architectural rule. The arithmetic alone cannot decide it.
+
+\subsection{Packing and extraction are modular arithmetic}
+
+Let a field have width \(k\), start at bit \(j\), and contain a value \(a\)
+with \(0\le a<2^k\). Packing that field into an otherwise zero word gives
+
+\[
+  P_{j,k}(a)=a\,2^j.
+\]
+
+Extraction shifts the word down and reduces it modulo \(2^k\):
+
+\[
+  X_{j,k}(w)=\left\lfloor\frac{w}{2^j}\right\rfloor\bmod 2^k.
+\]
+
+In bit notation, the same operation is
+
+\[
+  X_{j,k}(w)=(w\mathbin{\gg}j)\mathbin{\&}(2^k-1).
+\]
+
+For a bounded input, extraction inverts packing:
+
+\[
+  X_{j,k}(P_{j,k}(a))=a.
+\]
+
+The range premise does the real work. After the shift, the mask returns
+\(a\bmod 2^k\). This equals \(a\) only because \(a<2^k\). If a caller tries to
+pack eight into a three-bit field, extraction returns zero. Silently masking
+the input would make an invalid register number look legal.
+
+Several fields can be packed with bitwise OR when their occupied bit ranges
+do not overlap. Let fields \(a_i\) have ranges
+\([j_i,j_i+k_i)\). If every pair of these ranges is disjoint and every value is in
+range, then
+
+\[
+  W=\bigvee_i P_{j_i,k_i}(a_i)
+  \quad\Longrightarrow\quad
+  X_{j_i,k_i}(W)=a_i.
+\]
+
+The reader proof isolates one field. Its own packed bits survive the shift and
+mask. Every lower field is removed by the shift or lies below the mask's
+window; every higher field lies above that window and is removed by the mask.
+The machine proof can express the negation as a bit-vector formula and ask for
+a counterexample under the same range and non-overlap premises.
+
+\begin{warning}[title={Bitwise OR is not a substitute for non-overlap}]
+Two fields that set the same bit do not retain two independent values. OR
+merges them. Addition can be equally misleading because a carry can cross a
+field boundary. Prove the ranges disjoint before treating either operation as
+field concatenation.
+\end{warning}
+
+\subsection{Three orders that diagrams often hide}
+
+Instruction examples involve at least three orders.
+
+\begin{description}
+\item[Address order.] Which byte occupies the lower memory address.
+\item[Numeric significance.] Which byte or bit contributes the larger power
+of two to a word value.
+\item[Page order.] Which field a manual draws on the left.
+\end{description}
+
+Little-endian memory places the least-significant byte at the lowest address.
+It does not reverse the bits within each byte, change the field numbers in the
+instruction word, or require a manual to draw bit zero on the left. Begin with
+the addressed bytes, construct the word according to the declared byte order,
+and only then apply word-bit field definitions. That sequence prevents a
+visual convention from becoming a semantic rule.
+
+Sign extension has a similar order requirement. A (k)-bit pattern (u)
+represents the signed integer
+
+\[
+  \mathrm{signed}_k(u)=
+  \left\{
+  \begin{array}{ll}
+    u, & u<2^{k-1},\\
+    u-2^k, & u\ge 2^{k-1}.
+  \end{array}
+  \right.
+\]
+
+Extending it to (n>k) bits preserves that integer while choosing its
+modulo-\(2^n\) word representative. For a split immediate, every fragment must
+first be placed into its declared logical bit positions. Only the completed
+(k)-bit pattern has the sign bit named by the specification. Extending each
+fragment separately assigns several false sign bits and cannot reconstruct
+the intended displacement.
+
+\section{Boundaries, codes, and ambiguity}
+
+A fixed-length code makes every aligned (n)-byte boundary a candidate
+instruction boundary. A variable-length code must also determine where one
+codeword ends. Information theory calls a code \emph{prefix-free} when no
+complete codeword is the prefix of another. Such a stream can be decoded from
+left to right without waiting to learn whether an already complete word will
+grow into a longer one.
+
+Machine instruction encodings need not be prefix-free when viewed as raw byte
+strings. A byte that is a complete instruction in one mode can act as a prefix
+or part of another instruction when the decoder begins in another mode or
+state. An opcode can announce that ModR/M, displacement, or immediate bytes
+follow. The decoder's state and the pinned starting address supply information
+not present in a bare set of byte strings.
+
+\emph{Unique decodability} is weaker than prefix freedom. It asks whether a
+complete stream has only one sequence of codewords, even if a decoder may need
+lookahead. For machine code, the useful claim is narrower and more explicit:
+from a declared boundary, in a declared mode and feature set, the specification
+selects at most one result and one consumed length. Starting at another byte
+may legally produce another instruction sequence. The architecture does not
+promise that arbitrary byte strings contain self-identifying global
+boundaries.
+
+\begin{example}[title={One wrong length changes a suffix}]
+Suppose the correct first decode consumes three bytes at address \(p\), but a
+faulty decoder consumes two. Even if both report the same broad operation for
+the first instruction, their next addresses are \(p+3\) and \(p+2\). The byte
+at \(p+2\) is an operand component in the first interpretation and the next
+opcode in the second. Every later line of disassembly can diverge. Length is
+therefore part of the semantic bridge from decoding to program execution.
+\end{example}
+
+This dependence explains why linear disassembly and recursive path following
+answer different questions. Linear disassembly repeatedly decodes the next byte
+after the reported length. Recursive path following uses decoded control-flow
+successors from known entries. The first can walk through embedded data; the
+second can miss code reached through unresolved indirect control. Neither
+method discovers a unique intended program from arbitrary bytes without
+additional assumptions.
+
 \section{A0: every byte has a job}
 
 Every A0 instruction occupies four bytes and begins at an address divisible
@@ -228,7 +510,7 @@ event through the step relation.
 A decoder could ignore every unused A0 field and still recover the intended
 operation and operands from encodings produced by the official encoder. Such a
 decoder satisfies the forward round trip on encoder output. It fails the
-canonicality contract because many byte strings with nonzero unused fields
+canonical form contract because many byte strings with nonzero unused fields
 would be accepted as the same instruction.
 
 Canonical encodings provide one byte representation for each legal A0
@@ -266,8 +548,9 @@ than demand reproduction of the original spelling.
 
 The RV64I base integer ISA uses 32-bit base instructions. The optional
 compressed extension can add 16-bit instructions, but we exclude that
-extension in this example. The source pin is the ratified unprivileged
-architecture, version 20260120; RV64I itself is version 2.1
+extension in this example. The source pin is the ratified architecture for
+instructions available without supervisor privilege, version 20260120;
+RV64I itself is version 2.1
 \autocite{riscv2026unpriv}.
 
 An R-type instruction divides the 32-bit word into six fields.
@@ -374,10 +657,146 @@ value. A decoder that accepts extension forms while claiming the base subset is
 too permissive; one that rejects enabled forms may be sound but incomplete for
 the larger scope.
 
+\subsection{A complete split-immediate reconstruction}
+
+The branch form makes the field rule concrete. Consider the RV64I instruction
+
+\begin{codelisting}[language={},caption={A branch sixteen bytes forward}]
+beq x5, x2, +16
+\end{codelisting}
+
+The logical branch displacement is a signed thirteen-bit value whose low bit
+is always zero. The instruction does not store thirteen adjacent bits. It
+places logical bit 12 in instruction bit 31, logical bits 10 through 5 in
+instruction bits 30 through 25, logical bits 4 through 1 in instruction bits
+11 through 8, and logical bit 11 in instruction bit 7. The low logical bit is
+supplied as zero rather than stored.
+
+Sixteen has the thirteen-bit pattern
+
+\[
+  0\ 000000\ 1000\ 0\ 0,
+\]
+
+when its bits are grouped in the order
+
+\[
+  \mathit{imm}[12]\quad
+  \mathit{imm}[10{:}5]\quad
+  \mathit{imm}[4{:}1]\quad
+  \mathit{imm}[11]\quad
+  \mathit{imm}[0].
+\]
+
+Thus instruction bit 31 is zero, bits 30 through 25 are zero, bits 11 through
+8 contain binary \code{1000}, and bit 7 is zero. The remaining fields contain
+(rs2=2), (rs1=5), \textit{funct3} \code{000}, and branch opcode
+\code{1100011}. Packing them gives
+
+\[
+  \mathtt{00228863}.
+\]
+
+In little-endian memory, increasing addresses hold
+
+\[
+  \mathtt{63\ 88\ 22\ 00}.
+\]
+
+Decoding follows the reverse route. First construct the 32-bit word from the
+four addressed bytes. Next extract every instruction field by its word-bit
+position. Place the four immediate fragments into their logical positions and
+supply bit zero. The result is the thirteen-bit pattern for sixteen. Finally,
+sign-extend that complete pattern before adding it to the branch instruction's
+address. This order keeps byte assembly, fragment placement, signed reading,
+and target calculation as four visible operations.
+
+\begin{proofkit}[title={The branch fragments recover sixteen}]
+Bits 11 through 8 of \code{00228863} are \code{1000}. Placing them in logical
+immediate bits 4 through 1 contributes (8\cdot2=16). Every other immediate
+fragment is zero, including the sign bit. The reassembled thirteen-bit value
+is therefore sixteen, and sign extension preserves it. A decoder that treats
+instruction bits 11 through 8 as logical bits 3 through 0 instead recovers
+eight and sends control to the wrong address.
+\end{proofkit}
+
+The implicit low zero serves two purposes. It spends no encoding bit on a fact
+shared by every branch displacement, and it makes every target this form can
+encode
+two-byte aligned. The base RV64I subset used here has four-byte instructions,
+but the wider architecture reserves room for 16-bit instruction parcels.
+Alignment and displacement scale must therefore come from the pinned feature
+set rather than from the visual width of this one instruction.
+
+\begin{warning}[title={A split immediate is not stored in reading order}]
+Writing the four fragments beside one another in the order they appear from
+instruction bit 31 down to bit 7 does not produce the logical signed value.
+Each fragment has named destination positions. Draw those positions or write
+the shifts before performing sign extension.
+\end{warning}
+
+\section{Encoding before and after linking}
+
+The earlier examples use operands whose numeric fields are already known. A
+source program often names a symbol instead. An assembler may know the opcode
+and register fields but not the final distance to a label in another section
+or object file. It emits provisional bytes together with a relocation record.
+The linker---the tool that combines object files into a final program---chooses
+addresses, computes the required value, checks its range, and patches the
+designated fields.
+
+These are different correctness claims. The assembler must select the right
+instruction form and describe the unresolved field accurately. The linker
+must calculate the value under the relocation rule, reject an out-of-range
+result or select an authorized relaxation, and write only the assigned bits.
+The final decoder must classify the linked bytes as the intended structured
+instruction. A source-level mnemonic alone does not bind the proof to the
+bytes that will execute.
+
+\begin{definition}[title={Relocation is a typed patch obligation}]
+A relocation record identifies a place in an object, a relocation kind, a
+symbol and optional addend, and the rule for producing the final field. Its
+kind determines the value calculation, field layout, scale, signed range, and
+overflow behavior. It is not a general instruction decoder, although applying
+it correctly requires knowledge of the target encoding.
+\end{definition}
+
+For a split branch displacement, the linker cannot write one adjacent integer
+field. It calculates the signed displacement, verifies the scale and range,
+then distributes logical bits among the specified instruction positions. A
+control should move the target just outside the positive and negative limits.
+Another should change the relocation kind while keeping the symbol fixed. The
+link must reject or produce different bytes; silently truncating the value
+would redirect control.
+
+Link-time relaxation adds another layer. A tool may replace one instruction
+sequence with a shorter or otherwise preferred legal sequence when final
+distances and features permit it. Correct relaxation is a program
+transformation, not a text substitution. It must preserve the declared
+observable behavior, update addresses and relocation effects, and leave a byte
+stream accepted by the target decoder. Chapter 10 returns to linking and
+calling conventions; Chapters 11 and 12 provide the relations needed to state
+preservation precisely.
+
+Dynamic code generation repeats part of this pipeline at runtime. A
+just-in-time compiler chooses forms, writes bytes, resolves nearby targets,
+and transfers control to the generated region. Its trust boundary includes
+the encoder, writable-to-executable memory policy, instruction-cache
+coherence required by the platform, and the exact bytes admitted for
+execution. A correct pure decoder proves only one link in that chain.
+
+\begin{keyidea}[title={Bind evidence to final bytes}]
+Assembly text explains intent. Object bytes plus relocations describe work
+still to be done. Final linked or generated bytes are the object fetched by
+the machine. A complete execution artifact identifies which stage it records
+and binds its claim to the executable image.
+\end{keyidea}
+
 \section{x86-64: length is part of the answer}
 
 In 64-bit mode, an x86 instruction can contain legacy prefixes, a REX prefix,
-an opcode, a ModR/M byte, an optional SIB byte, an optional displacement, and
+an opcode, a ModR/M byte, an optional scale-index-base (SIB) byte, an optional
+displacement, and
 an optional immediate. Not every instruction contains every part. The decoder
 must decide which parts are present as it moves through the byte stream. Our
 source is Intel's version 092 instruction reference
@@ -469,7 +888,8 @@ end-of-buffer error.
 \begin{warning}[title={Length is part of decoder soundness}]
 A decoder that selects the right operation and operands but reports the wrong
 length is unsound for program execution. The current step may appear correct,
-yet fallthrough begins at the wrong byte and changes the decoded suffix.
+yet the next sequential instruction begins at the wrong byte and changes the
+decoded suffix.
 \end{warning}
 
 \section{Three additions, three decoder shapes}
@@ -559,7 +979,7 @@ reassembled value.
 A control matrix maps each decoder obligation to at least one accepted case
 and one mutation expected to change its result. Rows name obligations such as
 length, field extraction, reserved-bit rejection, feature selection, and
-canonicality. Columns record the witness bytes, expected class, actual class,
+canonical form. Columns record the witness bytes, expected class, actual class,
 and replay result.
 \end{definition}
 
@@ -586,13 +1006,167 @@ table check so a later manual revision does not masquerade as a change in bit
 arithmetic.
 \end{proofkit}
 
+\subsection{Correct decoding composes with correct execution}
+
+Let (D) be a decoder, (S) a structured instruction semantics, and (F) a
+fetch operation. A machine step can be factored as
+\[
+  \sigma \mathrel{\mathop{\longrightarrow}\limits^{F}} (p,b)
+  \mathrel{\mathop{\longrightarrow}\limits^{D_{m,e,p}}} (i,n)
+  \mathrel{\mathop{\longrightarrow}\limits^{S}} \sigma'.
+\]
+Here (m) is the mode, (e) the enabled feature set, (p) the starting
+address, (b) the available bytes, (i) the decoded instance, and (n) the
+consumed length. Each arrow carries a different obligation. Fetch must return
+the addressed, permitted bytes or a fetch failure. Decode must classify those
+bytes according to the pinned architecture. Execution must implement the
+effect of the structured instance. The ordinary next program counter must use
+the decoded length where the ISA requires it.
+
+A composition theorem needs all three premises. Correct execution applied to
+the wrong decoded instance proves the wrong step. Correct decoding over bytes
+that could not have been fetched proves only a pure parser result. Correct
+operation selection with a wrong length can corrupt the next step. The
+factorization is valuable because it localizes a failure; it does not permit
+one local theorem to stand for the whole transition.
+
+For deterministic in-scope forms, decoder soundness can be written
+\[
+  D_{m,e,p}(b)=\mathrm{Decoded}(i,n)
+  \Longrightarrow
+  \mathrm{SpecDecode}_{v,m,e,p}(b,i,n),
+\]
+where (v) pins the specification version. Completeness reverses the useful
+direction for all forms in the selected scope. Rejection correctness relates
+each named failure to a specification condition. A decoder may be sound but
+incomplete if it accepts only one legal ADD form. It may be complete but
+unsound if it accepts every required form plus a reserved pattern.
+
+\begin{proofkit}[title={Reader proof for the A0 composed step}]
+For bytes \code{10 2B 02 00} at an aligned readable address, fetch returns the
+four bytes in address order. The decoder's opcode, reserved-field, and
+operand checks return \(\mathrm{Add}(3,5,2)\) with length four. The ADD
+transition reads the old values of registers 5 and 2, writes their fixed-width
+sum to register 3, updates the declared A0 condition bits, preserves every
+other component, and advances (pc) by four. Changing byte 1 to \code{6B}
+breaks the decode premise before execution can claim an ADD step.
+\end{proofkit}
+
+Aliases require a relation rather than literal identity. Two assembly
+spellings may encode to the same bytes. Two byte strings may also decode to
+instances with the same architectural effect. Define a normalization function
+\(N\) or a semantic relation \(\simeq\), then state the intended round trip:
+\[
+  D(E(i))\simeq i
+  \qquad\hbox{or}\qquad
+  E(D(b))=N(b).
+\]
+Using literal equality where the ISA permits aliases falsely rejects a correct
+encoder. Using semantic equivalence where A0 promises one canonical byte
+string weakens a property that can and should detect nonzero reserved fields.
+
+\section{Why decoding costs money}
+
+The architectural decoder is a mathematical classifier. A physical
+instruction frontend---the processor region that fetches and prepares
+instructions for execution---must perform related work under limits on time,
+area, energy, and bandwidth.
+These levels must be connected without identifying them.
+
+Instruction density affects every actor that stores or moves program bytes. A
+shorter program can occupy fewer instruction-cache lines, require fewer page
+and memory transfers, reduce distribution size, and leave more shared cache
+capacity for neighboring code. The benefit depends on workload locality and
+the rest of the memory system. Saving one byte in cold code does not guarantee
+a measurable speedup; saving enough bytes in frequently executed code can change its cache
+footprint.
+
+Regular length makes it easier to propose several instruction boundaries in
+parallel. Variable-length x86 instruction frontends first determine boundaries, then send
+instructions through available decode paths. Intel documents instructions up
+to fifteen bytes and notes that prefixes can change the length a frontend must
+recognize \autocite{intel2026optimization}. Actual throughput, energy, and
+internal operation count are properties of a named processor, not consequences
+of the x86-64 ISA alone.
+
+The trade is not simply density against speed. A fixed 32-bit base instruction
+can offer regular extraction while an optional 16-bit subset reduces common
+programs. A variable encoding can give frequent forms short representations
+while a decoded-operation cache avoids repeating some frontend work. Alignment,
+fusion, predictor structure, cache-line crossings, and implementation width
+can dominate a particular case. The book therefore records code bytes as an
+architectural fact and treats frontend cost as separately measured state.
+
+\begin{keyidea}[title={The unit of cost must be named}]
+Code size is measured in stored or transferred bytes. Fetch demand can be
+measured in cache lines or bytes per interval. Decode capacity may be measured
+in instructions or internal operations per cycle. Energy is joules, and
+silicon is area. None of these units can be replaced by the label ``RISC'' or
+``CISC.''
+\end{keyidea}
+
+Compatibility has a balance sheet as well. Stable encodings protect deployed
+binaries, operating systems, compiler investment, documentation, and user
+training. They also force new designs to recognize old forms, preserve mode
+rules, and adjudicate scarce encoding space. Vendors can spend transistor and
+verification budgets behind the interface so old bytes run on new hardware.
+Customers receive continuity; processor designers inherit a larger test obligation.
+
+Decoders also sit inside assemblers, disassemblers, debuggers, emulators,
+hypervisors, binary translators, profilers, security scanners, and
+just-in-time compilers. These consumers do not all need the same output. An
+assembler needs relocation-aware encoding. A debugger needs instruction
+length and printable operands. An emulator needs a complete structured effect.
+A scanner may need conservative handling of undecodable regions. Sharing one
+well-tested decoding core can reduce disagreement, but a common defect then
+reaches more tools.
+
+\subsection{Malformed bytes are a security boundary}
+
+An attacker who controls bytes can choose rare prefixes, truncated inputs,
+reserved combinations, and sequences that change meaning under another mode.
+A decoder written in an unsafe language may suffer an ordinary memory-safety
+bug while reading a promised displacement or immediate. A memory-safe decoder
+can still be semantically wrong: consume too many bytes, accept a forbidden
+form, omit a feature check, or disagree with the processor about a boundary.
+
+Boundary disagreement matters to control-flow analysis and gadget discovery.
+A security tool may approve one instruction stream while execution begins at
+another reachable address and sees another. This does not mean that every
+variable-length ISA is insecure. It means the analysis theorem must bind entry
+points, mode, reachable control flow, and the same decoder contract used by
+the execution model.
+
+Differential testing is especially useful here. Run the same bytes, start
+address, mode, and feature set through two independently developed decoders.
+Compare result class, structured operands, and length. Preserve disagreements
+as regression cases and resolve them against the primary specification. If
+both tools inherited the same table or code generator, their agreement is less
+independent than their package names suggest.
+
+Fuzzing supplies volume; partitions supply purpose. Generate accepted forms,
+then mutate every length decision, reserved bit, register boundary, immediate
+boundary, mode switch, and feature gate. Truncate at every byte. Include legal
+successes so a decoder that rejects everything cannot appear robust. Check
+resource bounds too: a finite maximum instruction length should prevent one
+input from causing unbounded parser work.
+
+\begin{archive}[title={Compatibility turns old bytes into present obligations}]
+An old encoding is not merely a museum object when current processors and
+tools still accept it. It remains part of a commercial and security contract.
+The historical layer explains both the value of compatibility and the size of
+the modern decoder's obligation.
+\end{archive}
+
 \section{The introductory Axeyum route}
 
 Axeyum does not yet contain the architectural packages used in this chapter.
-At sibling revision
+At the inspected sibling revision
 \code{a9991fdad6c1e4b2bda596b46d2c8c715556ceae}, it provides reusable
-bit-vector expressions, solver routes, SAT and DRAT machinery, and kernel
-reconstruction infrastructure. It does not provide a reusable A0 decoder,
+bit-vector expressions with extraction, concatenation, and extension,
+bit-level lowering, solver routes, SAT and DRAT machinery, and kernel
+reconstruction infrastructure. Its tests include LSB-first concatenation and
+narrow extraction behavior. It does not provide a reusable A0 decoder,
 RV64 decoder and semantics, or x86-64 decoder and semantics. This boundary is
 recorded in the book's Axeyum guide and must remain visible until code and
 evidence replace the implementation obligations.
@@ -626,8 +1200,9 @@ answers is difficult to interpret and too weak for a load-bearing claim.
 
 This chapter does not define all RV64I or x86-64 encodings. It does not cover
 RISC-V compressed instructions, vectors, privilege, or every extension. It
-does not cover the full x86 prefix history, VEX, EVEX, APX, every addressing
-form, or the maximum instruction length. Later chapters add selected forms
+does not cover the full x86 extended-prefix history or every
+addressing form. It names the architectural maximum length only to bound the
+decoder and frontend discussion. Later chapters add selected forms
 only when a proof needs them.
 
 It also does not claim that equal decoded arithmetic establishes equal program
@@ -681,4 +1256,131 @@ and which belong only to execution.
 \item Design a differential test manifest for one RV64I form or one x86-64
 form. Include the source pin, mode, generator domain, independent decoder,
 expected agreement, and at least two negative controls.
+
+\item \textbf{History.} Separate the stored-program idea, a circulated design,
+and a working stored-program machine. Explain why one date cannot stand for all
+three.
+
+\item \textbf{History.} Explain how initial orders, paper-tape input, memory
+words, and symbolic notation occupy different representation layers in an
+early stored-program workflow.
+
+\item \textbf{History.} State one benefit and one continuing implementation
+obligation created by a compatible instruction architecture such as
+System/360.
+
+\item \textbf{Count.} A format has a six-bit opcode and two independent
+five-bit register fields. How many raw combinations do those fields describe?
+How many bits remain in a 24-bit instruction?
+
+\item \textbf{Prove.} Use the pigeonhole principle to show that a twelve-bit
+format cannot represent twenty operations with three independently chosen
+eight-register operands.
+
+\item \textbf{Design.} Reserve one four-bit opcode as an escape into a second
+four-bit selector. Count the direct and escaped operation names. State which
+operations use the shorter selector.
+
+\item \textbf{Break.} Pack the value eight into a three-bit field by silently
+masking it. Extract the result and explain why the apparent round trip fails.
+
+\item \textbf{Prove.} Prove
+\(X_{j,k}(P_{j,k}(a))=a\) from the arithmetic definitions. Mark where
+\(0\leq a<2^k\) is used.
+
+\item \textbf{Prove.} Pack two bounded fields into disjoint ranges and prove
+that extracting either one ignores the other. Then give overlapping ranges
+that falsify the claim.
+
+\item \textbf{Break.} Replace field concatenation by addition without a
+non-overlap premise. Construct the smallest carry that changes a neighboring
+field.
+
+\item \textbf{Transfer.} A manual draws bit 31 on the left and bit 0 on the
+right. Memory holds a 32-bit little-endian word. Give a procedure that moves
+from addressed bytes to fields without treating page order as address order.
+
+\item \textbf{Execute.} Reconstruct the signed integer represented by the
+12-bit patterns \code{000}, \code{7FF}, \code{800}, and \code{FFF}. Then give
+their 64-bit sign extensions.
+
+\item \textbf{Break.} Divide a twelve-bit immediate into high seven and low
+five bits. Sign-extend the fragments separately and exhibit a value for which
+the reconstructed result is wrong.
+
+\item \textbf{Codes.} Give a prefix-free binary code for three operations.
+Then give a uniquely decodable fixed-length code for the same operations.
+Explain why every fixed-length code is prefix-free.
+
+\item \textbf{Break.} Use codewords 0 and 01. Show why the set is not
+prefix-free. State what extra decoder rule would be needed after reading 0.
+
+\item \textbf{Explain.} Why can the same x86 byte begin one instruction at one
+address and occur inside another instruction from an earlier address without
+giving the architecture's decoder more than one result for the same declared
+input?
+
+\item \textbf{Trace.} Let a correct decoder consume lengths 3, 2, and 4 from
+address 100. Let a faulty decoder report 2 for the first instruction. List the
+two sequences of proposed boundaries and the first point of disagreement.
+
+\item \textbf{Compare.} Apply linear disassembly and recursive path following to a
+buffer containing reachable code, an embedded four-byte constant, and an
+unresolved indirect jump. Name one possible mistake for each method.
+
+\item \textbf{Logic.} Write decoder soundness and completeness as two
+quantified implications. Construct a decoder that is sound but incomplete and
+one that is complete but unsound for a two-instruction scope.
+
+\item \textbf{Logic.} Define a decoder that returns only Reject. Which
+properties can it satisfy vacuously? Which legal positive control exposes it?
+
+\item \textbf{Prove.} State a composed A0 step theorem with separate fetch,
+decode, execution, preservation, and next-program-counter premises.
+
+\item \textbf{Break.} Keep operation and operands correct but report one byte
+too short. Give a two-instruction byte stream whose second decoded operation
+changes.
+
+\item \textbf{Normalize.} Give two assembly spellings or encodings that a
+chosen real assembler treats as aliases. State whether your round-trip test
+uses text equality, byte equality, structured equality, or semantic
+equivalence, and justify the choice.
+
+\item \textbf{Economics.} A frequently executed loop shrinks from 68 bytes to 60 bytes on a
+machine with 64-byte instruction-cache lines. Give an alignment where the
+change reduces the number of lines and one where it does not. Explain why byte
+count alone is not a speed claim.
+
+\item \textbf{Measurement.} Design an experiment separating stored code size,
+fetched bytes, decoded instructions, internal operations, cycles, and energy.
+Name the actor and unit for every measurement.
+
+\item \textbf{Audit.} For a decoder used by an emulator, list the additional
+outputs needed beyond a disassembler's preferred printed mnemonic.
+
+\item \textbf{Security.} Construct a test matrix for attacker-controlled x86
+bytes covering truncation, prefix repetition, mode change, ModR/M memory
+selection, displacement length, and the architectural maximum length.
+
+\item \textbf{Security.} Two decoders agree on the mnemonic but disagree on
+length. Explain why a control-flow scanner must treat this as a semantic
+disagreement rather than a formatting difference.
+
+\item \textbf{Differential.} Two tools share the same generated opcode table.
+Explain why their agreement is weaker than agreement between independently
+derived implementations. State how the primary manual adjudicates a mismatch.
+
+\item \textbf{Axeyum.} Express a three-bit extract-after-pack property as a
+bit-vector counterexample query. Give the range premise and the expected
+solver result.
+
+\item \textbf{Axeyum.} Design a search for two distinct accepted A0 byte
+strings that decode to the same structured instance. Explain what SAT and
+unsatisfiable (UNSAT) would mean and what replay must check.
+
+\item \textbf{Synthesis.} State a complete decoder claim for one selected ISA
+form. Bind source version, bytes, start address, mode, features, structured
+result, length, rejection behavior, execution handoff, controls, and excluded
+forms.
 \end{enumerate}

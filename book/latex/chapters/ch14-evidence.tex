@@ -65,6 +65,177 @@ can leave the trusted base. Formula generation and semantic translation do
 not disappear, however. A flawless proof of the wrong formula remains a
 flawless proof of the wrong formula.
 
+\subsection{Resolution turns contradiction into a checkable object}
+
+The logical foundation is older than modern SAT solving. In 1965 J. Alan
+Robinson presented resolution as a machine-oriented inference principle. His
+setting was first-order theorem proving, where substitution and logical
+inference had to work together. The propositional form used in SAT proof
+checking is smaller: it combines two clauses that disagree on one Boolean
+variable.\autocite{robinson1965resolution}
+
+A \keyterm{Boolean variable} has one of two values, false or true. A
+\keyterm{literal} is a variable such as \(p\), or its negation
+\(\neg p\). A \keyterm{clause} is a disjunction of literals. It is true when
+at least one of its literals is true. A formula in conjunctive normal form is
+a conjunction of clauses, so every clause must be true.
+
+\begin{definition}[title={Resolution rule}]
+Let \(A\) and \(B\) be disjunctions of literals that do not mention the
+displayed occurrence of variable \(p\). From parent clauses
+\[
+  A\lor p
+  \qquad\hbox{and}\qquad
+  B\lor\neg p,
+\]
+resolution derives the \keyterm{resolvent}
+\[
+  A\lor B.
+\]
+The variable \(p\) is the pivot. Duplicate literals may be removed. A clause
+containing both \(x\) and \(\neg x\) is always true and need not strengthen a
+refutation.
+\end{definition}
+
+The rule is sound for a case reason. Suppose one assignment satisfies both
+parents. If it makes \(p\) false, the first parent can be true only because
+\(A\) is true. If it makes \(p\) true, the second parent can be true only
+because \(B\) is true. In either case, \(A\lor B\) is true. Every model of the
+parents is therefore a model of the resolvent.
+
+The smallest useful end point is the \keyterm{empty clause}. A clause is true
+when one of its literals is true. The empty clause has no literal that could
+make it true, so every assignment makes it false. Deriving it from the input
+clauses proves that no assignment satisfies all inputs.
+
+Consider this four-clause formula:
+\[
+\begin{array}{ll}
+C_1=p\lor q,       & C_2=\neg p\lor q,\\
+C_3=p\lor\neg q,  & C_4=\neg p\lor\neg q.
+\end{array}
+\]
+Every possible pair of truth values is forbidden. If \(q\) is false, the first
+two clauses demand both \(p\) and \(\neg p\). If \(q\) is true, the last two
+clauses demand both \(p\) and \(\neg p\). Resolution records the same argument
+without listing all four assignments.
+
+\begin{table}[htbp]
+\centering
+\caption{A complete resolution refutation. Each derived row names its two
+parents and pivot. The last row is the empty clause.}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Row & Clause & Parents & Pivot \\
+\midrule
+1 & \(p\lor q\) & input & -- \\
+2 & \(\neg p\lor q\) & input & -- \\
+3 & \(p\lor\neg q\) & input & -- \\
+4 & \(\neg p\lor\neg q\) & input & -- \\
+5 & \(q\) & 1, 2 & \(p\) \\
+6 & \(\neg q\) & 3, 4 & \(p\) \\
+7 & empty clause & 5, 6 & \(q\) \\
+\bottomrule
+\end{tabular}
+\label{tab:resolution-refutation}
+\end{table}
+
+Row 5 follows because resolving \(p\lor q\) with
+\(\neg p\lor q\) removes the two pivot literals and leaves \(q\). Row 6 leaves
+\(\neg q\). Row 7 resolves those unit clauses and leaves nothing. The proof is
+small enough to check with a pencil, but it already has the shape of a proof
+file: input clauses, numbered derived clauses, parent references, pivots, and a
+required final contradiction.
+
+\begin{proofkit}[title={Reader proof: an accepted resolution trace is sound}]
+Maintain this invariant after every accepted row: each stored clause is a
+logical consequence of the original input clauses. The invariant holds for an
+input row because that clause is one of the assumptions. For a derived row,
+the checker first confirms that both parents already satisfy the invariant.
+Resolution soundness then makes the resolvent a consequence of those parents
+and therefore of the inputs. Induction gives the invariant for every row. If
+the final accepted row is the empty clause, the inputs imply false. Hence the
+input formula has no satisfying assignment.
+\end{proofkit}
+
+This proof identifies what a small checker must do. It must parse literals and
+clauses without changing their meaning. It must reject an unknown parent, a
+future parent, or a parent that has been deleted. It must verify that the
+claimed pivot occurs positively in one parent and negatively in the other. It
+must calculate the resolvent rather than trust a printed child. Finally, it
+must require the empty clause. Checking several valid intermediate rows and
+then accepting end-of-file would not establish contradiction.
+
+The invariant proves checker soundness only under assumptions about the
+implementation. An integer overflow in a variable identifier, a parser that
+drops a minus sign, or a set representation that loses a literal can violate
+the mathematical model. A machine-checked implementation can reduce that
+gap. Differential tests, malformed inputs, and mutation controls can expose
+ordinary defects. None of those measures changes which exact code and runtime
+remain trusted.
+
+\subsection{Proof formats divide work between producer and checker}
+
+The seven-row trace carries explicit parents and pivots. Modern
+conflict-driven SAT solvers perform many more transformations. They learn
+clauses, delete clauses, eliminate variables, simplify formulas, and use
+inference rules that would make a fully explicit elementary-resolution log
+expensive to produce. Proof formats divide the resulting work differently.
+
+DRAT permits clause additions and deletions. Its redundancy condition is
+expressive enough for the solving and preprocessing techniques considered by
+its designers. The producer can log changes close to the form in which a
+solver already performs them. The checker does more discovery work: it must
+establish that an added clause has the required redundancy property.
+DRAT-trim can check backward from the contradiction, retain the proof steps
+that matter, and add useful deletion information.\autocite{wetzler2014drat}
+
+LRAT adds ordered hints. These hints name clauses used during propagation and
+make the redundancy check more direct. A noncertified tool may translate a
+DRAT proof into LRAT; a certified checker then validates the LRAT result. The
+translator need not be trusted, because a bad translation should fail the
+certified check. The 2017 work demonstrated such checkers in both Coq and
+ACL2.\autocite{cruzfilipe2017lrat}
+
+SMT proofs have a broader vocabulary. A solver may reason about equality,
+linear arithmetic, arrays, quantified formulas, and other theories while also
+performing propositional search and preprocessing. Alethe extends the SMT-LIB
+term language and permits proof rules at different levels of detail. Coarse
+steps ease proof production but require a checker or elaborator to fill larger
+gaps. Fine steps enlarge the proof and producer burden while allowing a
+simpler reconstruction step. The format must also state which theories and
+rules a checker actually supports.\autocite{schurr2021alethe}
+
+\begin{table}[htbp]
+\centering
+\caption{Proof formats make different engineering trades. A supported format
+does not imply that every solver feature or theory has a checked route.}
+\begin{tabular}{@{}p{0.12\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.27\textwidth}@{}}
+\toprule
+Format & Producer supplies & Checker supplies & Principal boundary \\
+\midrule
+DRAT & additions and optional deletions & redundancy discovery and final contradiction & exact CNF and supported DRAT semantics \\
+LRAT & additions, deletions, and ordered hints & direct hinted validation & hint production may be untrusted; LRAT checker remains trusted \\
+Alethe & SMT terms and coarse or fine rule steps & theory checks and possible elaboration & supported rule and theory vocabulary \\
+\bottomrule
+\end{tabular}
+\label{tab:proof-format-tradeoffs}
+\end{table}
+
+The table is not a ladder. A short DRAT proof checked by one implementation, a
+larger LRAT proof checked inside a theorem prover, and an Alethe proof
+reconstructed into a kernel theorem answer different trust and language
+questions. Proof size, production cost, checker size, theory coverage, and
+reconstruction footprint are separate coordinates.
+
+Nor is conversion transitive by reputation. If formula \(F\) produces DRAT
+proof \(D\), a converter emits LRAT proof \(L\), and a certified checker
+accepts \(L\), the checked conclusion concerns the formula bytes read with
+\(L\). The manifest must still bind those bytes to \(F\), and \(F\) to the
+semantic claim. The accepted LRAT proof can remove the DRAT solver and
+converter from the trusted base. It cannot repair an unbound or mistranslated
+formula.
+
 \section{Six forms of support}
 
 The book uses six \keyterm{trust classes}: definition, trace, computation,
@@ -247,6 +418,86 @@ If the original formula encoded the wrong semantics, preserving it perfectly
 preserves the error. Hashes close the stale-file and substitution gaps. They
 do not close the semantic gap.
 
+\subsection{Hashes, signatures, and provenance answer different questions}
+
+A digest is a short value computed from bytes. A \keyterm{cryptographic hash}
+is designed so that finding two useful inputs with the same digest is
+computationally difficult. When the manifest records both the algorithm and
+digest, a later runner can check whether the bytes changed. The runner still
+needs a trusted copy of the manifest. An attacker who can replace both the
+artifact and its unsigned digest can make the pair agree.
+
+A digital signature adds an identity claim. A signer uses a private key to
+sign selected bytes; a verifier uses the corresponding public key to check the
+signature. This establishes that a holder of the private key signed those
+bytes, assuming the signature system and key distribution are sound. It does
+not establish that the signer understood the bytes, ran the checker, or made a
+true statement.
+
+\keyterm{Provenance} records where an artifact came from and which steps
+produced it. A useful record can name the input materials, command, tool
+version, environment, output products, and outcome. Chaining such records
+connects the product of one step to the material of the next. The chain makes
+substitution and stale-input errors visible.
+
+The in-toto framework gives an industrial comparison. A signed layout declares
+the expected supply-chain steps and the authorized parties. Signed link
+metadata records materials, products, commands, and byproducts for performed
+steps. Verification checks the chain against the layout. The target files
+remain opaque to the framework: process integrity does not establish an
+arbitrary semantic property of their contents.\autocite{torresarias2019intoto}
+
+An evidence manifest has the same chain shape but a different final question.
+Its layout may say: generate formula from semantic package, solve formula,
+check proof, and assemble report. Link records bind the input and output bytes
+at every stage. The proof checker must still determine whether the proof is
+valid, and the semantic argument must still connect the formula to the book
+claim.
+
+\begin{table}[htbp]
+\centering
+\caption{Four mechanisms close different gaps. None subsumes all the others.}
+\begin{tabular}{@{}p{0.18\textwidth}p{0.31\textwidth}p{0.38\textwidth}@{}}
+\toprule
+Mechanism & Establishes & Does not establish \\
+\midrule
+digest & equality with recorded bytes & correctness, origin, or availability \\
+signature & selected key signed selected bytes & truth or competent review \\
+provenance chain & declared steps connect materials to products & semantic correctness of each step \\
+certificate check & artifact is valid for the formula read & formula represents the intended theorem \\
+\bottomrule
+\end{tabular}
+\label{tab:identity-provenance-truth}
+\end{table}
+
+Canonical serialization matters whenever structured data is hashed or signed.
+Two JSON files can represent the same key-value map while ordering keys or
+spacing characters differently. Hashing raw bytes treats them as different.
+A canonical form fixes one byte representation for the structured value. The
+manifest must say whether its digest binds raw transport bytes, canonical
+structured bytes, or both.
+
+Canonicalization creates another trusted step. If the canonicalizer drops an
+unknown field, two records with different meanings may acquire the same
+canonical bytes. A safer design parses into a versioned typed structure,
+rejects unknown required fields, serializes deterministically, and tests a
+round trip. The raw distributed digest remains useful because it exposes any
+change before parsing.
+
+Availability is independent again. A digest can identify a proof that no
+repository retains. A signature can authenticate an inaccessible object.
+Long-lived evidence needs an archival location, stable identifiers, and enough
+license and build information for another person to obtain and check it. The
+manifest should treat a known digest with missing bytes as an unavailable
+outcome, not a successful identity check.
+
+\begin{archive}[title={Integrity is not truth}]
+Hashes protect identity. Signatures bind keys to bytes. Provenance binds
+declared steps. Certificate checkers validate formal relations. The theorem
+route needs all relevant links and must state the assumption introduced by
+each one.
+\end{archive}
+
 \subsection{Commands need outcome contracts}
 
 A checker command needs more than a transcript. Its process exit status must
@@ -333,6 +584,97 @@ budget. When testing an unsupported proof rule, include a supported rule that
 passes. When testing a semantic mutation, replay an unmutated instruction as
 well. Controls work in pairs because a useful checker must distinguish, not
 merely approve or object.
+
+\subsection{Mutation and metamorphic controls test relations}
+
+A hand-written negative control changes one object. \keyterm{Mutation testing}
+systematizes that idea by defining many small changes, called mutations, and
+requiring the test route to kill them. A mutation is killed when it changes the
+expected outcome in the declared way. A surviving mutation may expose a test
+gap, a dead condition, or a change that is actually irrelevant to the claim.
+
+Useful checker mutations include accepting an unknown parent, skipping a
+literal, reversing a pivot sign, treating end-of-file as contradiction,
+collapsing timeout into rejection, or ignoring a digest field. Each mutation
+targets one guard. The test harness should prove that it built and ran the
+mutated checker before reporting a kill. A compilation failure says the
+mutant did not build; it does not show that a test detected wrong behavior.
+
+Mutation testing can also change artifacts rather than code. Delete one proof
+step, alter one clause identifier, change one semantic digest, truncate one
+formula, or add a legal candidate to a supposedly exhausted language.
+Artifact mutations are easier for readers to reproduce. Code mutations reach
+guards whose absence may still accept every small published artifact.
+
+A \keyterm{metamorphic test} starts from a transformation with a predicted
+relation between outcomes. It is useful when the exact output is difficult to
+know in advance. Permuting clauses in a CNF formula should not change
+satisfiability. Renaming variables bijectively should preserve it. Adding a
+duplicate clause should preserve it. Adding a new contradictory unit pair
+should make the formula unsatisfiable, though it may also make a long proof
+vacuous.
+
+The prediction must match the evidence layer. Clause permutation preserves
+the mathematical formula but can invalidate a proof format whose hints use
+line identifiers. The correct metamorphic expectation may be: verdict
+unchanged, old proof rejected, regenerated proof accepted. Treating every
+byte-level transformation as proof preserving would confuse formula semantics
+with certificate syntax.
+
+\begin{table}[htbp]
+\centering
+\caption{Controls should attack every evidence link and name the expected
+boundary.}
+\begin{tabular}{@{}p{0.20\textwidth}p{0.33\textwidth}p{0.34\textwidth}@{}}
+\toprule
+Link & Mutation & Required observation \\
+\midrule
+claim to semantics & include one additional observed flag & claim or semantic digest changes \\
+semantics to formula & reverse subtraction operands & tiny model cross-check disagrees \\
+formula to proof & change one input clause & proof check rejects or proof digest is stale \\
+proof to checker & delete a required derivation & invalid-step or missing-contradiction result \\
+checker to report & force checker exit 137 & resource-exhausted report, never verified \\
+manifest binding & change one artifact digest & identity check rejects before execution \\
+kernel route & insert one assumption & dependency footprint becomes nonempty \\
+\bottomrule
+\end{tabular}
+\label{tab:evidence-control-matrix}
+\end{table}
+
+The matrix prevents one successful mutation from standing in for an entire
+route. A proof-byte mutation says nothing about formula completeness. A
+semantic mutation that is caught by a hash mismatch says nothing about the
+interpreter. Each control needs an expected boundary and evidence that
+execution reached it.
+
+\begin{proofkit}[title={Why a surviving mutation needs interpretation}]
+Let route \(R\) accept valid object \(x\), and let mutation \(m\) produce
+\(m(x)\). If the route also accepts \(m(x)\), two explanations are possible.
+The mutation may preserve every property that \(R\) is meant to check, or the
+route may fail to discriminate a relevant change. Decide which by restating
+the checked relation. If \(x\) and \(m(x)\) are equal under that relation,
+survival is expected. If not, the survivor is evidence of a missing or dead
+guard.
+\end{proofkit}
+
+Coverage counts matter. A report should distinguish mutants generated,
+mutants that built, mutants that ran, mutants killed at the intended boundary,
+mutants killed elsewhere, survivors, and ambiguous cases. Reporting only a
+percentage can reward a harness that fails to compile most mutations. The
+denominator is part of the claim.
+
+The economics are favorable for small trusted components. A solver may be too
+large for systematic mutation, but a parser, proof checker, manifest validator,
+and outcome wrapper have narrow contracts. Mutating them can reveal acceptance
+paths that ordinary positive examples never exercise. Retaining a small
+mutation suite also protects future refactoring: a removed guard should make a
+specific control survive.
+
+\begin{warning}[title={A high mutation score is not a soundness theorem}]
+Mutation operators sample plausible faults. They do not enumerate every wrong
+implementation. A perfect score supports the sensitivity of named guards; it
+does not prove that the checker implements the mathematical relation.
+\end{warning}
 
 \section{Designing a checker as a small mathematical machine}
 
@@ -425,11 +767,11 @@ clause there are no literals to negate. If the original formula already
 conflicts under propagation, the empty clause passes immediately.
 
 \begin{proofkit}[title={Reader argument: why the prefix is irrelevant}]
-Assume a conjunctive normal form formula (F) reaches conflict by unit
+Assume a conjunctive normal form formula \(F\) reaches conflict by unit
 propagation alone. Consider any candidate DRAT log whose final addition is the
 empty clause. A backward checker tests whether that empty clause follows by
 reverse unit propagation. Negating the empty clause adds no assumptions, so
-the check runs unit propagation on (F) itself. By the premise, that run
+the check runs unit propagation on \(F\) itself. By the premise, that run
 conflicts. The final step is therefore accepted without using any earlier
 proof step. Delete or replace the prefix and the same reason remains.
 \end{proofkit}
@@ -529,6 +871,113 @@ and then returns that axiom, the kernel has confirmed type consistency, not
 the external reasoning. The dependency footprint should list every assumption
 reached by the final term.
 
+This caution follows from the basic architecture of an interactive theorem
+prover. A large front end may parse notation, search for a proof, call
+automation, and elaborate omitted arguments. A much smaller kernel checks the
+resulting term against a type theory. The mathematical proposition appears as
+a type; a proof appears as a term of that type. The kernel need not trust the
+search procedure because a bad procedure should fail to produce a term that
+type-checks. This separation is often called the \keyterm{de Bruijn criterion}:
+proofs generated by complex or untrusted machinery are checked by a small,
+independent proof checker.
+
+The criterion reduces one kind of trust. It does not decide what the theorem
+means, choose sound primitive axioms, verify the compiler that built the
+kernel, or prove that the displayed source corresponds to the checked term.
+Those boundaries should be named rather than folded into the word
+``formalized.'' A practical trust graph contains at least the source
+statement, elaborated declaration, imported definitions and axioms, kernel,
+runtime, and the report that extracts the result.
+
+\subsection{Definitions, theorems, and assumptions leave different traces}
+
+A definition introduces a name with a body. The kernel can unfold that body
+when checking later terms. A theorem introduces a name with a proof term. The
+kernel can inspect the term's type and dependencies. An axiom introduces a
+name and type without a term that derives it. All three may be convenient to
+use in later prose, but only the last adds an unproved premise.
+
+This difference makes an assumption footprint useful. Start at the final
+declaration, follow its dependency graph, and collect primitive axioms and any
+opaque external facts treated as axioms. A footprint is more precise than
+counting the word ``axiom'' in source files. An unused experimental axiom does
+not weaken a theorem that cannot reach it. One deeply imported axiom does
+matter even if it appears in a distant module.
+
+Not every listed assumption is a defect. Classical choice, quotient
+principles, or a trusted semantic postulate may be intentional. The report's
+job is first to expose the dependency. Mathematical review can then ask
+whether the assumption is standard, avoidable, or exactly the proposition the
+artifact was supposed to establish. An axiom whose name restates the desired
+optimization theorem is circular. A foundational axiom explicitly accepted by
+the logic is a different kind of commitment.
+
+\begin{table}[htbp]
+\centering
+\caption{A kernel result must be read together with the route that produced
+and reported it.}
+\begin{tabular}{@{}p{0.24\textwidth}p{0.30\textwidth}p{0.34\textwidth}@{}}
+\toprule
+Layer & Useful check & Residual question \\
+\midrule
+source statement & review notation, scope, and quantifiers & is this the intended claim? \\
+elaboration & inspect generated declaration and imports & did notation elaborate as intended? \\
+proof term & kernel type-checking & which definitions and axioms are reachable? \\
+kernel and logic & small implementation and metatheory & are primitives and implementation trusted? \\
+extraction or report & compare names, hashes, and footprints & did the report describe the checked object? \\
+\bottomrule
+\end{tabular}
+\label{tab:kernel-trust-graph}
+\end{table}
+
+\subsection{Reflection moves checking into the logic}
+
+Proof by reflection replaces a long, manually elaborated derivation with a
+verified computation. First define a data representation of formulas,
+programs, or certificates inside the logic. Then define a checker over that
+representation. Prove once that whenever the checker returns acceptance, the
+interpreted proposition follows. For a concrete artifact, the kernel evaluates
+the checker and applies the soundness theorem.
+
+The attraction is scale. A million elementary certificate steps need not
+become a million hand-written tactic commands. The proof term can refer to the
+checker, its soundness theorem, and the artifact. The checker remains ordinary
+defined code whose behavior is connected to logic by proof. Efficient native
+evaluation may add an execution boundary, so the route must say whether the
+kernel reduced the computation, trusted a compiled evaluator, or checked a
+compact result returned by one.
+
+Reflection also makes representation part of the theorem. If an external DRAT
+file is parsed into an internal list of steps, soundness of the internal
+checker does not by itself prove soundness of the parser. One route verifies
+the parser. Another keeps the parser outside the trusted base but reserializes
+and compares canonical bytes. A third emits an explicit internal term and
+lets elaboration reject malformed structure. Each route pays a different cost
+and leaves a different boundary.
+
+The formula bridge is equally important. Suppose a reflected checker proves
+that a CNF object is unsatisfiable. The book wants a statement about machine
+programs. A separate theorem must say that any cheaper program satisfying the
+declared observation would yield a satisfying assignment of that CNF. Without
+this theorem, reflection has proved a precise fact about a data structure, not
+the advertised lower bound.
+
+Two established teaching routes clarify the choice made here. \emph{Software
+Foundations} presents its logical development as Coq scripts: definitions,
+theorems, proofs, and many exercises inhabit the proof assistant from the
+start. \emph{Concrete Semantics} pairs sustained textbook explanation with
+executable Isabelle theories and a large exercise program.
+\autocite{pierce2026softwarefoundations,nipkow2014concretesemantics} Both make
+small formal objects available for readers to change and recheck.
+
+This chapter adds an external-artifact boundary because industrial solvers
+often emit files before a proof assistant sees them. The reader must therefore
+inspect parsers, raw-byte identity, resource outcomes, and converter trust in
+addition to the internal proof. The approaches are complementary. Proof-script
+pedagogy makes the logic directly editable; artifact pedagogy makes the
+handoffs and failure modes directly visible. A complete book route should let
+the same small example travel through both.
+
 Theory reconstruction can be stronger. A linear-arithmetic certificate may be
 translated into exact rational equalities and order steps, then checked from
 the kernel's arithmetic laws. A propositional LRAT proof may be replayed by a
@@ -543,6 +992,99 @@ proof by reflection: define a small checker in the logic, run it on the
 serialized language and certificate, and apply a kernel-checked soundness theorem.
 Until that route exists, the manifest must distinguish checked external
 evidence from kernel reconstruction with mathematical content.
+
+There is no contradiction in publishing both. An external certificate route
+may scale first and permit independent checking today. A smaller kernel route
+may later reduce the trusted base for a subset of examples. The manifest should
+record them as two evidence paths that meet at an explicitly stated claim, not
+as upgrades that erase the history or limitations of the earlier path.
+
+\section{Evidence has production and retention costs}
+
+Evidence is not free exhaust from a solver run. A producer spends processor
+time to log proof steps, storage bandwidth to write them, disk capacity to
+retain them, and engineering effort to keep the route working. A checker
+spends time and memory again. An archive pays for durable storage, migration,
+and discoverability. These costs help determine which evidence route is
+practical.
+
+Let \(S\) be solver time without proof logging, \(L\) the added logging time,
+\(C\) checker time, \(A\) archive and transfer cost, and \(M\) maintenance
+effort. The direct evidence cost is
+\[
+  E=S+L+C+A+M,
+\]
+after every term has been converted to a common unit. This expression does
+not say whether the evidence is worth producing. It makes the inputs visible
+so they can be compared with the value of independent audit, faster incident
+diagnosis, regulatory assurance, or a publishable lower bound.
+
+Proof size affects several terms at once. A larger log takes longer to write
+and transmit. It may exceed local disk or continuous-integration limits. It
+may require a streaming checker because the whole file cannot fit in memory.
+Trimming can reduce retained size while adding another transformation step.
+The archive should retain enough information to connect the trimmed proof to
+the original formula and checker result.
+
+Hints move costs between parties. A producer or converter that supplies LRAT
+hints performs work that a DRAT checker would otherwise discover. The
+hint-following checker can then be smaller and easier to certify. This trade
+may be attractive when many independent users check one published result:
+conversion cost is paid once, while simpler checking is repeated.
+
+The economic asymmetry resembles compilation. One expensive proof-production
+run can be amortized across many readers, release gates, or downstream
+products. A private one-off optimization may need only witness replay and
+regression tests. A public claim of minimality or safety has a longer audience
+and greater cost of error, so retaining a portable refutation can be rational
+even when rerunning the solver is cheap today.
+
+Independent implementation is another investment. Writing a second checker
+from the same precise format specification costs more than invoking the first
+binary twice. It can remove shared parser and algorithm defects. Reconstruction
+inside a proof assistant costs still more when theory steps need elaboration,
+but it may reduce the final trusted code and expose an assumption footprint.
+The correct comparison names which trust is removed for the added effort.
+
+Evidence also changes incident response. Suppose a later solver release
+returns a different verdict. A retained formula and proof let maintainers ask
+separate questions: does the old proof still check, did formula generation
+change, or did only search behavior change? Without the artifacts, the team
+may have to reconstruct an old environment before it can localize the
+difference. Diagnostic value is part of the return on retention.
+
+There are negative externalities. Automatically logging every proof can fill
+a shared filesystem and evict other work. Large uploads consume network and
+review capacity. A checker job that receives no resource budget can delay an
+entire build queue. Production policy should classify claims and allocate
+evidence accordingly rather than enabling the strongest route indiscriminately.
+
+\begin{table}[htbp]
+\centering
+\caption{Evidence policies can match claim value and expected reuse. These are
+engineering defaults, not logical rankings.}
+\begin{tabular}{@{}p{0.23\textwidth}p{0.28\textwidth}p{0.37\textwidth}@{}}
+\toprule
+Setting & Plausible retained support & Reason \\
+\midrule
+local heuristic & witness and focused regression & short lifetime and low reuse \\
+release optimization & formula, witness, checker result, controls & repeated deployment and rollback needs \\
+published lower bound & manifest, formula, portable proof, checker, controls & independent long-lived audit \\
+safety-critical claim & independently checked proof plus measured assumptions & high failure consequence and review value \\
+\bottomrule
+\end{tabular}
+\label{tab:evidence-economics}
+\end{table}
+
+The policy must remain fail closed. A high evidence cost can justify reporting
+that no certificate was produced. It cannot justify relabeling a verdict as a
+certificate. Budget and trust class are separate fields.
+
+\begin{archive}[title={Evidence is an engineered product}]
+Proof production, checking, transfer, storage, maintenance, and future replay
+form one lifecycle. A durable route chooses these costs in proportion to the
+claim and records any weaker stopping point honestly.
+\end{archive}
 
 \section{Resource failures are evidence outcomes}
 
@@ -580,6 +1122,69 @@ particular boundary; its history can itself become diagnostic evidence.
 
 \subsection{Reproduction is a second experiment}
 
+The vocabulary needs care because different communities have used the same
+words differently. The ACM artifact policy distinguishes three operational
+relations. \keyterm{Repeatability} means that the same team obtains a
+consistent measurement with the same setup. \keyterm{Reproducibility} means
+that a different team obtains the result using the same experimental setup
+and author artifacts. \keyterm{Replicability} means that a different team
+obtains the result with an independently developed setup and artifacts.
+\autocite{acm2020artifactbadging}
+
+These relations change different dependencies. Repeatability catches unstable
+runs and forgotten local state. Reproducibility tests whether another team can
+use the supplied package. Replicability tests whether the written specification
+contains enough information for an independent implementation and whether the
+result survives that implementation. None automatically proves that the
+original research question was well chosen.
+
+Artifact properties are separate again. The ACM policy distinguishes an
+artifact that was evaluated, one that is available in a durable repository,
+and a result that another team validated. An available artifact may never have
+been run by a reviewer. A functional evaluated artifact may be unavailable to
+the public. A reusable artifact exceeds the functional documentation and
+structure threshold. Badges should therefore be read as specific review
+outcomes, not as one general seal.
+
+\begin{table}[htbp]
+\centering
+\caption{Repetition, artifact review, and logical checking answer different
+questions.}
+\begin{tabular}{@{}p{0.22\textwidth}p{0.31\textwidth}p{0.35\textwidth}@{}}
+\toprule
+Activity & What changes & Strongest direct conclusion \\
+\midrule
+repeat run & time, perhaps nondeterministic choices & same team and setup can obtain a compatible result \\
+reproduce artifact & team changes; author package remains & another team can operate the supplied route \\
+independent replication & team and implementation change & result survives a separately built route \\
+artifact evaluation & reviewer exercises declared package & package meets stated review criteria \\
+certificate check & proof artifact is checked against formula & formal relation holds for exact checked inputs \\
+\bottomrule
+\end{tabular}
+\label{tab:reproduction-relations}
+\end{table}
+
+A certificate can be reproducible without an expensive experiment. Another
+team hashes the formula and proof, builds the checker, and obtains the same
+accepted relation. Independent replication is stronger when that team writes
+a separate checker from the format specification. Yet both teams may still
+consume the same faulty formula generator. The evidence report should show
+which components were reused.
+
+Nondeterminism needs a declared relation rather than byte equality. A solver
+may choose different learned clauses or emit a different valid proof on each
+run. Requiring identical proof bytes would reject legitimate variation.
+Instead require that every produced proof checks against the same formula and
+that the resulting trust and scope records agree. For a deterministic
+canonicalizer, byte equality may be the right contract.
+
+Performance reproduction needs tolerances. Checker wall time varies with
+processor, operating system, cache state, and concurrent load. A claim that a
+proof checks in exactly 3.000 seconds is brittle. A claim that it checks within
+a declared resource budget on a named reference setup can be tested. Logical
+acceptance should remain exact even when performance measurements admit
+variation.
+
 Reproduction should begin from the manifest, not from the author's shell
 history. The person repeating the experiment obtains the named inputs and
 checks their raw digests. That person then
@@ -604,13 +1209,56 @@ which one occurred.
 
 \section{Using Axeyum for evidence}
 
-The live Axeyum checkout contains substantial evidence machinery. Its
-propositional layer can produce and check DRAT, stream proofs, perform
-backward and file-backed checking, and elaborate supported reverse-unit steps
-to LRAT. Its SMT routes include Alethe production and checking for selected
-theory rules. Other routes reconstruct arithmetic reasoning or report a
-kernel dependency footprint. These capabilities are route-specific; no one
-command turns an arbitrary ISA statement into a kernel theorem.
+The live Axeyum checkout contains substantial evidence machinery. This claim
+is tied to the inspected revision recorded in this chapter's research log. Its
+propositional layer can produce and check DRAT, stream proofs, and perform
+backward, file-backed, and budgeted checking. It also contains an independent
+LRAT checker and an elaborator from supported DRAT steps. That LRAT route is
+deliberately narrower than the name alone might suggest: it follows positive
+reverse-unit-propagation hints, and it rejects additions that require the full
+resolution-asymmetric-tautology rule. Rejection here is useful information
+about route support, not evidence that the source refutation is false.
+
+Axeyum's solver layer makes another important distinction explicit. An
+evidence check has three broad results: emph{verified}, emph{nothing to
+check}, or emph{failed}. A bare unsatisfiable verdict with no transferable
+certificate is ``nothing to check,'' not success. So is an undecided result.
+A present certificate that does not replay is a failure. This three-way type
+prevents an empty or absent artifact from becoming a green Boolean by
+accident.
+
+An evidence report joins the evidence to provenance and to a per-result trust
+ledger. The ledger lists reductions on which that particular result depended
+and whether the run certified each one. This is stronger than a page that
+says, in general, ``the solver is verified.'' Different queries may take
+different routes through bit blasting, arithmetic, finite expansion, or an
+external adapter. Their assurance therefore differs even when the printed
+verdict is the same word.
+
+Selected SMT routes carry Alethe proofs. Some recheck bit-blast, Tseitin, and
+resolution steps; some invoke arithmetic-aware checking; some validate a
+guarded finite-instantiation rule against the original assertions. Other
+routes reconstruct arithmetic reasoning or report a kernel dependency
+footprint. The exact evidence variant and its trust ledger, rather than the
+Axeyum name, determine what was checked. These capabilities are route-specific;
+no one command turns an arbitrary ISA statement into a kernel theorem.
+
+This architecture illustrates a general rule. Capability belongs to a route:
+
+\[
+  \begin{array}{c}
+  \hbox{input fragment} \longrightarrow \hbox{reduction}
+    \longrightarrow \hbox{certificate kind} \\
+  \longrightarrow \hbox{checker}
+    \longrightarrow \hbox{reported dependencies}
+  \end{array}
+\]
+
+Removing any term changes the claim. ``LRAT checked'' without the supported
+step class is incomplete. ``Alethe checked'' without the accepted theory rules
+is incomplete. ``Kernel reconstructed'' without the imported assumptions is
+incomplete. A useful interface makes these qualifiers ordinary output rather
+than footnotes found only after failure.
 
 For the book, Rust should own evidence meaning. It should define the canonical
 manifest, hash raw inputs, classify checker outcomes, run controls, and reject
@@ -633,12 +1281,63 @@ claim, semantic digests, checker version, and failure class. Python may
 orchestrate and explain; Rust remains the authority for parsing, checking, and
 canonical serialization.
 
+That division is pedagogical as well as technical. A reader should be able to
+open a notebook, inspect a manifest, corrupt one clause, and read the typed
+rejection without learning Rust first. The Python object must not silently
+reinterpret the Rust result. It may turn an enumeration into a clear sentence,
+but it must preserve whether the result was verified, absent, unsupported,
+exhausted, or failed. Convenience belongs above the boundary; evidence meaning
+belongs below it.
+
 The present book repository is not at that endpoint. Object
 \obj{OP.evid.manifest-checker} records the missing implementation obligation.
 The active artifact tree has the schema design but no completed A0 or real-ISA
 evidence package to run through it. Existing Axeyum solver machinery is a
 foundation. It does not fill the semantic and manifest gaps automatically.
 \label{op:manifest-checker}
+
+\subsection{A report should help a reader make the next decision}
+
+An evidence report is not merely a receipt. It is an instrument for deciding
+what to trust, what to rerun, and what to investigate. Its first screen should
+answer five questions in ordinary language: what exact claim was checked,
+which subject bytes were used, what outcome occurred, which controls ran, and
+what remains trusted. Detailed logs and proof statistics can follow. A reader
+should not need to infer success from the last line of a solver transcript.
+
+Failure reports deserve the same care. A rejected proof should identify the
+first invalid step when possible. An unsupported rule should name the rule and
+checker capability. A digest mismatch should show the expected and observed
+identity without pretending that parsing began. A resource failure should
+name the exhausted budget. These distinctions guide different repairs: change
+the artifact, select another checker route, retrieve the correct bytes, or
+allocate a justified budget.
+
+Reports must also be stable enough to compare. Give outcome classes and trust
+identifiers versioned machine-readable names. Keep explanatory prose for
+people, but do not make downstream gates search that prose for words such as
+``success.'' When a schema changes, preserve the old report and provide an
+explicit migration. Otherwise a reporting improvement can silently rewrite
+the historical meaning of an evidence archive.
+
+The best report invites attack. It names a command for the positive case and
+commands for the controls. It identifies the small files a reader can inspect
+by hand. It points to the formula generator and semantic pins rather than
+hiding them behind a badge. This design turns skepticism into a reproducible
+operation. A reader can ask a sharper question, alter one boundary, and learn
+from the exact way the route refuses.
+
+For teaching, the report can disclose its structure in stages. Early examples
+show a witness and replay outcome. Later examples add formula identity,
+certificate checking, controls, provenance, and dependency footprints. The
+data model remains cumulative, so the apparent simplicity of the first
+example does not require a different meaning of ``verified.'' The student's
+view grows while the underlying contract stays exact.
+
+This presentation also teaches restraint. The interface should never celebrate
+an unavailable certificate, hide an unsupported rule, or replace a measured
+assumption with a general claim about the tool. Clear reporting is part of the
+proof route because readers act on what the report says.
 
 \section{Where the route stops}
 
@@ -731,4 +1430,143 @@ negative controls that a complete route would bind.
 \item Design the Rust and Python boundary for the future book manifest API.
 Identify which layer owns canonical bytes, typed outcomes, hash checking,
 display, and user convenience.
+
+\item \textbf{Resolve.} For the four-clause formula in
+Table~\ref{tab:resolution-refutation}, verify each resolvent by considering
+both truth values of its pivot. Then explain why the empty clause cannot be
+satisfied.
+
+\item Replace one parent of the first resolution step with a clause that does
+not contain the complementary pivot. Should a checker report a parse error, a
+missing-pivot error, or a false final theorem? Defend the layer at which the
+error belongs.
+
+\item Add the tautological clause \(r\lor\neg r\) to the four-clause formula.
+Does the old refutation remain valid? Use entailment, not an appeal to solver
+behavior, to justify the answer.
+
+\item Permute the input clauses and consistently rename their identifiers.
+State the predicted relation between the old and new outcomes. Is this a
+mutation control or a metamorphic control?
+
+\item Rename every occurrence of \(p\) to \(r\) and every occurrence of
+\(q\) to \(s\). Give the corresponding renamed proof. Identify the invariant
+that makes the transformation safe.
+
+\item A DRAT checker discovers antecedents, while an LRAT checker follows
+listed hints. Compare producer work, artifact size, checker search, and the
+effect of a wrong hint. Do not describe either format as universally better.
+
+\item Explain why an untrusted DRAT-to-LRAT elaborator can be acceptable when
+the final LRAT checker is independently implemented. What must happen when the
+elaborator emits a bad hint chain?
+
+\item Axeyum's inspected LRAT route accepts positive reverse-unit hints but not
+full RAT additions. Write the correct outcome for a valid DRAT proof whose
+essential step needs RAT. Why is ``false theorem'' the wrong label?
+
+\item Alethe may record a theory inference as one coarse step or many detailed
+steps. Compare portability, checker complexity, proof size, and diagnostic
+quality for the two choices.
+
+\item Draw a trust graph for a proof produced by one solver, translated by an
+elaborator, and accepted by a checker extracted from a proof assistant. Mark
+which components may be untrusted without making acceptance unsound and which
+inputs still bind the theorem's meaning.
+
+\item \textbf{Hash carefully.} Two manifests contain semantically identical
+JSON objects with different key order and whitespace. Their byte hashes
+differ. Give two sound policies for handling this fact and one unsound policy.
+
+\item Explain why a valid digital signature on a manifest establishes neither
+that its theorem is true nor that the signer understood it. What useful claim
+can the signature establish?
+
+\item A manifest names an artifact by a strong digest, but every public copy
+has disappeared. Classify what remains established about identity,
+availability, and reproducibility.
+
+\item Design a canonical encoding for a list of signed 64-bit integers.
+Specify byte order, length framing, versioning, and rejection of noncanonical
+representations.
+
+\item Compare the chapter's evidence manifest with an in-toto layout and link
+record. Name two useful structural similarities and one semantic guarantee
+that neither provenance system supplies by itself.
+
+\item Construct a control matrix for a formula generator, proof producer,
+proof parser, checker, and report renderer. Give at least one targeted fault
+for each component and the expected rejection point.
+
+\item A mutation campaign creates 100 malformed proofs. Ninety-eight are
+rejected, one times out, and one is accepted. Report the result without
+turning it into a misleading ``98 percent sound'' score. What should be
+investigated first?
+
+\item Give a proof mutation that is syntactically valid but semantically
+invalid. Then give a byte mutation that should fail before parsing. Explain
+why both controls are useful.
+
+\item Design a metamorphic test for a satisfying model under a permutation of
+variable names. State the mapping required between the original and transformed
+models.
+
+\item Adding a redundant clause can shorten, lengthen, or leave unchanged a
+solver's proof. What logical outcome must remain invariant? Why should a test
+avoid requiring byte-identical proofs?
+
+\item A checker and its negative-control generator share the same parser bug.
+Explain how the apparent independence collapses. Propose a control produced
+through a different representation.
+
+\item Estimate the evidence cost
+\(E=S+L+C+A+M\) for two routes: a small replayable model and a large
+unsatisfiability certificate. Define your units and explain which comparison
+is meaningful even if the totals are approximate.
+
+\item A proof is expensive to produce but cheap to check many times. Find the
+number of checks after which producing the proof is cheaper than rerunning a
+solver, using symbolic costs first and then one numerical example.
+
+\item Decide which artifacts to retain for ten years when storage is limited:
+source, generated formula, witness or proof, checker binary, checker source,
+build environment, and logs. Rank them and state what capability is lost at
+each omission.
+
+\item Compare the cost of keeping a large certificate with the expected cost
+of reconstructing it after an incident. Include the risk that the original
+solver or build environment is no longer available.
+
+\item Classify three reruns using the ACM terminology: the original team on
+the original setup, a different team using the author's artifacts, and a
+different team independently implementing the method. Explain why these
+relations do not form a simple ladder of logical certainty.
+
+\item A parallel solver is nondeterministic: it always returns
+unsatisfiable, but its proof order and runtime vary. Write a reproduction
+criterion that is strict about the theorem and tolerant about irrelevant
+variation.
+
+\item Explain why reproducing the same wrong result from the same flawed
+generator is possible. Design an independent validation that changes the
+shared boundary.
+
+\item Axeyum reports \texttt{NothingToCheck} for an uncertified unsatisfiable
+verdict. Write the user-facing sentence a Python layer should display. It must
+be clear without weakening the typed result.
+
+\item Compare a global statement, ``Axeyum supports Alethe,'' with a route
+statement naming the input fragment, proof rules, checker, and trust ledger.
+Give an example in which the global statement leads a reader astray.
+
+\item Inspect the future manifest interface in the chapter. Add typed outcomes
+for unsupported proof rules, resource exhaustion, digest mismatch, and a
+failed negative control. Which outcomes may a command-line program map to the
+same nonzero exit code, and which distinctions must the report preserve?
+
+\item \textbf{Capstone.} Specify an evidence package for one small theorem
+from this book. Include canonical subject bytes, semantic pins, claim,
+artifact, checker, outcome vocabulary, one positive control, two negative
+controls, a reproduction command, and a candid trust-boundary statement.
+Exchange packages with another reader and record every ambiguity they find.
 \end{enumerate}

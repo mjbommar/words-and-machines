@@ -24,6 +24,16 @@ kitchen-table test; the objects must pass the blackboard test. Read
 `docs/guides/PLAIN-ENGLISH.md` before drafting or editing. These book-specific
 guides take precedence over a generic template convention where they differ.
 
+The manuscript completed its first sequential breadth-and-depth pass on
+2026-08-30. Continue with whole-book technical and editorial review, and reopen
+individual chapter contracts when evidence exposes a gap. For every major
+concept, connect its sourced historical
+origin, its mathematical, logical, physical, or computational foundation, and
+its current practical industrial or economic consequence. Put each connection
+where it explains the concept; do not append generic history and industry
+boxes. A word band, page count, successful build, or complete table of
+contents does not establish adequate breadth or depth.
+
 ## Project map
 
 | Where | What |
@@ -101,6 +111,13 @@ an axeyum change.
     something is beautiful or mysterious in place of showing why. Keep every
     historical or literary connection brief, exact, and verified. See
     `docs/guides/VOICE.md` and `docs/guides/CRAFT.md`.
+11. **Research breadth before expanding prose.** For each chapter, compare the
+    draft with authoritative ISA specifications, relevant course expectations,
+    and at least two substantial textbooks. Its research contract must route
+    every neighboring topic: derive here, work here, route to another named
+    chapter, or exclude explicitly. Historical firsts need primary evidence;
+    current prices, performance, market, energy, and manufacturing claims need
+    dated sources and declared units.
 
 ## Build targets (complete vocabulary — see docs/architecture/build-system.md)
 

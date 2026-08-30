@@ -17,7 +17,7 @@ one-step test and still send the program into the wrong block.
 \begin{keyidea}[title={Control flow is arithmetic over addresses plus a predicate}]
 A direct conditional branch needs three facts: the address used as its base,
 the signed displacement or absolute destination, and the Boolean predicate
-that selects the target instead of the fallthrough address. State all three
+that selects the target instead of the next sequential address. State all three
 before proving where execution goes.
 \end{keyidea}
 
@@ -60,10 +60,74 @@ trace: one state after another, each justified by the same small transition
 rules.
 \end{archive}
 
+\subsection{Control moved from a machine action to a reasoning structure}
+
+Conditional succession predates the stored-program instruction sets in this
+book. Turing's 1936 machine changes its configuration according to the current
+configuration and scanned symbol. The formal machine is not an electronic ISA,
+but it makes conditional next-state choice part of a mathematical account of
+computation \autocite{turing1936computable}. Later electronic machines had to
+turn such choice into concrete orders, addresses, and state.
+
+Stored instructions made backward transfer especially powerful. A finite
+region of memory could direct execution back to an earlier instruction and
+reuse the same arithmetic and test on changed data. The stored bytes remained
+finite while the possible trace length depended on input and state. This is
+the architectural root of the chapter's recurring contrast between program
+size and execution length.
+
+By 1947, Goldstine and von Neumann used flow diagrams to plan calculations and
+paired iteration structure with induction assertions
+\autocite{goldstine1947planning}. The diagram was not merely a picture of
+instruction addresses. It gave programmers a level at which paths, tests, and
+repeated regions could be discussed without copying every machine order.
+
+Subroutines added a different control problem: enter shared code, then recover
+the caller's continuation. The 1951 EDSAC programming book by Wilkes, Wheeler,
+and Gill documented closed subroutines and a library built for a working
+stored-program machine \autocite{wilkes1951preparation}. An early linkage could
+construct or store a return transfer in ways unlike a modern link register or
+stack. The durable abstraction is the continuation address. The storage
+mechanism changed as architectures and software conventions developed.
+
+The 1960s debate about structured control concerned human reasoning as well as
+machine power. Böhm and Jacopini established an expressiveness result for
+selected structured forms \autocite{bohm1966flow}. Dijkstra's 1968 letter
+argued that unrestricted jumps made the relation between textual position and
+execution progress harder for people to follow
+\autocite{dijkstra1968goto}. Neither result removed jump instructions from
+machines. Languages and compilers can present structured source constructs
+while lowering them to conditional and unconditional transfers.
+
+Compiler analysis then made control flow a directed graph. Allen's 1970 paper
+expressed flow relationships in graph form so global questions about loops,
+definitions, and profitable code motion could be answered
+\autocite{allen1970control}. Dominance became one of the central relations;
+Lengauer and Tarjan later published a fast dominator algorithm
+\autocite{lengauertarjan1979dominators}. The graph did not replace execution
+semantics. It organized possible edges so analyses could reason about many
+executions at once.
+
+Prediction belongs to a still later layer. Once processors overlapped and
+pipelined work, waiting for every branch decision could leave resources idle.
+Published prediction studies, including Smith's 1981 comparison of strategies,
+treated likely path choice as an implementation-performance problem
+\autocite{smith1981branch}. The architectural successor remains the one
+selected by the resolved predicate. Prediction changes which work begins
+early, how much wrong-path work may be discarded, and what physical effects
+need a larger observation model.
+
+\begin{sidebar}[title={One arrow can belong to four histories}]
+An arrow may denote a machine's next instruction, a programmer's flow diagram,
+a compiler's possible graph edge, or a predictor's guess. Those objects can
+refer to the same source construct, but they carry different evidence and
+failure meanings.
+\end{sidebar}
+
 \section{Fallthrough, target, and link}
 
 Suppose an instruction begins at address \(p\) and occupies \(L\) bytes. Its
-\keyterm{fallthrough address} is
+\keyterm{fallthrough address} is the next sequential address, computed as
 \[
   f=p+L.
 \]
@@ -128,10 +192,106 @@ Let an instruction and its target both move by the same address delta \(k\).
 If the relative displacement is target minus the architecture's base, that
 base also moves by \(k\). The new displacement is
 \((t+k)-(b+k)=t-b\). Thus the encoded relative distance is unchanged, provided
-the moved target remains representable and alignment and encoding constraints
+the moved target still fits the encoded field and alignment and encoding constraints
 still hold. The cancellation explains why relative branches help relocatable
 code; it does not prove that every relocation stays in range.
 \end{proofkit}
+
+\section{Choice belongs inside the transition relation}
+
+Let \(S\) be the set of complete architectural states. A deterministic scalar
+machine step is a partial function
+\[
+  \delta:S\rightharpoonup S.
+\]
+It is partial when some states do not contain a legal next instruction or have
+already reached a terminal outcome. A conditional branch does not make this
+function \keyterm{nondeterministic}, which means that one complete input state
+can have more than one allowed successor. Once the complete state and decoded
+instruction are fixed, the predicate has one Boolean value and the rule picks
+one successor. The programmer may not know that value, but incomplete human
+knowledge does not give the machine several allowed choices.
+
+A transition relation \(R\subseteq S\times S\) is more general. It can model
+a rule that deliberately leaves a choice open, external input, concurrency,
+or an abstraction that has
+forgotten predicate-relevant state. If an abstract state records only the
+program counter, a conditional block may have two related successors because
+the abstraction does not retain the register or flags that decide between
+them. The concrete machine can remain deterministic while its control-flow
+graph is branching.
+
+This distinction prevents a common proof error. A CFG edge means that some
+represented state can select the successor. It need not mean that the machine
+may freely choose either edge from one complete state. When a symbolic executor
+forks at a predicate, it creates path conditions. Each child represents the
+states that make its edge concrete. Dropping those conditions produces a safe
+but coarse description that can contain extra paths.
+
+\begin{definition}[title={Trace under a partial deterministic step}]
+A finite trace \(S_0,S_1,\ldots,S_n\) satisfies the machine when
+\(\delta(S_i)=S_{i+1}\) for every \(i<n\). It is maximal when \(S_n\) has a
+terminal outcome or \(\delta(S_n)\) is undefined under the selected semantics.
+A bounded prefix need not be maximal.
+\end{definition}
+
+If the state space is finite and execution is deterministic, every infinite
+trace eventually repeats a complete state. From that point, the same future
+repeats because the step function has not changed. This pigeonhole argument
+can decide termination by exhaustive exploration in a sufficiently small,
+closed finite machine: either a terminal state is reached or a state repeats.
+The bound may still be enormous. A machine with \(m\) bits of complete state
+can have up to \(2^m\) states before one accounts for invalid combinations.
+
+Real program models often make the practical or mathematical space effectively
+unbounded. Memory may have no fixed teaching limit, input may arrive during
+execution, or a theorem may quantify over every word width and memory size.
+Turing's result places a deeper limit here: there is no algorithm that decides
+for every program and input whether the modeled computation halts
+\autocite{turing1936computable}. This does not make termination proofs futile.
+It says no universal automatic method succeeds on every case. Invariants,
+well-founded variants, restricted languages, finite abstractions, and
+interactive proofs remain powerful because they exploit structure supplied by
+the particular program and claim.
+
+\begin{sidebar}[title={Finite hardware and an unbounded theorem are compatible}]
+A manufactured machine has finite physical storage at an instant. A theorem
+may still range over an arbitrary memory bound, arbitrary input length, or a
+family of machines. The theorem's mathematical domain, not the amount of RAM
+on one workstation, determines whether exhaustive state enumeration is a
+complete method.
+\end{sidebar}
+
+\subsection{A Boolean predicate becomes a physical selection signal}
+
+At the architectural level, the branch rule is an equation for \(pc'\). A
+simple hardware implementation can evaluate candidate addresses and use a
+multiplexer controlled by the predicate to select one for the next fetch.
+That picture connects Boolean algebra to a physical circuit: voltage ranges
+encode bits, gates compute the predicate, adders compute addresses, and storage
+captures a selected next value on a clock boundary.
+
+The equation does not dictate one circuit. A processor may begin fetching a
+predicted successor before the predicate resolves, compute alternatives in
+parallel, or represent the program counter across several pipeline stages.
+Energy is spent charging physical capacitances, moving instruction bytes, and
+discarding wrong-path work. Delay depends on circuit paths and implementation
+technology. The ISA hides those mechanisms so software has a stable committed
+meaning across different processors.
+
+The economic value of that separation is substantial. One binary can run on
+several compliant implementations; a processor designer can change predictors
+or pipelines without changing the architectural branch result; and compiler
+writers can make portable correctness claims while adding processor-specific
+cost models. The same separation creates limits: ISA equivalence does not prove
+equal power, latency, cache behavior, or resistance to speculative leakage.
+
+\begin{warning}[title={Do not put a cycle count into an architectural theorem}]
+The scalar transition rule justifies which state commits next. A claim about
+how many clock cycles or joules that transition costs needs a named processor,
+measurement method, workload, and uncertainty account. Treat those facts as a
+different evidence layer.
+\end{warning}
 
 \section{A0 makes both edges explicit}
 
@@ -170,7 +330,7 @@ displacements that satisfy A0's target formula.
 \begin{tryit}[title={Encode both A0 branch displacements}]
 Using the addresses in the listing, let \code{exit} denote address 20 and
 \code{loop} denote address 12. Solve \(p+4+4d=t\) for each branch. Check that
-both signed values fit in byte 3, then recompute the destinations from the
+both signed values fit in byte 3, then calculate the destinations again from the
 encoded values.
 \end{tryit}
 
@@ -179,13 +339,23 @@ branch at address 16 needs \(d=-2\), because \(16+4+4(-2)=12\). Treating the
 current address rather than the fallthrough address as the base would send
 both branches four bytes early.
 
+The byte encodings complete the claim. A0 branch opcode \code{30} uses zero in
+its unused byte 1, places the condition code in bits 3 through 5 of byte 2,
+and stores the signed displacement in byte 3. Thus \code{branch.lo exit} is
+\code{30 00 20 02}: condition code 4 becomes \code{20}, and displacement 2
+becomes \code{02}. The backward \code{branch.ne loop} is
+\code{30 00 08 FE}: condition code 1 becomes \code{08}, and \(-2\) becomes
+the eight-bit word \code{FE}. Reserved-bit, predicate, and target checks can
+now begin from the four bytes rather than from the printed listing.
+
 \section{RV64I compares registers at the branch}
 
 The selected RV64I conditional branches compare two integer registers as part
 of the branch instruction. \code{BEQ} and \code{BNE} test equality.
 \code{BLT} and \code{BGE} use signed readings; \code{BLTU} and \code{BGEU}
 use unsigned readings. A taken branch adds its decoded, sign-extended B-type
-offset to the address of the branch instruction. An untaken branch proceeds
+offset to the address of the branch instruction. A branch whose predicate is
+false proceeds
 to the following instruction \autocite{riscv2026unpriv}.
 
 \begin{codelisting}[language={},caption={RV64I counts a0 down to zero}]
@@ -223,6 +393,68 @@ offset when encoding is not under study, but the evidence manifest must say so.
 A decoder theorem and a step theorem are different claims: the first recovers
 the offset; the second uses it to update the program counter.
 
+\subsection{The B-type immediate is a reconstruction, not one field}
+
+An RV64I conditional branch uses the B-type instruction format. Its immediate
+bits are split across the instruction word. If \(I_j\) denotes instruction bit
+\(j\), the decoded signed offset has the bit pattern
+\[
+\begin{array}{rcl@{\qquad}rcl@{\qquad}rcl}
+d[12]&=&I_{31}, & d[11]&=&I_7, & d[10:5]&=&I_{30:25},\\
+d[4:1]&=&I_{11:8}, & d[0]&=&0.&&&
+\end{array}
+\]
+The assembled 13-bit pattern is sign-extended to the architectural address
+width. The low zero means the encoded target difference is a multiple of two
+bytes. Under the chapter's RV64I-only scope, instructions are four bytes and
+valid instruction addresses have the stronger four-byte alignment. An ISA
+profile that includes compressed instructions changes that surrounding
+alignment fact without changing the B-type reconstruction.
+
+The arrangement is easier to understand from the datapath than from the
+printed order. Register fields stay in stable positions across common RISC-V
+formats, and the sign bit remains at instruction bit 31. Immediate pieces use
+the remaining positions. Human readers must therefore reconstruct their
+place-value order before interpreting the signed number.
+
+\begin{example}[title={Decode a backward RV64I branch offset}]
+Suppose the reconstructed bits are
+\(d[12:0]=1\,111111\,1111\,0\), with the groups standing for bits 12,
+10 through 5, 4 through 1, and 0, while bit 11 is also 1. The complete
+13-bit word is all ones except its low zero: \(1111111111110_2\). Its signed
+two's-complement reading is \(-2\). A branch at address 100 therefore targets
+98 under the base ISA formula. That decoded offset does not meet the
+four-byte target alignment assumed by this chapter's RV64I profile, so a
+taken branch would not justify an ordinary next instruction there. Decode,
+target arithmetic, and target validity are three separate judgments.
+\end{example}
+
+For a less compressed calculation, let the desired destination be 16 bytes
+behind a branch at address 100. The mathematical offset is \(-16\). In 13-bit
+two's complement it is \(1\,111111\,1000\,0\). The encoder scatters those
+bits into the B-type positions; the decoder gathers them, adds the low
+zero, and sign-extends. Recomputing \(100+(-16)=84\) checks the semantic
+target. Re-encoding the gathered fields checks a different property: that no
+piece was swapped or omitted.
+
+For a byte-level control, \code{bne a0,x0,-4} encodes as instruction word
+\code{FE051EE3}. In little-endian memory order its bytes are
+\code{E3 1E 05 FE}. Decoding recovers opcode \code{63}, the \code{bne}
+function code,
+\code{rs1=10}, \code{rs2=0}, and offset \(-4\). At address 100, a true
+predicate therefore selects 96. This example binds byte order, scattered
+fields, signed reconstruction, predicate operands, and target arithmetic in
+one check.
+
+\begin{proofkit}[title={Decoder-to-target composition}]
+Let \(\mathsf{decodeB}(w)=d\) mean that instruction word \(w\) reconstructs
+offset \(d\). Let the step rule for a true predicate set \(pc'=pc+d\). A
+machine-code target theorem needs both facts. Proving the step rule for an
+arbitrary decoded \(d\) does not prove that the bytes encode that value;
+proving the decoder result does not prove that execution takes the edge.
+Compose the decoder theorem, predicate theorem, and step theorem explicitly.
+\end{proofkit}
+
 \section{x86-64 reads flags and counts variable-length bytes}
 
 Selected x86-64 compare instructions perform a subtraction for flags without
@@ -244,7 +476,8 @@ exit:
 
 \code{test rdi,rdi} computes a bitwise conjunction for flags and leaves
 \code{rdi} unchanged. It sets ZF exactly when the selected value is zero.
-\code{sub} then decrements the register and supplies the ZF consumed by
+\code{sub} then \keyterm{decrements} the register, which means that it reduces
+the register value by one, and supplies the ZF consumed by
 \code{jne}. This dependency is real even though it is absent from the
 register operands printed on the jump.
 
@@ -255,6 +488,46 @@ can express different displacement widths while implementing the same
 predicate. Replacing one encoding with another changes instruction length and
 therefore changes both the base and the displacement required for a fixed
 destination.
+
+\subsection{In x86-64, length is part of target arithmetic}
+
+A selected short conditional jump uses a one-byte opcode followed by a signed
+eight-bit displacement. Its following-instruction address is therefore two
+bytes after the opcode when no disallowed or separately modeled prefix changes
+the decoded form. A selected near conditional jump uses a two-byte opcode and
+a signed 32-bit displacement, giving a six-byte base form. These are claims
+about specific encodings in 64-bit mode, not a rule that every printed
+\code{Jcc} has length two or six.
+
+Place a short \code{JNE} at address 200 with displacement \(-10\). The next
+instruction begins at 202, so the target is 192. If a tool replaces it with a
+six-byte near form at the same address, retaining the byte value \(-10\) as
+the new displacement would target 196. To preserve target 192, the repaired
+displacement must be \(-14\), because \(200+6-14=192\). Widening a field
+without repairing its value can therefore change control even when both signed
+numbers fit.
+
+In the selected forms, the short bytes are \code{75 F6}: opcode \code{75}
+followed by the eight-bit form of \(-10\). The repaired near bytes are
+\code{0F 85 F2 FF FF FF}: opcode bytes \code{0F 85} followed by the
+little-endian 32-bit form of \(-14\). A decoder that reports only the
+\code{jne}
+predicate has not yet established either length or target.
+
+Prefix and mode handling make real decoding broader than this example. A
+trusted decoder must establish the complete instruction boundary before a
+relative target checker uses the following-instruction address. Searching the
+byte stream for an opcode-like byte is insufficient: the same byte can occur
+inside an immediate, displacement, or preceding instruction. This is why
+instruction-boundary recovery and target recovery belong in one source-pinned
+decoder route.
+
+\begin{warning}[title={A disassembler listing is evidence only through its decoder}]
+Addresses and lengths printed by a disassembler are derived results. They are
+useful to inspect, but a proof package must name the decoder version and input
+bytes or independently check the boundaries. Copying the printed destination
+back into the expected result merely makes the listing check itself.
+\end{warning}
 
 \begin{warning}[title={A flag-reading jump has a hidden-looking input}]
 The condition suffix identifies which flags the jump reads. Register equality
@@ -269,6 +542,95 @@ mathematical recurrence only under declared input and observation relations.
 They do not have identical registers, instruction counts, condition state, or
 program-counter values. A proof must relate those differences instead of
 erasing them.
+
+\section{Control layout has code-size and execution costs}
+
+The architectural graph says which edges are possible. A code layout assigns
+addresses to its blocks. That assignment determines which successor is the
+fallthrough, how far every direct edge travels, which displacement encodings
+fit, where alignment padding appears, and which instruction bytes share nearby
+memory regions. Two layouts can implement the same graph while differing in
+size and physical behavior.
+
+Fallthrough is especially valuable because it needs no taken transfer at the
+end of a block. A compiler can place a likely successor immediately after its
+predecessor and invert a conditional predicate if the ISA offers the matching
+condition. This may remove an unconditional jump from the common path. It also
+changes which edge is taken, so the benefit depends on code size, prediction,
+processor behavior, and the actual path distribution.
+
+Current LLVM machine block placement uses branch probability, block frequency,
+loop, post-dominator, profile, and alignment information among its inputs
+\autocite{llvm2026blockplacement}. That source is evidence about one current
+implementation, not a timeless definition of optimal layout. The placement
+problem has several competing measures: hot-path fallthrough, total branch
+distance, padding, instruction-cache locality, code duplication, and the risk
+that a profile does not represent future inputs.
+
+Profile counts are observations of selected runs. They can estimate that an
+edge is common without proving that another edge is impossible. A compiler may
+use profile-guided layout for expected performance while retaining code for
+rare legal paths. A proof of semantic equivalence must cover every allowed
+path, not only the profile's high-frequency edges.
+
+\subsection{Displacement range can force another instruction sequence}
+
+A relative encoding has a finite signed range and sometimes a scale or
+alignment constraint. Moving blocks can push an edge outside that range. An
+assembler or linker may then choose a longer encoding, introduce an
+intermediate transfer stub, or materialize a destination through additional
+instructions. This process is often called branch relaxation when the tool
+selects a form after final distances are known.
+
+The repair changes more than one immediate field. A longer instruction moves
+later addresses. Those shifts can change other relative distances, alignment,
+debug locations, and relocation entries. A fixed-point layout process may need
+to repeat until every chosen form fits. A proof-preserving tool must show that
+the repaired sequence reaches the same symbolic destination under its
+preconditions and preserves every additional observed state component.
+
+A0 avoids this engineering breadth by declaring one fixed branch form. That
+clarity creates a strict range limit. A real program that needs a farther A0
+destination would require a book-defined longer sequence or a changed ISA; a
+tool must not silently pretend that the signed byte grew wider.
+
+\begin{example}[title={A semantically equal edge can cost more after layout}]
+Suppose a common block and its successor first fit a short relative transfer.
+Adding unrelated code between them may force a longer encoding. The source
+control graph and destination label remain the same, yet code size, following
+addresses, decode work, and cache placement can change. Semantic equality of
+the edge does not imply equal physical cost.
+\end{example}
+
+\subsection{Prediction spends work before the predicate is known}
+
+A pipelined processor may need a likely next fetch address before an older
+branch has produced its resolved predicate and target. A predictor uses stored
+history, address structure, static rules, or combinations of these signals to
+guess. Correct guesses keep useful work available. A wrong guess requires the
+implementation to discard or repair wrong-path work before architectural
+commitment.
+
+Prediction quality is a distributional claim. Accuracy on one workload does
+not imply accuracy on another, and accuracy alone omits the cost of each miss,
+the value of correct-path work, predictor storage and energy, and interference
+among branches. Smith's 1981 study belongs to the historical development of
+these strategies \autocite{smith1981branch}; current processors use
+implementation-specific designs whose precise behavior cannot be inferred
+from the ISA.
+
+If-conversion replaces selected control dependence with data selection or
+conditionally executed operations. It can avoid a hard-to-predict branch, but
+it may execute work from both paths, extend data dependencies, increase
+register pressure, or perform an operation that was unsafe on the path not selected
+path. The transformation therefore needs a semantic safety proof and a
+processor/workload cost argument.
+
+\begin{warning}[title={Fewer branches does not automatically mean faster}]
+A branch removal can add instructions, lengthen dependencies, or execute work
+that the branch would skip. Compare complete sequences under a stated
+processor and workload model; do not optimize by mnemonic count alone.
+\end{warning}
 
 \section{Direct and indirect transfers owe different proofs}
 
@@ -325,6 +687,39 @@ must connect the current link register or stacked word to the continuation
 created at the matching call and show that intervening execution preserved it.
 Chapter 10 turns that historical connection into a procedure contract.
 
+\subsection{A call creates a continuation obligation}
+
+Suppose a call begins at \(p\), occupies \(L\) bytes, and selects \(q\), the
+entry of the \keyterm{callee}---the procedure being called. Its ordinary
+continuation is \(k=p+L\). The call transition has two
+conceptual results: control moves to \(q\), and some architecture-defined
+location receives enough information to recover \(k\). A link register writes
+the value directly. A stack-oriented sequence may place it in memory. An early
+machine may modify or construct a later transfer. These mechanisms differ,
+but each creates a value whose future use must be justified.
+
+A return proof is relational across time. At the call, establish that the saved
+value denotes \(k\). Across the callee, show that the chosen storage follows
+the calling agreement. At return, show that the loaded or named value is still
+the matching continuation and satisfies the target rules. Finally, resume in a
+state related to the caller's pre-call state, except for declared results and
+permitted changes. Merely proving that the return target is executable misses
+the matching-call property.
+
+Nested calls show why one unqualified return variable is not enough. If
+procedure \(A\) calls \(B\), and \(B\) calls \(C\), the active continuation
+for \(C\) is in \(B\), while the older continuation for \(B\) remains in
+\(A\). A stack, a set of link registers with a convention, or another
+activation structure must preserve this last-created, first-used order.
+Chapter 10 makes the storage discipline explicit; this chapter supplies the
+control fact that gives the stored word its meaning.
+
+\begin{keyidea}[title={A continuation is an address with provenance}]
+The numeric value \(k\) is not by itself a return proof. The proof needs the
+event that created \(k\), the activation to which it belongs, the preservation
+argument between call and return, and the target-validity rule at its use.
+\end{keyidea}
+
 \begin{definition}[title={Target soundness and target completeness}]
 For an indirect transfer under a precondition, target soundness says that every
 destination the machine can select belongs to the declared target set. Target
@@ -340,7 +735,296 @@ state whose selected destination lies outside the set. A completeness claim
 needs, for each listed destination, an allowed state that reaches it. Many
 safety arguments require soundness but not completeness. An exact
 control-flow graph requires both, which is why a graph inferred from a few
-runs is generally neither a safe overapproximation nor an exact account.
+runs is generally neither a safe graph with every possible edge nor an exact
+account.
+
+\subsection{A jump table turns data validation into control safety}
+
+A multiway source choice can lower to a chain of conditional branches, a tree
+of comparisons, arithmetic selection, or an indirect jump through a table.
+The best sequence depends on case density, value distribution, code size,
+target ISA, relocation model, and processor costs. A jump table is attractive
+for a dense range because one bounds check and one indexed lookup can select
+among many cases. It also turns ordinary data and address facts into direct
+premises of a control-flow proof.
+
+Suppose source selector \(x\) has cases 10 through 13. After proving
+\(10\le x<14\), set \(i=x-10\), so \(0\le i<4\). Let table base \(b\) be
+aligned and let each entry occupy eight bytes. The load address is
+\[
+  a=b+8i.
+\]
+The index bound implies \(b\le a<b+32\), subject to a no-wrap premise in the
+machine address width. A memory contract must make all eight bytes beginning
+at each such \(a\) readable. The loaded word may be an absolute address, a
+relative offset from the table or instruction, or another representation
+chosen by the compiler and relocation format. The proof must apply that
+representation rule before the ISA's indirect-target transformation.
+
+Let the four resolved destinations be \(q_0,q_1,q_2,q_3\). Target soundness
+follows from a chain of facts: the bounds check restricts \(i\); address
+arithmetic selects table entry \(i\) without wrap; the memory lemma returns the
+declared entry contents; relocation or offset arithmetic resolves that content
+to \(q_i\); the ISA target rule produces the same candidate; and target
+validity permits execution at \(q_i\). Omitting any link leaves a plausible
+attack or compiler bug: an unchecked index, wrapped address, table bytes that
+later instructions can change, incorrect relocation, low-bit transformation,
+or invalid destination.
+
+Completeness asks another question. For every \(q_j\) claimed in the graph,
+there must be an allowed selector value—here \(x=10+j\)—whose execution reaches
+that destination. Duplicate table entries make the target set smaller than the
+case set. A default case lies outside the table route because it is selected by
+the failed bounds check. The exact CFG should record both structures rather
+than infer five distinct indirect targets from five source labels.
+
+\begin{warning}[title={Read-only is a temporal premise, not a table adjective}]
+Placing a jump table in a read-only section can support its integrity under a
+named loader and protection model. The bytes are not mathematically immutable
+merely because a file format labels the section. State who maps the table,
+when relocation writes occur, and which later agents may modify its memory.
+\end{warning}
+
+The industrial tradeoff is not one-dimensional. A table consumes data space
+and can add a load and an indirect branch. A comparison tree consumes code and
+direct branches. Profiles, cache placement, target prediction, relocation
+cost, hardening rules, and the number of cases all affect the choice. The
+semantic proof first establishes that each candidate implements the source
+choice; performance evidence then compares them under a named environment.
+
+\subsection{Control-flow integrity adds a policy to target selection}
+
+Control-flow integrity (CFI) requires dynamic transfers to follow edges allowed
+by a declared control-flow policy. The influential 2005 work by Abadi, Budiu,
+Erlingsson, and Ligatti formulated the property together with an attack model
+and enforcement approach \autocite{abadi2005cfi}. The graph or equivalence
+classes used by a concrete policy determine its precision. ``Has CFI'' is not a
+complete security claim without those allowed sets and assumptions.
+
+For a direct branch with a fixed valid target, policy checking may add little.
+Indirect calls, jumps, and returns are the main challenge because their raw
+targets come from state that instructions can change. An enforcement mechanism may require a valid
+landing instruction, attach a tag or identifier to approved destinations, or
+check that the target belongs to a class. The architectural target calculation
+still occurs; policy decides whether that candidate may be used.
+
+Return protection has a temporal shape that a forward target class may not
+capture. A return is intended to reach the continuation created by the matching
+active call. A protected shadow stack can maintain a second copy of return
+addresses and compare or use it at return. The proof must relate calls, nested
+activations, returns, exceptional unwinding, and the protected storage. Merely
+showing that the returned-to address begins some valid function is weaker.
+
+Current Intel CET and ratified RISC-V control-flow-integrity extensions expose
+selected landing-pad and return-protection mechanisms
+\autocite{intel2020cet,riscv2026cfi}. Their exact coverage depends on enabled
+features, instruction forms, operating-system support, and software
+instrumentation. The book can use them as concrete architecture examples
+without claiming that either mechanism proves the source program's intended
+control graph.
+
+Four properties should remain separate:
+
+\begin{enumerate}
+\item target arithmetic produces the architecture's candidate address;
+\item target validity permits fetch and decode at that address;
+\item the CFI policy admits the corresponding edge or target class; and
+\item the application proof says that this allowed edge is semantically
+correct for the current state.
+\end{enumerate}
+
+An enforcement mechanism can satisfy the third item while a policy is too
+coarse and admits an unintended but class-compatible target. A perfect policy
+check does not repair a wrong arithmetic predicate or a corrupted application
+invariant. Conversely, a semantically intended target can fault if it is
+unmapped or violates an enabled landing rule.
+
+\begin{warning}[title={Allowed control is not necessarily intended control}]
+A coarse policy may admit several destinations for one indirect transfer. CFI
+can prevent leaving that set while still allowing the wrong member. State the
+target partition and the application invariant separately.
+\end{warning}
+
+Speculation creates another boundary. An architecturally rejected path or a
+path whose predicate is false may begin transient execution before the branch
+or policy check resolves.
+Architectural CFI and correct committed control do not by themselves prove
+that no information about the processor's hidden physical state leaked from
+such work. That claim needs
+predictor, cache, timing, and transient-state observations routed to
+Chapter~\ref{ch:model-boundary}.
+
+\section{Control-flow graphs summarize possible succession}
+
+A \keyterm{basic block} is a maximal instruction sequence entered at its first
+instruction and left only after its last, under the selected analysis. Interior
+instructions have one ordinary successor inside the block. A terminating
+transfer, return, or trap may end the block. The exact boundary depends on what
+the analysis treats as an instruction and which exceptional edges it includes.
+
+A control-flow graph is a directed graph \(G=(V,E)\). Its vertices are blocks
+or, in a finer graph, individual instructions. An edge \((u,v)\in E\) says
+that the selected semantics admits a transfer from the end of \(u\) to the
+start of \(v\) under some state in scope. This is a possibility claim. It does
+not say that every execution taking \(u\) reaches \(v\), or that both outgoing
+edges of a conditional branch are reachable from the program entry.
+
+For direct branches, decoding and target arithmetic can often enumerate local
+successors. State reasoning then removes infeasible edges. For indirect
+transfers, even the local successor set may require a value analysis,
+relocation table, type invariant, or policy. A graph is therefore always
+relative to a semantic package and abstraction. A graph that omits traps,
+exceptions, or indirect targets should not be called complete for a model that
+observes them.
+
+\subsection{Reachability asks for a path from an entry}
+
+A vertex \(v\) is reachable from entry \(e\) when there is a finite path
+
+\[
+  e=v_0\to v_1\to\cdots\to v_k=v.
+\]
+
+Graph reachability is necessary but may not be sufficient for semantic
+reachability. Consecutive edges in a coarse graph may require incompatible
+machine states. A path-sensitive analysis retains enough state information to
+rule out such combinations. An actual trace gives one semantically feasible
+path but does not enumerate all reachable vertices.
+
+Unreachable code can arise from an always-false predicate under the input
+contract, an unused block, an impossible indirect target, or bytes that no
+legal predecessor enters. Removing it may reduce code size and analysis work.
+The economic benefit does not lower the proof burden: deleting a block needs
+evidence that no allowed execution observes it.
+
+\subsection{Dominance is a universal statement over paths}
+
+A vertex \(d\) \keyterm{dominates} vertex \(v\) when every graph path from the
+entry to \(v\) passes through \(d\). The entry dominates every reachable
+vertex, and each reachable vertex dominates itself. If \(d\ne v\), the
+dominance is strict. A vertex's immediate dominator is the closest strict
+dominator in the resulting dominator tree.
+
+Dominance supports proofs about definitions and checks. If a bounds-check
+block dominates a memory access, every graph path to that access passes through
+the check. That graph fact still needs a state fact: the check must establish
+the right predicate, and no intervening operation may invalidate it. A
+dominance tree records unavoidable control points, not the meaning of their
+instructions.
+
+To disprove that \(d\) dominates \(v\), supply one entry-to-\(v\) path that
+avoids \(d\). To prove dominance by direct enumeration, quantify over every
+path—not only the paths observed in tests. Practical compilers use algorithms
+rather than enumerate exponentially many paths. The relation and its use are
+the teaching target here; algorithmic efficiency becomes important on large
+program graphs \autocite{allen1970control,lengauertarjan1979dominators}.
+
+\begin{proofkit}[title={A simple dominance proof by predecessor closure}]
+Let \(d\) be the proposed dominator of \(v\). Mark \(d\), then repeatedly mark
+any vertex all of whose reachable predecessors are marked. If this justified
+closure marks \(v\), every path to \(v\) must cross \(d\): the last edge into
+each newly marked vertex comes from an already marked predecessor. This is a
+proof method for a finite graph, not the fast dominator algorithm used by a
+production compiler.
+\end{proofkit}
+
+\subsection{Cycles identify repetition but not its proof}
+
+A directed cycle is a path with at least one edge from a vertex back to itself. A
+\keyterm{strongly connected component} is a maximal set of vertices in which
+each vertex can reach every other. A component with more than one vertex, or a
+single vertex with a self-edge, contains a cycle. Collapsing each component to
+one vertex yields a component graph with no directed cycle.
+
+These are graph facts. A reachable cycle shows that the graph admits repeated
+control, but not that any allowed execution repeats it forever. A state
+predicate may force an exit after finitely many traversals. Conversely, a
+nonterminating execution in a finite control graph must revisit some control
+location, although its data state may keep changing.
+
+A \keyterm{back edge} is often defined relative to dominance: edge
+\((u,h)\) is a back edge when \(h\) dominates \(u\). The destination \(h\)
+acts as a loop header for the natural-loop construction. Not every cycle in
+an arbitrary graph has one entry that dominates all its vertices. Compiler
+loop representations and transformations must state how they handle such
+graphs rather than assume every cycle came from a structured source loop.
+
+Post-dominance reverses the path question. A vertex \(p\) post-dominates
+\(u\) when every path from \(u\) to a selected normal exit passes through
+\(p\). The choice of exits and treatment of an execution that never reaches
+an exit, or of traps, matter. A
+join block may post-dominate both arms of a terminating conditional while
+failing to post-dominate an arm that can loop forever or trap.
+
+\subsection{A worked graph separates four questions}
+
+Consider vertices \(E,T,B,J,X\) with edges
+\[
+ E\to T,\quad T\to B,\quad T\to J,\quad
+ B\to T,\quad J\to X.
+\]
+The graph resembles a pre-tested loop. From entry \(E\), all five vertices are
+graph-reachable. Vertex \(T\) dominates \(B\), \(J\), and \(X\), because
+every path from \(E\) to any of them passes through the test. Vertex \(B\)
+does not dominate \(J\): the path \(E,T,J\) avoids it. Edge \(B\to T\) is a
+back edge because \(T\) dominates \(B\). The set \(\{T,B\}\) is strongly
+connected, while each of \(E,J,X\) forms its own component.
+
+Now attach predicates. Let the edge \(T\to B\) require counter \(c>0\), let
+\(T\to J\) require \(c=0\), and let \(B\) replace \(c\) by \(c-1\). Under
+the entry condition \(c=0\), graph reachability still finds a path to \(B\),
+but semantic reachability does not. Under \(0\le c\le n\), both graph edges
+are locally possible across the allowed set, while any one execution chooses
+only one on each visit. Under an invariant that \(c\) is natural and strictly
+decreases in \(B\), the cycle is reachable for positive inputs but cannot be
+traversed forever.
+
+This one example yields four different answers:
+
+\begin{enumerate}
+\item the local CFG records both successors of \(T\);
+\item reachability from \(E\) removes no vertex without state information;
+\item dominance locates \(T\) as an unavoidable control point for the body;
+\item the invariant and natural-number variant prove semantic safety and
+termination for the selected entry contract.
+\end{enumerate}
+
+No graph algorithm supplies the last item merely by finding the back edge.
+Conversely, the state proof benefits from the graph because \(T\) gives one
+recurring point at which the invariant and variant can be stated.
+
+\begin{example}[title={Adding one edge changes dominance but not instruction meanings}]
+Add edge \(E\to B\). The instructions inside \(T\) and \(B\) retain their
+local semantics, and \(B\) remains reachable. But \(T\) no longer dominates
+\(B\), so \(B\to T\) no longer meets the stated back-edge definition. A CFG
+repair can therefore invalidate a loop proof even when no arithmetic
+instruction changed.
+\end{example}
+
+\subsection{Reducible shape is an engineering convenience}
+
+Structured source constructs commonly lower to graphs in which loop entries
+are well behaved: a header dominates the loop body, and back edges return to
+that header. Such reducible graphs support natural-loop analyses and many
+transformations. Arbitrary jumps or some low-level transformations can form
+regions with several entries. The graph remains executable, but a compiler
+may need node splitting, a more general region representation, or an analysis
+that does not assume one dominating header.
+
+This distinction has an economic effect. Optimizers, binary rewriters,
+coverage tools, decompilers, and security instrumentation all pay for the
+precision of their control representation. A simpler graph class can make an
+analysis faster and its transformations easier to validate. Converting a
+general graph to that class may duplicate code, change layout, and alter the
+physical costs described earlier. Structure is therefore both a reasoning
+resource and an engineering tradeoff.
+
+\begin{warning}[title={A graph shape does not supply an invariant}]
+A loop header and back edge locate repeated control. They do not state which
+machine values remain related, why accesses are safe, or why a variant
+decreases. Those are semantic obligations over states at the chosen control
+point.
+\end{warning}
 
 \section{One loop, three state shapes}
 
@@ -439,7 +1123,7 @@ measurement point.
 \section{From traces to control-flow claims}
 
 A trace records the actual successor at each step. For a chosen input, a
-checker can decode the instruction at the recorded program counter, recompute
+checker can decode the instruction at the recorded program counter, calculate again
 its predicate and target, and compare the complete successor with the next
 state in the trace. This catches a wrong edge, a wrong decrement, a stale
 condition bit, or execution after a terminal outcome.
@@ -449,13 +1133,13 @@ zero through 255 proves facts about those chosen executions under a trusted
 enumeration and checker. The invariant proof covers every input in its stated
 domain because it reasons about an arbitrary positive counter and a decreasing
 measure. Machine evidence can support that argument by checking the step
-lemmas or refuting their negations, but a bounded replay cannot silently
+supporting theorems or refuting their negations, but a bounded replay cannot silently
 become an unbounded theorem.
 
 \begin{definition}[title={A bounded run has three distinct endings}]
 A bounded interpreter may halt, trap, or exhaust its step bound while the
-machine is still running. Bound exhaustion is not a machine trap and not proof
-of nontermination. It says only that this run prefix did not reach a terminal
+machine is still running. Bound exhaustion is not a machine trap and does not
+prove that execution will continue forever. It says only that this run prefix did not reach a terminal
 outcome within the supplied budget.
 \end{definition}
 
@@ -480,22 +1164,35 @@ states discharges them.
 
 \section{An introductory Axeyum route}
 
-The current Axeyum checkout supplies reusable bit-vector, solver,
-certificate, and kernel components. It does not yet supply executable A0,
-RV64I, or x86-64 instruction semantics. For this chapter, Axeyum use is
-therefore a construction route with a precise boundary, not a claim that the
-three loops already run there.
+The audited Axeyum checkout at revision \code{a9991fda} supplies more control-
+flow substrate than a bit-vector library alone. It has a generic transition-
+system interface, bounded model checking, memory-aware bounded checking,
+k-induction, certified QF\_BV safety routes, and replay-checked counterexample
+models. Its toy bit-vector VM already has conditional branches, explicit true
+and false targets, validated programs, static CFG edges and basic blocks,
+symbolic target and edge reachability, source-aware traces, and independent
+trace replay.
+
+That VM is a useful precedent, not the book machine. Its program counter names
+instruction indices, its branches use its own equality tests and targets, and
+its fuel and outcome rules belong to that package. It lacks A0 instruction
+bytes, the \(pc+4+4d\) target rule, the \(Z,N,C,V\) predicate family, and A0
+fetch and trap behavior. The checkout also lacks source-pinned RV64I and
+x86-64 decoder adapters, the three-machine loop relation, and proof objects
+for the chapter's dominance claims. Renaming the toy VM would hide these
+differences rather than discharge them.
 
 Start with A0 because its complete state and fixed-width encoding are owned by
-this book. Define a decoded branch containing a condition code and signed
-displacement. Define the predicate as a pure function of \(Z,N,C,V\), then
-define the two successor-PC formulas. Only after unit tests cover every
-condition and both outcomes should the branch enter the general A0 step
-function.
+this book. Reuse Axeyum's transition, symbolic exploration, reporting, and
+replay patterns through a separate A0 adapter. Define a decoded branch
+containing a condition code and signed displacement. Define the predicate as a
+pure function of \(Z,N,C,V\), then define the two successor-PC formulas. Only
+after unit tests cover every condition and both outcomes should the branch
+enter the general A0 step function.
 
 The first evidence object should contain an initial state, instruction bytes,
 decoded branch, selected predicate value, expected successor state, and the
-semantic-package digest. Its checker should decode again and recompute the
+semantic-package digest. Its checker should decode again and calculate the
 step rather than trusting recorded derived fields. A small command-line
 wrapper can then print a teaching trace while its exit status depends on full
 agreement.
@@ -505,7 +1202,8 @@ Use a positive case whose taken target differs from fallthrough. Pair it with
 mutations that invert the predicate, omit the displacement scale, use \(pc\)
 instead of \(pc+4\) as the A0 base, or change one reserved encoding bit. Each
 mutation must make the checker fail for the intended reason. Also retain a
-valid untaken case so a checker that always chooses the target cannot pass.
+valid case with a false predicate so a checker that always chooses the target
+cannot pass.
 \end{example}
 
 The RV64I and x86-64 routes come later. Each needs a source-pinned decoder
@@ -520,16 +1218,28 @@ For the counted-loop theorem, separate four evidence levels:
 \begin{enumerate}
 \item replay one complete trace for a small input;
 \item enumerate every input at a teaching width;
-\item ask for a counterexample to invariant preservation at a named width and
-replay any model;
+\item use bounded model checking for a named depth and replay any model;
+\item prove invariant preservation or safety at a named width through
+k-induction or a certified QF\_BV route; and
 \item reconstruct a width-parametric decreasing-measure proof through a
 kernel route when that route exists.
 \end{enumerate}
 
 The manifest must label which level was achieved. Solver \code{UNSAT} at
 width 64 is a strong finite-width result, but it is not automatically a theorem
-quantified over every positive width. A proof certificate can reduce trust in
-the solver verdict; it still proves only the encoded formula.
+quantified over every positive width. Bounded safety, k-inductive safety, and
+termination are also distinct. A proof certificate can reduce trust in the
+solver verdict; it still proves only the encoded formula. The publication
+manifest should record the adapter revision, semantic digest, solver route,
+certificate checker when present, replay result, and negative controls.
+
+\begin{sidebar}[title={What the existing toy VM can teach immediately}]
+Its static graph can test edge extraction, its symbolic search can produce a
+target-reachability witness, and its replay route can reject a corrupted
+trace. Those are genuine Axeyum lessons. They become A0 evidence only after an
+A0-specific decoder and step relation connect the same evidence pattern to the
+book's bytes and state.
+\end{sidebar}
 
 \section{What a branch proof must establish}
 
@@ -568,7 +1278,7 @@ single transition.
 
 \begin{proofkit}[title={Five obligations for a direct conditional branch}]
 Check, in order: legal fetch and faithful decode; the exact predicate over the
-declared input state; taken and untaken program-counter formulas; preservation
+declared input state; taken and not-taken program-counter formulas; preservation
 of every other observed component; and the premise needed to continue from
 the chosen successor. A proof may discharge the layers separately, but the
 whole-program claim needs all five.
@@ -656,7 +1366,7 @@ that a graph edge is unreachable. Give one fact each can establish.
 
 \item Design a bounded-run result type that distinguishes halt, trap, and
 bound exhaustion. Give a negative test for an implementation that reports
-bound exhaustion as nontermination.
+bound exhaustion as proof that execution continues forever.
 
 \item Design the first A0 branch artifact for Axeyum. Include bytes, decoded
 instruction, initial state, expected successor, semantic digests, checker
@@ -665,5 +1375,147 @@ command, and four target or predicate mutations.
 \item \textbf{Transfer.} State the obligations for replacing an A0
 condition-reading branch with an RV64I register-comparing branch. Include the
 state relation before the branch and the relation required after both taken
-and untaken outcomes.
+and not-taken outcomes.
+\item \textbf{History.} Compare conditional succession in Turing's machine
+with a conditional branch in a stored-program ISA. Name one common
+mathematical idea and two machine details that Turing's model does not supply
+for A0.
+
+\item Goldstine and von Neumann used flow diagrams and induction assertions.
+Draw a flow diagram for the counted loop and place an assertion at its entry,
+body, and exit. Explain which assertion acts as the loop invariant.
+
+\item Explain why Böhm and Jacopini's expressiveness result does not imply that
+real instruction sets should omit jump instructions. Then state the separate
+human-reasoning concern in Dijkstra's argument.
+
+\item \textbf{Decode.} Write a language-neutral list of steps that reconstructs
+the signed RV64I
+B-type offset from instruction bits 31, 30 through 25, 11 through 8, and 7.
+Include the implicit low zero and sign extension.
+
+\item Encode RV64I branch offsets \(16\), \(-4\), and \(-4096\) into their
+B-type immediate pieces. Reconstruct each result before accepting it. State
+which boundary assumption changes if the compressed extension is in scope.
+
+\item \textbf{Break.} Swap reconstructed RV64I immediate bits 11 and 12.
+Find one offset for which the faulty decoder agrees with the correct decoder
+and one for which it disagrees. Explain why a round trip through the same
+faulty encoder would be a weak test.
+
+\item A short x86-64 conditional jump begins at address 250 and targets 224.
+Compute its signed displacement. Replace it with the selected six-byte near
+form at the same address and compute the repaired displacement.
+
+\item Give bytes in which an opcode-like value occurs inside a displacement.
+Explain why scanning for that value cannot recover x86-64 instruction
+boundaries. State what evidence a proof-oriented decoder must return instead.
+
+\item \textbf{Relocate.} Prove algebraically that moving a relative branch and
+its target by the same delta preserves the needed displacement. Then give
+three conditions under which the relocated instruction can nevertheless fail.
+
+\item For the graph with edges \(E\to A\), \(E\to B\), \(A\to C\),
+\(B\to C\), \(C\to D\), list the reachable vertices and the dominators of
+each vertex. Give a path witness for every proposed non-dominance result.
+
+\item \textbf{Break.} Add edge \(B\to D\) to the preceding graph. Recompute
+only the dominance facts that change and explain why reachability alone does
+not reveal the change.
+
+\item Compute the strongly connected components of a graph with edges
+\(A\to B\), \(B\to C\), \(C\to B\), \(C\to D\), \(D\to D\). Draw its
+component graph and prove that the component graph has no directed cycle.
+
+\item Give a directed cycle that has no natural-loop header under the stated
+dominance definition because it has two entries. Explain one action a compiler
+or analysis might take and one cost of that action.
+
+\item In the chapter's worked loop graph, add a trap edge from the body.
+Recompute post-dominance under two conventions: normal exit only, and normal
+or trapped termination. State why the exit convention is part of the claim.
+
+\item \textbf{Prove.} Use the predecessor-closure method to prove a dominance
+fact in a finite graph of your design. State why marking a vertex when only
+one predecessor is marked would be unsound, and give a counterexample.
+
+\item Construct a CFG path whose consecutive edges are individually feasible
+but whose complete path is infeasible because the required state predicates
+conflict. Name the additional state fact a path-sensitive analysis must keep.
+
+\item A profile observes a branch as taken 990 times and not taken 10 times.
+State one supported frequency estimate, two semantic conclusions that do not
+follow, and two reasons the distribution may change in production.
+
+\item \textbf{Layout.} Arrange a diamond-shaped graph in two linear orders.
+For each order, identify fallthrough edges and required jumps. Under a supplied
+edge-frequency table, compare expected taken transfers without claiming a
+processor-independent running time.
+
+\item A linker changes one branch to a longer form and moves three later blocks. Describe a
+fixed-point relaxation algorithm. State the termination argument if every
+branch form can only grow through a finite ordered set of encodings.
+
+\item Give a case in which if-conversion is semantically invalid because an
+operation on the path not selected can trap. Give another in which it is
+semantically valid but plausibly slower because it makes a dependency longer.
+
+\item A predictor is 95 percent accurate on one workload. List at least four
+quantities needed to turn that fact into a performance or economic claim.
+Separate facts defined by the ISA from facts about one implementation.
+
+\item \textbf{Policy.} Define a coarse CFI target class containing three
+function entries. Construct a state in which a transfer reaches an allowed but
+application-wrong member. State the stronger application invariant that would
+exclude it.
+
+\item Compare forward-edge CFI with a shadow-stack return property. Give a
+two-level nested-call trace for which ``return to any function entry'' is too
+weak, and identify the temporal relation a correct return must preserve.
+
+\item Separate target arithmetic, target validity, CFI policy, and application
+correctness for one RV64I \code{JALR}. Give a distinct counterexample to each
+property while holding the earlier properties true when possible.
+
+\item \textbf{Continuation.} A call at address 100 has length four and enters
+a callee at 400. State the saved continuation, then give a nested call and
+return sequence. Write an invariant over the abstract continuation stack.
+
+\item Compare a link-register convention with a memory stack for nested
+calls. Identify which facts belong to the ISA and which require an ABI or
+procedure contract. Do not assume that either mechanism alone proves matching
+returns.
+
+\item Design a target-soundness proof for a four-entry jump table. Include the
+index bound, entry-width calculation, load validity, architectural target
+transformation, and membership conclusion. Then state what target completeness
+would additionally require.
+
+\item \textbf{Axeyum.} Map the existing toy VM's branch, CFG, symbolic
+reachability, and replay facilities to four Chapter 9 lessons. For each, state
+the additional adapter fact needed before the evidence can make an A0 claim.
+
+\item Specify a bounded-model-checking property for the counted loop at width
+eight and depth 260. Explain what a satisfying model means, what an
+unsatisfiable bounded query means, and why neither result alone proves a
+width-parametric termination theorem.
+
+\item Strengthen the preceding route with k-induction. State a base obligation,
+an inductive-step obligation, and a safety property. Explain why k-inductive
+safety still differs from termination.
+
+\item \textbf{Negative controls.} Design mutations for an A0 branch checker
+that corrupt, one at a time, decode, predicate, target base, displacement
+scale, preserved memory, and outcome. Name the expected failure class for each
+mutation.
+
+\item Create an evidence manifest for one RV64I backward branch. Include
+source specification revision, bytes, instruction address, decoded fields,
+target, target-alignment profile, semantic digest, checker, and a corrupted
+immediate control.
+
+\item \textbf{Synthesis.} Prove the counted loop for one of the three machines
+from instruction bytes to normal exit. Organize the proof under the chapter's
+five branch obligations, the loop invariant, the decreasing variant, and the
+final observation. Mark every assumed decoder or arithmetic lemma.
 \end{enumerate}

@@ -11,8 +11,8 @@ That agreement is an \keyterm{application binary interface}, or ABI. It sits
 between source-language intention and instruction semantics. Confusing the
 layers produces brittle explanations: an ISA register gets called an argument
 register in every context, a stack-growth convention is mistaken for a
-hardware law, or a successful return is credited to \code{RET} while the
-saved address and stack discipline go unproved.
+hardware law, or a successful return is credited to \code{RET} without a
+proof of the saved address and stack discipline.
 
 \begin{keyidea}[title={A call mechanism is not a calling convention}]
 The ISA explains how control reaches a target and how a continuation is
@@ -36,11 +36,60 @@ libraries needed independently produced code to agree for years. The modern
 ABI records that durable binary agreement. It covers much more than calls,
 but this chapter uses its procedure-calling slice.
 
+The idea developed through working constraints, not through one timeless
+calling convention. Burks, Goldstine, and von Neumann's 1946 logical-design
+report placed stored orders, memory, arithmetic, and control inside one
+automatic computing instrument \autocite{burks1946logical}. Reusing a stored
+sequence could save scarce program memory. Yet entry into that sequence did not
+by itself say how to return to any one of several possible callers.
+
+The EDSAC work made that problem concrete. Wilkes, Wheeler, and Gill described
+closed subroutines, link orders, parameters, and a library for an operational
+stored-program computer \autocite{wilkes1951preparation}. Wheeler's 1952 paper
+then presented subroutine use to the young ACM community
+\autocite{wheeler1952subroutines}. These sources document a real programming
+practice, but their link mechanisms should not be retold as if EDSAC already
+had a modern stack ABI. A return transfer could be constructed or modified,
+and storage conventions were shaped by that machine's orders and memory.
+
+\begin{archive}[title={A library turned control transfer into cooperation}]
+A reusable routine is more than a backward or forward edge. Many callers must
+agree on its entry, parameters, working storage, result, and return. The early
+subroutine library therefore joined a technical mechanism to a social one:
+programmers could build on code whose internal steps they did not rewrite.
+\end{archive}
+
+Recursive procedures raised the storage requirement. Two active calls of the
+same procedure share instruction bytes but cannot generally share one set of
+parameters, local values, saved links, and intermediate results. The ALGOL 60
+report made recursive procedure activation part of an influential language
+setting \autocite{naur1963algol}. Implementations needed a distinct activation
+record for every live call. A last-created, first-used stack is a natural
+representation when calls return in properly nested order.
+
+The stack was not forced by the mathematical idea of a procedure. A compiler
+can keep a leaf activation entirely in registers, assign storage statically
+when recursion is excluded, split or eliminate a frame, or move an activation
+to another region when its lifetime outlasts ordinary stack order. The lasting
+foundation is one live record per required activation and a rule that finds the
+right record. Stack memory is the dominant implementation for ordinary nested
+calls because its allocation and release match their lifetime order.
+
+As systems grew, local calling practice became a platform contract. Object
+files named external symbols and relocations. Linkers joined separately built
+units. Loaders mapped shared objects. Debuggers and exception handlers needed
+to recover older machine states. Foreign-language calls needed compatible data
+representations as well as compatible registers. The resulting ABI is a
+versioned interface among processors, operating systems, compilers, linkers,
+runtimes, libraries, and tools. Its stability has economic value: a library can
+serve software built by other organizations and, within promised compatibility
+limits, by older toolchains.
+
 The same need exists today in compilers, foreign-function interfaces, dynamic
 instrumentation, binary translation, and formal verification. A compiler may
 optimize freely inside a procedure while still owing a precise boundary to
 every caller. A proof that two function bodies compute the same number is
-insufficient if one corrupts a preserved register, misaligns the stack before
+insufficient if one corrupts a preserved register, leaves the stack incorrectly aligned before
 a nested call, or returns through the wrong address.
 
 \begin{archive}[title={A procedure boundary makes separate construction possible}]
@@ -213,7 +262,7 @@ claim.}
 \end{figure}
 
 The argument depends on more than subtraction. Neither computation may wrap.
-Both intervals must lie in mapped, writable memory owned by the stack. The
+Both intervals must lie in mapped memory that permits writes and is owned by the stack. The
 nested callee must respect its own frame bound rather than store upward into
 the caller's frame. If it receives a pointer into the caller's frame, any
 write through that pointer must be separately allowed by the contract. Stack
@@ -227,6 +276,84 @@ aliasing is part of the design. Then prove that the frame as a whole is inside
 the permitted stack region. Checking only the largest printed offset misses
 the width of the access: an eight-byte store beginning four bytes below the
 upper boundary crosses it.
+
+\subsection{The call history is a tree; one active path is a stack}
+
+Across an entire execution, procedure activations form a rooted tree. The
+initial activation is the root. Each call creates a child of the activation
+that issued it. Sibling calls may occur at different times, and the same
+procedure body may label many distinct tree vertices. The tree records
+history and nesting, not separate copies of the instruction bytes.
+
+At one instant in ordinary single-threaded execution, only one root-to-current
+path is active. If calls return to their immediate parents, activation removal
+is last-in, first-out: the most recently created live child must finish before
+its parent continues. A linear stack can represent exactly that active path.
+Pushing creates a record at one end; popping removes the current record and
+reveals its parent.
+
+Let \(A_0,A_1,\ldots,A_n\) be the active activations from the root to the
+currently executing one. Let \(F_i\) be the frame size of \(A_i\), and let
+the entry stack pointer be \(s_0\). When downward allocation does not wrap,
+define
+\[
+  s_{i+1}=s_i-F_i.
+\]
+Frame \(i\) occupies \([s_{i+1},s_i)\). For \(i<j\), the recurrence gives
+\(s_{j+1}\le s_j\le s_{i+1}\), so the two half-open frame intervals are
+disjoint. They meet only at an endpoint when every intervening frame has size
+zero. This arithmetic is the spatial image of nested lifetime order.
+
+\begin{proofkit}[title={Induction over call depth}]
+At depth zero, the active-frame sequence is empty or contains only a declared
+root region, so its intervals are disjoint. Assume depths through \(n\) have
+valid, disjoint frames and current pointer \(s_n\). A nested call that proves
+no wrap, sufficient mapped stack space, required alignment, and private range
+\([s_n-F_n,s_n)\) adds one interval below every live older interval. It cannot
+overlap them. On normal return, restoring \(s_n\) removes exactly that newest
+interval and recovers the induction hypothesis. The proof does not cover a
+call that escapes ordinary nesting or an activation retained after return.
+\end{proofkit}
+
+The last sentence matters for modern language implementations. A
+\keyterm{coroutine} is a routine that can suspend one activation and resume
+another. A continuation can preserve more
+than the immediate return address. A closure can keep referenced data alive
+after the declaring call returns. A compiler may place such state in a heap
+object, a segmented stack, or a runtime-managed frame. These mechanisms do not
+invalidate the stack proof. They fall outside its premise that live procedure
+activations form one properly nested path represented by adjacent intervals.
+
+\begin{warning}[title={A stack diagram is a theorem about lifetimes}]
+Boxes drawn above one another are justified only when allocation, nesting,
+range, and release premises hold. An escaped pointer, suspended activation, or
+transfer outside the current call nesting can keep data live after the pictured pop. State the lifetime
+model before using the diagram as a proof.
+\end{warning}
+
+\subsection{Space exhaustion is different from address wrap}
+
+The recurrence \(s'=s-F\) can be arithmetically defined while the intended
+frame is not backed by usable memory. A finite thread stack has a resource
+limit. Guard pages can turn growth beyond a boundary into a fault. Some systems
+require a large allocation to touch intervening pages so one subtraction cannot
+jump over a guard region. That page-touching sequence is often called a
+\keyterm{stack probe}.
+
+A frame theorem therefore separates at least four questions. Does subtraction
+wrap at the machine width? Does the resulting interval lie within the thread's
+permitted stack region? Does every needed page become mapped or committed under
+the platform rule? Does each load or store stay within the allocated frame and
+use permitted alignment? Equality after adding \(F\) back answers only the
+first question under its arithmetic premises.
+
+Stack size also has an industrial cost. A larger reserved or committed stack
+can reduce the number of threads or tasks a process can support. A smaller one
+can make deep recursion or large local objects fail earlier. Split stacks,
+heap-allocated activations, and stackless asynchronous state machines choose
+different allocation and scheduling costs. These are runtime and workload
+decisions, not properties of \code{CALL}, \code{RET}, or an ISA stack-pointer
+register.
 
 \section{A0 exposes the missing mechanism}
 
@@ -307,6 +434,72 @@ Explain why a later \code{jalr x0,0(ra)} cannot return to 100 unless the
 original value was kept elsewhere and restored.
 \end{tryit}
 
+\subsection{A complete RV64 frame owes more than balanced arithmetic}
+
+Consider a non-leaf procedure that must preserve its incoming continuation and
+the preserved register \code{s0}. It also keeps the input in \code{s0} across
+a call to \code{helper}. One selected uncompressed RV64I sequence is:
+
+\begin{codelisting}[language={},caption={A selected RV64I non-leaf frame}]
+    addi sp, sp, -16
+    sd   ra, 8(sp)
+    sd   s0, 0(sp)
+    addi s0, a0, 0
+    jal  ra, helper
+    add  a0, a0, s0
+    ld   s0, 0(sp)
+    ld   ra, 8(sp)
+    addi sp, sp, 16
+    jalr x0, 0(ra)
+\end{codelisting}
+
+If entry \(sp=s\), the frame is \([s-16,s)\). The saved \code{s0} slot is
+\([s-16,s-8)\), and the saved \code{ra} slot is \([s-8,s)\). Both eight-byte
+stores lie inside the frame, the slots are disjoint, and subtracting 16
+preserves the standard 16-byte stack alignment. The nested call may replace
+\code{ra} and volatile argument registers, but its contract must preserve
+\code{s0}, \code{sp}, and both caller-owned save slots. After return, the two
+loads recover the entry values before the frame is released.
+
+For this exact register assignment, the little-endian bytes outside the
+relocated call are:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Instruction & Bytes in address order \\
+\midrule
+\code{addi sp,sp,-16} & \code{13 01 01 FF} \\
+\code{sd ra,8(sp)} & \code{23 34 11 00} \\
+\code{sd s0,0(sp)} & \code{23 30 81 00} \\
+\code{addi s0,a0,0} & \code{13 04 05 00} \\
+\code{add a0,a0,s0} & \code{33 05 85 00} \\
+\code{ld s0,0(sp)} & \code{03 34 01 00} \\
+\code{ld ra,8(sp)} & \code{83 30 81 00} \\
+\code{addi sp,sp,16} & \code{13 01 01 01} \\
+\code{jalr x0,0(ra)} & \code{67 80 00 00} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The \code{jal} bytes depend on the final distance to \code{helper}; a
+relocation or final layout calculation must bind them. At a call address whose
+helper is 48 bytes ahead, \code{jal ra,48} is \code{EF 00 00 03}. Publishing
+fixed call bytes without publishing the call address and target would leave
+the central field unjustified.
+
+\begin{proofkit}[title={RV64 non-leaf preservation}]
+Assume valid aligned entry, no address wrap, frame bytes that permit writes, a valid call
+target, and a helper contract that returns normally while preserving \code{s0},
+\code{sp}, and the two slots. The prologue stores the entry \code{ra} and
+\code{s0} in disjoint owned intervals. The body keeps the original input in
+\code{s0}; the helper cannot change it. The epilogue reloads the stored entry
+values, releases exactly 16 bytes, and jumps through the restored \code{ra}.
+Thus the procedure returns to its caller with entry \code{s0} and \code{sp},
+subject to its declared result in \code{a0}. Every premise is needed by a
+specific instruction or nested contract.
+\end{proofkit}
+
 \subsection{Leaf is a control-flow fact, not a size class}
 
 A \keyterm{leaf procedure} makes no procedure call on the path under
@@ -329,7 +522,7 @@ returns.
 Leaf status can be path-sensitive. A fast path may return without calling,
 while a slow path invokes a helper. The whole procedure is ordinarily treated
 as non-leaf for frame design unless the paths have separately justified
-prologues and epilogues. An optimizer that removes the last call may remove a
+entry and exit sequences. An optimizer that removes the last call may remove a
 now-unneeded continuation save, but it must prove that no remaining path or
 indirect transfer invokes a callee.
 
@@ -380,6 +573,103 @@ specified region below the current stack pointer without first adjusting
 hardware property and is not shared by every x86-64 calling convention. This
 chapter's worked proof does not rely on it.
 
+\subsection{A System V frame composes an implicit push with explicit storage}
+
+Suppose a System V AMD64 procedure needs to preserve \code{RBX}, keep its first
+argument across a helper call, and reserve 32 bytes of private scratch. At
+entry, let \(RSP=s\), with the caller's continuation stored in \([s,s+8)\)
+and \(s+8\) divisible by 16. One selected sequence is:
+
+\begin{codelisting}[language={},caption={A selected System V AMD64 non-leaf frame}]
+    push rbx
+    sub  rsp, 32
+    mov  rbx, rdi
+    call helper
+    add  rax, rbx
+    add  rsp, 32
+    pop  rbx
+    ret
+\end{codelisting}
+
+The \code{push} first changes \code{RSP} to \(s-8\) and stores entry
+\code{RBX} in \([s-8,s)\). Because \(s+8\) is divisible by 16, \(s-8\) is
+also divisible by 16. Subtracting 32 produces \(s-40\), still divisible by
+16 at the nested-call checkpoint. The private area is \([s-40,s-8)\).
+The save slot and caller continuation are outside that private interval; no
+two of the three intervals share a byte.
+
+The fixed bytes are \code{53} for \code{push rbx},
+\code{48 83 EC 20} for \code{sub rsp,32}, \code{48 89 FB} for
+\code{mov rbx,rdi}, \code{48 01 D8} for \code{add rax,rbx},
+\code{48 83 C4 20} for \code{add rsp,32}, \code{5B} for
+\code{pop rbx}, and \code{C3} for \code{ret}. A direct near call begins with
+\code{E8} and carries a four-byte relative displacement fixed by layout and
+relocation. As in the RV64 example, opcode evidence and relocation evidence
+are separate.
+
+On return from \code{helper}, \code{RSP} again equals \(s-40\). Adding 32
+reveals the saved \code{RBX}; \code{pop} restores it and changes \code{RSP}
+to \(s\); \code{ret} reads the original continuation and changes \code{RSP}
+to \(s+8\), the caller's value before its call. The proof must account for
+both stack changes made implicitly by \code{call} and \code{ret}. Merely
+showing that the explicit additions cancel the subtractions is incomplete.
+
+\begin{warning}[title={The return address is caller-owned live data}]
+The current procedure may read the stacked continuation as part of return, but
+it may not treat the word as private scratch. A frame layout that includes
+\([s,s+8)\) in the callee's local region that permits writes has erased the very value
+needed to justify control after \code{ret}.
+\end{warning}
+
+\subsection{Microsoft x64 uses the same ISA under another agreement}
+
+Microsoft x64 assigns the first four ordinary integer or pointer parameter
+positions to \code{RCX}, \code{RDX}, \code{R8}, and \code{R9}, subject to its
+type rules. The caller also reserves a four-slot parameter area on the stack,
+often called \keyterm{shadow space}, even when the callee receives those four
+values in registers. A callee may use the area to save the incoming register
+parameters. System V AMD64 instead begins its selected integer sequence with
+six registers and defines a red zone for qualifying code. The two agreements
+must not share one frame diagram \autocite{microsoft2025x64abi}.
+
+The preserved-register sets also differ. Microsoft x64 treats \code{RDI} and
+\code{RSI} as nonvolatile, while System V treats them as volatile argument
+registers. Microsoft preserves the low 128 bits of selected vector registers;
+System V's vector-register rules differ. A bridge compiled for one convention
+must save, move, and restore values according to both sides. Using the same
+\code{CALL} opcode does not make the boundaries compatible.
+
+Microsoft unwindability constrains non-leaf prologues and epilogues so unwind
+data can describe their effects. This creates a direct connection among code
+generation, exception recovery, debugging, and binary compatibility. A custom
+assembly routine can execute legally while failing the platform contract
+because its frame changes cannot be recovered through the required metadata.
+
+\begin{table}[htbp]
+\centering
+\caption{Selected x86-64 procedure differences. The rows are ABI rules, not
+instruction-set properties.}
+\begin{tabular}{p{0.21\textwidth}p{0.34\textwidth}p{0.32\textwidth}}
+\toprule
+Question & System V AMD64 & Microsoft x64 \\
+\midrule
+First integer positions & \code{RDI,RSI,RDX,RCX,R8,R9} & \code{RCX,RDX,R8,R9} \\
+Caller stack area & overflow arguments and selected save areas & four-slot parameter area plus overflow arguments \\
+Area below current \code{RSP} & selected 128-byte red zone & no equivalent general red-zone promise \\
+Selected preserved difference & \code{RDI,RSI} volatile & \code{RDI,RSI} nonvolatile \\
+Unwind route & DWARF call-frame information on common ELF systems & platform function tables and unwind codes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The contrast has an economic dimension. One platform ABI lets independently
+built compilers, libraries, debuggers, profilers, and operating-system tools
+share binaries. Supporting another ABI requires new calling sequences,
+object-format integration, unwind generation, tests, and maintenance. A
+cross-platform compiler backend earns compatibility by implementing those
+contracts; it does not obtain compatibility merely by emitting x86-64
+instructions.
+
 \subsection{The ISA supplies effects; the ABI selects a composition}
 
 It is tempting to divide the layers by vocabulary: instructions belong to the
@@ -398,7 +688,7 @@ procedure's obligations have already been discharged.
 
 This gives a useful proof order. First apply the instruction rule to establish
 the exact link, program-counter, register, and memory effects. Next apply the
-ABI lemmas that interpret the affected locations as a continuation, argument,
+ABI rules that interpret the affected locations as a continuation, argument,
 result, stack area, or preserved resource. Finally apply the procedure theorem
 that connects the abstract caller and callee. Reversing that order risks using
 the word ``call'' as if it already guaranteed a valid target, valid stack, and
@@ -415,6 +705,118 @@ System V AMD64 and Microsoft x64 use the same broad instruction set but differ
 in argument registers, stack-area rules, and preservation details. A theorem
 about one calling convention must not be labeled only ``x86-64.'' Name the ABI
 and the selected platform assumptions.
+\end{warning}
+
+\section{Argument classification is a packing contract}
+
+An argument list is a typed mathematical sequence. An ABI must map that
+sequence into a finite set of register positions and a memory layout. The map
+depends on type size, alignment, representation class, earlier arguments, and
+the selected calling convention. It is not correctly summarized by saying
+``arguments go in registers.''
+
+For a simple integer-only model, let \(R=(r_0,\ldots,r_{m-1})\) be the ordered
+argument-register positions. A scalar word consumes the next free position. If
+no position remains, the caller stores the argument in a stack argument area
+with the required alignment. A two-word value may need two positions and can
+force an unused gap when the ABI requires an aligned pair. A value too large
+for direct passage may instead consume one pointer position while the caller
+places the object in memory.
+
+This is a small allocation algorithm. Its state is the next register position
+and next stack offset. Its invariant says that each processed argument has one
+declared location, stack intervals are aligned and disjoint, and the next free
+locations do not overlap earlier assignments. The final map becomes part of
+both caller and callee preconditions.
+
+\begin{proofkit}[title={Agreement by one deterministic classifier}]
+Let \(C\) be a deterministic classification function of the ABI revision,
+type sequence, and calling-convention variant. If caller and callee use the
+same inputs to \(C\), induction over the argument sequence gives the same
+location for every argument: the initial allocation states agree, and each
+classification step consumes the same register positions and stack bytes.
+If a type layout, variant, or ABI revision differs, the induction premise
+fails. Matching source-level parameter names cannot repair the binary map.
+\end{proofkit}
+
+The standard RISC-V integer convention provides eight positions,
+\code{a0} through \code{a7}. A scalar no wider than XLEN uses one available
+register or is passed on the stack when none remains. Selected values up to
+twice XLEN can use a register pair; larger aggregates are passed by reference.
+Stack arguments follow type and machine-word alignment rules up to the stack
+alignment. The specification gives additional rules for floating-point,
+vectors, C++ objects, and \keyterm{variadic procedures}. A variadic procedure
+has a fixed named prefix but does not fix the type and position of every later
+argument \autocite{riscv2026abi}.
+
+System V AMD64 first classifies an argument into pieces and classes before it
+assigns registers or memory. A small structure is not automatically a pointer,
+and a floating-point field need not consume an integer register. When a value
+cannot be passed under the register rules, it is placed in the caller's stack
+argument area with its required layout. The full algorithm has cleanup and
+class-merging rules; a proof should import the official classifier or implement
+and test that algorithm rather than invent a mnemonic shortcut
+\autocite{sysv2023amd64abi}.
+
+\begin{example}[title={The ninth RV64 integer argument crosses the boundary}]
+Take nine independent 64-bit integer arguments under the selected standard
+RV64 integer convention. Arguments zero through seven use \code{a0} through
+\code{a7}. At procedure entry, argument eight begins at stack offset zero.
+The caller must make that memory valid and aligned; the callee must load the
+same eight bytes. If an earlier argument expands to two register positions or
+is passed by reference, run the classifier again. Counting source parameters
+is not enough.
+\end{example}
+
+\subsection{Large results reverse the direction of one argument}
+
+When a result does not fit the direct return locations, an ABI can require the
+caller to allocate result storage and pass its address as an implicit argument.
+The procedure then writes the result through that pointer. The apparent output
+has become an input capability plus a memory effect.
+
+A proof needs the hidden pointer's location, range, alignment, ownership, and
+alias relation to ordinary arguments. It must show that every result store lies
+inside the caller-provided object and that required padding or untouched bytes
+follow the ABI and language contract. The returned register value, if any, may
+have a separate rule. Guessing that it contains the hidden pointer can create
+a false portability claim.
+
+This mechanism explains why source signatures alone do not determine machine
+signatures. Two compilers that disagree about structure layout, triviality, or
+calling-convention variant can place the same apparent result differently.
+Foreign-function declarations must match the binary classifier as well as the
+source type spelling.
+
+\subsection{Variadic calls weaken static type agreement}
+
+A variadic procedure accepts a fixed named prefix followed by a
+number of additional arguments chosen at each call. The callee does not have a
+complete declared type sequence for those additional values. The ABI therefore
+defines placement, promotion, save-area, and traversal rules so runtime code
+can find them.
+
+RISC-V's selected convention can require an aligned register pair for a
+two-word-aligned variadic argument; once such an argument goes to the stack,
+later variadic arguments also go there. Its \code{va\_list} route can require
+the callee to save unused incoming argument registers into an ordered area
+before traversing them \autocite{riscv2026abi}. System V AMD64 has its own
+register-save-area and metadata rules. Microsoft x64 duplicates selected
+floating-point values into general registers for unprototyped or variadic
+calls under its documented cases \autocite{microsoft2025x64abi}.
+
+The security and correctness lesson is direct. The runtime traversal trusts
+the caller and format-specific code to agree about count and types. Reading an
+extra value or reading one under the wrong type can use the wrong width,
+alignment, or register class. A format-string vulnerability is therefore not
+merely a text problem; it can become an incorrect walk through an ABI-defined
+argument representation.
+
+\begin{warning}[title={Do not teach the exceptional case as the ordinary rule}]
+This chapter's proofs use fixed scalar signatures. Aggregate and variadic
+examples explain why the full ABI is richer; they do not silently extend the
+narrow add-one theorem. Every implemented classifier must name its admitted
+types and reject the rest.
 \end{warning}
 
 \section{The same leaf contract in three machines}
@@ -493,7 +895,8 @@ Let location \(q\) contain entry value \(v\), and suppose the callee may change
 \(q\). Before the nested call, store \(v\) in a private frame slot \(m\). The
 call may change \(q\) but must not change \(m\) under the nested contract.
 After return, load \(m\) into \(q\). The final value of \(q\) is then \(v\).
-The proof depends on slot validity, nonaliasing with nested writes, correct
+The proof depends on slot validity, the absence of nested writes to the same
+bytes, correct
 width and byte order, and normal return to the restore instruction.
 \end{proofkit}
 
@@ -518,9 +921,42 @@ recover saved registers and older frames without executing the ordinary
 epilogue. The metadata is then part of the binary contract and deserves its
 own validation: its description of frame changes must agree with the actual
 instructions at each covered program point. Debug information that merely
-prints a plausible backtrace is weaker evidence than a checked correspondence
+prints a plausible reconstructed call history is weaker evidence than a checked correspondence
 between unwind rows and instruction semantics. Full unwinding remains outside
-this first scalar model, but the boundary is now explicit.
+this first scalar model, but the boundary is now explicit
+\autocite{dwarf2017v5}.
+
+\subsection{An unwind row describes recovery at one control range}
+
+DWARF call-frame information uses a
+\keyterm{canonical frame address}, or CFA, as a stable reference from which an
+older frame's values can be recovered. A row applies over a range of instruction
+addresses and gives rules such as ``the caller's stack pointer is CFA'' or
+``the caller's saved register is eight bytes below CFA.'' The rules can change
+after each prologue or epilogue instruction because the machine state changes
+there.
+
+Return to the System V sequence. At function entry, one possible descriptive
+row uses \(CFA=RSP+8\): the caller's pre-call stack pointer. After
+\code{push rbx}, current \code{RSP} equals \(s-8\), so the same address is
+\(CFA=RSP+16\), and saved \code{RBX} lies at \(CFA-16\). After
+\code{sub rsp,32}, current \code{RSP} equals \(s-40\), so \(CFA=RSP+48\), while the
+saved register remains at \(CFA-16\). One fixed offset from current \code{RSP}
+could not describe all three ranges.
+
+The metadata checker must walk instruction effects and metadata rows together.
+At each covered program point, it can construct a symbolic caller state,
+apply the row's recovery expressions to current state, and compare the result
+with the actual entry values. A mutation that omits the stack subtraction from
+the CFA update should fail only after that instruction. A mutation that moves
+the saved-register offset should fail as soon as the save is claimed.
+
+\begin{warning}[title={A successful backtrace is one witness}]
+A debugger that walks one stopped execution shows that its selected rows and
+memory happened to produce plausible older addresses. It does not prove every
+covered program point, every prologue path, or every register rule. Validate
+the metadata against instruction semantics and retain failing address ranges.
+\end{warning}
 
 Fault ordering also matters. If a prologue adjusts the stack pointer and then
 faults while saving a register, the machine is neither at the entry boundary
@@ -528,6 +964,99 @@ nor at the normal exit boundary. A proof system that models faults needs the
 intermediate state and the architectural rule selecting the reported fault.
 If the theorem excludes faults, its precondition must be strong enough to make
 every prologue, body, and epilogue access valid.
+
+\section{Return protection separates three different claims}
+
+The continuation is ordinary machine state with extraordinary authority. On
+x86-64 it occupies stack memory that permits writes. In a conventional RV64 non-leaf
+frame, a saved copy of \code{ra} does too. If an erroneous or hostile store
+replaces that word, the ordinary epilogue may restore every other value and
+then transfer control to an address chosen by the replacement. Balanced stack
+arithmetic does not establish continuation integrity.
+
+Suppose a frame contains a local byte array below a saved continuation. An
+unchecked copy that crosses the array's upper bound can reach the saved word.
+The exact direction depends on the frame layout, but the proof issue does not:
+the local object's write-permitted interval must be disjoint from every protected
+slot, and each store must remain inside the interval it owns. Chapter 4's range
+and alias rules therefore become security premises at a procedure boundary.
+
+A \keyterm{stack canary} is a value placed between selected local objects and
+protected frame state. The prologue writes the expected value. Before an
+ordinary return, the epilogue compares the current value with that expectation
+and takes a failure path if they differ. The comparison can detect a
+contiguous overwrite that crosses the canary on its way to the continuation.
+It does not make the overwrite impossible.
+
+The canary argument has narrow premises. The attacker must not learn and
+reproduce the expected value; the bad write must affect the checked bytes; and
+every exit that can return must perform the check before using the
+continuation. A noncontiguous write may skip the canary. An arbitrary-address
+write may target the continuation directly. A canary also says nothing about
+an overwritten function pointer, object field, or saved data register. Its
+property is detection for a selected frame layout and corruption class, not
+general control-flow integrity.
+
+A \keyterm{shadow stack} keeps a protected second copy of return addresses.
+On a call, the mechanism records the expected continuation in
+the ordinary call state and in the protected shadow state. On return, it
+compares the continuation about to be used with the protected copy. Equality
+permits the return; disagreement raises a control-protection failure rather
+than following the corrupted ordinary copy. Intel Control-flow Enforcement
+Technology supplies such a return-protection mechanism for selected x86-64
+environments \autocite{intel2020cet}.
+
+Let ordinary continuation stack \(K\) and protected stack \(H\) initially
+agree. A well-nested call with continuation (k) appends (k) to both. A
+well-nested return requires their last elements to agree and removes both.
+Induction over the call history then preserves \(K=H\) for executions that use
+only these rules. If an ordinary-memory store changes the last element of
+\(K\) without changing \(H\), the next protected return rejects it. This is
+the reader proof of the central comparison. A machine proof must additionally
+model the architectural shadow-stack state, access restrictions, exception
+delivery, and the exact call and return forms in scope.
+
+The induction also exposes the boundary. A shadow stack protects saved return
+continuations against selected corruption. It does not prove that the callee
+target of an indirect call was valid, that a tail jump reached an allowed
+entry, or that the called procedure obeyed its data contract. Those are
+forward-edge or functional properties. RISC-V control-flow-integrity
+extensions likewise distinguish landing-pad checks for selected indirect
+transfers from return-address-stack protection; the mechanism and enabled
+extension must be named rather than compressed into the phrase ``CFI''
+\autocite{riscv2026cfi}.
+
+\begin{table}[htbp]
+\centering
+\caption{Three defenses answer different questions. None replaces memory
+safety or the procedure's functional contract.}
+\begin{tabular}{p{0.22\textwidth}p{0.31\textwidth}p{0.34\textwidth}}
+\toprule
+Mechanism & Checked event & Important limit \\
+\midrule
+Stack canary & selected frame value still matches before return & corruption may bypass, preserve, or avoid the checked value \\
+Shadow stack & return continuation matches a protected copy & does not validate arbitrary indirect-call or jump targets \\
+Landing-pad or target check & selected indirect transfer reaches an allowed entry form & does not prove the target procedure's result or preservation behavior \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These defenses also change the industrial cost model. A compiler may add
+prologue and epilogue instructions, reserve a register or architectural state,
+emit new metadata, and constrain tail-call or hand-written assembly patterns.
+An operating system must save, restore, and authorize the added state across
+threads and exceptions. A loader may need to reject or adapt binaries whose
+declared protection properties do not match their code. Compatibility is not
+free: old libraries, just-in-time compilers, signal trampolines, debuggers, and
+foreign runtimes all meet the procedure boundary.
+
+The correct theorem therefore names the defense and its observation. For a
+canary, prove that a selected corruption class cannot reach a normal return
+without a mismatch. For a shadow stack, prove that a return using a different
+continuation cannot complete normally under the enabled mechanism. For an
+indirect-target check, prove that selected transfers reach only accepted
+landing sites. None of those conclusions proves memory safety, semantic
+equivalence, or resistance to every code-reuse attack.
 
 \section{Observing ABI conformance}
 
@@ -555,12 +1084,145 @@ caller's continuation instead of creating another one, but only after the
 current frame and preservation obligations have been discharged. Calling a
 jump a tail call does not prove that the ABI state at the target is valid.
 
+\subsection{A tail call transfers an obligation instead of adding one}
+
+Let caller \(A\) call procedure \(F\) with continuation \(k\). An ordinary
+call from \(F\) to \(G\) creates another continuation \(k_F\); \(G\) returns
+to \(F\), and \(F\) later returns to \(k\). A tail call removes the need for
+\(k_F\). Procedure \(F\) establishes \(G\)'s entry contract and transfers
+control while arranging for \(G\)'s normal return to use \(k\) directly.
+
+The transformation needs four groups of facts:
+
+\begin{enumerate}
+\item \(F\)'s result obligation is exactly the result that \(G\) will deliver,
+or a declared relation connects them without further work in \(F\);
+\item outgoing arguments occupy the locations required by \(G\), including
+any stack arguments whose moves might overlap incoming ones;
+\item \(F\) has restored its preserved registers, released or safely reused
+its frame, and retained every caller-owned byte; and
+\item the transfer mechanism gives \(G\) the original continuation and a valid
+ABI entry state.
+\end{enumerate}
+
+Stack arguments make the second item subtle. Moving several values within one
+overlapping area can overwrite a source before it has been copied. The compiler
+needs a safe move order, a temporary, or a parallel-copy algorithm. Register
+arguments can have the same issue when the source and destination assignments
+form a cycle. Tail position in source syntax does not solve this machine-level
+packing problem.
+
+\begin{proofkit}[title={Tail-call composition}]
+Assume \(F\)'s entry contract from \(A\), a verified prefix from that entry to
+the tail checkpoint, and the four obligations above. The checkpoint state
+satisfies \(G\)'s entry contract with continuation \(k\). Apply \(G\)'s
+procedure theorem. Its normal exit returns the promised result and preserved
+state to \(k\). Because \(F\) owed no computation after the call and had
+already discharged its frame and preservation duties, this state also
+satisfies \(F\)'s normal-exit contract to \(A\). No intermediate return to
+\(F\) is needed.
+\end{proofkit}
+
+Tail calls can reduce maximum stack depth and remove call/return work. They can
+also make debugging or profiling histories less direct, require argument
+shuffles, inhibit platform unwind expectations, or be unavailable across
+calling conventions. A performance claim therefore names the generated
+sequence, ABI, toolchain, and workload; the semantic theorem names the
+continuation and boundary relation.
+
+\section{Binary boundaries outlive one compiler invocation}
+
+Separate compilation works because a producer can publish a symbol and binary
+contract without publishing its internal instruction choices. A consumer can
+compile a call from the declaration and ABI. The linker then resolves symbol
+references and relocations; a loader may bind shared-library references later.
+The procedure theorem depends on that binding reaching a body that satisfies
+the declared contract.
+
+Dynamic linking adds identity and time. A procedure linkage sequence may first
+enter a resolver, update a table, and only later jump directly to the selected
+body. Symbol interposition can permit another definition to replace the one a
+compiler expected. Versioning can restrict compatible definitions. These
+mechanisms affect which code implements a symbol and which extra state changes
+occur around the call. They do not change integer addition, but they can change
+the whole-program target and observation.
+
+Stable ABI boundaries have substantial economic value. Operating systems and
+language distributions can update shared libraries without rebuilding every
+consumer. Hardware vendors can ship new implementations that run existing
+binaries. Tool vendors can support debugging and profiling through common
+unwind and symbol formats. The same promise creates costs: old layouts and
+calling rules may constrain future design, and compatibility testing must
+cover code produced by many toolchains and years.
+
+\subsection{A foreign-function interface needs five agreements}
+
+A \keyterm{foreign-function interface}, or FFI, connects components whose
+source languages or runtimes differ. Selecting the same platform calling
+convention is necessary, but usually not sufficient. At least five agreements
+must be explicit:
+
+\begin{enumerate}
+\item the binary calling convention and symbol name identify the same entry;
+\item every shared value has one compatible size, alignment, field layout, and
+valid-value set;
+\item pointers carry agreed ownership, permission to write, lifetime, and alias rights;
+\item allocation and release occur through compatible owners; and
+\item exceptions, panics, cancellation, and callbacks cross the boundary only
+through declared routes.
+\end{enumerate}
+
+Consider a pair \((p,n)\) passed as pointer and length. Register placement does
+not prove that \([p,p+n)\) is readable, that multiplication for element width
+does not wrap, that the data lives for the call, or that the callee may retain
+the pointer. Those facts belong to the FFI contract above the ABI. A safe
+language wrapper may check them before entering a smaller unsafe core.
+
+Layout is similarly load-bearing. A source record with the same field names can
+use different padding, enumeration tags, Boolean representations, or niche
+values in two languages. A stable FFI type needs a representation promise and
+tests or proofs tied to the compiler and platform profile. Serialization is an
+alternative boundary: it pays conversion cost to replace in-memory layout
+agreement with a byte-format agreement.
+
+\begin{warning}[title={Do not unwind through an undeclared language boundary}]
+One runtime's exception or panic object may not satisfy another runtime's
+unwind, cleanup, or ownership rules. Catch it before the boundary or use a
+specified cross-language exception ABI. A matching stack pointer at entry does
+not make arbitrary nonlocal control safe.
+\end{warning}
+
+The industrial choice among a direct ABI call, generated binding, remote
+procedure call (RPC),
+serialization, or process boundary trades latency, copying, isolation,
+deployment independence, and compatibility. The narrowest correct boundary is
+not always the cheapest to maintain. A proof should state the chosen boundary;
+a cost study should measure it under the expected message sizes and call rates.
+
 \section{An introductory Axeyum route}
 
-The present Axeyum checkout still lacks executable A0 and real-ISA procedure
-semantics. The appropriate first implementation is therefore a small,
-machine-neutral procedure-contract checker layered over future step traces.
-It should not begin by encoding an entire platform ABI.
+The audited Axeyum checkout at revision \code{a9991fda} already has a real
+modular-call proof route at the checked scalar LLVM level. It can parse selected
+direct calls, verify a scalar leaf body against a \code{ScalarCallContract},
+replace that body with a verified contract, and compare the modular transition
+system with the inlined one. Its tests bind source and body digests, propagate
+requirements and conditions under which each operation has a defined result,
+replay failing call sites in source, exercise
+mutation controls and large finite differentials, and feed bounded checking or
+k-induction.
+
+That route is narrower than this chapter. It deliberately rejects callee
+memory, nested calls, indirect calls, non-scalar signatures, and broader
+control flow. It models LLVM scalar values, not an architectural stack,
+continuation word, prologue, epilogue, or platform ABI. A parsed LLVM
+\code{tail} marker does not prove a machine-level tail-call contract. The
+checkout still lacks executable book A0 and source-pinned RV64I/x86-64
+procedure semantics, System V or Microsoft ABI packages, unwind rows, and
+cross-language boundaries.
+
+The first book implementation should reuse this verified-contract pattern but
+add memory and continuation state. It should not begin by encoding an entire
+platform ABI or by building an endpoint-only checker that ignores the trace.
 
 Represent an entry observation, a normal-return observation, input and result
 maps, volatile and preserved location sets, stack-pointer checkpoints, owned
@@ -590,25 +1252,37 @@ fail in each layer.
 
 For a solver-backed preservation theorem, symbolically execute the selected
 body from arbitrary contract-satisfying inputs and ask whether any promised
-exit component can differ. Replay a satisfiable counterexample through the
+exit component can differ. If the solver finds a counterexample, replay it through the
 executable semantics. For an unsatisfiable result, retain the exact formula,
 semantic digests, and the strongest available independent evidence. Keep the
 theorem limited to the body, ABI slice, memory region, and normal-return path
 actually encoded.
 
+The existing LLVM contract route supplies a useful control before any ISA
+adapter exists. Verify a memory-free scalar leaf both by replacing its call
+with its body and by applying its modular contract. Then mutate its
+requirement, result, or defined-operation clause.
+The modular route must either reject the false declaration or produce a source-
+attributed counterexample. This proves that contract composition machinery is
+real. It does not prove a saved-register, frame, or return-address claim until
+those state components enter the semantics and observation.
+
 \section{Where the procedure model stops}
 
-This chapter covers ordinary scalar calls and normal returns. It excludes
-floating-point and vector argument classes, aggregate classification,
-variadic functions, structure returns, thread-local state, dynamic linking,
-position-independent linkage sequences, system calls, signals, interrupts,
-exceptions, unwinding, coroutines, privilege changes, and control-flow
-enforcement.
+The executable proof core in this chapter covers ordinary scalar calls and
+normal returns. Selected sections explain aggregate and variadic
+classification, hidden result pointers, dynamic linkage, unwinding, FFI,
+stack exhaustion, guard pages, and suspended activations so their obligations
+are visible. The shared add-one theorem and proposed first ISA adapters do not
+claim executable semantics for those extensions.
 
-It also excludes stack exhaustion, guard pages, asynchronous modification,
-concurrency, and timing. A valid architectural frame can still leak secrets
-through access patterns or speculative behavior under a stronger observation.
-Those claims require another model.
+Full models for floating-point and vector classes, thread-local state,
+position-independent linkage, system calls, signals, interrupts, language
+exceptions, coroutines, privilege changes, and control-flow enforcement remain
+outside the chapter. It also excludes asynchronous stack modification,
+concurrency, timing, and speculative leakage. A valid architectural frame can
+still expose secrets through access patterns under a stronger observation.
+Those claims require another state and observation model.
 
 The narrow result remains powerful. A procedure boundary lets code written at
 different times, in different languages, and by different people compose
@@ -663,7 +1337,7 @@ three add-one examples. Include input, result, continuation, preserved state,
 stack state, memory, outcome, and permitted scratch differences.
 
 \item Extend that relation to a nested call with one live intermediate. State
-the frame-slot nonaliasing premise needed by the save/restore proof.
+the premise that no nested write shares an address with the frame slot.
 
 \item Design the first procedure-contract artifact for Axeyum. Include
 endpoint states, trace reference, observation sets, owned memory, ABI source
@@ -674,4 +1348,162 @@ cross-ISA procedure refinement. Explain what evidence each still lacks.
 
 \item Explain why a tail jump is ABI-correct only after the current function's
 frame and preservation obligations have been discharged.
+
+\item \textbf{History.} Compare an EDSAC closed subroutine with a modern
+RV64 procedure. Identify the common continuation problem and three mechanism
+or convention details that must not be projected backward.
+
+\item Explain why recursive activation requires distinct live records even
+though every activation executes the same procedure bytes. Give one
+implementation that does not place the complete record on a conventional
+contiguous stack.
+
+\item Draw the activation tree for a procedure \(f\) that calls \(g\), calls
+\(g\) again after it returns, and whose first \(g\) calls \(h\). At the deepest
+point, list the one root-to-current path represented by the active stack.
+
+\item \textbf{Prove.} Formalize the induction over call depth for three frame
+sizes \(F_0,F_1,F_2\). Include no-wrap, stack-region, alignment, and disjointness
+premises. Give one counterexample when each premise is removed.
+
+\item A 64-bit stack pointer is 32 and a procedure subtracts 64. Compute the
+wrapped word and the intended mathematical interval. Explain why adding 64
+back can recover 32 without proving a valid frame.
+
+\item Distinguish reserved stack address space, committed or mapped pages,
+allocated frame bytes, and live object slots. State which layer a guard page
+and a stack probe protect.
+
+\item \textbf{Execute.} Trace every stack pointer and save-slot interval in the
+worked RV64 non-leaf sequence. Begin with \(sp=256\), \(ra=1000\), and
+\(s0=7\). Allow the helper to replace \(ra\) and \(a0\), then complete return.
+
+\item Decode \code{13 01 01 FF} and \code{23 34 11 00} under the selected
+RV64I rules. Show how the register and immediate fields establish the first
+two prologue steps rather than trusting the assembly listing.
+
+\item \textbf{Break.} Swap the two RV64 load offsets in the epilogue. State the
+final \code{ra} and \code{s0} values from unequal saved inputs and identify
+which preservation and continuation clauses fail.
+
+\item Change the RV64 frame size from 16 to 24 without changing the slots.
+Show the new intervals and alignment at the helper-call checkpoint. Separate
+memory safety from ABI alignment.
+
+\item A direct RV64 call is at address 100 and its helper is at 148. Compute
+the displacement and explain which evidence binds the final \code{jal} bytes.
+Give a relocation mutation that keeps the opcode legal but reaches another
+aligned function.
+
+\item \textbf{Execute.} Trace the worked System V AMD64 frame from an entry
+\code{RSP} of \code{0x1008}. List the current \code{RSP}, continuation slot,
+saved \code{RBX} slot, and private interval after each stack-changing
+instruction.
+
+\item Decode the fixed bytes \code{53}, \code{48 83 EC 20}, \code{5B}, and
+\code{C3} with a source-pinned decoder. State which architectural and ABI facts
+remain unproved after successful decode.
+
+\item \textbf{Break.} Replace \code{add rsp,32} with \code{add rsp,24} in the
+worked System V sequence. Trace \code{pop} and \code{ret}; identify the first
+wrong memory read and the final control consequence.
+
+\item Compare the same four-integer source signature under System V AMD64 and
+Microsoft x64. Give every incoming register location, then state the caller
+stack area required by Microsoft x64.
+
+\item Write a bridge that receives two values in System V's first two integer
+positions and calls a Microsoft x64 procedure. State the required register
+moves, stack area, alignment, preserved-set obligations, and return-value map.
+
+\item \textbf{Break.} Construct an x86-64 function that is legal under one of
+the two selected ABIs but violates the other solely by changing \code{RDI}.
+Append a caller that exposes the difference.
+
+\item Draw a frame with a 24-byte local array, an eight-byte canary, and a
+saved continuation. State one overwrite the canary detects and two corruption
+patterns it does not detect. Name every premise needed for the detection claim.
+
+\item \textbf{Prove.} Model an ordinary continuation stack \(K\) and protected
+shadow stack \(H\). Prove by induction over well-nested call and protected
+return events that \(K=H\) is invariant. Then add an ordinary-memory corruption
+event and show why the next mismatching protected return cannot complete
+normally.
+
+\item Compare return-edge protection with a landing-pad check on an indirect
+call. Give one attack excluded by each mechanism and one functional or
+memory-safety failure excluded by neither.
+
+\item Run the simple allocation classifier on nine RV64 integer arguments.
+Then replace argument two with a selected two-word aligned value and compute
+again
+every later location under the pinned rule.
+
+\item \textbf{Prove.} Define the state and transition of the simple
+register-and-stack argument classifier. Prove by induction that all assigned
+stack intervals are disjoint and that the next free offset remains aligned.
+
+\item Give two source structures with the same total size but different field
+classes under a selected ABI. Explain why size alone cannot choose argument
+registers. Route the exact answer to the official classifier.
+
+\item A large result uses a hidden result pointer. Write the caller and callee
+memory contracts for a 24-byte result. Include alignment, valid range,
+ownership, aliasing with inputs, and the final observation.
+
+\item \textbf{Break.} Let the hidden result object overlap a read-only input
+object. Construct an execution in which a result store changes a later input
+load. State the nonoverlap or sequencing premise needed to recover the theorem.
+
+\item Explain why a variadic callee may need a register-save area even when no
+named source parameter refers to it. Give one wrong-type traversal that reads
+the wrong width or class.
+
+\item For the worked System V prologue, write the three described CFA rows:
+entry, after \code{push rbx}, and after \code{sub rsp,32}. Recover the caller
+stack pointer and entry \code{RBX} from a symbolic state at each point.
+
+\item \textbf{Negative control.} Keep the unwind row's CFA offset unchanged
+after stack allocation. Identify the first instruction range in which recovery
+fails. Then mutate only the saved-\code{RBX} offset and compare the failure.
+
+\item Give a trace whose one stopped state produces a plausible backtrace under
+wrong unwind metadata. Explain why that witness does not prove the other
+instruction ranges.
+
+\item \textbf{Tail call.} Transform an ordinary call-and-return sequence into
+a tail transfer. State the original continuation, outgoing argument map,
+frame-release proof, preserved-state proof, and the target procedure's entry
+contract.
+
+\item Construct a cyclic parallel move among three argument registers at a
+tail-call checkpoint. Show why a sequential copy loses a value and repair it
+with one temporary or a cycle-aware move algorithm.
+
+\item Compare a direct ABI call, serialized message, and process-local RPC for
+one high-rate small operation. Name semantic boundaries and at least five cost
+or deployment measures. Do not infer performance from call count alone.
+
+\item \textbf{FFI.} Specify a pointer-and-length boundary between two
+languages. Include representation, byte-range arithmetic, ownership,
+mutability, lifetime, error, callback, and unwind behavior.
+
+\item Give a record type whose source field names agree but whose padding,
+Boolean, enumeration, or invalid-value rules can differ. State the
+representation promise and negative test needed before sharing it by address.
+
+\item \textbf{Axeyum.} Separate what the current verified scalar LLVM direct-
+call route proves from what an RV64 ABI frame theorem needs. Name the existing
+contract, inlining, replay, BMC, and k-induction assets, then list the missing
+memory, continuation, decode, and ABI adapters.
+
+\item Design an Axeyum mutation matrix for the worked RV64 frame. Corrupt the
+frame size, save offset, restored register, restored continuation, helper
+contract, final stack pointer, and return target independently. Give the
+expected failing obligation for each mutation.
+
+\item \textbf{Synthesis.} Prove one non-leaf procedure from instruction bytes
+through normal return. Organize the proof by decode, instruction effects,
+frame intervals, nested-call checkpoint, unwind agreement, ABI exit relation,
+and continuation provenance. Mark every excluded exit class.
 \end{enumerate}

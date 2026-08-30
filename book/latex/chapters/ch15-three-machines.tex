@@ -60,6 +60,185 @@ the result unchanged, and equal words cancel in pairs. The example is useful
 because its weakness is visible: it teaches a machine proof, not a security
 claim.
 
+\subsection{XOR is addition over two-element arithmetic}
+
+The four facts above are not unrelated conveniences. A bit can be read as an
+element of the two-element field
+\[
+  \mathsf{F}_2=\{0,1\}.
+\]
+Addition in this field is addition modulo two. Its table is
+\[
+\begin{array}{c|cc}
++ & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 1 & 0
+\end{array}
+\]
+and this is exactly the truth table for exclusive OR. In particular,
+\(1+1=0\). A repeated one cancels because two is zero modulo two.
+
+A width-\(w\) word is a vector of \(w\) such field elements. Word XOR adds
+these vectors coordinate by coordinate:
+\[
+ (x\mathbin{\mathsf{xor}}y)_j=x_j+y_j\pmod 2
+ \qquad (0\le j<w).
+\]
+Associativity, commutativity, the zero identity, and self-cancellation follow
+one bit at a time from field addition. This viewpoint also explains why no
+carry moves between bit positions. Ordinary word addition couples neighboring
+positions through carry; XOR leaves every coordinate independent.
+
+The vector-space language gives useful derived laws. XORing a fixed mask
+twice restores the original word. XORing a collection records the parity of
+the number of one bits at each coordinate. Any linear map over
+\(\mathsf{F}_2\) commutes with the fold:
+\[
+ T(x_0\mathbin{\mathsf{xor}}\cdots\mathbin{\mathsf{xor}}x_{n-1})
+ =T(x_0)\mathbin{\mathsf{xor}}\cdots\mathbin{\mathsf{xor}}T(x_{n-1}).
+\]
+The premise that \(T\) is linear matters. An arbitrary nonlinear transform
+need not pass through XOR.
+
+\begin{example}[title={The reduction is a column of parity checks}]
+Place the input words as rows of a bit matrix. The output bit in column \(j\)
+is one exactly when that column contains an odd number of ones. Swapping rows
+cannot change a column count. Duplicating a row twice changes every affected
+count by two and therefore changes no output bit.
+\end{example}
+
+This matrix picture separates the proved function from possible uses. It is a
+perfect implementation of column parity. It is a poor fingerprint of row
+order and multiplicity because those facts are intentionally discarded.
+
+\subsection{A monoid is the algebra required by a fold}
+
+A set \(A\), a binary operation \(\star\), and an element \(e\) form a
+\keyterm{monoid} when the operation is associative and \(e\) is a two-sided
+identity:
+\[
+ (x\star y)\star z=x\star(y\star z),
+ \qquad e\star x=x=x\star e.
+\]
+Commutativity is not required. Fixed-width words with XOR and zero form a
+commutative monoid. Strings with concatenation and the empty string form a
+noncommutative monoid. Both can be folded, but only the first permits arbitrary
+reordering.
+
+For a list \([x_0,\ldots,x_{n-1}]\), define the left fold
+\[
+ \begin{array}{rcl}
+ \mathsf{foldl}(\star,e,[])&=&e,\\
+ \mathsf{foldl}(\star,e,x::xs)&=&
+   \mathsf{foldl}(\star,e\star x,xs).
+ \end{array}
+\]
+An equivalent right-recursive definition combines the head with the fold of
+the tail. Associativity and the identity law prove that the two definitions
+agree for a monoid. Without associativity, parenthesization is observable.
+
+The loop in this chapter is a left fold made explicit as state. Its
+accumulator is the first argument of the next fold step. Its pointer selects
+the next list element from memory. Its count says how much of the logical list
+remains. The loop invariant is therefore not a clever guess: it is the
+defining equation of the fold split at the current position.
+
+\begin{proofkit}[title={The fold-splitting lemma}]
+Let \(u\mathbin{+\!+}v\) denote list concatenation. For every monoid,
+\[
+ \mathsf{fold}(u\mathbin{+\!+}v)
+ =\mathsf{fold}(u)\star\mathsf{fold}(v).
+\]
+Prove the statement by induction on \(u\). The empty case uses the identity
+law. In the step case, unfold the first element, apply the induction
+hypothesis, and use associativity to move parentheses. For XOR, this lemma
+says that two independently reduced memory chunks may be combined by one
+final XOR.
+\end{proofkit}
+
+The splitting lemma licenses chunking; commutativity licenses reordering the
+chunks. A parallel runtime needs to know which freedom it uses. If the
+operation is associative but not commutative, it may build a balanced tree
+that preserves left-to-right leaf order. If it is also commutative, workers
+may finish and combine in a different order without changing the mathematical
+result.
+
+\subsection{Work and span expose the parallel opportunity}
+
+Two cost measures clarify the difference between the printed scalar loop and
+a reduction tree. \keyterm{Work} counts all primitive combines. \keyterm{Span}
+counts the longest chain of dependent combines under an ideal supply of
+workers. Reducing \(n\) nonempty inputs needs \(n-1\) binary combines, so both
+the scalar fold and a balanced tree have \(\Theta(n)\) work.
+
+Their spans differ. The scalar accumulator creates a chain: combine 0 must
+finish before combine 1 begins. Its combine span is \(n-1\). A balanced binary
+tree halves the number of live partial results at each level. Its combine span
+is \(\lceil\log_2 n\rceil\), with partially filled levels when \(n\) is not a
+power of two.
+
+\begin{table}[htbp]
+\centering
+\caption{The algebra permits several schedules with the same XOR result. Cost
+claims still depend on a machine and data-movement model.}
+\begin{tabular}{@{}p{0.23\textwidth}p{0.19\textwidth}p{0.19\textwidth}p{0.27\textwidth}@{}}
+\toprule
+Schedule & Combine work & Combine span & Added obligation \\
+\midrule
+left scalar fold & \(n-1\) & \(n-1\) & one accumulator chain \\
+balanced tree & \(n-1\) & \(\lceil\log_2 n\rceil\) & tree construction and partial results \\
+\(k\) chunks & \(n-1\) & about \(n/k+\log k\) & partition and final combination \\
+distributed tree & \(n-1\) logical combines & topology-dependent & communication, failure, and placement \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-work-span}
+\end{table}
+
+Span is not elapsed time. A tree can lose to a scalar loop on a small input
+because worker startup, synchronization, and data movement cost more than the
+saved dependency depth. A memory-resident XOR loop can become limited by load
+bandwidth rather than XOR throughput. Work and span reveal available
+parallelism; they do not price the machine that realizes it.
+
+Guy Blelloch's treatment of prefix sums made this algebra a central parallel
+building block. A reduction returns the final aggregate. A \keyterm{scan}
+returns every prefix aggregate. The latter appears sequential at first, yet a
+tree can compute it with linear work and logarithmic span under the parallel
+model. \autocite{blelloch1990prefix} Our routine asks only for the final XOR,
+but its invariant already names the prefix values that a scan would return.
+
+\subsection{The same word ``reduction'' names several system contracts}
+
+At one core, a compiler may recognize an accumulator dependence and replace
+several scalar iterations with vector lanes and a horizontal combine. LLVM's
+loop vectorizer documents XOR, AND, OR, multiplication, and addition as
+recognized reduction operations and applies a target cost model before
+choosing a vectorization and unrolling factor. \autocite{llvm2026vectorizer}
+Recognition does not prove that every loop is safe to widen. Alias checks,
+alignment, trip count, target support, and language rules still matter.
+
+Across processes, Message Passing Interface (MPI) reduction combines values
+contributed by a group and returns the aggregate to a chosen root. Its
+contract assumes a user operation
+is associative and can exploit associativity or commutativity to change the
+evaluation order. The standard calls out floating-point addition because
+mathematical associativity does not imply bitwise equality after finite
+rounding. \autocite{mpi2015reduce}
+
+Across a data center, MapReduce adds key grouping, partitioning, scheduling,
+communication, and recovery around map and reduce functions. Dean and
+Ghemawat's system let a runtime distribute work across commodity machines and
+manage failures and data placement. \autocite{deanghemawat2004mapreduce} The
+word ``reduce'' survives, but the system contract is much larger than one
+binary operator over one in-memory array.
+
+These scales share an algebraic center and differ in state. The scalar loop
+tracks a pointer and accumulator. A vector loop adds lane state, masks, and a
+tail. An MPI collective adds process ranks, messages, and a root. A distributed
+dataflow adds keys, partitions, retries, and durable intermediate data. The
+proof grows because the machine grows, not because XOR changes.
+
 That distinction has a historical analogue. Simple parity and longitudinal
 redundancy checks were attractive because a human or a small circuit could
 update them while data moved. They detected selected transmission faults with
@@ -71,6 +250,62 @@ question explicit: which error patterns a code can detect or correct
 operation earns meaning from its contract: the same reduction can be a useful
 diagnostic checksum, a reversible mask component, or a dangerously weak
 authenticator.
+
+\subsection{From a running parity bit to a reduction tree}
+
+Parity is a physical as well as algebraic idea. A circuit can update one bit
+as data bits pass: leave the state unchanged for zero and toggle it for one.
+After the stream, the state records whether the number of ones was even or
+odd. The accumulator loop is the word-wide version of that transducer. It
+keeps 64 parity states in parallel.
+
+Hamming's 1950 paper placed parity checks inside a larger geometry of code
+words and error patterns. A single parity relation can detect every odd number
+of changed bits but misses every even number. Several carefully chosen check
+relations can locate and correct selected errors. The historical lesson for
+this chapter is structural: a compact summary is useful only relative to a
+declared fault model.
+
+Early machine loops made physical order explicit. One accumulator receives
+one value at a time because memory and arithmetic units present a serial
+interface. The mathematical fold is broader than any one loop instruction
+pattern. Once machines gained several functional units, vector lanes,
+processors, and networked workers, the same associative operation could be
+scheduled as several partial folds followed by a merge.
+
+That change did not remove the accumulator. It multiplied and arranged
+accumulators. A vector program keeps lane or vector partials. A shared-memory
+tree keeps one partial per subtree. A message-passing collective keeps one
+partial per process or communication stage. A distributed dataflow keeps one
+partial per key and partition. Every level adds identities for pieces of work
+and rules for when a partial may be combined.
+
+Blelloch's scan treatment is important because it turns this family into a
+general algorithmic primitive rather than a collection of special sums. The
+operator and identity become parameters. Associativity licenses the tree.
+Applications then reuse the same work/span structure while changing the data
+and operator. The abstraction succeeds because its algebraic premise is
+explicit.
+
+MPI makes that premise part of a collective interface among processes. Its
+reduction operation can exploit associativity, and commutativity when
+available, to change evaluation order. MapReduce broadens the operational
+setting again: keyed values are grouped, partitions are scheduled across
+machines, and failed tasks may be rerun. The 2004 system description assigns
+parallelization, placement, scheduling, and failure handling to the runtime,
+not to the user's binary operator.
+
+Compiler vectorization brings the history back inside one program. A compiler
+must recognize that an apparent loop-carried dependence is a reduction rather
+than an arbitrary recurrence. It then asks whether language semantics and
+target costs permit reassociation or widening. Current LLVM documentation
+names XOR among supported reduction forms. That recognition depends on the
+same algebra this chapter proves by hand.
+
+The sequence is not a march in which each stage replaces the last. Serial
+folds remain useful inside vector chunks and distributed workers. Parity
+remains useful inside stronger codes and protocols. The lasting development is
+the separation of operator law, schedule, machine state, and system contract.
 
 Our contract asks only for the reduction value. It does not say that unequal
 regions have unequal reductions, that a changed word is always detected, or
@@ -97,11 +332,49 @@ names both cases exactly:
 \[
  \begin{array}{rcl}
  \mathop{\mathsf{foldxor}}(M,a,0)&=&0,\\
- \mathop{\mathsf{foldxor}}(M,a,n+1)&=&
+\mathop{\mathsf{foldxor}}(M,a,n+1)&=&
    L(M,a)\mathbin{\mathsf{xor}}
    \mathop{\mathsf{foldxor}}(M,a+8,n).
  \end{array}
 \]
+
+An indexed definition is useful for connecting the fold to loop states. Let
+\(W_i=L(M,a+8i)\). Then
+\[
+  \mathop{\mathsf{foldxor}}(M,a,n)
+  =\mathop{\mathsf{xor}}_{0\le i<n} W_i.
+\]
+The large-XOR notation means a fold with identity zero. It is not an
+unexplained infinite operation. The index set is finite, and the upper bound
+is excluded. When \(n=0\), the index set is empty and the declared identity
+gives zero.
+
+The recursive and indexed definitions agree by induction on \(n\). For zero,
+both are the empty fold. In the step from \(n\) to \(n+1\), split off the word
+at index zero in the recursive view, or split the indexed range into
+\(\{0\}\) and \(\{1,\ldots,n\}\). Reindex the second range after advancing
+the address by eight. Associativity then gives the same parenthesization.
+
+More generally, for every \(0\le i\le n\), the region splits at word \(i\):
+\[
+ \mathop{\mathsf{foldxor}}(M,a,n)
+ =\mathop{\mathsf{foldxor}}(M,a,i)
+  \mathbin{\mathsf{xor}}
+  \mathop{\mathsf{foldxor}}(M,a+8i,n-i).
+\]
+This is the memory form of the fold-splitting lemma. The loop accumulator
+stores the first term. The unread suffix described by the pointer and count
+stores the second term implicitly. At exit, the suffix length is zero, so its
+fold is the identity.
+
+\begin{proofkit}[title={Prove the memory split without ellipsis}]
+Fix \(M\), \(a\), and \(n\). Induct on \(i\). At \(i=0\), the prefix is
+empty and zero is the XOR identity. For the step, take the first word from the
+old suffix, append it to the old prefix, and apply the recursive equation to
+the suffix. Associativity moves the new word across the split. The range and
+no-wrap premises ensure that both word loads name the same eight bytes before
+and after reindexing.
+\end{proofkit}
 
 The program contract needs more than this equation. Each of the \(n\) loads
 must be valid. Address formation must not wrap around the 64-bit address
@@ -109,6 +382,58 @@ space. The code region must be executable under the selected machine model.
 The calling convention must place the pointer and count where the listing
 expects them. On normal return, the result register must equal
 \(\mathop{\mathsf{foldxor}}(M,a,n)\), and memory must be unchanged.
+
+It helps to factor the precondition. Define
+\[
+ \begin{array}{ll}
+ \mathsf{NoWrap}(a,n) &\Longleftrightarrow
+   n=0\ \hbox{or}\ a+8n-1<2^{64},\\
+ \mathsf{Readable}(M,a,n) &\Longleftrightarrow
+   \hbox{every byte address in }[a,a+8n)\hbox{ is readable}.
+ \end{array}
+\]
+These formulas use natural arithmetic on the right. The implementation uses
+64-bit modular arithmetic. The no-wrap premise is the bridge that makes the
+two readings agree for every pointer value reached by the loop.
+
+The interval formula also exposes a useful off-by-one distinction. The last
+byte read is \(a+8n-1\), while the pointer after the last iteration is
+\(a+8n\). The program computes that one-past address but does not dereference
+it. A memory model may permit the arithmetic value even when no byte at that
+address is readable. The contract should not demand a readable byte merely
+because a pointer temporarily names the end of a region.
+
+For \(n=0\), the expression \(a+8n-1\) would underflow if evaluated as an
+unsigned word. That is why \(\mathsf{NoWrap}\) treats the empty case
+separately. Mathematical notation can hide evaluation order; an executable
+precondition checker cannot. It should test zero before computing the last
+byte address, or use checked arithmetic whose failure is a typed rejection.
+
+\subsection{Frame conditions say what the loop leaves alone}
+
+The result equation constrains one register. A complete contract also says
+what the program may change. Here the memory frame is simple: the routine
+performs loads but no stores, so every memory byte after normal return equals
+its initial value. For a caller, callee-saved registers, the stack pointer,
+and the return mechanism add architecture-specific frame obligations.
+
+Frame reasoning prevents a false implementation from winning by hidden work.
+A routine could compute the right XOR while using the input array as scratch
+and then fail to restore one byte. A result-only test would accept it. A frame
+clause rejects it even when the corrupted byte never affects the accumulator.
+
+The frame can be stated globally or by a footprint. A global equality
+\(M'=M_0\) is strongest and easy here. For a routine that writes an output
+buffer, the useful statement is that locations outside the declared write set
+are unchanged. The proof then combines local instruction write sets into a
+whole-program frame. This is the same compositional idea used by separation
+logic: reason about the owned region while preserving a disjoint frame.
+
+Readability is not ownership. The routine needs permission to read the input
+region but not to modify it. In a concurrent setting, read permission alone
+also would not guarantee that another agent leaves the bytes stable. This
+chapter assumes one fixed architectural memory during the call. Chapter 16
+returns to interference and memory models.
 
 \begin{definition}[title={XOR-reduction call contract}]
 The input consists of an initial memory \(M_0\), address \(a\), and count
@@ -223,6 +548,85 @@ quantified over every legal iteration, and termination covers every natural
 input count admitted by the contract. Testing can still find mistakes in an
 implementation or in the connection between its registers and these logical
 variables.
+
+\subsection{One invariant becomes a family of assertions inside the body}
+
+The loop-head invariant is enough for a paper proof when the body is treated
+as one atomic command. A machine executes several instructions. To connect
+those instructions, place an assertion after each logical phase.
+
+At the head before iteration \(i\), write \(H_i\):
+\[
+ p=a+8i,\qquad c=n-i,\qquad
+ x=\mathop{\mathsf{foldxor}}(M_0,a,i),\qquad M=M_0.
+\]
+When \(c>0\), the load produces a temporary \(u\). The post-load assertion is
+\[
+ D_i:\quad H_i\ \land\ u=L(M_0,a+8i).
+\]
+The pointer, count, and accumulator have not yet changed. This assertion is
+where effective-address formation, access validity, byte order, and load width
+meet.
+
+After the combine, write
+\[
+ C_i:\quad p=a+8i,\quad c=n-i,\quad
+ x=\mathop{\mathsf{foldxor}}(M_0,a,i+1),\quad M=M_0.
+\]
+The temporary may remain available, but the proof no longer needs it. After
+the pointer update,
+\[
+ P_i:\quad p=a+8(i+1),\quad c=n-i,\quad
+ x=\mathop{\mathsf{foldxor}}(M_0,a,i+1).
+\]
+After decrement, \(c=n-(i+1)\), so the next loop head satisfies
+\(H_{i+1}\). Condition state produced by decrement must also justify the
+chosen backward edge on A0 and x86-64. RV64I instead compares the new count
+register directly.
+
+\begin{table}[htbp]
+\centering
+\caption{Intermediate assertions isolate the meaning of one logical body.}
+\begin{tabular}{@{}p{0.14\textwidth}p{0.20\textwidth}p{0.54\textwidth}@{}}
+\toprule
+Assertion & Newly established fact & Main proof boundary \\
+\midrule
+\(H_i\) & prefix, pointer, and remaining count agree & entry or prior branch \\
+\(D_i\) & temporary is the next logical word & address, memory, endian load \\
+\(C_i\) & accumulator includes word \(i\) & bitwise XOR and destination write \\
+\(P_i\) & pointer names word \(i+1\) & modular addition and no wrap \\
+\(H_{i+1}\) & count and control advance together & decrement, flags or comparison, branch \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-intermediate-assertions}
+\end{table}
+
+This family prevents a common proof shortcut. If a trace disagrees after the
+load, the XOR lemma is irrelevant. If it agrees through \(C_i\) but branches
+wrongly, memory and XOR are already exonerated for that iteration. Assertions
+serve both proof composition and fault diagnosis.
+
+\subsection{The variant proves progress rather than correctness}
+
+The invariant says what remains true. The \keyterm{variant} says why the loop
+cannot continue forever. Here the remaining natural count \(c\) is bounded
+below by zero and strictly decreases on every back edge. These are separate
+obligations. An implementation that decrements correctly but loads the wrong
+address terminates while violating correctness. One that computes each
+visited prefix correctly but never decrements can preserve a weakened
+invariant while failing termination.
+
+Machine subtraction wraps, so ``strictly decreases'' is not a free property of
+64-bit words. It follows from the guard \(c>0\): for a positive unsigned word,
+subtracting one yields the ordinary natural predecessor with no wrap. The
+branch must consume that new value or the condition state derived from it.
+The proof therefore connects data, arithmetic, and control in one progress
+argument.
+
+Exact execution also has a resource interpretation. The loop takes exactly
+\(n\) body iterations, but an unbounded mathematical \(n\) does not promise
+completion within a particular wall-clock limit. A timeout reports that an
+experiment exhausted its budget. It does not refute the termination theorem.
 
 \section{From an algorithm to a machine theorem}
 
@@ -357,6 +761,47 @@ The valid program must still halt normally with zero because it never loads.
 That control distinguishes a true zero-iteration path from an implementation
 that reads once.
 
+\subsection{The A0 body as five checked movements}
+
+Assume the A0 loop-head relation at address \code{14} and \(i<n\). The five
+instructions from \code{14} through \code{24} can be proved in sequence.
+
+\begin{enumerate}
+\item \code{load r3,[r1+0]} reads the eight bytes beginning at \(a+8i\).
+      Range validity and little-endian reconstruction give
+      \(r_3'=L(M_0,a+8i)\). Other registers and memory are unchanged.
+\item \code{xor r0,r0,r3} writes the next prefix fold to \(r_0\). It also
+      writes condition state, but no subsequent branch may consume those
+      particular condition values.
+\item \code{add r1,r1,r4} uses the preserved helper \(r_4=8\). The no-wrap
+      premise changes modular addition into \(a+8(i+1)\).
+\item \code{sub r2,r2,r5} uses \(r_5=1\) and positive \(r_2=n-i\). It writes
+      \(n-(i+1)\) and sets the zero condition exactly when \(i+1=n\).
+\item \code{branch.ne loop} reads that condition. If another iteration
+      remains, its decoded target is \code{14}; otherwise its fall-through is
+      \code{28}. Both paths reach the cut point selected by the logical state.
+\end{enumerate}
+
+This proof uses two helper invariants, \(r_4=8\) and \(r_5=1\). They are not
+part of the mathematical fold, but they are part of the implementation
+relation. A mutation to either helper can break pointer or count movement even
+when every opcode remains valid.
+
+The A0 entry path also needs two cases. For \(n=0\), the comparison and forward
+branch reach \code{28} without entering the body. For \(n>0\), the same
+comparison falls through to \code{14} with \(H_0\). The terminal instruction
+is \code{halt}, so the A0 observation is a harness-defined successful halt
+whose \(r_0\) value is interpreted as the result. It is not an ABI return.
+
+\begin{proofkit}[title={A0-to-logical body theorem}]
+Given decoded program bytes, normal A0 outcome, the loop-head relation,
+\(i<n\), readable input bytes, and no wrap, exactly five A0 steps reach either
+the next loop head or the terminal fall-through. The resulting state has
+unchanged memory, the next prefix fold in \(r_0\), the next pointer in \(r_1\),
+and the next remaining count in \(r_2\). Its branch successor agrees with
+whether \(i+1<n\).
+\end{proofkit}
+
 \section{RV64I carries the predicate in registers}
 
 Use the standard integer calling names for exposition: \code{a0} initially
@@ -413,6 +858,46 @@ stack or call another routine. Its memory action is read-only. A correctness
 statement at ISA level can ignore ABI preservation; the callable-routine
 theorem cannot.
 
+\subsection{The RV64I path makes data control explicit}
+
+RV64I has no implicit status register in this proof. The loop guard reads
+\code{a1} and \code{x0} as ordinary register operands. This simplifies the
+last-writer argument but does not remove control semantics: the branch decoder,
+comparison, signed immediate, target addition, and program-counter update must
+all agree.
+
+At \code{ld}, the base register \code{t0} contains \(a+8i\) and the immediate
+is zero. The load lemma proves the same \(D_i\) assertion used by A0. The next
+\code{xor} reads \code{a0} and \code{t1} and writes the next fold to
+\code{a0}. It has no condition side effect in RV64I.
+
+The two \code{addi} instructions use sign-extended 12-bit immediates. Eight
+encodes the pointer step. All one bits in the immediate field encode \(-1\)
+for the count step. Both execute modular 64-bit addition. Their logical
+readings come from different premises: pointer no-wrap for the first and
+positive remaining count for the second.
+
+The backward \code{bne} compares the new \code{a1} with architectural
+\code{x0}. Register \code{x0} always reads as zero and discards writes. The
+proof needs the read rule even though this program never writes \code{x0}.
+The decoded target \code{0c} begins the next load. A non-taken branch reaches
+the return instruction at \code{20}.
+
+\begin{proofkit}[title={RV64I-to-logical body theorem}]
+Assume the exact bytes in Table~\ref{tab:rv64-xor-bytes} decode at the named
+addresses, the loop-head relation holds at \code{0c}, and \(i<n\). Five RV64I
+steps establish the next prefix, pointer, count, and unchanged memory. The
+fifth step reaches \code{0c} exactly when \(i+1<n\), and otherwise reaches
+\code{20}. No theorem about arithmetic flags is required.
+\end{proofkit}
+
+The return theorem is separate. \code{jalr x0,0(ra)} forms its target from the
+incoming return-address register, clears the low target bit according to the
+selected instruction rule, and discards the link because the destination is
+\code{x0}. The harness must supply an aligned allowed continuation and must
+interpret reaching it as normal return. The loop invariant alone says nothing
+about that continuation.
+
 \section{x86-64 lets the loop reuse status flags}
 
 Under the selected System V integer convention, \code{rdi} holds \(a\),
@@ -454,12 +939,302 @@ callee-saved registers and returns through the address already on the stack.
 These facts are not visible in the mathematical fold equation, but they are
 part of the procedure contract.
 
+\subsection{The x86-64 path composes memory, arithmetic, and flags}
+
+The memory-source \code{xor} performs the load and combine within one
+architectural transition. Its proof premise still names both components. The
+effective address is the old \code{rdi}; the operand width is 64 bits because
+of the REX.W form; the eight bytes are reconstructed according to the selected
+little-endian rule; and the result overwrites all 64 bits of \code{rax}.
+
+That instruction also sets logical status flags and clears selected others.
+The loop does not branch immediately, so those values are dead. \code{add}
+then overwrites arithmetic flags, and \code{sub} overwrites them again. The
+\code{jne} instruction must read the zero flag written by \code{sub}. A
+machine proof establishes this def-use chain rather than saying only that
+``the flags work out.''
+
+The \code{sub rsi,1} result is zero exactly when the positive pre-state count
+was one. Therefore \code{ZF}=1 exactly when \(i+1=n\). \code{jne} continues
+when \code{ZF=0}, which is the same condition as \(i+1<n\). The short branch
+target is the memory-source XOR at \code{07}; fall-through is \code{14}.
+
+\begin{proofkit}[title={x86-64-to-logical body theorem}]
+Assume the exact bytes in Table~\ref{tab:x86-xor-bytes}, the loop-head relation
+at \code{07}, normal memory access, and \(i<n\). Four x86-64 steps establish
+the next prefix, pointer, count, and unchanged memory. The final step reaches
+\code{07} exactly when another word remains and reaches \code{14} otherwise.
+The proof permits intermediate flags but requires the zero-flag def-use chain
+from subtraction to branch.
+\end{proofkit}
+
+The \code{ret} instruction adds a memory obligation absent from the displayed
+fold. It reads the continuation from the stack, advances \code{rsp}, and
+transfers control. A valid System V call harness must provide that stack word
+and require callee-saved registers to survive. Saying that the loop is
+read-only refers to the input array; return still reads stack memory.
+
 \begin{warning}[title={Equivalent results can hide unequal fault behavior}]
 If the readable-region premise is removed, the three programs need not fail in
 the same way. Alignment policy, address translation, and fault delivery differ.
 Our theorem relates normal executions under the printed precondition. It does
 not assert universal agreement for invalid memory.
 \end{warning}
+
+\section{Bytes, boundaries, and footprints}
+
+The real-ISA listings can be assembled now even though Axeyum cannot yet
+execute them. Assembly gives exact byte witnesses for code size, boundaries,
+and branch displacement. It does not prove the instruction semantics or the
+loop theorem. Those remain separate obligations.
+
+For a reproducible check, the chapter's research log records LLVM assembler
+version 21.1.8, the target triples, the scalar feature selection, the source
+syntax, and independent disassembly. The RV64I listing assembled to 36 bytes.
+Every instruction is four bytes. The x86-64 listing assembled to 21 bytes with
+lengths from one to four bytes.
+
+\subsection{The RV64I bytes make field placement concrete}
+
+Using entry address zero, the RV64I text is:
+
+\begin{table}[htbp]
+\centering
+\caption{One assembled RV64I encoding of the scalar reduction. Bytes appear
+in increasing memory-address order. Pseudoinstruction spellings in the
+disassembly do not change the encoded base instructions.}
+\begin{tabular}{@{}rllp{0.32\textwidth}@{}}
+\toprule
+Address & Bytes & Source instruction & Decoded reading \\
+\midrule
+\code{00} & \code{93 02 05 00} & \code{addi t0,a0,0} & copy pointer \\
+\code{04} & \code{13 05 00 00} & \code{addi a0,x0,0} & zero accumulator \\
+\code{08} & \code{63 8c 05 00} & \code{beq a1,x0,done} & branch to \code{20} \\
+\code{0c} & \code{03 b3 02 00} & \code{ld t1,0(t0)} & load one 64-bit word \\
+\code{10} & \code{33 45 65 00} & \code{xor a0,a0,t1} & combine accumulator \\
+\code{14} & \code{93 82 82 00} & \code{addi t0,t0,8} & advance pointer \\
+\code{18} & \code{93 85 f5 ff} & \code{addi a1,a1,-1} & decrease count \\
+\code{1c} & \code{e3 98 05 fe} & \code{bne a1,x0,loop} & branch to \code{0c} \\
+\code{20} & \code{67 80 00 00} & \code{jalr x0,0(ra)} & return \\
+\bottomrule
+\end{tabular}
+\label{tab:rv64-xor-bytes}
+\end{table}
+
+An assembler may print \code{mv}, \code{li}, \code{beqz}, \code{bnez}, and
+\code{ret} when disassembling these bytes. These are aliases for the base
+instructions shown in the source listing. The semantic proof should decode
+the instruction word into its base operation and operands. It should not
+treat a preferred pretty-printer spelling as another instruction.
+
+The forward branch at address \code{08} reaches \code{20}, a displacement of
+24 bytes. The backward branch at \code{1c} reaches \code{0c}, a displacement
+of \(-16\) bytes. RISC-V branch immediates encode signed multiples of two in
+split instruction fields. Reconstructing the target requires field extraction,
+sign extension, and addition to the branch address. The table's target is a
+check on that complete path.
+
+\subsection{x86-64 compresses the scalar body into variable lengths}
+
+The x86-64 text assembled as follows:
+
+\begin{table}[htbp]
+\centering
+\caption{One assembled x86-64 encoding of the scalar reduction, using Intel
+syntax and entry address zero.}
+\begin{tabular}{@{}rllp{0.30\textwidth}@{}}
+\toprule
+Address & Bytes & Instruction & Main effect \\
+\midrule
+\code{00} & \code{31 c0} & \code{xor eax,eax} & clear \code{rax}; set flags \\
+\code{02} & \code{48 85 f6} & \code{test rsi,rsi} & set flags from count \\
+\code{05} & \code{74 0d} & \code{je done} & branch to \code{14} \\
+\code{07} & \code{48 33 07} & \code{xor rax,[rdi]} & load and combine \\
+\code{0a} & \code{48 83 c7 08} & \code{add rdi,8} & advance pointer \\
+\code{0e} & \code{48 83 ee 01} & \code{sub rsi,1} & decrease count; set flags \\
+\code{12} & \code{75 f3} & \code{jne loop} & branch to \code{07} \\
+\code{14} & \code{c3} & \code{ret} & pop and transfer to continuation \\
+\bottomrule
+\end{tabular}
+\label{tab:x86-xor-bytes}
+\end{table}
+
+The two short conditional branches use signed 8-bit displacements measured
+from the address after the branch instruction. At \code{05}, the next address
+is \code{07}; \(7+13=20\), or \code{14}. At \code{12}, the next address is
+\code{14}; \(20-13=7\), or \code{07}. The same numerical displacement would
+denote a different target if instruction lengths changed before the next
+address was formed.
+
+The memory-source XOR is one architectural instruction and one table row. Its
+semantics still include effective-address calculation, an eight-byte memory
+read, reconstruction of a 64-bit operand, XOR, destination write, and flag
+updates. Fewer decoded instructions does not mean fewer semantic effects.
+
+\begin{archive}[title={Exact bytes answer a narrow but necessary question}]
+The tables establish one assembler's byte sequence, boundaries, and branch
+targets. They do not establish that a processor executes the bytes according
+to this chapter, that the ABI entry state is valid, or that the fold theorem
+follows. Those claims need decoder, semantic, harness, and proof bindings.
+\end{archive}
+
+\subsection{Read and write footprints differ across the three bodies}
+
+At a loop head, each machine reads a pointer, remaining count, accumulator,
+program bytes, and eight input bytes during the body. Their visible writes
+differ. A0 writes a load temporary, accumulator, pointer, count, conditions,
+and program counter. RV64I writes the corresponding integer registers and
+program counter but has no arithmetic flags in the selected state. x86-64
+writes the accumulator, pointer, count, status flags, and instruction pointer;
+its memory-source XOR has no separate architectural load temporary.
+
+\begin{table}[htbp]
+\centering
+\caption{Architectural footprints for one positive-count body. Program fetch
+and the changing program counter are included conceptually; names below focus
+on data and condition state.}
+\begin{tabular}{@{}p{0.15\textwidth}p{0.35\textwidth}p{0.38\textwidth}@{}}
+\toprule
+Machine & Main reads & Main writes \\
+\midrule
+A0 & \(r_1,r_2,r_0,r_4,r_5\), conditions at branch, eight memory bytes & \(r_3,r_0,r_1,r_2\), conditions, program counter \\
+RV64I & \code{t0}, \code{a1}, \code{a0}, \code{x0}, eight memory bytes & \code{t1}, \code{a0}, \code{t0}, \code{a1}, program counter \\
+x86-64 & \code{rdi}, \code{rsi}, \code{rax}, flags at branch, eight memory bytes & \code{rax}, \code{rdi}, \code{rsi}, status flags, instruction pointer \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-body-footprints}
+\end{table}
+
+The cross-state relation keeps logical values and forgets representation-only
+state after showing that forgotten writes cannot disturb later obligations.
+For example, A0 and x86 condition state is not compared with RV64I. It is not
+ignored locally: the control lemma proves that the last writer makes each
+branch choice agree with the new count.
+
+\subsection{Static and dynamic counts answer different questions}
+
+The printed A0 program has 11 static instructions and 44 bytes. RV64I has nine
+instructions and 36 bytes. The x86-64 program has eight instructions and 21
+bytes in the assembled layout above. These facts concern one source and one
+encoding selection.
+
+Dynamic counts depend on \(n\). For zero, all three execute four to six setup,
+test, exit, or return instructions and no body. For positive \(n\), the A0 and
+RV64I bodies each execute five instructions per word. The x86-64 body executes
+four because load and XOR share one instruction.
+
+\begin{table}[htbp]
+\centering
+\caption{Exact instruction counts for the printed paths. A branch counts
+whether taken or not taken. These are not cycle counts.}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Machine & Static instructions & Dynamic, \(n=0\) & Dynamic, \(n>0\) \\
+\midrule
+A0 & 11 & 6 & \(6+5n\) \\
+RV64I & 9 & 4 & \(4+5n\) \\
+x86-64 & 8 & 4 & \(4+4n\) \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-instruction-counts}
+\end{table}
+
+Every positive path performs exactly \(n\) architectural data loads, or
+\(8n\) input bytes. Once the working set exceeds fast storage, this common
+traffic can dominate differences in scalar instruction count. Conversely, a
+tiny hot array may expose front-end, dependency, or branch costs. A serious
+performance comparison must name the data size, layout, cache state, target
+processor, compiler or assembler choices, repetition method, and measured
+quantity.
+
+\subsection{A harness turns a listing into a callable experiment}
+
+Raw bytes do not choose their own entry state. A harness places code in
+executable memory, constructs the input region, initializes registers and
+stack state, chooses a continuation, starts execution, and classifies the
+outcome. These choices are part of the theorem whenever the chapter says the
+routine can be called.
+
+The logical input constructor takes \((M_0,a,n)\). The A0 harness writes
+\(a\) to \(r_1\), \(n\) to \(r_2\), sets the program counter to \code{00},
+loads the program image, and declares \code{halt} at \code{28} successful.
+The RV64 harness places \(a\) in \code{a0}, \(n\) in \code{a1}, and an
+allowed continuation in \code{ra}. The x86 System V harness uses \code{rdi}
+and \code{rsi}, places an allowed continuation at the top of the stack, and
+sets \code{rsp} to that stack word.
+
+\begin{table}[htbp]
+\centering
+\caption{Harness obligations make unlike entry and return mechanisms
+comparable through one call contract.}
+\begin{tabular}{@{}p{0.16\textwidth}p{0.22\textwidth}p{0.27\textwidth}p{0.23\textwidth}@{}}
+\toprule
+Machine & Logical inputs & Successful terminal observation & Additional frame \\
+\midrule
+A0 & \(r_1=a,r_2=n\) & halted at declared site with \(r_0\) result & program and memory frame \\
+RV64I & \code{a0=a,a1=n}, valid \code{ra} & control at allowed continuation with \code{a0} result & callee-saved registers and stack unchanged \\
+x86-64 & \code{rdi=a,rsi=n}, valid stack return & control at popped continuation with \code{rax} result & callee-saved registers; prescribed \code{rsp} advance \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-harnesses}
+\end{table}
+
+The terminal memory clauses require care. A0 and RV64I do not use stack memory
+in their printed bodies. x86 \code{ret} reads eight bytes from the stack but
+does not write them. All three preserve the input region. A global memory
+equality remains possible if instruction fetch and return are modeled as reads
+and no environment mutates memory during the call.
+
+Calling conventions also constrain alignment and preserved registers. The
+printed routines use only caller-saved data registers, so they need no
+save/restore prologue. The x86 return changes \code{rsp} by consuming the
+return address; preservation means it reaches the ABI-prescribed post-return
+value, not that the callee's final pre-return \code{rsp} equals the caller's
+post-return \code{rsp}. The observation must compare the right cut points.
+
+\begin{warning}[title={A permissive harness can prove the wrong routine}]
+If every address is accepted as a continuation, a corrupted return target may
+look successful. If any halt counts as A0 return, a branch into an error halt
+may pass. If the harness initializes scratch registers to convenient values,
+it can hide a missing setup instruction. Entry and terminal predicates must be
+as exact as the program theorem.
+\end{warning}
+
+Harness controls should poison unconstrained conveniences. Initialize scratch
+registers with nonzero, unequal words. Put guard bytes around the input and
+stack regions. Choose a continuation different from nearby code addresses.
+Run the empty case with an unreadable input pointer. These choices test that
+the routine depends only on declared inputs and returns through the intended
+mechanism.
+
+\subsection{Byte provenance must survive relocation and presentation}
+
+The assembled tables use entry address zero because every control transfer in
+the listings is relative or register-based. Relocating the whole text preserves
+internal relative displacements. It changes absolute program-counter values
+and therefore changes the machine states recorded in a trace. The manifest
+must bind the load address even when raw text bytes remain identical.
+
+Source labels are not stored in the final text. They help the assembler
+compute displacements. A proof artifact should carry raw bytes and decoded
+targets, with source listings as explanatory material. If a new assembler
+chooses the same bytes, that is useful reproduction. If it chooses different
+but semantically equivalent bytes, the result is a new program artifact that
+needs its own digest and decode report.
+
+Independent disassembly checks one direction: bytes map back to expected
+instruction instances and boundaries. It can share ISA tables or libraries
+with the assembler, so its independence should be described. Execution against
+a separate semantic decoder adds another dimension. Hand reconstruction of
+the two branch targets supplies a tiny reference that does not depend on a
+pretty-printer's label recovery.
+
+For x86-64, boundaries are part of decoding because instruction lengths vary.
+A one-byte insertion can shift every later address and change relative branch
+targets even when the branch bytes stay fixed. RV64I base instructions retain
+four-byte boundaries, but a changed word can still decode to a valid different
+operation. Hashes detect byte changes; decoder controls show whether changed
+bytes are rejected or interpreted as a different program.
 
 \section{Local lemmas beneath the simulation}
 
@@ -499,6 +1274,84 @@ better than one ternary relation. The direct three-way presentation keeps the
 shared cut points visible. An Axeyum implementation may store one
 machine-to-logical simulation per architecture and construct its comparison
 report from their common logical observations.
+
+\subsection{Factor the ternary picture through one logical machine}
+
+Let a logical state be the tuple
+\[
+  \ell=(i,p,c,x,M,o),
+\]
+where \(o\) is running or returned. The logical body moves \(H_i\) to
+\(H_{i+1}\) when \(i<n\), and the exit moves \(H_n\) to returned with result
+\(x\). This small transition system is not a fourth instruction set. It is a
+proof interface containing only the state needed by the algorithm.
+
+Define relations \(R_A\), \(R_R\), and \(R_X\) from A0, RV64I, and x86-64
+states to logical states. Each relation maps its architecture's pointer,
+count, accumulator, memory, control point, and normal outcome to the tuple.
+It may also constrain helper registers or flags required to take the next
+local path. State outside the algorithm and calling contract remains framed or
+abstracted.
+
+For each architecture \(Q\), the simulation obligation has the form
+\[
+ R_Q(s,\ell)\ \land\ \ell\longrightarrow_L\ell'
+ \quad\Longrightarrow\quad
+ \exists s'.\ s\longrightarrow_Q^{+}s'\ \land\ R_Q(s',\ell').
+\]
+The superscript plus means one or more machine steps. An initialization clause
+connects the call state to \(H_0\). A terminal clause connects the logical
+return to the architecture's successful observation. A failure-reflection
+clause prevents a trap or decode refusal from being mistaken for that return.
+
+\begin{definition}[title={Architecture-to-logical simulation package}]
+For one listing, a package contains an entry relation, a loop-head relation,
+an exit relation, a body path theorem, an exit path theorem, a frame theorem,
+and a progress measure. It also binds the byte decoder and the exact program
+image used by every path theorem.
+\end{definition}
+
+This factorization has three benefits. Each proof mentions one real machine
+instead of all three. Adding a fourth machine requires one new relation, not
+three pairwise proofs. When two programs disagree, their logical images show
+which side first left the common contract.
+
+Pairwise agreement is then a corollary. If \(R_A(s_A,\ell)\) and
+\(R_R(s_R,\ell)\), both simulations reach terminal states related to the same
+logical result. The same argument connects either to x86-64. Transitivity is
+not magic: it depends on using the same logical input, memory interpretation,
+scope, and terminal observation in both packages.
+
+\subsection{Stuttering must be finite and purposeful}
+
+Between cut points, one logical transition corresponds to several machine
+steps. These intermediate steps \keyterm{stutter} in the logical
+state: they prepare or partly implement one logical movement without yet
+reaching the next related cut point. Stuttering is safe only when the machine
+cannot remain in the intermediate region forever or escape to an unreported
+outcome.
+
+A local rank can prove this progress. Assign each instruction position within
+the selected body a decreasing distance to the next cut point. A legal step
+either decreases that distance or reaches the next logical state. The loop
+count proves progress across bodies; the local distance proves progress within
+one body. Together they rule out an implementation that cycles among setup
+instructions while preserving a coarse relation.
+
+The body paths have different lengths: five instructions for A0, five for
+RV64I, and four for x86-64. Their intermediate assertions also differ. A0 and
+RV64I expose the loaded word in a register. The x86 memory-source XOR moves
+directly from the head relation to a post-combine relation in one architectural
+step. The logical interface accommodates both because it demands the same
+next cut point, not the same internal staging.
+
+\begin{warning}[title={A relation that holds only at the beginning and end is not enough}]
+A faulty implementation may leave the relation, trap, loop forever, or corrupt
+framed state before returning the expected result on one test. The simulation
+package needs local path, progress, and frame theorems. Matching endpoint
+values from selected executions is weaker evidence.
+\end{warning}
+
 \section{Relating three traces}
 
 The listings have different setup lengths and different numbers of
@@ -548,6 +1401,89 @@ to the mathematical fold. The cross-state relation connects corresponding
 implementation cut points. Either route can be used alone, but together they
 explain both correctness and agreement.
 
+\subsection{State the global result with every quantifier visible}
+
+The chapter's main theorem can now be written without saying that the programs
+are simply ``the same.'' Let \(Q\) range over the three selected machine
+packages. Let \(\mathsf{Init}_Q(M_0,a,n,s)\) mean that machine state \(s\)
+contains the exact program bytes, the harness mapping in
+Table~\ref{tab:xor-harnesses}, and a normal entry outcome. Let
+\(\mathsf{Run}_Q(s,t)\) mean that zero or more legal machine steps take
+\(s\) to a successful terminal state \(t\). Let
+\(\mathsf{Result}_Q(t)\) project the declared result register.
+
+Under the common range, no-wrap, alignment, code, and harness preconditions,
+the desired result is
+\[
+ \begin{array}{l}
+ \forall M_0,a,n,Q,s.\quad
+ \mathsf{Pre}(M_0,a,n)\land\mathsf{Init}_Q(M_0,a,n,s)\\
+ \qquad\Longrightarrow
+ \exists t.\quad
+ \mathsf{Run}_Q(s,t)\land
+ \mathsf{Result}_Q(t)=\mathsf{foldxor}(M_0,a,n)\land
+ \mathsf{Frame}_Q(s,t).
+ \end{array}
+\]
+Existence states termination and successful return. The result equality states
+functional correctness. The frame states preservation. A deterministic step
+relation can strengthen existence to a unique execution, but uniqueness is not
+needed to show the fold result if every admitted execution satisfies the same
+observation.
+
+The three-machine agreement corollary quantifies over three initial states
+constructed from the same logical input. If each reaches its successful
+terminal state, then
+\[
+ \mathsf{Result}_A(t_A)
+ =\mathsf{Result}_R(t_R)
+ =\mathsf{Result}_X(t_X)
+ =\mathsf{foldxor}(M_0,a,n).
+\]
+This equality is derived through the specification. It does not equate final
+program counters, scratch registers, condition state, stack representation, or
+trace length.
+
+Several premises are deliberately universal. Memory contents are not fixed to
+the attractive three-word example. The count is not bounded by a test depth.
+Word bits range over all width-64 patterns. Several premises are deliberately
+restricted. Memory remains stable, the region is readable and aligned, address
+arithmetic does not wrap, code bytes are fixed, and returns satisfy the
+selected harness.
+
+\begin{archive}[title={The theorem has four named layers}]
+The fold theorem belongs to mathematics. Each machine simulation belongs to a
+pinned semantic package. The harness theorem belongs to an ABI or declared A0
+observation. The agreement corollary composes those layers. Evidence must say
+which layers were reader-proved, executable, solver-checked, certificate-
+checked, or reconstructed in a kernel.
+\end{archive}
+
+\subsection{Failure behavior needs another theorem}
+
+The global theorem begins under a readable aligned region and valid return
+harness. Removing those premises does not produce one shared failure result.
+A0 may report its model's invalid access. An RV64 execution environment may
+handle or trap a misaligned load according to a boundary outside the selected
+base instruction rule. x86-64 permits many unaligned ordinary loads but can
+still fault for translation or permission reasons. Return failures also use
+different mechanisms.
+
+A robust comparator therefore has a sum of outcomes: normal return, trap or
+fault, decode refusal, unsupported state, bound exhaustion, and infrastructure
+failure. The functional theorem covers the normal branch under
+\(\mathsf{Pre}\). A separate refinement theorem could relate selected fault
+classes, but it would need explicit exception and environment models. Treating
+every nonreturn as one equal outcome would erase information needed for both
+debugging and security analysis.
+
+The negative controls exercise these excluded paths without broadening the
+theorem. An unreadable empty pointer should still take the normal zero case
+because no access occurs. An unreadable one-word region should fail at the
+load boundary. A corrupted return target should fail at the harness boundary.
+The report shows that the classifier distinguishes these cases; it does not
+claim that the architectures share one fault semantics.
+
 \subsection{What the relation intentionally forgets}
 
 A0 condition bits, x86 status flags, and RV64 temporary values need not agree.
@@ -572,7 +1508,7 @@ Let \(a=256\), \(n=3\), and let the three loaded words be
 \]
 shown with leading zeroes omitted. The successive accumulator values are
 \[
- 0,quad \mathtt{0f0f},quad \mathtt{0ff0},quad \mathtt{0000}.
+ 0,\quad \mathtt{0f0f},\quad \mathtt{0ff0},\quad \mathtt{0000}.
 \]
 The pointer values at loop heads are 256, 264, 272, and 280. The remaining
 counts are 3, 2, 1, and 0. The final zero is not evidence that no work
@@ -597,6 +1533,63 @@ A useful test suite includes more than this attractive cancellation. Test an
 empty input, one word, two unequal words, two equal words, a region near the
 highest permitted address, and a pattern with high bits set. For each case,
 compare the complete outcome class and memory, not only the result register.
+
+\subsection{Lift the logical rows to three instruction traces}
+
+Each row in the logical table corresponds to a loop-head cut point on all
+three machines. The program counters differ:
+
+\begin{table}[htbp]
+\centering
+\caption{Cut points and intermediate assertions for one positive iteration.
+Addresses are hexadecimal offsets from each listing's entry.}
+\begin{tabular}{@{}p{0.20\textwidth}lll@{}}
+\toprule
+Logical point & A0 & RV64I & x86-64 \\
+\midrule
+loop head \(H_i\) & \code{14} & \code{0c} & \code{07} \\
+post-load \(D_i\) & \code{18} & \code{10} & combined with next row \\
+post-combine \(C_i\) & \code{1c} & \code{14} & \code{0a} \\
+post-pointer \(P_i\) & \code{20} & \code{18} & \code{0e} \\
+post-count & \code{24} & \code{1c} & \code{12} \\
+next head or exit & \code{14}/\code{28} & \code{0c}/\code{20} & \code{07}/\code{14} \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-cut-point-addresses}
+\end{table}
+
+For the first word \(u=\mathtt{0f0f}\), all three heads represent
+\((i,p,c,x)=(0,256,3,0)\). A0 and RV64I first place \(u\) in their temporary
+registers. x86-64 obtains \(u\) as the memory operand of the XOR transition.
+At \(C_0\), all accumulators equal \(u\). After pointer and count movement,
+the branches return to heads representing \((1,264,2,u)\).
+
+The second iteration loads \(v=\mathtt{00ff}\). Bitwise combination gives
+\(\mathtt{0f0f}\mathbin{\mathsf{xor}}\mathtt{00ff}=\mathtt{0ff0}\).
+The next heads represent \((2,272,1,\mathtt{0ff0})\). The third word is
+\(z=\mathtt{0ff0}\), so the final combine cancels the accumulator to zero.
+The pointers become 280 and counts become zero.
+
+At that point, each continuation branch chooses exit. A0 reaches \code{28}
+and executes \code{halt}. RV64I reaches \code{20} and executes \code{jalr}
+through the harness-provided \code{ra}. x86-64 reaches \code{14} and executes
+\code{ret} through the continuation stored at \code{rsp}. Their terminal
+machine states are not equal. Their declared terminal observations all contain
+the result zero and unchanged input memory.
+
+\begin{proofkit}[title={Replay discipline for the concrete case}]
+At every machine step, record raw program bytes, decoded instruction, old
+state, memory access if any, new state, and outcome. At each cut point, project
+the machine state through its architecture-to-logical relation. Require the
+four logical values in Table~\ref{tab:xor-cut-point-addresses} to agree. If a
+projection first fails, report the prior successful assertion and the current
+instruction rather than only the final unequal result.
+\end{proofkit}
+
+The example's final zero is a useful diagnostic trap. A broken executor that
+returns zero without reading memory passes a result-only check for these three
+words. Trace length, load footprints, cut-point values, and a noncancelling
+positive control prevent that accidental pass.
 
 \section{Breaking the proof on purpose}
 
@@ -624,6 +1617,84 @@ Counterexamples should replay as traces. A solver assignment saying
 \(n=2\) and giving two memory words is not yet an explanation. Decode the
 program, execute both versions from the assigned state, and print the first cut
 point where pointer, count, accumulator, outcome, or memory agreement fails.
+
+\subsection{Controls should fail at the boundary they target}
+
+A large end-to-end mismatch proves that something differs. A layered control
+explains where the route first loses the contract. The expected rejection
+point is therefore part of the control definition.
+
+\begin{table}[htbp]
+\centering
+\caption{A control matrix for the three-machine package. Each mutation should
+survive earlier identity and parsing checks, then fail at its named boundary.}
+\begin{tabular}{@{}p{0.16\textwidth}p{0.27\textwidth}p{0.24\textwidth}p{0.21\textwidth}@{}}
+\toprule
+Boundary & Mutation & Small separator & Expected first failure \\
+\midrule
+specification & use all-ones identity & \(n=0\) & fold contract \\
+input mapping & swap pointer and count & \(a\ne n\) & entry relation \\
+decoder & flip an opcode field & any legal call & decode or byte binding \\
+load semantics & reverse byte join & alternating bytes & \(D_i\) load assertion \\
+combine & use OR instead of XOR & overlapping one bits & \(C_i\) combine assertion \\
+pointer & advance by four & \(n=2\), distinct half-words & \(P_i\) pointer assertion \\
+count & subtract zero & \(n=1\) & variant or next-head relation \\
+control & invert final branch & \(n=1\) & successor relation \\
+frame & inject one store & any nonempty region & memory frame \\
+ABI & clobber a saved register & sentinel saved value & return-frame check \\
+observation & accept trap as return & forced invalid access & outcome classifier \\
+report & omit a failed control & one known mutation & manifest/report gate \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-control-matrix}
+\end{table}
+
+A byte mutation that breaks parsing tests the identity and decoder boundary.
+It does not test whether a correctly decoded \code{xor} has the right meaning.
+For that purpose, keep the bytes valid and mutate the semantic rule or expected
+relation. Conversely, a semantic mutation that never reaches the mutated rule
+is a weak control. The separating input must activate the target.
+
+Metamorphic controls test relations among valid cases. Prepending a zero word
+should leave the result unchanged while increasing the count and shifting the
+old words by one position. Permuting words should preserve XOR. Splitting a
+region into two chunks should make the whole result equal the XOR of the chunk
+results. Applying the same word mask to two added copies should cancel their
+joint contribution. Each transformation predicts a result without requiring
+a second implementation of the full fold.
+
+Some transformations should \emph{not} preserve the complete observation.
+Permuting input bytes changes memory identity even when the XOR result stays
+the same. A relation that observes only the result may call the cases
+equivalent; the procedure contract also observes memory preservation within
+each run, not equality between two different initial memories. State which
+relation the metamorphic test asserts.
+
+\subsection{Proof mutations test the argument, not only the program}
+
+The proof can be wrong while all three listings are right. Remove the
+no-wrap premise and the pointer lemma becomes invalid near \(2^{64}\). Replace
+\(i<n\) with \(i\le n\) before the load and the final iteration may read past
+the region. Let \(D_i\) use the new pointer instead of the old pointer and the
+load assertion shifts by one word. Treat x86 flags from XOR as if they survived
+the later subtraction and the branch justification cites the wrong producer.
+
+These are valuable review controls because theorem statements and proof
+scripts can pass type checking while proving an unintended claim. A weakened
+precondition, observation, or decoder link may make a proof easy for the wrong
+reason. The manifest should bind those definitions, and the review should
+include mutations that change them while leaving program bytes untouched.
+
+The strongest small control set crosses all three directions:
+
+\begin{enumerate}
+\item keep semantics fixed and mutate bytes;
+\item keep bytes fixed and mutate semantics or the relation;
+\item keep both fixed and mutate the report or observation.
+\end{enumerate}
+
+Passing this set does not prove the route sound. It demonstrates that the
+route can discriminate several errors it is specifically designed to reject.
 
 \section{Cost questions come after correctness}
 
@@ -667,6 +1738,158 @@ may learn the continuation pattern. Front-end and execution resources may
 overlap instructions. Those phenomena are important, but they demand a
 microarchitectural model and measurement method. The ISA proof establishes
 functional movement across architectural states, not a cycle count.
+
+\subsection{Arithmetic intensity predicts a bandwidth question}
+
+The scalar body consumes eight input bytes and performs one useful XOR combine
+per word. Ignoring instruction fetch and bookkeeping, its arithmetic intensity
+is about
+\[
+  I=\frac{1\ \hbox{combine}}{8\ \hbox{input bytes}}.
+\]
+This is low. Once data must arrive from a slower level of the memory
+hierarchy, the attainable word rate can be bounded by sustainable byte
+bandwidth divided by eight. Making XOR twice as fast cannot cross a limit set
+by unchanged data delivery.
+
+The Roofline model popularized this comparison between operation throughput,
+data bandwidth, and arithmetic intensity. \autocite{williams2009roofline} Its
+original examples concern floating-point kernels, but the discipline applies
+here if the units are stated honestly. We can count integer combines per byte
+instead of floating-point operations per byte. The result is a diagnostic
+upper bound, not a prediction of exact cycles.
+
+Cache changes which bandwidth is relevant. A small array reused many times may
+remain near the core. A one-pass large array may stream from memory. An array
+that shares cache capacity with other work can behave differently again.
+Prefetching may overlap some latency, but it does not eliminate transferred
+bytes. Measurement should report the working-set size and whether setup warmed
+the data before timing.
+
+The code reads but does not write the array, which reduces data traffic
+relative to an in-place transform. It still writes architectural registers,
+but those writes normally do not become eight-byte memory transfers. A proof
+about architectural state and a model of physical traffic count different
+objects. Mixing them would make both claims unclear.
+
+\subsection{Vectorization changes the state and the schedule}
+
+A vector XOR loop loads several words, combines them into a vector
+accumulator, and performs a horizontal XOR at the end. If the vector holds
+\(q\) words, the main loop can consume about \(q\) scalar elements per vector
+iteration. Multiple vector accumulators may shorten dependency chains further.
+
+The proof uses the chunking lemma. Each lane or vector accumulator reduces a
+subsequence. The horizontal combine folds the partial results. Because XOR is
+associative and commutative, lane grouping and combination order do not change
+the word result. The frame and memory arguments must still prove that every
+input word is loaded exactly once and no byte outside the region is observed.
+
+Three new cases appear:
+
+\begin{enumerate}
+\item The length may be smaller than one vector.
+\item The length may not be a multiple of the vector capacity.
+\item The starting address may not meet a preferred vector alignment.
+\end{enumerate}
+
+A scalar cleanup loop, a masked final vector, or a length-specific short path
+can handle the tail. These strategies have different instruction, fault, and
+proof behavior. A masked load must establish that inactive lanes do not access
+out-of-range bytes under the selected ISA semantics. A scalar tail reuses the
+scalar theorem but adds a handoff invariant between vector and scalar prefixes.
+
+The ratified RISC-V vector extension contains integer reduction operations,
+including \code{vredxor.vs}. Its vector state adds vector registers, active
+length, element width, grouping, masks, and control registers. Inactive source
+elements are excluded while the scalar seed is included.
+\autocite{riscv2026vector} Those rules illustrate why ``replace the loop with
+one vector instruction'' is not a proof. The new instruction has a wider state
+and its own scope.
+
+x86-64 offers several generations of packed integer instructions, but the
+available width and exact instruction forms depend on the selected extension
+profile. Wider encodings can also change code size, register preservation,
+transition costs on some implementations, and compiler decisions. The Intel
+optimization manual treats vectorization and memory behavior as processor and
+code-shape questions rather than a universal ISA ranking.
+\autocite{intel2026optimization}
+
+\subsection{Floating-point reduction reveals why algebra is contractual}
+
+If XOR is replaced by binary floating-point addition, the scalar loop still
+has an accumulator and pointer. Its mathematical freedom changes. Rounded
+addition generally fails associativity:
+\[
+  \mathsf{round}(\mathsf{round}(x+y)+z)
+  \ne
+  \mathsf{round}(x+\mathsf{round}(y+z))
+\]
+for some representable inputs. A balanced tree, several lane accumulators, and
+the left scalar fold can therefore produce different final bit patterns.
+
+One contract may require the exact left-to-right result. Another may permit a
+bounded numerical error. A third may specify a reproducible tree. Compiler
+flags and library interfaces choose among these freedoms. Calling every form
+``the sum'' hides the main semantic decision.
+
+The RISC-V vector specification makes the distinction explicit for floating
+reductions: it provides ordered and unordered forms with different evaluation
+requirements. MPI likewise permits order changes based on declared algebra
+and warns about floating-point results. The systems are solving a common
+problem at different scales: performance freedom must be granted by the
+operation's contract, not inferred from a mathematical notation that ignores
+rounding.
+
+\subsection{Distributed reduction pays for communication and recovery}
+
+Suppose \(k\) workers each hold one chunk. Local XOR uses the scalar or vector
+theorem. The partial words must then move through a communication tree. The
+logical combine work remains \(k-1\) for the partials, but elapsed time now
+includes message latency, bandwidth, synchronization, and slow or failed
+workers.
+
+A simple communication model assigns each message a startup cost \(\alpha\)
+and each transferred byte a cost \(\beta\). Sending one 64-bit partial costs
+roughly \(\alpha+8\beta\) before topology and contention. A balanced tree has
+logarithmic message rounds under ideal placement. A centralized gather has a
+short description but can concentrate traffic and work at the root.
+
+Retries are safe for this pure reduction only when a retried chunk does not get
+counted twice. XOR makes accidental duplication especially deceptive: two
+copies of the same partial cancel instead of doubling. The wrong answer may
+look plausible or even become zero. A distributed contract therefore needs
+chunk identity and exactly-once logical contribution, even if physical work is
+retried.
+
+MapReduce addresses a broader environment by tracking partitions and rerunning
+failed tasks. MPI collectives assume a different process and failure model.
+Neither system's name proves the application operator, grouping, or recovery
+contract correct. At data-center scale, provenance and control records from
+Chapter 14 become part of the reduction evidence.
+
+\subsection{Economic choices follow reuse and consequence}
+
+The transparent scalar listing is attractive for teaching, boot code, small
+inputs, and a trusted reference. A compiler-generated vector loop can improve
+throughput across many calls but adds target variants, tail paths, and testing.
+A hand-tuned assembly family adds further maintenance and dispatch costs. A
+distributed implementation makes sense only when data volume, location, or
+latency goals justify communication and operational complexity.
+
+Optimization has a break-even point. Let \(D\) be development and validation
+cost, \(s\) the saved time per call, \(N\) the expected call count, and \(V\)
+the value of one unit of saved time. The direct benefit is \(NsV\). The change
+is economically justified only after that benefit exceeds \(D\) plus ongoing
+maintenance, energy, deployment, and failure costs. The equation does not put
+a universal price on performance. It forces the assumptions into view.
+
+Proof investment follows a similar curve. A machine-checked scalar reference
+can validate many optimized implementations and survive hardware changes. A
+full proof of every microarchitecture-specific path may cost more and expire
+sooner. The useful boundary often proves the stable algorithm and ISA-level
+contracts, then tests or translation-validates generated variants against that
+reference.
 
 \begin{goingdeeper}[title={The scalar proof prepares a parallel proof}]
 Because integer XOR is associative, a vector or tree reduction may partition
@@ -820,6 +2043,196 @@ Each mutation should fail first at the relation component designed to catch
 it. If a later, unrelated check fails instead, the report is too coarse or an
 earlier binding is missing.
 
+\subsection{Build machine packages around shared contracts, not shared semantics}
+
+The three executors should share generic byte and evidence infrastructure
+where that sharing is semantically neutral. They should not share one
+``universal instruction'' implementation that erases the architectural
+differences the comparison is meant to test. A0, RV64I, and x86-64 need
+separate state types, decoders, and step functions with a common reporting
+interface.
+
+A narrow Rust layout could separate five concerns:
+
+\begin{enumerate}
+\item a word-and-memory crate with checked byte ranges and little-endian loads;
+\item one machine crate per architecture slice, owning decode and step;
+\item a routine package containing exact bytes, entry constructors, and
+      controls;
+\item a relation package mapping each trace to logical cut points;
+\item an evidence runner producing the Chapter 14 manifest and typed report.
+\end{enumerate}
+
+Sharing the memory load can reduce duplicate code, but it also creates a
+shared trust boundary. An endian bug there affects every machine equally and
+can survive three-way agreement. At least one tiny reference should reconstruct
+words independently from raw bytes. Agreement among architecture executors is
+most informative when the common substrate is measured rather than forgotten.
+
+The Python layer should expose immutable snapshots or owned copies of typed
+Rust states. If a notebook can mutate register dictionaries behind the
+executor's back, replay no longer means running the same transition relation.
+Python conveniences may select examples, format traces, and plot cut points.
+They should call Rust for decode, step, range checks, relation evaluation, and
+evidence outcomes.
+
+\subsection{Use an assurance ladder instead of one finished badge}
+
+The first runnable artifact need not wait for a universal theorem, but every
+stage needs a precise label:
+
+\begin{table}[htbp]
+\centering
+\caption{Incremental assurance for the flagship case. Later rows depend on
+earlier semantic bindings; they do not strengthen missing ones.}
+\begin{tabular}{@{}p{0.20\textwidth}p{0.35\textwidth}p{0.33\textwidth}@{}}
+\toprule
+Stage & Direct evidence & Remaining boundary \\
+\midrule
+decode examples & bytes map to expected instruction records & decoder coverage and semantics \\
+concrete traces & selected calls reach expected cut points & untested inputs and reader-to-code link \\
+exhaustive tiny cases & all cases in a finite small domain agree & production width and unbounded count \\
+bounded symbolic check & no disagreement within named bounds & encoding, bounds, and solver trust \\
+checked certificate & exact bounded formula is unsatisfiable & formula generation and semantic bridge \\
+machine-to-logical proof & all admitted states simulate the fold & kernel assumptions and source pins \\
+three-machine corollary & terminal observations agree by common logic & exclusions in the shared contract \\
+\bottomrule
+\end{tabular}
+\label{tab:xor-assurance-ladder}
+\end{table}
+
+Concrete execution should arrive early because it gives readers something to
+inspect and controls something to break. Exhaustive width-four or width-eight
+variants can then check decoder and relation shape. Production-width symbolic
+queries test wider bit behavior under bounded counts. The universal loop proof
+uses induction and architecture lemmas; it cannot be obtained merely by
+raising a finite trace bound.
+
+An end-to-end report should show one row per architecture and one row for the
+derived comparison. A machine row records byte digest, decode coverage,
+initial-state digest, trace outcome, terminal observation, frame result, and
+controls. The comparison row records the common logical case, cut-point
+alignment, first divergence if any, and the exact relation version. A missing
+machine row makes the comparison unavailable, not partially verified.
+
+\subsection{The present stopping point is a useful design constraint}
+
+The live Axeyum audit found rich solver and evidence machinery but no reusable
+A0, RV64I, or x86-64 executor. Therefore the assembled bytes in this chapter
+are code-size and decode test vectors, not Axeyum proof artifacts. The reader
+proof is a mathematical plan over the selected semantics, not a report from a
+completed kernel route.
+
+Keeping that gap visible protects implementation order. The project should not
+begin with a three-way solver query over placeholder operations. It should
+first make each decoder reject unsupported bytes, make each step replay tiny
+positive and negative examples, and bind the harness. Only then does the
+cross-machine relation have real states to compare. Solver and certificate
+machinery amplify a semantics; they cannot supply a missing one.
+
+\section{How this case study should be learned}
+
+Several established textbook forms meet in this chapter. A conventional
+algorithms treatment teaches the loop invariant by asking for initialization,
+maintenance, and termination. That structure appears here, but the machine
+listings force two additions: intermediate assertions inside one body and a
+frame describing state the algorithm must not damage.
+
+\emph{Software Foundations} makes definitions and proofs executable as Coq
+scripts. A reader changes an inductive definition or theorem and lets the
+proof assistant expose the consequences. \emph{Concrete Semantics} pairs
+informal explanation with Isabelle theories for languages and program
+reasoning. \autocite{pierce2026softwarefoundations,nipkow2014concretesemantics}
+Those approaches show the value of keeping the formal object small enough to
+run and edit.
+
+This case study adds a comparative architecture layer. The logical loop is
+not compiled away in the exposition. It remains the common proof interface.
+Each ISA receives its own decoder, state mapping, body theorem, control path,
+frame, and terminal harness. This arrangement keeps the formal-development
+virtue of small definitions while exposing the engineering boundaries hidden
+by source-level pseudocode.
+
+The recommended reading order follows increasing commitment:
+
+\begin{enumerate}
+\item compute XOR and memory loads for one concrete input;
+\item prove the word algebra and fold-splitting lemma;
+\item prove the language-independent loop invariant;
+\item trace one architecture through all intermediate assertions;
+\item prove its machine-to-logical simulation;
+\item repeat for the other machines and derive agreement;
+\item attack bytes, semantics, relations, frames, and reports with controls;
+\item only then compare costs or consider vector and distributed schedules.
+\end{enumerate}
+
+This order prevents notation from outrunning understanding. It also prevents
+benchmark excitement from preceding correctness. A reader first knows what
+the bytes mean, then why the loop works, then why the implementations agree,
+and finally which alternative schedules the algebra permits.
+
+\subsection{Proof and execution should alternate}
+
+Writing all abstract proofs before executing a byte can allow the semantics to
+drift away from the artifact. Writing all executors before stating the
+invariant can produce many tests with no theorem. Alternate the two. Each
+definition should enable a small execution; each execution should motivate a
+lemma or control; each lemma should state which bytes and states it will later
+govern.
+
+For example, the two-word trace motivates \(H_i\), \(D_i\), and \(C_i\).
+The general body proof explains why those rows extend to every admitted
+\(i\). The pointer-by-four mutation tests whether the executable relation uses
+the same pointer lemma. The checked artifact then returns evidence about that
+bound definition, not a parallel universe of prose.
+
+Exercises also climb this ladder. Computations establish fluency. Proofs make
+premises explicit. Breaking tasks test whether the route discriminates errors.
+Cost problems separate abstract and physical measures. Transfer problems ask
+which structure survives a new ABI, vector schedule, or distributed system.
+The capstone requires the reader to compose rather than repeat isolated facts.
+
+\subsection{Why this routine is a foundation rather than a toy}
+
+The routine is intentionally small, but its proof shape is not small in
+importance. A production memory kernel still needs an input layout, range
+premise, loop or vector invariant, frame, calling contract, and cost model. A
+compiler validation still needs source and target observations, a state
+relation, and a way to align unequal steps. A published solver result still
+needs exact bytes, semantics, controls, and an evidence boundary.
+
+XOR removes complications that would obscure this architecture of reasoning.
+There is no carry, signed overflow question, or floating rounding. The
+operator is associative and commutative. The array is read-only. The body has
+one load and one combine. Consequently, every remaining obligation is
+load-bearing rather than decorative: if the proof still needs a harness,
+decoder, range lemma, stuttering relation, and frame here, larger routines will
+not make those needs disappear.
+
+The example is also falsifiable at every layer. A reader can compute one word,
+mutate one displacement, invert one branch, corrupt one byte, weaken one
+observation, or remove one theorem premise. The resulting failure has a named
+place in the proof. This makes the case suitable for education: beauty comes
+not from pretending the machine is simple, but from seeing many distinct
+movements meet one compact invariant.
+
+Future flagship cases can add one complication at a time. Modular sum adds
+carry reasoning. Minimum adds an order and signedness choice. Copy adds writes
+and possible overlap. Vector XOR adds lanes, masks, and tails. Concurrent
+reduction adds interference and a memory model. The present theorem becomes a
+reusable base and a control: each extension should say exactly which old
+lemmas survive and which new state enters.
+
+That extension discipline is economically useful too. Reusing a proved load,
+range, harness, or simulation component lowers validation cost only when its
+premises still hold. Reuse by name is not enough. A changed vector width,
+address space, ABI, or fault policy may invalidate the connection while leaving
+the high-level loop familiar. The dependency ledger should make genuine reuse
+visible and force changed boundaries back through review. For a classroom
+proof, that ledger may be a table of lemmas and premises. For an industrial
+proof, it should also record versions, generated artifacts, tool settings, and
+the controls that failed when a dependency was deliberately changed.
+
 \section{What this chapter establishes, and what it does not}
 
 The mathematical argument establishes the XOR-fold loop for the printed
@@ -889,4 +2302,187 @@ Separate instruction semantics from the new register and preservation rules.
 \item Compare a scalar XOR reduction with a vector version conceptually. List
 the additional state, instruction, and reduction-order questions that move the
 vector proof beyond this chapter's model.
+
+\item \textbf{Bit algebra.} Reproduce the addition table for \(\mathsf{F}_2\)
+and prove associativity by checking all eight triples of bits. Explain how the
+bit proof lifts to width-64 words.
+
+\item View three width-four words as rows of a bit matrix. Compute their XOR by
+column parity, then verify the same result by hexadecimal XOR.
+
+\item Prove that \(x\mathbin{\mathsf{xor}}m\mathbin{\mathsf{xor}}m=x\).
+State which algebraic laws you used and which one would fail for ordinary
+addition modulo \(2^{64}\).
+
+\item Give a nonlinear function on width-two words that does not commute with
+XOR folding. Supply the smallest counterexample to the claimed homomorphism.
+
+\item Classify each structure as a monoid, commutative monoid, or neither:
+integer addition with zero, strings with concatenation, subtraction with zero,
+maximum with the least word, and function composition with the identity.
+
+\item Prove by induction that the left and right XOR folds of a finite list
+agree. Mark the exact use of associativity and the identity law.
+
+\item \textbf{Chunk.} Split a seven-word region after word three. Write the
+two memory folds and prove that XORing them yields the whole result.
+
+\item Give an associative but noncommutative operation. Explain which balanced
+reduction trees preserve the sequential result and which leaf permutations do
+not.
+
+\item Derive the combine work and span for balanced trees with
+\(n=1,2,3,5,8\). Draw the partially filled trees rather than quoting the
+asymptotic result.
+
+\item A machine has four workers. Under an ideal combine model, compare the
+span of a scalar fold, four equal chunks followed by a balanced merge, and one
+balanced tree for \(n=16\). State what the model omits.
+
+\item Distinguish reduction from scan. For words \([a,b,c,d]\), write the
+inclusive XOR scan, exclusive XOR scan, and final reduction.
+
+\item \textbf{Range proof.} Show that \(a+8n-1<2^{64}\) implies every byte
+of every selected word lies below \(2^{64}\). Treat \(n=0\) separately.
+
+\item Explain why the one-past pointer \(a+8n\) need not be readable. Give a
+memory layout in which the last word is readable but the one-past address is
+not.
+
+\item Design an executable no-wrap check that cannot underflow for \(n=0\).
+Specify its typed outcomes for valid, wrapped, and unavailable ranges.
+
+\item Starting from \(H_i\), derive \(D_i\), \(C_i\), \(P_i\), and
+\(H_{i+1}\) for one concrete two-word memory. Include every unchanged logical
+component.
+
+\item Give a loop that preserves a plausible accumulator invariant but never
+terminates. Then give a terminating loop that violates the fold. Explain why
+invariant and variant obligations are independent.
+
+\item Expand the A0-to-logical body theorem into five Hoare-style triples.
+Include helper-register, condition-state, and program-counter premises.
+
+\item Mutate A0 \(r_4\) from eight to sixteen. Choose the smallest region for
+which the first iteration succeeds and the second load reveals the error.
+
+\item Decode the forward A0 branch displacement \(d=5\) and backward
+displacement \(d=-5\) using the chapter's branch-target equation. Show the
+intermediate signed values.
+
+\item In Table~\ref{tab:rv64-xor-bytes}, reconstruct the immediate of
+\code{addi a1,a1,-1}. Explain why the mathematical decrement is valid only
+under the positive-count premise.
+
+\item Reconstruct both RV64I branch targets from their split immediate fields.
+Compare the result with the addresses printed in the table.
+
+\item Explain why disassembling \code{addi t0,a0,0} as \code{mv t0,a0} does
+not change the semantic proof. What artifact should remain canonical?
+
+\item Strengthen the RV64 return harness to require a particular continuation
+address. List the alignment, \code{ra}, target, and terminal-observation
+obligations.
+
+\item In Table~\ref{tab:x86-xor-bytes}, compute both short-branch targets from
+the address following each branch and its signed byte displacement.
+
+\item Change the x86 \code{add rdi,8} encoding to an equally long
+\code{add rdi,16}. Which checks still pass, and which intermediate assertion
+first fails?
+
+\item Draw the x86 zero-flag def-use chain from entry test through one complete
+body. Mark every instruction that overwrites the flag and every branch that
+reads it.
+
+\item The x86 loop is described as read-only, yet \code{ret} reads memory.
+Reconcile these statements by separating input-region, stack, and global
+memory footprints.
+
+\item Verify the static byte and instruction totals for all three listings.
+Then derive the dynamic formulas in Table~\ref{tab:xor-instruction-counts}
+from executed paths rather than pattern matching.
+
+\item For \(n=0,1,2,100\), compute all three dynamic instruction counts. What
+does the constant setup term contribute for small inputs?
+
+\item Each positive path reads \(8n\) data bytes. Add a hypothetical
+four-byte store per iteration and compare useful operations per transferred
+byte under a clearly stated traffic model.
+
+\item A system sustains \(B\) input bytes per second for a large streaming
+array. Derive the bandwidth upper bound on 64-bit words reduced per second.
+Evaluate it for one named hypothetical \(B\), without calling it a benchmark.
+
+\item Design a measurement plan that distinguishes a cache-resident XOR loop
+from a memory-streaming loop. Name data sizes, warming, repetitions, reported
+statistics, and environmental controls.
+
+\item \textbf{Vector tail.} For a vector capacity of four words and
+\(n=10\), partition the region into full vectors and a tail. Give separate
+proof obligations for a scalar cleanup and a masked final vector.
+
+\item Prove that four lane-local XOR accumulators followed by a horizontal XOR
+equal the scalar fold. State where commutativity is used, if at all, for a
+fixed round-robin lane assignment.
+
+\item Give three floating-point values for which two parenthesizations of
+addition can differ after rounding. Explain why the XOR proof cannot simply be
+copied to floating-point sum.
+
+\item Compare an ordered and unordered floating-point reduction contract.
+Which permits a balanced tree? Which result properties could a numerical-error
+contract state instead of bit equality?
+
+\item In the communication model \(\alpha+m\beta\), compare a centralized
+gather and balanced tree for eight workers sending eight-byte partials. Count
+rounds and messages; state the topology assumptions.
+
+\item A distributed runtime executes one chunk twice and includes both
+partials. Explain why XOR duplication cancels and design chunk-identity
+metadata that detects the error.
+
+\item Compare MPI reduction and MapReduce for this example. Separate operator
+algebra, key grouping, process or worker state, communication, and failure
+handling.
+
+\item Use the break-even variables \(D,s,N,V\) to compare a scalar reference
+with a vector implementation. Add one maintenance term and show how the
+threshold call count changes.
+
+\item Draw three separate relations from A0, RV64I, and x86-64 states to one
+logical state. Derive RV64I--x86 terminal agreement without defining a direct
+relation between every intermediate register.
+
+\item Give a faulty stuttering implementation that remains between two cut
+points forever. Define a local rank that rejects it.
+
+\item A0 takes five steps per body and x86-64 takes four. Explain formally why
+this prevents lockstep bisimulation but permits the forward simulation used in
+the chapter.
+
+\item Build one metamorphic test from the chunking theorem and one from input
+permutation. State which manifest fields must differ between the source and
+transformed cases.
+
+\item In Table~\ref{tab:xor-control-matrix}, choose four mutations and write
+the exact typed report expected at the first failing boundary. Do not use one
+generic ``false'' result.
+
+\item Mutate only the observation so that a trap counts as normal return. Give
+a case where all instruction semantics are correct but the evidence claim
+becomes false.
+
+\item Design the Rust types for one machine state, decoded instruction,
+transition outcome, and cut-point relation result. Explain which types the
+Python layer may display but must not reinterpret.
+
+\item Map one concrete example through every row of
+Table~\ref{tab:xor-assurance-ladder}. State the strongest claim supported at
+each stopping point.
+
+\item \textbf{Capstone proof.} Choose one architecture and write a complete
+machine-to-logical proof package: entry, body, exit, frame, progress, decoder
+binding, and failure reflection. Then derive agreement with either of the
+other architectures through the common logical fold.
 \end{enumerate}

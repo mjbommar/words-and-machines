@@ -37,6 +37,109 @@ made numbered locations serve both instructions and data. Later machines
 varied the physical technology while preserving a stable architectural
 question: what value does a load obtain from a named address?
 
+The early technologies answered the physical question in strikingly different
+ways. A delay line kept pulses moving through a medium, so access was tied to
+when a pulse returned. A rotating drum tied access to a position passing a
+head. A cathode-ray store represented bits by charge patterns on a screen. A
+magnetic-core array selected small magnetic rings through intersecting wires.
+These mechanisms differed in retention, access pattern, capacity, speed,
+destructive reading, and manufacturing labor. No single physical picture is
+the definition of computer memory.
+
+Tom Kilburn's 1947 storage report is especially useful because it begins from
+physical obligations rather than a modern array notation. A charge pattern on
+a cathode-ray tube could retain information for only a short time. The system
+therefore had to write, sense, and regenerate the pattern often enough to keep
+the represented digits available. Williams and Kilburn soon reported an
+experimental electronic computer built to test that storage principle.
+\autocite{kilburn1947storage,williams1948electronic}
+
+Regeneration exposes a truth hidden by \(M(a)=b\). A physical state drifts.
+The system samples a region, decides which symbolic value it represents, and
+restores a region associated with that value. The abstract byte remains equal
+before and after refresh even though charges move and circuits act. Equality
+at the architectural level is therefore an observation relation over changing
+physical states, not physical immobility.
+
+Magnetic core memory used another physical basis. Several researchers and
+organizations developed magnetic storage and selection methods, followed by
+patent disputes. Core planes were also manufactured through exacting manual
+work, much of it performed by women threading fine wires through small rings.
+The resulting architecture could present numbered, directly selected words
+while concealing both magnetization and labor from a load instruction. A
+history that names only a device inventor misses the production system that
+made the abstraction available.\autocite{chm2026magneticcore}
+
+Semiconductor memory changed the scale again. Robert Dennard's 1967 filing
+described, among other embodiments, a cell with one field-effect transistor
+and one capacitor. A word line controls access; a bit line carries information
+to or from stored charge. The charge leaks, so the information must be
+regenerated periodically. The compact cell helped make high-density dynamic
+memory possible, but its physics did not abolish refresh.
+\autocite{dennard1968memory}
+
+\begin{archive}[title={A stored bit is maintained, not frozen}]
+A physical memory preserves a symbolic distinction by controlling changing
+matter. Charge leaks, magnetic regions must be selected and sensed, and
+signals need margins. The architectural byte map hides that work only for
+claims that do not depend on its timing, energy, reliability, or leakage.
+\end{archive}
+
+This physical route supplies four operations beneath an abstract read. A cell
+or group of cells must be selected. Its physical condition must be sensed. A
+decoder must classify the sensed condition as bits. The result must sometimes
+be restored because sensing or time disturbed it. A store runs the relation in
+the other direction: symbolic bits control physical changes that establish a
+new represented region.
+
+The representation is many-to-one. Many acceptable voltage or magnetic
+configurations can denote the same byte. Temperature, manufacturing variation,
+and noise can change the exact physical state while the decoded byte remains
+stable. If the state crosses a decision boundary, the abstraction fails and a
+reliability mechanism must correct, report, or expose the error. Chapter 16
+will add those mechanisms; A0 assumes the byte supplied by its map is already
+the architectural value.
+
+\subsection{Reliability stands between cells and bytes}
+
+A physical read can return a signal too weak or ambiguous to classify with the
+required confidence. A stored charge can decay; a particle or electrical
+disturbance can change a bit; a wire or cell can fail. The architectural map
+still promises a byte or a declared machine outcome. A real memory system
+therefore needs a policy for detecting, correcting, retrying, or reporting
+physical errors.
+
+The simplest detection example is a parity bit. For data bits
+\(d_0,\ldots,d_{m-1}\), store an additional bit
+\[
+ p=d_0\mathbin{\mathsf{xor}}d_1\mathbin{\mathsf{xor}}\cdots
+   \mathbin{\mathsf{xor}}d_{m-1}.
+\]
+On a later read, compute the exclusive-or of the data bits again and compare it
+with \(p\). Flipping one data bit changes the parity and is detected. Flipping
+two data bits can restore the old parity, so this code does not detect every
+corruption and does not identify which bit to repair.
+
+Stronger error-correcting codes add enough check information to distinguish
+selected error patterns. Their guarantees always have a scope: number and
+kind of errors, codeword arrangement, and assumptions about independent or
+clustered faults. Saying that memory ``has ECC'' without that scope does not
+state what corruption is corrected, reported, or left undetected.
+
+Correction also changes the evidence boundary. A program load can return the
+declared byte even though a lower layer detected and repaired a physical
+error. A reliability counter may change, an event may be logged, or an
+uncorrectable condition may become an architectural exception. Whether those
+effects belong to the observed state depends on the claim. A0 observes only
+the returned byte and its own trap outcome.
+
+This abstraction is economically important. More check bits consume capacity
+and transfer bandwidth. Encoding, checking, and repair consume circuits,
+energy, and time. Fewer protections can increase silent-corruption and service
+cost. The right comparison names a failure model, usable capacity, workload,
+and reliability target; it does not ask whether redundancy is simply good or
+bad.
+
 That question contains two separations. First, an address names a place, not
 a type. The byte at address 8 does not announce whether it belongs to an
 integer, a character, a pointer, or an instruction. The operation that reads
@@ -51,6 +154,12 @@ stores, overlap, and failure. It has no page table, cache, permission bit,
 memory-mapped device, or concurrent writer. Those omissions let us establish
 the sequential byte rules first. Chapter 16 will ask what must change when a
 later model admits the missing mechanisms.
+
+The phrase \emph{random access} also needs restraint. It says that an address
+can select a location without the program traversing every preceding location.
+It does not promise that every physical address takes the same time. Bank
+state, row state, translation, caches, contention, refresh, and devices can
+make timing vary while the architectural load result remains the same.
 
 \begin{archive}[title={The durable abstraction is a numbered place}]
 Memory technology has changed repeatedly. The architectural contract survives
@@ -85,13 +194,63 @@ trap.
 
 \subsection{Memory equality is checked one address at a time}
 
+Let \(A_w=\{0,\ldots,2^w-1\}\) be the word-valued address set and
+\(B=\{0,\ldots,255\}\) the byte set. An A0 memory is a finite partial
+function whose finite domain is a subset of the address set:
+\[
+ \mathrm{dom}(M)\subseteq A_w,\qquad
+ M:\mathrm{dom}(M)\longrightarrow B.
+\]
+Some address words may therefore have no data byte. The domain
+\(\mathrm{dom}(M)\) is the finite set on which the function returns a byte.
+This model distinguishes a stored zero from an absent location:
+\(M(a)=0\) is a value, while \(a\notin\mathrm{dom}(M)\) is a failed lookup.
+
+That distinction is more than mathematical tidiness. A dense host-language
+array often fills allocated entries with zero. If an implementation silently
+uses the same zero for every absent address, a load outside A0 memory becomes
+indistinguishable from a successful load of stored zero. The trap outcome is
+lost before the instruction rule can inspect it.
+
 Two finite memories are equal when they have the same domain and return the
 same byte at every address in that domain. Their construction history does not
 matter. One memory may have reached its present contents through a store;
 another may have begun with those bytes. If every lookup agrees, the A0 state
 cannot distinguish them through memory.
 
-This pointwise definition gives memory proofs a reliable shape. To show that
+An update at an existing address \(a\) with byte \(b\) produces
+\(M[a\leftarrow b]\), defined by
+\[
+ M[a\leftarrow b](d)=
+ \left\{\begin{array}{ll}
+ b, & d=a,\\
+ M(d), & d\neq a.
+ \end{array}\right.
+\]
+For A0, this update does not enlarge the domain. A store may replace bytes at
+present addresses; it may not allocate missing addresses as a side effect.
+Allocation belongs to a larger memory-management model.
+
+A multi-byte update can be built by applying distinct single-address updates.
+Because no two byte positions of one valid non-repeating range name the same
+address, their order does not change the result. This construction gives an
+implementation-independent meaning to a store even if a concrete executor
+copies a slice or updates a persistent map in another way.
+
+\begin{proofkit}[title={Distinct single-byte updates commute}]
+Let \(a\neq d\). Compare \(M[a\leftarrow x][d\leftarrow y]\) with
+\(M[d\leftarrow y][a\leftarrow x]\) at an arbitrary address \(q\). If
+\(q=a\), both return \(x\), because the update at \(d\) does not meet \(a\).
+If \(q=d\), both return \(y\). At every other address, both return \(M(q)\).
+The functions have the same domain and agree at each address, so they are
+equal.
+\end{proofkit}
+
+The proof fails when the two updates name the same address and carry unequal
+bytes. Then the last update determines the value. This small fact is the
+algebra beneath overlapping stores later in the chapter.
+
+This address-by-address definition gives memory proofs a reliable shape. To show that
 two stores produce equal memories, choose an arbitrary address and divide the
 argument according to whether it lies inside or outside each write footprint.
 To show that memories differ, one address with unequal bytes is enough. The
@@ -197,9 +356,38 @@ starting address, and a wholly valid range. The store writes byte \(b_i\) at
 changes, the conclusion needs a new argument.
 \end{proofkit}
 
+There is a reverse round trip. Load a valid \(n\)-byte range into a word and
+store that word back with the same width, address, and byte order. The load
+constructs
+\(x=\sum_{i=0}^{n-1}M(a+i)2^{8i}\). Splitting \(x\) at byte position \(i\)
+returns \(M(a+i)\). The store therefore writes each old byte back to its own
+address. Its frame preserves every address outside the range, so the complete
+memory is unchanged.
+
+\begin{proofkit}[title={\iconProofKit\ Load then store preserves ordinary memory}]
+Inside the valid range, uniqueness of base-256 digits makes the stored byte at
+\(a+i\) equal to the byte just loaded from \(a+i\). Outside the range, the
+store frame returns the old byte. The new memory agrees with the old memory at
+every domain address and has the same domain. Point-by-point equality gives
+equality of the complete maps.
+\end{proofkit}
+
+The qualifier \emph{ordinary memory} matters. A read from a device register
+may acknowledge an interrupt, consume queued data, or return a changing
+measurement. Writing the value back may issue a command. The reverse round
+trip is valid for the side-effect-free A0 map, not for every address that a
+real system can place in an address space.
+
+The two directions prove different facts. Store then load recovers the word
+under a no-intervening-write premise. Load then store preserves the memory
+under a side-effect-free-access premise. A test suite should include both,
+because a matching pair of faulty split and join functions can pass the first
+while disagreeing with the declared byte order. A known byte-layout example
+breaks that shared mistake.
+
 Notice what the proof does not require. It does not require the starting
 address to be a multiple of four, because the first A0 memory model permits
-unaligned data access. It does not require unrelated bytes to have any
+data access whose start is not naturally aligned. It does not require unrelated bytes to have any
 particular value. It does require the store to be atomic on failure and no
 intervening write to change the loaded range.
 
@@ -326,11 +514,51 @@ word, check address-policy predicates such as alignment, and check every byte
 needed by the transfer.
 
 This separation becomes useful when relating machines. A0 permits an
-unaligned access that a selected real-ISA environment may reject. The real
+access without natural alignment that a selected real-ISA environment may reject. The real
 operation cannot refine the A0 operation on all A0 states without either
 restricting the input relation to aligned addresses or representing the
 additional failure in the abstract model. Matching successful examples does
 not repair the missing case.
+
+\subsection{Alignment is congruence applied to addresses}
+
+An \(n\)-byte access is naturally aligned when its starting address satisfies
+\[
+ a\equiv0\pmod n.
+\]
+The condition partitions addresses into residue classes. For a four-byte
+access, addresses congruent to 0 modulo 4 are naturally aligned; the other
+three classes are not. Alignment is therefore a number-theoretic property of
+the start and width, not a visual property of hexadecimal notation.
+
+When \(n\) is a power of two, the test has a bit form. If \(n=2^k\), natural
+alignment means the lowest \(k\) address bits are zero. A four-byte access
+needs two low zeros; an eight-byte access needs three. This equivalence follows
+because those low bits are exactly the remainder after division by \(2^k\).
+
+\begin{proofkit}[title={Low zero bits characterize power-of-two alignment}]
+Write \(a=q2^k+r\) with \(0\leq r<2^k\). The lowest \(k\) bits encode the
+unique remainder \(r\). They are all zero exactly when \(r=0\), which is
+exactly when \(2^k\) divides \(a\). Thus the bit test and congruence test admit
+the same addresses.
+\end{proofkit}
+
+Natural alignment does not guarantee that one lower-level transfer suffices.
+The memory hierarchy may use a line size, bank boundary, or page size different
+from the operand width. A naturally aligned eight-byte access can still cross
+a smaller modeled region boundary; a nonaligned access can remain inside one
+large line. Each boundary must be named before its crossing has a cost or
+fault consequence.
+
+For pages of \(2^k\) bytes, an \(n\)-byte range beginning at \(a\) stays in
+one page exactly when
+\[
+ (a\bmod2^k)+n\leq2^k,
+\]
+provided the range itself does not wrap the word address space. This test uses
+the within-page offset, not natural operand alignment. It explains why a
+multi-byte access near the end of a page may require two translations even on
+an architecture that permits the address alignment.
 
 \section{When two accesses meet}
 
@@ -365,12 +593,12 @@ one designated store supplies the final byte or the original byte remains.
 The final data memories are therefore equal after either order, provided both
 accesses are valid and neither traps.
 
-Overlap breaks the disjointness step. A proof that exchanges memory operations
+Overlap breaks the non-overlap step. A proof that exchanges memory operations
 must establish non-aliasing, account for the shared bytes, or accept a narrower
 claim. A register identity alone supplies none of these.
 
 \begin{proofkit}[title={\iconProofKit\ Why disjoint stores commute}]
-Choose any address \(d\). If \(d\) lies in the first range, disjointness says
+Choose any address \(d\). If \(d\) lies in the first range, non-overlap says
 the second store does not change it; the first store supplies the same final
 byte in either order. The symmetric case handles the second range. If \(d\)
 lies in neither range, both stores preserve its original byte. The cases cover
@@ -418,6 +646,141 @@ written by the other. Mnemonics, operand spellings, and unequal starting
 addresses are not enough to decide the question.
 \end{keyidea}
 
+\section{One address can stand in front of another}
+
+A0 uses an address word directly as the key of its finite map. Most ordinary
+programs on current general-purpose systems use a further abstraction. The
+instruction forms a \keyterm{virtual address}. Translation and protection
+state decide whether that address is admitted and, if so, which physical
+storage location or device it reaches.
+
+This indirection has a history in the cost gap between storage technologies.
+The Atlas one-level storage system combined a smaller fast core store with a
+larger drum store. Hardware and supervisory software moved blocks and changed
+their placement so a programmer could work in one address system instead of
+manually scheduling every transfer. The published system described both the
+automatic mechanism and its effect on instruction time.
+\autocite{kilburn1962onelevel}
+
+Calling this merely ``disk used as extra memory'' hides the lasting idea.
+Translation separates a program's name for a location from present physical
+placement. A modern operating system can use that separation to isolate
+processes, share selected pages, map files, delay physical allocation, protect
+code from writes, and place devices at controlled addresses. Moving an absent
+page in from storage is one possible policy response, not the definition of
+virtual memory.
+
+\subsection{Pages make translation finite and shareable}
+
+Suppose a model divides virtual and physical addresses into pages of \(2^k\)
+bytes. Every virtual address \(v\) has a virtual page number and an offset:
+\[
+ v=q_v2^k+o,\qquad 0\leq o<2^k.
+\]
+A page-table entry can relate \(q_v\) to a physical frame number \(q_p\) and
+carry permissions. When the entry is present and permits the requested access,
+translation produces
+\[
+ p=q_p2^k+o.
+\]
+The offset is preserved. The page number changes.
+
+Take sixteen-byte pages, so \(k=4\). Virtual address 43 decomposes as page 2,
+offset 11. If virtual page 2 maps to physical frame 7, the physical address is
+\(7\mathbin{\cdot}16+11=123\). A four-byte load beginning at 43 requests
+virtual addresses 43 through 46. They remain inside virtual page 2, so one
+entry covers the range. A four-byte load beginning at 46 crosses into virtual
+page 3 and must justify both translations and permissions.
+
+\begin{definition}[title={Checked page translation}]
+A checked translation takes a virtual address, an access kind, and translation
+state. It either returns a physical address with the required permission or
+returns a declared fault. A multi-byte access must justify every page and byte
+that its architecture requires.
+\end{definition}
+
+Permissions are predicates, not decorations. A page may permit reading but
+not writing, or data access but not instruction fetch. Presence alone does not
+authorize the operation. Conversely, an absent entry does not prove that the
+program made an arithmetic mistake; it says that the present mapping does not
+supply the requested translation.
+
+Two virtual pages can map to the same physical frame. Then different virtual
+addresses are aliases even though their numerical ranges are disjoint. A store
+through one mapping can change a later load through the other. The alias proof
+must therefore compare translated physical byte footprints, not virtual
+numbers alone.
+
+The converse also occurs. Two processes can use the same virtual number while
+their translation roots map it to different physical frames. Equality of the
+printed address does not establish shared storage across address spaces. The
+translation context is part of the state needed to answer the question.
+
+\begin{example}[title={Virtual inequality, physical equality}]
+With sixteen-byte pages, map virtual page 2 and virtual page 9 to physical
+frame 7. Virtual addresses 43 and 155 both have offset 11. Each translates to
+physical address 123. A byte store through either address is visible through
+the other, provided their permissions admit the accesses. Comparing only the
+virtual intervals would miss the alias.
+\end{example}
+
+\subsection{A fault is a transition, not a missing explanation}
+
+If an entry is absent or its permissions reject the access, the processor
+reports an architectural fault according to the selected environment. System
+software may terminate the program, create a mapping, copy a shared page,
+bring data from storage, or take another documented action. Retrying can then
+produce a different result because the handler changed translation or memory
+state.
+
+This sequence requires a larger machine than A0. It includes privilege state,
+page tables, exception metadata, handler code, and possibly storage I/O. A0
+collapses the boundary to one trapped outcome. That simplification supports
+the byte proofs in this chapter, but it cannot prove a page-fault handler
+correct or measure the time required to service a fault.
+
+Translation itself can require memory reads. Page-table entries reside in
+memory on the selected real systems, and implementations may cache recent
+translations. One program load can therefore cause implicit reads before the
+requested data byte is reached. The architectural result can remain one load
+transition even though the implementation performs several memory-system
+operations.
+
+The current RISC-V privileged specification defines page-based schemes and
+distinct page-fault and access-fault outcomes. It also leaves selected priority
+questions between misalignment and translation faults to the implementation.
+Intel's system-programming volumes likewise define paging, protection, and
+page-fault behavior for named modes. A portable claim must use the selected
+environment's rule rather than inventing one universal order of checks.
+\autocite{riscv2026priv,intel2026sdm3}
+
+\begin{warning}[title={Translation is not byte interpretation}]
+Page translation decides which underlying location an address reaches and
+whether the access is allowed. Endianness decides how bytes in the admitted
+range contribute to a multi-byte value. Either rule can be correct while the
+other is wrong.
+\end{warning}
+
+\subsection{Some mapped addresses are devices}
+
+An address space can include device registers as well as ordinary memory. A
+load may receive a device status, consume input, or acknowledge an event. A
+store may start an operation. Repeating such an access is not automatically
+safe, and merging two writes can change external behavior.
+
+This is why a range check is not a complete effect rule. The model also needs
+an address-region classification and the access behavior for that region.
+Ordinary A0 bytes are stable under repeated reads and change only through A0
+stores. A device region may violate both assumptions. Optimizers, emulators,
+and proof tools must not apply ordinary-memory identities to it without an
+explicit side-effect or idempotence premise.
+
+The distinction has an economic consequence. Treating every access as a
+device access would block useful caching and code motion. Treating a device as
+ordinary memory can lose events or issue commands twice. Region metadata and
+source-pinned rules allow tools to preserve correctness without discarding all
+optimization.
+
 \section{Memory in the two companion machines}
 
 The later RV64 slice will use distinct load and store forms to move values
@@ -425,11 +788,43 @@ between integer registers and memory. Arithmetic in the selected base forms
 uses registers. An effective address commonly combines one base register with
 an immediate.
 
+In the base RV64 forms, the effective address is the value in \code{rs1} plus
+a sign-extended twelve-bit offset. \code{LB} and \code{LBU} read one byte and
+differ in sign versus zero extension. \code{LH}, \code{LW}, and \code{LD}
+read wider values in the RV64 environment, while matching stores take low
+source-register bits. A load whose destination is \code{x0} must still perform
+the access and raise required exceptions or device side effects; discarding
+the returned value does not erase the read. \autocite{riscv2026unpriv}
+
+The RISC-V specification for instructions available to ordinary, non-privileged
+software guarantees that naturally aligned loads
+and stores do not raise an address-misaligned exception. For misaligned
+accesses, the execution environment may provide invisible support or expose a
+defined failure. Even a successful misaligned access need not have the same
+atomicity guarantee as a naturally aligned one. Thus ``RISC-V permits
+misalignment'' is too broad; the environment and claim must be named.
+
 The later x86-64 slice will include selected arithmetic forms that name a
 memory source or destination. Such a form can combine address calculation,
 memory access, and arithmetic in one decoded instruction. Its semantic rule
 must still expose the address, bytes, value width, state effects, and possible
 exception.
+
+The selected x86-64 environment uses little-endian byte order for ordinary
+integer values and supplies several effective-address components through its
+memory-operand forms. Many ordinary scalar accesses can use addresses that are
+not naturally aligned, but particular instructions and enabled checks can add
+alignment requirements. A faithful rule must consult the selected instruction
+entry, mode, and system settings instead of turning common practice into a
+universal no-fault promise. \autocite{intel2026sdm1,intel2026sdm2}
+
+This gives a more useful RISC/CISC comparison. RV64 base arithmetic keeps its
+ordinary operands in registers and uses explicit loads and stores for memory
+traffic. Selected x86-64 arithmetic can admit one memory operand. Both still
+need byte order, effective-address, translation, permission, alignment, and
+fault rules. The difference in instruction form changes where those
+obligations are combined; it does not make memory foundational on only one
+side.
 
 This comparison holds one question fixed: which included instruction forms
 may access memory? It does not say that every instruction in one architecture
@@ -478,12 +873,218 @@ What can fail? & alignment, range, permission, or selected architectural outcome
 \end{tabular}
 \end{table}
 
+\section{Memory costs have several units}
+
+Saying that memory is expensive or slow is not yet an engineering claim. A
+memory system exposes several resources, and an improvement in one can worsen
+another:
+
+\begin{itemize}
+\item \emph{capacity} is counted in bytes available at a named level;
+\item \emph{latency} is time from a specified request to a specified response;
+\item \emph{bandwidth} is bytes transferred per unit time under stated load;
+\item \emph{transfer granularity} is the number of bytes moved or reserved for
+one transaction, line, burst, or page;
+\item \emph{energy} is energy per access, per transferred bit, or over a named
+workload; and
+\item \emph{occupancy and contention} describe how requests consume finite
+queues, banks, channels, and shared paths.
+\end{itemize}
+
+These quantities are not interchangeable. A system can have high bandwidth
+for a long stream and still impose large latency on one dependent load. A
+larger transfer can use available bandwidth efficiently while wasting energy
+and nearby storage when the program needs one byte. A larger memory can hold a
+working set while taking longer or more energy to access. Every quantitative
+claim must name the level, request pattern, unit, and platform.
+
+A small expectation calculation shows why the request distribution matters.
+Suppose a named level answers in time \(t_h\) on a hit. With probability
+\(1-p\) the request hits, while probability \(p\) requires an added miss cost
+\(t_m\). Under this simplified model, the expected access time is
+\[
+ T=t_h+p\,t_m.
+\]
+The equation is a weighted average, not a universal law of caches. It assumes
+the probabilities and costs are meaningful for the workload, that the added
+miss cost is measured consistently, and that overlap or queueing has not been
+silently ignored.
+
+The sensitivity to miss probability is \(t_m\): increasing \(p\) by one
+percentage point adds \(0.01t_m\) to the expectation under the model. A rare
+event can therefore matter when its penalty is large. But an average still
+hides tails and dependence. A pointer-chasing program may wait for each load,
+while a streaming program can overlap several requests and approach a
+bandwidth limit. The same average latency does not predict both throughputs.
+
+\begin{tryit}[title={Name the unit before comparing}]
+Let \(t_h=4\) ns, \(t_m=80\) ns, and \(p=0.05\) in the simplified expectation
+model. Compute \(T\). Then double the number of independent outstanding
+requests without changing these three numbers. Explain why the equation alone
+cannot determine the new bytes-per-second throughput.
+\end{tryit}
+
+\subsection{Locality turns history into a performance prediction}
+
+Programs often reuse recently accessed locations or access neighbors. The
+first pattern is \keyterm{temporal locality}; the second is \keyterm{spatial
+locality}. A memory hierarchy exploits those regularities by retaining copies
+near the processor and transferring groups of neighboring bytes. The
+architectural map can stay unchanged while the time and energy of reaching a
+byte depend strongly on recent execution.
+
+This is a new kind of state sufficiency. A0 state is sufficient to predict the
+next architectural value, but not its execution time. Two runs with equal A0
+states can have different cache and translation state and therefore different
+costs. A timing theorem must enlarge the state or quantify over the hidden
+conditions. Chapter 16 will construct that boundary explicitly.
+
+The economic unit follows the workload. A compiler transformation may reduce
+instructions while increasing bytes transferred. A data layout may use more
+capacity to improve spatial locality. A service operator may pay for
+provisioned memory capacity, bandwidth, page-fault work, and energy through
+different parts of a system. ``Faster'' is not a conclusion until the measured
+resource and workload are fixed.
+
+\begin{example}[title={One useful byte can cause a larger transfer}]
+Suppose a hierarchy moves a 64-byte line on a miss and the program uses one
+byte before evicting it. The useful-byte fraction is \(1/64\). If the program
+soon uses all 64 bytes, the same transfer is fully used. The architectural
+load of the first byte is identical in both cases; the spatial history changes
+the economic value of the transfer.
+\end{example}
+
+Virtual memory adds other units. Page-table storage consumes bytes. A
+translation miss can cause several dependent memory reads. A page fault can
+consume handler time and data movement. Larger pages reduce the number of
+entries needed for a region but can increase internal waste and the amount of
+data tied to one mapping decision. These are tradeoffs, not arguments for one
+page size in every system.
+
+\subsection{Allocation adds regions and lifetimes to the byte map}
+
+The architectural map says which byte addresses are present. An allocator
+answers a different question: which present ranges have been assigned to
+which uses? Let an allocation record contain a base address (b), a requested
+size (n), a reserved size (r), and a lifetime status. A successful request
+must choose a range that does not overlap any live allocation. It may reserve
+more than the requested (n) bytes to satisfy alignment or bookkeeping
+rules. The difference (r-n) is one form of \keyterm{internal fragmentation}.
+It is capacity paid for but unavailable to the requesting object.
+
+Free ranges can also be separated into pieces. Their total size may exceed a
+request while no single range is large enough or suitably aligned. That
+condition is \keyterm{external fragmentation}. Thus ``32 bytes are free'' is
+not enough information to prove that one aligned 32-byte allocation can
+succeed. The locations, sizes, and alignment of the free ranges matter.
+
+Allocation is therefore a transition over metadata as well as, sometimes,
+over bytes. If a request succeeds, a free range becomes live and a handle or
+pointer is returned. If it fails, the failure frame must say whether the byte
+map and allocation records remain unchanged. When an object is freed, its
+lifetime ends even if its old bytes are not immediately cleared. A later
+allocation can reuse the same addresses. Equal numerical addresses at two
+times do not prove equal object identity.
+
+This distinction explains why the A0 byte map is necessary but insufficient
+for a full language-memory theorem. A0 can prove that a checked store changes
+exactly a stated byte range. It cannot, without allocation metadata, prove
+that the range belongs to the intended live object. Adding that metadata also
+adds economic questions: time spent finding a range, bytes lost to
+fragmentation, bytes used by the allocator itself, and work required to
+clear, move, or reuse storage. Each question needs its own state and unit.
+
+\subsection{Architectural validity is weaker than memory safety}
+
+Suppose a process has a readable page containing two adjacent allocated
+objects. A load can stay inside the mapped page yet cross from the first object
+into the second. Translation and permissions approve the bytes. The
+source-language or allocator contract may still reject the access. The ISA
+does not automatically know object bounds, lifetimes, ownership, or pointer
+provenance.
+
+This separates three predicates:
+\[
+ \begin{array}{l}
+ \mathit{mapped}(a,n),\\
+ \mathit{permitted}(a,n,\mathrm{read}),\\
+ \mathit{validObjectAccess}(a,n,\mathrm{program\ context}).
+ \end{array}
+\]
+The first says translations exist. The second says page-level policy admits
+the architectural read. The third belongs to a richer language and runtime
+model. The first two do not imply the third.
+
+An access after an object is freed gives the temporal version. Its old virtual
+address may remain mapped and may even be reused for another object. Hardware
+can successfully return bytes while the program violates its lifetime rule.
+Conversely, a language-valid access can fault temporarily if the operating
+system must establish or restore a page mapping. The layers answer different
+questions.
+
+Government product-security guidance now treats memory-safety defects as an
+industrial planning and maintenance concern, including migration, toolchain
+work, dependencies, and long-lived products. That consequence should not be
+misread as a claim that one language or hardware feature removes every memory
+risk. It shows that unchecked object access creates patching, incident, and
+transition work beyond the cost of the original instruction.
+\autocite{cisa2023memorysafe}
+
+\begin{warning}[title={Mapped does not mean safe}]
+Page translation and permissions protect regions at their declared
+granularity. They do not by themselves prove that a byte belongs to the
+intended object, that the object is still alive, or that concurrent access is
+properly synchronized.
+\end{warning}
+
 \section{The implementation boundary}
 
 The Axeyum state and memory package must implement the finite map, valid-range
 check, atomic load and store outcomes, little-endian split and join, wrapped
 effective-address calculation, and observations of changed and unchanged
 bytes. Object \obj{OP.a0.state-memory} records that obligation.
+
+The live Axeyum checkout supplies pieces, not this package. Its bit-vector
+layer can express fixed-width addresses and byte extraction. Solver terms can
+represent arrays. Verification tests parse selected LLVM loads and stores and
+exercise checked-memory questions. Those facilities do not yet define A0's
+finite domain, byte order, trap frame, canonical state record, or public
+executor. An SMT array that returns a value at every index is especially not
+the same as a finite partial map unless a separate presence predicate is
+modeled and checked.
+
+The Rust core should own that distinction. One possible public shape pairs a
+canonical ordered map of address words to bytes with constructors that reject
+out-of-width addresses and values. A checked-range function returns either the
+exact ordered address vector or a trap reason. Loads and stores consume that
+result so no later loop can discover an absent byte after beginning an
+ordinary commit.
+
+Canonical serialization must order entries by the unsigned address value and
+record the address width and explicit domain. Omitting a zero-valued entry
+would change the domain and therefore the state. A compact sparse encoding is
+allowed only when decoding reconstructs exactly which addresses are present,
+including those whose stored byte is zero.
+
+The PyO3 layer should expose construction, checked access, and display without
+duplicating split, join, or range validity in Python. A reader can ask for
+the effective address, ordered footprint, old bytes, new bytes, and outcome.
+Those fields should be views of the Rust result. If Python independently
+computes them again, agreement between the display and itself provides no check on
+the semantic core.
+
+The first milestone should use width eight and a domain small enough for
+exhaustion. It implements byte load/store, then two-byte and four-byte
+little-endian access, with holes admitted in the domain. Exhaustive tests can
+range over every width-eight source value and every starting address in a
+small fixed domain. Property tests should also vary sparse domains so the
+dense-array shortcut cannot pass unnoticed.
+
+A later symbolic route can prove the split/join identity over bit vectors and
+the frame law over declared addresses. It must connect its presence predicate
+and byte variables to the executable map. A solver result about four isolated
+byte terms does not establish the executor's address arithmetic, range check,
+or trap commit. Replay and independent negative controls close those links.
 
 Its negative controls are already suggested by the chapter. Reverse the byte
 weights. Permit a range whose last byte is absent. Partly modify memory before
@@ -513,7 +1114,7 @@ At the Python layer, the introductory exercise should expose values a reader
 can inspect without duplicating semantics. The reader supplies bytes and an
 initial state, calls the bound Rust implementation, and receives a structured
 step record. Python may print the address calculation and memory table. It
-must not recompute the successor with a second informal implementation and
+must not compute the successor again with a second informal implementation and
 call agreement with itself a check.
 
 The first solver question can stay finite and sharp: for every width-eight
@@ -573,4 +1174,85 @@ store preserves the loaded value.
 \item \textbf{Transfer.} Explain why a real-ISA memory form needs both a
 source-pinned address rule and a source-pinned failure model before it can
 refine the A0 access, even when a sample address calculation matches.
+\item \textbf{History.} Compare delay-line, cathode-ray, drum, and magnetic-core
+storage by selection method and retention. Explain why none supplies the
+architectural definition of a byte map by itself.
+\item \textbf{Physics.} Draw the word line, access transistor, capacitor, and
+bit line of the chapter's dynamic-cell miniature. State what writing, sensing,
+leakage, and refresh do without claiming that one cell is one architectural
+byte.
+\item \textbf{Explain.} Give two distinct physical states that could decode to
+the same stored bit. State the observation under which they are equal and one
+timing or reliability observation under which they may differ.
+\item \textbf{Reliability.} Calculate the parity bit for \code{10110110}.
+Flip one data bit and show detection. Then flip two bits and exhibit the limit
+of this parity rule.
+\item \textbf{Economics.} For a memory with one check bit per eight data bits,
+calculate raw-bit overhead as a fraction of data capacity. List two costs not
+captured by that fraction.
+\item \textbf{Prove.} Show that finite memories with the same domain are equal
+when they agree at every address. Explain why matching checksums would need an
+additional collision argument.
+\item \textbf{Break.} Implement absent memory as an implicit zero. Give one
+successful zero load and one invalid load that the faulty representation
+cannot distinguish.
+\item \textbf{Prove.} Reproduce the address-by-address proof that updates at
+two distinct addresses commute. Give unequal bytes that refute the conclusion
+when the addresses are equal.
+\item \textbf{Execute.} Load four bytes, store the resulting word back with
+the same rules, and verify every address of the final memory, including two
+addresses outside the range.
+\item \textbf{Break.} Construct split and join functions that agree with each
+other but both use big-endian weights. Show why their store/load round trip
+passes and why the fixed layout \code{0x12345678} rejects them for A0.
+\item \textbf{Prove.} For \(n=8\), prove that natural alignment is equivalent
+to the lowest three address bits being zero.
+\item \textbf{Execute.} With sixteen-byte pages, decide whether four-byte
+accesses beginning at offsets 0, 12, 13, and 15 remain in one page. Keep this
+test separate from natural alignment.
+\item \textbf{Design.} Give a finite memory domain with a hole for which the
+first and last requested addresses exist but a middle byte does not. Explain
+why endpoint checking fails.
+\item \textbf{Transfer.} For one misaligned RV64 load, list the behaviors the
+pinned ordinary-instruction specification permits the execution environment to select.
+Do not infer multi-byte atomicity from successful completion.
+\item \textbf{Audit.} Select one x86-64 scalar memory instruction from the
+pinned Intel manual. Record its effective-address inputs, width, alignment
+conditions, destination or source, and named exceptions for one mode.
+\item \textbf{Execute.} With sixteen-byte pages, translate virtual address 43
+when virtual page 2 maps to physical frame 7. Repeat for a four-byte range
+beginning at virtual address 46 and list every required virtual page.
+\item \textbf{Break.} Map two different virtual pages to one physical frame.
+Construct two unequal virtual addresses that reach the same physical byte and
+show how a store through one affects a load through the other.
+\item \textbf{Explain.} Give two processes the same virtual address but map it
+to different physical frames. State which additional state is needed to decide
+whether the addresses alias.
+\item \textbf{Design.} Define read, write, and execute permission predicates
+for one page-table entry. Give one mapping that is present but rejects a store.
+\item \textbf{Break.} Treat a device status register as ordinary memory. Give
+one read side effect that makes load-then-store preservation false and one
+optimization that would become unsafe.
+\item \textbf{Analysis.} With \(t_h=4\) ns, \(t_m=80\) ns, and miss
+probabilities 0.01 and 0.05, compute the simplified expected access times.
+State two workload facts the averages omit.
+\item \textbf{Economics.} A 64-byte transfer supplies 4 useful bytes for one
+layout and 48 for another. Compute each useful-byte fraction. Name the capacity
+and bandwidth costs separately.
+\item \textbf{Security.} Place two language objects in one readable page and
+construct a load that is mapped and permitted but crosses the first object's
+bound. Identify which of the chapter's three predicates rejects it.
+\item \textbf{Security.} Give an address that remains mapped after an object
+is freed and reused. Explain why page permission cannot establish the old
+object's lifetime.
+\item \textbf{Axeyum.} Specify types for a finite A0 byte map, checked range,
+ordinary load result, store result, and trap. State how canonical
+serialization distinguishes absent addresses from stored zero bytes.
+\item \textbf{Axeyum.} Design independent negative controls for reversed byte
+weights, a missing middle address, partial store on failure, and corruption
+outside the write footprint. Name the observation that catches each.
+\item \textbf{Synthesis.} State a complete memory-access contract that includes
+effective address, translation context, permission, region kind, byte order,
+alignment, success effect, trap effect, and frame. Mark which clauses A0 omits
+by design.
 \end{enumerate}

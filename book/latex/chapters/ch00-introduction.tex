@@ -20,27 +20,101 @@ This book takes them apart and puts them back together.
 \section{An old ambition with modern consequences}
 
 The wish to make calculation mechanical is older than the electronic
-computer. Binary arithmetic offered a spare alphabet. Stored-program designs
-made instructions and data available to automatic control. Instruction-set
-manuals then became contracts between hardware and software: compact enough
-for programmers to use, detailed enough for implementations to share.
+computer. In 1703, Gottfried Wilhelm Leibniz described an arithmetic that used
+only the characters 0 and 1. He showed addition, subtraction, multiplication,
+and division in that notation. The paper did not describe electronic bits or a
+modern processor. It established the narrower fact we need here: two written
+characters suffice for a positional arithmetic.
+\autocite{leibniz1703binary}
+
+The distinction matters because a symbol is not yet a physical state. Ink can
+form a 0. A relay can be open. A voltage can lie below a threshold. A magnetic
+region can point in one direction. Each medium can support two distinguishable
+conditions, but the conditions acquire the names 0 and 1 through an
+interpretation imposed by a designer. Chapter 1 studies the mathematical
+pattern. Chapters 2 and 4 ask what a machine must preserve for that pattern to
+remain usable as state and memory.
+
+In 1936, Alan Turing went in the other direction. He did not begin with a
+particular relay, tube, or numeral system. He described a person following a
+finite table of rules while reading and writing symbols on a divided tape.
+That spare construction made a procedure into a mathematical object. A finite
+description could govern an execution that had no fixed length in advance.
+\autocite{turing1936computable}
+
+Electronic builders then faced a different problem: how should a physical
+machine hold the numbers and orders that control its own work? The 1945
+Electronic Discrete Variable Automatic Computer (EDVAC) draft divided the
+machine into arithmetic, control, memory, input, and output parts. Its memory
+held words available to automatic control, and the report
+treated binary digits as a practical choice for electronic construction.
+\autocite{vonneumann1945edvac} The report did not create every element of the
+stored-program computer, and its authorship history is contested. It does show
+the abstractions being assembled into an engineering description.
+
+By 1964, the relation between the description and the machine had become an
+economic commitment. The System/360 architects designed one machine-language
+interface for six IBM models whose performance differed by a factor of 50.
+They identified compatibility across the family as a design objective while
+also serving commercial, scientific, real-time, and logical work.
+\autocite{amdahl1964system360} A customer could buy a larger implementation
+without treating every existing program as scrap. The instruction set had
+become a durable boundary between investment in software and change beneath
+it.
+
+That boundary is one meaning of \keyterm{computer architecture}: the features
+of a computer visible to the programs that use it, separated from the
+engineering choices used to realize those features. A register can remain
+visible across many processor designs. One design may use a simple pipeline;
+another may break the same instruction into internal operations and execute
+them out of order. If both preserve the specified architectural effect, the
+same machine program can run on both.
+
+The architectural boundary buys freedom on each side. Hardware designers can change
+circuits without asking every application developer to rewrite a program.
+Software developers can target a specified interface without choosing a
+particular cache or execution unit. The price is constraint. Once customers
+depend on a behavior, changing it may cost more than preserving an awkward
+rule for another generation. Compatibility is therefore neither clutter nor
+purity. It is a technical property with owners, beneficiaries, and migration
+costs.
 
 The present problem is not that those contracts have disappeared. It is that
 our claims about programs now travel through more layers. A compiler rewrites
-machine code. A superoptimizer searches for a shorter sequence. A binary
+machine code. A \keyterm{superoptimizer} is a tool that searches instruction
+sequences for a program that improves a declared cost. A binary
 translator moves work between architectures. A solver reports that no
-counterexample exists. A proof checker receives a certificate produced by yet
+counterexample exists. The word \keyterm{counterexample} means an input that
+exposes a difference between the claim and the computed behavior. A proof
+checker receives a certificate produced by yet
 another program. At every boundary, a correct calculation can answer the
 wrong question.
+
+The practical cost appears at several places. A compiler developer spends
+time defining which rewrites preserve the language and target-machine rules.
+A processor vendor spends design and validation effort on every architectural
+case software may exercise. A cloud operator pays for instruction throughput,
+memory traffic, and energy, not for the elegance of the instruction spelling.
+A formal-methods team pays to build semantics and proof infrastructure before
+it can retire a class of tests. These costs use different units. Combining
+them into one vague claim of efficiency conceals the decision.
 
 The superoptimizer made that tension explicit. Massalin searched instruction
 sequences for the smallest implementation of a function in 1987.
 \autocite{massalin1987} Later systems made the search broader and more
-systematic, from peephole superoptimization to parallel hierarchical search.
+systematic. \keyterm{Superoptimization} is this search for an optimal program
+inside a declared program language, from small peephole replacements to
+parallel hierarchical search.
 \autocite{bansalaiken2006,lubodik2025} The modern question is no longer only
 whether a machine can discover good code. It is what the word \emph{good}
 means, whether the search covered the declared language, and what evidence a
 skeptical reader can check afterward.
+
+The word \emph{optimal} has the same problem. It may mean fewest instructions,
+fewest encoded bytes, least estimated latency on one processor, lowest energy
+under a measurement protocol, or lowest monetary cost for a workload. Each
+choice orders programs differently. A proof can establish a minimum only
+after the candidate programs and the ordering have been fixed.
 
 \begin{keyidea}[title={The book's central question}]
 What must be defined, executed, related, and checked before a statement about
@@ -53,6 +127,16 @@ observation. If one is said to refine the other, we need the relation between
 different machine states. If one is said to be minimal, we need the candidate
 language and cost. The proof machinery comes last because it can only preserve
 the meaning supplied to it.
+
+\begin{goingdeeper}[title={\iconGoingDeeper\ A stack of interpretations}]
+The same physical event can be described at several levels. A circuit crosses
+a voltage threshold. The designer interprets the resulting stable condition
+as a bit. A group of bits is interpreted as an instruction word. A decoder
+interprets fields as an operation and operands. The operational semantics
+interprets that decoded instruction as a state transition. A program
+interprets many transitions as a computation. No level is made false by the
+level below it, but each connection carries assumptions that must be stated.
+\end{goingdeeper}
 
 \section{A machine small enough to finish}
 
@@ -94,6 +178,31 @@ wrong neighbors easy to inspect.
 
 \section{Two companions, not two stereotypes}
 
+The reduced-instruction movement arose from a concrete engineering argument,
+not from a rule that fewer mnemonics must be better. During the 1970s and
+early 1980s, researchers asked whether complex instructions justified the
+control hardware, design time, and chip area they consumed. The Berkeley RISC
+I project used the growing capacity of very-large-scale integration (VLSI) to
+build a small processor around simple instructions, a large register file,
+and pipelined execution. Its 1981 paper reported the instruction set together
+with the chip resources used to realize it.\autocite{patterson1981risci}
+
+The opposing category was less tidy. Existing machines had acquired rich
+instructions for many reasons: compact code, expensive memory, convenient
+assembly programming, compatibility, and the use of microcode to implement a
+complex visible operation with simpler internal steps. Calling all of them
+\emph{complex instruction set computers} turned a varied history into the
+other side of a debate. The label can still point to useful tendencies. It
+cannot replace the rule for one instruction.
+
+Technology also moved beneath the argument. Transistors became more abundant.
+Caches reduced the apparent cost of some memory accesses. Compilers improved.
+Modern x86-64 processors may translate a visible instruction into internal
+operations, while RISC-V permits optional extensions and variable-length
+encodings. The old labels no longer predict a pipeline by themselves. They
+remain useful when attached to a named choice, such as whether arithmetic can
+read memory directly or whether an instruction has a fixed base length.
+
 RISC-V and x86-64 are often placed on opposite sides of a reduced-versus-
 complex instruction-set contrast. The labels are historically useful, but
 they cannot supply an instruction's meaning. They do not tell us which
@@ -121,6 +230,32 @@ operation, and processor timing table. The name RISC-V will never silently mean 
 standard or proposed extension. Each load-bearing example will name the
 instruction forms, state, source revision, privilege assumptions, and ABI
 convention it uses.
+
+Those boundaries reflect two different economic histories. The Intel manuals
+describe a programming environment accumulated across a long line of
+compatible processors. The current manual set separates basic architecture,
+instruction reference, system programming, and model-specific state because
+no small chapter could responsibly make all of those layers implicit.
+\autocite{intel2026sdm1,intel2026sdm2} Software compatibility gives that
+accumulated interface value. It also makes removal and redesign expensive.
+
+RISC-V began with a chance to choose a new base. Its specification states that
+the ISA was designed for research and education and for use as a free, open
+industry standard. It separates small base ISAs from optional extensions and
+tries not to require one processor implementation style or implementation
+technology.\autocite{riscv2026unpriv} Openness changes who may implement the
+standard. It does not make every implementation, core, or software toolchain
+identical. The word \keyterm{toolchain} means a connected set of programs that
+turns source code into a runnable program. It includes the compiler, assembler, and
+the program that joins separately built parts. Compatibility still depends on
+a pinned base, extensions, privilege rules, platform, and ABI.
+
+The comparison therefore has an economic dimension without becoming a market
+contest. One architecture carries a large installed software inheritance. The
+other makes a stable specification available for many implementations and
+custom extensions. Both must spend engineering effort on conformance,
+toolchains, operating systems, and application software. This book compares
+semantic features, then asks what each feature requires from those actors.
 
 \begin{warning}[title={Family labels are not causal explanations}]
 Do not explain an effect by saying only that an architecture is RISC or CISC.
@@ -158,9 +293,10 @@ their inputs and show that their executions produce related outputs.
 The difference between a test and a proof begins here. Running both programs
 on ten inputs may reveal an error. Passing ten inputs does not settle a claim
 about every allowed state. For small domains we may enumerate all cases. For
-larger finite domains we may ask a solver for a \keyterm{counterexample}: one
-input on which the programs differ. If none exists, we must still ask what formula the solver received, which semantics
-produced it, and what independently checkable evidence supports the result.
+larger finite domains we may ask a solver for a counterexample. If none exists,
+we must still ask what formula the solver received and which semantics produced
+it. We must also ask what evidence an independent program can inspect and
+reject when damaged.
 
 The machinery is valuable only after the statement is right. A perfect proof
 of a formula about the wrong flags or a reversed byte order proves the wrong
@@ -212,10 +348,95 @@ Assurance accumulates only when every connection is identified.
 \begin{example}[title={A correct proof of the wrong byte order}]
 Suppose a generator reverses the weights used to join four memory bytes. A
 solver and certificate checker may correctly establish every property of that
-generated function. The result still does not prove a claim about A0
-little-endian loads. The failure lies before the solver, at the connection
+generated function. The result still does not prove a claim about A0 loads.
+The term \keyterm{little-endian} means that the least-valued byte goes at the
+lowest address. The failure lies before the solver, at the connection
 between the printed semantics and the generated problem.
 \end{example}
+
+\subsection{Four claims that look alike in assembly}
+
+One sequence on the page can support several kinds of sentence. Their
+quantifiers determine what evidence can settle them. Let $S$ be the allowed
+starting states, let $P(s)$ be the outcome of running program $P$ from state
+$s$, and let $O$ be the observation chosen by the client.
+
+The first sentence asks for a witness:
+
+\[
+  \exists s\in S.\; O(P(s))=7.
+\]
+
+One execution can settle it. If we exhibit an allowed state and replay the
+program to the observed value 7, the witness establishes existence. Testing
+another thousand states does not change the logical shape.
+
+The second sentence asks for correctness over the whole input set:
+
+\[
+  \forall s\in S.\; O(P(s))=f(s).
+\]
+
+No selected example settles this statement unless $S$ contains only that
+example. A proof needs a reason that covers every allowed state. For a small
+finite set, complete enumeration may provide that coverage. For a larger set,
+an algebraic argument, induction, invariant, or checked refutation of the
+negation may do the work.
+
+The third sentence compares programs:
+
+\[
+  \forall s\in S.\; O(P(s))=O(Q(s)).
+\]
+
+The equation states observational equivalence under the chosen start set and observation.
+The equation does not compare source text, instruction count, execution time,
+or unobserved registers. Enlarging $O$ strengthens the claim because the
+programs must agree on more. Shrinking $S$ weakens it because fewer starts
+remain to be checked.
+
+The fourth sentence compares one program with an entire language of cheaper
+candidates. If $L_{<c}$ contains every allowed program whose declared cost is
+less than $c$, \keyterm{minimality} is the absence of a cheaper equivalent. It
+has the form
+
+\[
+  \neg\exists Q\in L_{<c}.\;
+  \forall s\in S.\; O(P(s))=O(Q(s)).
+\]
+
+The statement rules out an equivalent cheaper program. A search that fails to
+find one is not enough by itself. We must know that the generator represented
+every member of $L_{<c}$, that the semantics and observation match the printed
+claim, and that the final evidence rules out the resulting existential
+formula.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}p{0.22\textwidth}p{0.32\textwidth}p{0.34\textwidth}@{}}
+\toprule
+Claim & Smallest decisive evidence & Common mistake \\
+\midrule
+Existence & One valid witness and replay & Treating many failures as nonexistence \\
+Universal correctness & An argument or check covering all allowed starts & Treating a test suite as the domain \\
+Equivalence & All starts under one declared observation & Comparing only the intended output \\
+Minimality & An upper-bound witness plus exclusion of every cheaper candidate & Reporting that a search found nothing \\
+\bottomrule
+\end{tabular}
+\caption{The quantifier determines what kind of evidence can settle a claim.}
+\label{tab:intro-claim-shapes}
+\end{table}
+
+Table~\ref{tab:intro-claim-shapes} is a compact map for the rest of the book.
+The important distinction is not whether a solver was used. It is whether the
+evidence matches the logical burden of the sentence.
+
+\begin{tryit}[title={\iconTryIt\ Change one quantifier}]
+Take the claim ``program $P$ returns 0 for every four-bit input.'' Replace
+``every'' with ``some.'' Then replace the output 0 with ``the same output as
+$Q$.'' Write the three formulas. Name the smallest decisive evidence for each
+one. Give one test result that would leave each claim unsettled.
+\end{tryit}
 
 \section{The two proofs}
 
@@ -241,6 +462,30 @@ damaged trace, or truncated certificate must be rejected for the expected
 reason. This negative control cannot prove the original statement. It can show
 that the route distinguishes at least one precise error from success.
 
+Why separate production from checking? Discovery and verification often have
+different costs. Finding a program may require exploring millions of
+candidates. Checking the program only requires executing its few instructions
+and comparing the result with the specification. Finding a contradiction in a
+large Boolean formula may consume substantial solver time. Checking a
+well-formed proof certificate can follow a narrower sequence of local steps.
+The expensive search is then repeatable without requiring every reader to
+trust the search program's heuristics.
+
+The separation resembles manufacturing inspection, but the analogy stops at
+an important boundary. A physical inspection samples or measures an object
+that may vary from the next object produced. A proof checker reads a finite
+symbolic artifact under fixed rules. If it checks every required inference,
+its coverage is determined by the proof system, not by a sampling rate. The
+remaining risks lie in the checker, the proof system, the formula generator,
+and the connection between that formula and the machine claim.
+
+This division also changes engineering economics. A team can spend heavily on
+one proof-producing tool while keeping the trusted checker small enough to
+review, test, and reproduce elsewhere. The smaller trusted base does not make
+the whole route correct by decree. It gives reviewers fewer lines and rules on
+which the final acceptance depends. Chapter 14 will put exact trust classes on
+these routes.
+
 The two proofs also fail differently. A reader argument may omit a case or use
 an unstated premise. A machine route may encode the wrong operation, search an
 incomplete candidate language, accept a damaged certificate, or lose the
@@ -256,6 +501,14 @@ usually argues by contradiction: assume a cheaper candidate exists, encode
 that existential claim, and refute every candidate in the declared language.
 The shape of the proof follows the quantifier in the claim.
 \end{proofkit}
+
+\begin{warning}[title={Checking is not free certainty}]
+A small checker can still implement the wrong proof rule. A valid certificate
+can still concern a formula generated from the wrong instruction semantics.
+The value of independent checking is narrower: it removes the need to trust
+the producer's search procedure for the inferences recorded in the artifact.
+Controls and semantic review must cover the remaining connections.
+\end{warning}
 
 \section{The route through the book}
 
@@ -439,6 +692,68 @@ computation can later gain a certificate. A false conjecture can be replaced
 by its smallest counterexample. The prose must then change where the evidence
 changes, but the reader never has to infer that a successful command silently
 upgraded the kind of claim being made.
+
+\section{Exercises}
+
+These exercises establish habits used throughout the book. Each answer should
+name the object, scope, evidence, and nearest excluded case. A favorable output
+alone is not a complete answer.
+
+\begin{tryit}[title={\iconTryIt\ Reproduce: follow the interpretation stack}]
+Write the four-bit pattern 1011 on paper. Give it three interpretations: an
+unsigned integer, a signed two's-complement integer, and an instruction field
+whose value selects operation 11. Which facts belong to the pattern itself?
+Which enter only with an interpretation? Then name one physical medium that
+could store the pattern and the threshold or distinction needed to recover
+each bit.
+\end{tryit}
+
+\begin{tryit}[title={\iconTryIt\ Break: enlarge the observation}]
+Program $P$ adds 1 to $r_0$. Program $Q$ adds 1 to $r_0$ and clears $r_1$.
+Begin with an observation that returns only $r_0$, then add $r_1$, the carry
+bit, and the number of executed instructions one at a time. For each
+observation, decide whether equivalence survives. Give the smallest starting
+state that separates the programs when it does not.
+\end{tryit}
+
+\begin{tryit}[title={\iconTryIt\ Classify the claim}]
+Classify each sentence as existence, universal correctness, equivalence,
+minimality, or none of those:
+\begin{enumerate}
+\item[(a)] This sequence returns 7 on input 3.
+\item[(b)] Some three-instruction sequence returns 7 on input 3.
+\item[(c)] These sequences agree on all 8-bit inputs.
+\item[(d)] No two-instruction sequence computes the function on all 8-bit inputs.
+\item[(e)] This sequence ran faster in one benchmark trial.
+\end{enumerate}
+State the additional scope that sentence (e) needs before it can support a
+comparison.
+\end{tryit}
+
+\begin{tryit}[title={\iconTryIt\ Attack: the checker that always accepts}]
+A checker reads a certificate file and exits successfully without inspecting
+its contents. The correct certificate passes. Explain why that positive result
+provides no useful evidence about the checker. Design one negative control,
+state the expected failure, and explain what remains untested even if the
+control fails as expected.
+\end{tryit}
+
+\begin{tryit}[title={\iconTryIt\ Transfer: separate architecture from implementation}]
+Choose one instruction from a processor manual. List its architectural inputs,
+outputs, and exceptional cases. Then list three implementation choices the
+manual permits a processor designer to change without changing that visible
+effect. If the manual does not make the separation clear, record the exact
+question you would need another source to answer.
+\end{tryit}
+
+\begin{tryit}[title={\iconTryIt\ Generalize: price a compatibility choice}]
+Suppose a vendor wants to remove one rarely used instruction. Name the parties
+who might bear the migration cost: processor designers, compiler teams,
+operating-system developers, library vendors, application owners, and users
+with old binaries. Choose two parties and give a concrete unit for each cost.
+Do not decide whether removal is good until the measurement and compatibility
+scope are stated.
+\end{tryit}
 
 At present, the mature solver machinery is ahead of the architectural layers
 this revised book requires. The missing work is stated plainly. Axeyum must

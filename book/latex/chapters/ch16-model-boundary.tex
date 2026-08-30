@@ -66,6 +66,109 @@ translation and stable permissions. The extension may reveal that an earlier
 claim needed a stronger premise. That is a correction, not a failure of the
 method.
 
+\subsection{Abstraction is a relation between questions and answers}
+
+The idea has roots deeper than computer architecture. Mechanics replaces a
+body by a point mass when shape is irrelevant to the question. Circuit theory
+replaces a region of matter by voltage, current, resistance, and capacitance.
+A finite-state machine replaces a physical controller by states and labeled
+transitions. In every case, the abstraction is useful because selected
+observations are preserved, not because the omitted world has ceased to
+exist.
+
+Computer science makes that choice unusually explicit. Let \(C\) be a set of
+concrete states, \(A\) a set of abstract states, and
+
+\[
+  \alpha:C\longrightarrow A
+\]
+
+an abstraction function. Two concrete states may map to one abstract state.
+The map forgets distinctions. That forgetting is safe for a claim only if the
+claim's observation also forgets them. If \(c_1\) and \(c_2\) have the same
+architectural registers and memory but different cache state, an architectural
+observation may identify them. A cache-timing observation may not.
+
+The same point can be stated without requiring a function. A relation
+\(R\subseteq C\mathbin{\times}A\) can connect several concrete
+representations to one abstract meaning. A soundness obligation then has the
+familiar simulation shape: when \(c\,R\,a\) and the concrete system moves to
+\(c'\), the abstract system must make zero or more allowed moves to some
+\(a'\) with \(c'\,R\,a'\). The relation, allowed stuttering, and observation
+determine what has been hidden.
+
+\begin{proofkit}[title={The commuting square at a model boundary}]
+Begin with related states \(c\,R\,a\). Take one concrete step
+\(c\longrightarrow_C c'\). Find an abstract execution
+\(a\longrightarrow_A^* a'\) and prove \(c'\,R\,a'\). Finally show that the
+declared observations agree. If the concrete step changes a distinction that
+the abstract observation cannot express, either prove the distinction is
+irrelevant to this claim or enlarge the abstract state and observation.
+\end{proofkit}
+
+This square explains both the power and the danger of a model. Once it
+commutes, infinitely many physical configurations may be handled through one
+small theorem. When it does not commute, a proof inside the abstract model may
+still be impeccable while saying nothing about the concrete case that broke
+the connection.
+
+\subsection{Conservative extension is a theorem, not a design intention}
+
+Suppose \(M_0\) is the scalar model and \(M_1\) adds component \(q\). An
+embedding \(E:S_0\rightarrow S_1\) chooses the \(M_1\) representation of every
+old state. For old instruction \(I\), the central obligation is
+
+\[
+  s\mathrel{\longrightarrow_{0,I}}s'
+  \quad\Longleftrightarrow\quad
+  E(s)\mathrel{\longrightarrow_{1,I}}E(s').
+\]
+
+The right side must include the new component's intended value. If \(q\) is a
+rounding mode, an integer instruction should preserve it. If \(q\) is a
+leakage trace, an old load may append an event, so exact state equality is the
+wrong claim. The embedding theorem may instead compare an old observation
+with a projection of the richer state. The form of conservativity therefore
+depends on what the extension makes visible.
+
+\begin{proofkit}[title={Proposition: transport of an old invariant}]
+Let \(P\) be an invariant of the old transition system. Assume that every old
+initial state embeds as a new initial state and that every new step on an old
+instruction from an embedded state reaches another embedded state exactly as
+the old step does. Then \(P(E^{-1}(s))\) holds on every embedded state reached
+by an old program in the new system.
+\end{proofkit}
+
+\begin{proofkit}[title={Reader proof}]
+Use induction on the length of the new execution. The initial-state premise
+gives the base case. In the step case, the conservative-step premise produces
+the corresponding old successor. Apply the old invariant's preservation
+lemma, then embed that successor. The proof fails immediately if a new
+transition can enter an unembedded state during the old program.
+\end{proofkit}
+
+The proposition is modest but practical. It tells an implementer exactly why
+regression tests alone are insufficient. Tests sample states. Conservative
+extension quantifies over every admitted old state and instruction. Tests can
+attack the theorem; they cannot silently replace its universal premise.
+
+\subsection{Model cost is paid at construction and at every claim}
+
+Richer models can answer richer questions, but they create more states,
+transitions, cases, serialized fields, and proof obligations. That cost is not
+merely solver time. Engineers must review specifications, maintain decoders,
+update test generators, investigate counterexamples, and decide whether old
+evidence remains applicable. An extension that doubles a state record may
+multiply the reachable combinations by far more than two.
+
+The economic choice is therefore claim-driven. A compiler team proving a
+scalar arithmetic rewrite may not need cache replacement state. A
+cryptographic library evaluating leakage may need address and branch traces
+but not an exact cycle model. An operating-system team changing page tables
+needs translation and invalidation behavior that an application proof can
+assume. The smallest adequate model reduces both false confidence and needless
+verification expense.
+
 \section{Floating point adds an arithmetic environment}
 
 An integer word represents one residue modulo a power of two, with optional
@@ -91,6 +194,93 @@ small result. Then \((x+y)+(-x)\) can differ from
 \(x+(y+(-x))\). A proof that rewrites by real-number associativity would be
 invalid for that floating-point operation.
 \end{example}
+
+A concrete three-bit-significand example makes the lost law visible. Use
+binary arithmetic with round-to-nearest, ties-to-even, and a wide enough
+exponent range. Let \(x=4\), \(y=1/2\), and \(z=-4\). The exact sum
+(4+1/2) lies halfway between the adjacent representable values (4) and
+(5); ties-to-even selects (4). Thus
+
+\[
+  \mathop{\mathrm{fl}}(\mathop{\mathrm{fl}}(x+y)+z)=0.
+\]
+
+But (y+z=-7/2) is representable, and adding (4) gives (1/2). Hence
+
+\[
+  \mathop{\mathrm{fl}}(x+\mathop{\mathrm{fl}}(y+z))=1/2.
+\]
+
+Nothing random occurred. Each operation followed one exact rounding rule.
+The difference arose because a finite representation was applied at two
+different points in the expression tree.
+
+\subsection{Representation, rounding, and error are different objects}
+
+A finite binary value has the conceptual form
+
+\[
+  (-1)^s\,m\,2^e,
+\]
+
+with restrictions on the significand \(m\) and exponent \(e\). A concrete
+format encodes these pieces into fields and reserves patterns for zeros,
+infinities, and NaNs. A semantic account must separate the bit encoding, the
+mathematical value or class it denotes, the exact real operation, and the
+rounding function that returns to the format. Collapsing these levels makes it
+easy to prove a theorem about real addition and accidentally apply it to a
+rounded instruction.
+
+Goldberg's 1991 tutorial organized floating-point arithmetic around precisely
+these system consequences: representation error, guard digits, cancellation,
+exact rounding, special values, exception handling, languages, and compilers
+\autocite{goldberg1991floating}. IEEE 754 did not merely choose field widths.
+It standardized operations and rounding behavior so that programs could rely
+on a shared arithmetic contract across conforming systems
+\autocite{ieee7542019}.
+
+If \(x\) is a nonzero exact real result and \(\widehat{x}\) its represented
+result, relative error measures
+
+\[
+  \frac{|\widehat{x}-x|}{|x|}.
+\]
+
+This measure is useful away from zero, but it does not replace a bit-level
+specification. Near underflow, for signed zero, and for NaNs, a numerical error
+bound and an encoding observation answer different questions. A proof package
+may need both: one theorem about exact instruction bits and another about the
+error of a larger numerical algorithm.
+
+Exception flags add history. Two computations can finish with the same result
+bits while only one raises inexact, overflow, underflow, division-by-zero, or
+invalid-operation state. If client code reads the flags, result-only
+equivalence is too weak. If the environment traps on a selected exception,
+the flag becomes a control-flow boundary rather than passive metadata.
+
+\subsection{Reproducibility is a contract with a cost}
+
+Parallel hardware and optimizing compilers make reassociation economically
+tempting. A balanced sum has less dependency depth than a left-to-right sum.
+Vector lanes can accumulate partial values concurrently. Fused operations can
+round once where separate operations round twice. These changes may improve
+throughput or accuracy for a chosen workload, yet they need not reproduce the
+same bits as the original evaluation order.
+
+Industrial users therefore choose among contracts. A strict contract can fix
+format, rounding mode, expression grouping, exception behavior, and perhaps
+the treatment of subnormal values. A numerical contract can permit different
+bits while bounding error. A statistical application may accept a tolerance
+on a final quantity. A debugging or scientific-reproduction workflow may
+require bitwise repeatability across runs and machines. None is universally
+best; each has a different optimization surface and validation cost.
+
+The proof should mirror that choice. Bit equality calls for a semantics of
+every rounding point. An error theorem calls for assumptions about magnitudes,
+conditioning, and accumulated error. Reproducibility across thread counts
+calls for a fixed reduction tree or an order-independent method. Writing
+``approximately equal'' without a metric, tolerance, and domain is not a
+weaker theorem. It is no theorem at all.
 
 An A0 floating-point extension would need floating registers or a declared
 reuse of integer registers, supported formats, operation semantics, rounding
@@ -140,6 +330,84 @@ controls for inactive lanes, tail elements, lane order, and masked faults. Old
 archived shuffle or bit-manipulation artifacts may inform tests, but they do
 not define the new package's semantics or establish its claims.
 
+\subsection{One vector instruction contains several element classes}
+
+The ratified RISC-V vector extension gives a useful concrete inventory. It
+adds 32 vector registers and control state including vector length, vector
+type, a restart position, fixed-point rounding state, and saturation state
+\autocite{riscv2026vector}. For one instruction, element indices can be
+partitioned into prestart, active, inactive, and tail classes. The partition
+depends on the restart index, current vector length, mask, element width, and
+register grouping.
+
+This taxonomy prevents an imprecise rule such as ``apply the scalar operation
+to every lane.'' An active element performs the operation and may raise an
+exception. An inactive masked element does not perform the operation. A tail
+element lies beyond the current vector length. Prestart elements precede the
+restart position after a resumable trap. Destination policies say whether
+inactive and tail elements remain undisturbed or may take an allowed agnostic
+value.
+
+The agnostic policy is a direct meeting of semantics and implementation cost.
+If inactive elements had to remain unchanged, a processor using register
+renaming might need to read and copy values from an old physical destination
+register. Permitting those values to be overwritten can remove that work when
+software promises not to observe them. The looser semantic result buys
+implementation freedom, but it also forbids a proof from assuming convenient
+zeroes or stable old values.
+
+\begin{table}[htbp]
+\centering
+\caption{Element classes require different proof obligations.}
+\begin{tabular}{@{}p{0.18\textwidth}p{0.29\textwidth}p{0.42\textwidth}@{}}
+\toprule
+Class & Defining condition & Required argument \\
+\midrule
+Prestart & index below restart position & old destination is preserved; no element exception \\
+Active & in body and mask true & scalar operation, address, result, and possible fault are correct \\
+Inactive & in body and mask false & no operation or fault; destination follows mask policy \\
+Tail & index at or beyond vector length & no operation or fault; destination follows tail policy \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For a vector XOR reduction, let \(A_j\) be the sequence of input indices
+assigned to lane \(j\). A suitable cut-point invariant is
+
+\[
+  v_j=\mathop{\mathsf{xor}}_{i\in A_j}M[p+8i]
+\]
+
+for every active accumulator lane, together with a disjoint-union statement
+that the \(A_j\) cover exactly the processed prefix. The horizontal reduction
+then uses associativity and commutativity to merge lane folds. Memory safety
+still needs separate range facts for each active address. Algebra cannot prove
+that a masked-off load did not fault unless the vector semantics says it was
+not performed.
+
+\subsection{Scalable length changes what a binary promises}
+
+In a fixed-width vector ISA, the binary can name a width known during
+compilation. In a vector-length-agnostic design, one binary can operate across
+implementations with different physical vector lengths. Software repeatedly
+requests an element count, receives the length chosen for the next strip, and
+advances by that amount. The invariant quantifies over the chosen length
+rather than baking one lane count into the theorem.
+
+This flexibility changes validation. Testing on one implementation exercises
+only its length choices. A universal proof must cover every permitted length,
+including zero where allowed, short final strips, masks, overlaps, and restart
+positions. A compiler cost model must also decide when setup, masking, and
+horizontal reduction repay their overhead. A vector instruction count is not
+a speedup theorem; data layout, memory bandwidth, dependency chains, and
+frequency effects remain outside that count.
+
+The business value can be large because one maintained kernel may span a
+family of implementations. So can the failure cost: a tail bug occurs exactly
+where production inputs stop aligning with the most frequently benchmarked
+length. The proof boundary should make the rare path as explicit as the full
+vector path.
+
 \section{Concurrency replaces one trace with an event structure}
 
 The book's executions are single-threaded sequences. At each step one
@@ -181,6 +449,108 @@ one successor at a time. A counterexample is an event graph with a forbidden
 or surprising outcome, and replay means validating every event and relation
 against the memory model.
 
+\subsection{A four-event litmus test changes the semantic object}
+
+Let shared locations \(x\) and \(y\) begin at zero. Two threads execute
+
+\[
+\begin{array}{ll}
+\hbox{Thread 0:} & x:=1;\quad r_0:=y,\\
+\hbox{Thread 1:} & y:=1;\quad r_1:=x.
+\end{array}
+\]
+
+Name the writes \(W_x\) and \(W_y\), and the reads \(R_y\) and \(R_x\).
+Program order gives \(W_x\mathrel{\mathsf{po}}R_y\) and
+\(W_y\mathrel{\mathsf{po}}R_x\). Initial writes \(I_x\) and \(I_y\) supply
+zero. The outcome \(r_0=r_1=0\) chooses reads-from edges
+\(I_y\mathrel{\mathsf{rf}}R_y\) and
+\(I_x\mathrel{\mathsf{rf}}R_x\).
+
+Under sequential consistency, one total order must extend both program-order
+edges and explain both reads. For \(R_y\) to read zero, it must precede
+\(W_y\) in that order. For \(R_x\) to read zero, it must precede \(W_x\).
+Combining those requirements gives
+
+\[
+ W_x < R_y < W_y < R_x < W_x,
+\]
+
+an impossible cycle. The all-zero outcome is therefore forbidden by
+sequential consistency. A weaker architectural model may permit it because
+stores can become visible to the other thread after the local following load.
+
+\begin{proofkit}[title={Cycle proof for the store-buffering outcome}]
+Do not argue from wall-clock phrases such as ``the writes happen first.'' Name
+the events and relations. Derive each order edge from program order or the
+chosen read value. Compose the four strict edges. Irreflexivity of a strict
+total order rejects the cycle. For a weaker model, identify exactly which
+cross-thread order edge is absent rather than declaring the hardware
+``out of order.''
+\end{proofkit}
+
+This tiny program is a \keyterm{litmus test}: a small concurrent program with
+a selected final condition used to distinguish memory models or probe
+hardware. Litmus tests do not prove a complete model correct. They reveal
+specific allowed or forbidden outcomes and are especially effective as
+negative controls for a formal rule.
+
+\subsection{Axiomatic and operational models answer the same question differently}
+
+An operational model describes machines that move: buffers receive writes,
+messages propagate, and instructions commit under transition rules. An
+axiomatic model first proposes an execution graph and then accepts it only if
+relations such as program order, reads-from, coherence order, and from-read
+meet global constraints. The first style supports stepwise intuition. The
+second can state forbidden cycles compactly.
+
+The two presentations need an equivalence theorem if a tool uses one while an
+explanation relies on the other. Work on x86-TSO provided both an abstract
+machine with store buffers and an axiomatic account, together with a
+mechanized relationship and litmus-test validation
+\autocite{owens2009x86tso}. This history matters because vendor prose, observed
+processors, and formal models did not automatically coincide. A memory model
+is a negotiated architectural contract, not a transcript of one laboratory
+run.
+
+Coherence is also narrower than consistency. A coherence relation orders
+writes to one location. It does not by itself determine the order between a
+write to \(x\) and a read of \(y\). Reads-from says which write supplied a
+read's value. From-read connects that read to later writes in coherence order.
+Architectural rules constrain combinations of these relations. Treating all
+of them as one vague ``memory order'' hides the very distinction a weak-memory
+proof must use.
+
+\subsection{Language, compiler, and hardware contracts must compose}
+
+A programmer normally writes atomics in a source language, not raw memory
+events. The language assigns meaning to atomic orders and data races. A
+compiler maps those operations to target instructions and fences. The
+architecture constrains hardware executions. Correctness therefore requires a
+three-level argument:
+
+\begin{enumerate}
+\item the source execution satisfies the language memory model;
+\item the compilation scheme maps every source constraint to adequate target
+      operations;
+\item every permitted target execution corresponds to a permitted source
+      behavior under the stated relation.
+\end{enumerate}
+
+A data-race-free theorem may let ordinary code recover a simpler reasoning
+model under specific synchronization premises. It does not make races
+harmless or erase the compiler layer. Likewise, adding a fence can reduce the
+allowed hardware behaviors, but its placement and kind must match the source
+ordering being implemented.
+
+Industrial cost appears in both directions. Stronger ordering can simplify
+reasoning yet restrict compiler and hardware scheduling. Weaker ordering can
+enable performance but transfers complexity to language designers, compiler
+writers, library implementers, verification tools, and application
+programmers. The economic question is not merely how many cycles a fence
+costs. It includes the engineering cost of preventing, reproducing, and
+diagnosing outcomes that arise only under rare interleavings.
+
 \section{Privilege and virtual memory put addresses in context}
 
 Our scalar memory maps addresses directly to bytes and checks whether a range
@@ -216,6 +586,92 @@ may enter a handler with saved state. Returning from that handler has its own
 privilege and restoration rules. A proof that assumes uninterrupted procedure
 execution must state that premise or model the interference.
 
+\subsection{Translation is a partial stateful computation}
+
+A useful abstract translation relation has the form
+
+\[
+  \mathsf{translate}(S,v,k,m)
+  \in
+  \mathsf{Ok}(p,a,S')\;\cup\;\mathsf{Fault}(f,S').
+\]
+
+Here \(S\) contains privileged and translation state, \(v\) is a virtual
+address, \(k\) is the access kind such as read, write, or execute, and \(m\) is
+the current mode or address-space identity. Success returns a physical address
+\(p\), attributes \(a\), and possibly updated state \(S'\). Failure returns a
+typed fault \(f\). Allowing \(S'\) matters when translation updates accessed
+or dirty information or fills a translation cache.
+
+Even an abstract function must define page offset and page identity. For a page
+size \(2^q\), write
+
+\[
+  v=2^q\,\mathsf{vpn}(v)+\mathsf{off}(v),
+  \qquad 0\leq\mathsf{off}(v)<2^q.
+\]
+
+A successful mapping replaces the virtual page number with a physical frame
+number and preserves the offset. Permission checks depend on the whole range,
+not only its first byte: a multi-byte access can cross a page boundary and
+require two translations with different outcomes.
+
+\begin{warning}[title={A translated address is not yet an authorized access}]
+A page-table walk may produce a physical address while permissions reject the
+access kind. A permission may allow data reads but not instruction fetch, or
+allow a privileged mode but not a user mode. Keep translation, authorization,
+and physical-memory access as distinct proof steps.
+\end{warning}
+
+\subsection{Caches create an agreement problem inside translation}
+
+A translation lookaside buffer retains derived mappings so that common
+accesses need not repeat a full page-table walk. That cache is valuable because
+translation is on the critical path of memory access. It also creates two
+views of mapping state: page-table memory and cached translations. After a
+page-table update, an invalidation or synchronization protocol must prevent an
+obsolete cached mapping from authorizing later use.
+
+The proof pattern resembles self-modifying code. A theorem may not read a
+page-table entry, change the table, and then reuse the old translation without
+a stability premise. It must show that the relevant mapping remained
+unchanged, or model the invalidation and obtain a fresh result. With several
+processors, the protocol must also identify which agents have observed the
+change.
+
+Virtualization can add a second translation stage. A guest virtual address is
+translated to an intermediate address, which is translated again to host
+physical storage. Permission and fault information can arise at either stage.
+The composition looks simple as a mathematical function, but its event
+semantics can include multiple walks, caches, and invalidations. The model
+should expose only the depth needed by the theorem while refusing claims that
+depend on omitted interactions.
+
+\subsection{Virtual memory joined isolation to resource economics}
+
+Historically, virtual memory did more than enlarge the apparent address space.
+It supported protection, relocation, sharing, and the allocation of scarce
+physical storage among active computations. Denning's working-set model
+described a process through the information it had recently referenced and
+connected locality to memory demand \autocite{denning1968workingset}. When too
+many needed pages are absent, servicing faults can dominate useful execution:
+the system thrashes.
+
+That history explains why a functional address model and a performance model
+diverge. The same load can return the same byte whether its translation and
+data are cached or whether it triggers expensive work. A correctness theorem
+may abstract those costs. A capacity-planning or latency theorem may not. Page
+size, working-set size, fault rate, translation-cache reach, memory pressure,
+and storage latency become relevant observations.
+
+Cloud and container systems add an economic layer. Address-space isolation
+helps consolidate workloads on shared machines. Overcommit and demand paging
+can increase useful machine occupancy, but tail latency and failure risk grow when working
+sets compete. Huge pages can reduce translation pressure while increasing
+allocation granularity and internal fragmentation. A proof should not choose
+that policy. It should make clear which functional guarantees survive every
+policy and which performance claims require measured deployment assumptions.
+
 \section{Self-modifying code joins program and data memory}
 
 A0 deliberately keeps an immutable program map separate from mutable data
@@ -250,6 +706,61 @@ version or digest. A negative control can modify one instruction byte after a
 cached decode and require the stale step to be rejected. Another can omit a
 required synchronization event and require the execution route to refuse the
 stronger claim.
+
+\subsection{Publication turns bytes into executable meaning}
+
+It is useful to distinguish three moments. During \keyterm{construction}, a
+tool writes bytes that are not yet promised as executable instructions. During
+\keyterm{publication}, permissions and synchronization make a particular byte
+version eligible for fetch. During \keyterm{execution}, a processor fetches
+and decodes a published version. The phase boundary prevents a proof from
+treating every partially written buffer as a program.
+
+Let \(C_t\) denote code bytes at logical version \(t\), and let
+\(P(h,p)=t\) record the version published to hart or processor \(h\) at address
+\(p\). A fetch is allowed to bind an instruction only from the version named by
+\(P\). A store creates a newer code version but does not by itself update every
+publication record. The synchronization protocol changes those records under
+architecture-specific premises.
+
+RISC-V makes this distinction explicit. The Zifencei extension specifies
+\texttt{FENCE.I} to synchronize earlier visible data stores with later
+instruction fetches on the same hart \autocite{riscv2026zifencei}. It does not
+by itself make another hart's instruction fetches observe the writes. A
+multiprocessor publication protocol must also order the stores and arrange
+remote instruction-fetch synchronization.
+
+\begin{table}[htbp]
+\centering
+\caption{A code-publication proof crosses several distinct boundaries.}
+\begin{tabular}{@{}p{0.22\textwidth}p{0.30\textwidth}p{0.36\textwidth}@{}}
+\toprule
+Boundary & Claim & Example control \\
+\midrule
+Generation & emitted bytes encode intended instructions & flip one immediate bit \\
+Visibility & completed stores reach required observers & omit the data-ordering step \\
+Fetch synchronization & later fetches use the new version & omit local or remote instruction synchronization \\
+Permission & the region is executable under policy & retain write-only permission \\
+Concurrency & no observer sees a forbidden partial patch & interrupt a multi-byte change \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Variable-length x86-64 instructions make partial replacement especially
+important. Changing a prefix or length-determining byte can alter the boundary
+and meaning of following bytes. An atomic replacement strategy, stop-the-world
+protocol, indirection through a stable entry, or architecture-supported
+patching scheme must say which intermediate byte sequences can be fetched.
+Calling the final bytes correct does not constrain the transition between the
+old and new programs.
+
+Just-in-time compilation and dynamic patching make this an economic concern,
+not a curiosity. Publication too often increases synchronization and
+permission-changing overhead. Publication too rarely delays optimized code or
+security fixes. Keeping memory writable and executable at once enlarges an
+attack surface, while switching permissions and coordinating processors costs
+time. A model can clarify the choices by separating generation correctness,
+publication correctness, and steady-state execution performance.
 
 \section{Timing and leakage require richer observations}
 
@@ -296,6 +807,87 @@ secret-dependent address or branch and require the leakage checker to notice.
 A result-only checker would accept the mutation and thereby expose its own
 inadequate observation.
 
+\subsection{Noninterference is a two-execution theorem}
+
+Partition an input into public part \(u\) and secret part \(k\). Let
+\(L(P,u,k)\) be the leakage observation produced by program \(P\). A basic
+deterministic noninterference condition is
+
+\[
+  \forall u,k_1,k_2.\quad
+  L(P,u,k_1)=L(P,u,k_2).
+\]
+
+The quantifiers show why an ordinary functional test is insufficient. One run
+cannot compare two secrets. A pair of runs with selected secrets is still only
+a test of those values. A universal proof needs a relational invariant or a
+symbolic self-composition that tracks two states at once.
+
+Real policies often permit selected secret-dependent output. An authentication
+routine may reveal success or failure; an encryption routine reveals the
+ciphertext. The theorem then conditions on an allowed declassification
+function \(D\): if \(D(u,k_1)=D(u,k_2)\), the remaining public observations
+must agree. Naming \(D\) prevents the phrase ``except intended output'' from
+becoming an unlimited escape hatch.
+
+\begin{proofkit}[title={A relational invariant for an address-trace policy}]
+Run two copies of the program with equal public inputs and possibly different
+secrets. Relate their program counters, public registers, and trace lengths.
+At every load or store, prove that the two effective addresses are equal, then
+append them to both traces. At every branch, either exclude direction from the
+observation or prove equal directions. At return, trace equality follows from
+the invariant. A secret-indexed table lookup breaks the address step even when
+both runs return the same value.
+\end{proofkit}
+
+\subsection{Constant time names a model, not a stopwatch result}
+
+In cryptographic engineering, \keyterm{constant time} commonly means that
+selected control flow and memory addresses do not depend on secrets. That
+discipline aims to remove important timing channels without claiming that
+every physical execution lasts an identical number of clock cycles. Interrupts,
+cache state, frequency changes, contention, and analog effects can still vary.
+
+The abstract leakage model is valuable because it supports universal reasoning
+over program inputs. Measurement is valuable because it can expose effects
+missing from the abstraction. The two forms of evidence answer different
+questions. Statistical timing tests can find a distributional difference on a
+tested platform; failure to find one is not a proof for every platform and
+input. A source-level address proof can miss compiler-introduced branches or
+target instructions. Binary-level checking is closer to deployment but still
+inherits its machine and leakage model.
+
+Current cryptographic guidance treats side-channel behavior as an
+implementation concern alongside the mathematical algorithm. Information can
+leak through cache timing, power, electromagnetic behavior, or faults even
+when the algorithm's abstract security argument is sound. The economic
+consequence is a second validation program: teams must maintain protected
+implementations, inspect generated code, test across supported platforms, and
+respond when a new microarchitectural channel changes the attacker model.
+
+\subsection{Speculation separates permission to commit from permission to affect}
+
+Speculative execution predicts a future control path and performs work before
+the prediction is known to be correct. On a wrong prediction, architectural
+results are discarded. Spectre showed that discarded operations can still
+change microarchitectural state in a way a later timing probe detects
+\autocite{kocher2019spectre}.
+
+A richer model can represent this with two projections. The architectural
+projection contains committed registers, memory, and control state. The
+leakage projection contains selected speculative events. Rollback restores the
+first projection but need not erase the second. Functional equivalence proves
+agreement only after the architectural projection; a security theorem must
+also relate the leakage projections.
+
+Mitigations occupy different layers. A source transformation can remove a
+secret-dependent access. A compiler barrier can restrict code motion. An ISA
+barrier can constrain speculation under an architectural contract. Hardware
+can change prediction or cache behavior. Process isolation can restrict the
+attacker. Each mitigation needs a model containing the mechanism it claims to
+control. Otherwise a successful check can certify syntax while the operative
+channel remains outside the theorem.
+
 \section{Verified compilation adds a tower of languages}
 
 Our cross-ISA proofs begin with machine programs on both sides. A compiler
@@ -339,6 +931,84 @@ real-machine semantics. The right introductory path is to verify one small
 translation pass or one instruction-selection rule, then compose only after
 the interfaces and controls are stable.
 
+\subsection{Behavior preservation is not syntax preservation}
+
+Let \(\mathcal{B}_S(P)\) be the set of source behaviors of program \(P\), and
+let \(\mathcal{B}_T(C(P))\) be the target behaviors after successful
+compilation. A simple deterministic slogan would demand equality. Real
+compiler theorems need more care because source languages can permit several
+behaviors, target executions can refine choices, and both sides can include
+termination, divergence, and external interactions.
+
+The CompCert statement is instructive: when compilation succeeds, the
+observable behavior of generated assembly improves on an allowed source
+behavior. Its formal endpoints are not source text and an executable file.
+They are elaborated CompCert C abstract syntax and assembly abstract syntax,
+before assembling and linking \autocite{leroy2009compcert}. Preprocessing,
+parsing, object emission, linking, loading, libraries, and the physical target
+remain separate boundaries unless additional theorems bind them.
+
+Optimization changes syntax aggressively. Dead code disappears. Expressions
+are reassociated where the source contract permits it. Registers replace
+variables. Control flow is reshaped. Semantic preservation connects behaviors
+through simulations between intermediate languages. Requiring identical
+states at each pass would reject useful compilation and confuse representation
+with meaning.
+
+\begin{proofkit}[title={One-pass compiler proof}]
+Define source states \(S\), target states \(T\), and a relation \(R(S,T)\).
+Show that related initial states arise from the translation. For each source
+step, prove that the target takes a finite matching sequence and restores
+\(R\), using a decreasing rank when the target may stutter. Relate external
+events and terminal outcomes. Then prove that translation failure is reported
+rather than treated as a successfully compiled program.
+\end{proofkit}
+
+Pass composition is mathematically attractive. If \(P_1\) preserves behavior
+from language \(L_0\) to \(L_1\), and \(P_2\) preserves behavior from \(L_1\)
+to \(L_2\), their composition preserves behavior from \(L_0\) to \(L_2\),
+provided the intermediate definitions and observations match. In practice,
+that proviso is load-bearing. Serialization, pass options, target data layout,
+and versioned intermediate forms must agree with the theorem being composed.
+
+\subsection{Undefined behavior allocates responsibility}
+
+An undefined source operation is not a nondeterministic instruction that may
+return any convenient value while the rest of the program retains its usual
+contract. It removes the source guarantee described by the language semantics.
+Optimizations can rely on the premise that defined executions do not take that
+path. A machine trace observed after source undefined behavior therefore does
+not refute a compiler theorem whose source-side premise has failed.
+
+This boundary creates an engineering obligation. Front ends, sanitizers,
+static analyses, proof tools, and programmers must establish the source
+preconditions that the compiler theorem assumes. A verified compiler reduces
+one class of translation risk. It does not verify application logic or prove
+that every source execution is defined.
+
+Target-specific failures also need a place in the behavior model. Finite
+memory, stack exhaustion, external calls, traps, and resource limits can
+interrupt execution. A theorem may exclude them under premises, represent
+them as allowed target outcomes, or prove that compilation preserves a source
+counterpart. Silently dropping them would make the target model stronger than
+the deployed machine.
+
+\subsection{The trusted base is also a maintenance budget}
+
+Every unverified arrow in the compilation tower becomes a trusted process and
+a regression surface. A compiler upgrade, assembler change, linker script,
+library replacement, loader policy, or target revision can invalidate an old
+end-to-end claim while leaving the source and final output tests unchanged.
+An evidence manifest should bind versions, options, intermediate hashes, and
+the theorem or checker used at each arrow.
+
+This accounting has economic value. It shows where independent validation
+would remove the most consequential trust and where it would merely duplicate
+a low-risk step. It also shows why ``formally verified'' is not a property that
+automatically spreads from one component to a whole product. Assurance grows
+by composing explicit interfaces; marketing language cannot supply a missing
+arrow.
+
 \section{How to extend the workbench without blurring it}
 
 Every extension should pass four gates. The \keyterm{state gate} inventories
@@ -380,6 +1050,51 @@ instruction and that one new step from \(E(s)\) reaches \(E(s')\) exactly when
 the old step from \(s\) reaches \(s'\). State separately how new components are
 initialized and preserved. Then prove that the new observation of \(E(s)\)
 agrees with the old observation of \(s\).
+\end{proofkit}
+
+\subsection{A boundary ledger prevents accidental theorem drift}
+
+Before implementing an extension, record one row for every new semantic
+component. The row should name its type, initial value, readers, writers,
+preservers, observation, serialization, source authority, and at least one
+control. A second table should list every old theorem that mentions affected
+state or observation. This is a dependency ledger for meaning.
+
+\begin{table}[htbp]
+\centering
+\caption{Minimum ledger fields for four representative extensions.}
+\begin{tabular}{@{}p{0.16\textwidth}p{0.19\textwidth}p{0.24\textwidth}p{0.29\textwidth}@{}}
+\toprule
+Extension & New component & Principal reader or writer & Control that must distinguish it \\
+\midrule
+Floating point & rounding mode & arithmetic operation; control write & halfway input under two modes \\
+Vector & mask and length & vector step; length-setting step & inactive lane containing a faulting address \\
+Concurrency & reads-from edge & consistency checker & read linked to an incompatible write \\
+Leakage & address trace & load/store step; security observation & secret-indexed access with equal result \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ledger is not a substitute for semantics. It is a completeness check that
+makes omissions visible early. A field with no reader may be decorative. A
+writer with no preservation theorem may invalidate old reasoning. An observed
+field with no serializer may disappear from evidence. A source pin with no
+version or digest may drift while reports retain an old claim identifier.
+
+Implementation should then proceed in small vertical slices. Define one typed
+state component. Add one transition that uses it. Display one concrete trace.
+State one local theorem. Add a positive example and a mutation that the old
+model would miss. Only after that path works should the project add symbolic
+inputs or a solver encoding. This order keeps a solver from giving a precise
+answer about an incomplete semantic object.
+
+\begin{proofkit}[title={Six obligations for accepting an extension}]
+Prove that constructors establish well-formed new state. Prove each new step
+is defined or refuses with a typed reason. Prove preservation for untouched
+components. Prove the declared observation is computed from the richer state.
+Prove conservative embedding for the old scope. Finally, bind executable
+evidence to exact definitions and show that a semantic mutation fails. If any
+obligation remains open, report the narrower achieved claim.
 \end{proofkit}
 
 \section{Three ways boundary claims go wrong}
@@ -573,4 +1288,77 @@ one-page Axeyum package plan: types, transitions, observation, source pins,
 checker route, and refusal cases.
 \item Compare two possible next projects—a floating-point addition miniature
 and a complete weak-memory model—by semantic surface and evidence burden.
+\item Define an abstraction function from a cache-bearing machine state to the
+scalar architectural state. Give two concrete states that it identifies.
+\item Construct an observation for which the two cache-bearing states in the
+previous exercise are distinguishable. Which earlier theorem must change?
+\item Prove the invariant-transport proposition by induction, explicitly
+showing where the conservative-step premise is used.
+\item \textbf{Break.} Add a new state component whose constructor does not
+establish its well-formedness condition. Trace the first old theorem that can
+no longer be transported.
+\item In the three-bit-significand system from the chapter, reproduce both
+parenthesizations of \(4+1/2-4\), including the tie-to-even decision.
+\item Give two floating-point computations with the same final result bits but
+different exception flags. State an observation that separates them.
+\item Compare bitwise reproducibility, a relative-error bound, and an interval
+result as contracts for a parallel sum. Name one client for each.
+\item Design a fixed binary reduction tree for \(n\) floating-point values
+when \(n\) is not a power of two. State what remains reproducible across thread
+counts.
+\item Partition eight vector element indices into prestart, active, inactive,
+and tail sets for chosen values of restart position, vector length, and mask.
+\item \textbf{Break.} Let an inactive vector load raise a fault. Explain which
+architectural rule and which proof obligation the model violates.
+\item Prove that the lane sets in a four-lane strided XOR reduction form a
+disjoint cover of the processed prefix.
+\item Write a vector-length-agnostic loop invariant whose preservation works
+for every selected strip length from one through the remaining element count.
+\item Derive the sequential-consistency cycle for the all-zero store-buffering
+outcome using only named program-order and reads-from consequences.
+\item Give an operational store-buffer execution that permits the same
+all-zero outcome. Identify the moment at which each buffered write propagates.
+\item Explain the separate roles of coherence order, reads-from, and from-read
+for a three-write, two-read execution on one location.
+\item Choose one source atomic order and sketch the compiler and hardware
+obligations needed to preserve it on RV64 and x86-64.
+\item Define translation for a two-page read that begins four bytes before a
+page boundary. Enumerate all success and fault combinations.
+\item Prove that translation preserves the page offset when it succeeds.
+Explain why this fact alone does not establish access permission.
+\item \textbf{Break.} Update one page-table entry but retain a stale translation
+cache entry. Give a trace that accesses the old physical frame.
+\item Compare small and huge pages using translation-cache reach, allocation
+granularity, internal fragmentation, and page-fault cost. Do not assume one is
+always superior.
+\item Model two-stage translation as a composition of partial functions.
+Distinguish a first-stage permission fault from a second-stage missing mapping.
+\item Give a code-publication trace with generation, visibility, fetch
+synchronization, permission, and execution events. Name the version at each
+fetch.
+\item Explain why a local RISC-V \texttt{FENCE.I} is insufficient to publish
+new code to another hart. State the additional coordination obligation.
+\item \textbf{Break.} Patch the first byte of a variable-length instruction
+while another processor fetches it. List the byte sequences that the model must
+permit or exclude.
+\item State noninterference with an explicit declassification function for a
+password checker that may reveal only a Boolean result.
+\item Self-compose a two-branch program and give a relational invariant that
+proves its branch-direction trace independent of a secret.
+\item Compare a source-level constant-time proof, a binary leakage check, and
+a timing experiment. State one blind spot of each.
+\item Add speculative and committed event lists to a machine state. Define
+rollback and an observation that preserves the speculative cache access.
+\item Formalize semantic preservation for one compiler pass as behavior-set
+inclusion. State how compile-time refusal appears in the theorem.
+\item Draw the complete trusted path from preprocessed source to a loaded
+instruction for one ordinary toolchain. Mark versions, hashes, and unchecked
+arrows.
+\item Fill the boundary ledger for one new rounding mode, including
+initialization, reader, writer, preserver, observation, serializer, and
+negative control.
+\item \textbf{Capstone.} Select one boundary and produce the full extension
+case: state delta, step rules, observation, conservative embedding, concrete
+trace, historical source, industrial tradeoff, positive check, mutation,
+evidence manifest, and explicit stopping point.
 \end{enumerate}
