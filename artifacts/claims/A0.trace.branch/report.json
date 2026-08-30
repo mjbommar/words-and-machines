@@ -1,0 +1,16 @@
+{
+  "schema": "axeyum.a0.branch-trace.v1",
+  "semantic_package_sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+  "taken_pcs": [
+    0,
+    8,
+    8
+  ],
+  "untaken_pcs": [
+    0,
+    4,
+    4
+  ],
+  "taken_stop": "halted",
+  "untaken_stop": "halted"
+}

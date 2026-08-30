@@ -1168,8 +1168,8 @@ states discharges them.
 
 \section{Axeyum route}
 
-The audited Axeyum checkout at revision \code{a9991fda} supplies more control-
-flow substrate than a bit-vector library alone. It has a generic transition-
+The active Axeyum book lane supplies both the general control-flow substrate
+and an executable A0 branch transition. The wider project has a generic transition-
 system interface, bounded model checking, memory-aware bounded checking,
 k-induction, certified QF\_BV safety routes, and replay-checked counterexample
 models. Its toy bit-vector VM already has conditional branches, explicit true
@@ -1177,14 +1177,15 @@ and false targets, validated programs, static CFG edges and basic blocks,
 symbolic target and edge reachability, source-aware traces, and independent
 trace replay.
 
-That VM is a useful precedent, not the book machine. Its program counter names
+That VM remains a useful precedent, not the book machine. Its program counter names
 instruction indices, its branches use its own equality tests and targets, and
 its fuel and outcome rules belong to that package. It lacks A0 instruction
 bytes, the \(pc+4+4d\) target rule, the \(Z,N,C,V\) predicate family, and A0
-fetch and trap behavior. The checkout also lacks source-pinned RV64I and
-x86-64 decoder adapters, the three-machine loop relation, and proof objects
-for the chapter's dominance claims. Renaming the toy VM would hide these
-differences rather than discharge them.
+fetch and trap behavior. Those A0 rules now live in the separate book-machine
+core. The checkout still lacks source-pinned RV64I and x86-64 decoder adapters,
+the three-machine loop relation, and proof objects for the chapter's dominance
+claims. Renaming the toy VM would hide these differences rather than discharge
+them.
 
 Start with A0 because its complete state and fixed-width encoding are owned by
 this book. Reuse Axeyum's transition, symbolic exploration, reporting, and
@@ -1200,6 +1201,19 @@ semantic-package digest. Its checker should decode again and calculate the
 step rather than trusting recorded derived fields. A small command-line
 wrapper can then print a teaching trace while its exit status depends on full
 agreement.
+
+\begin{artifact}{A0.trace.branch}
+Axeyum executes the same decoded A0 conditional branch twice: once from a
+state whose conditions make it taken and once from a state that falls through.
+The report records the complete PC traces, including the halted successor, so
+the target base, displacement scale, predicate, and halt behavior are visible.
+
+The checker reruns both traces through the source-digest-bound A0 decoder and
+step relation. Its negative control computes the target from the wrong base;
+the report is rejected with a semantic mismatch. These two concrete traces do
+not prove every condition code, displacement, initial state, or loop theorem.
+\ArtifactScope{A0.trace.branch}
+\end{artifact}
 
 \begin{example}[title={Controls for the first branch checker}]
 Use a positive case whose taken target differs from fallthrough. Pair it with

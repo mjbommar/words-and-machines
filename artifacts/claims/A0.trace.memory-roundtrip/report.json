@@ -1,0 +1,17 @@
+{
+  "schema": "axeyum.a0.memory-trace.v1",
+  "semantic_package_sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+  "stored_word": 43981,
+  "stored_bytes": [
+    205,
+    171
+  ],
+  "loaded_word": 43981,
+  "boundary_trapped": true,
+  "no_partial_write": true,
+  "successful_pcs": [
+    0,
+    4,
+    8
+  ]
+}

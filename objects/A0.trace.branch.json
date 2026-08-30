@@ -1,0 +1,26 @@
+{
+  "id": "A0.trace.branch", "kind": "computation", "part": 2,
+  "title": "A0 conditional-branch replay",
+  "statement": "The recorded branch.eq +1 traces reach PC 8 when Z is set and PC 4 when Z is clear; each following halt preserves that PC.",
+  "formal": {"language": "prose", "statement": "PCs(run(branch.eq +1; halt,Z=1))=[0,8,8] and PCs(run(branch.eq +1; halt,Z=0))=[0,4,4].", "fragment": "concrete-trace-replay"},
+  "epistemic_status": "computed",
+  "scope": "Two width-8 traces of one branch.eq encoding with offset +1, followed by halt, differing only in the initial Z condition.",
+  "depends_on": ["A0.def.step", "A0.def.trace"],
+  "evidence": [{
+    "kind": "trace-replay", "trust_class": "trace",
+    "semantic_inputs": ["artifacts/semantic/a0-v2.json", "artifacts/claims/A0.trace.branch/manifest.json"],
+    "artifact": "artifacts/claims/A0.trace.branch",
+    "sha256": {
+      "artifacts/semantic/a0-v2.json": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+      "artifacts/claims/A0.trace.branch/manifest.json": "3b20e0444f19c8bd86e3ead448c26cfbe1ed168196a730bbc2de7cb4e2510991",
+      "artifacts/claims/A0.trace.branch/report.json": "d0204e6da3bf1a846b31b8fb4e19a2703e66f31cda666f52c49a673f17959aeb"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-branch-trace artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.branch/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-branch-target artifacts/semantic/a0-v2.json artifacts/claims/A0.trace.branch/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The checker reruns taken and untaken traces. Using current PC instead of sequential PC as target base is rejected."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "branch trace replay", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch09-control-transfer", "label": "trace:a0-branch", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md flagship sequence item 4"}
+}

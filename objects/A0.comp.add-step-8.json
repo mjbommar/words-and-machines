@@ -1,0 +1,26 @@
+{
+  "id": "A0.comp.add-step-8", "kind": "computation", "part": 2,
+  "title": "Exhaustive width-eight A0 addition step",
+  "statement": "For every width-eight operand pair, A0 add r2,r0,r1 produces the declared modular result, conditions, PC, preserved sources, and running outcome.",
+  "formal": {"language": "prose", "statement": "For all x,y in [0,256), step(add r2,r0,r1,S[x,y]) agrees with the independent result and Z/N/C/V oracle.", "fragment": "finite-enumeration"},
+  "epistemic_status": "computed",
+  "scope": "All 65,536 width-8 operand pairs, with PC 0, destination r2, sources r0 and r1, empty memory, and initially running outcome.",
+  "depends_on": ["A0.def.step", "A0.prin.explicit-effects"],
+  "evidence": [{
+    "kind": "exhaustive-enumeration", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v2.json", "artifacts/claims/A0.comp.add-step-8/manifest.json"],
+    "artifact": "artifacts/claims/A0.comp.add-step-8",
+    "sha256": {
+      "artifacts/semantic/a0-v2.json": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+      "artifacts/claims/A0.comp.add-step-8/manifest.json": "c13a1e63ff00206c7bd7bb2f9cc8960d46cb9661b05294ad30f7f3a73eb90481",
+      "artifacts/claims/A0.comp.add-step-8/report.json": "b05160ac243b43346a6c2f506056db6286e75ace1151dd8e8363272cf2f20abe"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-add-step artifacts/semantic/a0-v2.json artifacts/claims/A0.comp.add-step-8/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-add-wrong-destination artifacts/semantic/a0-v2.json artifacts/claims/A0.comp.add-step-8/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The checker independently calculates result and flags for every pair. Reading r3 instead of r2 changes the report and is rejected."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "exhaustive add-step computation", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch08-arithmetic-condition", "label": "comp:a0-add-step-8", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md flagship sequence item 2"}
+}

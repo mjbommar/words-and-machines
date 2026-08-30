@@ -1,0 +1,9 @@
+{
+  "schema": "axeyum.a0.add-step-exhaustive.v1",
+  "semantic_package_sha256": "a6fc500ed48bd0419673e523d3a6b317eadc677ed4ccec60b8e1dfa6090d88eb",
+  "width": 8,
+  "destination": 2,
+  "cases_checked": 65536,
+  "passed": true,
+  "result_sha256": "e051791585075fe9480c2eb6bfb1978e1f37ccd1e299bb4df9aee672cea846fe"
+}

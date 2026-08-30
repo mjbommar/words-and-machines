@@ -1060,14 +1060,13 @@ check, atomic load and store outcomes, little-endian split and join, wrapped
 effective-address calculation, and observations of changed and unchanged
 bytes. Object \obj{OP.a0.state-memory} records that obligation.
 
-The live Axeyum checkout supplies pieces, not this package. Its bit-vector
-layer can express fixed-width addresses and byte extraction. Solver terms can
-represent arrays. Verification tests parse selected LLVM loads and stores and
-exercise checked-memory questions. Those facilities do not yet define A0's
-finite domain, byte order, trap frame, canonical state record, or public
-executor. An SMT array that returns a value at every index is especially not
-the same as a finite partial map unless a separate presence predicate is
-modeled and checked.
+The active Axeyum book lane now supplies an executable A0 memory core. It owns
+the finite byte map, little-endian load and store operations, wrapped address
+arithmetic, checked ranges, ordinary and trapped outcomes, and dynamic memory
+footprints. A trapped store is atomic: it preserves the complete memory. This
+is enough to execute and replay concrete memory steps. Canonical serialization
+of arbitrary public states, exhaustive sparse-domain coverage, and the
+symbolic frame theorem remain open parts of \obj{OP.a0.state-memory}.
 
 The Rust core should own that distinction. One possible public shape pairs a
 canonical ordered map of address words to bytes with constructors that reject
@@ -1138,8 +1137,23 @@ word and every valid four-byte starting address in a declared finite domain,
 does storing and then loading return the word while preserving every byte
 outside the range? A counterexample must replay through executable memory
 operations. A no-counterexample result needs an evidence route that covers
-the whole stated domain. Until that package exists in Axeyum, the object
-records an implementation obligation rather than a machine-backed result.
+the whole stated domain. The active artifact below covers one concrete
+store/load path and one boundary trap. It does not discharge the quantified
+obligation described here.
+
+\begin{artifact}{A0.trace.memory-roundtrip}
+Axeyum starts from one width-sixteen A0 state, stores \code{0xabcd} in
+little-endian order, and loads the same word back. The report records the
+ordered byte footprint, the successor state, and the reconstructed value. It
+also attempts a store across the declared memory boundary and records both the
+trap and the absence of a partial write.
+
+The checker reruns the operations through the source-digest-bound A0 memory
+semantics. Its negative control reverses the byte order, so the recorded report
+is rejected with a semantic mismatch. This is a concrete trace, not an
+exhaustive sparse-memory result or a symbolic frame proof.
+\ArtifactScope{A0.trace.memory-roundtrip}
+\end{artifact}
 
 \begin{sidebar}[title={Why a memory formula is not yet memory semantics}]
 A formula that expands four byte variables can establish a relation among
@@ -1149,10 +1163,11 @@ memory package must connect all of those rules before later instruction proofs
 may depend on it.
 \end{sidebar}
 
-The store/load result in this chapter is a reader proof under a printed
-premise. It does not stand in for the absent executable memory model. Once that
-model exists, the round trip and each bad variant must run through the same
-memory semantics used by later instruction proofs.
+The general store/load result in this chapter remains a reader proof under a
+printed premise. The active trace runs through the executable memory model,
+but one trace does not stand in for the general theorem. Later instruction
+proofs must use these same memory operations and must bind any stronger claim
+to correspondingly stronger evidence.
 
 Memory has made sequence visible. Two individually valid stores can leave
 different final states when their order changes. A list of instructions still
