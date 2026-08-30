@@ -1,0 +1,26 @@
+{
+  "id": "A0.comp.step-coverage", "kind": "computation", "part": 1,
+  "title": "A0 step, effect, trap, and frame coverage",
+  "statement": "The source-bound A0 executor covers all seventeen instruction families and exact effect rows, all four trap classes, terminal stuttering, and frame containment for the declared cases.",
+  "formal": {"language": "prose", "statement": "For each A0 instruction family coverage case, effects equal the declared row and changed(successor) is a subset of writes; all four traps and terminal stuttering are reached.", "fragment": "finite-family-coverage"},
+  "epistemic_status": "computed",
+  "scope": "One nondegenerate width-8 case per family, four trap cases, and halt/trap terminal states.",
+  "depends_on": ["A0.def.decode", "A0.def.step", "A0.prin.explicit-effects"],
+  "evidence": [{
+    "kind": "trace-replay", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.comp.step-coverage/manifest.json"],
+    "artifact": "artifacts/claims/A0.comp.step-coverage",
+    "sha256": {
+      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+      "artifacts/claims/A0.comp.step-coverage/manifest.json": "ee6382339e7615126eea6a2570415c7efbea16e912c3e5b7f27065fef97b832a",
+      "artifacts/claims/A0.comp.step-coverage/report.json": "cf8cfb3fef33308c5f975f8494e896af18f1a0267a310fd98413de08b5c72959"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The checker recomputes family transitions and effects. Hidden-write, missing-condition, and wrong-PC mutations are each rejected."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "step coverage computation", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch03-instructions-operands", "label": "comp:a0-step-coverage", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md a0-step"}
+}

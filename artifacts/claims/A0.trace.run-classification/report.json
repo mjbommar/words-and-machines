@@ -1,6 +1,6 @@
 {
   "schema": "axeyum.a0.run-classification.v1",
-  "semantic_package_sha256": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f",
+  "semantic_package_sha256": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
   "halted_stop": "halted",
   "trapped_stop": "trapped",
   "exhausted_stop": "bound-exhausted",

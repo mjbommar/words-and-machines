@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **48** -- `computed` 8, `open` 12, `stated` 28
-- Evidence rows: **8** -- `checked` 8
+- Objects: **49** -- `computed` 11, `open` 10, `stated` 28
+- Evidence rows: **11** -- `checked` 11
 
 ## Part I -- Constructing an instruction set
 
@@ -14,6 +14,7 @@
 |---|---|---|---|---|---|---|
 | [`A0.comp.byte-roundtrip-8-16`](A0.comp.byte-roundtrip-8-16.json) | computation | Finite A0 byte round trip at widths 8 and 16 | `computed` | `--` | All 65,792 words in the union of the complete width-8 and width-16 domains. This object does not quantify over widths 24 through 64. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.comp.decoder-roundtrip`](A0.comp.decoder-roundtrip.json) | computation | Exhaustive canonical A0 encoder and decoder round trip | `computed` | `--` | Every legal structured instruction in all seventeen A0 families, including every register tuple, signed immediate or offset, and branch condition. | `exhaustive-enumeration` / `computation`: checked |
+| [`A0.comp.step-coverage`](A0.comp.step-coverage.json) | computation | A0 step, effect, trap, and frame coverage | `computed` | `--` | One nondegenerate width-8 case per family, four trap cases, and halt/trap terminal states. | `trace-replay` / `computation`: checked |
 | [`A0.def.byte`](A0.def.byte.json) | definition | A0 byte split and join | `stated` | `--` | -- | -- |
 | [`A0.def.decode`](A0.def.decode.json) | definition | A0 decoder | `stated` | `--` | -- | -- |
 | [`A0.def.instruction`](A0.def.instruction.json) | definition | A0 decoded instruction | `stated` | `--` | -- | -- |
@@ -29,9 +30,9 @@
 | [`A0.trace.memory-roundtrip`](A0.trace.memory-roundtrip.json) | computation | A0 store/load and boundary-trap replay | `computed` | `--` | One unaligned width-16 store/load at address 1 over four bytes, plus one out-of-range width-16 store beginning at address 4. | `trace-replay` / `trace`: checked |
 | [`A0.trace.observation-separation`](A0.trace.observation-separation.json) | computation | A0 narrow and broad observation replay | `computed` | `--` | One width-8 pair with equal memory, PC, conditions, outcome, and r0=7; left r3=19 and right r3=20. The narrow observation selects r0 and outcome. The broad observation also selects r3, memory bytes 1 and 2, PC, and conditions. | `trace-replay` / `trace`: checked |
 | [`A0.trace.run-classification`](A0.trace.run-classification.json) | computation | A0 runner outcome and continuation replay | `computed` | `--` | Four concrete width-8 executions, a zero-step boundary, and one resumed unconditional self-loop. | `trace-replay` / `trace`: checked |
-| [`OP.a0.run`](OP.a0.run.json) | obligation | Implement A0 trace execution | `open` | `--` | -- | -- |
+| [`OP.a0.run`](OP.a0.run.json) | obligation | Implement A0 trace execution | `computed` | `--` | -- | `trace-replay` / `trace`: checked |
 | [`OP.a0.state-memory`](OP.a0.state-memory.json) | obligation | Implement A0 state and memory | `open` | `--` | -- | -- |
-| [`OP.a0.step`](OP.a0.step.json) | obligation | Implement the A0 decoder and step relation | `open` | `--` | -- | -- |
+| [`OP.a0.step`](OP.a0.step.json) | obligation | Implement the A0 decoder and step relation | `computed` | `--` | -- | `trace-replay` / `computation`: checked |
 | [`OP.a0.word-package`](OP.a0.word-package.json) | obligation | Implement the reusable A0 word package | `open` | `--` | -- | -- |
 
 ## Part II -- Reading x86-64 and RISC-V

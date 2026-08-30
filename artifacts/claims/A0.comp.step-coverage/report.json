@@ -1,0 +1,11 @@
+{
+  "schema": "axeyum.a0.step-coverage.v1",
+  "semantic_package_sha256": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+  "families_executed": 17,
+  "effect_rows_checked": 17,
+  "trap_controls_checked": 4,
+  "terminal_stutter_checked": true,
+  "frame_checks_passed": true,
+  "effects_passed": true,
+  "result_sha256": "8f10e1faea7e44590e3e3d1a6b952609994b3cef5ce5ac80c8a9c4a026702f8a"
+}

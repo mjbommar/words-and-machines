@@ -8,15 +8,15 @@
   "depends_on": ["A0.def.step", "A0.def.trace"],
   "evidence": [{
     "kind": "trace-replay", "trust_class": "trace",
-    "semantic_inputs": ["artifacts/semantic/a0-v4.json", "artifacts/claims/A0.trace.run-classification/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.trace.run-classification/manifest.json"],
     "artifact": "artifacts/claims/A0.trace.run-classification",
     "sha256": {
-      "artifacts/semantic/a0-v4.json": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f",
-      "artifacts/claims/A0.trace.run-classification/manifest.json": "831b079819f3039635d711108425526b103ef2a3a40217645805ae7949d9c20b",
-      "artifacts/claims/A0.trace.run-classification/report.json": "259383064a4242ff178e326d7bf927fb3006036b605b6cc786e9cca98030f53f"
+      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+      "artifacts/claims/A0.trace.run-classification/manifest.json": "b4458206cc361c1bf44a45deff757f2531ac4b17b1803141a6c88b22070eb7b8",
+      "artifacts/claims/A0.trace.run-classification/report.json": "ba669b207f068a7048f2749e581d57c7b8dd033c67ef952e7ea785d5aa04c72d"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-run-classification artifacts/semantic/a0-v4.json artifacts/claims/A0.trace.run-classification/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-run-false-halt artifacts/semantic/a0-v4.json artifacts/claims/A0.trace.run-classification/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-run-classification artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.run-classification/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-run-false-halt artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.run-classification/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
     "note": "The checker recomputes all classifications and resumption. Falsely reporting the running prefix as halted is rejected."
   }],

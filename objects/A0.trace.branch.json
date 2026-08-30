@@ -8,15 +8,15 @@
   "depends_on": ["A0.def.step", "A0.def.trace"],
   "evidence": [{
     "kind": "trace-replay", "trust_class": "trace",
-    "semantic_inputs": ["artifacts/semantic/a0-v4.json", "artifacts/claims/A0.trace.branch/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.trace.branch/manifest.json"],
     "artifact": "artifacts/claims/A0.trace.branch",
     "sha256": {
-      "artifacts/semantic/a0-v4.json": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f",
-      "artifacts/claims/A0.trace.branch/manifest.json": "32d976bf4b6366974e4f87dace9358ca4e629101b763b046640376fb0a297556",
-      "artifacts/claims/A0.trace.branch/report.json": "633067a702ef5da16f797b48b36872e96bddcdac062df2b8a89f31bcd92df431"
+      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+      "artifacts/claims/A0.trace.branch/manifest.json": "61593fb8f814beb264362f65efbd8ad792533cd761a390e5ab028b44b9812688",
+      "artifacts/claims/A0.trace.branch/report.json": "de6588c382976af0dc124cac1e1c69ce390e59e1e1c93b21127ee6fbfaca97ac"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-branch-trace artifacts/semantic/a0-v4.json artifacts/claims/A0.trace.branch/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-branch-target artifacts/semantic/a0-v4.json artifacts/claims/A0.trace.branch/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-branch-trace artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.branch/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-branch-target artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.branch/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
     "note": "The checker reruns taken and untaken traces. Using current PC instead of sequential PC as target base is rejected."
   }],

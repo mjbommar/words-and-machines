@@ -1108,13 +1108,12 @@ destination, a missing condition write, a wrong sequential program counter, a
 wrong branch target, reserved encoding fields, and attempted execution after
 halt or trap.
 
-The live Axeyum checkout already contains useful lower layers. Its bit-vector
-terms can express width-limited arithmetic. Its solver and verification
-crates have transition-system interfaces and bounded and unbounded checking
-routes. Its LLVM work includes typed scalar-instruction parsing. None of those
-objects is an A0 machine. The checkout currently lacks the closed A0
-instruction type, operand resolver, decoder, complete state executor, and
-public replay path required here.
+The active Axeyum book lane now contains the closed A0 instruction type,
+strict decoder, canonical encoder, dynamic effect calculation, complete state
+executor, traps, and replay path required here. Its wider bit-vector, solver,
+and verification layers remain useful for the symbolic routes that follow.
+The concrete package does not become a universal proof merely because all
+instruction families have executable coverage.
 
 That distinction changes the implementation plan. A0 should not begin as a
 Python dictionary of mnemonics mapped to callbacks. The Rust layer should own
@@ -1154,6 +1153,21 @@ checker establish preservation of everything else. If the artifact stores
 only the diff, a missing illicit write is indistinguishable from a preserved
 component.
 
+\begin{artifact}{A0.comp.step-coverage}
+Axeyum executes one nondegenerate encoded case from each of A0's seventeen
+instruction families. It compares every dynamic read and write set with an
+independent expected row, then checks the complete successor for changes
+outside that write set. Separate cases reach all four trap classes and confirm
+that halted and trapped states stutter under another step request.
+
+The negative-control suite independently adds a hidden write to r7, removes an
+addition condition update, and replaces sequential \(pc+4\) with \(pc+1\).
+All three mutated recomputations must differ from the recorded report. This is
+complete family and contract coverage, not exhaustion of every possible A0
+state or a symbolic transition theorem.
+\ArtifactScope{A0.comp.step-coverage}
+\end{artifact}
+
 Controls should attack one layer at a time. Change bytes while retaining the
 printed instance. Change an operand register while retaining the operation.
 Change one implicit condition while retaining the destination. Corrupt the
@@ -1168,10 +1182,10 @@ wrong next address. The mutation is useful because it preserves the tempting
 part of the result.
 \end{sidebar}
 
-The implementation does not accompany this draft. The worked addition is a
-reader execution of the printed A0 definition, not evidence that a general
-step function has run over every state. When the package exists, its output
-must agree with these rules and its controls must fail for the stated reasons.
+The implementation now accompanies the draft, and the active computations run
+through it. Their finite scopes remain explicit. A worked addition or one case
+per instruction family does not prove the general step function correct over
+every state; stronger claims still require symbolic or kernel evidence.
 
 Registers and immediates keep an instruction's values close at hand. A memory
 operand does not. It turns one step into a claim about addresses, byte order,

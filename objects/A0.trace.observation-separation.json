@@ -21,17 +21,17 @@
       "kind": "trace-replay",
       "trust_class": "trace",
       "semantic_inputs": [
-        "artifacts/semantic/a0-v4.json",
+        "artifacts/semantic/a0-v5.json",
         "artifacts/claims/A0.trace.observation-separation/manifest.json"
       ],
       "artifact": "artifacts/claims/A0.trace.observation-separation",
       "sha256": {
-        "artifacts/semantic/a0-v4.json": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f",
-        "artifacts/claims/A0.trace.observation-separation/manifest.json": "12bc58faa72855df8bdd9ad4da8f2d5f202f03b3c42b73c84a3a2237f3e5c1b4",
-        "artifacts/claims/A0.trace.observation-separation/report.json": "40f80b5ab50ff9bd5882a7a4ddb2a6e7321a426d1c59759dc883fdb49ee41e7c"
+        "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+        "artifacts/claims/A0.trace.observation-separation/manifest.json": "a9790dbd7f981db8be4763f83e24dfb73318b92aecb16c658bbd4456b4e25367",
+        "artifacts/claims/A0.trace.observation-separation/report.json": "98d61fffcbb008aea7a690775f221adb3744cfeab14644e0d6a77fcd471277e2"
       },
-      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-observation-separation artifacts/semantic/a0-v4.json artifacts/claims/A0.trace.observation-separation/report.json",
-      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-observation-omission artifacts/semantic/a0-v4.json artifacts/claims/A0.trace.observation-separation/report.json",
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-observation-separation artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.observation-separation/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-observation-omission artifacts/semantic/a0-v5.json artifacts/claims/A0.trace.observation-separation/report.json",
       "expected_failure": "semantic-mismatch",
       "check_status": "checked",
       "checked_on": "2026-08-30",

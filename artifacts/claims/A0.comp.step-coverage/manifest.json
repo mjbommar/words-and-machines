@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.comp.step-coverage",
+  "statement": "The executable A0 step package covers all seventeen instruction families, their declared effects, all four trap classes, terminal stuttering, and complete-state frame containment for the coverage cases.",
+  "scope": "One nondegenerate width-8 execution and exact effect row per instruction family, four trap controls, and terminal halt/trap states.",
+  "exclusions": ["Exhaustion of every initial state", "A symbolic transition theorem", "RV64 or x86-64 semantics"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "a0-semantics", "version": "5", "path": "artifacts/semantic/a0-v5.json", "sha256": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6"}],
+  "artifacts": [{"path": "artifacts/claims/A0.comp.step-coverage/report.json", "sha256": "cf8cfb3fef33308c5f975f8494e896af18f1a0267a310fd98413de08b5c72959", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-step-coverage artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json", "version": "axeyum-machine-evidence-v5"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json", "version": "axeyum-machine-evidence-v5", "expected_result": "PASS: families=17 effects=17 traps=4 stutter=true frame=true"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json", "expected_failure": "semantic-mismatch", "mutates": "Independently add an undeclared r7 write, omit an addition condition update, and replace sequential pc+4 with pc+1"},
+  "environment": {"axeyum_revision": "e89479fc916ea5c36d9490bcda67ee114640e9c9", "rust_version": "1.88 or newer"},
+  "limitations": ["Family coverage and exact effect rows do not exhaust every possible state.", "The route has computation trust and no independent certificate."],
+  "created": "2026-08-30"
+}

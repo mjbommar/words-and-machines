@@ -8,15 +8,15 @@
   "depends_on": ["A0.def.decode", "A0.def.instruction"],
   "evidence": [{
     "kind": "exhaustive-enumeration", "trust_class": "computation",
-    "semantic_inputs": ["artifacts/semantic/a0-v4.json", "artifacts/claims/A0.comp.decoder-roundtrip/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.comp.decoder-roundtrip/manifest.json"],
     "artifact": "artifacts/claims/A0.comp.decoder-roundtrip",
     "sha256": {
-      "artifacts/semantic/a0-v4.json": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f",
-      "artifacts/claims/A0.comp.decoder-roundtrip/manifest.json": "f86d207a36b66bfad09e93aff10a9499c9fc3b58cb60beb92f9d904464a00e36",
-      "artifacts/claims/A0.comp.decoder-roundtrip/report.json": "8d27df7fe71c6005fd0e6b88703d66aaf6adb6f43f4db2d9e209ca723fe3ae6e"
+      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+      "artifacts/claims/A0.comp.decoder-roundtrip/manifest.json": "0d7947e766a640dc93f115d0b758a4f835e0a8e4ac9d600ae11b8c9fcf995ee2",
+      "artifacts/claims/A0.comp.decoder-roundtrip/report.json": "2d3bc66336c8688fb8a14d3c13ecc167f10502930495850ddbc7b9f383e55721"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-decoder-roundtrip artifacts/semantic/a0-v4.json artifacts/claims/A0.comp.decoder-roundtrip/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-decoder-reserved-bit artifacts/semantic/a0-v4.json artifacts/claims/A0.comp.decoder-roundtrip/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-decoder-roundtrip artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.decoder-roundtrip/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-decoder-reserved-bit artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.decoder-roundtrip/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
     "note": "The checker rebuilds the complete legal instruction domain. Accepting one reserved-bit mutation is rejected."
   }],

@@ -12,34 +12,34 @@
   "semantic_inputs": [
     {
       "name": "a0-semantics",
-      "version": "4",
-      "path": "artifacts/semantic/a0-v4.json",
-      "sha256": "db015d53d11bf66dcba6cb425e5387f38a14488549daebec35b862ac43f47d5f"
+      "version": "5",
+      "path": "artifacts/semantic/a0-v5.json",
+      "sha256": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6"
     }
   ],
   "artifacts": [
     {
       "path": "artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
-      "sha256": "02166a290a54949ec4beda407f95b9c48dfabe69012a00a8320757f41e53d0a4",
+      "sha256": "02f2a3c69b9a315098637bd30ef5aff41d8139b60e7d25c973771872482b8a2c",
       "role": "report"
     }
   ],
   "producer": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-word-roundtrip artifacts/semantic/a0-v4.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
-    "version": "axeyum-machine-evidence-v4"
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-word-roundtrip artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+    "version": "axeyum-machine-evidence-v5"
   },
   "checker": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-roundtrip artifacts/semantic/a0-v4.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
-    "version": "axeyum-machine-evidence-v4",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-roundtrip artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+    "version": "axeyum-machine-evidence-v5",
     "expected_result": "PASS: values=65792"
   },
   "negative_control": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-roundtrip-reversed artifacts/semantic/a0-v4.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-roundtrip-reversed artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
     "expected_failure": "semantic-mismatch",
     "mutates": "Reverse every emitted byte sequence before reconstruction"
   },
   "environment": {
-    "axeyum_revision": "f4577a8d8d3e1793dab8cc12edf6e129d404ba8b",
+    "axeyum_revision": "e89479fc916ea5c36d9490bcda67ee114640e9c9",
     "rust_version": "1.88 or newer"
   },
   "limitations": [

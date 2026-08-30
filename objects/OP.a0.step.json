@@ -2,7 +2,22 @@
   "id": "OP.a0.step", "kind": "obligation", "part": 1,
   "title": "Implement the A0 decoder and step relation",
   "statement": "Implement A0 encodings, decoding, instruction semantics, read and write sets, program-counter changes, and trap controls in Axeyum.",
-  "epistemic_status": "open", "depends_on": ["OP.a0.state-memory", "A0.def.decode", "A0.def.step"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["OP.a0.state-memory", "A0.def.decode", "A0.def.step", "A0.comp.decoder-roundtrip", "A0.comp.step-coverage"],
+  "evidence": [{
+    "kind": "trace-replay", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v5.json", "artifacts/claims/A0.comp.step-coverage/manifest.json"],
+    "artifact": "artifacts/claims/A0.comp.step-coverage",
+    "sha256": {
+      "artifacts/semantic/a0-v5.json": "0d5642400ac1f302f3f877f2d5d73b6ef4e5a8c8a898cd63645a2bf26c5d3cd6",
+      "artifacts/claims/A0.comp.step-coverage/manifest.json": "ee6382339e7615126eea6a2570415c7efbea16e912c3e5b7f27065fef97b832a",
+      "artifacts/claims/A0.comp.step-coverage/report.json": "cf8cfb3fef33308c5f975f8494e896af18f1a0267a310fd98413de08b5c72959"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v5.json artifacts/claims/A0.comp.step-coverage/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "Canonical encode/decode is separately exhaustive over all legal structured instructions. This route covers every step family, exact effects, traps, terminal behavior, and frame containment."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "decoder and step implementation coverage", "adr": ["ADR-0811"], "reconstruction": "none"},
   "book": {"chapter": "ch06-encoding-decoding", "label": "op:a0-step", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

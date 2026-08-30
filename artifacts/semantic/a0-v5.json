@@ -1,6 +1,6 @@
 {
-  "schema": "axeyum.a0.semantic-package.v4",
-  "version": "4",
+  "schema": "axeyum.a0.semantic-package.v5",
+  "version": "5",
   "source_path": "crates/axeyum-machine/src/a0.rs",
   "source_sha256": "a21876a5c57969c049abe5d10b6b4decb3a543956583f8ca02a1cc6596191298",
   "word_widths": [
