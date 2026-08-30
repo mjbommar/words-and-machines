@@ -1302,11 +1302,29 @@ but it must preserve whether the result was verified, absent, unsupported,
 exhausted, or failed. Convenience belongs above the boundary; evidence meaning
 belongs below it.
 
-The present book repository is not at that endpoint. Object
-\obj{OP.evid.manifest-checker} records the missing implementation obligation.
-The active artifact tree has the schema design but no completed A0 or real-ISA
-evidence package to run through it. Existing Axeyum solver machinery is a
-foundation. It does not fill the semantic and manifest gaps automatically.
+The present book repository is not at the Python endpoint shown above. It now
+has one completed A0 finite-computation package: the width-8/16 byte round trip
+introduced in Chapter 1. Its command-line gate validates the full nested
+manifest, binds the corresponding object and trust class, verifies the pinned
+Axeyum revision, reproduces the report, checks post-production digests, matches
+the expected positive text, and requires the named negative failure.
+
+\begin{artifact}{OP.evid.manifest-checker}
+Four direct mutations remove a nested required field, add an unknown nested
+field, damage a digest, and empty the semantic-input list. A fifth command
+removes \code{checker.expected_result} from the active manifest and must exit
+nonzero with \code{schema-mismatch}. The active A0 route then exercises the
+producer, checker, digest, revision, expected-result, trust-class, object-binding,
+and reversed-byte-order paths together.
+
+This is checked repository infrastructure, not a proof of a machine theorem.
+It still lacks the intended Python inspection object, certificate checking,
+and kernel reconstruction interface shown in the illustrative listing.
+\ArtifactScope{OP.evid.manifest-checker}
+\end{artifact}
+
+Existing Axeyum solver machinery remains a foundation. It does not fill those
+remaining Python, certificate, or machine-semantic gaps automatically.
 \label{op:manifest-checker}
 
 \subsection{Reports for the next decision}

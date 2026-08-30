@@ -1,0 +1,11 @@
+{
+  "schema": "axeyum.a0.word-roundtrip.v1",
+  "semantic_package_sha256": "0f7308e2738fbc7c1f445d6e04dc782319f00c6ec3695d528085480fcdee63e1",
+  "exhaustive_widths": [
+    8,
+    16
+  ],
+  "values_checked": 65792,
+  "passed": true,
+  "result_sha256": "2a1cb64d420914df46de45836be160f4aba2a49025556174c4ec9b35c3cb47d1"
+}

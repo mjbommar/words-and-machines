@@ -3,13 +3,16 @@
 This directory contains only evidence produced under the A0, RV64, x86-64,
 cross-machine, and evidence-manifest architecture.
 
-There are currently no active machine-proof artifacts. The semantic packages
-and routes required by the revised book have not yet been implemented in
-Axeyum. That absence is preferable to carrying unrelated legacy results under
-new names.
+The first active artifact is
+`claims/A0.comp.byte-roundtrip-8-16/manifest.json`. It binds the exact A0
+semantic-source digest and records a complete finite computation over all
+8- and 16-bit words. Its checker recomputes 65,792 cases. Reversed byte order
+is the load-bearing negative control and must fail with `semantic-mismatch`.
+This computation does not establish the general-width theorem or any later
+machine route.
 
-The intended layout has a schema directory, versioned semantic packages, and
-one claims subdirectory per object ID. Each claim directory contains one
+The layout has a schema directory, versioned semantic packages, and one claims
+subdirectory per object ID. Each claim directory contains one
 manifest and its pinned evidence files.
 
 Semantic packages define words, states, decoders, steps, traces, or state

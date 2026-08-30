@@ -929,6 +929,20 @@ sequence position meets the lowest address; it does not change the number of
 possible words.
 \end{proofkit}
 
+\begin{artifact}{A0.comp.byte-roundtrip-8-16}
+Axeyum also checks the first two byte-multiple widths by complete enumeration.
+The producer splits and rejoins all 256 eight-bit words and all 65,536
+sixteen-bit words. The checker recomputes all 65,792 cases from the
+source-digest-bound A0 semantics. Its negative control reverses each byte
+sequence; the recorded result is then rejected with a semantic mismatch.
+
+This result is a finite computation, not the general proof above. It says
+nothing about widths 24 through 64, and it carries neither an independent
+certificate nor a kernel reconstruction. Run \code{make check-run} from the
+repository root to replay the computation and require the control to fail.
+\ArtifactScope{A0.comp.byte-roundtrip-8-16}
+\end{artifact}
+
 The counting agrees with the algebra. There are 256 choices for each of
 \(n\) bytes, hence \(256^n=(2^8)^n=2^{8n}\) sequences. That is exactly the
 number of width-\(8n\) words. Equal counts alone would not prove that our
@@ -1156,12 +1170,17 @@ the boundaries are explicit.
 
 \section{Implementation boundary}
 
-The definitions in this chapter are book-level foundations. Axeyum already
-has fixed-width bit-vector terms and solver routes, but the redesigned book
-does not treat the former width-eight formulas as its word foundation. Object
-\obj{OP.a0.word-package} records the actual missing layer: one reusable A0
-package for words, readings, width changes, and byte split and join, with
-interfaces suitable for execution and proof.
+The definitions in this chapter remain the book-level foundation. Axeyum now
+has a concrete A0 word type with modular unsigned and signed readings and
+little-endian byte split and join. The active computation above consumes that
+same Rust implementation and binds its source digest. It replaces the former
+state in which the artifact tree was empty.
+
+Object \obj{OP.a0.word-package} nevertheless remains open. The reusable
+package still lacks explicit zero-extension, sign-extension, and truncation
+interfaces, a formula layer derived from the executable operations, and the
+Python projection needed by the lessons. Passing one finite computation does
+not silently fill those missing interfaces.
 
 The controls should attack the rules we have just used. A wrong modulus should
 fail at wraparound. A wrong sign extension should fail on a source whose high
@@ -1169,14 +1188,13 @@ bit is one. Reversed byte weights should fail on a word with unequal bytes.
 A damaged round trip should return a concrete witness rather than a success
 message.
 
-An introductory Axeyum workflow will eventually make this obligation
-concrete. The reader will construct a fixed-width term, state a relation such
-as split followed by join, ask for a counterexample within the declared
-width, and replay any returned model through executable A0 operations. If the
-solver reports that no counterexample exists, the route must still identify
-the generated formula and the independent checking boundary. Axeyum's current
-bit-vector machinery is useful substrate for that route; it is not yet the A0
-word package named by this chapter.
+The current command-line workflow makes one portion concrete: it emits the
+semantic package and report, recomputes the declared finite domain, verifies
+their digests, and runs the reversed-byte-order control. A later symbolic
+workflow must still let the reader state a relation, request either a proof or
+a counterexample, and replay any model through the executable A0 operations.
+If the solver reports that no counterexample exists, that route must identify
+the generated formula and its independent checking boundary.
 
 The first Python-facing lesson should use a small, typed surface. Construct a
 word by giving its width and natural representative. Ask for its unsigned and
@@ -1196,18 +1214,19 @@ searching the whole finite domain, and checking the evidence returned by that
 search. The commands may be close together in a notebook. Their claims are
 not interchangeable.
 
-\begin{sidebar}[title={What Axeyum will add}]
-The mathematics on these pages defines the intended word operations. The
-planned Axeyum package will add executable operations, formula generation,
-counterexample replay, checked evidence for selected finite claims, and
-negative controls. It will not turn an unstated width convention into a
-theorem.
+\begin{sidebar}[title={What Axeyum has established, and what remains}]
+Axeyum now supplies executable modular words, byte split and join, one
+source-bound finite computation, and a negative control that demonstrably
+fires. It has not yet supplied the width-change operations, general symbolic
+theorem, counterexample replay route, Python lesson interface, or independent
+certificate. None of those missing layers may be inferred from the green
+finite check.
 \end{sidebar}
 
-Until that package exists, this chapter has reader proofs and exact
-definitions but no generated machine-proof box. A solver result about one
-handwritten formula would not establish the width-parametric library on which
-later A0 state and instruction semantics must depend.
+The chapter therefore has both a general reader proof and a narrower generated
+computation. Their scopes differ on purpose. A solver result about one
+handwritten formula would still not establish the width-parametric library on
+which later A0 state and instruction semantics must depend.
 
 One word now has a carrier, bit operations, several readings, width changes,
 and a relation to bytes. It still has no location. We do not know which

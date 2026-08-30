@@ -1,0 +1,59 @@
+{
+  "id": "A0.comp.byte-roundtrip-8-16",
+  "kind": "computation",
+  "part": 1,
+  "title": "Finite A0 byte round trip at widths 8 and 16",
+  "statement": "Little-endian byte splitting followed by little-endian joining returns the original A0 word for every value at widths 8 and 16.",
+  "formal": {
+    "language": "prose",
+    "statement": "For w in {8,16} and every x in [0,2^w), join_le(split_le(Word(w,x))) = Word(w,x).",
+    "fragment": "finite-enumeration"
+  },
+  "epistemic_status": "computed",
+  "scope": "All 65,792 words in the union of the complete width-8 and width-16 domains. This object does not quantify over widths 24 through 64.",
+  "depends_on": [
+    "A0.def.word",
+    "A0.def.byte"
+  ],
+  "evidence": [
+    {
+      "kind": "exhaustive-enumeration",
+      "trust_class": "computation",
+      "semantic_inputs": [
+        "artifacts/semantic/a0-v1.json",
+        "artifacts/claims/A0.comp.byte-roundtrip-8-16/manifest.json"
+      ],
+      "artifact": "artifacts/claims/A0.comp.byte-roundtrip-8-16",
+      "sha256": {
+        "artifacts/semantic/a0-v1.json": "0f7308e2738fbc7c1f445d6e04dc782319f00c6ec3695d528085480fcdee63e1",
+        "artifacts/claims/A0.comp.byte-roundtrip-8-16/manifest.json": "9d48743946428db87a0b8ff5259612b9e393c0eed0a28645dbb22ca82e98a84b",
+        "artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json": "13e8a32b68e4dee83eefc5808643768b9a42e4b84ab9e5d45f51384416d36faf"
+      },
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-roundtrip artifacts/semantic/a0-v1.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-roundtrip-reversed artifacts/semantic/a0-v1.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+      "expected_failure": "semantic-mismatch",
+      "check_status": "checked",
+      "checked_on": "2026-08-30",
+      "note": "The checker recomputes all 65,792 cases. Reversing byte order changes the result digest and exits nonzero."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-machine-evidence",
+    "example": "axeyum-machine-evidence",
+    "route": "word-roundtrip finite computation",
+    "adr": [
+      "ADR-0811"
+    ],
+    "reconstruction": "none"
+  },
+  "book": {
+    "chapter": "ch01-words-meanings",
+    "label": "comp:a0-byte-roundtrip-8-16",
+    "role": "machine-proof"
+  },
+  "provenance": {
+    "date": "2026-08-30",
+    "by": "Axeyum executable curriculum",
+    "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md flagship sequence item 1"
+  }
+}

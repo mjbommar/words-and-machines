@@ -18,6 +18,7 @@ check: ledger artifact-check ## validate every active object and manifest
 	python3 scripts/check_objects.py
 
 check-run: check ## ALSO execute every checker_command and negative_control
+	python3 scripts/check_artifacts.py --run
 	python3 scripts/check_objects.py --run
 
 reproduce: check-run ## replay every active checker and negative control

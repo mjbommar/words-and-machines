@@ -96,8 +96,9 @@ Evidence:
   controls, migration rule, and implementation completion conditions.
 - Legacy artifacts and producers are archived outside the active gate.
 
-Assessment: satisfied as a redesign. There are deliberately zero active
-machine-proof manifests until Axeyum implements the semantic packages.
+Assessment: the redesign now has its first active route. One A0 semantic
+package and one width-8/16 finite-computation manifest are checked, including
+a firing reversed-byte-order control. All later flagship routes remain open.
 
 ### Guidance and front matter consistency
 

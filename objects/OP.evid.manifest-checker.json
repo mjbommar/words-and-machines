@@ -1,8 +1,33 @@
 {
   "id": "OP.evid.manifest-checker", "kind": "obligation", "part": 3,
-  "title": "Implement the evidence manifest checker",
-  "statement": "Implement schema, digest, semantic-input, producer, checker, expected-result, trust-class, and negative-control validation for active evidence manifests.",
-  "epistemic_status": "open", "depends_on": ["EVID.def.manifest", "EVID.prin.negative-control"], "evidence": [],
+  "title": "Evidence manifest checker",
+  "statement": "The repository validates every active manifest's complete nested schema, local paths and digests, object binding, trust class, pinned Axeyum revision, producer, checker result, and named negative-control failure.",
+  "epistemic_status": "computed",
+  "scope": "Active schema-version-1 manifests under artifacts/claims. The gate reproduces each declared producer and checker and requires each negative control to exit nonzero with its named failure class.",
+  "depends_on": ["EVID.def.manifest", "EVID.prin.negative-control"],
+  "evidence": [
+    {
+      "kind": "exhaustive-enumeration",
+      "trust_class": "computation",
+      "semantic_inputs": [
+        "artifacts/schema/manifest.schema.json",
+        "artifacts/claims/A0.comp.byte-roundtrip-8-16/manifest.json"
+      ],
+      "artifact": "scripts/check_artifacts.py",
+      "sha256": {
+        "artifacts/schema/manifest.schema.json": "ec42a4ec326a908fbff4437f2fa67cb004427052fc0e5f83e16d7190bb8e80b6",
+        "scripts/check_artifacts.py": "fa2bb46e3c8144e6e95585131c48cf22f7e3fb3bd7bb1b62058441a9f592b606",
+        "scripts/control_check_artifacts.py": "b22fa4ca7326239706be6d05325d7df06adf326b38644657f46ca239e44532a0",
+        "scripts/tests/test_check_artifacts.py": "87da32ddded5c824ca15d02bb674ea07bfae3acf29c052752778ba0e5afea440"
+      },
+      "checker_command": "python3 -m unittest scripts.tests.test_check_artifacts && python3 scripts/check_artifacts.py --run",
+      "negative_control": "python3 scripts/control_check_artifacts.py",
+      "expected_failure": "schema-mismatch",
+      "check_status": "checked",
+      "checked_on": "2026-08-30",
+      "note": "Four structural mutation tests exercise nested required fields, nested unknown fields, digest syntax, and nonempty semantic inputs. The live route also reproduces the producer, checks post-production digests, matches positive output, and matches the negative failure class."
+    }
+  ],
   "book": {"chapter": "ch14-evidence", "label": "op:manifest-checker", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "evidence ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

@@ -5,13 +5,14 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **41** -- `open` 13, `stated` 28
-- Evidence rows: **0** -- none
+- Objects: **42** -- `computed` 2, `open` 12, `stated` 28
+- Evidence rows: **2** -- `checked` 2
 
 ## Part I -- Constructing an instruction set
 
 | ID | Kind | Title | Status | External | Scope | Evidence |
 |---|---|---|---|---|---|---|
+| [`A0.comp.byte-roundtrip-8-16`](A0.comp.byte-roundtrip-8-16.json) | computation | Finite A0 byte round trip at widths 8 and 16 | `computed` | `--` | All 65,792 words in the union of the complete width-8 and width-16 domains. This object does not quantify over widths 24 through 64. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.def.byte`](A0.def.byte.json) | definition | A0 byte split and join | `stated` | `--` | -- | -- |
 | [`A0.def.decode`](A0.def.decode.json) | definition | A0 decoder | `stated` | `--` | -- | -- |
 | [`A0.def.instruction`](A0.def.instruction.json) | definition | A0 decoded instruction | `stated` | `--` | -- | -- |
@@ -53,7 +54,7 @@
 | [`EVID.def.manifest`](EVID.def.manifest.json) | definition | Evidence manifest | `stated` | `--` | -- | -- |
 | [`EVID.def.trust-class`](EVID.def.trust-class.json) | definition | Evidence trust classes | `stated` | `--` | -- | -- |
 | [`EVID.prin.negative-control`](EVID.prin.negative-control.json) | principle | Every checked route has a firing negative control | `stated` | `--` | -- | -- |
-| [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Implement the evidence manifest checker | `open` | `--` | -- | -- |
+| [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Evidence manifest checker | `computed` | `--` | Active schema-version-1 manifests under artifacts/claims. The gate reproduces each declared producer and checker and requires each negative control to exit nonzero with its named failure class. | `exhaustive-enumeration` / `computation`: checked |
 | [`OP.rel.a0-equivalence`](OP.rel.a0-equivalence.json) | obligation | Implement A0 equivalence and counterexample replay | `open` | `--` | -- | -- |
 | [`OP.rel.cross-isa`](OP.rel.cross-isa.json) | obligation | Implement cross-ISA refinement | `open` | `--` | -- | -- |
 | [`OP.rel.scalar-minimality`](OP.rel.scalar-minimality.json) | obligation | Build the scalar minimality route | `open` | `--` | -- | -- |

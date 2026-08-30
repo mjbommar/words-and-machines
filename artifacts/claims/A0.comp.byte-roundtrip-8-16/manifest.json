@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.comp.byte-roundtrip-8-16",
+  "statement": "For every 8-bit and 16-bit A0 word, little-endian byte splitting followed by little-endian joining returns the original word.",
+  "scope": "Complete finite enumeration of all 256 width-8 values and all 65,536 width-16 values; no claim is made here for wider A0 words.",
+  "exclusions": [
+    "Widths 24 through 64",
+    "Big-endian byte order",
+    "A general symbolic or kernel theorem"
+  ],
+  "trust_class": "computation",
+  "semantic_inputs": [
+    {
+      "name": "a0-semantics",
+      "version": "1",
+      "path": "artifacts/semantic/a0-v1.json",
+      "sha256": "0f7308e2738fbc7c1f445d6e04dc782319f00c6ec3695d528085480fcdee63e1"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+      "sha256": "13e8a32b68e4dee83eefc5808643768b9a42e4b84ab9e5d45f51384416d36faf",
+      "role": "report"
+    }
+  ],
+  "producer": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-word-roundtrip artifacts/semantic/a0-v1.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+    "version": "axeyum-machine-evidence-v1"
+  },
+  "checker": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-roundtrip artifacts/semantic/a0-v1.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+    "version": "axeyum-machine-evidence-v1",
+    "expected_result": "PASS: values=65792"
+  },
+  "negative_control": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-roundtrip-reversed artifacts/semantic/a0-v1.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+    "expected_failure": "semantic-mismatch",
+    "mutates": "Reverse every emitted byte sequence before reconstruction"
+  },
+  "environment": {
+    "axeyum_revision": "fab80468ed9252e3bf88826c4c2d864c851b9980",
+    "rust_version": "1.88 or newer"
+  },
+  "limitations": [
+    "This is exhaustive computation over two finite widths, not a proof for every supported width.",
+    "The checker and semantic implementation are in the same Axeyum repository, although the checker independently recomputes the recorded domain."
+  ],
+  "created": "2026-08-30"
+}

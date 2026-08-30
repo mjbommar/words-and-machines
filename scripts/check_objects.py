@@ -15,7 +15,7 @@ Semantic rules (enforced, not just structure -- mirrors axeyum's validate-facts.
 Exit status: 0 only if everything passes.
 """
 from __future__ import annotations
-import argparse, json, os, subprocess, sys
+import argparse, hashlib, json, os, re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -61,6 +61,17 @@ def semantic(rec):
     for e in ev:
         a = e.get("artifact")
         if a and not (ROOT / a).exists(): errs.append(f"artifact missing: {a}")
+        for raw_path, expected in e.get("sha256", {}).items():
+            if not re.fullmatch(r"[0-9a-f]{64}", expected):
+                errs.append(f"invalid raw digest for {raw_path}")
+                continue
+            path = (ROOT / raw_path).resolve()
+            if ROOT not in path.parents or not path.is_file():
+                errs.append(f"raw artifact missing or outside repository: {raw_path}")
+                continue
+            observed = hashlib.sha256(path.read_bytes()).hexdigest()
+            if observed != expected:
+                errs.append(f"raw artifact digest mismatch: {raw_path}")
         if e["check_status"] == "checked" and e["kind"] != "claim-ref":
             if not e.get("checker_command"):
                 errs.append("checked evidence without checker_command")

@@ -43,14 +43,16 @@ The active book has an Introduction and sixteen chapters, totaling 182,440
 chapter-source words and 67 rendered figures. The first sequential depth pass
 is complete: every chapter is within its planned textbook-length band, with
 worked examples, exercises, proof development, and explicit model boundaries.
-The active ledger contains 41 definitions, principles, and implementation
-obligations following the A0, RV64, and x86-64 dependency graph.
+The active ledger contains 42 definitions, principles, computations, and
+implementation obligations following the A0, RV64, and x86-64 dependency
+graph.
 
-There are no active machine-proof artifacts yet. Axeyum has useful bit-vector,
-solver, certificate, and kernel infrastructure, but it does not yet implement
-the architectural state, byte memory, decoders, instruction semantics, or
-cross-machine relations the revised book requires. The ledger records those
-gaps rather than filling them with unrelated results.
+The first active artifact is a source-bound finite computation over all 8- and
+16-bit A0 byte round trips. Its checker recomputes 65,792 cases, and its
+reversed-byte-order control must fail. It is not a general theorem. Axeyum now
+also has concrete A0 state, memory, decoder, instruction semantics, traps, and
+bounded traces on its executable-curriculum branch. Proof-facing A0 formulas,
+the real-ISA slices, and cross-machine relations remain open.
 
 Legacy evidence-led chapters, objects, artifacts, producers, surveys, guide,
 and paper are retained under the research archive. They do not feed the active
@@ -79,8 +81,8 @@ not an execution model. Equal destination words are not cross-ISA refinement.
     make book
     make -C book check
 
-The runtime check currently executes no machine-proof route because no active
-claim has been promoted beyond its implementation obligation.
+The runtime check executes the finite A0 byte-roundtrip computation and its
+firing negative control. Every other planned machine route remains open.
 
 ## Layout
 
