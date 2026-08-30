@@ -3,7 +3,7 @@
 AXEYUM ?= $(HOME)/projects/personal/axeyum
 export AXEYUM
 
-.PHONY: help ledger artifact-check check check-run reproduce book clean
+.PHONY: help ledger artifact-check code-check check check-run reproduce book clean
 
 help: ## list targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  %-14s %s\n",$$1,$$2}'
@@ -14,7 +14,11 @@ ledger: ## regenerate objects/LEDGER.md and the book's generated status macros f
 artifact-check: ## validate active evidence manifests, paths, and digests
 	python3 scripts/check_artifacts.py
 
-check: ledger artifact-check ## validate every active object and manifest
+code-check: ## parse A0 listings and assemble every RV64I and x86-64 listing
+	python3 -m unittest scripts.test_check_code_listings
+	python3 scripts/check_code_listings.py
+
+check: ledger artifact-check code-check ## validate every active object, manifest, and code listing
 	python3 scripts/check_objects.py
 
 check-run: check ## ALSO execute every checker_command and negative_control

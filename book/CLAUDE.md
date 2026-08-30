@@ -122,6 +122,11 @@ an axeyum change.
     Part--Chapter--Section hierarchy stable. Update `glossary.yaml` and curated
     `\indexentry` locators during each chapter revision. See
     `docs/guides/INDEX-GLOSSARY.md`; run `make structure` before building.
+13. **Treat every code listing as runnable.** A future API belongs in prose,
+    not a syntax-highlighted box. The repository-level `make code-check`
+    parses A0, assembles RV64I and x86-64, verifies printed addresses, and
+    rejects Python without a declared execution harness. Add the harness and a
+    mutation control before adding a new executable language listing.
 
 ## Build targets (complete vocabulary — see docs/architecture/build-system.md)
 
@@ -133,7 +138,7 @@ an axeyum change.
 | `make epub-a11y` | Ace by DAISY accessibility audit (fails on serious/critical) |
 | `make cover-vars` | Page count → spine → `latex/generated/cover-vars.tex` |
 | `make kdp-cover` / `make lulu-cover` / `make cover-image` | Wrap covers, Kindle raster |
-| `make check` | Style + prose checkers on `latex/chapters/` |
+| `make check` | Style + prose checkers on `latex/chapters/`; also runs the repository code-listing gate |
 | `make structure` | Four-Part spine, heading hierarchy, title-length, and chapter-ending gate |
 | `make preflight` | Font-embedding + image-DPI gates on interior and cover PDFs |
 | `make cover-ink` | Cover total-ink (TAC ≤ 240%) gate |

@@ -146,6 +146,7 @@ epub-a11y: epub ## Ace by DAISY audit (fails on serious/critical)
 check: ## style + prose gates on chapters
 	@$(UV) scripts/check_style.py
 	@$(UV) scripts/check_prose.py
+	@$(MAKE) -C .. code-check
 
 structure: ## audit Parts, heading hierarchy, title lengths, and chapter endings
 	@$(UV) scripts/check_structure.py --strict

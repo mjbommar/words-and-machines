@@ -315,10 +315,12 @@ Consider this width-eight loop, with each line occupying four bytes:
 
 \begin{codelisting}[language={},caption={A0 counts r0 down to zero}]
 00: movi r1, 1
+loop:
 04: cmp  r0, r1
 08: branch.lo exit
 0c: sub  r0, r0, r1
 10: branch.ne loop
+exit:
 14: halt
 \end{codelisting}
 

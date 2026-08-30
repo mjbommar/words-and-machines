@@ -302,10 +302,15 @@ tree, a certificate dependency, an hourglass of trust, or the boundary of an
 instruction language. The prose must interpret the figure, and meaning must
 not depend on color.
 
-Code should be executable enough to inspect and short enough to teach one
-move. Introduce inputs and outputs before the listing. After it, point to the
-line that carries the proof obligation. A full command belongs in a
-reproduction guide unless running it is itself the lesson.
+Code in a listing is an executable promise, not a picture of a future API.
+Keep it short enough to teach one move, but require a parser, assembler, or
+runtime harness that the repository gate executes. Put an unimplemented
+interface contract in prose until that harness exists. If an algorithm sketch
+is more useful than source code, call it pseudocode in both the lead-in and the
+caption and give it a structural checker. Introduce inputs and outputs before
+the listing. After it, point to the line that carries the proof obligation. A
+full command belongs in a reproduction guide unless running it is itself the
+lesson.
 
 ## 9. Draft and revision tests
 

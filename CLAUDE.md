@@ -68,6 +68,12 @@ from an ordinary book.
     cost, and distinguish invention, standardization, and adoption. Record the
     coverage comparison and deliberate omissions in the chapter research
     contract before drafting. Follow `book/docs/guides/CRAFT.md`.
+14. **A code box is an executable promise.** Do not print a future import,
+    illustrative API, or unmarked pseudocode in an executable-looking listing. Keep a
+    design target in prose until its runtime harness exists. `make code-check`
+    parses A0 listings, assembles RV64I and x86-64 listings, verifies printed
+    addresses, and rejects unbound Python listings. When adding a language or
+    tool, extend that checker and its mutation controls in the same change.
 
 ## Project map
 
@@ -75,7 +81,7 @@ from an ordinary book.
 |---|---|
 | `objects/` | the ledger (schema in `objects/schema/`) |
 | `artifacts/` | evidence; raw SHA-256 in each `SHA256SUMS.raw` |
-| `scripts/` | `check_objects.py` (gate), `gen_ledger.py`, `check_object.sh`, `check_smt.sh`, `up_refutes.py`, the two BFS reproductions |
+| `scripts/` | object, artifact, certificate, and code-listing gates; ledger generation; active reproductions |
 | `book/` | manuscript and publication build; Introduction plus Chapters 1–16; object bindings in `preamble/objects.tex` |
 | `axeyum-guide/` | how to run every route, what it proves, where axeyum stops |
 | `research/` | axeyum docs and ADRs; ten surveys; prior-art search |

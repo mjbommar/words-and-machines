@@ -1512,28 +1512,17 @@ A boundary input explains semantic failure. The retained examples teach why
 the candidate language and harness are part of the theorem rather than setup
 around it.
 
-\begin{codelisting}[language=python,caption={The intended shape of a future teaching interface}]
-# Illustrative API: this interface is not yet implemented.
-language = CandidateLanguage.a0(
-    width=4,
-    forms=["mov.rr", "add.rrr"],
-    registers=["r0", "r1"],
-    constants={"r1": 1},
-    writes=["r0"],
-    observation=["normal", "r0"],
-    max_instructions=2,
-)
-result = search_minimal(
-    language,
-    spec="r0_out == r0_in + 2",
-)
-result.replay_witness()
-result.check_lower_bound()
-\end{codelisting}
+\begin{keyidea}[title={Contract for the future teaching interface}]
+The search request must carry the A0 width; admitted instruction forms;
+registers and fixed constants; writable state; observation; instruction bound;
+and the result specification. Its response must retain the witness, every
+lower search stratum, replay result, certificate, semantic digest, and control
+outcome. Until one implementation can serialize and check that whole record,
+there is no Python call for this chapter to print.
+\end{keyidea}
 
-The comment is part of the lesson: the interface is a design target, not a
-reported capability. Once it exists, the book should replace illustrative
-code with an executable example and bind any machine-backed result to the
+This is a design target, not a reported capability. Once it exists, the book
+should add an executable example and bind its machine-backed result to the
 exact Axeyum revision and checker route.
 
 The real-ISA layers come later. First establish that decoded bytes and A0

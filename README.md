@@ -82,10 +82,16 @@ not an execution model. Equal destination words are not cross-ISA refinement.
 
     make ledger
     make artifact-check
+    make code-check
     make check
     make check-run
     make book
     make -C book check
+
+`make code-check` treats every code box as a testable contract: it parses A0,
+assembles the RV64I and x86-64 listings, verifies printed addresses, checks the
+one explicitly marked pseudocode algorithm, and rejects Python listings that
+have no declared runtime harness.
 
 The runtime check executes all nine active A0 computations, traces, and certificate routes, together
 with their firing negative controls. Every other planned machine route remains

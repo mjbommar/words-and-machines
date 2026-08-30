@@ -1094,21 +1094,15 @@ An introductory interface should not begin with a Boolean function named
 inspect the control-point map, execute one segment, and ask which relation
 clauses hold. Only then should it offer a composed comparison.
 
-\begin{codelisting}[language=Python,caption={Illustrative future relation-first interface}]
-case = abs_case(width=8, value=0xfd)
-states = case.entry_states()
+\begin{keyidea}[title={Contract for a relation-first interface}]
+The eventual interface must expose the three entry states, the relation at
+each named control point, one decoded segment step, the endpoint states, and
+the first failed relation clause. No current Axeyum import supplies those
+objects, so the book does not print an executable call here.
+\end{keyidea}
 
-print(case.relation("entry").explain(states))
-segments = case.step_to("decision", states)
-print(case.relation("decision").explain(segments.ends))
-
-report = case.compare_to_exit()
-print(report.first_failed_clause())
-\end{codelisting}
-
-The sketch is not a current Axeyum import. Its design requirement is important:
-\code{explain} reports satisfied and failed clauses with concrete values. A
-negative control that changes RV64 \code{bge} to \code{bgeu} should point to
+The explanation must report satisfied and failed clauses with concrete values.
+A negative control that changes RV64 \code{bge} to \code{bgeu} should point to
 predicate or control disagreement, not return an undifferentiated false value.
 
 At the Rust layer, a control point can be an enumeration and each relation a

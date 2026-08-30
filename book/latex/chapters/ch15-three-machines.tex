@@ -486,7 +486,7 @@ the accumulator
 It also carries a remaining count \(c=n-i\). The following \keyterm{pseudocode}
 is a readable algorithm sketch rather than an executable language:
 
-\begin{codelisting}[language={},caption={The logical XOR-reduction loop}]
+\begin{codelisting}[language={},caption={Pseudocode for the logical XOR-reduction loop}]
 p := a
 c := n
 x := 0
@@ -1904,13 +1904,12 @@ states beyond the present scalar core.
 
 \section{Axeyum route}
 
-Axeyum already supplies bit-vector expressions, solver routes, evidence
-reports, propositional proof checking, selected SMT proof support, and kernel
-reconstruction machinery. Those general capabilities are useful ingredients.
-The live checkout does not yet supply the reusable A0, RV64I, and x86-64
-semantic packages required to execute these three listings as book artifacts.
-This chapter therefore separates the reader proof above from a future machine
-route below.
+Axeyum supplies bit-vector expressions, solver routes, evidence reports,
+propositional proof checking, selected SMT proof support, kernel reconstruction
+machinery, and the complete concrete A0 teaching machine. The live checkout
+does not yet supply the source-pinned RV64I and x86-64 semantic packages needed
+to execute all three listings as one book artifact. This chapter therefore
+separates the reader proof above from the still-open three-machine route below.
 
 The first implementation layer should be Rust. Instruction decoding, typed
 machine states, step relations, trace replay, memory-range checks, and
@@ -1920,34 +1919,15 @@ should then expose those checked operations for lessons, notebooks, and
 artifact runners. Python is the workbench; it should not become a second,
 quietly different semantics.
 
-An introductory Python session should eventually have this shape:
-
-\begin{codelisting}[language=Python,caption={Illustrative future Axeyum lesson interface}]
-from axeyum.machines import a0, rv64, x86_64
-from axeyum.examples import xor_reduce
-
-case = xor_reduce.case(
-    address=256,
-    words=[0x0f0f, 0x00ff, 0x0ff0],
-)
-a0_run = a0.run(xor_reduce.a0_bytes(), case.a0_state())
-rv_run = rv64.run(
-    xor_reduce.rv64_bytes(), case.rv64_state()
-)
-x86_run = x86_64.run(
-    xor_reduce.x86_bytes(), case.x86_state()
-)
-
-report = xor_reduce.compare(a0_run, rv_run, x86_run)
-report.require_controls()
-print(report.boundary())
-\end{codelisting}
-
-The listing sketches a future design; the import is not currently supported. The eventual API
-must return typed outcomes, decoded traces, first-divergence information,
-semantic-package digests, and control results. It must reject unsupported
-instructions and malformed bytes. It must not turn a timeout, missing checker,
-or decode error into successful evidence.
+\begin{keyidea}[title={Contract for the three-machine lesson interface}]
+The eventual interface must accept one declared memory case and the exact bytes
+for all three programs. It must return typed outcomes, decoded traces,
+first-divergence information, semantic-package digests, relation results, and
+control results. It must reject unsupported instructions and malformed bytes.
+It must not turn a timeout, missing checker, or decode error into successful
+evidence. Because the two real-machine semantic packages do not yet exist,
+there is no executable three-machine Python import to show here.
+\end{keyidea}
 
 \begin{figure}[htbp]
 \centering
