@@ -3,7 +3,8 @@
 The sibling Axeyum checkout now contains a reusable `axeyum-machine` package
 for A0 architectural words, state, finite byte memory, instruction effects,
 canonical encoding and strict decoding, complete concrete steps, and bounded
-traces. `axeyum-machine-evidence` produces nine book routes and their negative
+traces. Its word layer includes explicit zero extension, sign extension, and
+truncation. `axeyum-machine-evidence` produces ten book routes and their negative
 controls. The addition route constructs symbolic terms through the same
 operation structure used by concrete execution and saves term-bound DRAT and
 LRAT certificates.

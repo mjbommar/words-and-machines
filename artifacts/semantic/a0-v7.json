@@ -1,8 +1,8 @@
 {
-  "schema": "axeyum.a0.semantic-package.v6",
-  "version": "6",
+  "schema": "axeyum.a0.semantic-package.v7",
+  "version": "7",
   "source_path": "crates/axeyum-machine/src/a0.rs",
-  "source_sha256": "ee92c29b5d56eb52a102424c075e6494dfb5aaa3556d3a64a945faf8f142d6d6",
+  "source_sha256": "0279168596db78ec7c53829daca03a157e02a2c0281202c3ba991569ea0f481b",
   "word_widths": [
     8,
     16,
@@ -17,6 +17,7 @@
   "byte_order": "little-endian",
   "capabilities": [
     "words",
+    "word-extension-truncation",
     "finite-memory",
     "state",
     "observations",

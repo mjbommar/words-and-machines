@@ -19,7 +19,8 @@ from an ordinary book.
   case studies. Treat RISC and CISC as clusters of explicit semantic features.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
-- **Status:** nine A0 evidence routes are replayable, including fixed-width
+- **Status:** ten A0 evidence routes are replayable, including the reusable
+  word-operation audit and fixed-width
   addition certificates for every supported A0 width. General word/state
   theorems, the remaining A0 operations, and every RV64, x86-64, and
   cross-machine route remain open. The full manuscript has

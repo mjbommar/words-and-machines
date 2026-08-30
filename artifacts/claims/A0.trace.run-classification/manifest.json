@@ -5,12 +5,12 @@
   "scope": "Four concrete width-8 runs plus a zero-step boundary case and a two-plus-three-step resumption of an unconditional self-loop.",
   "exclusions": ["A termination theorem", "All programs or initial states", "A symbolic transition proof"],
   "trust_class": "trace",
-  "semantic_inputs": [{"name": "a0-semantics", "version": "6", "path": "artifacts/semantic/a0-v6.json", "sha256": "e0055b172d7d586c791e575d54e4eca2f50c2cf48291aed998beaecf3b3d5f69"}],
-  "artifacts": [{"path": "artifacts/claims/A0.trace.run-classification/report.json", "sha256": "409cdf311b650b821aa753aff00d2750495939f6779fc62ce1d64e2e947d3d66", "role": "trace"}],
-  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-run-classification artifacts/semantic/a0-v6.json artifacts/claims/A0.trace.run-classification/report.json", "version": "axeyum-machine-evidence-v6"},
-  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-run-classification artifacts/semantic/a0-v6.json artifacts/claims/A0.trace.run-classification/report.json", "version": "axeyum-machine-evidence-v6", "expected_result": "PASS: halt=halted trap=trapped exhausted=bound-exhausted prefix=prefix-returned resumed=true"},
-  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-run-false-halt artifacts/semantic/a0-v6.json artifacts/claims/A0.trace.run-classification/report.json", "expected_failure": "semantic-mismatch", "mutates": "Label the caller-returned running prefix as halted"},
-  "environment": {"axeyum_revision": "100e70004c0882c14005cd2f78350cb010a853ee", "rust_version": "1.88 or newer"},
+  "semantic_inputs": [{"name": "a0-semantics", "version": "7", "path": "artifacts/semantic/a0-v7.json", "sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267"}],
+  "artifacts": [{"path": "artifacts/claims/A0.trace.run-classification/report.json", "sha256": "992f304fb428009c486f8e589dad6d9e9b7eab86027a4317f09f465d5c6d580d", "role": "trace"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-run-classification artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.run-classification/report.json", "version": "axeyum-machine-evidence-v7"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-run-classification artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.run-classification/report.json", "version": "axeyum-machine-evidence-v7", "expected_result": "PASS: halt=halted trap=trapped exhausted=bound-exhausted prefix=prefix-returned resumed=true"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-run-false-halt artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.run-classification/report.json", "expected_failure": "semantic-mismatch", "mutates": "Label the caller-returned running prefix as halted"},
+  "environment": {"axeyum_revision": "b3efd2ed0edbafa73b0c9fd86906d0019d88d191", "rust_version": "1.88 or newer"},
   "limitations": ["The route replays concrete cases and does not prove termination.", "The source-bound implementation supports arbitrary finite bounds, but this report samples one loop and terminal examples."],
   "created": "2026-08-30"
 }

@@ -1171,16 +1171,32 @@ the boundaries are explicit.
 \section{Implementation boundary}
 
 The definitions in this chapter remain the book-level foundation. Axeyum now
-has a concrete A0 word type with modular unsigned and signed readings and
-little-endian byte split and join. The active computation above consumes that
-same Rust implementation and binds its source digest. It replaces the former
-state in which the artifact tree was empty.
+has a concrete A0 word type with modular unsigned and signed readings,
+little-endian byte split and join, explicit zero and sign extension, and
+truncation. The implementation rejects a widening operation that would narrow
+and a truncation that would widen. These are public Rust operations, not merely
+formulas written beside the executor.
 
-Object \obj{OP.a0.word-package} nevertheless remains open. The reusable
-package still lacks explicit zero-extension, sign-extension, and truncation
-interfaces, a formula layer derived from the executable operations, and the
-Python projection needed by the lessons. Passing one finite computation does
-not silently fill those missing interfaces.
+\begin{artifact}{A0.comp.word-package}
+The source-bound audit checks 65,822 words and 2,106,910 operation results. It
+enumerates every 8- and 16-bit source word, tries every legal widening target,
+and truncates each extension back to its source width. At widths 24 through 64
+it checks five named boundary values: zero, one, the largest positive signed
+value, the smallest negative signed value, and all ones. Independent integer
+formulas check both readings, byte split and join, extension, and truncation.
+
+The negative control implements zero extension by repeating the sign bit. A
+source with high bit one separates the mutated operation from the declared
+one, so replay exits nonzero with \code{semantic-mismatch}. This is exhaustive
+only for the complete 8- and 16-bit value domains; the larger-width checks are
+boundary tests, not an arbitrary-width theorem.
+\ArtifactScope{A0.comp.word-package}
+\end{artifact}
+
+That route fulfills the concrete implementation obligation recorded by
+\obj{OP.a0.word-package}. It does not supply the later Python projection or a
+general symbolic theorem for every word operation. Those remain distinct
+interfaces rather than hidden conditions on the completed Rust package.
 
 The controls should attack the rules we have just used. A wrong modulus should
 fail at wraparound. A wrong sign extension should fail on a source whose high
@@ -1188,9 +1204,9 @@ bit is one. Reversed byte weights should fail on a word with unequal bytes.
 A damaged round trip should return a concrete witness rather than a success
 message.
 
-The current command-line workflow makes one portion concrete: it emits the
-semantic package and report, recomputes the declared finite domain, verifies
-their digests, and runs the reversed-byte-order control. A later symbolic
+The current command-line workflow emits the semantic package and reports,
+recomputes the declared finite domains, verifies their digests, and runs both
+the reversed-byte-order and wrong-extension controls. A later symbolic
 workflow must still let the reader state a relation, request either a proof or
 a counterexample, and replay any model through the executable A0 operations.
 If the solver reports that no counterexample exists, that route must identify
@@ -1215,12 +1231,11 @@ search. The commands may be close together in a notebook. Their claims are
 not interchangeable.
 
 \begin{sidebar}[title={What Axeyum has established, and what remains}]
-Axeyum now supplies executable modular words, byte split and join, one
-source-bound finite computation, and a negative control that demonstrably
-fires. It has not yet supplied the width-change operations, general symbolic
-theorem, counterexample replay route, Python lesson interface, or independent
-certificate. None of those missing layers may be inferred from the green
-finite check.
+Axeyum now supplies executable modular words, byte split and join, explicit
+width changes, two source-bound finite computations, and negative controls
+that demonstrably fire. It has not yet supplied a general symbolic theorem for
+all word operations, the Python lesson interface, or a kernel reconstruction.
+None of those missing layers may be inferred from the green finite checks.
 \end{sidebar}
 
 The chapter therefore has both a general reader proof and a narrower generated
@@ -1257,8 +1272,8 @@ Then reverse the byte list and calculate the different word it represents.
 \item \textbf{Prove.} Prove that splitting and joining a two-byte word returns the original
 word. Identify the exact step that also works for any positive byte count.
 \item \textbf{Break.} Design a false join rule by changing one exponent. Give a word whose
-round trip exposes the error. This will become the negative control for the
-future A0 word package.
+round trip exposes the error. Compare it with the checked byte-order control in
+the active A0 word artifact.
 \item \textbf{Prove.} Show that bitwise exclusive or with a fixed mask is its
 own inverse. State why the argument works independently at every bit position.
 \item \textbf{Break.} Give a pair of different width-eight words that truncate
@@ -1299,8 +1314,8 @@ bit savings from becoming equal runtime savings.
 does to the upper 32 destination bits. From the pinned Intel manual, select one
 32-bit general-purpose register write and state its upper-bit rule in 64-bit
 mode. Give one input for which the resulting 64-bit patterns differ.
-\item \textbf{Audit.} Write a claim that split followed by join is the identity
-for four bytes. List the scope, formula, expected negative control, and replay
-observation that an eventual Axeyum artifact must bind. Explain why a solver
-result for a handwritten formula alone would not establish the A0 package.
+\item \textbf{Audit.} Extend the active split/join computation to four bytes.
+List the revised scope, expected negative control, and replay observation.
+Explain why a solver result for a handwritten formula alone would not establish
+the behavior of the executable A0 package.
 \end{enumerate}

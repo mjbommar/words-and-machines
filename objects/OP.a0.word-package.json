@@ -2,7 +2,14 @@
   "id": "OP.a0.word-package", "kind": "obligation", "part": 1,
   "title": "Implement the reusable A0 word package",
   "statement": "Implement width-parametric A0 words, readings, extension, truncation, and byte split and join in Axeyum with executable tests and proof-facing interfaces.",
-  "epistemic_status": "open", "depends_on": ["A0.def.word", "A0.def.byte"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["A0.def.word", "A0.def.byte", "A0.comp.word-package"],
+  "evidence": [{
+    "kind": "claim-ref", "trust_class": "computation",
+    "semantic_inputs": ["objects/A0.comp.word-package.json"],
+    "artifact": "artifacts/claims/A0.comp.word-package",
+    "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "Implemented by the source-bound route recorded as A0.comp.word-package."
+  }],
   "book": {"chapter": "ch01-words-meanings", "label": "op:a0-word-package", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

@@ -1,0 +1,49 @@
+{
+  "id": "A0.comp.word-package",
+  "kind": "computation",
+  "part": 1,
+  "title": "A0 word-operation implementation audit",
+  "statement": "The reusable A0 word implementation supplies modular construction, unsigned and signed readings, little-endian byte split and join, zero extension, sign extension, truncation, and explicit invalid-direction errors across all supported widths.",
+  "epistemic_status": "computed",
+  "scope": "Complete enumeration of every 8- and 16-bit source word across every legal widening target, plus five boundary vectors at each supported width from 24 through 64; 65,822 source words and 2,106,910 operation checks.",
+  "depends_on": ["A0.def.word", "A0.def.byte"],
+  "evidence": [
+    {
+      "kind": "exhaustive-enumeration",
+      "trust_class": "computation",
+      "semantic_inputs": [
+        "artifacts/semantic/a0-v7.json",
+        "artifacts/claims/A0.comp.word-package/manifest.json"
+      ],
+      "artifact": "artifacts/claims/A0.comp.word-package",
+      "sha256": {
+        "artifacts/semantic/a0-v7.json": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
+        "artifacts/claims/A0.comp.word-package/manifest.json": "b72355c28d1ee26bed3eb36d0657bf6c7cfb72ab26d1be01ce625f2bf618216c",
+        "artifacts/claims/A0.comp.word-package/report.json": "12996536dfccdb59251f1d285eb68bd6dba72617d84dcffd4bc772292b8fed3c"
+      },
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-package artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-package-signed-zero-extension artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
+      "expected_failure": "semantic-mismatch",
+      "check_status": "checked",
+      "checked_on": "2026-08-30",
+      "note": "The route checks 65,822 source words and 2,106,910 operation results. Widths 8 and 16 are exhaustive; larger widths use five named boundary vectors. Replacing zero extension with sign extension changes the report and is rejected."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-machine-evidence",
+    "example": "axeyum-machine-evidence",
+    "route": "source-bound A0 word-operation finite audit",
+    "adr": ["ADR-0811"],
+    "reconstruction": "none"
+  },
+  "book": {
+    "chapter": "ch01-words-meanings",
+    "label": "comp:a0-word-package",
+    "role": "machine-proof"
+  },
+  "provenance": {
+    "date": "2026-08-30",
+    "by": "Axeyum executable curriculum",
+    "origin": "book executable-artifact completion audit"
+  }
+}

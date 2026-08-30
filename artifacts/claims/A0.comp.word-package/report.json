@@ -1,0 +1,22 @@
+{
+  "schema": "axeyum.a0.word-package.v1",
+  "semantic_package_sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
+  "supported_widths": [
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56,
+    64
+  ],
+  "exhaustive_source_widths": [
+    8,
+    16
+  ],
+  "source_words_checked": 65822,
+  "operation_checks": 2106910,
+  "passed": true,
+  "result_sha256": "9b250f837028a9aa19b30d2d70d7046ab7e2faacff8ea82cbba3f9f98ee0005e"
+}

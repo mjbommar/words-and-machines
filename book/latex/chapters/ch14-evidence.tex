@@ -1298,9 +1298,9 @@ but it must preserve whether the result was verified, absent, unsupported,
 exhausted, or failed. Convenience belongs above the boundary; evidence meaning
 belongs below it.
 
-The present book repository has nine completed A0 routes: finite computations
-and traces from Chapters 1 through 9, plus the fixed-width addition
-certificates from Chapter 8. The command above validates each full nested
+The present book repository has ten completed A0 routes: finite computations
+and traces from Chapters 1 through 9, including the reusable word-operation
+audit, plus the fixed-width addition certificates from Chapter 8. The command above validates each full nested
 manifest, binds the corresponding object and trust class, verifies that the
 replay checkout contains the pinned producer revision, reproduces the report,
 checks post-production digests, matches the expected positive text, and
@@ -1312,7 +1312,7 @@ field, damage a digest, and empty the semantic-input list. A fifth command
 removes \code{checker.expected_result} from the active manifest and must exit
 nonzero with \code{schema-mismatch}. The active A0 route then exercises the
 producer, checker, digest, revision, expected-result, trust-class, object-binding,
-and negative-control paths together across all nine active routes.
+and negative-control paths together across all ten active routes.
 
 This is checked repository infrastructure, not a proof of a machine theorem.
 It still lacks a typed Python inspection object and a general kernel

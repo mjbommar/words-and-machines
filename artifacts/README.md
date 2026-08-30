@@ -3,8 +3,8 @@
 This directory contains only evidence produced under the A0, RV64, x86-64,
 cross-machine, and evidence-manifest architecture.
 
-Nine artifacts currently bind A0 semantic package v6: complete width-8/16
-byte round trips, one narrow-versus-broad observation trace, complete
+Ten artifacts currently bind A0 semantic package v7: complete width-8/16
+byte round trips, the reusable word-operation audit, one narrow-versus-broad observation trace, complete
 width-eight addition steps, one atomic memory round trip with a boundary trap,
 one taken/untaken branch pair, and four runner classifications with prefix
 resumption, exhaustive canonical encoding of all legal structured A0
@@ -16,7 +16,8 @@ addition result to the wrong destination, reverse memory byte order, or use the
 wrong branch-target base. The runner control labels a running prefix as halted;
 the decoder control accepts one reserved-bit form. The step suite injects a
 hidden write, removes a condition update, and changes the sequential PC.
-The addition-proof control inverts carry, finds a satisfying width-eight
+The word-operation control replaces zero extension with sign extension. The
+addition-proof control inverts carry, finds a satisfying width-eight
 model, and replays that pair through encoded A0 execution.
 Each must fail with `semantic-mismatch`. These routes
 do not establish an arbitrary-width theorem or any later machine route.
