@@ -75,9 +75,12 @@ an axeyum change.
 
 The current reader-facing Python surface includes complete concrete A0 words,
 memory, states, state encoding, all seventeen instruction families, traps,
-single steps, and bounded traces. Run the exact manuscript examples with
+single steps, and bounded traces. It also includes complete selected single-step
+projections for the source-pinned RV64I and x86-64 teaching slices: typed
+instructions, canonical encode/decode, complete state, traps, and state
+projection. Run the exact manuscript examples with
 `AXEYUM=../axeyum make machine-example-check` from the repository root. Do not
-describe RV64, x86-64, or cross-machine Python interfaces as implemented yet.
+describe real-ISA bounded traces or cross-machine Python relations as implemented.
 
 ## Hard rules
 

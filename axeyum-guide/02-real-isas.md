@@ -39,6 +39,21 @@ defined and undefined flag results, partial-register clearing, following-RIP
 branch targets, unaligned memory operands, and implicit stack effects. It runs
 the XOR, count, leaf, non-leaf, absolute-value, and write-zero examples.
 
+## Reader-facing Python execution
+
+`axeyum.machine.rv64` projects all twelve selected RV64I forms, canonical
+32-bit encoding, complete integer state, five trap classes, finite memory,
+canonical state projection, and `step`. `axeyum.machine.x64` projects all
+seventeen selected x86-64 form families, variable-length encode/decode with
+consumed length, three-valued flags including `undefined`, complete state,
+three trap classes, finite memory, canonical projection, and `step`.
+
+Both modules delegate transition meaning to their Rust adapters. Neither
+defines a Python-only runner. A caller may take explicit steps, but the current
+public surface does not classify a bounded real-ISA trace as halted, trapped,
+exhausted, or prefix-returned. Cross-machine relations also remain outside the
+Python projection.
+
 The first cross-machine refinement target is one scalar arithmetic instruction on each
 architecture. No adapter claim may be inferred from an existing custom
 synthesis encoder.

@@ -19,8 +19,9 @@ a planned route as an implemented capability.
 The reader-facing Python projection covers the complete concrete A0 surface:
 words, finite memory, complete states and their canonical codec, all seventeen
 instruction families, categorized traps, steps, and bounded traces. The book
-executes its Chapter 6 listing through that interface. RV64, x86-64, and
-cross-machine Python projections remain open.
+executes its Chapter 6 listing through that interface. The source-pinned RV64I
+and x86-64 slices also expose complete selected single-step Python projections.
+Real-ISA bounded traces and cross-machine Python relations remain open.
 
 The old vector-shuffle and Bitmanip guide is preserved in the research archive
 and has no authority over active objects.

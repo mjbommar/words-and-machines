@@ -29,8 +29,11 @@ from an ordinary book.
   theorems for the remaining A0 operations and every cross-machine route remain
   open. Axeyum's Python layer now exposes the complete concrete A0 word,
   memory, state-codec, instruction, step, trap, and bounded-trace surface. The
-  Chapter 6 addition listing runs unchanged against that interface; RV64,
-  x86-64, and cross-machine Python projections remain open. The full manuscript has
+  Chapter 6 addition listing runs unchanged against that interface. The
+  source-pinned RV64I and x86-64 teaching slices now expose typed instructions,
+  canonical encode/decode, complete state, traps, projection, and single-step
+  execution through Python. Real-ISA bounded traces and cross-machine Python
+  relations remain open. The full manuscript has
   completed its first sequential breadth-and-depth pass and now requires
   executable-artifact, technical, editorial, and publication review. No
   chapter is complete merely because it meets a word or page band.
