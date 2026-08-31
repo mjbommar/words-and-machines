@@ -1,24 +1,24 @@
 {
   "id": "A0.trace.memory-roundtrip", "kind": "computation", "part": 1,
   "title": "A0 store/load and boundary-trap replay",
-  "statement": "The recorded width-16 A0 trace stores and reloads 0xabcd in little-endian order, while an out-of-range store traps without a partial write.",
-  "formal": {"language": "prose", "statement": "run(store; load,S) records bytes cd ab and reloads abcd; step(store,S_boundary) traps and preserves memory.", "fragment": "concrete-trace-replay"},
+  "statement": "The recorded width-16 A0 traces store and reload 0xabcd in little-endian order, preserve memory on a dense boundary trap, write across the modular sparse addresses 65535 and 0, and preserve the complete sparse map when one required address is absent.",
+  "formal": {"language": "prose", "statement": "The dense trace records cd ab and reloads abcd; the sparse trace records addresses [65535,0] and bytes [cd,ab]; both invalid-range stores trap and preserve complete memory.", "fragment": "concrete-trace-replay"},
   "epistemic_status": "computed",
-  "scope": "One unaligned width-16 store/load at address 1 over four bytes, plus one out-of-range width-16 store beginning at address 4.",
+  "scope": "Two width-16 successful stores, one following load, and two trapped stores: a dense four-byte boundary case and a sparse modular-wrap case with one required address absent.",
   "depends_on": ["A0.def.memory", "A0.def.step", "A0.def.trace"],
   "evidence": [{
     "kind": "trace-replay", "trust_class": "trace",
-    "semantic_inputs": ["artifacts/semantic/a0-v7.json", "artifacts/claims/A0.trace.memory-roundtrip/manifest.json"],
+    "semantic_inputs": ["artifacts/semantic/a0-v9.json", "artifacts/claims/A0.trace.memory-roundtrip/manifest.json"],
     "artifact": "artifacts/claims/A0.trace.memory-roundtrip",
     "sha256": {
-      "artifacts/semantic/a0-v7.json": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
-      "artifacts/claims/A0.trace.memory-roundtrip/manifest.json": "7ef3d7ff0d3f79008e9c6fdf7419d93e77854300502f015e95f036883b1dee39",
-      "artifacts/claims/A0.trace.memory-roundtrip/report.json": "654ece15aa0429abe91e20a62514fcf3729ec270be1a76f4d992ddd15b695adc"
+      "artifacts/semantic/a0-v9.json": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+      "artifacts/claims/A0.trace.memory-roundtrip/manifest.json": "2b8fd9820577785f24b7f1cbb98729c9e2303c4b02b02e7db2a3d506be80f85e",
+      "artifacts/claims/A0.trace.memory-roundtrip/report.json": "f44056dec5c8c310c1203724705c025f97b1c9ab5cd51f401b38e6b8b4ee09fe"
     },
-    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-memory-trace artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
-    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-memory-byte-order artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-memory-trace artifacts/semantic/a0-v9.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-memory-byte-order artifacts/semantic/a0-v9.json artifacts/claims/A0.trace.memory-roundtrip/report.json",
     "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
-    "note": "The checker reruns successful and trapped states. Reversing the observed stored bytes is rejected."
+    "note": "The checker reruns dense and sparse successful and trapped states, including modular wrap and complete-map preservation. Reversing the observed stored bytes is rejected."
   }],
   "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "memory trace replay", "adr": ["ADR-0811"], "reconstruction": "none"},
   "book": {"chapter": "ch04-memory", "label": "trace:a0-memory-roundtrip", "role": "machine-proof"},

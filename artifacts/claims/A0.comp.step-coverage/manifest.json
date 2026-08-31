@@ -5,12 +5,12 @@
   "scope": "One nondegenerate width-8 execution and exact effect row per instruction family, four trap controls, and terminal halt/trap states.",
   "exclusions": ["Exhaustion of every initial state", "A symbolic transition theorem", "RV64 or x86-64 semantics"],
   "trust_class": "computation",
-  "semantic_inputs": [{"name": "a0-semantics", "version": "7", "path": "artifacts/semantic/a0-v7.json", "sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267"}],
-  "artifacts": [{"path": "artifacts/claims/A0.comp.step-coverage/report.json", "sha256": "88ba881716b831d5fca4f35cb8369cdf7a951ef5f76cbe6d1642d104f07193f1", "role": "report"}],
-  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-step-coverage artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.step-coverage/report.json", "version": "axeyum-machine-evidence-v7"},
-  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.step-coverage/report.json", "version": "axeyum-machine-evidence-v7", "expected_result": "PASS: families=17 effects=17 traps=4 stutter=true frame=true"},
-  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.step-coverage/report.json", "expected_failure": "semantic-mismatch", "mutates": "Independently add an undeclared r7 write, omit an addition condition update, and replace sequential pc+4 with pc+1"},
-  "environment": {"axeyum_revision": "b3efd2ed0edbafa73b0c9fd86906d0019d88d191", "rust_version": "1.88 or newer"},
+  "semantic_inputs": [{"name": "a0-semantics", "version": "9", "path": "artifacts/semantic/a0-v9.json", "sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9"}],
+  "artifacts": [{"path": "artifacts/claims/A0.comp.step-coverage/report.json", "sha256": "c6c420b58790bf5a31af746e761cc02643e5e404ff2a8e3dfcf636e0fe3c5c46", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-step-coverage artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.step-coverage/report.json", "version": "axeyum-machine-evidence-v9"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-step-coverage artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.step-coverage/report.json", "version": "axeyum-machine-evidence-v9", "expected_result": "PASS: families=17 effects=17 traps=4 stutter=true frame=true"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-step-mutation-suite artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.step-coverage/report.json", "expected_failure": "semantic-mismatch", "mutates": "Independently add an undeclared r7 write, omit an addition condition update, and replace sequential pc+4 with pc+1"},
+  "environment": {"axeyum_revision": "6bfb11db29cd0603d6add3707f9d387e8feb8d72", "rust_version": "1.88 or newer"},
   "limitations": ["Family coverage and exact effect rows do not exhaust every possible state.", "The route has computation trust and no independent certificate."],
   "created": "2026-08-30"
 }

@@ -12,34 +12,34 @@
   "semantic_inputs": [
     {
       "name": "a0-semantics",
-      "version": "7",
-      "path": "artifacts/semantic/a0-v7.json",
-      "sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267"
+      "version": "9",
+      "path": "artifacts/semantic/a0-v9.json",
+      "sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9"
     }
   ],
   "artifacts": [
     {
       "path": "artifacts/claims/A0.comp.word-package/report.json",
-      "sha256": "12996536dfccdb59251f1d285eb68bd6dba72617d84dcffd4bc772292b8fed3c",
+      "sha256": "0910194bc74b22c442cb369d912d9cfe495497724764315b4777b67e46190f1d",
       "role": "report"
     }
   ],
   "producer": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-word-package artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
-    "version": "axeyum-machine-evidence-v7"
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-word-package artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.word-package/report.json",
+    "version": "axeyum-machine-evidence-v9"
   },
   "checker": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-package artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
-    "version": "axeyum-machine-evidence-v7",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-package artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.word-package/report.json",
+    "version": "axeyum-machine-evidence-v9",
     "expected_result": "PASS: words=65822 operations=2106910"
   },
   "negative_control": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-package-signed-zero-extension artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-package-signed-zero-extension artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.word-package/report.json",
     "expected_failure": "semantic-mismatch",
     "mutates": "Implement zero extension by repeating the source sign bit"
   },
   "environment": {
-    "axeyum_revision": "b3efd2ed0edbafa73b0c9fd86906d0019d88d191",
+    "axeyum_revision": "6bfb11db29cd0603d6add3707f9d387e8feb8d72",
     "rust_version": "1.88 or newer"
   },
   "limitations": [

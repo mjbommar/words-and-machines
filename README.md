@@ -93,7 +93,7 @@ assembles the RV64I and x86-64 listings, verifies printed addresses, checks the
 one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
-The runtime check executes all ten active A0 computations, traces, and certificate routes, together
+The runtime check executes all eleven active A0 computations, traces, and certificate routes, together
 with their firing negative controls. Every other planned machine route remains
 open.
 

@@ -2,7 +2,14 @@
   "id": "OP.a0.state-memory", "kind": "obligation", "part": 1,
   "title": "Implement A0 state and memory",
   "statement": "Implement the complete A0 state, observations, byte memory, valid ranges, and normal or trapped memory effects in Axeyum.",
-  "epistemic_status": "open", "depends_on": ["OP.a0.word-package", "A0.def.state", "A0.def.observation", "A0.def.memory"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["OP.a0.word-package", "A0.def.state", "A0.def.observation", "A0.def.memory", "A0.comp.state-codec", "A0.trace.observation-separation", "A0.trace.memory-roundtrip", "A0.comp.step-coverage"],
+  "evidence": [{
+    "kind": "claim-ref", "trust_class": "computation",
+    "semantic_inputs": ["objects/A0.comp.state-codec.json", "objects/A0.trace.observation-separation.json", "objects/A0.trace.memory-roundtrip.json", "objects/A0.comp.step-coverage.json"],
+    "artifact": "artifacts/claims/A0.comp.state-codec",
+    "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The concrete implementation obligation is covered by the canonical state codec, observation replay, memory trace, and complete step-family/effect audit. The universal memory-frame theorem is tracked separately as A0.thm.memory-frame."
+  }],
   "book": {"chapter": "ch04-memory", "label": "op:a0-state-memory", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "A0 ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

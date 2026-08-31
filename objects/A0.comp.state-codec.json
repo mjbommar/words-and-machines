@@ -1,0 +1,49 @@
+{
+  "id": "A0.comp.state-codec",
+  "kind": "computation",
+  "part": 1,
+  "title": "Canonical A0 complete-state codec audit",
+  "statement": "The canonical A0 complete-state codec round-trips every supported width and every outcome or trap form, and rejects the declared malformed encodings.",
+  "epistemic_status": "computed",
+  "scope": "Forty-eight complete states: eight supported widths crossed with running, halted, and all four trap forms; ten malformed encodings covering format identity, widths, reserved bits, tags, trap consistency, truncation, and trailing bytes.",
+  "depends_on": ["A0.def.state", "A0.def.memory", "OP.a0.word-package"],
+  "evidence": [
+    {
+      "kind": "exhaustive-enumeration",
+      "trust_class": "computation",
+      "semantic_inputs": [
+        "artifacts/semantic/a0-v9.json",
+        "artifacts/claims/A0.comp.state-codec/manifest.json"
+      ],
+      "artifact": "artifacts/claims/A0.comp.state-codec",
+      "sha256": {
+        "artifacts/semantic/a0-v9.json": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+        "artifacts/claims/A0.comp.state-codec/manifest.json": "2adc6b411eeba89b6eeefaf3896292e035e929251a819ecce9fbdac770417147",
+        "artifacts/claims/A0.comp.state-codec/report.json": "f12c7d3439a427b009e1785d267d148bd3318717e61b1f0e21b530d48851ef29"
+      },
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-state-codec artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-state-codec-trailing-byte artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
+      "expected_failure": "semantic-mismatch",
+      "check_status": "checked",
+      "checked_on": "2026-08-30",
+      "note": "All six outcome forms round-trip at each supported width. Ten malformed encodings are rejected; accepting one trailing byte changes the report and is rejected."
+    }
+  ],
+  "axeyum": {
+    "crate": "axeyum-machine-evidence",
+    "example": "axeyum-machine-evidence",
+    "route": "source-bound canonical A0 complete-state codec audit",
+    "adr": ["ADR-0811"],
+    "reconstruction": "none"
+  },
+  "book": {
+    "chapter": "ch02-state",
+    "label": "comp:a0-state-codec",
+    "role": "machine-proof"
+  },
+  "provenance": {
+    "date": "2026-08-30",
+    "by": "Axeyum executable curriculum",
+    "origin": "book executable-artifact completion audit"
+  }
+}

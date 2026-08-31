@@ -921,11 +921,11 @@ observation for the outputs the claim exposes.
 
 \section{Implementation boundary}
 
-We can now say what an executable A0 state package must do. It must construct
-the entire tuple, enforce the width and memory conditions, represent all three
-outcomes, and apply observations without changing the state they inspect.
-Object \obj{OP.a0.state-memory} records that implementation obligation for
-Axeyum.
+An executable A0 state package must construct the entire tuple, enforce the
+width and memory conditions, represent all three outcomes, and apply
+observations without changing the state they inspect. Axeyum now supplies that
+concrete package. Object \obj{OP.a0.state-memory} records the completed
+implementation obligation; later symbolic theorems remain separate claims.
 
 The controls follow from the reader examples. A projection checker must reject
 a claim that two unequal full states are equal merely because \(r_0\) matches.
@@ -955,7 +955,7 @@ all observations.
 \ArtifactScope{A0.trace.observation-separation}
 \end{artifact}
 
-The serialized state should be canonical enough for an artifact digest to
+The serialized state is canonical enough for an artifact digest to
 bind one meaning. Register order, address order, word width, outcome tags, and
 trap reasons must not depend on a hash-map iteration order or a Python display
 choice. A reader-facing table may choose a pleasant order, but replay should
@@ -991,6 +991,24 @@ or append an unknown field. Each mutation attacks a different ambiguity. The
 checker must reject the changed artifact rather than silently invent a default
 state.
 
+\begin{artifact}{A0.comp.state-codec}
+The canonical binary codec fixes a magic value and version, word width, the
+full sorted memory address-byte map, register order, little-endian integer fields,
+condition-bit positions, outcome tags, and every trap payload. The active
+audit round-trips 48 complete states: all eight supported widths crossed with
+running, halted, and all four trap forms. Decoding and re-encoding returns the
+same bytes.
+
+Ten malformed encodings test bad format identity, unsupported width,
+out-of-width values, reserved condition bits, unknown outcome and trap tags,
+an inconsistent trapped-memory length, truncation, and trailing data. The
+negative control deliberately accepts one trailing byte. Its rejection count
+falls from ten to nine, so the recorded report fails with
+\code{semantic-mismatch}. This finite audit is not an enumeration of every A0
+state.
+\ArtifactScope{A0.comp.state-codec}
+\end{artifact}
+
 Observation descriptions also belong in the artifact. A label such as
 \code{result} is insufficient unless it resolves to a declared register,
 width, and outcome policy. The checker should rebuild the observation from
@@ -1012,11 +1030,11 @@ executable definitions. None of those layers decides which observation is
 appropriate for the surrounding program; that remains part of the theorem we
 choose to state.
 
-Axeyum now supplies the concrete state, canonical observation, and the trace
-above. Object \obj{OP.a0.state-memory} remains open because the public artifact
-surface does not yet serialize arbitrary states or expose the complete normal
-and trapped memory route. One fixed observation replay does not fill those
-remaining requirements.
+Axeyum now supplies the concrete state, canonical observation, complete-state
+codec, and the trace above. Together with the checked memory and step routes in
+later chapters, these fulfill \obj{OP.a0.state-memory}. The Python projection
+does not yet exist, and the universal memory-frame theorem remains open; neither
+is inferred from this finite codec audit.
 
 \section{What the state model fixes}
 

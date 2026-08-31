@@ -1055,7 +1055,7 @@ properly synchronized.
 
 \section{Implementation boundary}
 
-The Axeyum state and memory package must implement the finite map, valid-range
+The Axeyum state and memory package implements the finite map, valid-range
 check, atomic load and store outcomes, little-endian split and join, wrapped
 effective-address calculation, and observations of changed and unchanged
 bytes. Object \obj{OP.a0.state-memory} records that obligation.
@@ -1065,21 +1065,22 @@ the finite byte map, little-endian load and store operations, wrapped address
 arithmetic, checked ranges, ordinary and trapped outcomes, and dynamic memory
 footprints. A trapped store is atomic: it preserves the complete memory. This
 is enough to execute and replay concrete memory steps. Canonical serialization
-of arbitrary public states, exhaustive sparse-domain coverage, and the
-symbolic frame theorem remain open parts of \obj{OP.a0.state-memory}.
+of complete public states is now checked in Chapter 2. These routes fulfill the
+concrete obligation \obj{OP.a0.state-memory}. The universal load/store frame
+claim remains separately and visibly open as \obj{A0.thm.memory-frame};
+concrete traces cannot establish it.
 
-The Rust core should own that distinction. One possible public shape pairs a
-canonical ordered map of address words to bytes with constructors that reject
-out-of-width addresses and values. A checked-range function returns either the
-exact ordered address vector or a trap reason. Loads and stores consume that
-result so no later loop can discover an absent byte after beginning an
+The Rust core owns that distinction. Its memory representation is a
+canonically sorted map of address words to bytes. Constructors reject duplicate
+and out-of-width addresses. A checked-range operation first constructs the
+complete modular address vector and verifies every member; only then may a
+store write. No later loop can discover an absent byte after beginning an
 ordinary commit.
 
-Canonical serialization must order entries by the unsigned address value and
-record the address width and explicit domain. Omitting a zero-valued entry
-would change the domain and therefore the state. A compact sparse encoding is
-allowed only when decoding reconstructs exactly which addresses are present,
-including those whose stored byte is zero.
+Canonical serialization writes each unsigned address beside its byte and
+records the address width and explicit domain. Omitting a zero-valued entry
+would change the domain and therefore the state. The codec reconstructs exactly
+which addresses are present, including those whose stored byte is zero.
 
 The PyO3 layer should expose construction, checked access, and display without
 duplicating split, join, or range validity in Python. A reader can ask for
@@ -1088,12 +1089,12 @@ Those fields should be views of the Rust result. If Python independently
 computes them again, agreement between the display and itself provides no check on
 the semantic core.
 
-The first milestone should use width eight and a domain small enough for
-exhaustion. It implements byte load/store, then two-byte and four-byte
-little-endian access, with holes admitted in the domain. Exhaustive tests can
-range over every width-eight source value and every starting address in a
-small fixed domain. Property tests should also vary sparse domains so the
-dense-array shortcut cannot pass unnoticed.
+The concrete sparse-domain control uses width 16 so a two-byte store can cross
+the modular boundary. Starting at address 65,535 writes the low byte there and
+the high byte at address zero. Removing address zero makes the same operation
+trap without changing the mapped byte at 65,535. Duplicate addresses and a
+domain address outside the word width are rejected separately. These controls
+are finite tests, not the universal frame theorem.
 
 A later symbolic route can prove the split/join identity over bit vectors and
 the frame law over declared addresses. It must connect its presence predicate
@@ -1137,21 +1138,23 @@ word and every valid four-byte starting address in a declared finite domain,
 does storing and then loading return the word while preserving every byte
 outside the range? A counterexample must replay through executable memory
 operations. A no-counterexample result needs an evidence route that covers
-the whole stated domain. The active artifact below covers one concrete
-store/load path and one boundary trap. It does not discharge the quantified
-obligation described here.
+the whole stated domain. The active artifact below covers a dense unaligned
+store/load, a dense boundary trap, a modular sparse wrap, and a sparse-hole
+trap. It does not discharge the quantified obligation described here.
 
 \begin{artifact}{A0.trace.memory-roundtrip}
-Axeyum starts from one width-sixteen A0 state, stores \code{0xabcd} in
+Axeyum starts from a width-sixteen dense A0 state, stores \code{0xabcd} in
 little-endian order, and loads the same word back. The report records the
 ordered byte footprint, the successor state, and the reconstructed value. It
-also attempts a store across the declared memory boundary and records both the
-trap and the absence of a partial write.
+also records a dense boundary trap without a partial write. A sparse control
+stores \code{0xabcd} across modular addresses 65,535 and zero, producing bytes
+\code{cd} and \code{ab}. Removing address zero makes the same operation trap
+while preserving the complete sparse map.
 
 The checker reruns the operations through the source-digest-bound A0 memory
 semantics. Its negative control reverses the byte order, so the recorded report
-is rejected with a semantic mismatch. This is a concrete trace, not an
-exhaustive sparse-memory result or a symbolic frame proof.
+is rejected with a semantic mismatch. These are named dense and sparse traces,
+not the universal symbolic frame proof.
 \ArtifactScope{A0.trace.memory-roundtrip}
 \end{artifact}
 
@@ -1164,8 +1167,8 @@ may depend on it.
 \end{sidebar}
 
 The general store/load result in this chapter remains a reader proof under a
-printed premise. The active trace runs through the executable memory model,
-but one trace does not stand in for the general theorem. Later instruction
+printed premise. The active traces run through the executable memory model,
+but finitely many traces do not stand in for the general theorem. Later instruction
 proofs must use these same memory operations and must bind any stronger claim
 to correspondingly stronger evidence.
 

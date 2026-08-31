@@ -21,17 +21,17 @@
       "kind": "unsat-certificate",
       "trust_class": "certificate",
       "semantic_inputs": [
-        "artifacts/semantic/a0-v7.json",
+        "artifacts/semantic/a0-v9.json",
         "artifacts/claims/A0.thm.addition-flags/manifest.json"
       ],
       "artifact": "artifacts/claims/A0.thm.addition-flags",
       "sha256": {
-        "artifacts/semantic/a0-v7.json": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
-        "artifacts/claims/A0.thm.addition-flags/manifest.json": "56756ff59faf4b34a668668e6963f31da35931196b873f0c8e59aa1bc712a487",
-        "artifacts/claims/A0.thm.addition-flags/report.json": "2048153d72f8880d37cd614bc0a3247ef3c12cdf4356cbe9d2f1aa0822f45562"
+        "artifacts/semantic/a0-v9.json": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+        "artifacts/claims/A0.thm.addition-flags/manifest.json": "9d34f5df6da45df464e13b1314217544dc09c47989e60b481fc3a49b47f21e98",
+        "artifacts/claims/A0.thm.addition-flags/report.json": "4a425f9e60cd2928a27915d81932b0a3a80c9081f8e8ede1b96f862e10ebf16e"
       },
-      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-addition artifacts/semantic/a0-v7.json artifacts/claims/A0.thm.addition-flags/report.json",
-      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-addition-inverted-carry artifacts/semantic/a0-v7.json artifacts/claims/A0.thm.addition-flags/report.json",
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-addition artifacts/semantic/a0-v9.json artifacts/claims/A0.thm.addition-flags/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-addition-inverted-carry artifacts/semantic/a0-v9.json artifacts/claims/A0.thm.addition-flags/report.json",
       "expected_failure": "semantic-mismatch",
       "check_status": "checked",
       "checked_on": "2026-08-30",

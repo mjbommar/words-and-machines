@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **51** -- `computed` 13, `open` 9, `proved` 1, `stated` 28
-- Evidence rows: **14** -- `checked` 14
+- Objects: **53** -- `computed` 15, `open` 9, `proved` 1, `stated` 28
+- Evidence rows: **16** -- `checked` 16
 
 ## Part I -- Constructing an instruction set
 
@@ -14,6 +14,7 @@
 |---|---|---|---|---|---|---|
 | [`A0.comp.byte-roundtrip-8-16`](A0.comp.byte-roundtrip-8-16.json) | computation | Finite A0 byte round trip at widths 8 and 16 | `computed` | `--` | All 65,792 words in the union of the complete width-8 and width-16 domains. This object does not quantify over widths 24 through 64. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.comp.decoder-roundtrip`](A0.comp.decoder-roundtrip.json) | computation | Exhaustive canonical A0 encoder and decoder round trip | `computed` | `--` | Every legal structured instruction in all seventeen A0 families, including every register tuple, signed immediate or offset, and branch condition. | `exhaustive-enumeration` / `computation`: checked |
+| [`A0.comp.state-codec`](A0.comp.state-codec.json) | computation | Canonical A0 complete-state codec audit | `computed` | `--` | Forty-eight complete states: eight supported widths crossed with running, halted, and all four trap forms; ten malformed encodings covering format identity, widths, reserved bits, tags, trap consistency, truncation, and trailing bytes. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.comp.step-coverage`](A0.comp.step-coverage.json) | computation | A0 step, effect, trap, and frame coverage | `computed` | `--` | One nondegenerate width-8 case per family, four trap cases, and halt/trap terminal states. | `trace-replay` / `computation`: checked |
 | [`A0.comp.word-package`](A0.comp.word-package.json) | computation | A0 word-operation implementation audit | `computed` | `--` | Complete enumeration of every 8- and 16-bit source word across every legal widening target, plus five boundary vectors at each supported width from 24 through 64; 65,822 source words and 2,106,910 operation checks. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.def.byte`](A0.def.byte.json) | definition | A0 byte split and join | `stated` | `--` | -- | -- |
@@ -28,11 +29,12 @@
 | [`A0.def.trace`](A0.def.trace.json) | definition | A0 execution trace | `stated` | `--` | -- | -- |
 | [`A0.def.word`](A0.def.word.json) | definition | A0 fixed-width word | `stated` | `--` | -- | -- |
 | [`A0.prin.explicit-effects`](A0.prin.explicit-effects.json) | principle | All architectural effects are explicit | `stated` | `--` | -- | -- |
-| [`A0.trace.memory-roundtrip`](A0.trace.memory-roundtrip.json) | computation | A0 store/load and boundary-trap replay | `computed` | `--` | One unaligned width-16 store/load at address 1 over four bytes, plus one out-of-range width-16 store beginning at address 4. | `trace-replay` / `trace`: checked |
+| [`A0.thm.memory-frame`](A0.thm.memory-frame.json) | theorem | A0 load and store frame theorem | `open` | `--` | All eight supported A0 widths, every finite memory, every word-valued effective address, and both normal and trapped load/store transitions. | -- |
+| [`A0.trace.memory-roundtrip`](A0.trace.memory-roundtrip.json) | computation | A0 store/load and boundary-trap replay | `computed` | `--` | Two width-16 successful stores, one following load, and two trapped stores: a dense four-byte boundary case and a sparse modular-wrap case with one required address absent. | `trace-replay` / `trace`: checked |
 | [`A0.trace.observation-separation`](A0.trace.observation-separation.json) | computation | A0 narrow and broad observation replay | `computed` | `--` | One width-8 pair with equal memory, PC, conditions, outcome, and r0=7; left r3=19 and right r3=20. The narrow observation selects r0 and outcome. The broad observation also selects r3, memory bytes 1 and 2, PC, and conditions. | `trace-replay` / `trace`: checked |
 | [`A0.trace.run-classification`](A0.trace.run-classification.json) | computation | A0 runner outcome and continuation replay | `computed` | `--` | Four concrete width-8 executions, a zero-step boundary, and one resumed unconditional self-loop. | `trace-replay` / `trace`: checked |
 | [`OP.a0.run`](OP.a0.run.json) | obligation | Implement A0 trace execution | `computed` | `--` | -- | `trace-replay` / `trace`: checked |
-| [`OP.a0.state-memory`](OP.a0.state-memory.json) | obligation | Implement A0 state and memory | `open` | `--` | -- | -- |
+| [`OP.a0.state-memory`](OP.a0.state-memory.json) | obligation | Implement A0 state and memory | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`OP.a0.step`](OP.a0.step.json) | obligation | Implement the A0 decoder and step relation | `computed` | `--` | -- | `trace-replay` / `computation`: checked |
 | [`OP.a0.word-package`](OP.a0.word-package.json) | obligation | Implement the reusable A0 word package | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 

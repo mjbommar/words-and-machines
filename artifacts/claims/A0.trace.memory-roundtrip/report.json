@@ -1,6 +1,6 @@
 {
-  "schema": "axeyum.a0.memory-trace.v1",
-  "semantic_package_sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
+  "schema": "axeyum.a0.memory-trace.v2",
+  "semantic_package_sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
   "stored_word": 43981,
   "stored_bytes": [
     205,
@@ -9,6 +9,18 @@
   "loaded_word": 43981,
   "boundary_trapped": true,
   "no_partial_write": true,
+  "sparse": {
+    "wrapped_addresses": [
+      65535,
+      0
+    ],
+    "wrapped_bytes": [
+      205,
+      171
+    ],
+    "hole_trapped": true,
+    "no_partial_write": true
+  },
   "successful_pcs": [
     0,
     4,

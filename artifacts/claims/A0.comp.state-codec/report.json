@@ -1,0 +1,19 @@
+{
+  "schema": "axeyum.a0.state-codec.v1",
+  "semantic_package_sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+  "widths": [
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56,
+    64
+  ],
+  "states_checked": 48,
+  "malformed_encodings_rejected": 10,
+  "all_outcomes_checked": true,
+  "passed": true,
+  "result_sha256": "cedeb6a9e85f8ed20d8087d7035b445e58f1e869cd7096412364c945c257d3b6"
+}

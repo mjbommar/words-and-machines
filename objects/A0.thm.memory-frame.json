@@ -1,0 +1,21 @@
+{
+  "id": "A0.thm.memory-frame",
+  "kind": "theorem",
+  "part": 1,
+  "title": "A0 load and store frame theorem",
+  "statement": "A successful A0 load leaves complete memory unchanged; a successful store changes exactly the addressed word-sized byte range to the little-endian source bytes; and a trapped load or store preserves complete memory.",
+  "epistemic_status": "open",
+  "scope": "All eight supported A0 widths, every finite memory, every word-valued effective address, and both normal and trapped load/store transitions.",
+  "depends_on": ["A0.def.memory", "A0.def.step", "A0.trace.memory-roundtrip", "OP.a0.state-memory"],
+  "evidence": [],
+  "book": {
+    "chapter": "ch04-memory",
+    "label": "thm:a0-memory-frame",
+    "role": "machine-proof"
+  },
+  "provenance": {
+    "date": "2026-08-30",
+    "by": "A0 obligation split audit",
+    "origin": "book executable-artifact completion audit"
+  }
+}

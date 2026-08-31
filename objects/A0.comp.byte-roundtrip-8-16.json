@@ -20,17 +20,17 @@
       "kind": "exhaustive-enumeration",
       "trust_class": "computation",
       "semantic_inputs": [
-        "artifacts/semantic/a0-v7.json",
+        "artifacts/semantic/a0-v9.json",
         "artifacts/claims/A0.comp.byte-roundtrip-8-16/manifest.json"
       ],
       "artifact": "artifacts/claims/A0.comp.byte-roundtrip-8-16",
       "sha256": {
-        "artifacts/semantic/a0-v7.json": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
-        "artifacts/claims/A0.comp.byte-roundtrip-8-16/manifest.json": "cd339da8dd02182cac175e4ef7a585a8fad78483d8dffd0da6be24e00becf195",
-        "artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json": "fa07b85712130898316886e397d6085630d85dfc3f7a86abc3f79c0d12a3dc66"
+        "artifacts/semantic/a0-v9.json": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+        "artifacts/claims/A0.comp.byte-roundtrip-8-16/manifest.json": "22268b28430d19f70fe5a99bd38bb35cc555d02ea7b83aac2212277ae141516a",
+        "artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json": "f4e5174d6892a891d2f63f9eb51613f4b97868a825aeb091de42686ab8889220"
       },
-      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-roundtrip artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
-      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-roundtrip-reversed artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-roundtrip artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-roundtrip-reversed artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.byte-roundtrip-8-16/report.json",
       "expected_failure": "semantic-mismatch",
       "check_status": "checked",
       "checked_on": "2026-08-30",

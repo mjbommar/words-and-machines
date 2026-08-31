@@ -9,6 +9,10 @@
 \@namedef{objscope@Aaxcompxdecoderxroundtrip}{Every legal structured instruction in all seventeen A0 families, including every register tuple, signed immediate or offset, and branch condition.}
 \@namedef{objevidence@Aaxcompxdecoderxroundtrip}{exhaustive-enumeration / computation (checked)}
 \@namedef{objtitle@Aaxcompxdecoderxroundtrip}{Exhaustive canonical A0 encoder and decoder round trip}
+\@namedef{objstatus@Aaxcompxstatexcodec}{computed}
+\@namedef{objscope@Aaxcompxstatexcodec}{Forty-eight complete states: eight supported widths crossed with running, halted, and all four trap forms; ten malformed encodings covering format identity, widths, reserved bits, tags, trap consistency, truncation, and trailing bytes.}
+\@namedef{objevidence@Aaxcompxstatexcodec}{exhaustive-enumeration / computation (checked)}
+\@namedef{objtitle@Aaxcompxstatexcodec}{Canonical A0 complete-state codec audit}
 \@namedef{objstatus@Aaxcompxstepxcoverage}{computed}
 \@namedef{objscope@Aaxcompxstepxcoverage}{One nondegenerate width-8 case per family, four trap cases, and halt/trap terminal states.}
 \@namedef{objevidence@Aaxcompxstepxcoverage}{trace-replay / computation (checked)}
@@ -65,8 +69,12 @@
 \@namedef{objscope@Aaxprinxexplicitxeffects}{--}
 \@namedef{objevidence@Aaxprinxexplicitxeffects}{no evidence recorded}
 \@namedef{objtitle@Aaxprinxexplicitxeffects}{All architectural effects are explicit}
+\@namedef{objstatus@Aaxthmxmemoryxframe}{open}
+\@namedef{objscope@Aaxthmxmemoryxframe}{All eight supported A0 widths, every finite memory, every word-valued effective address, and both normal and trapped load/store transitions.}
+\@namedef{objevidence@Aaxthmxmemoryxframe}{no evidence recorded}
+\@namedef{objtitle@Aaxthmxmemoryxframe}{A0 load and store frame theorem}
 \@namedef{objstatus@Aaxtracexmemoryxroundtrip}{computed}
-\@namedef{objscope@Aaxtracexmemoryxroundtrip}{One unaligned width-16 store/load at address 1 over four bytes, plus one out-of-range width-16 store beginning at address 4.}
+\@namedef{objscope@Aaxtracexmemoryxroundtrip}{Two width-16 successful stores, one following load, and two trapped stores: a dense four-byte boundary case and a sparse modular-wrap case with one required address absent.}
 \@namedef{objevidence@Aaxtracexmemoryxroundtrip}{trace-replay / trace (checked)}
 \@namedef{objtitle@Aaxtracexmemoryxroundtrip}{A0 store/load and boundary-trap replay}
 \@namedef{objstatus@Aaxtracexobservationxseparation}{computed}
@@ -81,9 +89,9 @@
 \@namedef{objscope@OPxaaxrun}{--}
 \@namedef{objevidence@OPxaaxrun}{trace-replay / trace (checked)}
 \@namedef{objtitle@OPxaaxrun}{Implement A0 trace execution}
-\@namedef{objstatus@OPxaaxstatexmemory}{open}
+\@namedef{objstatus@OPxaaxstatexmemory}{computed}
 \@namedef{objscope@OPxaaxstatexmemory}{--}
-\@namedef{objevidence@OPxaaxstatexmemory}{no evidence recorded}
+\@namedef{objevidence@OPxaaxstatexmemory}{claim-ref / computation (checked)}
 \@namedef{objtitle@OPxaaxstatexmemory}{Implement A0 state and memory}
 \@namedef{objstatus@OPxaaxstep}{computed}
 \@namedef{objscope@OPxaaxstep}{--}

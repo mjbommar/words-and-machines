@@ -12,17 +12,17 @@
       "kind": "exhaustive-enumeration",
       "trust_class": "computation",
       "semantic_inputs": [
-        "artifacts/semantic/a0-v7.json",
+        "artifacts/semantic/a0-v9.json",
         "artifacts/claims/A0.comp.word-package/manifest.json"
       ],
       "artifact": "artifacts/claims/A0.comp.word-package",
       "sha256": {
-        "artifacts/semantic/a0-v7.json": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
-        "artifacts/claims/A0.comp.word-package/manifest.json": "b72355c28d1ee26bed3eb36d0657bf6c7cfb72ab26d1be01ce625f2bf618216c",
-        "artifacts/claims/A0.comp.word-package/report.json": "12996536dfccdb59251f1d285eb68bd6dba72617d84dcffd4bc772292b8fed3c"
+        "artifacts/semantic/a0-v9.json": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+        "artifacts/claims/A0.comp.word-package/manifest.json": "19ed20d1459bc969995e409d0425a9d77adde1eb9965ed65a4b7379600d9ac60",
+        "artifacts/claims/A0.comp.word-package/report.json": "0910194bc74b22c442cb369d912d9cfe495497724764315b4777b67e46190f1d"
       },
-      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-package artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
-      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-package-signed-zero-extension artifacts/semantic/a0-v7.json artifacts/claims/A0.comp.word-package/report.json",
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-word-package artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.word-package/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-word-package-signed-zero-extension artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.word-package/report.json",
       "expected_failure": "semantic-mismatch",
       "check_status": "checked",
       "checked_on": "2026-08-30",

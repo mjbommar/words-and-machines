@@ -5,12 +5,12 @@
   "scope": "Two width-8 traces of one branch encoding followed by halts, differing only in the initial zero condition.",
   "exclusions": ["Other branch conditions or offsets", "Loops", "A universal control-flow theorem"],
   "trust_class": "trace",
-  "semantic_inputs": [{"name": "a0-semantics", "version": "7", "path": "artifacts/semantic/a0-v7.json", "sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267"}],
-  "artifacts": [{"path": "artifacts/claims/A0.trace.branch/report.json", "sha256": "5460a769df1b04dd025450929358bc2228899dece92c114c46833a0d64dcdc83", "role": "trace"}],
-  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-branch-trace artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.branch/report.json", "version": "axeyum-machine-evidence-v7"},
-  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-branch-trace artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.branch/report.json", "version": "axeyum-machine-evidence-v7", "expected_result": "PASS: taken=[0, 8, 8] untaken=[0, 4, 4]"},
-  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-branch-target artifacts/semantic/a0-v7.json artifacts/claims/A0.trace.branch/report.json", "expected_failure": "semantic-mismatch", "mutates": "Use current PC instead of sequential PC as the relative target base"},
-  "environment": {"axeyum_revision": "b3efd2ed0edbafa73b0c9fd86906d0019d88d191", "rust_version": "1.88 or newer"},
+  "semantic_inputs": [{"name": "a0-semantics", "version": "9", "path": "artifacts/semantic/a0-v9.json", "sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9"}],
+  "artifacts": [{"path": "artifacts/claims/A0.trace.branch/report.json", "sha256": "7c0cbc46d5708a00ddf39d4e5238e63e931fa9777a2789983e49f258505d7c87", "role": "trace"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-branch-trace artifacts/semantic/a0-v9.json artifacts/claims/A0.trace.branch/report.json", "version": "axeyum-machine-evidence-v9"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-branch-trace artifacts/semantic/a0-v9.json artifacts/claims/A0.trace.branch/report.json", "version": "axeyum-machine-evidence-v9", "expected_result": "PASS: taken=[0, 8, 8] untaken=[0, 4, 4]"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-branch-target artifacts/semantic/a0-v9.json artifacts/claims/A0.trace.branch/report.json", "expected_failure": "semantic-mismatch", "mutates": "Use current PC instead of sequential PC as the relative target base"},
+  "environment": {"axeyum_revision": "6bfb11db29cd0603d6add3707f9d387e8feb8d72", "rust_version": "1.88 or newer"},
   "limitations": ["This is a pair of concrete traces, not complete branch-state enumeration.", "The report has trace trust only and no independent certificate."],
   "created": "2026-08-30"
 }

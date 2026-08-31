@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.comp.state-codec",
+  "statement": "The canonical A0 complete-state codec round-trips every supported width and every outcome or trap form, and rejects the declared malformed encodings.",
+  "scope": "Forty-eight complete states: eight supported widths crossed with running, halted, and all four trap forms; ten malformed encodings covering format identity, widths, reserved bits, tags, trap consistency, truncation, and trailing bytes.",
+  "exclusions": [
+    "Exhaustive enumeration of every complete A0 state",
+    "A universal symbolic memory-frame theorem",
+    "A Python projection of the Rust codec"
+  ],
+  "trust_class": "computation",
+  "semantic_inputs": [
+    {
+      "name": "a0-semantics",
+      "version": "9",
+      "path": "artifacts/semantic/a0-v9.json",
+      "sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/claims/A0.comp.state-codec/report.json",
+      "sha256": "f12c7d3439a427b009e1785d267d148bd3318717e61b1f0e21b530d48851ef29",
+      "role": "report"
+    }
+  ],
+  "producer": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-state-codec artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
+    "version": "axeyum-machine-evidence-v9"
+  },
+  "checker": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-state-codec artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
+    "version": "axeyum-machine-evidence-v9",
+    "expected_result": "PASS: states=48 malformed-rejected=10 outcomes=all"
+  },
+  "negative_control": {
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-state-codec-trailing-byte artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
+    "expected_failure": "semantic-mismatch",
+    "mutates": "Accept one trailing byte after an otherwise canonical complete-state encoding"
+  },
+  "environment": {
+    "axeyum_revision": "6bfb11db29cd0603d6add3707f9d387e8feb8d72",
+    "rust_version": "1.88 or newer"
+  },
+  "limitations": [
+    "The route covers every width and outcome form but only a named finite state population.",
+    "The checker and codec share one Axeyum repository; the report is implementation-bound computation evidence, not a certificate."
+  ],
+  "created": "2026-08-30"
+}

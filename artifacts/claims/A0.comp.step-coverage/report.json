@@ -1,11 +1,11 @@
 {
   "schema": "axeyum.a0.step-coverage.v1",
-  "semantic_package_sha256": "505357fabb23a7b1b00b881da3e625da4cd725fad2df608823461e942ea3e267",
+  "semantic_package_sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
   "families_executed": 17,
   "effect_rows_checked": 17,
   "trap_controls_checked": 4,
   "terminal_stutter_checked": true,
   "frame_checks_passed": true,
   "effects_passed": true,
-  "result_sha256": "8f10e1faea7e44590e3e3d1a6b952609994b3cef5ce5ac80c8a9c4a026702f8a"
+  "result_sha256": "676abeae001706c0f44cccda4beabbb795b243e77dcf5c934058963b5c318dd1"
 }
