@@ -34,8 +34,8 @@ and three-word fold. Changing RV64I's pointer increment from eight to one must
 fail at the second loop head.
 
 This is a finite concrete relation. The reader invariant carries the universal
-loop argument. Symbolic certification, arbitrary addresses, timing, and a
-bounded optimization package for this routine remain outside the artifact.
+loop argument. Symbolic certification, arbitrary addresses, timing,
+optimization, and minimality remain outside the artifact.
 
 ## Scalar minimality
 

@@ -47,8 +47,7 @@ from an ordinary book.
   source-pinned RV64I and x86-64 teaching slices now expose typed instructions,
   canonical encode/decode, complete state, traps, projection, and single-step
   execution through Python. Real-ISA bounded traces and cross-machine Python
-  relation projection remain open. The Chapter 15 umbrella obligation also
-  remains open because its bounded-optimization package is not yet built. The full
+  relation projection remain open. The full
   manuscript has completed its first sequential breadth-and-depth pass and now requires
   executable-artifact, technical, editorial, and publication review. No
   chapter is complete merely because it meets a word or page band.

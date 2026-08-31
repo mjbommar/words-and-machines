@@ -91,10 +91,11 @@ routes, and connect the example to compiler, bandwidth, vector, collective,
 distributed, and maintenance economics. The inherited accumulator typo is
 repaired.
 
-The real-machine arguments remain reader proofs over pinned sources and stated
-semantics. They are not represented as machine-produced Axeyum certificates.
-That stopping point remains explicit in the manuscript and is a requirement,
-not an unfinished checkbox hidden by the length increase.
+The universal real-machine arguments remain reader proofs over pinned sources
+and stated semantics. A later executable-artifact pass added a finite
+machine-produced Axeyum report for eight declared cases, exact program bytes,
+typed cut-point relations, cost accounting, and a firing pointer-step control.
+That computation is not a universal certificate or a minimality result.
 
 ## Cross-chapter connections
 

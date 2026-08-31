@@ -7,6 +7,10 @@
   "a0_program_sha256": "ae545bd623f264fda885845e41182ea9e8507fa072d165ddf15cad023c0b452a",
   "rv64_program_sha256": "0a217b3f501924ef8f47dddb7b797b393ba018fb7d81efe6d34c2456a3796d0e",
   "x64_program_sha256": "00295e0e7406c74b27fce4aa6cda9c9419b9854128e682d1531be1c1ac0b76bb",
+  "a0_static_instructions": 11,
+  "rv64_static_instructions": 9,
+  "x64_static_instructions": 8,
+  "cost_scope": "exact static bytes and instructions plus concrete dynamic instruction counts; descriptive accounting only, with no optimization or minimality claim",
   "scope": "eight declared finite word lists of length zero through three; exact Chapter 15 A0, RV64I, and x86-64 bytes; concrete 64-bit execution and typed cut-point relations",
   "cases": [
     {

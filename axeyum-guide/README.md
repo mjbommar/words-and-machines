@@ -24,8 +24,8 @@ and x86-64 slices also expose complete selected single-step Python projections.
 A typed Rust relation now replays the three printed absolute-value routines for
 ten distinct boundary and branch-shape inputs. A second typed Rust relation
 executes the complete Chapter 15 XOR listings on eight declared finite cases.
-Universal cross-machine proofs, the routine-specific bounded-optimization
-package, and Python relation projection remain open.
+Universal cross-machine proofs, symbolic certification, real-ISA
+candidate-language packages, and Python relation projection remain open.
 
 The old vector-shuffle and Bitmanip guide is preserved in the research archive
 and has no authority over active objects.

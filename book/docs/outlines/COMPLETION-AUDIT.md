@@ -130,7 +130,7 @@ no matches.
 
 This redesign record predates the executable-artifact pass. The active ledger
 now contains checked A0 routes and checked RV64 and x86-64 routes. The
-universal cross-machine theorem, Chapter 15 routine-specific bounded
-optimization, and remaining evidence interfaces are still Axeyum-engineering
-phases. The finite Chapter 15 XOR relation now exists. Only checked active objects, not this historical
+universal cross-machine theorem, symbolic Chapter 15 certification, and
+remaining evidence interfaces are still Axeyum-engineering phases. The finite
+Chapter 15 XOR relation and scoped cost accounting now exist. Only checked active objects, not this historical
 audit paragraph, determine current status.

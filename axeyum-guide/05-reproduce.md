@@ -40,7 +40,7 @@ The certificate route checks eight separate widths. It does not run an
 arbitrary-width kernel proof. The minimality and cross-machine routes are
 finite computations within their declared scopes, not universal semantic,
 minimality, or refinement theorems. Real-ISA candidate-language packages and
-the Chapter 15 routine-specific bounded-optimization package remain open.
+symbolic certification of the Chapter 15 routine remain open.
 
 ## Promotion checklist
 
