@@ -11,8 +11,8 @@ first \\midrule become <thead>.
 
 import re
 
-from . import block_handler
 from ..core import convert_figure_image, node_name
+from . import block_handler
 
 
 @block_handler("figure")
@@ -117,6 +117,7 @@ def _convert_tabular(node, ctx) -> str:
     if parts and parts[0].strip("{}") == colspec.strip("{}"):
         parts = parts[1:]
     body = "".join(parts).replace(r"\&", "\x00")  # protect escaped &
+    body = body.replace(r"\tabularnewline", r"\\")
 
     rows_html: list[str] = []
     header_done = False
@@ -134,10 +135,24 @@ def _convert_tabular(node, ctx) -> str:
         for i, cell in enumerate(cells):
             align = aligns[i] if i < len(aligns) else "l"
             scope = ' scope="col"' if tag == "th" else ""
-            row.append(f'<{tag} class="col-{align}"{scope}>{cell}</{tag}>')
+            accessible_name = ""
+            screen_reader_text = ""
+            if tag == "th" and "<math " in cell:
+                label = ctx.plain(cell)
+                accessible_name = f' aria-label="{ctx.attr(label)}"'
+                screen_reader_text = (
+                    f'<span class="screen-reader-only">{ctx.text(label)}</span>')
+            row.append(f'<{tag} class="col-{align}"{scope}{accessible_name}>'
+                       f'{screen_reader_text}{cell}</{tag}>')
         target = thead if tag == "th" else rows_html
         target.append("<tr>" + "".join(row) + "</tr>")
 
     head = f"<thead>\n{chr(10).join(thead)}\n</thead>\n" if thead else ""
     return (f"<table>\n{head}<tbody>\n" + "\n".join(rows_html)
             + "\n</tbody>\n</table>")
+
+
+@block_handler("tabular")
+def standalone_tabular(node, ctx):
+    """Convert a tabular used directly inside a legacy center environment."""
+    return '<div class="table-wrap">\n' + _convert_tabular(node, ctx) + "\n</div>"

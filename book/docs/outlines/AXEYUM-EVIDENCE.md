@@ -113,7 +113,8 @@ The redesign is implemented only when:
 5. each flagship UNSAT claim has independent checking or a narrower trust
    label;
 6. every route has a firing negative control;
-7. the full gate runs from a clean checkout with `AXEYUM=../axeyum`; and
+7. the full gate runs from a clean current-main checkout after
+   `AXEYUM=/path/to/axeyum make axeyum-checkout-check`; and
 8. chapter prose matches each manifest's trust class and boundary.
 
 Until all eight hold, this file remains a roadmap.

@@ -114,6 +114,8 @@ def validate_isbns(cfg: dict) -> None:
 
 def validate_strict(cfg: dict) -> None:
     """Release-gate checks: real ISBNs must exist for every enabled format."""
+    if not get(cfg, "book.publisher"):
+        fail("[strict] book.publisher is empty")
     if get(cfg, "formats.print", False) and not get(cfg, "identifiers.isbn_print"):
         fail("[strict] formats.print is true but identifiers.isbn_print is empty")
     if get(cfg, "formats.epub", False) and not get(cfg, "identifiers.isbn_epub"):
@@ -128,7 +130,7 @@ def validate_strict(cfg: dict) -> None:
 
 
 def validate(cfg: dict) -> None:
-    for field in ("book.title", "book.author", "book.publisher", "book.year",
+    for field in ("book.title", "book.author", "book.year",
                   "book.description", "book.language", "trim.preset",
                   "typography.font_profile", "typography.engine",
                   "citations.style", "editions"):
@@ -283,7 +285,7 @@ def build_macros(cfg: dict, ed_name: str, ed: dict) -> dict[str, str]:
         "BookSubtitle": b.get("subtitle", ""),
         "BookAuthor": b["author"],
         "BookAuthorShort": b.get("author_short") or b["author"],
-        "BookPublisher": b["publisher"],
+        "BookPublisher": b.get("publisher", ""),
         "BookImprint": b.get("imprint", ""),
         "BookYear": str(b["year"]),
         "BookEditionStatement": b.get("edition_statement", "First Edition"),
@@ -320,6 +322,7 @@ def write_metadata_tex(cfg: dict, macros: dict[str, str]) -> None:
     # boolean flags
     flags = {
         "BookHasSubtitle": bool(macros["BookSubtitle"]),
+        "BookHasPublisher": bool(macros["BookPublisher"]),
         "BookHasImprint": bool(macros["BookImprint"]),
         "BookHasEditionSuffix": bool(macros["BookEditionSuffix"]),
         "BookHasAIDisclosure": bool(macros["BookAIDisclosure"]),

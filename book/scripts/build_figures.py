@@ -36,7 +36,8 @@ SRC = LATEX / "figures" / "src"
 OUT = LATEX / "figures"
 PREAMBLE = OUT / "figure-preamble.tex"
 
-WRAPPER = r"""\documentclass[border=4pt,varwidth=false]{standalone}
+WRAPPER = r"""\pdfvariable suppressoptionalinfo 512
+\documentclass[border=4pt,varwidth=false]{standalone}
 \def\FigurePreambleDir{%(latexdir)s/}
 %(grayscale)s\input{%(preamble)s}
 \begin{document}

@@ -1,0 +1,79 @@
+name: build-and-evidence
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  publication:
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:TL2025-historic
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: "true"
+      PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install publication toolchain
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq poppler-utils ghostscript imagemagick \
+            default-jre-headless wget unzip icc-profiles-free chromium \
+            nodejs npm llvm
+          wget -q https://github.com/w3c/epubcheck/releases/download/v5.3.0/epubcheck-5.3.0.zip
+          unzip -q epubcheck-5.3.0.zip -d /opt
+          printf '#!/bin/sh\nexec java -jar /opt/epubcheck-5.3.0/epubcheck.jar "$@"\n' \
+            > /usr/local/bin/epubcheck
+          chmod +x /usr/local/bin/epubcheck
+          npm install -g @daisy/ace
+          wget -qO- https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Validate publication outputs
+        run: make -C book validate-all
+
+      - name: Build PDF/X derivative
+        run: make -C book pdfx
+
+      - name: Upload publication artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-build
+          path: |
+            book/build/latex/book-print.pdf
+            book/build/latex/book-ebook.pdf
+            book/build/epub/book.epub
+            book/build/cover/cover-kdp.pdf
+            book/build/pdfx/book-print-x1a.pdf
+          retention-days: 14
+
+  machine-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: words-and-machines
+
+      - name: Check out current Axeyum main
+        run: git clone --branch main --single-branch https://github.com/mjbommar/axeyum.git axeyum
+
+      - name: Install machine-example toolchain
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq llvm
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Build Axeyum Python bindings
+        working-directory: axeyum
+        run: |
+          uv sync --dev
+          uv run --no-sync maturin develop
+
+      - name: Replay every evidence route and negative control
+        working-directory: words-and-machines
+        env:
+          AXEYUM: ${{ github.workspace }}/axeyum
+        run: make check-run

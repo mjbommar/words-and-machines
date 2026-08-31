@@ -45,7 +45,7 @@ source, confirm it says what the prose claims, then --stamp.
 
 For bot-walled sources plain HTTP misses, re-check by hand or with a real
 browser (uv run --with playwright python - <<'EOF' ... EOF); this script
-uses httpx with a desktop UA as the fast first pass.
+uses httpx with its truthful client identity as the fast first pass.
 """
 
 from __future__ import annotations
@@ -62,7 +62,10 @@ import httpx
 
 ROOT = Path(__file__).resolve().parent.parent
 BIB = ROOT / "latex" / "bib" / "references.bib"
-UA = ("Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0")
+# Identify the actual client. Pretending that httpx is Firefox triggers some
+# origin/WAF mismatch rules (including CISA and Intel) and creates false dead-
+# link reports. Browser-only fallback remains an explicit separate path.
+UA = f"python-httpx/{httpx.__version__}"
 
 
 def parse_entries(text: str) -> list[dict]:
@@ -85,6 +88,24 @@ def check_url(client: httpx.Client, url: str) -> tuple[bool, str]:
         return False, type(e).__name__
 
 
+def check_with_archive_fallback(
+    client: httpx.Client, url: str, archived: str
+) -> tuple[bool, str]:
+    """Check the original URL, then a declared archive if the origin blocks us.
+
+    A browser-only origin is not a dead citation when the bibliography also
+    records a reachable, immutable snapshot that was inspected before the
+    ``verified=`` stamp was added.  Keep the origin failure visible in the
+    report so a publisher can still distinguish this case from a direct hit.
+    """
+
+    ok, status = check_url(client, url)
+    if ok or not archived:
+        return ok, status
+    archive_ok, archive_status = check_url(client, archived)
+    return archive_ok, f"{status}; archive {archive_status}"
+
+
 def existing_snapshot(client: httpx.Client, url: str) -> str | None:
     """Closest Wayback snapshot via the availability API, or None."""
     try:
@@ -100,16 +121,39 @@ def existing_snapshot(client: httpx.Client, url: str) -> str | None:
     return None
 
 
-def save_snapshot(url: str, authed: bool) -> tuple[str | None, str]:
+def resolve_dated_snapshot(client: httpx.Client, snapshot: str) -> str | None:
+    """Resolve Wayback's timestamp-less convenience URL to an immutable one."""
+
+    if re.search(r"/web/\d{8,14}", snapshot):
+        return snapshot
+    try:
+        response = client.get(
+            snapshot,
+            follow_redirects=True,
+            timeout=30,
+            headers={"User-Agent": UA},
+        )
+    except httpx.HTTPError:
+        return None
+    resolved = str(response.url)
+    if response.status_code < 400 and re.search(r"/web/\d{8,14}", resolved):
+        return resolved
+    return None
+
+
+def save_snapshot(
+    client: httpx.Client, url: str, authed: bool
+) -> tuple[str | None, str]:
     """Capture via Save Page Now; returns (snapshot url, status note)."""
     import savepagenow
     try:
-        snapshot, _fresh = savepagenow.capture_or_cache(
+        raw_snapshot, _fresh = savepagenow.capture_or_cache(
             url, user_agent=UA, authenticate=authed)
-        # SPN sometimes answers with a timestamp-less redirect form;
-        # only a dated /web/<ts>/ URL is a durable citation.
-        if not re.search(r"/web/\d{8,14}", snapshot or ""):
-            return None, f"SPN returned undated URL ({snapshot}) — retry"
+        # SPN often answers with a timestamp-less convenience form. Resolve
+        # it now; only a dated /web/<ts>/ URL is a durable citation.
+        snapshot = resolve_dated_snapshot(client, raw_snapshot or "")
+        if not snapshot:
+            return None, f"SPN returned undated URL ({raw_snapshot}) — retry"
         return snapshot, "captured"
     except savepagenow.exceptions.TooManyRequests:
         return None, "SPN rate-limited — rerun later" + (
@@ -280,7 +324,7 @@ def main() -> None:
             url = e["fields"]["url"]
             stamped = e["fields"].get("verified", "")
             archived = e["fields"].get("archived", "")
-            ok, status = check_url(client, url)
+            ok, status = check_with_archive_fallback(client, url, archived)
             mark = "OK " if ok else "FAIL"
             print(f"{mark} {e['key']:<28} {status:<12} "
                   f"verified={stamped or '—'}  archived={'yes' if archived else '—'}"
@@ -300,7 +344,7 @@ def main() -> None:
                 else:
                     if spn_used:             # politeness between captures
                         time.sleep(spn_wait)
-                    snapshot, note = save_snapshot(url, authed)
+                    snapshot, note = save_snapshot(client, url, authed)
                     spn_used = True
                     if snapshot:
                         archives_to_add[e["key"]] = snapshot

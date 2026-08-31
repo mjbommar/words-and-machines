@@ -979,11 +979,11 @@ page size in every system.
 
 The architectural map says which byte addresses are present. An allocator
 answers a different question: which present ranges have been assigned to
-which uses? Let an allocation record contain a base address (b), a requested
-size (n), a reserved size (r), and a lifetime status. A successful request
+which uses? Let an allocation record contain a base address \(b\), a requested
+size \(n\), a reserved size \(r\), and a lifetime status. A successful request
 must choose a range that does not overlap any live allocation. It may reserve
-more than the requested (n) bytes to satisfy alignment or bookkeeping
-rules. The difference (r-n) is one form of \keyterm{internal fragmentation}.
+more than the requested \(n\) bytes to satisfy alignment or bookkeeping
+rules. The difference \(r-n\) is one form of \keyterm{internal fragmentation}.
 It is capacity paid for but unavailable to the requesting object.
 
 Free ranges can also be separated into pieces. Their total size may exceed a

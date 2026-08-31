@@ -21,10 +21,19 @@ Chapters may use **only** the vocabulary below. This is simultaneously (a) the s
 | `\foreignphrase{...}` | italics | `<i class="foreign">` |
 
 ## Block environments
+- `enumerate`, `itemize`, and `description` — semantic lists; every item uses
+  `\item`, and description items require a label
+- `\(...\)` and `\[...\]` — inline and displayed mathematics; EPUB emits
+  native MathML and marks the containing XHTML manifest item accordingly
 - `quotation` (+ `\attribution{...}`) — block quotes
 - `callout` family (module: boxes): `keyidea`, `example`, `warning`, `sidebar`, `definition` — each takes an optional title; optional `importance=low|medium|high`
 - math/logic callouts (module: boxes): `proofkit`, `tryit`, `goingdeeper`, `archive` — same interface as the callout family, but each carries a distinct hue **and** a leading icon (compass / pencil / layers / letter) so they stay distinguishable in a color edition and in grayscale POD. Use for a definition-or-proof, a reader exercise, an optional depth track, and a quoted primary document, respectively. To override the title, prepend the matching `\iconProofKit`/`\iconTryIt`/`\iconGoingDeeper`/`\iconArchive` macro, e.g. `title={\iconProofKit\ Proof Kit: Cantor's Theorem}`.
-- `codelisting` (module: code): `\begin{codelisting}[language=python,caption=...]`
+- `codelisting` (module: code): `\begin{codelisting}[language=python,caption=...]`.
+  A code box is an executable promise. `make code-check` scans the complete
+  manuscript tree, and every executable listing must have an exact-text
+  runtime path in `make machine-example-check`. Deliberate pseudocode must be
+  classified and checked as pseudocode rather than made to resemble a runnable
+  ISA or language listing.
 - `verse` module: `parallelverse` + `\stanzasync` (see preamble/verse.tex)
 - `figure` with `\includegraphics` + `\caption` + `\label` (images in `latex/figures/`, prefer PDF/PNG); optional `\figalt{...}` sets the EPUB alt text (≤140 chars; `\figalt{}` = decorative). Without it the alt falls back to the caption; a figure with neither fails `make epub-check`
 - `table` with `booktabs` rules only (`\toprule`/`\midrule`/`\bottomrule`)
@@ -50,5 +59,7 @@ Chapters may additionally use, and only these:
 - `\obj{ID}` — typeset an object id.
 - `\ObjStatus{ID}`, `\ObjScope{ID}`, `\ObjEvidence{ID}`, `\ObjTitle{ID}` — values read from `../objects/ID.json` via the generated `preamble/objects-generated.tex`. **Never type a status word by hand**; if the ledger says `open`, the book says `open`.
 - `\begin{artifact}{ID} … \ArtifactScope{ID} \end{artifact}` — the box that accompanies every object with something to check.
+  EPUB reads the same `objects/ID.json` record used to generate the print
+  macros; a missing or malformed record fails strict conversion.
 
 Run `make ledger` at the repository root after editing any object record.

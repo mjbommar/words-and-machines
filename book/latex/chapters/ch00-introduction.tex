@@ -307,22 +307,22 @@ The machinery is valuable only after the statement is right. A perfect proof
 of a formula about the wrong flags or a reversed byte order proves the wrong
 thing with unusual confidence.
 
-Consider two four-bit programs. Program $P$ adds 1 to register $r_0$ and
-halts. Program $Q$ adds 1 to $r_0$, clears $r_1$, and halts. If the only
-reported output is $r_0$, the programs agree on every input. If the caller
-may inspect $r_1$, they do not. Neither conclusion is a correction to the
+Consider two four-bit programs. Program \(P\) adds 1 to register \(r_0\) and
+halts. Program \(Q\) adds 1 to \(r_0\), clears \(r_1\), and halts. If the only
+reported output is \(r_0\), the programs agree on every input. If the caller
+may inspect \(r_1\), they do not. Neither conclusion is a correction to the
 other. They answer different questions because they use different
 observations.
 
-Now give addition a carry output. On an initial $r_0=15$, both programs
-leave 0 in $r_0$, but a version that forgets to update carry no longer agrees
-with one that follows the full addition rule. A test that starts at $r_0=3$
+Now give addition a carry output. On an initial \(r_0=15\), both programs
+leave 0 in \(r_0\), but a version that forgets to update carry no longer agrees
+with one that follows the full addition rule. A test that starts at \(r_0=3\)
 will miss the defect. The boundary input 15 exposes it. This small example
 contains the structure of much larger verification tasks: declare the input
 set, execute a complete state transition, select an observation, and quantify
 over every allowed start.
 
-The order matters. If we first notice that the printed values of $r_0$
+The order matters. If we first notice that the printed values of \(r_0\)
 match, we may be tempted to name the programs equivalent and repair the
 definition afterward. The book uses the reverse discipline. We decide what a
 client may observe, then ask whether the two executions agree under that
@@ -363,9 +363,9 @@ between the printed semantics and the generated problem.
 \indexentry{minimality}
 
 One sequence on the page can support several kinds of sentence. Their
-quantifiers determine what evidence can settle them. Let $S$ be the allowed
-starting states, let $P(s)$ be the outcome of running program $P$ from state
-$s$, and let $O$ be the observation chosen by the client.
+quantifiers determine what evidence can settle them. Let \(S\) be the allowed
+starting states, let \(P(s)\) be the outcome of running program \(P\) from state
+\(s\), and let \(O\) be the observation chosen by the client.
 
 The first sentence asks for a witness:
 
@@ -383,7 +383,7 @@ The second sentence asks for correctness over the whole input set:
   \forall s\in S.\; O(P(s))=f(s).
 \]
 
-No selected example settles this statement unless $S$ contains only that
+No selected example settles this statement unless \(S\) contains only that
 example. A proof needs a reason that covers every allowed state. For a small
 finite set, complete enumeration may provide that coverage. For a larger set,
 an algebraic argument, induction, invariant, or checked refutation of the
@@ -397,13 +397,13 @@ The third sentence compares programs:
 
 The equation states observational equivalence under the chosen start set and observation.
 The equation does not compare source text, instruction count, execution time,
-or unobserved registers. Enlarging $O$ strengthens the claim because the
-programs must agree on more. Shrinking $S$ weakens it because fewer starts
+or unobserved registers. Enlarging \(O\) strengthens the claim because the
+programs must agree on more. Shrinking \(S\) weakens it because fewer starts
 remain to be checked.
 
 The fourth sentence compares one program with an entire language of cheaper
-candidates. If $L_{<c}$ contains every allowed program whose declared cost is
-less than $c$, \keyterm{minimality} is the absence of a cheaper equivalent. It
+candidates. If \(L_{<c}\) contains every allowed program whose declared cost is
+less than \(c\), \keyterm{minimality} is the absence of a cheaper equivalent. It
 has the form
 
 \[
@@ -413,7 +413,7 @@ has the form
 
 The statement rules out an equivalent cheaper program. A search that fails to
 find one is not enough by itself. We must know that the generator represented
-every member of $L_{<c}$, that the semantics and observation match the printed
+every member of \(L_{<c}\), that the semantics and observation match the printed
 claim, and that the final evidence rules out the resulting existential
 formula.
 
@@ -438,9 +438,9 @@ The important distinction is not whether a solver was used. It is whether the
 evidence matches the logical burden of the sentence.
 
 \begin{tryit}[title={\iconTryIt\ Change one quantifier}]
-Take the claim ``program $P$ returns 0 for every four-bit input.'' Replace
+Take the claim ``program \(P\) returns 0 for every four-bit input.'' Replace
 ``every'' with ``some.'' Then replace the output 0 with ``the same output as
-$Q$.'' Write the three formulas. Name the smallest decisive evidence for each
+\(Q\).'' Write the three formulas. Name the smallest decisive evidence for each
 one. Give one test result that would leave each claim unsettled.
 \end{tryit}
 
@@ -728,8 +728,8 @@ each bit.
 \end{tryit}
 
 \begin{tryit}[title={\iconTryIt\ Break: enlarge the observation}]
-Program $P$ adds 1 to $r_0$. Program $Q$ adds 1 to $r_0$ and clears $r_1$.
-Begin with an observation that returns only $r_0$, then add $r_1$, the carry
+Program \(P\) adds 1 to \(r_0\). Program \(Q\) adds 1 to \(r_0\) and clears \(r_1\).
+Begin with an observation that returns only \(r_0\), then add \(r_1\), the carry
 bit, and the number of executed instructions one at a time. For each
 observation, decide whether equivalence survives. Give the smallest starting
 state that separates the programs when it does not.

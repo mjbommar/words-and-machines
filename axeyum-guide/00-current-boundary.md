@@ -5,18 +5,21 @@ for A0 architectural words, state, finite byte memory, instruction effects,
 canonical encoding and strict decoding, complete concrete steps, and bounded
 traces. Its word layer includes explicit zero extension, sign extension, and
 truncation, and complete states have a canonical binary codec.
-`axeyum-machine-evidence` produces sixteen book routes and their negative
-controls. Twelve cover A0. Two pin and execute the twelve-form RV64I slice.
+`axeyum-machine-evidence` produces twenty book routes and their negative
+controls. Fourteen cover A0. Two pin and execute the twelve-form RV64I slice.
 Two more pin and execute the seventeen-form x86-64 slice, including all six
 x86-64 manuscript listings, variable lengths, flags, memory, and implicit
-stack control. The addition and
+stack control. One typed relation executes the three printed absolute-value
+programs across RV64I and x86-64 for ten declared inputs. A second executes
+the complete Chapter 15 exclusive-or programs across A0, RV64I, and x86-64
+for eight declared lists. The addition and
 memory-frame routes construct symbolic terms through
 the same operation structures used by concrete execution and save term-bound
 DRAT and LRAT certificates. The memory route also rechecks array elimination
 and its select-congruence witness.
 
-Axeyum still does not contain typed cross-ISA refinement or an A0 symbolic
-theorem for every operation. The real-ISA routes are finite executable
+Axeyum still does not contain a universal cross-ISA refinement theorem or an
+A0 symbolic theorem for every operation. The real-ISA and cross-machine routes are finite executable
 evidence, not universal refinement theorems. The addition certificates are eight
 fixed-width theorems, not one arbitrary-width kernel theorem.
 

@@ -143,15 +143,15 @@ address production and a memory load may print similar brackets; only the load
 reads the selected bytes. A self-copy can leave the register map unchanged;
 it remains an executed step with a changed program counter.
 
-Exchange shows why read-before-write order matters. If locations (A) and
-(B) are independent, the intended result is
+Exchange shows why read-before-write order matters. If locations \(A\) and
+\(B\) are independent, the intended result is
 
 \[
   A'=\mathrm{read}_B(S),\qquad B'=\mathrm{read}_A(S).
 \]
 
 Both right-hand sides use the entry state. A sequential host implementation
-that writes (A) first and then reads (A) for the second assignment loses
+that writes \(A\) first and then reads \(A\) for the second assignment loses
 the old value. It implements two copies, not one exchange. If the locations
 overlap, even this pair of equations needs an architecture-specific rule for
 the containing storage.
@@ -252,7 +252,7 @@ A model with independent AL and RAX cells would wrongly preserve the old
 A location name can be modeled as a pair of functions over machine state. Its
 read function produces a value. Its write function accepts a new value and an
 old state, then returns a complete new state. For a well-behaved independent
-cell (L), two laws are expected:
+cell \(L\), two laws are expected:
 
 \[
   \mathrm{read}_L(\mathrm{write}_L(v,S))=v
@@ -345,7 +345,7 @@ of the address expressions.
 \end{warning}
 
 An alias claim is quantified over states. Two expressions \(e_1\) and \(e_2\)
-must alias on a precondition (P) when every (P)-state gives overlapping
+must alias on a precondition \(P\) when every \(P\)-state gives overlapping
 intervals. They may alias when at least one allowed state overlaps. They do
 not alias when every allowed state is disjoint. A compiler that cannot prove
 the last condition must preserve dependences that a possible overlap could
@@ -547,7 +547,7 @@ one successor state or one declared failure outcome.
 \includegraphics[width=0.98\textwidth]{figures/memory-transfer-gates}
 \caption{A memory transfer crosses several semantic gates. Separating them
 makes failure ordering, preservation, and negative controls explicit.}
-\figalt{Old operands lead to effective-address arithmetic, full byte-range and policy checks, load assembly or store splitting, and a committed successor or fault.}
+\figalt{Operands pass through address arithmetic, byte-range and policy checks, then load assembly or store splitting to a successor or fault.}
 \label{fig:memory-transfer-gates}
 \end{figure}
 
@@ -611,7 +611,7 @@ trace and refinement relation must distinguish them too.
 
 A mathematical load need not throw a host-language exception or leave a
 half-built state. Define it as a total classifier over declared inputs. For
-width (n), destination (d), effective address (a), and entry state (S),
+width \(n\), destination \(d\), effective address \(a\), and entry state \(S\),
 its result can have the form
 
 \[
@@ -1260,7 +1260,7 @@ that natural alignment would have supplied.
 from the same source word. Give their write intervals, byte values, and frame
 conditions.
 
-\item \textbf{Prove.} Show that zero and sign extension from (n) to (m)
+\item \textbf{Prove.} Show that zero and sign extension from \(n\) to \(m\)
 agree exactly when the source high bit is zero. Prove both directions.
 
 \item \textbf{Break.} Prove only that an \code{lw} and \code{lwu} destination

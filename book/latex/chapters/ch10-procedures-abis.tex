@@ -248,10 +248,10 @@ whole interval and every required checkpoint.
 
 \subsection{Nested stack frames}
 
-Suppose a procedure enters with stack pointer (s), allocates (F) bytes,
-and calls a second procedure that allocates (G) bytes. Immediately before
+Suppose a procedure enters with stack pointer \(s\), allocates \(F\) bytes,
+and calls a second procedure that allocates \(G\) bytes. Immediately before
 the nested allocation, the first frame is ([s-F,s)). After it, the nested
-frame is ([s-F-G,s-F)). The intervals touch at (s-F) but do not overlap.
+frame is \([s-F-G,s-F)\). The intervals touch at \(s-F\) but do not overlap.
 This simple calculation is the spatial reason one procedure may keep saved
 values in its frame while another procedure uses the stack below it.
 
@@ -1013,7 +1013,7 @@ Technology supplies such a return-protection mechanism for selected x86-64
 environments \autocite{intel2020cet}.
 
 Let ordinary continuation stack \(K\) and protected stack \(H\) initially
-agree. A well-nested call with continuation (k) appends (k) to both. A
+agree. A well-nested call with continuation \(k\) appends \(k\) to both. A
 well-nested return requires their last elements to agree and removes both.
 Induction over the call history then preserves \(K=H\) for executions that use
 only these rules. If an ordinary-memory store changes the last element of

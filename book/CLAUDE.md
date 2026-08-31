@@ -61,10 +61,11 @@ does not establish the present capability.
 For a book change that affects a solver-backed object or its explanation:
 
 1. Read the matching route in `../axeyum-guide/` and inspect the named crate
-   and example in `../axeyum`.
-2. From the repository root, set `AXEYUM=../axeyum` and run
+   and example in the checkout selected by `AXEYUM`.
+2. From the repository root, set `AXEYUM=/path/to/current/axeyum-main`, run
+   `make axeyum-checkout-check`, and then run
    `$(MAKE) check-run`. This checks the positive evidence and the negative
-   control. The required release-example build commands are in
+   control. The required checkout and editable-package build commands are in
    `../axeyum-guide/05-reproduce.md`.
 3. Record the route, scope, and limitation in the object. In prose, describe
    only the result that this evidence supports.
@@ -79,7 +80,7 @@ single steps, and bounded traces. It also includes complete selected single-step
 projections for the source-pinned RV64I and x86-64 teaching slices: typed
 instructions, canonical encode/decode, complete state, traps, and state
 projection. Run the exact manuscript examples with
-`AXEYUM=../axeyum make machine-example-check` from the repository root. Do not
+`AXEYUM=/path/to/current/axeyum-main make machine-example-check` from the repository root. Do not
 describe real-ISA bounded traces or cross-machine Python relations as implemented.
 
 ## Hard rules

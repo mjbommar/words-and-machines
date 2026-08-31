@@ -178,6 +178,7 @@ class Context:
         self.images: dict[str, bytes] = {}    # epub href -> bytes
         self.warnings: list[str] = []
         self.a11y_errors: list[str] = []
+        self.content_errors: list[str] = []
         self.unknowns: dict[str, int] = {}
         self.handled: set[str] = set()
         # per-chapter state (begin_chapter)
@@ -225,6 +226,10 @@ class Context:
         """Accessibility contract violation — fails the epub-check gate
         (the OPF claims EPUB Accessibility 1.1, so gaps are errors)."""
         self.a11y_errors.append(f"{self.chapter_file}: {msg}")
+
+    def content_error(self, msg: str) -> None:
+        """Record reader-visible conversion loss or malformed source."""
+        self.content_errors.append(f"{self.chapter_file}: {msg}")
 
     def unknown(self, name: str) -> None:
         self.unknowns[name] = self.unknowns.get(name, 0) + 1
@@ -367,12 +372,13 @@ class Report:
     warnings: list
     link_errors: list
     a11y_errors: list
+    content_errors: list
     handled: set
 
     @property
     def ok(self) -> bool:
         return (not self.unknowns and not self.link_errors
-                and not self.a11y_errors)
+                and not self.a11y_errors and not self.content_errors)
 
 
 class BuildError(RuntimeError):
@@ -478,6 +484,7 @@ def build_book(root: Path, cover: Path, edition: str | None = None) -> Report:
     return Report(epub_path=epub_path, unknowns=dict(ctx.unknowns),
                   warnings=list(ctx.warnings), link_errors=link_errors,
                   a11y_errors=list(ctx.a11y_errors),
+                  content_errors=list(ctx.content_errors),
                   handled=set(ctx.handled))
 
 

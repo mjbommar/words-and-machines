@@ -742,7 +742,7 @@ signed reading is nonnegative.
 \includegraphics[width=0.88\textwidth]{figures/abs-control-points}
 \caption{The absolute-value simulation splits on one shared signed predicate.
 Each path restores a common result relation at \emph{done}.}
-\figalt{Related entries lead to a shared x nonnegative decision; the positive path keeps x, the negative path computes minus x, and both reach related exits.}
+\figalt{Related entries test whether x is nonnegative; one path keeps x, the other computes minus x, and both reach related exits.}
 \label{fig:abs-control-points}
 \end{figure}
 
@@ -1066,7 +1066,7 @@ interpretation.
 \includegraphics[width=0.9\textwidth]{figures/cross-isa-counterexample-triage}
 \caption{A solver assignment becomes a cross-ISA counterexample only after it
 survives construction, decoding, replay, and relation checking.}
-\figalt{A funnel passes a solver model through precondition, state construction, decode, segment replay, and failed relation clause; side arrows mark rejection.}
+\figalt{A solver model passes through precondition, state construction, decode, replay, and the failed relation clause; side arrows reject it.}
 \label{fig:cross-isa-counterexample-triage}
 \end{figure}
 

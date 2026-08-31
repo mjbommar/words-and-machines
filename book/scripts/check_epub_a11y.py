@@ -4,7 +4,8 @@
 """Ace by DAISY accessibility gate (`make epub-a11y`).
 
 Runs Ace (https://daisy.github.io/ace/) on the built EPUB and fails on
-any violation of impact `serious` or `critical`. Ace's exit code is 0
+any violation of impact `serious` or `critical`, or every violation with
+``--strict``. Ace's exit code is 0
 even when violations exist, so the JSON report — not the exit code —
 is the gate. The generated OPF claims `EPUB Accessibility 1.1 -
 WCAG 2.2 Level AA`; this gate is what keeps that claim honest.
@@ -75,6 +76,8 @@ def main() -> int:
                     help="Ace report directory (report.json + report.html)")
     ap.add_argument("--ace-cmd", default=None,
                     help="Ace invocation override (also: ACE_CMD env var)")
+    ap.add_argument("--strict", action="store_true",
+                    help="fail on moderate and minor violations too")
     args = ap.parse_args()
 
     if not args.epub.exists():
@@ -95,10 +98,11 @@ def main() -> int:
 
     counts = {i: sum(1 for f in failures if f["impact"] == i)
               for i in IMPACT_ORDER}
-    gate = [f for f in failures if f["impact"] in FAIL_IMPACTS]
+    gate = failures if args.strict else [
+        f for f in failures if f["impact"] in FAIL_IMPACTS]
     for f in sorted(failures, key=lambda f: IMPACT_ORDER.index(f["impact"])
                     if f["impact"] in IMPACT_ORDER else 9):
-        marker = "FAIL" if f["impact"] in FAIL_IMPACTS else "warn"
+        marker = "FAIL" if args.strict or f["impact"] in FAIL_IMPACTS else "warn"
         print(f"check_epub_a11y: {marker} [{f['impact']}] {f['rule']} "
               f"{f['file']}  {f['desc'][:100]}")
 
@@ -107,11 +111,13 @@ def main() -> int:
           f"{' — ' + summary if summary else ''}; "
           f"report: {args.outdir.relative_to(ROOT)}/report.html")
     if gate:
-        print(f"check_epub_a11y: FAIL — {len(gate)} serious/critical "
-              "violation(s) contradict the OPF conformance claim",
+        scope = "accessibility" if args.strict else "serious/critical"
+        print(f"check_epub_a11y: FAIL — {len(gate)} {scope} "
+              "violation(s) contradict the release contract",
               file=sys.stderr)
         return 1
-    print("check_epub_a11y: OK (no serious/critical violations)")
+    message = "no violations" if args.strict else "no serious/critical violations"
+    print(f"check_epub_a11y: OK ({message})")
     return 0
 
 

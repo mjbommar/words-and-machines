@@ -63,6 +63,10 @@ simulation, and a fail-closed evidence boundary.
 
 ## Live Axeyum audit
 
+This is the 2026-08-30 pre-implementation snapshot. The implementation
+follow-up below supersedes its capability conclusions while preserving the
+research trail.
+
 Refreshed 2026-08-30 against `../axeyum`, branch
 `research/open-problems-2026-08`, commit
 `a9991fdad6c1e4b2bda596b46d2c8c715556ceae`.
@@ -75,6 +79,20 @@ Refreshed 2026-08-30 against `../axeyum`, branch
 - Do not claim machine-produced evidence, assembled-byte replay, or a universal
   cross-ISA theorem until the decoders, semantics, harnesses, relations, and
   manifests exist and run.
+
+## Implementation follow-up
+
+Refreshed 2026-08-31 against the integrated Axeyum checkout at commit
+`a257d7cd639caf101c03e9bba21864267b97b66e`.
+
+- `axeyum-machine` now supplies the A0, RV64I, and x86-64 concrete machine
+  surfaces required by the book.
+- `axeyum-machine-evidence` executes the exact complete Chapter 15 programs
+  over eight declared lists and checks typed cut-point relations.
+- The active manifest runs its producer, positive checker, and firing negative
+  control. This is finite executable evidence, not the universal loop theorem.
+- The former illustrative Python listing has been removed. The manuscript now
+  prints only interfaces exercised by the repository's exact-listing gate.
 
 ## Build and tooling observations
 

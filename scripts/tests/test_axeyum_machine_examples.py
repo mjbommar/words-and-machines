@@ -2,20 +2,116 @@
 
 from __future__ import annotations
 
-import unittest
+import re
 import shutil
 import subprocess
 import tempfile
+import unittest
 from pathlib import Path
 
 from axeyum import machine
-
-from scripts.check_code_listings import CodeListing, classify, listings, strip_assembly_annotations
+from scripts.check_code_listings import (
+    ADDRESS,
+    LABEL_AND_BODY,
+    CodeListing,
+    classify,
+    listings,
+    split_a0_lines,
+    strip_assembly_annotations,
+)
 
 
 A0_ADDITION = "Encode, decode, and execute one A0 addition"
 RV64 = "rv64"
 X64 = "x86"
+
+
+def a0_register(text: str) -> int:
+    match = re.fullmatch(r"r([0-7])", text.strip())
+    if match is None:
+        raise AssertionError(f"invalid A0 register in runtime harness: {text!r}")
+    return int(match.group(1))
+
+
+def a0_instruction(text: str, *, pc: int, labels: dict[str, int]):
+    """Construct one typed Axeyum instruction from exact printed A0 text."""
+    parts = text.split(None, 1)
+    mnemonic = parts[0].lower()
+    operands = [part.strip() for part in parts[1].split(",")] if len(parts) == 2 else []
+    instruction = machine.a0.Instruction
+    if mnemonic == "mov":
+        return instruction.mov(a0_register(operands[0]), a0_register(operands[1]))
+    if mnemonic == "movi":
+        return instruction.mov_immediate(a0_register(operands[0]), int(operands[1], 0))
+    if mnemonic in {"add", "sub", "xor"}:
+        factory = getattr(instruction, mnemonic)
+        return factory(*(a0_register(operand) for operand in operands))
+    if mnemonic == "cmp":
+        return instruction.compare(*(a0_register(operand) for operand in operands))
+    if mnemonic == "load":
+        memory = re.fullmatch(r"\[(r[0-7])\s*([+-])\s*(\d+)\]", operands[1])
+        if memory is None:
+            raise AssertionError(f"invalid A0 memory operand in runtime harness: {operands[1]!r}")
+        offset = int(memory.group(3)) * (1 if memory.group(2) == "+" else -1)
+        return instruction.load(a0_register(operands[0]), a0_register(memory.group(1)), offset)
+    if mnemonic.startswith("branch."):
+        target = labels[operands[0]]
+        # A0 branch offsets count four-byte instructions from the sequential PC.
+        displacement = target - (pc + 4)
+        if displacement % 4:
+            raise AssertionError(f"unaligned A0 branch target: {target}")
+        return instruction.branch(mnemonic.removeprefix("branch."), displacement // 4)
+    if mnemonic == "halt":
+        return instruction.halt()
+    raise AssertionError(f"unsupported A0 instruction in runtime harness: {text!r}")
+
+
+def a0_program_bytes(body: str, *, two_column: bool = False) -> bytes:
+    labels: dict[str, int] = {}
+    rows: list[tuple[int, str]] = []
+    for raw in split_a0_lines(body, two_column=two_column):
+        text = raw
+        address = ADDRESS.match(text)
+        if address:
+            text = address["body"].strip()
+        label = LABEL_AND_BODY.match(text)
+        if label:
+            labels[label["label"]] = 4 * len(rows)
+            text = label["body"].strip()
+        if text:
+            rows.append((4 * len(rows), text))
+    # A label on the last line denotes the first byte after the program.
+    for raw in body.splitlines():
+        text = raw.strip()
+        if text.endswith(":") and " " not in text:
+            labels.setdefault(text[:-1], 4 * len(rows))
+    return b"".join(a0_instruction(text, pc=pc, labels=labels).encode() for pc, text in rows)
+
+
+def a0_state(width: int, code: bytes, *, memory=None):
+    program = machine.a0.Program(width, machine.a0.Word(width, 0), code)
+    state = machine.a0.State(
+        width,
+        memory if memory is not None else machine.a0.Memory.zeroed(0),
+        program.entry,
+    )
+    return program, state
+
+
+def a0_run(program, state, *, limit: int = 128):
+    for _ in range(limit):
+        if state.outcome.kind != "running":
+            return state
+        state = machine.a0.step(program, state)
+    raise AssertionError(f"A0 listing exceeded {limit} steps")
+
+
+def a0_steps(program, state, count: int):
+    for _ in range(count):
+        if state.outcome.kind != "running":
+            raise AssertionError(f"A0 listing stopped early: {state.outcome.kind}")
+        state = machine.a0.step(program, state)
+    return state
 
 
 def manuscript_listing(caption: str) -> CodeListing:
@@ -115,6 +211,102 @@ class AxeyumMachineExampleTests(unittest.TestCase):
         self.assertNotEqual(mutated, listing.body, "mutation control changed no source")
         with self.assertRaises(AssertionError):
             exec(compile(mutated, f"{listing.location}:control", "exec"), {})
+
+    def test_every_printed_a0_listing_executes_with_its_declared_role(self) -> None:
+        a0_listings = {
+            listing.caption: listing
+            for listing in listings()
+            if classify(listing) == "a0"
+        }
+        self.assertEqual(len(a0_listings), 8)
+
+        listing = a0_listings["A short A0 program"]
+        code = a0_program_bytes(listing.body)
+        program, state = a0_state(8, code)
+        state = a0_run(program, state)
+        self.assertEqual(state.outcome.kind, "halted")
+        self.assertEqual(state.register(0).unsigned, 8)
+
+        listing = a0_listings["One A0 register addition"]
+        code = a0_program_bytes(listing.body)
+        program, state = a0_state(8, code)
+        state = state.with_register(5, machine.a0.Word(8, 0x7f))
+        state = state.with_register(2, machine.a0.Word(8, 1))
+        state = a0_steps(program, state, 1)
+        self.assertEqual(state.register(3).unsigned, 0x80)
+
+        listing = a0_listings["A0 counts r0 down to zero"]
+        code = a0_program_bytes(listing.body)
+        program, state = a0_state(8, code)
+        state = state.with_register(0, machine.a0.Word(8, 3))
+        state = a0_run(program, state)
+        self.assertEqual(state.outcome.kind, "halted")
+        self.assertEqual(state.register(0).unsigned, 0)
+
+        listing = a0_listings["Two candidate ways to clear r0"]
+        candidate_lines = [line.strip() for line in listing.body.splitlines() if line.strip()]
+        self.assertEqual(len(candidate_lines), 2)
+        for line in candidate_lines:
+            body = line.split(":", 1)[1].strip()
+            code = a0_program_bytes(body)
+            program, state = a0_state(8, code)
+            state = state.with_register(0, machine.a0.Word(8, 0xa5))
+            state = a0_steps(program, state, 1)
+            self.assertEqual(state.register(0).unsigned, 0)
+
+        listing = a0_listings["A0 absolute value, with r1 initialized to zero"]
+        code = a0_program_bytes(listing.body)
+        for value, expected, steps in ((7, 7, 2), (2**64 - 7, 7, 3)):
+            program, state = a0_state(64, code)
+            state = state.with_register(0, machine.a0.Word(64, value))
+            state = a0_steps(program, state, steps)
+            self.assertEqual(state.register(0).unsigned, expected)
+
+        listing = a0_listings["The complete tiny candidate alphabet"]
+        rows = split_a0_lines(listing.body, two_column=True)
+        self.assertEqual(len(rows), 6)
+        for row in rows:
+            code = a0_program_bytes(row)
+            program, state = a0_state(8, code)
+            state = state.with_register(0, machine.a0.Word(8, 3))
+            state = state.with_register(1, machine.a0.Word(8, 2))
+            self.assertEqual(a0_steps(program, state, 1).outcome.kind, "running")
+
+        listing = a0_listings["A two-instruction witness for adding two"]
+        code = a0_program_bytes(listing.body)
+        program, state = a0_state(8, code)
+        state = state.with_register(0, machine.a0.Word(8, 5))
+        state = state.with_register(1, machine.a0.Word(8, 1))
+        state = a0_steps(program, state, 2)
+        self.assertEqual(state.register(0).unsigned, 7)
+
+        listing = a0_listings["A0 XOR reduction"]
+        code = a0_program_bytes(listing.body)
+        data_base = 64
+        data = bytearray(96)
+        for index, value in enumerate((1, 2, 4)):
+            start = data_base + index * 8
+            data[start : start + 8] = value.to_bytes(8, "little")
+        program, state = a0_state(64, code, memory=machine.a0.Memory.from_bytes(data))
+        state = state.with_register(1, machine.a0.Word(64, data_base))
+        state = state.with_register(2, machine.a0.Word(64, 3))
+        state = a0_run(program, state)
+        self.assertEqual(state.outcome.kind, "halted")
+        self.assertEqual(state.register(0).unsigned, 7)
+
+    def test_a0_text_execution_control_changes_observed_result(self) -> None:
+        listing = manuscript_listing("A short A0 program")
+        mutated = listing.body.replace("movi r1, 5", "movi r1, 6")
+        self.assertNotEqual(mutated, listing.body)
+        program, state = a0_state(8, a0_program_bytes(mutated))
+        state = a0_run(program, state)
+        self.assertEqual(state.outcome.kind, "halted")
+        self.assertNotEqual(state.register(0).unsigned, 8)
+
+    def test_printed_manifest_python_listing_runs_unchanged(self) -> None:
+        listing = manuscript_listing("Inspect and replay one evidence manifest")
+        namespace: dict[str, object] = {"__name__": "__book_listing__"}
+        exec(compile(listing.body, listing.location, "exec"), namespace)
 
     def test_every_real_isa_listing_decodes_wholly_in_the_selected_slice(self) -> None:
         counts = {RV64: 0, X64: 0}

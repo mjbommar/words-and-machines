@@ -51,7 +51,7 @@ endef
         slop pangram verify-citations doctor validate-all release watch \
         ontology craft brief \
         simplified simplified-lexicon test-simplified calibrate-simplified \
-        test-compose test-formats \
+        test-sbe-study test-compose test-formats test-epub test-doctor test-citations test-metadata \
         clean help
 
 help: ## list targets
@@ -138,8 +138,8 @@ epub-check: generated cover-image ## EPUB with strict handler-coverage audit
 	@$(UV) scripts/build_epub.py $(EDITION_FLAG) --cover $(BUILD)/cover/cover-front.png --strict
 	epubcheck $(BUILD)/epub/book$(JOB_SUFFIX).epub
 
-epub-a11y: epub ## Ace by DAISY audit (fails on serious/critical)
-	@$(UV) scripts/check_epub_a11y.py --epub $(BUILD)/epub/book$(JOB_SUFFIX).epub
+epub-a11y: epub ## strict Ace by DAISY accessibility audit
+	@$(UV) scripts/check_epub_a11y.py --strict --epub $(BUILD)/epub/book$(JOB_SUFFIX).epub
 	$(call say,"build/a11y-report/report.html (Ace passed)")
 
 # ---------------- QA ----------------
@@ -158,14 +158,29 @@ simplified-lexicon: ## rebuild scripts/data/simplified_english/lexicon.json from
 	@$(SBE_BUILD_UV) scripts/build_simplified_lexicon.py
 
 test-simplified: ## SBE checker regression tests
-	@$(SBE_UV) python -m unittest discover -s tests -p 'test_*simplified.py' -v
+	@$(SBE_UV) python -m unittest tests.test_check_simplified -v
 	@$(SBE_UV) python -m unittest tests.test_latex_source -v
+
+test-sbe-study: ## SBE calibration-report regression tests
+	@$(SBE_UV) python -m unittest tests.test_calibrate_simplified -v
 
 test-compose: ## outline composer regression tests
 	@$(COMPOSE_UV) python -m unittest tests.test_outline_composer -v
 
 test-formats: ## trim catalog, KDP limits, and cover-formula regression tests
 	@$(UV) python -m unittest tests.test_trim_catalog -v
+
+test-epub: ## EPUB converter semantic regression tests
+	@$(UV) python -m unittest tests.test_epub_converter -v
+
+test-doctor: ## build-doctor command-scope regression tests
+	@$(UV) python -m unittest tests.test_doctor -v
+
+test-citations: ## citation reachability and archive-fallback regression tests
+	@$(UV) python -m unittest tests.test_verify_citation -v
+
+test-metadata: ## draft and strict publication-metadata regression tests
+	@$(UV) python -m unittest tests.test_generate_metadata -v
 
 calibrate-simplified: ## score the nine held-out sibling book projects
 	@$(SBE_UV) scripts/calibrate_simplified.py
@@ -231,12 +246,13 @@ brief: ## one-file craft brief per chapter: diagnosis + owed promises + what to 
 	@$(UV) scripts/craft_brief.py $(if $(CHAPTER),--chapter $(CHAPTER)) $(if $(OUT),--out $(OUT))
 
 verify-citations: ## URL reachability + verified= + archived= gates (network)
+	@$(UV) scripts/verify_citation.py --unused
 	@$(UV) scripts/verify_citation.py --require-stamps --require-archives
 
 doctor: ## toolchain, fonts, drift audit
 	@$(UV) scripts/doctor.py
 
-validate-all: pdf bleed ebook epub epub-a11y kdp-cover preflight cover-ink check test-simplified test-sbe-study test-formats doctor ## full gate
+validate-all: figures pdf bleed ebook epub-check epub-a11y kdp-cover preflight cover-ink check structure test-simplified test-sbe-study test-compose test-formats test-epub test-doctor test-citations test-metadata doctor ## full gate
 	$(call say,"validate-all: all gates passed")
 
 # ---------------- lifecycle ----------------

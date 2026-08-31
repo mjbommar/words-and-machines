@@ -60,6 +60,8 @@ def main() -> int:
         print(f"build_epub: link error: {e}", file=sys.stderr)
     for e in report.a11y_errors:
         print(f"build_epub: accessibility error: {e}", file=sys.stderr)
+    for e in report.content_errors:
+        print(f"build_epub: content error: {e}", file=sys.stderr)
 
     rel = report.epub_path.relative_to(ROOT)
     print(f"build_epub: wrote {rel} "

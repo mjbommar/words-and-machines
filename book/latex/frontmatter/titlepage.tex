@@ -29,10 +29,14 @@
   % Imprint (when set) is the display brand; publisher backs it.
   \ifBookHasImprint
     {\large\bklabelcaps{\BookImprint}\par}
-    \smallskip
-    {\small\color{text-muted}\BookPublisher\par}
+    \ifBookHasPublisher
+      \smallskip
+      {\small\color{text-muted}\BookPublisher\par}
+    \fi
   \else
-    {\large\bklabelcaps{\BookPublisher}\par}
+    \ifBookHasPublisher
+      {\large\bklabelcaps{\BookPublisher}\par}
+    \fi
   \fi
   \smallskip
   {\small\color{text-muted}\BookYear\par}

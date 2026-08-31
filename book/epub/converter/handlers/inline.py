@@ -7,7 +7,11 @@ values from build/epub-metadata.json, never to strings in this package
 (ADR 0002).
 """
 
-from . import inline_handler
+from xml.etree import ElementTree
+
+from latex2mathml import converter as mathml_converter
+
+from . import block_handler, inline_handler
 
 # macro -> (tag, class) — the contract's table, verbatim.
 _SEMANTIC = {
@@ -21,6 +25,8 @@ _SEMANTIC = {
     "keyterm": ("dfn", "keyterm"),
     "foreignphrase": ("i", "foreign"),
     "textbf": ("b", ""),        # allowed by the contract ("\textbf allowed")
+    "textit": ("i", ""),
+    "texttt": ("code", ""),
 }
 
 
@@ -34,6 +40,61 @@ def _make_semantic(tag: str, cls: str):
 
 for _name, (_tag, _cls) in _SEMANTIC.items():
     inline_handler(_name)(_make_semantic(_tag, _cls))
+
+
+def _math_source(node) -> str:
+    """Recover the TeX inside a TexSoup math node without its delimiters."""
+    return "".join(str(child) for child in getattr(node, "contents", ()) or ())
+
+
+_MATHML = "http://www.w3.org/1998/Math/MathML"
+_TOKEN_TAGS = {f"{{{_MATHML}}}{name}" for name in ("mi", "mn", "mo", "mtext", "ms")}
+
+
+def _normalize_mathml(rendered: str) -> str:
+    """Repair token wrappers emitted for commands such as ``\\mathbin``.
+
+    MathML token elements cannot contain an ``mrow``. latex2mathml currently
+    emits such wrappers for ``\\mathbin`` and a few styled identifiers. Keep
+    the outer token and its spacing attributes while flattening its illegal
+    child subtree to the same visible text.
+    """
+    ElementTree.register_namespace("", _MATHML)
+    root = ElementTree.fromstring(rendered)
+    for token in root.iter():
+        if token.tag not in _TOKEN_TAGS or not list(token):
+            continue
+        # Token elements admit text, not arbitrary MathML children. Commands
+        # such as ``\mathbin{\mathsf{xor}}`` produce a styled mrow inside an
+        # outer ``mo``. Preserve the visible operator and the outer spacing
+        # attributes by flattening only the illegal token subtree to text.
+        value = "".join(token.itertext())
+        for child in list(token):
+            token.remove(child)
+        token.text = value
+    return ElementTree.tostring(root, encoding="unicode")
+
+
+@inline_handler("math")
+def inline_math(node, ctx):
+    """LaTeX inline math becomes native EPUB MathML."""
+    source = _math_source(node)
+    try:
+        return _normalize_mathml(mathml_converter.convert(source, display="inline"))
+    except Exception as exc:
+        ctx.content_error(f"cannot convert inline math {source[:80]!r}: {exc}")
+        return f'<code class="math-fallback">{ctx.text(source)}</code>'
+
+
+@block_handler("displaymath")
+def display_math(node, ctx):
+    """LaTeX display math becomes native block MathML."""
+    source = _math_source(node)
+    try:
+        return _normalize_mathml(mathml_converter.convert(source, display="block"))
+    except Exception as exc:
+        ctx.content_error(f"cannot convert display math {source[:80]!r}: {exc}")
+        return f'<pre class="math-fallback">{ctx.text(source)}</pre>'
 
 
 # Math/logic callout icon macros (preamble/boxes.tex). Print-only: they

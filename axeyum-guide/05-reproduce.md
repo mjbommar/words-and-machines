@@ -6,20 +6,27 @@ From the book repository root run make ledger, make artifact-check, make check,
 and make check-run.
 
 `make check-run` also invokes `make machine-example-check`. It uses
-`$(AXEYUM)/.venv/bin/python` to execute the exact Chapter 6 A0 Python listing,
-assemble and decode all seven RV64 and six x86-64 listings, and execute every
-listed real-ISA program. The unresolved `helper` in each non-leaf listing is
+`$(AXEYUM)/.venv/bin/python` to execute all eight A0 listings from their exact
+printed text, the exact Chapter 6 A0 Python listing, and the exact Chapter 14
+manifest-interface listing. It assembles and decodes all seven RV64 and six
+x86-64 listings and executes every listed real-ISA program. The unresolved
+`helper` in each non-leaf listing is
 linked to a return-only harness stub; the surrounding frame and continuation
 effects remain the subject of the test. A wrong A0 result and an assemblable
 but unsupported x86 instruction must fail. Before the first run, build the sibling editable
-package from the selected Axeyum checkout:
+package from a clean worktree of current Axeyum `main`. Do not infer
+compatibility from the directory name: a sibling checkout may be on an older
+research branch while retaining stale build output.
 
 ```sh
-cd ../axeyum
+git -C ../axeyum fetch origin main
+git -C ../axeyum worktree add /path/to/axeyum-book-replay origin/main
+cd /path/to/axeyum-book-replay
 uv sync --dev
 TMPDIR=/path/on/disk uv run --no-sync maturin develop
-cd ../words-and-machines
-AXEYUM=../axeyum make machine-example-check
+cd /path/to/words-and-machines
+AXEYUM=/path/to/axeyum-book-replay make axeyum-checkout-check
+AXEYUM=/path/to/axeyum-book-replay make machine-example-check
 ```
 
 The active ledger contains twenty checked evidence routes: fourteen A0

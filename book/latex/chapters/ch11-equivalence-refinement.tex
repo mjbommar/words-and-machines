@@ -179,7 +179,7 @@ the quantifier over behaviors.
 \caption{A deterministic behavior is one path. A nondeterministic
 specification admits a set; an implementation refines it when its behaviors
 remain inside that set.}
-\figalt{A large specification set contains several outcome points; a smaller implementation set lies inside it while one forbidden point lies outside.}
+\figalt{A smaller implementation behavior set lies inside a larger specification set; one forbidden outcome lies outside both.}
 \label{fig:behavior-set-refinement}
 \end{figure}
 
@@ -357,7 +357,7 @@ take more steps, or visit another control location and later restore agreement.
 \caption{Common agreement notions retain different information. Downward
 implications hold for fixed compatible definitions; upward implications need
 additional premises and usually fail.}
-\figalt{Trace agreement implies full final-state agreement, which implies observational agreement, while partial correctness is weaker on termination.}
+\figalt{Trace agreement implies final-state agreement, then observational agreement; partial correctness is weaker about termination.}
 \label{fig:agreement-hierarchy}
 \end{figure}
 
@@ -773,7 +773,7 @@ nonzero state fields third, then magnitude.
 \includegraphics[width=0.86\textwidth]{figures/counterexample-minimization-loop}
 \caption{Counterexample minimization is a checked loop. A proposed
 simplification is kept only when semantic replay preserves the named failure.}
-\figalt{A replayed witness enters simplify, precondition check, replay, and failure-class check; accepted changes loop back while rejected changes are discarded.}
+\figalt{A witness is simplified and replayed; a change is kept only if the precondition and original failure class survive.}
 \label{fig:counterexample-minimization-loop}
 \end{figure}
 

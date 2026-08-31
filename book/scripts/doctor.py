@@ -80,17 +80,31 @@ def check_fonts(profile: str) -> None:
             errors.append(f"fonts: {family!r} (profile {profile}) not resolvable")
 
 
+def make_targets(makefile: Path) -> set[str]:
+    """Return concrete targets declared by one Makefile."""
+    if not makefile.is_file():
+        return set()
+    return set(re.findall(r"^([a-z][a-z0-9-]*):", makefile.read_text(), re.M))
+
+
+def missing_make_targets(claude_text: str, makefiles: tuple[Path, ...]) -> set[str]:
+    """Find documented targets absent from both book and repository scopes."""
+    real: set[str] = set()
+    for makefile in makefiles:
+        real.update(make_targets(makefile))
+    mentioned = set(re.findall(r"make ([a-z][a-z0-9-]*)", claude_text))
+    return mentioned - real
+
+
 def check_claude_md_targets() -> None:
     claude = ROOT / "CLAUDE.md"
-    makefile = ROOT / "Makefile"
     if not claude.exists():
         warnings.append("CLAUDE.md missing")
         return
-    real = set(re.findall(r"^([a-z][a-z0-9-]*):", makefile.read_text(), re.M))
-    mentioned = set(re.findall(r"make ([a-z][a-z0-9-]*)", claude.read_text()))
-    for target in sorted(mentioned - real):
+    makefiles = (ROOT / "Makefile", ROOT.parent / "Makefile")
+    for target in sorted(missing_make_targets(claude.read_text(), makefiles)):
         errors.append(f"drift: CLAUDE.md mentions `make {target}` "
-                      "but Makefile has no such target")
+                      "but neither the book nor repository Makefile has such a target")
 
 
 # KDP minimum gutter (inside margin) by page count, no-bleed interiors.

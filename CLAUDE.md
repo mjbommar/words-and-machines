@@ -115,15 +115,19 @@ from an ordinary book.
 
 ## Axeyum checkout
 
-The sibling checkout at `../axeyum` is the implementation and measurement
-source for solver-backed book objects. It is not vendored here. Before writing
+An external Axeyum checkout is the implementation and measurement source for
+solver-backed book objects. It is not vendored here, and the convenient
+`../axeyum` path is not proof that its checked-out branch is compatible.
+Before writing
 or revising a statement about an axeyum capability, route, checker, result, or
 limitation, inspect the relevant code and current tests there; the copied
 research documents are historical evidence, not a substitute for that check.
 
-- Set `AXEYUM=../axeyum` when running a solver-backed book verification. The
-  checkout must have its release examples built; the exact build and replay
-  commands are in `axeyum-guide/05-reproduce.md`.
+- Set `AXEYUM` to a clean checkout of current Axeyum `main` when running a
+  solver-backed book verification. Run `make axeyum-checkout-check` first; it
+  requires every manifest-pinned revision, the built Python machine surface,
+  and the Cargo replay wrapper. The exact worktree, build, and replay commands
+  are in `axeyum-guide/05-reproduce.md`.
 - Use `make check-run` after changing an object, artifact, checker, or any
   prose that changes what its evidence is said to establish. It runs each
   positive checker and its negative control.

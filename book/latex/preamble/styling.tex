@@ -89,6 +89,13 @@
   {\normalfont\large\bfseries\color{bk-section-title}}
   {\thesubsection}{0.6em}{}
 
+% The front matter reaches long Roman folios (for example, xxviii).  The
+% standard book-class page-number column is too narrow for them and lets the
+% folio protrude into the outer margin.  Reserve enough room here for both
+% front-matter Roman folios and three-digit main-matter folios.
+\renewcommand{\@pnumwidth}{2.5em}
+\renewcommand{\@tocrmarg}{3.5em}
+
 % ======================================================================
 % Running heads (fancyhdr) — verso: author-short, recto: book title,
 % folios at the OUTER edge of the header line. Chapter openers and

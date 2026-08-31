@@ -176,7 +176,7 @@ and silent fallbacks becoming accidental architecture semantics.
 \includegraphics[width=0.98\textwidth]{figures/decoder-stage-pipeline}
 \caption{A staged decoder returns either a structured instruction or a named
 rejection. Execution begins only after decoding succeeds.}
-\figalt{Address mode and bytes pass through form and length classification, field extraction, legality checks, and finally a decoded instance or rejection.}
+\figalt{Mode and bytes pass through length classification, field extraction, and legality checks to a decoded instruction or rejection.}
 \label{fig:decoder-stage-pipeline}
 \end{figure}
 
@@ -373,7 +373,7 @@ the addressed bytes, construct the word according to the declared byte order,
 and only then apply word-bit field definitions. That sequence prevents a
 visual convention from becoming a semantic rule.
 
-Sign extension has a similar order requirement. A (k)-bit pattern (u)
+Sign extension has a similar order requirement. A \(k\)-bit pattern \(u\)
 represents the signed integer
 
 \[
@@ -386,16 +386,16 @@ represents the signed integer
   \right.
 \]
 
-Extending it to (n>k) bits preserves that integer while choosing its
+Extending it to \(n>k\) bits preserves that integer while choosing its
 modulo-\(2^n\) word representative. For a split immediate, every fragment must
 first be placed into its declared logical bit positions. Only the completed
-(k)-bit pattern has the sign bit named by the specification. Extending each
+\(k\)-bit pattern has the sign bit named by the specification. Extending each
 fragment separately assigns several false sign bits and cannot reconstruct
 the intended displacement.
 
 \section{Codes, boundaries, and ambiguity}
 
-A fixed-length code makes every aligned (n)-byte boundary a candidate
+A fixed-length code makes every aligned \(n\)-byte boundary a candidate
 instruction boundary. A variable-length code must also determine where one
 codeword ends. Information theory calls a code \emph{prefix-free} when no
 complete codeword is the prefix of another. Such a stream can be decoded from
@@ -482,15 +482,21 @@ add = machine.a0.Instruction.add(3, 5, 2)
 assert add.encode() == bytes.fromhex("10 2b 02 00")
 assert machine.a0.Instruction.decode(add.encode()) == add
 
-program = machine.a0.Program(8, machine.a0.Word(8, 0), add.encode())
-before = machine.a0.State(8, machine.a0.Memory.zeroed(0), program.entry)
+program = machine.a0.Program(
+    8, machine.a0.Word(8, 0), add.encode()
+)
+before = machine.a0.State(
+    8, machine.a0.Memory.zeroed(0), program.entry
+)
 before = before.with_register(5, machine.a0.Word(8, 0x7f))
 before = before.with_register(2, machine.a0.Word(8, 1))
 after = machine.a0.step(program, before)
 
 assert after.register(3).unsigned == 0x80
 assert after.pc.unsigned == 4
-assert after.conditions == machine.a0.Conditions(False, True, False, True)
+assert after.conditions == machine.a0.Conditions(
+    False, True, False, True
+)
 \end{codelisting}
 
 The decoder performs the argument in reverse. It checks the fetch address and
@@ -739,7 +745,7 @@ and target calculation as four visible operations.
 
 \begin{proofkit}[title={The branch fragments recover sixteen}]
 Bits 11 through 8 of \code{00228863} are \code{1000}. Placing them in logical
-immediate bits 4 through 1 contributes (8\cdot2=16). Every other immediate
+immediate bits 4 through 1 contributes \(8\cdot2=16\). Every other immediate
 fragment is zero, including the sign bit. The reassembled thirteen-bit value
 is therefore sixteen, and sign extension preserves it. A decoder that treats
 instruction bits 11 through 8 as logical bits 3 through 0 instead recovers
@@ -1036,15 +1042,15 @@ arithmetic.
 
 \subsection{Composing decoding with execution}
 
-Let (D) be a decoder, (S) a structured instruction semantics, and (F) a
+Let \(D\) be a decoder, \(S\) a structured instruction semantics, and \(F\) a
 fetch operation. A machine step can be factored as
 \[
   \sigma \mathrel{\mathop{\longrightarrow}\limits^{F}} (p,b)
   \mathrel{\mathop{\longrightarrow}\limits^{D_{m,e,p}}} (i,n)
   \mathrel{\mathop{\longrightarrow}\limits^{S}} \sigma'.
 \]
-Here (m) is the mode, (e) the enabled feature set, (p) the starting
-address, (b) the available bytes, (i) the decoded instance, and (n) the
+Here \(m\) is the mode, \(e\) the enabled feature set, \(p\) the starting
+address, \(b\) the available bytes, \(i\) the decoded instance, and \(n\) the
 consumed length. Each arrow carries a different obligation. Fetch must return
 the addressed, permitted bytes or a fetch failure. Decode must classify those
 bytes according to the pinned architecture. Execution must implement the
@@ -1064,7 +1070,7 @@ For deterministic in-scope forms, decoder soundness can be written
   \Longrightarrow
   \mathrm{SpecDecode}_{v,m,e,p}(b,i,n),
 \]
-where (v) pins the specification version. Completeness reverses the useful
+where \(v\) pins the specification version. Completeness reverses the useful
 direction for all forms in the selected scope. Rejection correctness relates
 each named failure to a specification condition. A decoder may be sound but
 incomplete if it accepts only one legal ADD form. It may be complete but

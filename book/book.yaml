@@ -13,7 +13,7 @@ book:
   subtitle: "Semantics, Equivalence, and Optimization"
   author: "Michael J. Bommarito II"
   author_short: "Bommarito"          # running heads; defaults to author
-  publisher: "Bommarito Press"
+  publisher: ""                    # required by --strict once confirmed
   imprint: ""
   year: 2026
   edition_statement: "First Edition"

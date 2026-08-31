@@ -72,6 +72,10 @@ Located for primary reading:
 
 ## Live Axeyum audit
 
+This is the 2026-08-30 pre-implementation snapshot. The implementation
+follow-up below supersedes its capability conclusions while preserving the
+research trail.
+
 Refreshed 2026-08-30 against sibling checkout `../axeyum`, branch
 `research/open-problems-2026-08`, commit
 `a9991fdad6c1e4b2bda596b46d2c8c715556ceae`. The checkout contained unrelated
@@ -101,3 +105,20 @@ untracked research documentation; it was not modified.
 - No unified A0/RV64/x86 book-manifest API was found. The chapter's Python
   listing remains explicitly illustrative. Rust should own canonical bytes and
   evidence semantics; Python may expose them without collapsing outcome types.
+
+## Implementation follow-up
+
+Refreshed 2026-08-31 against the integrated Axeyum checkout at commit
+`a257d7cd639caf101c03e9bba21864267b97b66e` and the book repository's active
+manifest layer.
+
+- Axeyum now owns the concrete A0, RV64I, x86-64, and finite cross-machine
+  semantics used by the active evidence routes.
+- `scripts.evidence_manifest.EvidenceManifest` is a real typed reader-facing
+  orchestration interface. Its exact printed listing is imported and executed
+  by the code-listing gate.
+- The interface preserves the manifest's trust class, scope, exclusions,
+  limitations, checker version, and Axeyum revision. Producer, positive
+  checker, and negative control execution remain explicit.
+- This interface does not claim a general kernel-reconstruction API. Rust
+  remains authoritative for machine semantics and certificate checking.

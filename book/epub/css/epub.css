@@ -103,7 +103,7 @@ aside.callout {
   border-left: 0.35em solid #808080;
   page-break-inside: avoid;
 }
-h3.callout-title {
+.callout-title {
   font-size: 0.95em;
   margin: 0 0 0.4em 0;
   letter-spacing: 0.04em;
@@ -126,27 +126,44 @@ aside.callout-archive     { border-left-color: #92400e; }
    carries the accessible label, so the glyph is presentational (it is
    not read as content); it echoes the fontawesome icon in the print
    build (compass / pencil / layers / scroll). */
-aside.callout-proofkit    h3.callout-title::before { content: "\220E\00A0"; }  /* end-of-proof */
-aside.callout-tryit       h3.callout-title::before { content: "\270E\00A0"; }  /* pencil */
-aside.callout-goingdeeper h3.callout-title::before { content: "\25BE\00A0"; }  /* deeper */
-aside.callout-archive     h3.callout-title::before { content: "\2709\00A0"; }  /* letter */
+aside.callout-proofkit    .callout-title::before { content: "\220E\00A0"; }  /* end-of-proof */
+aside.callout-tryit       .callout-title::before { content: "\270E\00A0"; }  /* pencil */
+aside.callout-goingdeeper .callout-title::before { content: "\25BE\00A0"; }  /* deeper */
+aside.callout-archive     .callout-title::before { content: "\2709\00A0"; }  /* letter */
 
 /* Title text sits a shade darker than the border accents above:
    WCAG 2.2 AA needs 4.5:1 against white for text (Ace color-contrast
    rule; borders are exempt). Each is the same hue at >=4.8:1. */
-aside.callout-keyidea    h3.callout-title { color: #3c77a5; }
-aside.callout-example    h3.callout-title { color: #4a7d58; }
-aside.callout-warning    h3.callout-title { color: #ad5c34; }
-aside.callout-sidebar    h3.callout-title { color: #717171; }
-aside.callout-definition h3.callout-title { color: #7868a7; }
-aside.callout-proofkit    h3.callout-title { color: #1746c0; }
-aside.callout-tryit       h3.callout-title { color: #0d6b63; }
-aside.callout-goingdeeper h3.callout-title { color: #3f34bd; }
-aside.callout-archive     h3.callout-title { color: #8a3d0d; }
+aside.callout-keyidea    .callout-title { color: #3c77a5; }
+aside.callout-example    .callout-title { color: #4a7d58; }
+aside.callout-warning    .callout-title { color: #ad5c34; }
+aside.callout-sidebar    .callout-title { color: #717171; }
+aside.callout-definition .callout-title { color: #7868a7; }
+aside.callout-proofkit    .callout-title { color: #1746c0; }
+aside.callout-tryit       .callout-title { color: #0d6b63; }
+aside.callout-goingdeeper .callout-title { color: #3f34bd; }
+aside.callout-archive     .callout-title { color: #8a3d0d; }
 
 /* importance= scales rule weight, exactly as boxes.tex scales leftrule */
 aside.callout-low  { border-left-width: 0.15em; }
 aside.callout-high { border-left-width: 0.6em; }
+
+aside.artifact {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  border-left: 0.35em solid #3f7cac;
+  page-break-inside: avoid;
+}
+.artifact-title { font-weight: bold; margin: 0 0 0.5em 0; }
+.artifact-scope { font-size: 0.9em; margin: 0.7em 0 0 0; }
+.artifact-scope dt { font-weight: bold; margin-top: 0.35em; }
+.artifact-scope dd { margin-left: 1em; }
+
+math[display="block"] {
+  display: block;
+  margin: 0.8em auto;
+  text-align: center;
+}
 
 /* ---------- code blocks (preamble/code.tex voices) ---------- */
 
@@ -186,6 +203,17 @@ figcaption {
 .caption-label { font-weight: bold; }
 
 .table-wrap { overflow-x: auto; }
+.screen-reader-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 table {
   margin: 0 auto;
   border-collapse: collapse;

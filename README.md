@@ -14,9 +14,11 @@
   </a>
 </p>
 
-The linked title page opens the complete 553-page, 7×10 print PDF. The EPUB is
-a complete reflowable edition with its diagrams embedded and has passed
-`epubcheck` with no errors or warnings.
+The linked title page opens the complete 575-page, 7×10 print PDF. The EPUB is
+a complete reflowable edition with native mathematics, exercises,
+ledger-backed artifact records, and embedded diagrams. It passes EPUBCheck
+with no errors or warnings and the strict Ace accessibility audit with no
+violations.
 Build provenance and SHA-256 digests are recorded in
 [`downloads/README.md`](downloads/README.md).
 
@@ -39,26 +41,23 @@ control transfer, or ABI convention.
 
 ## Current state
 
-The active book has an Introduction and sixteen chapters, totaling 182,440
-chapter-source words and 67 rendered figures. The first sequential depth pass
+The active book has an Introduction and sixteen chapters, totaling 183,683
+chapter-source words. The first sequential depth pass
 is complete: every chapter is within its planned textbook-length band, with
 worked examples, exercises, proof development, and explicit model boundaries.
-The active ledger contains 50 definitions, principles, theorems, computations, and
+The active ledger contains 61 definitions, principles, theorems, computations, and
 implementation obligations following the A0, RV64, and x86-64 dependency
 graph.
 
-Nine A0 routes are active: exhaustive 8- and 16-bit byte round trips,
-observation separation, exhaustive width-eight addition steps, a concrete
-atomic memory round trip, a taken/untaken branch pair, and all four runner
-classifications with resumed-prefix composition, exhaustive canonical
-encoding of all 41,409 legal structured instructions, complete
-instruction-family/effect/trap coverage, and fixed-width addition certificates
-at every supported A0 width. Their checkers
-recompute the results through source-bound Rust semantics, and every route has
-a firing negative control. The addition theorem consists of eight separate
-fixed-width QF_BV refutations; it is not an arbitrary-width induction theorem.
-Other proof-facing A0 formulas, the real-ISA slices, and cross-machine
-relations remain open.
+Twenty evidence routes are active: fourteen A0 computations, traces, and
+fixed-width theorem routes; source-pin and decoder/step routes for both the
+selected RV64I and x86-64 teaching slices; a finite three-machine
+absolute-value relation; and a finite complete-program three-machine XOR
+relation. Their checkers recompute results through source-bound Rust semantics,
+and every route has a firing negative control. The fixed-width theorem routes
+are not arbitrary-width induction theorems, and the cross-machine computations
+are not universal simulation theorems. The object ledger states each exact
+scope and remaining limitation.
 
 Legacy evidence-led chapters, objects, artifacts, producers, surveys, guide,
 and paper are retained under the research archive. They do not feed the active
@@ -94,22 +93,22 @@ one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
 `make machine-example-check` executes the exact machine listings through the
-Axeyum environment selected by `AXEYUM`. It runs the Chapter 6 A0 Python code
-unchanged, assembles and decodes all seven RV64 and six x86-64 listings through
-their selected Rust slices, and executes every listed real-ISA program. The two
-external `helper` symbols are linked to explicit return-only test stubs. A
-wrong A0 result and an assemblable but unsupported x86 instruction are active
-negative controls.
+Axeyum environment selected by `AXEYUM`. It translates and executes all eight
+printed A0 listings, runs both printed Python listings unchanged, and assembles,
+decodes, and executes all seven RV64 and six x86-64 listings through their
+selected Rust slices. The two external `helper` symbols are linked to explicit
+return-only test stubs. A changed A0 result, a wrong Python assertion, and an
+assemblable but unsupported x86 instruction are active controls.
 
 For one route, `scripts.evidence_manifest.EvidenceManifest` provides typed
 digest, reproduction, checker, negative-control, and trust-boundary methods.
 Those methods orchestrate the manifest's pinned Rust commands; they do not
 reimplement machine or certificate semantics in Python.
 
-The runtime check executes twelve A0 computations, traces, and certificate
-routes plus source-pin and decoder/step routes for RV64 and x86-64. Every route
-has a negative control that must fail. Cross-machine relations and minimality
-routes remain open.
+The runtime check executes all twenty active evidence routes. Every route has a
+negative control that must fail for its declared reason. The finite
+cross-machine and minimality results remain deliberately narrower than
+universal proofs.
 
 ## Layout
 

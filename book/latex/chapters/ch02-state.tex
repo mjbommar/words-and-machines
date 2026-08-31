@@ -71,14 +71,14 @@ one next state. A later weak-memory model may use a relation with several
 possible successors. State sufficiency applies to both forms.
 
 Here is the smallest useful failure. Imagine a device with one visible bit
-(b) and one hidden mode (m). Its next operation toggles (b) when (m=1)
-and preserves (b) when (m=0). If our proposed state records only (b), the
+\(b\) and one hidden mode \(m\). Its next operation toggles \(b\) when \(m=1\)
+and preserves \(b\) when \(m=0\). If our proposed state records only \(b\), the
 two physical situations ((b,m)=(0,0)) and ((0,1)) collapse to the same
 description. Give each the command \code{step}. One remains at 0 and the other
 becomes 1. The proposed state was not sufficient because the transition still
 depended on a fact we called history and then failed to record.
 
-We can repair the model in either of two honest ways. Add (m) to the state,
+We can repair the model in either of two honest ways. Add \(m\) to the state,
 or narrow the promised transition model so that mode never affects a result.
 Calling the mode internal does not repair anything. An omitted component is
 safe only when the questions and rules cannot expose it.

@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CHAPTERS = ROOT / "book" / "latex" / "chapters"
+LATEX = ROOT / "book" / "latex"
 LISTING = re.compile(
     r"\\begin\{codelisting\}\[(?P<options>.*?)\]\n"
     r"(?P<body>.*?)\\end\{codelisting\}",
@@ -50,7 +50,10 @@ class CodeListing:
 
 def listings() -> list[CodeListing]:
     found: list[CodeListing] = []
-    for path in sorted(CHAPTERS.glob("*.tex")):
+    # Code promises can appear in front matter, appendices, or other included
+    # sources as well as chapters.  Scan the complete manuscript tree so a new
+    # listing cannot evade the executable gate by moving directories.
+    for path in sorted(LATEX.rglob("*.tex")):
         text = path.read_text()
         for match in LISTING.finditer(text):
             caption_match = CAPTION.search(match["options"])
@@ -259,6 +262,10 @@ def assemble(listing: CodeListing, architecture: str) -> None:
 
 def check_python(listing: CodeListing) -> None:
     compile(listing.body, listing.location, "exec")
+    # Python permits calls and expressions to wrap across physical lines.  The
+    # manuscript should be free to fit code to the printed measure without
+    # weakening the required-operation check.
+    compact_body = re.sub(r"\s+", "", listing.body)
     if listing.caption == "Encode, decode, and execute one A0 addition":
         required = [
             "from axeyum import machine",
@@ -270,7 +277,11 @@ def check_python(listing: CodeListing) -> None:
             "after.pc.unsigned == 4",
             "machine.a0.Conditions(False, True, False, True)",
         ]
-        missing = [fragment for fragment in required if fragment not in listing.body]
+        missing = [
+            fragment
+            for fragment in required
+            if re.sub(r"\s+", "", fragment) not in compact_body
+        ]
         if missing:
             raise ValueError(
                 f"{listing.location}: A0 Python listing omitted {', '.join(missing)}"
@@ -303,7 +314,7 @@ def check_python(listing: CodeListing) -> None:
 
 
 def check_shell(listing: CodeListing) -> None:
-    expected = "AXEYUM=../axeyum python3 scripts/check_artifacts.py --run"
+    expected = "AXEYUM=/path/to/current/axeyum-main make check-run"
     if listing.body.strip() != expected:
         raise ValueError(f"{listing.location}: unrecognized shell listing; bind it explicitly in the code gate")
     if not (ROOT / "scripts" / "check_artifacts.py").is_file():

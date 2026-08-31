@@ -58,6 +58,24 @@ class ListingControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "A0 Python listing omitted"):
             MODULE.check_python(broken)
 
+    def test_a0_python_required_call_may_wrap_for_print(self) -> None:
+        body = """from axeyum import machine
+add = machine.a0.Instruction.add(3, 5, 2)
+assert add.encode() == bytes.fromhex("10 2b 02 00")
+assert machine.a0.Instruction.decode(add.encode()) == add
+program = object()
+before = object()
+after = machine.a0.step(program, before)
+assert after.register(3).unsigned == 0x80
+assert after.pc.unsigned == 4
+assert after.conditions == machine.a0.Conditions(
+    False, True, False, True
+)
+"""
+        MODULE.check_python(
+            listing("Encode, decode, and execute one A0 addition", body, "python")
+        )
+
     def test_invalid_rv64_instruction_is_rejected(self) -> None:
         broken = listing("RV64 control", "not_an_instruction a0, a1")
         with self.assertRaisesRegex(ValueError, "assembly failed"):

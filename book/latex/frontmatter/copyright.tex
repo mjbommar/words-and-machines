@@ -23,9 +23,15 @@ except for brief quotations in reviews.
 \BookEditionStatement.
 
 \ifBookHasImprint
-  Published by \BookImprint, an imprint of \BookPublisher.
+  \ifBookHasPublisher
+    Published by \BookImprint, an imprint of \BookPublisher.
+  \else
+    Published by \BookImprint.
+  \fi
 \else
-  Published by \BookPublisher.
+  \ifBookHasPublisher
+    Published by \BookPublisher.
+  \fi
 \fi
 
 % Identifiers — each printed only when assigned.

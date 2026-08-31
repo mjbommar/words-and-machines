@@ -208,7 +208,8 @@ def _item_id(href: str) -> str:
 
 
 def content_opf(meta: dict, uid: str, spine_hrefs: list[str],
-                extra_hrefs: list[str], cover_href: str, lang: str) -> str:
+                extra_hrefs: list[str], cover_href: str, lang: str,
+                mathml_hrefs: set[str] | None = None) -> str:
     modified = time.strftime(
         "%Y-%m-%dT%H:%M:%SZ",
         time.gmtime(int(os.environ.get("SOURCE_DATE_EPOCH", time.time()))))
@@ -270,10 +271,12 @@ def content_opf(meta: dict, uid: str, spine_hrefs: list[str],
                 f'<item id="{_item_id(cover_href)}" href="{cover_href}" '
                 f'media-type="{_MEDIA_TYPES[os.path.splitext(cover_href)[1]]}" '
                 'properties="cover-image"/>']
+    mathml_hrefs = mathml_hrefs or set()
     for href in spine_hrefs + [h for h in extra_hrefs if h != cover_href]:
         ext = os.path.splitext(href)[1].lower()
+        properties = ' properties="mathml"' if href in mathml_hrefs else ""
         manifest.append(f'<item id="{_item_id(href)}" href="{href}" '
-                        f'media-type="{_MEDIA_TYPES[ext]}"/>')
+                        f'media-type="{_MEDIA_TYPES[ext]}"{properties}/>')
 
     spine = [f'<itemref idref="{_item_id(h)}"/>' for h in spine_hrefs[:3]]
     spine.append('<itemref idref="item-nav"/>')  # visible Contents page
@@ -362,6 +365,7 @@ def generate(meta: dict, chapters: list[dict], cover_href: str,
              + (["bibliography.xhtml"] if bibliography else [])
              + (["glossary.xhtml"] if meta.get("glossary") else []))
     extra = ["epub.css"] + sorted(images or [])
+    mathml_hrefs = {ch["file"] for ch in chapters if "<math " in ch["body"]}
     pages["content.opf"] = content_opf(meta, uid, spine, extra,
-                                       cover_href, lang)
+                                       cover_href, lang, mathml_hrefs)
     return pages

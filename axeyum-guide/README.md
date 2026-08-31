@@ -13,7 +13,9 @@ encoding, decoding, steps, and bounded traces. Its first source-derived
 symbolic route proves addition result and conditions at all eight supported
 fixed widths with DRAT and LRAT. Its source-pinned twelve-form RV64I slice now
 has executable decoder/step evidence and failing controls. The seventeen-form
-x86-64 slice now does too. It does not yet have cross-machine relations. No guide page may describe
+x86-64 slice now does too. Typed Rust relations also execute the printed
+absolute-value programs across both real machines and the complete exclusive-or
+programs across all three machines on their declared finite inputs. No guide page may describe
 a planned route as an implemented capability.
 
 The reader-facing Python projection covers the complete concrete A0 surface:

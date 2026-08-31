@@ -9,7 +9,7 @@ book:
   subtitle: ""                      # optional
   author: "TODO Author Name"
   author_short: ""                  # for running heads; default = author
-  publisher: "TODO Publisher"
+  publisher: ""                    # required by --strict (make release)
   imprint: ""                       # optional
   year: 2026
   edition_statement: "First Edition"

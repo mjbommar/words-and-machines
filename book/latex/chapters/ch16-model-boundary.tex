@@ -47,7 +47,7 @@ instructions. Silence in the model is not evidence of absence in the machine.
 \includegraphics[width=0.94\textwidth]{figures/model-boundary-map}
 \caption{The scalar architectural core is surrounded by extensions, each of
 which adds state, transitions, observations, or all three.}
-\figalt{A central box for scalar architectural state connects outward to floating point, vectors, concurrency, privilege, mutable code, leakage, and compilation.}
+\figalt{Scalar state connects outward to floating point, vectors, concurrency, privilege, mutable code, leakage, and compilation.}
 \label{fig:model-boundary-map}
 \end{figure}
 
@@ -318,7 +318,7 @@ vector width needs masking or a scalar remainder path.
 \includegraphics[width=0.92\textwidth]{figures/scalar-vector-extension}
 \caption{A scalar reduction carries one accumulator. A vector reduction adds
 lane state, an activity mask, a tail policy, and a final lane merge.}
-\figalt{The scalar path shows one word at a time entering x; the vector path shows four lanes under a mask entering four accumulators and then one merge.}
+\figalt{One scalar word enters one accumulator; four masked vector lanes enter four accumulators and then merge.}
 \label{fig:scalar-vector-extension}
 \end{figure}
 
@@ -929,7 +929,7 @@ The evidence manifest must bind the whole route actually used.
 \includegraphics[width=0.92\textwidth]{figures/compilation-tower}
 \caption{A source-to-machine claim crosses several semantic interfaces. Each
 arrow needs a preservation theorem or an explicitly trusted boundary.}
-\figalt{A vertical tower runs from source through intermediate forms, assembly, object, linked image, and loaded machine state, with labeled refinement arrows.}
+\figalt{A tower runs from source through intermediate forms, assembly, object, linked image, and loaded state, joined by refinement arrows.}
 \label{fig:compilation-tower}
 \end{figure}
 

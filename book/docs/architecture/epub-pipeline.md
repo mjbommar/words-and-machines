@@ -17,8 +17,8 @@ frontmatter (generated, not parsed) + nav + OPF ─► package ─► build/epub
 - **core.py** — TexSoup parse of each chapter; walks nodes; dispatches to handlers; unknown command/environment → recorded in coverage report (build fails in `epub-check` mode, warns in `epub` mode)
 - **handlers/** — decorator-registered:
   - `structure.py` — chapter/section/scenebreak/labels
-  - `inline.py` — semantic macros → class-mapped spans (authoring contract table)
-  - `blocks.py` — quotation/attribution, callout family → `<aside class="callout callout-warning" role="note">` with title heading
+  - `inline.py` — semantic macros → class-mapped spans; LaTeX mathematics → native MathML with EPUB-safe token normalization
+  - `blocks.py` — quotation/attribution, semantic lists, callout family, and ledger-backed artifact boxes; callouts use labelled asides without disturbing the chapter heading hierarchy
   - `code.py` — codelisting → `<pre><code class="language-...">`, HTML-escaped, no highlighting markup (CSS-only theming)
   - `media.py` — figures (convert PDF figures → PNG via pdftoppm at build), tables (booktabs → plain table classes)
   - `notes.py` — footnotes → chapter endnotes with backlinks (`epub:type="footnote"` + noteref)
@@ -42,8 +42,8 @@ Embed the book's font profile OTFs (obfuscation off, license-permitting — all 
 4. Alt-text check — every informative figure carries `\figalt` or a
    caption to derive alt from (`\figalt{}` = decorative); a figure with
    neither fails `--strict`, because of gate 5's conformance claim
-5. `make epub-a11y` — Ace by DAISY via `scripts/check_epub_a11y.py`;
-   0 serious/critical violations. The OPF claims
+5. `make epub-a11y` — Ace by DAISY via `scripts/check_epub_a11y.py --strict`;
+   zero violations at every reported impact. The OPF claims
    `EPUB Accessibility 1.1 - WCAG 2.2 Level AA` (`dcterms:conformsTo`,
    with `a11y:certifiedBy` from book.yaml's publisher/author —
    self-certification is allowed by the spec), which the EAA has made
