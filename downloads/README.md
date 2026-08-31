@@ -20,7 +20,7 @@ make -C book validate-all
 ## SHA-256
 
 ```text
-f0760c898d45004dd0cf7f5cb7c703bd7ed5727b3a09ee07ac51a8ffadd60a7e  instruction-sets-programs-and-proofs.pdf
-5a953c3572af6342a8e78081ecc8ea63cc3833f9a962c50d61390beed0b9e214  instruction-sets-programs-and-proofs.epub
+f6e8ce688131261fe2c1ed54a03660249c6bfe3a875e0c0159dedfc1f17fabe0  instruction-sets-programs-and-proofs.pdf
+971e26516bc7c03986cd8d3115dc0c2492484e59b700f1ecbb92b46b4d4e9402  instruction-sets-programs-and-proofs.epub
 ae9ffd5b1046078615fec6c373e8198750544e7bc9595c8ba2dc2ca9b284605d  title-page.png
 ```

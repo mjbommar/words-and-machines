@@ -15,6 +15,10 @@ against the newer Axeyum `main` revision
 `0ed86ed17a1bd1ddc79c96144617563190faceec`; all 61 objects and 25 listings
 still passed. This second result checks the documented current-main path as
 well as the pinned historical revisions bound by individual manifests.
+The 2026-08-31 distribution rebuild repeated the complete local replay against
+Axeyum `main` revision `c88d1b6e68e51d6474406844dfe51f4f08828e15`:
+all 61 objects, 20 active manifests, 25 listings, executable checkers, and
+negative controls passed without an Axeyum source change.
 
 | Surface | Inventory | Verification |
 |---|---:|---|
