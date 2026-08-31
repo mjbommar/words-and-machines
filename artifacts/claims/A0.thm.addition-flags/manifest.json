@@ -12,34 +12,34 @@
   "semantic_inputs": [
     {
       "name": "a0-semantics",
-      "version": "9",
-      "path": "artifacts/semantic/a0-v9.json",
-      "sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9"
+      "version": "10",
+      "path": "artifacts/semantic/a0-v10.json",
+      "sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d"
     }
   ],
   "artifacts": [
     {
       "path": "artifacts/claims/A0.thm.addition-flags/report.json",
-      "sha256": "4a425f9e60cd2928a27915d81932b0a3a80c9081f8e8ede1b96f862e10ebf16e",
+      "sha256": "b7031baf876d79a50dda5a57d75598d5349242ae1b65f9376cec8f33672bce50",
       "role": "certificate"
     }
   ],
   "producer": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-symbolic-addition artifacts/semantic/a0-v9.json artifacts/claims/A0.thm.addition-flags/report.json",
-    "version": "axeyum-machine-evidence-v9"
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-symbolic-addition artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.addition-flags/report.json",
+    "version": "axeyum-machine-evidence-v10"
   },
   "checker": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-addition artifacts/semantic/a0-v9.json artifacts/claims/A0.thm.addition-flags/report.json",
-    "version": "axeyum-machine-evidence-v9",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-addition artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.addition-flags/report.json",
+    "version": "axeyum-machine-evidence-v10",
     "expected_result": "PASS: widths=8 LRAT=all counterexample-replayed=true"
   },
   "negative_control": {
-    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-addition-inverted-carry artifacts/semantic/a0-v9.json artifacts/claims/A0.thm.addition-flags/report.json",
+    "command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-addition-inverted-carry artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.addition-flags/report.json",
     "expected_failure": "semantic-mismatch",
     "mutates": "Invert the symbolic carry predicate; require SAT, enumerate a width-8 model, and replay encoded A0 add"
   },
   "environment": {
-    "axeyum_revision": "6bfb11db29cd0603d6add3707f9d387e8feb8d72",
+    "axeyum_revision": "9bb3dd9ba07fc35d1d7f417556dadc27793cd8f3",
     "rust_version": "1.88 or newer"
   },
   "limitations": [

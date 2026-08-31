@@ -5,10 +5,11 @@ for A0 architectural words, state, finite byte memory, instruction effects,
 canonical encoding and strict decoding, complete concrete steps, and bounded
 traces. Its word layer includes explicit zero extension, sign extension, and
 truncation, and complete states have a canonical binary codec.
-`axeyum-machine-evidence` produces eleven book routes and their negative
-controls. The addition route constructs symbolic terms through the same
-operation structure used by concrete execution and saves term-bound DRAT and
-LRAT certificates.
+`axeyum-machine-evidence` produces twelve book routes and their negative
+controls. The addition and memory-frame routes construct symbolic terms through
+the same operation structures used by concrete execution and save term-bound
+DRAT and LRAT certificates. The memory route also rechecks array elimination
+and its select-congruence witness.
 
 Axeyum still does not contain the book's source-pinned RV64 decoder and
 semantics, x86-64 decoder and semantics, typed cross-ISA refinement, or A0

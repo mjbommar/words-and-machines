@@ -12,17 +12,17 @@
       "kind": "exhaustive-enumeration",
       "trust_class": "computation",
       "semantic_inputs": [
-        "artifacts/semantic/a0-v9.json",
+        "artifacts/semantic/a0-v10.json",
         "artifacts/claims/A0.comp.state-codec/manifest.json"
       ],
       "artifact": "artifacts/claims/A0.comp.state-codec",
       "sha256": {
-        "artifacts/semantic/a0-v9.json": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
-        "artifacts/claims/A0.comp.state-codec/manifest.json": "2adc6b411eeba89b6eeefaf3896292e035e929251a819ecce9fbdac770417147",
-        "artifacts/claims/A0.comp.state-codec/report.json": "f12c7d3439a427b009e1785d267d148bd3318717e61b1f0e21b530d48851ef29"
+        "artifacts/semantic/a0-v10.json": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
+        "artifacts/claims/A0.comp.state-codec/manifest.json": "dab2c57085c1152b25ea69e0bcbe413abf64718a037ba3f28cdc1a680b753e8f",
+        "artifacts/claims/A0.comp.state-codec/report.json": "acb46f3ef97be3cf60351b8b21ac8eeaa92b5d97cdd58e258d84a0dee822218f"
       },
-      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-state-codec artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
-      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-state-codec-trailing-byte artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.state-codec/report.json",
+      "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-state-codec artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.state-codec/report.json",
+      "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-state-codec-trailing-byte artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.state-codec/report.json",
       "expected_failure": "semantic-mismatch",
       "check_status": "checked",
       "checked_on": "2026-08-30",

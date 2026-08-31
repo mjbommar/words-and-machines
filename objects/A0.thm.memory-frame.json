@@ -4,10 +4,25 @@
   "part": 1,
   "title": "A0 load and store frame theorem",
   "statement": "A successful A0 load leaves complete memory unchanged; a successful store changes exactly the addressed word-sized byte range to the little-endian source bytes; and a trapped load or store preserves complete memory.",
-  "epistemic_status": "open",
-  "scope": "All eight supported A0 widths, every finite memory, every word-valued effective address, and both normal and trapped load/store transitions.",
+  "formal": {"language": "smt-lib", "statement": "For each w in {8,16,24,32,40,48,56,64}, arbitrary byte and presence arrays, base, value, and probe satisfy the A0 load validity/value law and pointwise atomic store frame law.", "fragment": "QF_ABV"},
+  "epistemic_status": "proved",
+  "scope": "Eight separate fixed-width array/bit-vector theorems covering every byte array, finite-domain presence array, word-valued effective address, stored word, and probe address. This is not an arbitrary-width induction theorem.",
   "depends_on": ["A0.def.memory", "A0.def.step", "A0.trace.memory-roundtrip", "OP.a0.state-memory"],
-  "evidence": [],
+  "evidence": [{
+    "kind": "unsat-certificate", "trust_class": "certificate",
+    "semantic_inputs": ["artifacts/semantic/a0-v10.json", "artifacts/claims/A0.thm.memory-frame/manifest.json"],
+    "artifact": "artifacts/claims/A0.thm.memory-frame",
+    "sha256": {
+      "artifacts/semantic/a0-v10.json": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
+      "artifacts/claims/A0.thm.memory-frame/manifest.json": "c85a0c260bc3c8f0ebc000d7fc2e401ad620d66e4aea5b5a14a734e9c70d4e98",
+      "artifacts/claims/A0.thm.memory-frame/report.json": "09810967dc687304c51d2a634aa69e7d30a5dd3a65cbb7544e602a1ef38e2285"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-memory artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.memory-frame/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-memory-partial-store artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.memory-frame/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "Concrete and symbolic access share the same domain-parametric orchestration. Replay rebuilds each source assertion, re-derives array elimination and select congruence, confirms deterministic DIMACS, and checks DRAT and LRAT. Committing a tentative sparse write on failure makes the width-16 negation satisfiable and changes byte 65535 from 00 to cd in the mutated path while encoded A0 traps and preserves memory."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "source-derived fixed-width QF_ABV memory-frame certificates", "adr": ["ADR-0811"], "reconstruction": "none"},
   "book": {
     "chapter": "ch04-memory",
     "label": "thm:a0-memory-frame",

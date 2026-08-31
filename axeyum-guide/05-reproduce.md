@@ -5,11 +5,11 @@
 From the book repository root run make ledger, make artifact-check, make check,
 and make check-run.
 
-The active ledger contains eleven checked A0 evidence routes. `make check-run`
+The active ledger contains twelve checked A0 evidence routes. `make check-run`
 recomputes the finite byte, word-operation, complete-state codec, observation,
 addition-step, memory, branch,
 runner, decoder, and step-coverage reports. It also rebuilds and checks the
-fixed-width addition certificates. Every route runs a negative control and
+fixed-width addition and memory-frame certificates. Every route runs a negative control and
 requires a nonzero exit with `semantic-mismatch`.
 
 The certificate route checks eight separate widths. It does not run an
@@ -34,7 +34,7 @@ Each artifact pins the Axeyum revision that produced it. The replay checkout
 may be a descendant of that revision, but the semantic-source digest must
 still match exactly; a later incompatible semantic edit therefore fails
 closed instead of inheriting credit. The current manifests pin Axeyum `main`
-revision `6bfb11db29cd0603d6add3707f9d387e8feb8d72` and semantic package v9.
+revision `9bb3dd9ba07fc35d1d7f417556dadc27793cd8f3` and semantic package v10.
 
 The old reproduction commands for vector shuffles and Bitmanip tables are in
 the research archive. They are not part of the active gate.

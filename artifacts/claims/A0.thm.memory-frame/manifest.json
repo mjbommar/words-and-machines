@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.thm.memory-frame",
+  "statement": "At every A0-supported width, word-sized loads and stores use the declared modular address range and little-endian byte order; successful stores change exactly that range, loads preserve memory, and trapped accesses preserve complete memory.",
+  "scope": "Eight separate fixed-width QF_ABV theorems at widths 8, 16, 24, 32, 40, 48, 56, and 64 over arbitrary byte arrays, finite-domain presence arrays, base addresses, stored words, and probe addresses.",
+  "exclusions": ["An induction theorem over widths outside A0", "Instruction decoding or real-ISA memory behavior", "Kernel reconstruction of the array and bit-vector theorem"],
+  "trust_class": "certificate",
+  "semantic_inputs": [{"name": "a0-semantics", "version": "10", "path": "artifacts/semantic/a0-v10.json", "sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d"}],
+  "artifacts": [{"path": "artifacts/claims/A0.thm.memory-frame/report.json", "sha256": "09810967dc687304c51d2a634aa69e7d30a5dd3a65cbb7544e602a1ef38e2285", "role": "certificate"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-symbolic-memory artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.memory-frame/report.json", "version": "axeyum-machine-evidence-v10"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-symbolic-memory artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.memory-frame/report.json", "version": "axeyum-machine-evidence-v10", "expected_result": "PASS: widths=8 LRAT=all partial-store-replayed=true"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-symbolic-memory-partial-store artifacts/semantic/a0-v10.json artifacts/claims/A0.thm.memory-frame/report.json", "expected_failure": "semantic-mismatch", "mutates": "Commit the tentative sparse map when a later required address is absent; require the symbolic negation to be SAT and replay the partial write through encoded A0 store"},
+  "environment": {"axeyum_revision": "9bb3dd9ba07fc35d1d7f417556dadc27793cd8f3", "rust_version": "1.88 or newer"},
+  "limitations": ["The concrete and symbolic adapters for MemoryDomain primitives remain an explicit trust boundary; the address, validity, byte-order, and atomic-choice orchestration is shared.", "The checker re-derives array elimination and select congruence, then checks DRAT and LRAT, but does not reconstruct the result in the Lean kernel.", "The theorem is universal within each of eight fixed finite widths, not an induction theorem over arbitrary widths."],
+  "created": "2026-08-30"
+}

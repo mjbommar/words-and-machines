@@ -1,6 +1,6 @@
 {
   "schema": "axeyum.a0.observation-separation.v1",
-  "semantic_package_sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9",
+  "semantic_package_sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
   "witness_states_sha256": "96c2eddf21a349ba0954cf2c1fb5720a08208da8c95d6977e40b9c1fbc5f7bbd",
   "narrow_registers": [
     0

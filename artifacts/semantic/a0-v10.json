@@ -1,8 +1,8 @@
 {
-  "schema": "axeyum.a0.semantic-package.v9",
-  "version": "9",
+  "schema": "axeyum.a0.semantic-package.v10",
+  "version": "10",
   "source_path": "crates/axeyum-machine/src/a0.rs",
-  "source_sha256": "9d6c241f0f9a349e9352a1883d4e220559631c1f0a35fe865a63008d1ac1fbc7",
+  "source_sha256": "6c57ccf27e25f6ec1c24f25c32599715bd9f725ff8dd03ff2da1f4d8354cb79a",
   "word_widths": [
     8,
     16,
@@ -29,6 +29,7 @@
     "step",
     "bounded-trace",
     "returned-prefix",
-    "domain-parametric-addition"
+    "domain-parametric-addition",
+    "domain-parametric-memory"
   ]
 }

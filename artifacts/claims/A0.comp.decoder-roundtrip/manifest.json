@@ -5,12 +5,12 @@
   "scope": "All 41,409 legal structured instructions across seventeen A0 families, all register combinations, all signed eight-bit immediates and offsets, and all branch conditions.",
   "exclusions": ["Exhaustion of all 2^32 byte strings", "A symbolic decoder theorem", "RV64 or x86-64 decoding"],
   "trust_class": "computation",
-  "semantic_inputs": [{"name": "a0-semantics", "version": "9", "path": "artifacts/semantic/a0-v9.json", "sha256": "2c6826799ff7c20a9225a75a41d46c654a4cfa800554612d3802ec78c28e6fb9"}],
-  "artifacts": [{"path": "artifacts/claims/A0.comp.decoder-roundtrip/report.json", "sha256": "615c97b601abb7f4a78104c4fd693172353cf1291730c1132d1cfbbb3fc249e5", "role": "report"}],
-  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-decoder-roundtrip artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.decoder-roundtrip/report.json", "version": "axeyum-machine-evidence-v9"},
-  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-decoder-roundtrip artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.decoder-roundtrip/report.json", "version": "axeyum-machine-evidence-v9", "expected_result": "PASS: instructions=41409 unique=41409 reserved_rejected=82818 unused_rejected=8"},
-  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-decoder-reserved-bit artifacts/semantic/a0-v9.json artifacts/claims/A0.comp.decoder-roundtrip/report.json", "expected_failure": "semantic-mismatch", "mutates": "Accept one encoding whose reserved high field bit is set"},
-  "environment": {"axeyum_revision": "6bfb11db29cd0603d6add3707f9d387e8feb8d72", "rust_version": "1.88 or newer"},
+  "semantic_inputs": [{"name": "a0-semantics", "version": "10", "path": "artifacts/semantic/a0-v10.json", "sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d"}],
+  "artifacts": [{"path": "artifacts/claims/A0.comp.decoder-roundtrip/report.json", "sha256": "2f98d1cffe0fdcbce020e871cab1659d770f7c0c4705990d6c8754d0015757ce", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-decoder-roundtrip artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.decoder-roundtrip/report.json", "version": "axeyum-machine-evidence-v10"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-decoder-roundtrip artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.decoder-roundtrip/report.json", "version": "axeyum-machine-evidence-v10", "expected_result": "PASS: instructions=41409 unique=41409 reserved_rejected=82818 unused_rejected=8"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-decoder-reserved-bit artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.decoder-roundtrip/report.json", "expected_failure": "semantic-mismatch", "mutates": "Accept one encoding whose reserved high field bit is set"},
+  "environment": {"axeyum_revision": "9bb3dd9ba07fc35d1d7f417556dadc27793cd8f3", "rust_version": "1.88 or newer"},
   "limitations": ["The finite computation is exhaustive over legal structured instructions, not all byte strings.", "It has no independent certificate or kernel reconstruction."],
   "created": "2026-08-30"
 }

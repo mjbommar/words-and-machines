@@ -1067,10 +1067,14 @@ footprints. A trapped store is atomic: it preserves the complete memory. This
 is enough to execute and replay concrete memory steps. Canonical serialization
 of complete public states is now checked in Chapter 2. These routes fulfill the
 concrete obligation \obj{OP.a0.state-memory}. The universal load/store frame
-claim remains separately and visibly open as \obj{A0.thm.memory-frame};
-concrete traces cannot establish it.
+claim is proved separately as \obj{A0.thm.memory-frame}; concrete traces alone
+could not establish it.
 
-The Rust core owns that distinction. Its memory representation is a
+The Rust core owns that distinction. Concrete and symbolic accesses instantiate
+one domain-parametric load/store orchestration. It owns modular address
+enumeration, presence checks, little-endian split and join, tentative writes,
+and the atomic choice between the successor and complete original memory. The
+concrete memory representation is a
 canonically sorted map of address words to bytes. Constructors reject duplicate
 and out-of-width addresses. A checked-range operation first constructs the
 complete modular address vector and verifies every member; only then may a
@@ -1093,14 +1097,17 @@ The concrete sparse-domain control uses width 16 so a two-byte store can cross
 the modular boundary. Starting at address 65,535 writes the low byte there and
 the high byte at address zero. Removing address zero makes the same operation
 trap without changing the mapped byte at 65,535. Duplicate addresses and a
-domain address outside the word width are rejected separately. These controls
-are finite tests, not the universal frame theorem.
+domain address outside the word width are rejected separately. These finite
+controls exercise the same clauses as the universal theorem.
 
-A later symbolic route can prove the split/join identity over bit vectors and
-the frame law over declared addresses. It must connect its presence predicate
-and byte variables to the executable map. A solver result about four isolated
-byte terms does not establish the executor's address arithmetic, range check,
-or trap commit. Replay and independent negative controls close those links.
+The symbolic route instantiates that same orchestration with a byte array and a
+one-bit presence array. At each supported width it leaves the old arrays, base,
+stored word, and probe address arbitrary. The proof checks load validity and
+reconstruction, store validity, the byte observed at the arbitrary probe,
+domain preservation, and atomic failure. A solver result about isolated byte
+terms would not establish the executor's address arithmetic, range check, or
+trap commit; sharing the orchestration and replaying the mutation close those
+links.
 
 Its negative controls are already suggested by the chapter. Reverse the byte
 weights. Permit a range whose last byte is absent. Partly modify memory before
@@ -1133,14 +1140,14 @@ step record. Python may print the address calculation and memory table. It
 must not compute the successor again with a second informal implementation and
 call agreement with itself a check.
 
-The first solver question can stay finite and sharp: for every width-eight
+The first solver question is finite and sharp: for every width-eight
 word and every valid four-byte starting address in a declared finite domain,
 does storing and then loading return the word while preserving every byte
 outside the range? A counterexample must replay through executable memory
 operations. A no-counterexample result needs an evidence route that covers
 the whole stated domain. The active artifact below covers a dense unaligned
 store/load, a dense boundary trap, a modular sparse wrap, and a sparse-hole
-trap. It does not discharge the quantified obligation described here.
+trap. By itself it does not discharge the quantified obligation described here.
 
 \begin{artifact}{A0.trace.memory-roundtrip}
 Axeyum starts from a width-sixteen dense A0 state, stores \code{0xabcd} in
@@ -1158,6 +1165,25 @@ not the universal symbolic frame proof.
 \ArtifactScope{A0.trace.memory-roundtrip}
 \end{artifact}
 
+\begin{artifact}{A0.thm.memory-frame}
+For each A0 width from eight through 64 bits, Axeyum constructs a fixed-width
+array theorem over arbitrary old bytes, presence bits, base address, stored
+word, and probe address. The negated theorem has no model. Successful loads
+reconstruct the addressed bytes in little-endian order without changing
+memory. A successful store changes the arbitrary probe exactly when that probe
+belongs to the modular write footprint. A trapped store preserves the old byte
+and the finite memory domain.
+
+The checker rebuilds the source-derived terms, re-derives array elimination and
+its select-congruence constraints, confirms the saved DIMACS, and checks both
+DRAT and LRAT. The negative control commits the tentative map when a later
+sparse address is absent. Its width-sixteen negation is satisfiable. Encoded A0
+execution traps and preserves byte zero at address 65,535, while the mutated
+path leaves \code{cd}. This is eight fixed-width theorems, not induction over
+arbitrary widths or a theorem about either real ISA.
+\ArtifactScope{A0.thm.memory-frame}
+\end{artifact}
+
 \begin{sidebar}[title={Why a memory formula is not yet memory semantics}]
 A formula that expands four byte variables can establish a relation among
 those variables. It does not by itself establish address formation, finite
@@ -1166,11 +1192,12 @@ memory package must connect all of those rules before later instruction proofs
 may depend on it.
 \end{sidebar}
 
-The general store/load result in this chapter remains a reader proof under a
-printed premise. The active traces run through the executable memory model,
-but finitely many traces do not stand in for the general theorem. Later instruction
-proofs must use these same memory operations and must bind any stronger claim
-to correspondingly stronger evidence.
+The general store/load result now has both a reader proof under the printed
+premise and a machine-checked fixed-width route. The traces make representative
+states inspectable; the symbolic certificates cover arbitrary arrays and
+addresses within each declared A0 width. Later instruction proofs must use
+these same memory operations and must bind any stronger claim to
+correspondingly stronger evidence.
 
 Memory has made sequence visible. Two individually valid stores can leave
 different final states when their order changes. A list of instructions still
