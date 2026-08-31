@@ -1464,9 +1464,10 @@ and that every cell carries an accepted refutation. It can also compose cell
 proofs into one refutation of the original formula. Those mechanisms are
 directly relevant to a durable lower-bound package.
 
-The missing boundary remains substantial. Axeyum does not yet supply the
-book's reusable A0 decoder and transition system, nor complete RV64 or x86-64
-semantic and candidate-language packages. Its AVX2 shuffle semantics track
+The missing boundary remains substantial. Axeyum now supplies the book's A0
+decoder and transition system and the selected RV64I decoder and step package.
+It does not yet supply complete RV64 or x86-64 candidate-language packages or
+the x86-64 machine semantics. Its AVX2 shuffle semantics track
 byte provenance for a selected operation family; they are not an x86-64
 machine semantics. We should not place a Python convenience function over
 that gap and call the result an ISA proof.

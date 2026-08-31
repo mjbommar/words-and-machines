@@ -93,8 +93,9 @@ assembles the RV64I and x86-64 listings, verifies printed addresses, checks the
 one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
-The runtime check executes all twelve active A0 computations, traces, and certificate routes, together
-with their firing negative controls. Every other planned machine route remains
+The runtime check executes twelve A0 computations, traces, and certificate
+routes plus the RV64 source-pin and decoder/step routes. Every route has a
+negative control that must fail. The x86-64 and cross-machine routes remain
 open.
 
 ## Layout
@@ -104,7 +105,7 @@ open.
 | downloads | Current PDF and EPUB builds, preview image, checksums, and provenance |
 | book | Canonical manuscript, guides, outlines, and publication build |
 | objects | Active A0, RV64, x86-64, relation, evidence, and obligation records |
-| artifacts | Active manifest schema and future semantic and evidence packages |
+| artifacts | Active manifest schema, saved reports, and checked evidence packages |
 | axeyum-guide | Required Axeyum layers, controls, and promotion procedure |
 | scripts | Active ledger, artifact, and evidence gates |
 | research/archive | Superseded material retained for provenance only |

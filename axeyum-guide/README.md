@@ -11,8 +11,9 @@ This guide follows the semantic order of the book:
 The sibling checkout now has complete concrete A0 words, state, memory,
 encoding, decoding, steps, and bounded traces. Its first source-derived
 symbolic route proves addition result and conditions at all eight supported
-fixed widths with DRAT and LRAT. It does not yet have the book's RV64 or
-x86-64 semantic slices or cross-machine relations. No guide page may describe
+fixed widths with DRAT and LRAT. Its source-pinned twelve-form RV64I slice now
+has executable decoder/step evidence and failing controls. It does not yet have
+the book's x86-64 semantic slice or cross-machine relations. No guide page may describe
 a planned route as an implemented capability.
 
 The old vector-shuffle and Bitmanip guide is preserved in the research archive

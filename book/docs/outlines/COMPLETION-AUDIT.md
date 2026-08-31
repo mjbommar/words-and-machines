@@ -128,7 +128,8 @@ no matches.
 
 ## Remaining work after this redesign
 
-Writing full chapter prose, pinning authoritative real-ISA sources, and
-implementing the A0, RV64, x86-64, relation, and evidence packages are the next
-book-production and Axeyum-engineering phases. They are not represented as
-completed evidence in the active ledger.
+This redesign record predates the executable-artifact pass. The active ledger
+now contains checked A0 routes and two checked RV64 routes. The x86-64,
+cross-machine relation, and remaining evidence interfaces are still the next
+Axeyum-engineering phases. Only checked active objects, not this historical
+audit paragraph, determine current status.

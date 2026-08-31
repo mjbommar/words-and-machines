@@ -2,7 +2,8 @@
   "id": "OP.rv64.source-pin", "kind": "obligation", "part": 2,
   "title": "Pin the RV64 source and exact slice",
   "statement": "Read and archive the authoritative RISC-V source revision, list every selected form and exclusion, and bind that manifest to the RV64 definitions.",
-  "epistemic_status": "open", "depends_on": ["RV64.def.slice"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["RV64.def.slice", "RV64.comp.source-pin"],
+  "evidence": [{"kind": "claim-ref", "trust_class": "computation", "semantic_inputs": ["objects/RV64.comp.source-pin.json"], "artifact": "artifacts/claims/RV64.comp.source-pin", "check_status": "checked", "checked_on": "2026-08-30", "note": "The source-pin computation fulfills this implementation obligation."}],
   "book": {"chapter": "ch06-encoding-decoding", "label": "op:rv64-source-pin", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

@@ -2,7 +2,8 @@
   "id": "OP.rv64.decoder-step", "kind": "obligation", "part": 2,
   "title": "Implement and independently test the RV64 decoder and step adapter",
   "statement": "Implement the source-pinned RV64 decoder and semantics in Axeyum, including mutation controls and refinement-facing state conversion.",
-  "epistemic_status": "open", "depends_on": ["OP.rv64.source-pin", "RV64.def.decode", "RV64.def.step", "OP.a0.step"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["OP.rv64.source-pin", "RV64.comp.decoder-step", "RV64.def.decode", "RV64.def.step", "OP.a0.step"],
+  "evidence": [{"kind": "claim-ref", "trust_class": "computation", "semantic_inputs": ["objects/RV64.comp.decoder-step.json"], "artifact": "artifacts/claims/RV64.comp.decoder-step", "check_status": "checked", "checked_on": "2026-08-30", "note": "The executable decoder/step computation fulfills this implementation obligation within its declared slice."}],
   "book": {"chapter": "ch08-arithmetic-condition", "label": "op:rv64-decoder-step", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

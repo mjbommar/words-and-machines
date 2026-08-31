@@ -1223,8 +1223,9 @@ memory, nested calls, indirect calls, non-scalar signatures, and broader
 control flow. It models LLVM scalar values, not an architectural stack,
 continuation word, prologue, epilogue, or platform ABI. A parsed LLVM
 \code{tail} marker does not prove a machine-level tail-call contract. The
-checkout still lacks executable book A0 and source-pinned RV64I/x86-64
-procedure semantics, System V or Microsoft ABI packages, unwind rows, and
+checkout now has executable book A0 and source-pinned RV64I instruction
+semantics. It still lacks procedure-level contracts over those machines, the
+x86-64 semantic slice, System V or Microsoft ABI packages, unwind rows, and
 cross-language boundaries.
 
 The first book implementation should reuse this verified-contract pattern but

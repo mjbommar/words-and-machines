@@ -1055,21 +1055,18 @@ same word ``load'' is useful only when the current level and evidence are named.
 
 \section{Axeyum route}
 
-The live Axeyum checkout at revision \code{a9991fda} still lacks A0, RV64I, and
-x86-64 architectural packages. It does contain array reasoning, symbolic
-memory, bounded checking with memory, and a toy bit-vector virtual machine
-with word-addressed load and store instructions. Those components prove that
-reusable substrate exists. They do not implement the chapter's byte-addressed
-A0 ranges, widths, byte order, traps, or complete state. This chapter therefore
-defines data-movement obligations rather than reporting completed machine
-proofs.
+The active Axeyum book lane now implements A0's byte-addressed finite memory,
+modular ranges, byte order, traps, and complete state. Its source-derived
+memory-frame route checks all eight supported widths. The RV64I slice reuses
+that memory orchestration for aligned doubleword loads and stores and checks
+missing and misaligned accesses. The x86-64 memory adapter and cross-machine
+memory relation remain open.
 
-Start with an executable A0 transfer package. Represent the register map,
-finite byte memory, and running/trapped outcome. Implement \code{mov},
-\code{movi}, \code{load}, and \code{store}. Reuse Axeyum's bit-vector
-machinery for extension, truncation, word addition, and byte extraction. Every
-operation should return a complete successor state rather than only its main
-result.
+The executable A0 transfer package represents the register map, finite byte
+memory, and running or trapped outcome. Its \code{mov}, \code{movi},
+\code{load}, and \code{store} operations return complete successor states.
+The checked routes bind extension, truncation, address arithmetic, byte
+extraction, atomic failure, and untouched-state preservation.
 
 The smallest useful property family includes immediate sign extension,
 store-then-load reconstruction, preservation of untouched registers and bytes,

@@ -44,15 +44,17 @@ an assembler or disassembler as the sole architectural source.
 
 ## Axeyum boundary at this pin
 
-Sibling checkout revision:
-`a9991fdad6c1e4b2bda596b46d2c8c715556ceae`.
+The initial source audit used sibling revision
+`a9991fdad6c1e4b2bda596b46d2c8c715556ceae`. The executable-curriculum work now
+pins RV64 evidence to revision
+`b6f3a543b3cd2b418501927d615190b6821a241e`.
 
-The checkout contains reusable word, solver, SAT/DRAT, and kernel machinery.
-No reusable A0 state/step package, RV64 decoder/semantics package, x86-64
-decoder/semantics package, or typed cross-ISA refinement route was found.
-Until those packages are implemented and independently checked, chapters must
-describe their interfaces as construction plans or obligations, not as live
-Axeyum capabilities.
+The current route contains reusable A0 state and step semantics plus a
+source-pinned twelve-form RV64I decoder and executor. Two active manifests pin
+the official RV64 source and replay the selected forms, printed words, XOR
+program, traps, projection, and mutations. The x86-64 decoder and semantics and
+the typed cross-ISA refinement route remain unimplemented. Chapters must keep
+those remaining interfaces as construction plans or obligations.
 
 ## Procedure ABI slices
 

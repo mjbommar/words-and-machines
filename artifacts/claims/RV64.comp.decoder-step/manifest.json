@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "RV64.comp.decoder-step",
+  "statement": "Axeyum decodes, canonically re-encodes, and executes the twelve-form RV64I teaching slice, including the book's printed examples and declared semantic controls.",
+  "scope": "The twelve source-pinned RV64I forms, thirteen printed encodings, the nine-word XOR program on three inputs, five trap classes, canonical projection, and three declared mutations.",
+  "exclusions": ["Instructions outside the selected slice", "Compressed encodings", "Privileged execution", "Virtual memory, permissions, devices, concurrency, and timing", "A universal refinement theorem"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "rv64-source-pin", "version": "20260120-rv64i-2.1", "path": "artifacts/claims/RV64.comp.source-pin/report.json", "sha256": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50"}],
+  "artifacts": [{"path": "artifacts/claims/RV64.comp.decoder-step/report.json", "sha256": "5b2d634c4af26ef12430968f15c96c192dd3fcd01b48d6b6db11f18d67e721e2", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-rv64-execution artifacts/claims/RV64.comp.decoder-step/report.json", "version": "axeyum-machine-evidence-rv64-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-rv64-execution artifacts/claims/RV64.comp.decoder-step/report.json", "version": "axeyum-machine-evidence-rv64-v1", "expected_result": "rv64-execution: PASS: forms=12 encodings=13 traps=5 mutations=3"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-rv64-branch-base artifacts/claims/RV64.comp.decoder-step/report.json", "expected_failure": "semantic-mismatch", "mutates": "Use the sequential PC instead of the instruction PC as the taken-branch base"},
+  "environment": {"axeyum_revision": "b6f3a543b3cd2b418501927d615190b6821a241e", "rust_version": "1.88 or newer"},
+  "limitations": ["This is finite executable evidence, not a proof over every RV64 state.", "The executor implements only the declared teaching profile.", "Cross-machine refinement remains a separate open claim."],
+  "created": "2026-08-30"
+}

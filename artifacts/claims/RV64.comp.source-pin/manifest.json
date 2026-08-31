@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "RV64.comp.source-pin",
+  "statement": "The book's RV64 teaching slice is bound to official RISC-V Unprivileged Architecture release 20260120, RV64I version 2.1, and the twelve declared base forms.",
+  "scope": "Official 20260120 unprivileged-architecture PDF and the ADDI, ADD, SUB, OR, XOR, LD, SD, BEQ, BNE, BGE, JAL, and JALR forms selected by the book.",
+  "exclusions": ["Compressed instructions", "Privileged architecture", "All extensions", "Narrow loads and stores", "Address translation, permissions, concurrency, and devices"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "rv64-slice-definition", "version": "2026-08-27", "path": "objects/RV64.def.slice.json", "sha256": "fb87da449f604cadb27d1b7af7ddd1da357e91fc8dbb0358d852a92a5ec29b8b"}],
+  "artifacts": [{"path": "artifacts/claims/RV64.comp.source-pin/report.json", "sha256": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-rv64-source artifacts/claims/RV64.comp.source-pin/report.json", "version": "axeyum-machine-evidence-rv64-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-rv64-source artifacts/claims/RV64.comp.source-pin/report.json", "version": "axeyum-machine-evidence-rv64-v1", "expected_result": "rv64-source: PASS: release=20260120 rv64i=2.1 forms=12"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-rv64-source-digest artifacts/claims/RV64.comp.source-pin/report.json", "expected_failure": "semantic-mismatch", "mutates": "Change one nibble of the pinned official PDF digest"},
+  "environment": {"axeyum_revision": "b6f3a543b3cd2b418501927d615190b6821a241e", "rust_version": "1.88 or newer"},
+  "limitations": ["The report pins the official bytes by digest and URL; it does not redistribute the PDF.", "The source pin does not by itself establish execution semantics."],
+  "created": "2026-08-30"
+}

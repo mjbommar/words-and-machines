@@ -1,0 +1,159 @@
+{
+  "schema": "axeyum.rv64.decoder-step.v1",
+  "implementation_sha256": "cb4021aa5162457e5aacc048a81c268e1170a0af3dc2b39eff8e3fe22676be31",
+  "forms_executed": 12,
+  "book_encodings": [
+    {
+      "label": "add-x3-x5-x2",
+      "address": 0,
+      "bytes": [
+        179,
+        129,
+        34,
+        0
+      ],
+      "decoded": "Add { rd: 3, rs1: 5, rs2: 2 }"
+    },
+    {
+      "label": "beq-x5-x2-plus16",
+      "address": 0,
+      "bytes": [
+        99,
+        136,
+        34,
+        0
+      ],
+      "decoded": "BranchEqual { rs1: 5, rs2: 2, offset: 16 }"
+    },
+    {
+      "label": "bge-a0-x0-plus8",
+      "address": 0,
+      "bytes": [
+        99,
+        84,
+        5,
+        0
+      ],
+      "decoded": "BranchGreaterEqual { rs1: 10, rs2: 0, offset: 8 }"
+    },
+    {
+      "label": "sub-a0-x0-a0",
+      "address": 4,
+      "bytes": [
+        51,
+        5,
+        160,
+        64
+      ],
+      "decoded": "Sub { rd: 10, rs1: 0, rs2: 10 }"
+    },
+    {
+      "label": "xor-copy-pointer",
+      "address": 0,
+      "bytes": [
+        147,
+        2,
+        5,
+        0
+      ],
+      "decoded": "AddImmediate { rd: 5, rs1: 10, immediate: 0 }"
+    },
+    {
+      "label": "xor-zero",
+      "address": 4,
+      "bytes": [
+        19,
+        5,
+        0,
+        0
+      ],
+      "decoded": "AddImmediate { rd: 10, rs1: 0, immediate: 0 }"
+    },
+    {
+      "label": "xor-empty-branch",
+      "address": 8,
+      "bytes": [
+        99,
+        140,
+        5,
+        0
+      ],
+      "decoded": "BranchEqual { rs1: 11, rs2: 0, offset: 24 }"
+    },
+    {
+      "label": "xor-load",
+      "address": 12,
+      "bytes": [
+        3,
+        179,
+        2,
+        0
+      ],
+      "decoded": "LoadDouble { rd: 6, rs1: 5, immediate: 0 }"
+    },
+    {
+      "label": "xor-combine",
+      "address": 16,
+      "bytes": [
+        51,
+        69,
+        101,
+        0
+      ],
+      "decoded": "Xor { rd: 10, rs1: 10, rs2: 6 }"
+    },
+    {
+      "label": "xor-pointer",
+      "address": 20,
+      "bytes": [
+        147,
+        130,
+        130,
+        0
+      ],
+      "decoded": "AddImmediate { rd: 5, rs1: 5, immediate: 8 }"
+    },
+    {
+      "label": "xor-count",
+      "address": 24,
+      "bytes": [
+        147,
+        133,
+        245,
+        255
+      ],
+      "decoded": "AddImmediate { rd: 11, rs1: 11, immediate: -1 }"
+    },
+    {
+      "label": "xor-loop",
+      "address": 28,
+      "bytes": [
+        227,
+        152,
+        5,
+        254
+      ],
+      "decoded": "BranchNotEqual { rs1: 11, rs2: 0, offset: -16 }"
+    },
+    {
+      "label": "xor-return",
+      "address": 32,
+      "bytes": [
+        103,
+        128,
+        0,
+        0
+      ],
+      "decoded": "JumpAndLinkRegister { rd: 0, rs1: 1, immediate: 0 }"
+    }
+  ],
+  "xor_results": [
+    0,
+    81985529216486895,
+    7
+  ],
+  "semantic_checks_passed": true,
+  "trap_classes_checked": 5,
+  "mutations_rejected": 3,
+  "result_sha256": "e232b19672f3d4b5ecdca79361d8e8d25836405468976443182cbe5fe08af508"
+}

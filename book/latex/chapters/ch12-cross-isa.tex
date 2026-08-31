@@ -1006,20 +1006,19 @@ states. Scalar result equality does not cover machine-code bytes, program
 counters, architectural flags, memory injections, faults, or ABI
 continuations.
 
-The checkout inspected on 2026-08-30 does not contain reusable A0, RV64I, or
-x86-64 decoder-and-step packages or typed cross-machine relations. This
-chapter therefore specifies the required route without presenting the
-absolute-value simulation as machine-established evidence. The distinction is
-productive: the existing route shows how formulas and replay should behave,
-while the missing adapters identify which semantics must be added rather than
-assumed.
+The checkout now contains reusable A0 and twelve-form RV64I decoder-and-step
+packages. It does not contain the x86-64 package or typed cross-machine
+relations. This chapter therefore specifies the required relation without
+presenting the absolute-value simulation as machine-established evidence. The
+implemented routes show how decoded states and replay behave; the remaining
+adapter and relation identify what must still be added rather than assumed.
 
 Implementation should proceed in dependency order:
 
 \begin{enumerate}
-\item complete and test A0 state, decoder, step, and bounded-run packages;
-\item implement a source-pinned RV64I slice for the exact branch, subtraction,
-and jump forms used by the selected routine;
+\item use the checked A0 state, decoder, step, and bounded-run packages;
+\item use the source-pinned RV64I branch, subtraction, and jump forms already
+exercised by the book route;
 \item implement a source-pinned x86-64 slice for the exact move, test,
 conditional jump, negation, and return forms used;
 \item define typed control-point relations with register, memory, condition,

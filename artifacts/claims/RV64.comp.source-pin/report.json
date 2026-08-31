@@ -1,0 +1,40 @@
+{
+  "schema": "axeyum.rv64.source-pin.v1",
+  "source_url": "https://docs.riscv.org/reference/isa/_attachments/riscv-unprivileged.pdf",
+  "source_release": "20260120",
+  "source_sha256": "06bb3c23074f72060a0ec061a80933af948cae7ceafdcd9d1fe177b05fd150bc",
+  "source_bytes": 4580174,
+  "source_pages": 696,
+  "rv64i_version": "2.1",
+  "implementation_sha256": "cb4021aa5162457e5aacc048a81c268e1170a0af3dc2b39eff8e3fe22676be31",
+  "selected_forms": [
+    "ADDI",
+    "ADD",
+    "SUB",
+    "OR",
+    "XOR",
+    "LD",
+    "SD",
+    "BEQ",
+    "BNE",
+    "BGE",
+    "JAL",
+    "JALR"
+  ],
+  "exclusions": [
+    "compressed instructions",
+    "privileged architecture",
+    "all extensions",
+    "narrow loads and stores",
+    "misaligned-access implementation latitude",
+    "address translation, permissions, concurrency, and devices"
+  ],
+  "profile": [
+    "XLEN=64",
+    "32-bit little-endian instruction fetch",
+    "four-byte instruction alignment",
+    "naturally aligned LD and SD",
+    "finite sparse byte memory with atomic access faults",
+    "running or distinct trapped outcome"
+  ]
+}

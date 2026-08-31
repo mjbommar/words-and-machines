@@ -1184,18 +1184,17 @@ instruction indices, its branches use its own equality tests and targets, and
 its fuel and outcome rules belong to that package. It lacks A0 instruction
 bytes, the \(pc+4+4d\) target rule, the \(Z,N,C,V\) predicate family, and A0
 fetch and trap behavior. Those A0 rules now live in the separate book-machine
-core. The checkout still lacks source-pinned RV64I and x86-64 decoder adapters,
-the three-machine loop relation, and proof objects for the chapter's dominance
-claims. Renaming the toy VM would hide these differences rather than discharge
-them.
+core. The source-pinned RV64I adapter also executes the selected branch and
+jump forms and rejects a sequential-PC branch-base mutation. The checkout
+still lacks the x86-64 decoder adapter, the three-machine loop relation, and
+proof objects for the chapter's dominance claims. Renaming the toy VM would
+hide these differences rather than discharge them.
 
-Start with A0 because its complete state and fixed-width encoding are owned by
-this book. Reuse Axeyum's transition, symbolic exploration, reporting, and
-replay patterns through a separate A0 adapter. Define a decoded branch
-containing a condition code and signed displacement. Define the predicate as a
-pure function of \(Z,N,C,V\), then define the two successor-PC formulas. Only
-after unit tests cover every condition and both outcomes should the branch
-enter the general A0 step function.
+The A0 adapter defines a decoded branch with a condition code and signed
+displacement. It calculates the predicate from \(Z,N,C,V\), then selects one
+of two successor-PC formulas. Unit tests cover every condition and both
+outcomes. The RV64 route separately executes taken and untaken branches under
+its source-pinned PC-relative rule.
 
 The first evidence object should contain an initial state, instruction bytes,
 decoded branch, selected predicate value, expected successor state, and the

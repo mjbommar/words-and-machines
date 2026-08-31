@@ -1,0 +1,26 @@
+{
+  "id": "RV64.comp.decoder-step", "kind": "computation", "part": 2,
+  "title": "Executable RV64 decoder and step slice",
+  "statement": "Axeyum decodes, canonically re-encodes, and executes all twelve selected RV64I forms, including the book's printed words, XOR program, traps, projection, and semantic controls.",
+  "formal": {"language": "prose", "statement": "replay(selected_forms, printed_words, xor_inputs, traps, controls) = declared_observations", "fragment": "finite-executable-semantics"},
+  "epistemic_status": "computed",
+  "scope": "Twelve selected forms, thirteen printed words, three XOR inputs, five trap classes, canonical projection, and three declared mutations under the source-pinned teaching profile.",
+  "depends_on": ["RV64.comp.source-pin", "RV64.def.decode", "RV64.def.step", "OP.a0.step"],
+  "evidence": [{
+    "kind": "decoder-agreement", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/claims/RV64.comp.source-pin/report.json", "artifacts/claims/RV64.comp.decoder-step/manifest.json"],
+    "artifact": "artifacts/claims/RV64.comp.decoder-step",
+    "sha256": {
+      "artifacts/claims/RV64.comp.source-pin/report.json": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50",
+      "artifacts/claims/RV64.comp.decoder-step/manifest.json": "4126c9df4f41979803b36474ce93c37b24444397b057e9ada589a8409829e632",
+      "artifacts/claims/RV64.comp.decoder-step/report.json": "5b2d634c4af26ef12430968f15c96c192dd3fcd01b48d6b6db11f18d67e721e2"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-rv64-execution artifacts/claims/RV64.comp.decoder-step/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-rv64-branch-base artifacts/claims/RV64.comp.decoder-step/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "Every selected form takes a checked machine step. The taken-branch base mutation is derived from the executed Chapter 15 BNE witness."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "RV64 decoder and step executable replay", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch08-arithmetic-condition", "label": "comp:rv64-decoder-step", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "OP.rv64.decoder-step"}
+}

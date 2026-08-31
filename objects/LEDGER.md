@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **53** -- `computed` 15, `open` 8, `proved` 2, `stated` 28
-- Evidence rows: **17** -- `checked` 17
+- Objects: **55** -- `computed` 19, `open` 6, `proved` 2, `stated` 28
+- Evidence rows: **21** -- `checked` 21
 
 ## Part I -- Constructing an instruction set
 
@@ -45,10 +45,12 @@
 | [`A0.comp.add-step-8`](A0.comp.add-step-8.json) | computation | Exhaustive width-eight A0 addition step | `computed` | `--` | All 65,536 width-8 operand pairs, with PC 0, destination r2, sources r0 and r1, empty memory, and initially running outcome. | `exhaustive-enumeration` / `computation`: checked |
 | [`A0.thm.addition-flags`](A0.thm.addition-flags.json) | theorem | A0 addition result and conditions | `proved` | `--` | Eight separate fixed-width bit-vector theorems for pure A0 register addition at widths 8 through 64 in steps of 8. This is not an arbitrary-width induction theorem and does not cover other operations, memory, traps, or decoding. | `unsat-certificate` / `certificate`: checked |
 | [`A0.trace.branch`](A0.trace.branch.json) | computation | A0 conditional-branch replay | `computed` | `--` | Two width-8 traces of one branch.eq encoding with offset +1, followed by halt, differing only in the initial Z condition. | `trace-replay` / `trace`: checked |
-| [`OP.rv64.decoder-step`](OP.rv64.decoder-step.json) | obligation | Implement and independently test the RV64 decoder and step adapter | `open` | `--` | -- | -- |
-| [`OP.rv64.source-pin`](OP.rv64.source-pin.json) | obligation | Pin the RV64 source and exact slice | `open` | `--` | -- | -- |
+| [`OP.rv64.decoder-step`](OP.rv64.decoder-step.json) | obligation | Implement and independently test the RV64 decoder and step adapter | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
+| [`OP.rv64.source-pin`](OP.rv64.source-pin.json) | obligation | Pin the RV64 source and exact slice | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`OP.x64.decoder-step`](OP.x64.decoder-step.json) | obligation | Implement and independently test the x86-64 decoder and step adapter | `open` | `--` | -- | -- |
 | [`OP.x64.source-pin`](OP.x64.source-pin.json) | obligation | Pin the x86-64 source and exact slice | `open` | `--` | -- | -- |
+| [`RV64.comp.decoder-step`](RV64.comp.decoder-step.json) | computation | Executable RV64 decoder and step slice | `computed` | `--` | Twelve selected forms, thirteen printed words, three XOR inputs, five trap classes, canonical projection, and three declared mutations under the source-pinned teaching profile. | `decoder-agreement` / `computation`: checked |
+| [`RV64.comp.source-pin`](RV64.comp.source-pin.json) | computation | Pinned RV64 source and teaching slice | `computed` | `--` | The official release 20260120 PDF and the twelve RV64I base forms printed by the book. | `semantic-package` / `computation`: checked |
 | [`RV64.def.decode`](RV64.def.decode.json) | definition | RV64 slice decoder contract | `stated` | `--` | -- | -- |
 | [`RV64.def.slice`](RV64.def.slice.json) | definition | Source-pinned RV64 teaching slice | `stated` | `--` | -- | -- |
 | [`RV64.def.state`](RV64.def.state.json) | definition | RV64 slice state | `stated` | `--` | -- | -- |

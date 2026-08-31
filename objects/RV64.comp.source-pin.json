@@ -1,0 +1,27 @@
+{
+  "id": "RV64.comp.source-pin", "kind": "computation", "part": 2,
+  "title": "Pinned RV64 source and teaching slice",
+  "statement": "The RV64 teaching slice is bound to official RISC-V Unprivileged Architecture release 20260120, RV64I version 2.1, and twelve explicitly selected base forms.",
+  "formal": {"language": "prose", "statement": "RV64Slice = source_sha256 x release x RV64I_version x selected_forms x exclusions", "fragment": "source-identity-and-finite-selection"},
+  "epistemic_status": "computed",
+  "scope": "The official release 20260120 PDF and the twelve RV64I base forms printed by the book.",
+  "depends_on": ["RV64.def.slice"],
+  "evidence": [{
+    "kind": "semantic-package", "trust_class": "computation",
+    "semantic_inputs": ["objects/RV64.def.slice.json", "artifacts/claims/RV64.comp.source-pin/manifest.json"],
+    "artifact": "artifacts/claims/RV64.comp.source-pin",
+    "sha256": {
+      "objects/RV64.def.slice.json": "fb87da449f604cadb27d1b7af7ddd1da357e91fc8dbb0358d852a92a5ec29b8b",
+      "artifacts/claims/RV64.comp.source-pin/manifest.json": "e74d81cb2626fb2be3391c35f88079ffdbb6980e118fbf3c9d05cd568920eeda",
+      "artifacts/claims/RV64.comp.source-pin/report.json": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-rv64-source artifacts/claims/RV64.comp.source-pin/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-rv64-source-digest artifacts/claims/RV64.comp.source-pin/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The checker recomputes the compiled source identity and exact selection. Changing the official PDF digest is rejected."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "RV64 official-source and slice pin", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch06-encoding-decoding", "label": "comp:rv64-source-pin", "role": "machine-proof"},
+  "sources": ["https://docs.riscv.org/reference/isa/_attachments/riscv-unprivileged.pdf"],
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "OP.rv64.source-pin"}
+}

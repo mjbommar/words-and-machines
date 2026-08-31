@@ -114,10 +114,10 @@ All cited URLs are reachable and now carry verified and archived stamps.
 This record establishes a complete structural spine, not complete breadth or
 depth. The short chapters provide a base for the sequential depth pass; they
 must not be represented as publication-ready merely because they met the old
-bands. The live
-Axeyum checkout still lacks the reusable A0, RV64, and x86-64 semantic packages
-named by the manuscript. Planned machine routes remain identified as future
-interfaces until their executors, controls, and evidence paths exist.
+bands. The executable-artifact pass has since added the reusable A0 package and
+the source-pinned RV64I teaching slice. Their active routes have executors,
+controls, and saved evidence. The x86-64 and cross-machine routes remain future
+interfaces until the same conditions hold.
 
 ## First sequential depth-pass record — 2026-08-30
 
