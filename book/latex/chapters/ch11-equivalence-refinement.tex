@@ -1071,15 +1071,23 @@ offer the chapter's general observation object over architectural registers,
 conditions, memory, traps, continuations, and traces. It is translation
 validation within one shared term vocabulary, not yet a cross-ISA simulation.
 
-The first book adapter still needs \code{a0-state}, \code{a0-step}, and
-\code{a0-run}, with code-byte provenance and negative controls. Represent an
-A0 query with semantic-package digests, two decoded programs, word width,
-precondition, behavior policy, observation, and a bound or termination
-argument. Generate the negation of the exact reader statement. When a solver
-finds a mismatch, decode a complete A0 initial state and replay both programs.
-Reject the evidence if replay does not reproduce the mismatch.
+The first book adapter now binds the A0 semantic package, two decoded program
+bytes, word width, precondition, observation, and one-step bound. It exhausts
+the declared width-eight state family through the concrete A0 step function.
+A mismatch is stored as a canonical complete initial state and two complete
+successors. The checker decodes the saved model, reruns both programs, and
+requires the same successors and first observed difference.
 
-For an unsatisfiable result, preserve the formula and solver configuration.
+\ArtifactScope{A0.comp.equivalence-replay}
+
+The route checks all 4,096 combinations of \(r_0\) and Z/N/C/V for
+result-only equivalence. The destination mutation produces a replayed
+\(r_0\) witness. Full-state comparison without a condition premise produces
+a carry-only witness after deterministic minimization. Requiring
+\(Z=1\) and \(N=C=V=0\) makes the complete successors equal for all 256
+values of \(r_0\) in the restricted family.
+
+For a later solver-backed unsatisfiable result, preserve the formula and solver configuration.
 The strongest available route should export evidence that an independent
 checker can verify
 or reconstruct the theorem in a kernel. The assurance label must still say
@@ -1087,12 +1095,12 @@ whether the result covers one width, a finite width set, or a width-parametric
 statement.
 
 \begin{example}[title={The first A0 equivalence query}]
-Compare \code{movi r0,0} with \code{xor r0,r0,r0}. Query result-only
-equivalence first; a deliberate destination mutation must produce a replayed
-witness. Then query full-state equivalence without the condition premise; the
-tool should find a condition-state witness. Finally add the exact premise and
-check the stronger claim. The sequence tests both proof and counterexample
-paths without requiring a long program.
+The active route compares \code{movi r0,0} with \code{xor r0,r0,r0}.
+Result-only equivalence passes its complete declared family; a deliberate
+destination mutation produces a replayed witness. Full-state equivalence
+without the condition premise produces a condition-state witness. Adding the
+exact premise checks the stronger claim. The sequence tests both equivalence
+and counterexample paths without requiring a long program.
 \end{example}
 
 Negative controls must target every layer. Mutate a destination or condition

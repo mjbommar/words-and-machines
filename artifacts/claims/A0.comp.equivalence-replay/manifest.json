@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.comp.equivalence-replay",
+  "statement": "Axeyum checks the Chapter 11 A0 clear-register pair under result-only and full-state observations, returning canonical decoded-state counterexamples that replay through both encoded programs.",
+  "scope": "Width eight; one-instruction movi-r0-zero and xor-r0-r0-r0 programs; all 256 r0 values and all 16 initial Z/N/C/V assignments for the unrestricted family; empty memory, r1 through r7 zero, pc zero, running outcome, and a one-step bound.",
+  "exclusions": ["Widths 16 through 64", "Arbitrary registers or memory", "Multi-instruction programs", "A solver certificate or width-parametric theorem", "Unbounded termination"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "a0-semantics", "version": "10", "path": "artifacts/semantic/a0-v10.json", "sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d"}],
+  "artifacts": [{"path": "artifacts/claims/A0.comp.equivalence-replay/report.json", "sha256": "1f7697bc7e06a98f9c16edd055376d2a8c0c0ed8e6ce6c6ef9b166d4ebf4dc06", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-a0-equivalence artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.equivalence-replay/report.json", "version": "axeyum-machine-evidence-a0-equivalence-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-a0-equivalence artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.equivalence-replay/report.json", "version": "axeyum-machine-evidence-a0-equivalence-v1", "expected_result": "a0-equivalence: PASS: result-only=4096 full-with-premise=256 counterexamples=2 replayed=2"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-a0-equivalence-destination artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.equivalence-replay/report.json", "expected_failure": "semantic-mismatch", "mutates": "Write XOR's result to r1 instead of the observed r0 and require a decoded replayed r0 witness"},
+  "environment": {"axeyum_revision": "a59bf11c51ddac722230bb2776f9edf520a79198", "rust_version": "1.88 or newer"},
+  "limitations": ["Equivalent verdicts are exhaustive only over the declared finite state families.", "The checker uses concrete A0 execution rather than a separately checked unsatisfiability certificate.", "A separate tested control corrupts a saved model byte and requires replay rejection, but the manifest has one load-bearing negative-control command."],
+  "created": "2026-08-31"
+}

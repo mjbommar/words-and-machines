@@ -1,0 +1,26 @@
+{
+  "id": "A0.comp.equivalence-replay", "kind": "computation", "part": 3,
+  "title": "Finite A0 equivalence and counterexample replay",
+  "statement": "Axeyum checks the Chapter 11 clear-register pair under result-only and complete-state observations and replays canonical decoded-state counterexamples through both encoded programs.",
+  "formal": {"language": "prose", "statement": "enumerate declared width-8 initial states; execute movi r0,0 and xor r0,r0,r0; compare named observations; decode and replay every satisfying mismatch model", "fragment": "finite-executable-equivalence"},
+  "epistemic_status": "computed",
+  "scope": "Width eight, one-step programs, all 256 r0 values and all 16 initial condition assignments in the unrestricted family, with other registers zero, empty memory, pc zero, and running outcome; the exact condition premise narrows the full-state family to 256 states.",
+  "depends_on": ["OP.a0.run", "A0.comp.state-codec", "REL.def.equivalence", "A0.def.observation"],
+  "evidence": [{
+    "kind": "exhaustive-enumeration", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v10.json", "artifacts/claims/A0.comp.equivalence-replay/manifest.json"],
+    "artifact": "artifacts/claims/A0.comp.equivalence-replay",
+    "sha256": {
+      "artifacts/semantic/a0-v10.json": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
+      "artifacts/claims/A0.comp.equivalence-replay/manifest.json": "d7cd8333d7acf2b3b17457cdf1b1051dc1ffded2ca98c5a4ec5879f55b7ce716",
+      "artifacts/claims/A0.comp.equivalence-replay/report.json": "1f7697bc7e06a98f9c16edd055376d2a8c0c0ed8e6ce6c6ef9b166d4ebf4dc06"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-a0-equivalence artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.equivalence-replay/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-a0-equivalence-destination artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.equivalence-replay/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-31",
+    "note": "The destination mutation returns a complete canonical state model whose r0 mismatch replays. The unrestricted full-state query separately returns a carry-only witness."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "finite A0 equivalence and decoded-model replay", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch11-equivalence-refinement", "label": "comp:a0-equivalence-replay", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-31", "by": "Axeyum executable curriculum", "origin": "OP.rel.a0-equivalence"}
+}

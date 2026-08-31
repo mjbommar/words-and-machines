@@ -2,10 +2,13 @@
 
 ## A0 equivalence
 
-Generate equivalence queries from executable A0 semantics. A satisfiable model
-must decode into a complete allowed initial state and replay into two traces
-whose observations differ. An unsatisfiable result retains the trust class of
-its actual evidence route.
+The first route binds the Chapter 11 `movi r0,0` and `xor r0,r0,r0` bytes,
+width, one-step bound, precondition, observation, and finite state family. It
+exhaustively executes the declared width-eight states. A mismatch model is a
+canonical complete A0 state that must decode and replay into the same two
+successors and first observed difference. Equivalent verdicts carry only the
+declared finite computation scope; they are not solver certificates or
+width-parametric theorems.
 
 ## Real instruction refinement
 

@@ -19,9 +19,9 @@ from an ordinary book.
   case studies. Treat RISC and CISC as clusters of explicit semantic features.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
-- **Status:** sixteen evidence routes are replayable: twelve A0 routes plus
+- **Status:** eighteen evidence routes are replayable: thirteen A0 routes plus
   source-pin and executable decoder/step routes for the RV64I and x86-64
-  teaching slices. The real-ISA routes execute every selected form and all
+  teaching slices, plus the cross-machine absolute-value route. The real-ISA routes execute every selected form and all
   printed programs, check declared traps and canonical projections, and reject
   source-digest and branch-base mutations. The reusable A0 routes include the
   word-operation audit, canonical complete-state codec, and fixed-width
@@ -29,7 +29,10 @@ from an ordinary book.
   theorems for the remaining A0 operations remain open. One typed Rust
   cross-machine route now replays the printed absolute-value programs at named
   synchronization points for ten distinct 64-bit inputs; it is a finite
-  computation, not a universal simulation theorem. Axeyum's Python layer now
+  computation, not a universal simulation theorem. The finite A0 equivalence
+  route checks the Chapter 11 clear-register pair over its declared width-eight
+  state families and decodes and replays two complete-state counterexamples.
+  It is not a general equivalence solver or certificate. Axeyum's Python layer now
   exposes the complete concrete A0 word, memory, state-codec, instruction,
   step, trap, and bounded-trace surface. The
   Chapter 6 addition listing runs unchanged against that interface. The
