@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **59** -- `computed` 27, `open` 2, `proved` 2, `stated` 28
-- Evidence rows: **29** -- `checked` 29
+- Objects: **60** -- `computed` 29, `open` 1, `proved` 2, `stated` 28
+- Evidence rows: **31** -- `checked` 31
 
 ## Part I -- Constructing an instruction set
 
@@ -67,13 +67,14 @@
 | ID | Kind | Title | Status | External | Scope | Evidence |
 |---|---|---|---|---|---|---|
 | [`A0.comp.equivalence-replay`](A0.comp.equivalence-replay.json) | computation | Finite A0 equivalence and counterexample replay | `computed` | `--` | Width eight, one-step programs, all 256 r0 values and all 16 initial condition assignments in the unrestricted family, with other registers zero, empty memory, pc zero, and running outcome; the exact condition premise narrows the full-state family to 256 states. | `exhaustive-enumeration` / `computation`: checked |
+| [`A0.comp.scalar-minimality`](A0.comp.scalar-minimality.json) | computation | Exhaustive width-eight A0 scalar minimality | `computed` | `--` | Width eight; exact six-instance Chapter 13 mov/add alphabet; r0 writable and r1 read-only with value one; other registers zero, empty memory, pc zero, and running outcome; instruction-count costs zero through two; observe final r0 and running completion. | `exhaustive-enumeration` / `computation`: checked |
 | [`EVID.def.manifest`](EVID.def.manifest.json) | definition | Evidence manifest | `stated` | `--` | -- | -- |
 | [`EVID.def.trust-class`](EVID.def.trust-class.json) | definition | Evidence trust classes | `stated` | `--` | -- | -- |
 | [`EVID.prin.negative-control`](EVID.prin.negative-control.json) | principle | Every checked route has a firing negative control | `stated` | `--` | -- | -- |
 | [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Evidence manifest checker | `computed` | `--` | Active schema-version-1 manifests under artifacts/claims. The aggregate gate and typed single-manifest interface reproduce declared producers and checkers and require negative controls to exit nonzero with their named failure classes. | `exhaustive-enumeration` / `computation`: checked |
 | [`OP.rel.a0-equivalence`](OP.rel.a0-equivalence.json) | obligation | Implement A0 equivalence and counterexample replay | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`OP.rel.cross-isa`](OP.rel.cross-isa.json) | obligation | Implement cross-ISA refinement | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
-| [`OP.rel.scalar-minimality`](OP.rel.scalar-minimality.json) | obligation | Build the scalar minimality route | `open` | `--` | -- | -- |
+| [`OP.rel.scalar-minimality`](OP.rel.scalar-minimality.json) | obligation | Build the scalar minimality route | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`REL.comp.cross-isa-absolute-value`](REL.comp.cross-isa-absolute-value.json) | computation | Typed cross-ISA absolute-value replay | `computed` | `--` | Ten distinct 64-bit boundary and branch-shape inputs; concrete modular absolute value; the positive signed mathematical interpretation excludes the signed minimum. | `refinement-check` / `computation`: checked |
 | [`REL.def.candidate-language`](REL.def.candidate-language.json) | definition | Bounded candidate program language | `stated` | `--` | -- | -- |
 | [`REL.def.cost`](REL.def.cost.json) | definition | Declared program cost | `stated` | `--` | -- | -- |

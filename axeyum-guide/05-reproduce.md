@@ -22,20 +22,24 @@ cd ../words-and-machines
 AXEYUM=../axeyum make machine-example-check
 ```
 
-The active ledger contains sixteen checked evidence routes: twelve A0 routes,
-two RV64 routes, and two x86-64 routes. `make check-run`
+The active ledger contains nineteen checked evidence routes: fourteen A0
+routes, two RV64 routes, two x86-64 routes, and one cross-machine route.
+`make check-run`
 recomputes the finite byte, word-operation, complete-state codec, observation,
 addition-step, memory, branch,
 runner, decoder, and step-coverage reports. It also rebuilds and checks the
 fixed-width addition and memory-frame certificates. It also regenerates and
-checks both official source pins and both real-ISA decoder/step reports. Every
+checks finite A0 equivalence with decoded-model replay, the bounded A0
+scalar-minimality report, both official source pins, both real-ISA decoder/step
+reports, and the cross-machine absolute-value report. Every
 route runs a negative control and
 requires a nonzero exit with `semantic-mismatch`.
 
 The certificate route checks eight separate widths. It does not run an
-arbitrary-width kernel proof, cross-ISA, or minimality route; those remain
-open. The real-ISA computations are not universal semantic or refinement
-theorems.
+arbitrary-width kernel proof. The minimality and cross-machine routes are
+finite computations within their declared scopes, not universal semantic,
+minimality, or refinement theorems. Real-ISA candidate-language packages and
+the Chapter 15 three-machine XOR relation remain open.
 
 ## Promotion checklist
 

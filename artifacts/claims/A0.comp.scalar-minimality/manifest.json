@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "A0.comp.scalar-minimality",
+  "statement": "Axeyum exhaustively enumerates the Chapter 13 width-eight A0 add-two language through cost two, replays every candidate, and finds no correct program below the printed two-add witness.",
+  "scope": "Width eight; the exact six-instance mov/add alphabet printed in Chapter 13; r0 writable, r1 read-only with entry value one, other registers zero, empty memory, pc zero, running outcome; instruction-count costs zero through two; observation of final r0 and running completion.",
+  "exclusions": ["Widths 16 through 64", "Arbitrary A0 instructions, registers, memory, or programs longer than two", "RV64I or x86-64 minimality", "A solver certificate or width-parametric theorem"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "a0-semantics", "version": "10", "path": "artifacts/semantic/a0-v10.json", "sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d"}],
+  "artifacts": [{"path": "artifacts/claims/A0.comp.scalar-minimality/report.json", "sha256": "268bc13e35e606637b5703ddde0ca7a563a39a658793453b930339b653d071ce", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-a0-minimality artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.scalar-minimality/report.json", "version": "axeyum-machine-evidence-a0-minimality-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-a0-minimality artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.scalar-minimality/report.json", "version": "axeyum-machine-evidence-a0-minimality-v1", "expected_result": "a0-minimality: PASS: alphabet=6 strata=[1, 6, 36] minimum=2 witness=2 result_sha256=06a6550fdf29f7239d0355f8d25a271fb866c641f25452a76fa738e19ab12f30"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-a0-minimality-language-omission artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.scalar-minimality/report.json", "expected_failure": "semantic-mismatch", "mutates": "Remove one declared alphabet member and require both language identity and complete stratum cardinality to change"},
+  "environment": {"axeyum_revision": "6c4606c8680ff2283d8b956ae37c72a28c4787b5", "rust_version": "1.88 or newer"},
+  "limitations": ["The result is exhaustive only over the declared finite width-eight candidate and input domains.", "The checker directly re-executes every candidate rather than checking a separately retained solver refutation.", "A separate tested control mutates the second witness instruction and requires a concrete mismatch at input one, but the manifest has one load-bearing negative-control command."],
+  "created": "2026-08-31"
+}

@@ -19,7 +19,7 @@ from an ordinary book.
   case studies. Treat RISC and CISC as clusters of explicit semantic features.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
-- **Status:** eighteen evidence routes are replayable: thirteen A0 routes plus
+- **Status:** nineteen evidence routes are replayable: fourteen A0 routes plus
   source-pin and executable decoder/step routes for the RV64I and x86-64
   teaching slices, plus the cross-machine absolute-value route. The real-ISA routes execute every selected form and all
   printed programs, check declared traps and canonical projections, and reject
@@ -32,7 +32,11 @@ from an ordinary book.
   computation, not a universal simulation theorem. The finite A0 equivalence
   route checks the Chapter 11 clear-register pair over its declared width-eight
   state families and decodes and replays two complete-state counterexamples.
-  It is not a general equivalence solver or certificate. Axeyum's Python layer now
+  It is not a general equivalence solver or certificate. The bounded A0
+  scalar-minimality route exhausts the Chapter 13 width-eight
+  six-instance language through cost two. It is a finite computation, not an
+  arbitrary-program, arbitrary-width, or real-ISA minimality theorem. Axeyum's
+  Python layer now
   exposes the complete concrete A0 word, memory, state-codec, instruction,
   step, trap, and bounded-trace surface. The
   Chapter 6 addition listing runs unchanged against that interface. The

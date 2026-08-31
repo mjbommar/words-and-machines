@@ -1,0 +1,26 @@
+{
+  "id": "A0.comp.scalar-minimality", "kind": "computation", "part": 3,
+  "title": "Exhaustive width-eight A0 scalar minimality",
+  "statement": "Axeyum exhaustively enumerates the Chapter 13 A0 add-two language through cost two and replays every candidate, establishing minimum instruction count two at width eight within that declared language.",
+  "formal": {"language": "prose", "statement": "enumerate the exact six-instance alphabet at costs 0, 1, and 2; execute all 1 + 6 + 36 programs on all 256 width-eight inputs; require r0_out = r0_in + 2 mod 256 and running completion", "fragment": "finite-executable-minimality"},
+  "epistemic_status": "computed",
+  "scope": "Width eight; exact six-instance Chapter 13 mov/add alphabet; r0 writable and r1 read-only with value one; other registers zero, empty memory, pc zero, and running outcome; instruction-count costs zero through two; observe final r0 and running completion.",
+  "depends_on": ["OP.a0.run", "REL.def.candidate-language", "REL.def.cost", "A0.def.observation"],
+  "evidence": [{
+    "kind": "exhaustive-enumeration", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v10.json", "artifacts/claims/A0.comp.scalar-minimality/manifest.json"],
+    "artifact": "artifacts/claims/A0.comp.scalar-minimality",
+    "sha256": {
+      "artifacts/semantic/a0-v10.json": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
+      "artifacts/claims/A0.comp.scalar-minimality/manifest.json": "637d15767607036b5a2bf701bc211671ac76e023a97abdda890db4146a65d096",
+      "artifacts/claims/A0.comp.scalar-minimality/report.json": "268bc13e35e606637b5703ddde0ca7a563a39a658793453b930339b653d071ce"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-a0-minimality artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.scalar-minimality/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-a0-minimality-language-omission artifacts/semantic/a0-v10.json artifacts/claims/A0.comp.scalar-minimality/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-31",
+    "note": "The complete strata contain 1, 6, and 36 syntactic candidates, 1, 5, and 11 behavior classes, and 0, 0, and 4 correct candidates. A separate tested control mutates the witness and fails at input one."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "bounded A0 scalar minimality by complete enumeration", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch13-languages-costs", "label": "comp:a0-scalar-minimality", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-31", "by": "Axeyum executable curriculum", "origin": "OP.rel.scalar-minimality"}
+}

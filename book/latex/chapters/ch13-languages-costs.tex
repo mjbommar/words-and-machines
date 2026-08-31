@@ -999,11 +999,28 @@ specification.}
 \label{fig:a0-xplus2-search}
 \end{figure}
 
-The case now has a complete reader argument for its teaching language. It is not yet a
-machine-backed book result: no current object binds this exact grammar,
-enumeration, checker, and negative control. That distinction matters even
-when the mathematics fits on half a page. The later evidence route must check
-the bytes and semantics it claims, not borrow confidence from this table.
+The reader proof holds for every \(w\geq2\). The accompanying machine route
+checks one exact finite instance at width eight. It encodes the six printed
+instructions, enumerates all \(1+6+36=43\) programs at costs zero through two,
+and runs each program on all 256 inputs. The three strata contain 1, 5, and 11
+distinct observed truth tables and 0, 0, and 4 correct syntactic candidates.
+The four cost-two candidates include source-order spellings with the same
+behavior; syntax and behavior are counted separately.
+
+The checker recomputes the enumeration and the complete truth table of the
+printed two-add witness. Its language-closure control removes one alphabet
+member and must detect both a changed language digest and a changed stratum
+count. A second route test changes the witness's second instruction to
+\code{add r0,r0,r0} and finds the first mismatch at input one. This is a
+finite computation, not a solver certificate or a theorem about every A0
+width.
+
+\begin{artifact}{A0.comp.scalar-minimality}
+The retained report binds the exact candidate alphabet, resources, cost,
+observation, canonical instruction bytes, complete strata, witness truth
+table, semantic-package digest, checker, and negative control.
+\ArtifactScope{A0.comp.scalar-minimality}
+\end{artifact}
 
 \subsection{Why each clause matters}
 
@@ -1464,8 +1481,9 @@ and that every cell carries an accepted refutation. It can also compose cell
 proofs into one refutation of the original formula. Those mechanisms are
 directly relevant to a durable lower-bound package.
 
-The missing boundary remains substantial. Axeyum now supplies the book's A0
-decoder and transition system and the selected RV64I decoder and step package.
+A substantial boundary remains. Axeyum now supplies the book's A0
+decoder and transition system, the exhaustive width-eight tiny-language
+minimality route above, and the selected RV64I decoder and step package.
 It does not yet supply complete RV64 or x86-64 candidate-language packages.
 The selected x86-64 machine semantics now execute the manuscript forms, but
 they do not define a bounded synthesis language. Its AVX2 shuffle semantics track
@@ -1473,16 +1491,16 @@ byte provenance for a selected operation family; they are not an x86-64
 machine semantics. We should not place a Python convenience function over
 that gap and call the result an ISA proof.
 
-The first implementation route should follow the dependency order already
+The next implementation route should follow the dependency order already
 visible in the reader argument.
 
 \begin{enumerate}
 \item Generalize the existing Rust search contracts beyond the selected AVX2
 families: decoded forms, resources, precondition, observation, bound, and cost.
-\item Connect an A0 instance of that contract to an executable decoder and step
-semantics owned by the book's machine definition.
-\item Enumerate the tiny language and replay every candidate concretely at a
-small width, including the zero- and one-instruction layers above.
+\item Generalize the working A0 instance beyond its extensional six-form
+language while preserving executable decoder and step semantics.
+\item Extend the current concrete width-eight replay to another declared width
+or to a symbolic route, without broadening the claim before its checker.
 \item Translate the same semantics to Axeyum bit-vector expressions and check
 candidate equivalence by searching for a counterexample input.
 \item Reuse the existing satisfying-model lift, DRAT checking, and exhaustive

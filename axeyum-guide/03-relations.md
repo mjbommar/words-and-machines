@@ -29,5 +29,13 @@ Begin with a tiny A0 language printed extensionally. Bind candidate syntax to
 A0 semantics and a separate cost function. A witness supplies the upper bound;
 coverage of every cheaper well-formed candidate supplies the lower bound.
 
+The first route now does exactly this for the Chapter 13 width-eight `x + 2`
+case. It enumerates all 1, 6, and 36 programs at instruction costs zero, one,
+and two from the printed six-instance alphabet, executes each over all 256
+inputs, and retains complete behavior and witness digests. The language-
+omission control changes both identity and cardinality; a separate witness
+mutation fails at input one. This is direct finite execution, not a solver
+certificate or an arbitrary-width result.
+
 Only after that route works may the project define scalar RV64 and x86-64
 languages over their source-pinned decoded forms.

@@ -2,7 +2,8 @@
   "id": "OP.rel.scalar-minimality", "kind": "obligation", "part": 3,
   "title": "Build the scalar minimality route",
   "statement": "Build a semantics-backed bounded minimality route for a tiny A0 scalar language before adding scoped RV64 and x86-64 counterparts.",
-  "epistemic_status": "open", "depends_on": ["OP.rel.a0-equivalence", "REL.def.candidate-language", "REL.def.cost", "EVID.def.manifest"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["OP.rel.a0-equivalence", "A0.comp.scalar-minimality", "REL.def.candidate-language", "REL.def.cost", "EVID.def.manifest"],
+  "evidence": [{"kind": "claim-ref", "trust_class": "computation", "semantic_inputs": ["objects/A0.comp.scalar-minimality.json"], "artifact": "artifacts/claims/A0.comp.scalar-minimality", "check_status": "checked", "checked_on": "2026-08-31", "note": "The exhaustive width-eight route fulfills the first tiny-language A0 minimality obligation. It does not establish arbitrary-program, arbitrary-width, RV64I, or x86-64 minimality."}],
   "book": {"chapter": "ch13-languages-costs", "label": "op:scalar-minimality", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }
