@@ -1007,11 +1007,13 @@ counters, architectural flags, memory injections, faults, or ABI
 continuations.
 
 The checkout now contains reusable A0, twelve-form RV64I, and seventeen-form
-x86-64 decoder-and-step packages. It does not contain typed cross-machine
-relations. This chapter therefore specifies the required relation without
-presenting the absolute-value simulation as machine-established evidence. The
-implemented routes show how decoded states and replay behave; the remaining
-adapter and relation identify what must still be added rather than assumed.
+x86-64 decoder-and-step packages. Their Python projections expose typed
+instructions, complete states, traps, canonical projections, and single-step
+execution. The book harness assembles, wholly decodes, and executes all three
+absolute-value listings. Axeyum still lacks the typed cross-machine relation
+that would turn those separate traces into one simulation result. This chapter
+therefore presents the relation contract without giving the concrete examples
+the stronger status of machine-established cross-ISA evidence.
 
 Implementation should proceed in dependency order:
 
@@ -1080,8 +1082,9 @@ traps, or control-point progress. The formula becomes useful evidence only
 after executable source-pinned semantics connect machine bytes to it.
 \end{goingdeeper}
 
-The introductory Python or PyO3 API can expose named routines, widths,
-relations, observations, and returned counterexample traces. Rust should own
+The current Python API exposes machine states, instructions, decoding,
+projection, and steps. A later relation layer can add named routines,
+observations, relation clauses, and returned counterexample traces. Rust should own
 the typed semantic objects, digests, solver encoding, and replay. Convenience
 at the boundary should reduce setup work, not erase which route and scope
 supported the result.
@@ -1094,10 +1097,11 @@ inspect the control-point map, execute one segment, and ask which relation
 clauses hold. Only then should it offer a composed comparison.
 
 \begin{keyidea}[title={Contract for a relation-first interface}]
-The eventual interface must expose the three entry states, the relation at
+The relation interface must expose the three entry states, the relation at
 each named control point, one decoded segment step, the endpoint states, and
-the first failed relation clause. No current Axeyum import supplies those
-objects, so the book does not print an executable call here.
+the first failed relation clause. Current Axeyum imports supply the machine
+objects and steps but not the relation or failed-clause objects, so the book
+does not print an executable relation call here.
 \end{keyidea}
 
 The explanation must report satisfied and failed clauses with concrete values.

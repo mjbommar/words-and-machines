@@ -1908,29 +1908,34 @@ states beyond the present scalar core.
 Axeyum supplies bit-vector expressions, solver routes, evidence reports,
 propositional proof checking, selected SMT proof support, kernel reconstruction
 machinery, the complete concrete A0 teaching machine, and source-pinned RV64I
-and x86-64 slices. Both real-machine routes execute this chapter's complete XOR
-listing on three inputs. The live checkout does not yet supply the typed
-cross-machine relation needed to check all three listings as one relational
-artifact. This chapter therefore separates the reader proof above from the
+and x86-64 slices. Python projects all three concrete executors. The book gate
+assembles and wholly decodes every printed real-ISA listing, then executes this
+chapter's RV64I and x86-64 XOR programs on the same three-word case. Separate
+Axeyum evidence routes run those two real-machine listings on empty, singleton,
+and three-word inputs. The A0 package executes every instruction family and
+replays source-bound traces, but it does not yet bind this chapter's complete
+A0 XOR listing as a single route. The live checkout does not yet supply the typed
+cross-machine relation needed to check all three traces as one relational
+artifact. This chapter therefore separates concrete execution from the
 still-open three-machine theorem below.
 
 The first implementation layer should be Rust. Instruction decoding, typed
 machine states, step relations, trace replay, memory-range checks, and
 cross-state relations are trust-bearing core logic. They belong in small
 Axeyum crates with exhaustive unit tests and negative controls. Python bindings
-should later expose those checked operations for lessons, notebooks, and
+now expose those checked operations for lessons, notebooks, and
 artifact runners. Python is the workbench; it should not become a second,
 quietly different semantics.
 
 \begin{keyidea}[title={Contract for the three-machine lesson interface}]
-The eventual interface must accept one declared memory case and the exact bytes
+The relation interface must accept one declared memory case and the exact bytes
 for all three programs. It must return typed outcomes, decoded traces,
 first-divergence information, semantic-package digests, relation results, and
 control results. It must reject unsupported instructions and malformed bytes.
 It must not turn a timeout, missing checker, or decode error into successful
-evidence. Because the cross-machine relation and Python projection do not yet
-exist, there is no executable three-machine Python
-import to show here.
+evidence. The individual Python machine projections now exist and drive the
+book's runtime harness. The shared relation and evidence result do not, so
+there is no executable three-machine relation import to show here.
 \end{keyidea}
 
 \begin{figure}[htbp]
@@ -2111,18 +2116,17 @@ machine row makes the comparison unavailable, not partially verified.
 
 \subsection{The present stopping point}
 
-The live Axeyum audit found rich solver and evidence machinery but no reusable
-A0, RV64I, or x86-64 executor. Therefore the assembled bytes in this chapter
-are code-size and decode test vectors, not Axeyum proof artifacts. The reader
-proof is a mathematical plan over the selected semantics, not a report from a
-completed kernel route.
+The live packages now supply all three concrete executors, source-pinned real-
+ISA decoders, Python projections, and a book harness that executes the exact
+printed programs. An assemblable x86 instruction outside the selected slice is
+the harness's decode-refusal control. These are executable trace artifacts,
+not a cross-machine theorem or a checked minimality result.
 
-Keeping that gap visible protects implementation order. The project should not
-begin with a three-way solver query over placeholder operations. It should
-first make each decoder reject unsupported bytes, make each step replay tiny
-positive and negative examples, and bind the harness. Only then does the
-cross-machine relation have real states to compare. Solver and certificate
-machinery amplify a semantics; they cannot supply a missing one.
+The next dependency is now the relation itself: typed entry states, cut-point
+maps, endpoint clauses, first-divergence reporting, and controls derived from
+the same three semantics. Only after that layer exists should a three-way
+solver query or certificate claim relational credit. Solver and certificate
+machinery amplify a semantics and relation; they cannot supply a missing one.
 
 Several established textbook forms meet in this chapter. A conventional
 algorithms treatment teaches the loop invariant by asking for initialization,
