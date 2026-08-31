@@ -121,9 +121,13 @@ make -C book preflight
 15. The first successful CI artifact bundle was semantically identical to the
     local outputs—the PDF text matched byte for byte and the unpacked EPUB
     differed only in `dcterms:modified`—but the container had used wall-clock
-    time instead of the commit timestamp. CI now writes the checked-out
-    commit's Unix time to `SOURCE_DATE_EPOCH` before building. This makes EPUB
-    package metadata and ZIP entry times reproducible for the same revision.
+    time instead of the commit timestamp. Inside the root-owned build
+    container, Git also requires the mounted checkout to be registered as a
+    safe directory; without that, timestamp discovery silently yielded an
+    empty value. CI now registers the exact workspace, rejects an empty or
+    nonnumeric epoch, and writes the checked-out commit's Unix time to
+    `SOURCE_DATE_EPOCH` before building. This makes EPUB package metadata and
+    ZIP entry times reproducible for the same revision.
 
 ## Distribution blockers
 

@@ -17,7 +17,13 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Pin reproducible-build timestamp
-        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          source_epoch=$(git log -1 --format=%ct)
+          case "$source_epoch" in
+            *[!0-9]*|'') echo "invalid source epoch: $source_epoch" >&2; exit 1 ;;
+          esac
+          echo "SOURCE_DATE_EPOCH=$source_epoch" >> "$GITHUB_ENV"
 
       - name: Install publication toolchain
         run: |
