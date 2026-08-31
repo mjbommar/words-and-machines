@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Pin reproducible-build timestamp
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+
       - name: Install publication toolchain
         run: |
           apt-get update -qq

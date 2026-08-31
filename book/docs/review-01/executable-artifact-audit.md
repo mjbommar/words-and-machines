@@ -118,6 +118,12 @@ make -C book preflight
     headless use, while the container omitted Python's Tk bindings. The CI
     toolchain now installs `python3-tk` explicitly rather than relying on a
     developer workstation's ambient packages.
+15. The first successful CI artifact bundle was semantically identical to the
+    local outputs—the PDF text matched byte for byte and the unpacked EPUB
+    differed only in `dcterms:modified`—but the container had used wall-clock
+    time instead of the commit timestamp. CI now writes the checked-out
+    commit's Unix time to `SOURCE_DATE_EPOCH` before building. This makes EPUB
+    package metadata and ZIP entry times reproducible for the same revision.
 
 ## Distribution blockers
 
