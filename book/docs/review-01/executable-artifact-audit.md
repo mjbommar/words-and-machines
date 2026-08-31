@@ -128,6 +128,10 @@ make -C book preflight
     nonnumeric epoch, and writes the checked-out commit's Unix time to
     `SOURCE_DATE_EPOCH` before building. This makes EPUB package metadata and
     ZIP entry times reproducible for the same revision.
+16. The successful workflow still emitted a runner deprecation because
+    `actions/upload-artifact@v4` targets Node 20. The upload step now uses the
+    current Node 24-based v7 major; artifact paths, retention, and the
+    post-upload download check remain unchanged.
 
 ## Distribution blockers
 
