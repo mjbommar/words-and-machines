@@ -1,0 +1,297 @@
+{
+  "schema": "axeyum.x64.decoder-step.v1",
+  "implementation_sha256": "59ac7cf9fe3a6c558ca63b0b01705e1a5da024fc4aae1a8eb87278c53350dbe8",
+  "forms_executed": 17,
+  "book_encodings": [
+    {
+      "label": "xor-clear",
+      "address": 0,
+      "bytes": [
+        49,
+        192
+      ],
+      "decoded": "Xor32 { destination: 0, source: 0 }"
+    },
+    {
+      "label": "xor-test-count",
+      "address": 2,
+      "bytes": [
+        72,
+        133,
+        246
+      ],
+      "decoded": "Test64 { lhs: 6, rhs: 6 }"
+    },
+    {
+      "label": "xor-empty-branch",
+      "address": 5,
+      "bytes": [
+        116,
+        13
+      ],
+      "decoded": "JumpShort { condition: Equal, displacement: 13 }"
+    },
+    {
+      "label": "xor-memory",
+      "address": 7,
+      "bytes": [
+        72,
+        51,
+        7
+      ],
+      "decoded": "Xor64Memory { destination: 0, base: 7 }"
+    },
+    {
+      "label": "xor-pointer",
+      "address": 10,
+      "bytes": [
+        72,
+        131,
+        199,
+        8
+      ],
+      "decoded": "AddImmediate64 { destination: 7, immediate: 8 }"
+    },
+    {
+      "label": "xor-count",
+      "address": 14,
+      "bytes": [
+        72,
+        131,
+        238,
+        1
+      ],
+      "decoded": "SubImmediate64 { destination: 6, immediate: 1 }"
+    },
+    {
+      "label": "xor-loop",
+      "address": 18,
+      "bytes": [
+        117,
+        243
+      ],
+      "decoded": "JumpShort { condition: NotEqual, displacement: -13 }"
+    },
+    {
+      "label": "xor-return",
+      "address": 20,
+      "bytes": [
+        195
+      ],
+      "decoded": "Return"
+    },
+    {
+      "label": "count-test",
+      "address": 0,
+      "bytes": [
+        72,
+        133,
+        255
+      ],
+      "decoded": "Test64 { lhs: 7, rhs: 7 }"
+    },
+    {
+      "label": "count-empty-branch",
+      "address": 3,
+      "bytes": [
+        116,
+        6
+      ],
+      "decoded": "JumpShort { condition: Equal, displacement: 6 }"
+    },
+    {
+      "label": "count-sub",
+      "address": 5,
+      "bytes": [
+        72,
+        131,
+        239,
+        1
+      ],
+      "decoded": "SubImmediate64 { destination: 7, immediate: 1 }"
+    },
+    {
+      "label": "count-loop",
+      "address": 9,
+      "bytes": [
+        117,
+        250
+      ],
+      "decoded": "JumpShort { condition: NotEqual, displacement: -6 }"
+    },
+    {
+      "label": "leaf-lea",
+      "address": 0,
+      "bytes": [
+        72,
+        141,
+        71,
+        1
+      ],
+      "decoded": "LoadEffectiveAddress64 { destination: 0, base: 7, displacement: 1 }"
+    },
+    {
+      "label": "leaf-return",
+      "address": 4,
+      "bytes": [
+        195
+      ],
+      "decoded": "Return"
+    },
+    {
+      "label": "absolute-copy",
+      "address": 0,
+      "bytes": [
+        72,
+        137,
+        248
+      ],
+      "decoded": "Move64 { destination: 0, source: 7 }"
+    },
+    {
+      "label": "absolute-test",
+      "address": 3,
+      "bytes": [
+        72,
+        133,
+        192
+      ],
+      "decoded": "Test64 { lhs: 0, rhs: 0 }"
+    },
+    {
+      "label": "absolute-jns",
+      "address": 6,
+      "bytes": [
+        121,
+        3
+      ],
+      "decoded": "JumpShort { condition: NotSign, displacement: 3 }"
+    },
+    {
+      "label": "absolute-negate",
+      "address": 8,
+      "bytes": [
+        72,
+        247,
+        216
+      ],
+      "decoded": "Negate64 { destination: 0 }"
+    },
+    {
+      "label": "zero-xor",
+      "address": 0,
+      "bytes": [
+        49,
+        192
+      ],
+      "decoded": "Xor32 { destination: 0, source: 0 }"
+    },
+    {
+      "label": "zero-mov",
+      "address": 0,
+      "bytes": [
+        184,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decoded": "MoveImmediate32 { destination: 0, immediate: 0 }"
+    },
+    {
+      "label": "frame-push",
+      "address": 0,
+      "bytes": [
+        83
+      ],
+      "decoded": "Push64 { source: 3 }"
+    },
+    {
+      "label": "frame-sub-rsp",
+      "address": 1,
+      "bytes": [
+        72,
+        131,
+        236,
+        32
+      ],
+      "decoded": "SubImmediate64 { destination: 4, immediate: 32 }"
+    },
+    {
+      "label": "frame-save-argument",
+      "address": 5,
+      "bytes": [
+        72,
+        137,
+        251
+      ],
+      "decoded": "Move64 { destination: 3, source: 7 }"
+    },
+    {
+      "label": "frame-call-resolved-fixture",
+      "address": 8,
+      "bytes": [
+        232,
+        9,
+        0,
+        0,
+        0
+      ],
+      "decoded": "CallRelative { displacement: 9 }"
+    },
+    {
+      "label": "frame-add-result",
+      "address": 13,
+      "bytes": [
+        72,
+        1,
+        216
+      ],
+      "decoded": "Add64 { destination: 0, source: 3 }"
+    },
+    {
+      "label": "frame-add-rsp",
+      "address": 16,
+      "bytes": [
+        72,
+        131,
+        196,
+        32
+      ],
+      "decoded": "AddImmediate64 { destination: 4, immediate: 32 }"
+    },
+    {
+      "label": "frame-pop",
+      "address": 20,
+      "bytes": [
+        91
+      ],
+      "decoded": "Pop64 { destination: 3 }"
+    },
+    {
+      "label": "frame-return",
+      "address": 21,
+      "bytes": [
+        195
+      ],
+      "decoded": "Return"
+    }
+  ],
+  "xor_results": [
+    0,
+    81985529216486895,
+    7
+  ],
+  "count_result": 0,
+  "leaf_result": 42,
+  "nonleaf_result": 7,
+  "nonleaf_rbx_restored": true,
+  "absolute_results": [
+    7,
+    7
+  ],
+  "semantic_checks_passed": true,
+  "trap_classes_checked": 3,
+  "mutations_rejected": 4,
+  "result_sha256": "07c22eef75393a411bf9854dd24f7839d1b0f3775148e82fd89f86c1e49dbfd1"
+}

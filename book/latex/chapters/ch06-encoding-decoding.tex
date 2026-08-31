@@ -1170,8 +1170,10 @@ The active Axeyum book lane now contains a strict A0 decoder and one canonical
 encoder for all seventeen instruction families. Both belong to the same Rust
 semantic package used by A0 execution. The wider project also provides
 bit-vector expressions, bit-level lowering, solver routes, SAT and DRAT
-machinery, and kernel reconstruction infrastructure. Source-pinned RV64 and
-x86-64 decoders remain absent, so their implementation obligations stay open.
+machinery, and kernel reconstruction infrastructure. The source-pinned RV64
+and x86-64 decoders now cover the exact forms printed by the book. Their
+reports bind known bytes, decoded lengths, canonical re-encoding, executable
+programs, and negative controls. Broader decoders remain outside the slice.
 
 The first Axeyum exercise is constructive and now executable. The total decoder
 returns either a legal structured instruction or a named rejection. The

@@ -5,20 +5,20 @@
 From the book repository root run make ledger, make artifact-check, make check,
 and make check-run.
 
-The active ledger contains fourteen checked evidence routes: twelve A0 routes
-and two RV64 routes. `make check-run`
+The active ledger contains sixteen checked evidence routes: twelve A0 routes,
+two RV64 routes, and two x86-64 routes. `make check-run`
 recomputes the finite byte, word-operation, complete-state codec, observation,
 addition-step, memory, branch,
 runner, decoder, and step-coverage reports. It also rebuilds and checks the
 fixed-width addition and memory-frame certificates. It also regenerates and
-checks the official RV64 source pin and the twelve-form RV64 decoder/step
-report. Every route runs a negative control and
+checks both official source pins and both real-ISA decoder/step reports. Every
+route runs a negative control and
 requires a nonzero exit with `semantic-mismatch`.
 
 The certificate route checks eight separate widths. It does not run an
-arbitrary-width kernel proof, x86-64, cross-ISA, or minimality route; those
-remain open. The RV64 computation is not a universal semantic or refinement
-theorem.
+arbitrary-width kernel proof, cross-ISA, or minimality route; those remain
+open. The real-ISA computations are not universal semantic or refinement
+theorems.
 
 ## Promotion checklist
 
@@ -40,7 +40,8 @@ still match exactly; a later incompatible semantic edit therefore fails
 closed instead of inheriting credit. The A0 manifests pin compatible ancestors
 through `9bb3dd9ba07fc35d1d7f417556dadc27793cd8f3` and semantic package v10.
 The RV64 manifests pin Axeyum revision
-`b6f3a543b3cd2b418501927d615190b6821a241e`.
+`b6f3a543b3cd2b418501927d615190b6821a241e`. The x86-64 manifests pin
+`1cb53b9a940a4cc685b910441cb16b0dbb03fae5`.
 
 The old reproduction commands for vector shuffles and Bitmanip tables are in
 the research archive. They are not part of the active gate.

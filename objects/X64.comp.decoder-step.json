@@ -1,0 +1,26 @@
+{
+  "id": "X64.comp.decoder-step", "kind": "computation", "part": 2,
+  "title": "Executable x86-64 decoder and step slice",
+  "statement": "Axeyum decodes, canonically re-encodes, and executes all seventeen selected x86-64 forms, including the six manuscript programs, traps, flags, projection, and semantic controls.",
+  "formal": {"language": "prose", "statement": "replay(selected_forms, printed_programs, inputs, traps, controls) = declared_observations", "fragment": "finite-executable-semantics"},
+  "epistemic_status": "computed",
+  "scope": "Seventeen selected forms, twenty-eight instruction records, six programs, three trap classes, canonical projection, and four declared mutations under the source-pinned profile.",
+  "depends_on": ["X64.comp.source-pin", "X64.def.decode", "X64.def.step", "OP.a0.step"],
+  "evidence": [{
+    "kind": "decoder-agreement", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/claims/X64.comp.source-pin/report.json", "artifacts/claims/X64.comp.decoder-step/manifest.json"],
+    "artifact": "artifacts/claims/X64.comp.decoder-step",
+    "sha256": {
+      "artifacts/claims/X64.comp.source-pin/report.json": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10",
+      "artifacts/claims/X64.comp.decoder-step/manifest.json": "cea4cc42b645339834fc55c309fb97eae3fcd8788641ed927467fc69c7151b5f",
+      "artifacts/claims/X64.comp.decoder-step/report.json": "d32a89f558c0b906a8c541305034de4755efe7fb564af73a71378b123eff6563"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-x64-execution artifacts/claims/X64.comp.decoder-step/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-x64-branch-base artifacts/claims/X64.comp.decoder-step/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "All six manuscript listings execute. The short-branch mutation distinguishes following-RIP target formation from instruction-RIP target formation."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "x86-64 decoder and step executable replay", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch08-arithmetic-condition", "label": "comp:x64-decoder-step", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "OP.x64.decoder-step"}
+}

@@ -1,0 +1,27 @@
+{
+  "id": "X64.comp.source-pin", "kind": "computation", "part": 2,
+  "title": "Pinned x86-64 source and teaching slice",
+  "statement": "The x86-64 teaching slice is bound to Intel instruction-reference revision 325383-092US and seventeen explicitly selected scalar form families.",
+  "formal": {"language": "prose", "statement": "X64Slice = source_sha256 x revision x selected_forms x profile x exclusions", "fragment": "source-identity-and-finite-selection"},
+  "epistemic_status": "computed",
+  "scope": "The June 2026 Intel combined Volume 2 PDF and the exact legacy or REX.W scalar forms required by the six manuscript listings.",
+  "depends_on": ["X64.def.slice"],
+  "evidence": [{
+    "kind": "semantic-package", "trust_class": "computation",
+    "semantic_inputs": ["objects/X64.def.slice.json", "artifacts/claims/X64.comp.source-pin/manifest.json"],
+    "artifact": "artifacts/claims/X64.comp.source-pin",
+    "sha256": {
+      "objects/X64.def.slice.json": "a2d4eef612a21322dd54ec1b9b78af2ddc198d96120b2810b6f89a8bfcb29e21",
+      "artifacts/claims/X64.comp.source-pin/manifest.json": "36392f5bbede44a3647679d6d2995738a8294345af1b90b07b42b2682bd2beb0",
+      "artifacts/claims/X64.comp.source-pin/report.json": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-x64-source artifacts/claims/X64.comp.source-pin/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-x64-source-digest artifacts/claims/X64.comp.source-pin/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The checker recomputes the compiled source identity and exact selection. Changing the official PDF digest is rejected."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "x86-64 official-source and slice pin", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch06-encoding-decoding", "label": "comp:x64-source-pin", "role": "machine-proof"},
+  "sources": ["https://cdrdv2-public.intel.com/922478/325383-092-sdm-vol-2abcd.pdf"],
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "OP.x64.source-pin"}
+}

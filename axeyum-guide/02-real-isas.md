@@ -1,7 +1,7 @@
 # RV64 and x86-64 adapters
 
-Real-ISA work begins with sources, not code. The RV64 route described here is
-implemented and replayable. The x86-64 route remains an implementation plan.
+Real-ISA work begins with sources, not code. Both selected routes described
+here are implemented and replayable.
 
 ## Source manifest
 
@@ -19,8 +19,8 @@ The RV64 decoder is checked against thirteen exact words printed in the book,
 including the complete XOR program, and against canonical re-encoding. The
 source-digest and taken-branch-base mutations are active negative controls.
 Independent differential decoding remains a stronger future check. The x86-64
-decoder still requires authoritative vectors plus prefix, opcode, modifier,
-and length controls.
+route checks twenty-eight fixed instruction records, variable lengths, all six
+manuscript programs, and source-digest and following-RIP branch controls.
 
 ## Step adapter
 
@@ -33,6 +33,11 @@ The RV64 executor steps every selected form and checks its architectural
 effect. It runs the printed XOR loop on three inputs, distinguishes five trap
 classes, and exposes a canonical refinement-facing projection. This is finite
 execution evidence, not a universal refinement result.
+
+The x86-64 executor covers all seventeen selected form families. It preserves
+defined and undefined flag results, partial-register clearing, following-RIP
+branch targets, unaligned memory operands, and implicit stack effects. It runs
+the XOR, count, leaf, non-leaf, absolute-value, and write-zero examples.
 
 The first cross-machine refinement target is one scalar arithmetic instruction on each
 architecture. No adapter claim may be inferred from an existing custom

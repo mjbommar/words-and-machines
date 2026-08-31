@@ -1,0 +1,45 @@
+{
+  "schema": "axeyum.x64.source-pin.v1",
+  "source_url": "https://cdrdv2-public.intel.com/922478/325383-092-sdm-vol-2abcd.pdf",
+  "source_revision": "325383-092US",
+  "source_sha256": "db01e5918a710c16487e27a9e71a19af201f39b3311c55550559baaf0805160b",
+  "source_bytes": 11258123,
+  "source_pages": 2573,
+  "source_date": "June 2026",
+  "implementation_sha256": "59ac7cf9fe3a6c558ca63b0b01705e1a5da024fc4aae1a8eb87278c53350dbe8",
+  "selected_forms": [
+    "XOR r32,r32",
+    "MOV r32,imm32",
+    "TEST r64,r64",
+    "JE rel8",
+    "JNE rel8",
+    "JNS rel8",
+    "XOR r64,m64",
+    "ADD r64,imm8",
+    "SUB r64,imm8",
+    "MOV r64,r64",
+    "NEG r64",
+    "LEA r64,[r64+disp8]",
+    "PUSH r64",
+    "POP r64",
+    "CALL rel32",
+    "ADD r64,r64",
+    "RET"
+  ],
+  "exclusions": [
+    "registers R8 through R15",
+    "SIB, RIP-relative, absolute, and wider-displacement addressing",
+    "near conditional jumps and indirect calls or jumps",
+    "legacy modes, privileged state, segmentation, paging, and devices",
+    "LOCK, VEX, EVEX, APX, vector, floating-point, and system forms",
+    "alignment checking, canonical-address faults, and asynchronous events"
+  ],
+  "profile": [
+    "64-bit mode",
+    "low eight general-purpose registers",
+    "CF, PF, AF, ZF, SF, and OF with explicit undefined values",
+    "finite little-endian byte memory",
+    "immutable code image and variable-length sequential RIP",
+    "running or distinct trapped outcome"
+  ]
+}

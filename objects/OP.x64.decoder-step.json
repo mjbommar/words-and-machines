@@ -2,7 +2,8 @@
   "id": "OP.x64.decoder-step", "kind": "obligation", "part": 2,
   "title": "Implement and independently test the x86-64 decoder and step adapter",
   "statement": "Implement the source-pinned x86-64 decoder and semantics in Axeyum, including length, implicit-effect, flag, address, and refinement-facing controls.",
-  "epistemic_status": "open", "depends_on": ["OP.x64.source-pin", "X64.def.decode", "X64.def.step", "OP.a0.step"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["OP.x64.source-pin", "X64.comp.decoder-step", "X64.def.decode", "X64.def.step", "OP.a0.step"],
+  "evidence": [{"kind": "claim-ref", "trust_class": "computation", "semantic_inputs": ["objects/X64.comp.decoder-step.json"], "artifact": "artifacts/claims/X64.comp.decoder-step", "check_status": "checked", "checked_on": "2026-08-30", "note": "The executable decoder/step computation fulfills this implementation obligation within its declared slice."}],
   "book": {"chapter": "ch08-arithmetic-condition", "label": "op:x64-decoder-step", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "paired-ISA ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

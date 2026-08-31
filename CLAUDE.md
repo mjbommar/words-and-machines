@@ -19,15 +19,15 @@ from an ordinary book.
   case studies. Treat RISC and CISC as clusters of explicit semantic features.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
-- **Status:** fourteen evidence routes are replayable: twelve A0 routes plus
-  the source pin and executable decoder/step route for the twelve-form RV64I
-  teaching slice. The RV64 route steps every selected form, runs the printed
-  XOR program, checks five trap classes and canonical projection, and rejects
+- **Status:** sixteen evidence routes are replayable: twelve A0 routes plus
+  source-pin and executable decoder/step routes for the RV64I and x86-64
+  teaching slices. The real-ISA routes execute every selected form and all
+  printed programs, check declared traps and canonical projections, and reject
   source-digest and branch-base mutations. The reusable A0 routes include the
   word-operation audit, canonical complete-state codec, and fixed-width
   addition and memory-frame certificates for every supported A0 width. General
-  theorems for the remaining A0 operations, and every x86-64 and cross-machine
-  route remain open. The full manuscript has
+  theorems for the remaining A0 operations and every cross-machine route remain
+  open. The full manuscript has
   completed its first sequential breadth-and-depth pass and now requires
   executable-artifact, technical, editorial, and publication review. No
   chapter is complete merely because it meets a word or page band.

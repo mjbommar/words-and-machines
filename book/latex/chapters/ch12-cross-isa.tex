@@ -719,10 +719,10 @@ three machines therefore place \emph{done} at addresses 12, 8, and 11. A
 control relation makes those unequal numbers denote one logical exit.
 
 The bytes above were assembled and disassembled locally with LLVM's machine
-code tools. That independent calculation is a useful transcription check. It
-does not turn the worked simulation into machine evidence: A0 lacks an
-executable decoder here, and the chapter does not yet bind any of the three
-decoders and step relations into an Axeyum object.
+code tools. Axeyum now independently decodes and executes each selected
+machine slice. Those separate computations still do not turn the worked
+simulation into machine evidence: the chapter has not yet bound the three
+executions with a checked cross-state relation.
 
 At entry, relate A0 \(r_0\), RV64 \code{a0}, and x86-64 \code{RDI} to the
 same input word \(x\). Require A0 \(r_1=0\). The x86 destination \code{RAX}
@@ -1006,8 +1006,8 @@ states. Scalar result equality does not cover machine-code bytes, program
 counters, architectural flags, memory injections, faults, or ABI
 continuations.
 
-The checkout now contains reusable A0 and twelve-form RV64I decoder-and-step
-packages. It does not contain the x86-64 package or typed cross-machine
+The checkout now contains reusable A0, twelve-form RV64I, and seventeen-form
+x86-64 decoder-and-step packages. It does not contain typed cross-machine
 relations. This chapter therefore specifies the required relation without
 presenting the absolute-value simulation as machine-established evidence. The
 implemented routes show how decoded states and replay behave; the remaining
@@ -1019,8 +1019,8 @@ Implementation should proceed in dependency order:
 \item use the checked A0 state, decoder, step, and bounded-run packages;
 \item use the source-pinned RV64I branch, subtraction, and jump forms already
 exercised by the book route;
-\item implement a source-pinned x86-64 slice for the exact move, test,
-conditional jump, negation, and return forms used;
+\item use the source-pinned x86-64 move, test, conditional jump, negation, and
+return forms already exercised by the book route;
 \item define typed control-point relations with register, memory, condition,
 program-counter, outcome, and freedom clauses;
 \item check each local simulation segment and compose the endpoint theorem;

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "X64.comp.source-pin",
+  "statement": "The book's x86-64 teaching slice is bound to Intel's June 2026 instruction reference, order number 325383-092US, and the seventeen declared legacy or REX.W form families.",
+  "scope": "Intel combined Volume 2 revision 325383-092US and the exact scalar 64-bit-mode forms required by the book's six x86-64 listings.",
+  "exclusions": ["Registers R8 through R15", "SIB, RIP-relative, absolute, and wider-displacement addressing", "Near conditional jumps and indirect control", "Legacy modes, privileged state, paging, and devices", "LOCK, VEX, EVEX, APX, vector, floating-point, and system forms"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "x64-slice-definition", "version": "2026-08-27", "path": "objects/X64.def.slice.json", "sha256": "a2d4eef612a21322dd54ec1b9b78af2ddc198d96120b2810b6f89a8bfcb29e21"}],
+  "artifacts": [{"path": "artifacts/claims/X64.comp.source-pin/report.json", "sha256": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-x64-source artifacts/claims/X64.comp.source-pin/report.json", "version": "axeyum-machine-evidence-x64-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-x64-source artifacts/claims/X64.comp.source-pin/report.json", "version": "axeyum-machine-evidence-x64-v1", "expected_result": "x64-source: PASS: revision=325383-092US forms=17"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-x64-source-digest artifacts/claims/X64.comp.source-pin/report.json", "expected_failure": "semantic-mismatch", "mutates": "Change one nibble of the pinned official PDF digest"},
+  "environment": {"axeyum_revision": "1cb53b9a940a4cc685b910441cb16b0dbb03fae5", "rust_version": "1.88 or newer"},
+  "limitations": ["The report pins the official bytes by digest and URL; it does not redistribute Intel's PDF.", "The source pin does not by itself establish execution semantics."],
+  "created": "2026-08-30"
+}

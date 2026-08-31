@@ -94,9 +94,9 @@ one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
 The runtime check executes twelve A0 computations, traces, and certificate
-routes plus the RV64 source-pin and decoder/step routes. Every route has a
-negative control that must fail. The x86-64 and cross-machine routes remain
-open.
+routes plus source-pin and decoder/step routes for RV64 and x86-64. Every route
+has a negative control that must fail. Cross-machine relations and minimality
+routes remain open.
 
 ## Layout
 

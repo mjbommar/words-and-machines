@@ -986,10 +986,11 @@ not assert universal agreement for invalid memory.
 
 \section{Bytes and machine boundaries}
 
-The real-ISA listings can be assembled now even though Axeyum cannot yet
-execute them. Assembly gives exact byte witnesses for code size, boundaries,
-and branch displacement. It does not prove the instruction semantics or the
-loop theorem. Those remain separate obligations.
+The real-ISA listings can now be assembled and executed by the selected
+Axeyum semantics. Assembly gives an independent byte and boundary check. The
+runtime reports decode the same bytes, execute representative inputs, and
+exercise controls. Neither finite execution report proves the three-machine
+loop theorem; the cross-state relation remains a separate obligation.
 
 For a reproducible check, the chapter's research log records LLVM assembler
 version 21.1.8, the target triples, the scalar feature selection, the source
@@ -1906,12 +1907,12 @@ states beyond the present scalar core.
 
 Axeyum supplies bit-vector expressions, solver routes, evidence reports,
 propositional proof checking, selected SMT proof support, kernel reconstruction
-machinery, the complete concrete A0 teaching machine, and the source-pinned
-twelve-form RV64I slice. The RV64 route executes every word of this chapter's
-XOR listing on three inputs. The live checkout does not yet supply the x86-64
-semantic package or cross-machine relation needed to execute all three
-listings as one book artifact. This chapter therefore separates the reader
-proof above from the still-open three-machine route below.
+machinery, the complete concrete A0 teaching machine, and source-pinned RV64I
+and x86-64 slices. Both real-machine routes execute this chapter's complete XOR
+listing on three inputs. The live checkout does not yet supply the typed
+cross-machine relation needed to check all three listings as one relational
+artifact. This chapter therefore separates the reader proof above from the
+still-open three-machine theorem below.
 
 The first implementation layer should be Rust. Instruction decoding, typed
 machine states, step relations, trace replay, memory-range checks, and
@@ -1927,8 +1928,8 @@ for all three programs. It must return typed outcomes, decoded traces,
 first-divergence information, semantic-package digests, relation results, and
 control results. It must reject unsupported instructions and malformed bytes.
 It must not turn a timeout, missing checker, or decode error into successful
-evidence. Because the x86-64 package, cross-machine relation, and Python
-projection do not yet exist, there is no executable three-machine Python
+evidence. Because the cross-machine relation and Python projection do not yet
+exist, there is no executable three-machine Python
 import to show here.
 \end{keyidea}
 
@@ -1938,7 +1939,7 @@ import to show here.
 \caption{The case study needs separate support at the definition, execution,
 relation, and certificate layers. A higher layer cannot repair a missing lower
 binding.}
-\figalt{Rows for A0, RV64I, and x86-64 cross columns for decoder, step, trace, relation, and evidence report; missing real-machine cells remain visibly unfilled.}
+\figalt{Rows for A0, RV64I, and x86-64 cross columns for decoder, step, trace, relation, and evidence report; the implemented machine cells are filled while the shared relation remains visibly open.}
 \label{fig:xor-evidence-matrix}
 \end{figure}
 

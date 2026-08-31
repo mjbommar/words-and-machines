@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **55** -- `computed` 19, `open` 6, `proved` 2, `stated` 28
-- Evidence rows: **21** -- `checked` 21
+- Objects: **57** -- `computed` 23, `open` 4, `proved` 2, `stated` 28
+- Evidence rows: **25** -- `checked` 25
 
 ## Part I -- Constructing an instruction set
 
@@ -47,14 +47,16 @@
 | [`A0.trace.branch`](A0.trace.branch.json) | computation | A0 conditional-branch replay | `computed` | `--` | Two width-8 traces of one branch.eq encoding with offset +1, followed by halt, differing only in the initial Z condition. | `trace-replay` / `trace`: checked |
 | [`OP.rv64.decoder-step`](OP.rv64.decoder-step.json) | obligation | Implement and independently test the RV64 decoder and step adapter | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`OP.rv64.source-pin`](OP.rv64.source-pin.json) | obligation | Pin the RV64 source and exact slice | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
-| [`OP.x64.decoder-step`](OP.x64.decoder-step.json) | obligation | Implement and independently test the x86-64 decoder and step adapter | `open` | `--` | -- | -- |
-| [`OP.x64.source-pin`](OP.x64.source-pin.json) | obligation | Pin the x86-64 source and exact slice | `open` | `--` | -- | -- |
+| [`OP.x64.decoder-step`](OP.x64.decoder-step.json) | obligation | Implement and independently test the x86-64 decoder and step adapter | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
+| [`OP.x64.source-pin`](OP.x64.source-pin.json) | obligation | Pin the x86-64 source and exact slice | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`RV64.comp.decoder-step`](RV64.comp.decoder-step.json) | computation | Executable RV64 decoder and step slice | `computed` | `--` | Twelve selected forms, thirteen printed words, three XOR inputs, five trap classes, canonical projection, and three declared mutations under the source-pinned teaching profile. | `decoder-agreement` / `computation`: checked |
 | [`RV64.comp.source-pin`](RV64.comp.source-pin.json) | computation | Pinned RV64 source and teaching slice | `computed` | `--` | The official release 20260120 PDF and the twelve RV64I base forms printed by the book. | `semantic-package` / `computation`: checked |
 | [`RV64.def.decode`](RV64.def.decode.json) | definition | RV64 slice decoder contract | `stated` | `--` | -- | -- |
 | [`RV64.def.slice`](RV64.def.slice.json) | definition | Source-pinned RV64 teaching slice | `stated` | `--` | -- | -- |
 | [`RV64.def.state`](RV64.def.state.json) | definition | RV64 slice state | `stated` | `--` | -- | -- |
 | [`RV64.def.step`](RV64.def.step.json) | definition | RV64 slice step contract | `stated` | `--` | -- | -- |
+| [`X64.comp.decoder-step`](X64.comp.decoder-step.json) | computation | Executable x86-64 decoder and step slice | `computed` | `--` | Seventeen selected forms, twenty-eight instruction records, six programs, three trap classes, canonical projection, and four declared mutations under the source-pinned profile. | `decoder-agreement` / `computation`: checked |
+| [`X64.comp.source-pin`](X64.comp.source-pin.json) | computation | Pinned x86-64 source and teaching slice | `computed` | `--` | The June 2026 Intel combined Volume 2 PDF and the exact legacy or REX.W scalar forms required by the six manuscript listings. | `semantic-package` / `computation`: checked |
 | [`X64.def.decode`](X64.def.decode.json) | definition | x86-64 slice decoder contract | `stated` | `--` | -- | -- |
 | [`X64.def.slice`](X64.def.slice.json) | definition | Source-pinned x86-64 teaching slice | `stated` | `--` | -- | -- |
 | [`X64.def.state`](X64.def.state.json) | definition | x86-64 slice state | `stated` | `--` | -- | -- |

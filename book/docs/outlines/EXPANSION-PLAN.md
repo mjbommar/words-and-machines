@@ -115,8 +115,8 @@ This record establishes a complete structural spine, not complete breadth or
 depth. The short chapters provide a base for the sequential depth pass; they
 must not be represented as publication-ready merely because they met the old
 bands. The executable-artifact pass has since added the reusable A0 package and
-the source-pinned RV64I teaching slice. Their active routes have executors,
-controls, and saved evidence. The x86-64 and cross-machine routes remain future
+source-pinned RV64I and x86-64 teaching slices. Their active routes have
+executors, controls, and saved evidence. Cross-machine routes remain future
 interfaces until the same conditions hold.
 
 ## First sequential depth-pass record — 2026-08-30

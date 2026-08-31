@@ -1185,9 +1185,10 @@ its fuel and outcome rules belong to that package. It lacks A0 instruction
 bytes, the \(pc+4+4d\) target rule, the \(Z,N,C,V\) predicate family, and A0
 fetch and trap behavior. Those A0 rules now live in the separate book-machine
 core. The source-pinned RV64I adapter also executes the selected branch and
-jump forms and rejects a sequential-PC branch-base mutation. The checkout
-still lacks the x86-64 decoder adapter, the three-machine loop relation, and
-proof objects for the chapter's dominance claims. Renaming the toy VM would
+jump forms and rejects a sequential-PC branch-base mutation. The x86-64
+adapter executes all three selected short conditions and rejects an
+instruction-RIP branch-base mutation. The checkout still lacks the
+three-machine loop relation and proof objects for the chapter's dominance claims. Renaming the toy VM would
 hide these differences rather than discharge them.
 
 The A0 adapter defines a decoded branch with a condition code and signed

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "claim_id": "X64.comp.decoder-step",
+  "statement": "Axeyum decodes, canonically re-encodes, and executes the seventeen-form x86-64 teaching slice, including all six manuscript listings and declared semantic controls.",
+  "scope": "Seventeen selected form families, twenty-eight manuscript or resolved fixture encodings, six programs, three trap classes, canonical projection, and four declared mutations.",
+  "exclusions": ["Instructions and encodings outside the selected slice", "Extended registers and general x86 addressing", "Privileged execution, virtual memory, devices, concurrency, and timing", "A universal cross-machine refinement theorem"],
+  "trust_class": "computation",
+  "semantic_inputs": [{"name": "x64-source-pin", "version": "325383-092US", "path": "artifacts/claims/X64.comp.source-pin/report.json", "sha256": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10"}],
+  "artifacts": [{"path": "artifacts/claims/X64.comp.decoder-step/report.json", "sha256": "d32a89f558c0b906a8c541305034de4755efe7fb564af73a71378b123eff6563", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-x64-execution artifacts/claims/X64.comp.decoder-step/report.json", "version": "axeyum-machine-evidence-x64-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-x64-execution artifacts/claims/X64.comp.decoder-step/report.json", "version": "axeyum-machine-evidence-x64-v1", "expected_result": "x64-execution: PASS: forms=17 encodings=28 traps=3 mutations=4"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-x64-branch-base artifacts/claims/X64.comp.decoder-step/report.json", "expected_failure": "semantic-mismatch", "mutates": "Use the instruction RIP instead of the following RIP as the short-branch base"},
+  "environment": {"axeyum_revision": "1cb53b9a940a4cc685b910441cb16b0dbb03fae5", "rust_version": "1.88 or newer"},
+  "limitations": ["This is finite executable evidence, not a proof over every x86-64 state.", "The executor implements only the declared teaching profile.", "Cross-machine refinement remains a separate open claim."],
+  "created": "2026-08-30"
+}
