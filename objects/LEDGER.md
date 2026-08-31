@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **60** -- `computed` 29, `open` 1, `proved` 2, `stated` 28
-- Evidence rows: **31** -- `checked` 31
+- Objects: **61** -- `computed` 30, `open` 1, `proved` 2, `stated` 28
+- Evidence rows: **33** -- `checked` 33
 
 ## Part I -- Constructing an instruction set
 
@@ -86,4 +86,5 @@
 
 | ID | Kind | Title | Status | External | Scope | Evidence |
 |---|---|---|---|---|---|---|
-| [`OP.case.scalar-three-machines`](OP.case.scalar-three-machines.json) | obligation | Select and verify one scalar routine on three machines | `open` | `--` | -- | -- |
+| [`OP.case.scalar-three-machines`](OP.case.scalar-three-machines.json) | obligation | Select and verify one scalar routine on three machines | `open` | `--` | -- | `claim-ref` / `computation`: checked |
+| [`REL.comp.three-machine-xor`](REL.comp.three-machine-xor.json) | computation | Finite three-machine XOR-reduction replay | `computed` | `--` | Eight named 64-bit word lists of length zero through three; exact Chapter 15 byte images; data base 0x100, x86 return stack 0x400, continuation 0x800; concrete complete-state execution and typed cut-point relations. | `trace-replay` / `computation`: checked |

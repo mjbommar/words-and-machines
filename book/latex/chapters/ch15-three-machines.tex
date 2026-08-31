@@ -679,11 +679,10 @@ Encoding & fetched bytes decode to the instruction instances in the proof \\
 \end{table}
 
 The last row is easy to omit when reasoning from assembly text. A proof of the
-mnemonic sequence is not yet a proof about executable bytes. The final artifact
-must bind assembled bytes, instruction boundaries, decoded operands, and the
-semantic instances used by the step relation. This chapter prints readable
-assembly because those decoders do not yet exist in Axeyum; that absence stays
-visible in the evidence boundary.
+mnemonic sequence is not yet a proof about executable bytes. The artifact
+therefore binds assembled bytes, instruction boundaries, decoded operands, and
+the semantic instances used by the step relation. The readable assembly below
+is paired with exact byte tables and Axeyum decoders for every selected form.
 
 \begin{tryit}[title={Build the cut-point map first}]
 For each listing below, mark entry, the first state satisfying \(B_0\), the
@@ -986,11 +985,11 @@ not assert universal agreement for invalid memory.
 
 \section{Bytes and machine boundaries}
 
-The real-ISA listings can now be assembled and executed by the selected
-Axeyum semantics. Assembly gives an independent byte and boundary check. The
-runtime reports decode the same bytes, execute representative inputs, and
-exercise controls. Neither finite execution report proves the three-machine
-loop theorem; the cross-state relation remains a separate obligation.
+The real-ISA listings can be assembled and executed by the selected Axeyum
+semantics. Assembly gives an independent byte and boundary check. The
+three-machine report decodes the same bytes, executes both real listings and
+the complete A0 listing, and checks one typed cross-state relation. This
+finite execution does not prove the universal loop theorem.
 
 For a reproducible check, the chapter's research log records LLVM assembler
 version 21.1.8, the target triples, the scalar feature selection, the source
@@ -1905,19 +1904,19 @@ states beyond the present scalar core.
 
 \section{Axeyum route}
 
-Axeyum supplies bit-vector expressions, solver routes, evidence reports,
-propositional proof checking, selected SMT proof support, kernel reconstruction
-machinery, the complete concrete A0 teaching machine, and source-pinned RV64I
-and x86-64 slices. Python projects all three concrete executors. The book gate
-assembles and wholly decodes every printed real-ISA listing, then executes this
-chapter's RV64I and x86-64 XOR programs on the same three-word case. Separate
-Axeyum evidence routes run those two real-machine listings on empty, singleton,
-and three-word inputs. The A0 package executes every instruction family and
-replays source-bound traces, but it does not yet bind this chapter's complete
-A0 XOR listing as a single route. The live checkout does not yet supply the typed
-cross-machine relation needed to check all three traces as one relational
-artifact. This chapter therefore separates concrete execution from the
-still-open three-machine theorem below.
+Axeyum supplies the complete concrete A0 teaching machine and source-pinned
+RV64I and x86-64 slices. Python projects all three concrete executors. The book
+gate assembles and wholly decodes every printed real-ISA listing. A typed Rust
+route now executes this chapter's complete A0, RV64I, and x86-64 programs as
+one relational artifact.
+
+The route retains complete states at entry, every loop head, every
+after-combine point, and the terminal point. Nine named clauses compare
+control, outcome, input mapping, prefix accumulator, pointer, remaining count,
+A0 helpers, complete memory, and the three terminal conventions. It does not
+replace the three step functions with one universal instruction semantics.
+In particular, x86-64's memory-source XOR remains one transition and meets
+the two-transition A0 and RV64I paths only at the after-combine cut point.
 
 The first implementation layer should be Rust. Instruction decoding, typed
 machine states, step relations, trace replay, memory-range checks, and
@@ -1928,40 +1927,45 @@ artifact runners. Python is the workbench; it should not become a second,
 quietly different semantics.
 
 \begin{keyidea}[title={Contract for the three-machine lesson interface}]
-The relation interface must accept one declared memory case and the exact bytes
-for all three programs. It must return typed outcomes, decoded traces,
+The relation interface accepts one declared memory case and the exact bytes
+for all three programs. It returns typed outcomes, decoded traces,
 first-divergence information, semantic-package digests, relation results, and
-control results. It must reject unsupported instructions and malformed bytes.
+control results. It rejects unsupported instructions and malformed bytes.
 It must not turn a timeout, missing checker, or decode error into successful
-evidence. The individual Python machine projections now exist and drive the
-book's runtime harness. The shared relation and evidence result do not, so
-there is no executable three-machine relation import to show here.
+evidence. The executable artifact command and report are the supported shared
+interface; no illustrative Python facade is printed in their place.
 \end{keyidea}
+
+\begin{artifact}{REL.comp.three-machine-xor}
+The retained report binds the three semantic sources, exact 44-, 36-, and
+21-byte programs, eight named input lists, complete cut-point checks, dynamic
+instruction counts, terminal conventions, and the pointer-step control.
+\ArtifactScope{REL.comp.three-machine-xor}
+\end{artifact}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.94\textwidth]{figures/xor-evidence-matrix}
-\caption{The case study needs separate support at the definition, execution,
-relation, and certificate layers. A higher layer cannot repair a missing lower
-binding.}
-\figalt{Rows for A0, RV64I, and x86-64 cross columns for decoder, step, trace, relation, and evidence report; the implemented machine cells are filled while the shared relation remains visibly open.}
+\caption{The concrete definition, execution, relation, and evidence-report
+layers are now bound. The universal and solver-certificate layers remain
+separate claims.}
+\figalt{Rows for A0, RV64I, and x86-64 cross columns for decoder, step, trace, relation, and evidence report; the concrete cells and shared finite relation are filled.}
 \label{fig:xor-evidence-matrix}
 \end{figure}
 
 \subsection{A staged artifact route}
 
-The A0 package comes first because its semantics are defined by this book. A
-complete package needs state types, encoder and decoder, single-step behavior,
-bounded traces, range-checked little-endian memory, and controls for every
-instruction used here. The XOR-reduction artifact can then execute the A0
-listing and compare its terminal state with a direct fold computation.
+The A0 package came first because its semantics are defined by this book. It
+supplies state types, encoder and decoder, single-step behavior, bounded
+traces, range-checked little-endian memory, and controls for every instruction
+used here. The XOR-reduction artifact executes the full A0 listing and compares
+its cut points and terminal state with the direct fold and both real machines.
 
-Each real-machine package needs a pinned source boundary, decoder coverage for
+Each real-machine package has a pinned source boundary, decoder coverage for
 the exact byte forms in its listing, and executable step semantics. The first
-cross-ISA milestone is not the whole loop. It is one load, one XOR, one pointer
-update, and one branch under explicit state relations. Only after those local
-steps pass positive and negative controls should the route compose them into
-the loop invariant.
+cross-ISA milestone composes one load, one XOR, one pointer update, and one
+branch at explicit state boundaries across every concrete iteration. The
+reader proof composes those local movements into the universal invariant.
 
 A bounded solver query can search for a disagreement up to a chosen maximum
 count and finite memory shape. If it finds one, replay it through all three
@@ -1971,10 +1975,10 @@ future certificate route may reduce the bounded query to a checkable formula,
 but it must bind formula generation to the machine definitions as Chapter 14
 requires.
 
-The evidence manifest for this example should name more than three program
-files. It should bind the fold specification, precondition, observation,
-machine-package versions, ABI profiles, assembled bytes, decoded listings,
-initial-state constructors, trace bounds, comparison command, and controls.
+The evidence manifest names more than three program files. It binds the fold
+specification, precondition, observation, machine-package versions, harness
+addresses, assembled bytes, initial-state constructors, trace bounds,
+comparison command, and control.
 The report must distinguish successful normal comparison from a trap, bound
 exhaustion, decode refusal, unsupported instruction, digest mismatch, and
 control failure.
@@ -2051,7 +2055,7 @@ differences the comparison is meant to test. A0, RV64I, and x86-64 need
 separate state types, decoders, and step functions with a common reporting
 interface.
 
-A narrow Rust layout could separate five concerns:
+The implemented Rust layout separates five concerns:
 
 \begin{enumerate}
 \item a word-and-memory crate with checked byte ranges and little-endian loads;
@@ -2117,16 +2121,16 @@ machine row makes the comparison unavailable, not partially verified.
 \subsection{The present stopping point}
 
 The live packages now supply all three concrete executors, source-pinned real-
-ISA decoders, Python projections, and a book harness that executes the exact
-printed programs. An assemblable x86 instruction outside the selected slice is
-the harness's decode-refusal control. These are executable trace artifacts,
-not a cross-machine theorem or a checked minimality result.
+ISA decoders, Python machine projections, and a typed Rust relation that
+executes the exact printed programs. The report retains cut-point maps,
+endpoint clauses, deterministic first-failure reporting, and a pointer-step
+control derived from the same three semantics. This is a finite cross-machine
+computation, not the universal theorem or a checked minimality result.
 
-The next dependency is now the relation itself: typed entry states, cut-point
-maps, endpoint clauses, first-divergence reporting, and controls derived from
-the same three semantics. Only after that layer exists should a three-way
-solver query or certificate claim relational credit. Solver and certificate
-machinery amplify a semantics and relation; they cannot supply a missing one.
+The next evidence dependency is symbolic or certified bounded coverage. The
+umbrella object also requires a routine-specific bounded-optimization package.
+Solver and certificate machinery can amplify the working semantics and
+relation; they cannot silently promote eight concrete cases into either claim.
 
 Several established textbook forms meet in this chapter. A conventional
 algorithms treatment teaches the loop invariant by asking for initialization,
@@ -2237,8 +2241,9 @@ listings instantiate its variables and control. The cross-machine simulation
 identifies the cut-point relation needed for agreement. These are reader
 proofs over the semantics stated in this book and the pinned real-ISA sources.
 
-The chapter does not yet present machine-produced Axeyum evidence for the real
-listings. It does not cover optional compressed or vector instructions,
+The chapter now presents finite machine-produced Axeyum evidence for the exact
+three listings on eight declared lists of length zero through three. That
+computation is not the universal theorem. It does not cover optional compressed or vector instructions,
 different ABIs, arbitrary misaligned accesses, concurrent memory changes,
 memory-mapped input, faults outside the precondition, or timing. It does not
 claim the listings are minimal or fastest. Those exclusions are part of the

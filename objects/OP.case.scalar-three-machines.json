@@ -2,7 +2,8 @@
   "id": "OP.case.scalar-three-machines", "kind": "obligation", "part": 4,
   "title": "Select and verify one scalar routine on three machines",
   "statement": "After both real-ISA adapters work, select one extension-free scalar routine and complete its A0, RV64, x86-64, refinement, evidence, control, and bounded-optimization package.",
-  "epistemic_status": "open", "depends_on": ["OP.rel.cross-isa", "OP.rel.scalar-minimality", "OP.evid.manifest-checker"], "evidence": [],
+  "epistemic_status": "open", "depends_on": ["OP.rel.cross-isa", "OP.rel.scalar-minimality", "REL.comp.three-machine-xor", "OP.evid.manifest-checker"],
+  "evidence": [{"kind": "claim-ref", "trust_class": "computation", "semantic_inputs": ["objects/REL.comp.three-machine-xor.json"], "artifact": "artifacts/claims/REL.comp.three-machine-xor", "check_status": "checked", "checked_on": "2026-08-31", "note": "The exact complete programs now have a finite three-machine execution, relation, evidence, and control package. The umbrella obligation remains open because its statement also requires a bounded-optimization package for this routine; the current artifact explicitly excludes optimality and minimality."}],
   "book": {"chapter": "ch15-three-machines", "label": "op:three-machines", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "synthesis ledger redesign", "origin": "book/docs/outlines/MASTER.md"}
 }

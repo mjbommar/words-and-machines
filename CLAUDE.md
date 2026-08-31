@@ -19,9 +19,10 @@ from an ordinary book.
   case studies. Treat RISC and CISC as clusters of explicit semantic features.
   RISC-V and x86-64 are sustained contrasts. Optional extensions belong only
   where the book explicitly extends the scalar model.
-- **Status:** nineteen evidence routes are replayable: fourteen A0 routes plus
+- **Status:** twenty evidence routes are replayable: fourteen A0 routes plus
   source-pin and executable decoder/step routes for the RV64I and x86-64
-  teaching slices, plus the cross-machine absolute-value route. The real-ISA routes execute every selected form and all
+  teaching slices, plus the cross-machine absolute-value and three-machine XOR
+  routes. The real-ISA routes execute every selected form and all
   printed programs, check declared traps and canonical projections, and reject
   source-digest and branch-base mutations. The reusable A0 routes include the
   word-operation audit, canonical complete-state codec, and fixed-width
@@ -35,15 +36,19 @@ from an ordinary book.
   It is not a general equivalence solver or certificate. The bounded A0
   scalar-minimality route exhausts the Chapter 13 width-eight
   six-instance language through cost two. It is a finite computation, not an
-  arbitrary-program, arbitrary-width, or real-ISA minimality theorem. Axeyum's
-  Python layer now
+  arbitrary-program, arbitrary-width, or real-ISA minimality theorem. The
+  three-machine XOR route executes the exact complete Chapter 15 programs on
+  eight finite lists and checks typed cut-point relations and terminal
+  conventions. It is not the universal loop theorem or a minimality result.
+  Axeyum's Python layer now
   exposes the complete concrete A0 word, memory, state-codec, instruction,
   step, trap, and bounded-trace surface. The
   Chapter 6 addition listing runs unchanged against that interface. The
   source-pinned RV64I and x86-64 teaching slices now expose typed instructions,
   canonical encode/decode, complete state, traps, projection, and single-step
   execution through Python. Real-ISA bounded traces and cross-machine Python
-  relation projection and the Chapter 15 XOR relation remain open. The full
+  relation projection remain open. The Chapter 15 umbrella obligation also
+  remains open because its bounded-optimization package is not yet built. The full
   manuscript has completed its first sequential breadth-and-depth pass and now requires
   executable-artifact, technical, editorial, and publication review. No
   chapter is complete merely because it meets a word or page band.

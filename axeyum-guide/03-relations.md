@@ -23,6 +23,20 @@ Cross-ISA work composes two real-to-A0 relations. It does not compare unrelated
 handwritten formulas. Different numbers of steps are permitted at declared
 simulation boundaries.
 
+## Three-machine XOR reduction
+
+The Chapter 15 route executes the exact 44-byte A0, 36-byte RV64I, and 21-byte
+x86-64 listings through their separate step functions. It retains entry,
+loop-head, after-combine, and terminal states and checks nine typed clauses.
+Eight named lists of length zero through three exercise the empty path,
+identity, high bit, byte order, cancellation, overlapping bits, backward edge,
+and three-word fold. Changing RV64I's pointer increment from eight to one must
+fail at the second loop head.
+
+This is a finite concrete relation. The reader invariant carries the universal
+loop argument. Symbolic certification, arbitrary addresses, timing, and a
+bounded optimization package for this routine remain outside the artifact.
+
 ## Scalar minimality
 
 Begin with a tiny A0 language printed extensionally. Bind candidate syntax to

@@ -775,11 +775,12 @@ scope are stated.
 \end{tryit}
 
 The implementation now covers the complete concrete A0 teaching machine and
-the source-pinned twelve-form RV64I slice used by the book. Their reports and
-negative controls replay from the repository. Axeyum must still gain the
-source-pinned x86-64 slice and typed cross-machine state relations before the
-later chapters can claim three-machine refinement proofs. A handwritten
-bit-vector identity is not a substitute for those layers.
+the source-pinned RV64I and x86-64 slices used by the book. Their reports and
+negative controls replay from the repository. Typed Rust relations execute the
+three printed absolute-value programs and the complete three-machine XOR
+reduction. Those relations are finite computations over declared cases, not
+universal simulation theorems. A handwritten bit-vector identity and a larger
+test suite are not substitutes for that missing quantifier.
 
 That boundary is a useful place to begin. We know the machine we need to
 construct, the two real systems against which it must answer, and the kinds of

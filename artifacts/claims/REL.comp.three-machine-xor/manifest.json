@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "claim_id": "REL.comp.three-machine-xor",
+  "statement": "Axeyum executes the exact complete Chapter 15 A0, RV64I, and x86-64 XOR-reduction programs and checks typed entry, loop-head, after-combine, and terminal relations on eight declared finite word lists.",
+  "scope": "Eight named 64-bit word lists of length zero through three; exact 44-byte A0, 36-byte RV64I, and 21-byte x86-64 Chapter 15 programs; data base 0x100, x86 return stack 0x400, continuation 0x800; concrete execution, complete memory frame, typed cut-point comparison, and architecture-specific terminal conventions.",
+  "exclusions": ["A universal loop theorem", "Lists longer than three in the evidence report", "Symbolic inputs or addresses", "Faulting, concurrent, or memory-mapped input", "Timing, optimality, or minimality"],
+  "trust_class": "computation",
+  "semantic_inputs": [
+    {"name": "a0-semantics", "version": "10", "path": "artifacts/semantic/a0-v10.json", "sha256": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d"},
+    {"name": "rv64-source-pin", "version": "20260120", "path": "artifacts/claims/RV64.comp.source-pin/report.json", "sha256": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50"},
+    {"name": "x64-source-pin", "version": "Intel SDM 088US", "path": "artifacts/claims/X64.comp.source-pin/report.json", "sha256": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10"}
+  ],
+  "artifacts": [{"path": "artifacts/claims/REL.comp.three-machine-xor/report.json", "sha256": "6e27101c016ce9adf10826a13c88dbd0e4a9b43c448b6a55ba15218a7078a869", "role": "report"}],
+  "producer": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- emit-three-machine-xor artifacts/claims/REL.comp.three-machine-xor/report.json", "version": "axeyum-machine-evidence-three-machine-xor-v1"},
+  "checker": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-three-machine-xor artifacts/claims/REL.comp.three-machine-xor/report.json", "version": "axeyum-machine-evidence-three-machine-xor-v1", "expected_result": "three-machine-xor: PASS: cases=8 programs=44/36/21 result_sha256=04935cb96fa6631d2dfb0dbc3b3b053ad3efc7c966c3cb993edbae3aba955d9d"},
+  "negative_control": {"command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-three-machine-xor-pointer artifacts/claims/REL.comp.three-machine-xor/report.json", "expected_failure": "semantic-mismatch", "mutates": "Change only RV64I's pointer increment from eight to one and require the pointer clause to fail at the second loop head"},
+  "environment": {"axeyum_revision": "9bb1f80625b03cbdfa43c859bac739996e5cf8eb", "rust_version": "1.88 or newer"},
+  "limitations": ["The checker directly executes eight declared finite cases; the chapter's invariant and movement proofs carry the universal argument.", "The report binds concrete semantic source and program digests but does not retain a solver certificate.", "The core harness rejects more than 96 words to prevent data and return-stack overlap, while the evidence report intentionally uses at most three."],
+  "created": "2026-08-31"
+}

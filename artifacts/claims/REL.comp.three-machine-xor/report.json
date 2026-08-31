@@ -1,0 +1,159 @@
+{
+  "schema": "axeyum.cross-isa.xor-reduction.v1",
+  "a0_implementation_sha256": "6c57ccf27e25f6ec1c24f25c32599715bd9f725ff8dd03ff2da1f4d8354cb79a",
+  "rv64_implementation_sha256": "cb4021aa5162457e5aacc048a81c268e1170a0af3dc2b39eff8e3fe22676be31",
+  "x64_implementation_sha256": "59ac7cf9fe3a6c558ca63b0b01705e1a5da024fc4aae1a8eb87278c53350dbe8",
+  "relation_implementation_sha256": "01ae6636e1fe9b2b95f72d6eda6c40dbea1194b48ece3f2c691c7ca13ed89978",
+  "a0_program_sha256": "ae545bd623f264fda885845e41182ea9e8507fa072d165ddf15cad023c0b452a",
+  "rv64_program_sha256": "0a217b3f501924ef8f47dddb7b797b393ba018fb7d81efe6d34c2456a3796d0e",
+  "x64_program_sha256": "00295e0e7406c74b27fce4aa6cda9c9419b9854128e682d1531be1c1ac0b76bb",
+  "scope": "eight declared finite word lists of length zero through three; exact Chapter 15 A0, RV64I, and x86-64 bytes; concrete 64-bit execution and typed cut-point relations",
+  "cases": [
+    {
+      "name": "empty",
+      "words": [],
+      "result": 0,
+      "points": [
+        "entry",
+        "terminal"
+      ],
+      "clauses_checked": 18,
+      "a0_steps": 6,
+      "rv64_steps": 4,
+      "x64_steps": 4
+    },
+    {
+      "name": "zero",
+      "words": [
+        0
+      ],
+      "result": 0,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "terminal"
+      ],
+      "clauses_checked": 36,
+      "a0_steps": 11,
+      "rv64_steps": 9,
+      "x64_steps": 8
+    },
+    {
+      "name": "all-ones",
+      "words": [
+        18446744073709551615
+      ],
+      "result": 18446744073709551615,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "terminal"
+      ],
+      "clauses_checked": 36,
+      "a0_steps": 11,
+      "rv64_steps": 9,
+      "x64_steps": 8
+    },
+    {
+      "name": "high-bit",
+      "words": [
+        9223372036854775808
+      ],
+      "result": 9223372036854775808,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "terminal"
+      ],
+      "clauses_checked": 36,
+      "a0_steps": 11,
+      "rv64_steps": 9,
+      "x64_steps": 8
+    },
+    {
+      "name": "endian-sensitive",
+      "words": [
+        72623859790382856
+      ],
+      "result": 72623859790382856,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "terminal"
+      ],
+      "clauses_checked": 36,
+      "a0_steps": 11,
+      "rv64_steps": 9,
+      "x64_steps": 8
+    },
+    {
+      "name": "cancellation",
+      "words": [
+        18369614221190020847,
+        18369614221190020847
+      ],
+      "result": 0,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "loop-head-1",
+        "after-combine-1",
+        "terminal"
+      ],
+      "clauses_checked": 54,
+      "a0_steps": 16,
+      "rv64_steps": 14,
+      "x64_steps": 12
+    },
+    {
+      "name": "overlapping-bits",
+      "words": [
+        3855,
+        255
+      ],
+      "result": 4080,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "loop-head-1",
+        "after-combine-1",
+        "terminal"
+      ],
+      "clauses_checked": 54,
+      "a0_steps": 16,
+      "rv64_steps": 14,
+      "x64_steps": 12
+    },
+    {
+      "name": "three-word",
+      "words": [
+        0,
+        18446744073709551615,
+        9223372036854775808
+      ],
+      "result": 9223372036854775807,
+      "points": [
+        "entry",
+        "loop-head-0",
+        "after-combine-0",
+        "loop-head-1",
+        "after-combine-1",
+        "loop-head-2",
+        "after-combine-2",
+        "terminal"
+      ],
+      "clauses_checked": 72,
+      "a0_steps": 21,
+      "rv64_steps": 19,
+      "x64_steps": 16
+    }
+  ],
+  "passed": true,
+  "result_sha256": "04935cb96fa6631d2dfb0dbc3b3b053ad3efc7c966c3cb993edbae3aba955d9d"
+}

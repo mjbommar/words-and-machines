@@ -1,0 +1,28 @@
+{
+  "id": "REL.comp.three-machine-xor", "kind": "computation", "part": 4,
+  "title": "Finite three-machine XOR-reduction replay",
+  "statement": "Axeyum executes the exact complete Chapter 15 A0, RV64I, and x86-64 XOR-reduction programs and checks typed entry, loop-head, after-combine, and terminal relations on eight declared finite word lists.",
+  "formal": {"language": "prose", "statement": "execute exact 44-, 36-, and 21-byte programs on eight lists of length 0 through 3; at each declared cut point compare control, outcome, input mapping, prefix fold, pointer, remaining count, A0 helpers, complete memory, and terminal convention", "fragment": "finite-cross-machine-loop-replay"},
+  "epistemic_status": "computed",
+  "scope": "Eight named 64-bit word lists of length zero through three; exact Chapter 15 byte images; data base 0x100, x86 return stack 0x400, continuation 0x800; concrete complete-state execution and typed cut-point relations.",
+  "depends_on": ["OP.a0.run", "RV64.comp.decoder-step", "X64.comp.decoder-step", "REL.def.state-relation", "REL.comp.cross-isa-absolute-value"],
+  "evidence": [{
+    "kind": "trace-replay", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v10.json", "artifacts/claims/RV64.comp.source-pin/report.json", "artifacts/claims/X64.comp.source-pin/report.json", "artifacts/claims/REL.comp.three-machine-xor/manifest.json"],
+    "artifact": "artifacts/claims/REL.comp.three-machine-xor",
+    "sha256": {
+      "artifacts/semantic/a0-v10.json": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
+      "artifacts/claims/RV64.comp.source-pin/report.json": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50",
+      "artifacts/claims/X64.comp.source-pin/report.json": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10",
+      "artifacts/claims/REL.comp.three-machine-xor/manifest.json": "502b7523559165fc56e1d9ddf286e88e3f0809056e813a1e94fee044c5eca622",
+      "artifacts/claims/REL.comp.three-machine-xor/report.json": "6e27101c016ce9adf10826a13c88dbd0e4a9b43c448b6a55ba15218a7078a869"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-three-machine-xor artifacts/claims/REL.comp.three-machine-xor/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-three-machine-xor-pointer artifacts/claims/REL.comp.three-machine-xor/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-31",
+    "note": "The pointer-step mutation fails at the second loop head. This finite report does not establish the chapter's universal loop theorem or any minimality claim."
+  }],
+  "axeyum": {"crate": "axeyum-machine, axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "three-machine XOR reduction with typed cut-point relations", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch15-three-machines", "label": "comp:three-machine-xor", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-31", "by": "Axeyum executable curriculum", "origin": "OP.case.scalar-three-machines"}
+}
