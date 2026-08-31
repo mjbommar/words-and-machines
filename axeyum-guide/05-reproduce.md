@@ -6,8 +6,12 @@ From the book repository root run make ledger, make artifact-check, make check,
 and make check-run.
 
 `make check-run` also invokes `make machine-example-check`. It uses
-`$(AXEYUM)/.venv/bin/python` to execute the exact Chapter 6 A0 Python listing
-and a wrong-result mutation. Before the first run, build the sibling editable
+`$(AXEYUM)/.venv/bin/python` to execute the exact Chapter 6 A0 Python listing,
+assemble and decode all seven RV64 and six x86-64 listings, and execute every
+listed real-ISA program. The unresolved `helper` in each non-leaf listing is
+linked to a return-only harness stub; the surrounding frame and continuation
+effects remain the subject of the test. A wrong A0 result and an assemblable
+but unsupported x86 instruction must fail. Before the first run, build the sibling editable
 package from the selected Axeyum checkout:
 
 ```sh

@@ -83,7 +83,9 @@ from an ordinary book.
     illustrative API, or unmarked pseudocode in an executable-looking listing. Keep a
     design target in prose until its runtime harness exists. `make code-check`
     parses A0 listings, assembles RV64I and x86-64 listings, verifies printed
-    addresses, and rejects unbound Python listings. When adding a language or
+    addresses, and rejects unbound Python listings. `make machine-example-check`
+    then decodes and executes the exact real-ISA listing text through Axeyum;
+    external helpers use the declared return-only fixture. When adding a language or
     tool, extend that checker and its mutation controls in the same change.
 
 ## Project map

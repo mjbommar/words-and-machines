@@ -93,9 +93,13 @@ assembles the RV64I and x86-64 listings, verifies printed addresses, checks the
 one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
-`make machine-example-check` executes the Python listings themselves through
-the Axeyum environment selected by `AXEYUM`. The Chapter 6 A0 example checks
-its encoded bytes, canonical decode, complete step, destination, PC, and flags.
+`make machine-example-check` executes the exact machine listings through the
+Axeyum environment selected by `AXEYUM`. It runs the Chapter 6 A0 Python code
+unchanged, assembles and decodes all seven RV64 and six x86-64 listings through
+their selected Rust slices, and executes every listed real-ISA program. The two
+external `helper` symbols are linked to explicit return-only test stubs. A
+wrong A0 result and an assemblable but unsupported x86 instruction are active
+negative controls.
 
 For one route, `scripts.evidence_manifest.EvidenceManifest` provides typed
 digest, reproduction, checker, negative-control, and trust-boundary methods.

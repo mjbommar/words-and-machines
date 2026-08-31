@@ -134,7 +134,10 @@ describe real-ISA bounded traces or cross-machine Python relations as implemente
 13. **Treat every code listing as runnable.** A future API belongs in prose,
     not a syntax-highlighted box. The repository-level `make code-check`
     parses A0, assembles RV64I and x86-64, verifies printed addresses, and
-    rejects Python without a declared execution harness. Add the harness and a
+    rejects Python without a declared execution harness. The repository
+    `machine-example-check` also decodes and executes every real-ISA listing
+    through Axeyum, with an explicit return-only fixture for external helpers.
+    Add the harness and a
     mutation control before adding a new executable language listing.
 
 ## Build targets (complete vocabulary — see docs/architecture/build-system.md)

@@ -19,7 +19,7 @@ code-check: ## parse A0 listings and assemble every RV64I and x86-64 listing
 	python3 -m unittest scripts.test_check_code_listings
 	python3 scripts/check_code_listings.py
 
-machine-example-check: ## execute the published Axeyum Python machine examples
+machine-example-check: ## execute every published A0, RV64, and x86 machine listing
 	@test -x "$(AXEYUM)/.venv/bin/python" || { printf '%s\n' "missing $(AXEYUM)/.venv/bin/python; build the Axeyum Python package first" >&2; exit 1; }
 	"$(AXEYUM)/.venv/bin/python" -m unittest scripts.tests.test_axeyum_machine_examples
 
