@@ -21,7 +21,9 @@ words, finite memory, complete states and their canonical codec, all seventeen
 instruction families, categorized traps, steps, and bounded traces. The book
 executes its Chapter 6 listing through that interface. The source-pinned RV64I
 and x86-64 slices also expose complete selected single-step Python projections.
-Real-ISA bounded traces and cross-machine Python relations remain open.
+A typed Rust relation now replays the three printed absolute-value routines for
+ten distinct boundary and branch-shape inputs. Universal cross-machine proofs,
+the Chapter 15 XOR relation, and Python relation projection remain open.
 
 The old vector-shuffle and Bitmanip guide is preserved in the research archive
 and has no authority over active objects.

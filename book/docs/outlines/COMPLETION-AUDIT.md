@@ -130,6 +130,6 @@ no matches.
 
 This redesign record predates the executable-artifact pass. The active ledger
 now contains checked A0 routes and checked RV64 and x86-64 routes. The
-cross-machine relation and remaining evidence interfaces are still the next
-Axeyum-engineering phases. Only checked active objects, not this historical
+universal cross-machine theorem, Chapter 15 XOR relation, and remaining
+evidence interfaces are still the next Axeyum-engineering phases. Only checked active objects, not this historical
 audit paragraph, determine current status.

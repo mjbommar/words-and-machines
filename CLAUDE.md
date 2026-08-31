@@ -26,15 +26,18 @@ from an ordinary book.
   source-digest and branch-base mutations. The reusable A0 routes include the
   word-operation audit, canonical complete-state codec, and fixed-width
   addition and memory-frame certificates for every supported A0 width. General
-  theorems for the remaining A0 operations and every cross-machine route remain
-  open. Axeyum's Python layer now exposes the complete concrete A0 word,
-  memory, state-codec, instruction, step, trap, and bounded-trace surface. The
+  theorems for the remaining A0 operations remain open. One typed Rust
+  cross-machine route now replays the printed absolute-value programs at named
+  synchronization points for ten distinct 64-bit inputs; it is a finite
+  computation, not a universal simulation theorem. Axeyum's Python layer now
+  exposes the complete concrete A0 word, memory, state-codec, instruction,
+  step, trap, and bounded-trace surface. The
   Chapter 6 addition listing runs unchanged against that interface. The
   source-pinned RV64I and x86-64 teaching slices now expose typed instructions,
   canonical encode/decode, complete state, traps, projection, and single-step
   execution through Python. Real-ISA bounded traces and cross-machine Python
-  relations remain open. The full manuscript has
-  completed its first sequential breadth-and-depth pass and now requires
+  relation projection and the Chapter 15 XOR relation remain open. The full
+  manuscript has completed its first sequential breadth-and-depth pass and now requires
   executable-artifact, technical, editorial, and publication review. No
   chapter is complete merely because it meets a word or page band.
 

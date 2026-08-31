@@ -1,0 +1,28 @@
+{
+  "id": "REL.comp.cross-isa-absolute-value", "kind": "computation", "part": 3,
+  "title": "Typed cross-ISA absolute-value replay",
+  "statement": "Axeyum executes the exact printed A0, RV64I, and x86-64 absolute-value programs and checks typed relations at every applicable synchronization point for ten distinct 64-bit inputs.",
+  "formal": {"language": "prose", "statement": "for x in declared_cases, replay(A0_abs, RV64_abs, X64_abs, x) satisfies entry, decision, optional update, and exit relations", "fragment": "finite-cross-machine-executable-semantics"},
+  "epistemic_status": "computed",
+  "scope": "Ten distinct 64-bit boundary and branch-shape inputs; concrete modular absolute value; the positive signed mathematical interpretation excludes the signed minimum.",
+  "depends_on": ["OP.rv64.decoder-step", "OP.x64.decoder-step", "REL.def.refinement", "REL.def.state-relation"],
+  "evidence": [{
+    "kind": "refinement-check", "trust_class": "computation",
+    "semantic_inputs": ["artifacts/semantic/a0-v10.json", "artifacts/claims/RV64.comp.source-pin/report.json", "artifacts/claims/X64.comp.source-pin/report.json", "artifacts/claims/REL.comp.cross-isa-absolute-value/manifest.json"],
+    "artifact": "artifacts/claims/REL.comp.cross-isa-absolute-value",
+    "sha256": {
+      "artifacts/semantic/a0-v10.json": "a09b32ddbab1e31b6b632026ffb0acd512a2932370588c1d2c9c43b62508461d",
+      "artifacts/claims/RV64.comp.source-pin/report.json": "08e393dddce525c00e64f7c3f43522c1316f901d3929c58032d9492e0c4dac50",
+      "artifacts/claims/X64.comp.source-pin/report.json": "23693543b2cea51d595b0e55d1a4c20ad6e0d0fa1018ac1ab6760e8c4d6d5a10",
+      "artifacts/claims/REL.comp.cross-isa-absolute-value/manifest.json": "cbf27e278ddbc827f1588ba0eb12c6778437adec9bf36ed9e0d99c27cf16f64e",
+      "artifacts/claims/REL.comp.cross-isa-absolute-value/report.json": "b8072bc615531252140bae5a0f4c685931ce84adecdd514c79498286a3d95caa"
+    },
+    "checker_command": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- check-cross-isa-absolute-value artifacts/claims/REL.comp.cross-isa-absolute-value/report.json",
+    "negative_control": "AXEYUM_AGENT=book-replay $AXEYUM/scripts/cargo-serialized.sh run -q --manifest-path $AXEYUM/Cargo.toml -p axeyum-machine-evidence -- control-cross-isa-predicate artifacts/claims/REL.comp.cross-isa-absolute-value/report.json",
+    "expected_failure": "semantic-mismatch", "check_status": "checked", "checked_on": "2026-08-30",
+    "note": "The x86 JNS-to-JE mutation is rejected at the typed exit ControlPoint clause. This finite computation does not establish a universal 64-bit simulation theorem."
+  }],
+  "axeyum": {"crate": "axeyum-machine-evidence", "example": "axeyum-machine-evidence", "route": "typed three-machine absolute-value replay", "adr": ["ADR-0811"], "reconstruction": "none"},
+  "book": {"chapter": "ch12-cross-isa", "label": "comp:cross-isa-absolute-value", "role": "machine-proof"},
+  "provenance": {"date": "2026-08-30", "by": "Axeyum executable curriculum", "origin": "OP.rel.cross-isa"}
+}

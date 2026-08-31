@@ -1010,10 +1010,13 @@ The checkout now contains reusable A0, twelve-form RV64I, and seventeen-form
 x86-64 decoder-and-step packages. Their Python projections expose typed
 instructions, complete states, traps, canonical projections, and single-step
 execution. The book harness assembles, wholly decodes, and executes all three
-absolute-value listings. Axeyum still lacks the typed cross-machine relation
-that would turn those separate traces into one simulation result. This chapter
-therefore presents the relation contract without giving the concrete examples
-the stronger status of machine-established cross-ISA evidence.
+absolute-value listings. Axeyum now also supplies a typed Rust relation at the
+entry, decision, optional update, and exit points. Its source-bound route
+replays ten distinct 64-bit boundary and branch-shape inputs and rejects an
+x86 signed-predicate mutation. This earns finite cross-ISA computation credit,
+not a universal simulation theorem over every 64-bit word.
+
+\ArtifactScope{REL.comp.cross-isa-absolute-value}
 
 Implementation should proceed in dependency order:
 
@@ -1097,11 +1100,11 @@ inspect the control-point map, execute one segment, and ask which relation
 clauses hold. Only then should it offer a composed comparison.
 
 \begin{keyidea}[title={Contract for a relation-first interface}]
-The relation interface must expose the three entry states, the relation at
+The relation interface exposes the three entry states, the relation at
 each named control point, one decoded segment step, the endpoint states, and
-the first failed relation clause. Current Axeyum imports supply the machine
-objects and steps but not the relation or failed-clause objects, so the book
-does not print an executable relation call here.
+the first failed relation clause in Rust. Current Python imports supply the
+machine objects and steps but do not yet project the relation result, so the
+book does not print a Python relation call here.
 \end{keyidea}
 
 The explanation must report satisfied and failed clauses with concrete values.

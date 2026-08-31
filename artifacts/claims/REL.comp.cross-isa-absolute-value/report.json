@@ -1,0 +1,137 @@
+{
+  "schema": "axeyum.cross-isa.absolute-value.v1",
+  "a0_implementation_sha256": "6c57ccf27e25f6ec1c24f25c32599715bd9f725ff8dd03ff2da1f4d8354cb79a",
+  "rv64_implementation_sha256": "cb4021aa5162457e5aacc048a81c268e1170a0af3dc2b39eff8e3fe22676be31",
+  "x64_implementation_sha256": "59ac7cf9fe3a6c558ca63b0b01705e1a5da024fc4aae1a8eb87278c53350dbe8",
+  "relation_implementation_sha256": "1058d811db82f7e284785d754b2960d8c9a34b9582c37cb084d3411e5de7faf8",
+  "scope": "ten declared 64-bit boundary and branch-shape inputs; concrete modular absolute value; mathematical-positive interpretation excludes signed minimum",
+  "cases": [
+    {
+      "input": 0,
+      "path": "keep",
+      "result": 0,
+      "points": [
+        "entry",
+        "decision",
+        "exit"
+      ],
+      "clauses_checked": 19,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 1,
+      "path": "keep",
+      "result": 1,
+      "points": [
+        "entry",
+        "decision",
+        "exit"
+      ],
+      "clauses_checked": 19,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 7,
+      "path": "keep",
+      "result": 7,
+      "points": [
+        "entry",
+        "decision",
+        "exit"
+      ],
+      "clauses_checked": 19,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 4294967295,
+      "path": "keep",
+      "result": 4294967295,
+      "points": [
+        "entry",
+        "decision",
+        "exit"
+      ],
+      "clauses_checked": 19,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 9223372036854775807,
+      "path": "keep",
+      "result": 9223372036854775807,
+      "points": [
+        "entry",
+        "decision",
+        "exit"
+      ],
+      "clauses_checked": 19,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 9223372036854775808,
+      "path": "negate",
+      "result": 9223372036854775808,
+      "points": [
+        "entry",
+        "decision",
+        "update",
+        "exit"
+      ],
+      "clauses_checked": 25,
+      "mathematical_absolute_value_admitted": false
+    },
+    {
+      "input": 18446744073709551615,
+      "path": "negate",
+      "result": 1,
+      "points": [
+        "entry",
+        "decision",
+        "update",
+        "exit"
+      ],
+      "clauses_checked": 25,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 18446744073709551609,
+      "path": "negate",
+      "result": 7,
+      "points": [
+        "entry",
+        "decision",
+        "update",
+        "exit"
+      ],
+      "clauses_checked": 25,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 18446744069414584320,
+      "path": "negate",
+      "result": 4294967296,
+      "points": [
+        "entry",
+        "decision",
+        "update",
+        "exit"
+      ],
+      "clauses_checked": 25,
+      "mathematical_absolute_value_admitted": true
+    },
+    {
+      "input": 9223372036854775809,
+      "path": "negate",
+      "result": 9223372036854775807,
+      "points": [
+        "entry",
+        "decision",
+        "update",
+        "exit"
+      ],
+      "clauses_checked": 25,
+      "mathematical_absolute_value_admitted": true
+    }
+  ],
+  "passed": true,
+  "result_sha256": "75f1e5d688a694861ee4b397938174b5c122d64998155a9ce2c2f36598e7ad4d"
+}

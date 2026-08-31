@@ -2,7 +2,8 @@
   "id": "OP.rel.cross-isa", "kind": "obligation", "part": 3,
   "title": "Implement cross-ISA refinement",
   "statement": "Implement typed A0-to-RV64 and A0-to-x86-64 state relations and a checked simulation route for one scalar routine.",
-  "epistemic_status": "open", "depends_on": ["OP.rv64.decoder-step", "OP.x64.decoder-step", "REL.def.refinement", "REL.def.state-relation"], "evidence": [],
+  "epistemic_status": "computed", "depends_on": ["OP.rv64.decoder-step", "OP.x64.decoder-step", "REL.comp.cross-isa-absolute-value", "REL.def.refinement", "REL.def.state-relation"],
+  "evidence": [{"kind": "claim-ref", "trust_class": "computation", "semantic_inputs": ["objects/REL.comp.cross-isa-absolute-value.json"], "artifact": "artifacts/claims/REL.comp.cross-isa-absolute-value", "check_status": "checked", "checked_on": "2026-08-30", "note": "The absolute-value route fulfills this implementation obligation for ten declared concrete inputs. It does not claim a universal simulation theorem or arbitrary-program relation."}],
   "book": {"chapter": "ch12-cross-isa", "label": "op:cross-isa", "role": "boundary"},
   "provenance": {"date": "2026-08-27", "by": "relations ledger redesign", "origin": "book/docs/outlines/AXEYUM-EVIDENCE.md"}
 }

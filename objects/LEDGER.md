@@ -5,8 +5,8 @@
 > a checker whose exit status depends on the finding; `replay-only` means the artifact replays but no
 > independent certificate exists; `not-checked` is an honest citation.
 
-- Objects: **57** -- `computed` 23, `open` 4, `proved` 2, `stated` 28
-- Evidence rows: **25** -- `checked` 25
+- Objects: **58** -- `computed` 25, `open` 3, `proved` 2, `stated` 28
+- Evidence rows: **27** -- `checked` 27
 
 ## Part I -- Constructing an instruction set
 
@@ -71,8 +71,9 @@
 | [`EVID.prin.negative-control`](EVID.prin.negative-control.json) | principle | Every checked route has a firing negative control | `stated` | `--` | -- | -- |
 | [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Evidence manifest checker | `computed` | `--` | Active schema-version-1 manifests under artifacts/claims. The aggregate gate and typed single-manifest interface reproduce declared producers and checkers and require negative controls to exit nonzero with their named failure classes. | `exhaustive-enumeration` / `computation`: checked |
 | [`OP.rel.a0-equivalence`](OP.rel.a0-equivalence.json) | obligation | Implement A0 equivalence and counterexample replay | `open` | `--` | -- | -- |
-| [`OP.rel.cross-isa`](OP.rel.cross-isa.json) | obligation | Implement cross-ISA refinement | `open` | `--` | -- | -- |
+| [`OP.rel.cross-isa`](OP.rel.cross-isa.json) | obligation | Implement cross-ISA refinement | `computed` | `--` | -- | `claim-ref` / `computation`: checked |
 | [`OP.rel.scalar-minimality`](OP.rel.scalar-minimality.json) | obligation | Build the scalar minimality route | `open` | `--` | -- | -- |
+| [`REL.comp.cross-isa-absolute-value`](REL.comp.cross-isa-absolute-value.json) | computation | Typed cross-ISA absolute-value replay | `computed` | `--` | Ten distinct 64-bit boundary and branch-shape inputs; concrete modular absolute value; the positive signed mathematical interpretation excludes the signed minimum. | `refinement-check` / `computation`: checked |
 | [`REL.def.candidate-language`](REL.def.candidate-language.json) | definition | Bounded candidate program language | `stated` | `--` | -- | -- |
 | [`REL.def.cost`](REL.def.cost.json) | definition | Declared program cost | `stated` | `--` | -- | -- |
 | [`REL.def.equivalence`](REL.def.equivalence.json) | definition | Program equivalence under an observation | `stated` | `--` | -- | -- |
