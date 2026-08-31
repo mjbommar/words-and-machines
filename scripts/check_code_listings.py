@@ -259,6 +259,25 @@ def assemble(listing: CodeListing, architecture: str) -> None:
 
 def check_python(listing: CodeListing) -> None:
     compile(listing.body, listing.location, "exec")
+    if listing.caption == "Encode, decode, and execute one A0 addition":
+        required = [
+            "from axeyum import machine",
+            "machine.a0.Instruction.add(3, 5, 2)",
+            'bytes.fromhex("10 2b 02 00")',
+            "machine.a0.Instruction.decode(add.encode())",
+            "machine.a0.step(program, before)",
+            "after.register(3).unsigned == 0x80",
+            "after.pc.unsigned == 4",
+            "machine.a0.Conditions(False, True, False, True)",
+        ]
+        missing = [fragment for fragment in required if fragment not in listing.body]
+        if missing:
+            raise ValueError(
+                f"{listing.location}: A0 Python listing omitted {', '.join(missing)}"
+            )
+        if not (ROOT / "scripts/tests/test_axeyum_machine_examples.py").is_file():
+            raise ValueError(f"{listing.location}: A0 Python runtime harness is missing")
+        return
     if listing.caption == "Inspect and replay one evidence manifest":
         required = [
             "from scripts.evidence_manifest import EvidenceManifest",

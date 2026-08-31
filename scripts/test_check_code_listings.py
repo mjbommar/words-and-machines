@@ -49,6 +49,15 @@ class ListingControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "nonexistent API"):
             MODULE.check_python(broken)
 
+    def test_incomplete_a0_python_example_is_rejected(self) -> None:
+        broken = listing(
+            "Encode, decode, and execute one A0 addition",
+            "from axeyum import machine\nadd = machine.a0.Instruction.add(3, 5, 2)",
+            "python",
+        )
+        with self.assertRaisesRegex(ValueError, "A0 Python listing omitted"):
+            MODULE.check_python(broken)
+
     def test_invalid_rv64_instruction_is_rejected(self) -> None:
         broken = listing("RV64 control", "not_an_instruction a0, a1")
         with self.assertRaisesRegex(ValueError, "assembly failed"):

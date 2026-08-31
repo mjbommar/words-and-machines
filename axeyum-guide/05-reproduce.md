@@ -5,6 +5,19 @@
 From the book repository root run make ledger, make artifact-check, make check,
 and make check-run.
 
+`make check-run` also invokes `make machine-example-check`. It uses
+`$(AXEYUM)/.venv/bin/python` to execute the exact Chapter 6 A0 Python listing
+and a wrong-result mutation. Before the first run, build the sibling editable
+package from the selected Axeyum checkout:
+
+```sh
+cd ../axeyum
+uv sync --dev
+TMPDIR=/path/on/disk uv run --no-sync maturin develop
+cd ../words-and-machines
+AXEYUM=../axeyum make machine-example-check
+```
+
 The active ledger contains sixteen checked evidence routes: twelve A0 routes,
 two RV64 routes, and two x86-64 routes. `make check-run`
 recomputes the finite byte, word-operation, complete-state codec, observation,

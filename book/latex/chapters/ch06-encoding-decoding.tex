@@ -471,6 +471,28 @@ encoding is
   \mathtt{10\ 2B\ 02\ 00}.
 \]
 
+The same example runs through Axeyum's Python interface. The assertions are
+part of the example: they check both the four encoded bytes and the resulting
+complete machine state.
+
+\begin{codelisting}[language=Python,caption={Encode, decode, and execute one A0 addition}]
+from axeyum import machine
+
+add = machine.a0.Instruction.add(3, 5, 2)
+assert add.encode() == bytes.fromhex("10 2b 02 00")
+assert machine.a0.Instruction.decode(add.encode()) == add
+
+program = machine.a0.Program(8, machine.a0.Word(8, 0), add.encode())
+before = machine.a0.State(8, machine.a0.Memory.zeroed(0), program.entry)
+before = before.with_register(5, machine.a0.Word(8, 0x7f))
+before = before.with_register(2, machine.a0.Word(8, 1))
+after = machine.a0.step(program, before)
+
+assert after.register(3).unsigned == 0x80
+assert after.pc.unsigned == 4
+assert after.conditions == machine.a0.Conditions(False, True, False, True)
+\end{codelisting}
+
 The decoder performs the argument in reverse. It checks the fetch address and
 length, reads opcode \code{10}, rejects any set reserved bit, extracts the
 three register numbers, checks that the condition and immediate fields are

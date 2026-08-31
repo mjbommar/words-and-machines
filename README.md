@@ -93,6 +93,10 @@ assembles the RV64I and x86-64 listings, verifies printed addresses, checks the
 one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
+`make machine-example-check` executes the Python listings themselves through
+the Axeyum environment selected by `AXEYUM`. The Chapter 6 A0 example checks
+its encoded bytes, canonical decode, complete step, destination, PC, and flags.
+
 For one route, `scripts.evidence_manifest.EvidenceManifest` provides typed
 digest, reproduction, checker, negative-control, and trust-boundary methods.
 Those methods orchestrate the manifest's pinned Rust commands; they do not

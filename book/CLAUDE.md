@@ -73,6 +73,12 @@ The sibling checkout is evidence infrastructure, not a source of decorative
 technical language. Do not edit it unless the assigned task explicitly includes
 an axeyum change.
 
+The current reader-facing Python surface includes complete concrete A0 words,
+memory, states, state encoding, all seventeen instruction families, traps,
+single steps, and bounded traces. Run the exact manuscript examples with
+`AXEYUM=../axeyum make machine-example-check` from the repository root. Do not
+describe RV64, x86-64, or cross-machine Python interfaces as implemented yet.
+
 ## Hard rules
 
 1. **Never edit `latex/generated/` or `build/`.** They are regenerated from
