@@ -51,7 +51,7 @@ endef
         slop pangram verify-citations doctor validate-all release watch \
         ontology craft brief \
         simplified simplified-lexicon test-simplified calibrate-simplified \
-        test-sbe-study test-compose test-formats test-epub test-doctor test-citations test-metadata \
+        test-sbe-study test-compose test-formats test-epub test-a11y test-doctor test-citations test-metadata \
         clean help
 
 help: ## list targets
@@ -173,6 +173,9 @@ test-formats: ## trim catalog, KDP limits, and cover-formula regression tests
 test-epub: ## EPUB converter semantic regression tests
 	@$(UV) python -m unittest tests.test_epub_converter -v
 
+test-a11y: ## Ace runner selection regression tests
+	@$(UV) python -m unittest tests.test_check_epub_a11y -v
+
 test-doctor: ## build-doctor command-scope regression tests
 	@$(UV) python -m unittest tests.test_doctor -v
 
@@ -252,7 +255,7 @@ verify-citations: ## URL reachability + verified= + archived= gates (network)
 doctor: ## toolchain, fonts, drift audit
 	@$(UV) scripts/doctor.py
 
-validate-all: figures pdf bleed ebook epub-check epub-a11y kdp-cover preflight cover-ink check structure test-simplified test-sbe-study test-compose test-formats test-epub test-doctor test-citations test-metadata doctor ## full gate
+validate-all: figures pdf bleed ebook epub-check epub-a11y kdp-cover preflight cover-ink check structure test-simplified test-sbe-study test-compose test-formats test-epub test-a11y test-doctor test-citations test-metadata doctor ## full gate
 	$(call say,"validate-all: all gates passed")
 
 # ---------------- lifecycle ----------------

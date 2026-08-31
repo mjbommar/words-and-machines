@@ -10,10 +10,11 @@ even when violations exist, so the JSON report — not the exit code —
 is the gate. The generated OPF claims `EPUB Accessibility 1.1 -
 WCAG 2.2 Level AA`; this gate is what keeps that claim honest.
 
-Ace resolution order: `ace` on PATH, else the Puppeteer runner from
-`npx --yes --package @daisy/ace ace-puppeteer` (the first npx run downloads
-Ace plus a headless Chromium — needs network). The explicit runner avoids
-Electron's setuid-sandbox requirement in an unprivileged build workspace.
+Ace resolution order: the Puppeteer runner from
+`npx --yes --package @daisy/ace@1.4.6 ace-puppeteer`, else `ace` on PATH.
+The first npx run needs network, but the explicit runner uses the configured
+Chromium executable and avoids Electron's sandbox failure in root-owned CI
+containers. The version pin keeps the release gate reproducible.
 Override with --ace-cmd or the ACE_CMD environment variable.
 
     uv run scripts/check_epub_a11y.py --epub build/epub/book.epub
@@ -33,16 +34,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 FAIL_IMPACTS = {"serious", "critical"}
 IMPACT_ORDER = ["critical", "serious", "moderate", "minor"]
+ACE_NPX_PACKAGE = "@daisy/ace@1.4.6"
 
 
 def ace_command() -> list[str]:
     override = os.environ.get("ACE_CMD")
     if override:
         return shlex.split(override)
+    if shutil.which("npx"):
+        return ["npx", "--yes", "--package", ACE_NPX_PACKAGE, "ace-puppeteer"]
     if shutil.which("ace"):
         return ["ace"]
-    if shutil.which("npx"):
-        return ["npx", "--yes", "--package", "@daisy/ace", "ace-puppeteer"]
     sys.exit("check_epub_a11y: neither `ace` nor `npx` found — install "
              "Node.js (or `npm install -g @daisy/ace`) for `make epub-a11y`")
 
