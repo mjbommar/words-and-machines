@@ -1290,6 +1290,28 @@ manifest keeps the exact claim, semantic digests, checker version, and failure
 class; Rust remains the authority for machine semantics and certificate
 checking.
 
+The same checked path has a typed interface for inspecting or replaying one
+route. This is real repository code, not a sketch of a future package:
+
+\begin{codelisting}[language=Python,caption={Inspect and replay one evidence manifest}]
+from scripts.evidence_manifest import EvidenceManifest
+
+manifest = EvidenceManifest.load(
+    "artifacts/claims/X64.comp.decoder-step/manifest.json"
+)
+print(manifest.trust_boundary())
+manifest.verify_digests()
+manifest.reproduce()
+manifest.check()
+manifest.run_negative_control()
+\end{codelisting}
+
+The method names preserve the route's actual kind. \code{check()} may invoke a
+finite computation checker, a trace replay, or a certificate checker according
+to the manifest. It is not called \code{check_certificate()} because most
+active routes do not carry certificates. Likewise, \code{reproduce()} runs the
+declared producer; it does not pretend every artifact contains a witness.
+
 That division is pedagogical as well as technical. A reader should be able to
 open a notebook, inspect a manifest, corrupt one clause, and read the typed
 rejection without learning Rust first. The Python object must not silently
@@ -1315,7 +1337,7 @@ producer, checker, digest, revision, expected-result, trust-class, object-bindin
 and negative-control paths together across all sixteen active routes.
 
 This is checked repository infrastructure, not a proof of a machine theorem.
-It still lacks a typed Python inspection object and a general kernel
+It includes a typed Python inspection object but still lacks a general kernel
 reconstruction interface. The addition and memory-frame routes check saved LRAT and DRAT,
 but that certificate check does not turn unrelated routes into theorems.
 \ArtifactScope{OP.evid.manifest-checker}

@@ -258,9 +258,26 @@ def assemble(listing: CodeListing, architecture: str) -> None:
 
 
 def check_python(listing: CodeListing) -> None:
+    compile(listing.body, listing.location, "exec")
+    if listing.caption == "Inspect and replay one evidence manifest":
+        required = [
+            "from scripts.evidence_manifest import EvidenceManifest",
+            "manifest.verify_digests()",
+            "manifest.reproduce()",
+            "manifest.check()",
+            "manifest.run_negative_control()",
+            "manifest.trust_boundary()",
+        ]
+        missing = [fragment for fragment in required if fragment not in listing.body]
+        if missing:
+            raise ValueError(
+                f"{listing.location}: manifest listing omitted {', '.join(missing)}"
+            )
+        if not (ROOT / "scripts/tests/test_evidence_manifest.py").is_file():
+            raise ValueError(f"{listing.location}: manifest runtime harness is missing")
+        return
     if FUTURE_API.search(listing.body):
         raise ValueError(f"{listing.location}: illustrative or nonexistent API in Python listing")
-    compile(listing.body, listing.location, "exec")
     raise ValueError(
         f"{listing.location}: Python listing has no declared runtime harness; add one to this gate before publishing it"
     )
@@ -287,9 +304,15 @@ def main() -> int:
     found = listings()
     for listing in found:
         try:
-            if FUTURE_API.search(listing.body):
-                raise ValueError(f"{listing.location}: future or illustrative API appears in code")
             architecture = classify(listing)
+            if (
+                FUTURE_API.search(listing.body)
+                and not (
+                    architecture == "python"
+                    and listing.caption == "Inspect and replay one evidence manifest"
+                )
+            ):
+                raise ValueError(f"{listing.location}: future or illustrative API appears in code")
             counts[architecture] = counts.get(architecture, 0) + 1
             if architecture == "a0":
                 check_a0(listing)

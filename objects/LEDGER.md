@@ -69,7 +69,7 @@
 | [`EVID.def.manifest`](EVID.def.manifest.json) | definition | Evidence manifest | `stated` | `--` | -- | -- |
 | [`EVID.def.trust-class`](EVID.def.trust-class.json) | definition | Evidence trust classes | `stated` | `--` | -- | -- |
 | [`EVID.prin.negative-control`](EVID.prin.negative-control.json) | principle | Every checked route has a firing negative control | `stated` | `--` | -- | -- |
-| [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Evidence manifest checker | `computed` | `--` | Active schema-version-1 manifests under artifacts/claims. The gate reproduces each declared producer and checker and requires each negative control to exit nonzero with its named failure class. | `exhaustive-enumeration` / `computation`: checked |
+| [`OP.evid.manifest-checker`](OP.evid.manifest-checker.json) | obligation | Evidence manifest checker | `computed` | `--` | Active schema-version-1 manifests under artifacts/claims. The aggregate gate and typed single-manifest interface reproduce declared producers and checkers and require negative controls to exit nonzero with their named failure classes. | `exhaustive-enumeration` / `computation`: checked |
 | [`OP.rel.a0-equivalence`](OP.rel.a0-equivalence.json) | obligation | Implement A0 equivalence and counterexample replay | `open` | `--` | -- | -- |
 | [`OP.rel.cross-isa`](OP.rel.cross-isa.json) | obligation | Implement cross-ISA refinement | `open` | `--` | -- | -- |
 | [`OP.rel.scalar-minimality`](OP.rel.scalar-minimality.json) | obligation | Build the scalar minimality route | `open` | `--` | -- | -- |

@@ -12,6 +12,7 @@ ledger: ## regenerate objects/LEDGER.md and the book's generated status macros f
 	python3 scripts/gen_ledger.py
 
 artifact-check: ## validate active evidence manifests, paths, and digests
+	python3 -m unittest scripts.tests.test_evidence_manifest
 	python3 scripts/check_artifacts.py
 
 code-check: ## parse A0 listings and assemble every RV64I and x86-64 listing

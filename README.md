@@ -93,6 +93,11 @@ assembles the RV64I and x86-64 listings, verifies printed addresses, checks the
 one explicitly marked pseudocode algorithm, and rejects Python listings that
 have no declared runtime harness.
 
+For one route, `scripts.evidence_manifest.EvidenceManifest` provides typed
+digest, reproduction, checker, negative-control, and trust-boundary methods.
+Those methods orchestrate the manifest's pinned Rust commands; they do not
+reimplement machine or certificate semantics in Python.
+
 The runtime check executes twelve A0 computations, traces, and certificate
 routes plus source-pin and decoder/step routes for RV64 and x86-64. Every route
 has a negative control that must fail. Cross-machine relations and minimality

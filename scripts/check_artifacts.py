@@ -154,7 +154,7 @@ def validate(path: Path) -> tuple[dict | None, list[str]]:
     return rec, errors
 
 
-def run_command(command: str) -> tuple[int, str]:
+def run_command(command: str, *, env: dict[str, str] | None = None) -> tuple[int, str]:
     """Run one manifest command from the repository root."""
     process = subprocess.run(
         command,
@@ -163,6 +163,7 @@ def run_command(command: str) -> tuple[int, str]:
         capture_output=True,
         text=True,
         timeout=1800,
+        env=env,
     )
     return process.returncode, (process.stdout + process.stderr).strip()
 
