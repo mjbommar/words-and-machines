@@ -263,10 +263,10 @@ PRINTING ?= first-printing
 
 release: ## stamped release dir: slugged artifacts + README + SHA256SUMS
 	@git diff --quiet || { echo "release: git tree is dirty"; exit 1; }
+	@$(UV) scripts/generate_metadata.py $(EDITION_FLAG) --strict
 	@$(MAKE) validate-all
 	@$(MAKE) pdfx onix
 	@$(MAKE) verify-citations
-	@$(UV) scripts/generate_metadata.py $(EDITION_FLAG) --strict
 	@$(UV) scripts/package_release.py --printing $(PRINTING) $(EDITION_FLAG)
 
 watch: generated ## continuous rebuild on save

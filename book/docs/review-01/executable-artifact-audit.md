@@ -10,6 +10,11 @@ route, or publication conversion changes.
 The baseline was replayed against the fetched Axeyum `origin/main` revision
 `2cb016f85694e6c475258a9f8e3c814685a1c55b`. Its editable Python package was
 built in that checkout with the commands in `axeyum-guide/05-reproduce.md`.
+GitHub Actions subsequently repeated the clean build and complete replay
+against the newer Axeyum `main` revision
+`0ed86ed17a1bd1ddc79c96144617563190faceec`; all 61 objects and 25 listings
+still passed. This second result checks the documented current-main path as
+well as the pinned historical revisions bound by individual manifests.
 
 | Surface | Inventory | Verification |
 |---|---:|---|
@@ -98,6 +103,21 @@ make -C book preflight
 11. `page-anatomy.pdf` was a tracked template leftover with no TikZ source and
     no manuscript reference. It was removed; the remaining 66 figure PDFs
     have one-to-one source files and are rebuilt by the release gate.
+12. The first restored publication workflow reached Ace through its Electron
+    command. Electron refuses to run as root in the TeX Live CI container, so
+    accessibility validation failed before producing a report. The checker
+    now prefers the pinned Ace 1.4.6 Puppeteer runner, which uses the configured
+    system Chromium without weakening the strict zero-violation gate. Runner
+    selection has regression tests.
+13. `make release` checked strict publisher and ISBN metadata only after the
+    expensive publication and ONIX steps. The strict metadata preflight now
+    runs first, so an unconfigured release stops immediately with the exact
+    missing field rather than appearing to fail late in artifact generation.
+14. The clean TeX Live container reached the prose gate and exposed an
+    undeclared runtime dependency: `pydetex` imports Tkinter even for this
+    headless use, while the container omitted Python's Tk bindings. The CI
+    toolchain now installs `python3-tk` explicitly rather than relying on a
+    developer workstation's ambient packages.
 
 ## Distribution blockers
 
